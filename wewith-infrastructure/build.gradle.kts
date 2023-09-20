@@ -1,5 +1,8 @@
 plugins {
-    id("java")
+    id("org.springframework.boot") version PluginVersions.SPRING_BOOT_VERSION
+    id("io.spring.dependency-management") version PluginVersions.DEPENDENCY_MANAGER_VERSION
+    kotlin("plugin.spring") version PluginVersions.SPRING_PLUGIN_VERSION
+    kotlin("plugin.jpa") version PluginVersions.JPA_PLUGIN_VERSION
 }
 
 group = "com.info"
@@ -10,8 +13,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+    implementation(Dependencies.SPRING_WEB)
 }
 
 tasks.getByName<Test>("test") {
