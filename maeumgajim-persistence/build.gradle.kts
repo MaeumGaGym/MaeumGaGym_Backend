@@ -5,7 +5,7 @@ plugins {
 
 dependencies {
     // impl project
-    implementation(project(":wewith-core"))
+    implementation(project(":maeumgajim-core"))
 }
 
 allOpen {

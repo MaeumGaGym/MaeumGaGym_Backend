@@ -1,5 +1,5 @@
-rootProject.name = "WeWith-Backend"
-include("wewith-persistence")
-include("wewith-core")
-include("wewith-presentation")
-include("wewith-infrastructure")
+rootProject.name = "MaeumGajim-Backend"
+include("maeumgajim-persistence")
+include("maeumgajim-core")
+include("maeumgajim-presentation")
+include("maeumgajim-infrastructure")
