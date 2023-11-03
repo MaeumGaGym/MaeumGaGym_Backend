@@ -5,7 +5,7 @@ plugins {
 
 dependencies {
     // impl project
-    implementation(project(":maeumgajim-core"))
+    implementation(project(":maeumgagym-core"))
 }
 
 allOpen {

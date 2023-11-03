@@ -1,5 +1,5 @@
-rootProject.name = "MaeumGajim-Backend"
-include("maeumgajim-persistence")
-include("maeumgajim-core")
-include("maeumgajim-presentation")
-include("maeumgajim-infrastructure")
+rootProject.name = "MaeumGaGym-Backend"
+include("maeumgagym-persistence")
+include("maeumgagym-core")
+include("maeumgagym-presentation")
+include("maeumgagym-infrastructure")

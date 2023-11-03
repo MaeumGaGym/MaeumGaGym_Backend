@@ -1,11 +1,11 @@
-package com.info.maeumgajim
+package com.info.maeumgagym
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class MaeumGajimApplication
+class MaeumGaGymApplication
 
 fun main(args: Array<String>) {
-    runApplication<MaeumGajimApplication>(*args)
+    runApplication<MaeumGaGymApplication>(*args)
 }

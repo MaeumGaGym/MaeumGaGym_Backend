@@ -1,1 +1,1 @@
-# MaeumGajim_Backend
+# MaeumGaGym_Backend
