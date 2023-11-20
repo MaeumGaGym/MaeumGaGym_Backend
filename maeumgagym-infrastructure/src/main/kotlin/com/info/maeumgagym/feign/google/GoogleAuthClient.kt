@@ -1,6 +1,7 @@
 package com.info.maeumgagym.feign.google
 
 import com.example.onui.global.config.feign.FeignConfig
+import com.info.maeumgagym.feign.google.dto.OAuthTokenResponse
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -10,7 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam
 interface GoogleAuthClient {
 
     @PostMapping("/revoke")
-    fun revokeToken(
-        @RequestParam(name = "token") token: String
-    )
+    fun revokeToken(@RequestParam(name = "token") token: String)
+
+    @PostMapping
+    fun googleAuth(
+        @RequestParam(name = "code") code: String,
+        @RequestParam(name = "client_id") clientId: String,
+        @RequestParam(name = "client_secret") clientSecret: String,
+        @RequestParam(name = "redirect_uri") redirectUri: String,
+        @RequestParam(name = "grant_type") grantType: String
+    ): OAuthTokenResponse
 }
