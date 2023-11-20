@@ -16,9 +16,6 @@ object Dependencies {
     // test
     const val SPRING_TEST = "org.springframework.boot:spring-boot-starter-test:${PluginVersions.SPRING_BOOT_VERSION}"
 
-    // open feign
-    const val OPEN_FEIGN = "org.springframework.cloud:spring-cloud-starter-openfeign:${DependencyVersions.OPEN_FEIGN_VERSION}"
-
     // sentry
     const val SENTRY = "io.sentry:sentry-spring-boot-starter:${DependencyVersions.SENTRY_VERSION}"
 
@@ -34,7 +31,14 @@ object Dependencies {
     // Jwt
     const val JWT = "io.jsonwebtoken:jjwt:${DependencyVersions.JWT_VERSION}"
 
-    // Jdbc
-    const val JDBC = "org.springframework.boot:spring-boot-starter-jdbc"
+    // feign
+    const val OPEN_FEIGN = "org.springframework.cloud:spring-cloud-starter-openfeign"
+    const val FEIGN_HTTP = "io.github.openfeign:feign-httpclient"
+
+    // cloud
+    const val SPRING_CLOUD = "org.springframework.cloud:spring-cloud-dependencies:${DependencyVersions.SPRING_CLOUD_VERSION}"
+
+    // logger
+    const val LOGGER = "io.github.microutils:kotlin-logging-jvm:${DependencyVersions.LOGGER_VERSION}"
 
 }

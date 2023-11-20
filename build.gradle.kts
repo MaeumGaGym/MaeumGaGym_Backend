@@ -40,6 +40,9 @@ subprojects {
         implementation(Dependencies.KOTLIN_JDK)
         implementation(Dependencies.JACKSON)
 
+        // logger
+        implementation(Dependencies.LOGGER)
+
         // test
         implementation(Dependencies.SPRING_TEST)
     }
