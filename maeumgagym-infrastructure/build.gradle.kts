@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":maeumgagym-persistence"))
+    implementation(project(":maeumgagym-application"))
     implementation(project(":maeumgagym-infrastructure"))
     implementation(project(":maeumgagym-presentation"))
     implementation(Dependencies.SPRING_WEB)

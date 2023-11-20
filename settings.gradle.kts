@@ -1,5 +1,5 @@
 rootProject.name = "MaeumGaGym-Backend"
-include("maeumgagym-persistence")
+include("maeumgagym-application")
 include("maeumgagym-core")
 include("maeumgagym-presentation")
 include("maeumgagym-infrastructure")
