@@ -1,0 +1,50 @@
+spring:
+  #  main:
+  #    allow-bean-definition-overriding: true
+
+  # servlet
+  servlet:
+    multipart:
+      enabled: true # 멀티파트 업로드 지원여부 (default: true)
+      file-size-threshold: 0B # 파일을 디스크에 저장하지 않고 메모리에 저장하는 최소 크기 (default: 0B)
+      max-file-size: 100MB # 한개 파일의 최대 사이즈 (default: 1MB)
+      max-request-size: 100MB # 한개 요청의 최대 사이즈 (default: 10MB)
+  
+  # format
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+  # jdbc
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    url: ${DB_URL}
+
+  # data redis
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    database: 1
+
+  # jpa
+  jpa:
+    hibernate:
+      ddl-auto: ${DDL_AUTO:update}
+    properties:
+      hibernate:
+        format_sql: false
+        show_sql: true
+        use_sql_comments: false
+    open-in-view: false
+
+# server
+server:
+  port: ${SERVER_PORT:8080}
+  tomcat:
+    connection-timeout: -1
+
+# logging
+logging:
+  level:
+    root: info
