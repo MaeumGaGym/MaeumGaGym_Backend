@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version PluginVersions.JVM_VERSION
+    id("org.jlleitschuh.gradle.ktlint") version PluginVersions.KLINT_VERSION
 }
 
 allprojects {
