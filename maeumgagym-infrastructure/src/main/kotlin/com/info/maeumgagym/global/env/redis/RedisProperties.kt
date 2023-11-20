@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConstructorBinding
 
 @ConstructorBinding
 @ConfigurationProperties(value = "redis")
-data class RedisProperty(
+data class RedisProperties(
     val host: String,
     val port: Int
 )

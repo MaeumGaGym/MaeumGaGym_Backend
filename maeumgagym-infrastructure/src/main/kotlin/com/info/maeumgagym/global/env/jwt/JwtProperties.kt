@@ -1,11 +1,11 @@
-package com.info.maeumgagym.global.security.token
+package com.info.maeumgagym.global.env.jwt
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
 
 @ConstructorBinding
 @ConfigurationProperties("jwt")
-class JwtProperties(
+data class JwtProperties(
     val secretKey: String,
     val accessExpiredExp: Long,
     val refreshExpiredExp: Long,

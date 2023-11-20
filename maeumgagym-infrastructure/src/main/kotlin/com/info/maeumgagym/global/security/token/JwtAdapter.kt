@@ -4,6 +4,7 @@ package com.info.maeumgagym.global.security.token
 import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.JwtExpiredCheckPort
+import com.info.maeumgagym.global.env.jwt.JwtProperties
 import com.info.maeumgagym.global.exception.ExpiredTokenException
 import com.info.maeumgagym.global.exception.InvalidTokenException
 import io.jsonwebtoken.Claims
