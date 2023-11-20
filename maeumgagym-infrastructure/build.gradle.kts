@@ -23,6 +23,7 @@ dependencies {
     implementation(Dependencies.FEIGN_HTTP)
     implementation(Dependencies.SPRING_SECURITY)
     implementation(Dependencies.JWT)
+    implementation(Dependencies.REDIS)
 }
 
 tasks.getByName<Test>("test") {

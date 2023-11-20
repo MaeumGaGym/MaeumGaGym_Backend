@@ -43,5 +43,6 @@ class User(
 
     @Convert(converter = RoleConverter::class)
     @Column(name = "roles", length = 15)
-    val roles: MutableList<Role> = mutableListOf()
+    var roles: MutableList<Role> = mutableListOf()
+        protected set
 }
