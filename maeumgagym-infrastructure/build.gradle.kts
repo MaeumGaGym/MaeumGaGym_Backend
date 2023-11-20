@@ -16,7 +16,10 @@ dependencies {
     implementation(project(":maeumgagym-application"))
     implementation(project(":maeumgagym-core"))
     implementation(project(":maeumgagym-presentation"))
+
     implementation(Dependencies.SPRING_WEB)
+    implementation(Dependencies.SPRING_SECURITY)
+    implementation(Dependencies.JWT)
 }
 
 tasks.getByName<Test>("test") {
