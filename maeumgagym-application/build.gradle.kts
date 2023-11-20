@@ -6,6 +6,9 @@ plugins {
 dependencies {
     // impl project
     implementation(project(":maeumgagym-core"))
+
+    // jpa
+    implementation(Dependencies.SPRING_DATA_JPA)
 }
 
 allOpen {
