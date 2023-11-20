@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     implementation(project(":maeumgagym-application"))
-    implementation(project(":maeumgagym-infrastructure"))
+    implementation(project(":maeumgagym-core"))
     implementation(project(":maeumgagym-presentation"))
     implementation(Dependencies.SPRING_WEB)
 }

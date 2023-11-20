@@ -34,4 +34,7 @@ object Dependencies {
     // Jwt
     const val JWT = "io.jsonwebtoken:jjwt:${DependencyVersions.JWT_VERSION}"
 
+    // Jdbc
+    const val JDBC = "org.springframework.boot:spring-boot-starter-jdbc"
+
 }
