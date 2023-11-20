@@ -12,6 +12,7 @@ enum class ErrorCode(
 
     // Internal Server Error
     INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
+    ROLE_CONVERTER_ERROR(500, "Role Converter Error"),
 
     // UnAuthorization
     INVALID_TOKEN(401, "Invalid Token"),

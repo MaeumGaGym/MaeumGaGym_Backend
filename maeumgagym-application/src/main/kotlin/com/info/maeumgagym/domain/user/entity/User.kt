@@ -2,9 +2,12 @@ package com.info.maeumgagym.domain.user.entity
 
 import com.info.maeumgagym.TableNames
 import com.info.maeumgagym.domain.base.BaseUUIDEntity
+import com.info.maeumgagym.domain.user.converter.RoleConverter
+import com.info.maeumgagym.domain.user.role.Role
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
 import javax.persistence.Column
+import javax.persistence.Convert
 import javax.persistence.Entity
 
 @Where(clause = "is_deleted = false")
@@ -37,4 +40,8 @@ class User(
 
     @Column(name = "oauth_id", nullable = false, length = 60, unique = true)
     val oauthId: String = oauthId
+
+    @Convert(converter = RoleConverter::class)
+    @Column(name = "roles", length = 15)
+    val roles: MutableList<Role> = mutableListOf()
 }
