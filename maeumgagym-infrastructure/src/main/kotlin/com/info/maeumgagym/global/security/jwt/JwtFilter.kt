@@ -23,7 +23,6 @@ class JwtFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-
         val resolveToken: String? = jwtResolver.resolveToken(request)
 
         if(resolveToken != null){

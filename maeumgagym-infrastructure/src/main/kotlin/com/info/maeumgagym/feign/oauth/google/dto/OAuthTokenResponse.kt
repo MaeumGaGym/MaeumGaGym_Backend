@@ -1,4 +1,4 @@
-﻿package com.info.maeumgagym.feign.google.dto
+﻿package com.info.maeumgagym.feign.oauth.google.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

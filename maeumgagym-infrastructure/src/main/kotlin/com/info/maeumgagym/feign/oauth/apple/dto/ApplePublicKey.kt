@@ -1,4 +1,4 @@
-package com.info.maeumgagym.feign.apple.dto
+package com.info.maeumgagym.feign.oauth.apple.dto
 
 import org.springframework.util.Base64Utils
 import java.math.BigInteger

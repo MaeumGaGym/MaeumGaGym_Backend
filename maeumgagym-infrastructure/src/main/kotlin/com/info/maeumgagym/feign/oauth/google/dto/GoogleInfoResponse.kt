@@ -1,4 +1,4 @@
-package com.info.maeumgagym.feign.google.dto
+package com.info.maeumgagym.feign.oauth.google.dto
 
 data class GoogleInfoResponse(
     val sub: String,

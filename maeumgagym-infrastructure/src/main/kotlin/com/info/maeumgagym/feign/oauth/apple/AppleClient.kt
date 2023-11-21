@@ -1,7 +1,7 @@
-package com.info.maeumgagym.feign.apple
+package com.info.maeumgagym.feign.oauth.apple
 
 import com.example.onui.global.config.feign.FeignConfig
-import com.info.maeumgagym.feign.apple.dto.ApplePublicKeys
+import com.info.maeumgagym.feign.oauth.apple.dto.ApplePublicKeys
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.GetMapping
 
