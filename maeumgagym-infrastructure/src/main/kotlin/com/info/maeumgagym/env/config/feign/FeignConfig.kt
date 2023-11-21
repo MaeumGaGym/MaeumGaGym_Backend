@@ -1,6 +1,6 @@
-package com.example.onui.global.config.feign
+package com.info.maeumgagym.env.config.feign
 
-import com.info.maeumgagym.feign.config.FeignClientErrorDecoder
+import com.info.maeumgagym.feign.error.FeignClientErrorDecoder
 import feign.Logger
 import feign.codec.ErrorDecoder
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
