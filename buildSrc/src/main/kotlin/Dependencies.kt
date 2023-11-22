@@ -45,4 +45,7 @@ object Dependencies {
     // starter
     const val STARTER = "org.springframework.boot:spring-boot-starter";
 
+    // Transaction
+    const val SPRING_TRANSACTION = "org.springframework:spring-tx:${DependencyVersions.SPRING_TRANSACTION}"
+
 }
