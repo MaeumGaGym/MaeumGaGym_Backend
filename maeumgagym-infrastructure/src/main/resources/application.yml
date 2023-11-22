@@ -6,6 +6,6 @@ jwt:
   prefix: ${JWT_PREFIX:Bearer}
 
 kakao:
-    grantType: authorization_code
-    clientId: 6e50e797700d3b80c2a249091c3ca387
-    redirectUri: http://localhost:8080/app/login/kakao
+    grantType: ${GRANT_TYPE}
+    clientId: ${CLIENT_ID}
+    redirectUri: ${REDIRECT_URI}
