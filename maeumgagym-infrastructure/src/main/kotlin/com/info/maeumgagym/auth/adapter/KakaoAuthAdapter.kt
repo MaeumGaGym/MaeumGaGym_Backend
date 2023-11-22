@@ -4,7 +4,9 @@ import com.info.maeumgagym.auth.dto.response.KakaoTokenResponse
 import com.info.maeumgagym.auth.port.out.GetKakaoAccessTokenPort
 import com.info.maeumgagym.env.config.kakao.KakaoProperties
 import com.info.maeumgagym.feign.oauth.kakao.KakaoAuthClient
+import org.springframework.stereotype.Component
 
+@Component
 class KakaoAuthAdapter(
     private val kakaoAuthClient: KakaoAuthClient,
     private val kakaoProperties: KakaoProperties

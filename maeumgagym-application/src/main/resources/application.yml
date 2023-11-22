@@ -7,9 +7,10 @@ spring:
   # jdbc
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
-    url: ${DB_URL}
+    url: ${DB_URL:jdbc:mysql://localhost:3306/maeum}
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:qpwoeiru1768}
+
 
   # data redis
   redis:

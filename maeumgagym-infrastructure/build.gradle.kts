@@ -10,6 +10,7 @@ dependencies {
     implementation(Dependencies.SPRING_SECURITY)
     implementation(Dependencies.JWT)
     implementation(Dependencies.REDIS)
+    implementation(Dependencies.LOGGER)
 }
 
 tasks.getByName<Test>("test") {

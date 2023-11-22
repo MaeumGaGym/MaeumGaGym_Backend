@@ -4,8 +4,9 @@ import com.info.common.UseCase
 import com.info.maeumgagym.auth.dto.response.KakaoTokenResponse
 import com.info.maeumgagym.auth.port.`in`.GetKakaoAccessTokenUseCase
 import com.info.maeumgagym.auth.port.out.GetKakaoAccessTokenPort
+import org.springframework.stereotype.Service
 
-@UseCase
+@Service
 class GetKakaoAccessTokenService(
     private val getKakaoAccessTokenPort: GetKakaoAccessTokenPort
 ): GetKakaoAccessTokenUseCase {
