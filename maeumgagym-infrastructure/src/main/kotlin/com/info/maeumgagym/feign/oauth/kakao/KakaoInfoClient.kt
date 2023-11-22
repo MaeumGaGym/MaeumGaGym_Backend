@@ -1,6 +1,6 @@
 package com.info.maeumgagym.feign.oauth.kakao
 
-import com.info.maeumgagym.env.config.feign.FeignConfig
+import com.info.maeumgagym.global.config.feign.FeignConfig
 import com.info.maeumgagym.auth.dto.response.KakaoInfoResponse
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.PostMapping
