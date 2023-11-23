@@ -9,7 +9,7 @@ import java.util.*
 @Component
 class CustomUserDetailService(
     val findUserPort: FindUserPort
-): UserDetailsService {
+) : UserDetailsService {
     override fun loadUserByUsername(username: String?): UserDetails {
         val user = findUserPort.findUserById(UUID.fromString(username))
         return CustomUserDetails(user)

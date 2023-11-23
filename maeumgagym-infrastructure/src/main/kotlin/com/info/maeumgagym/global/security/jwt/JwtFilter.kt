@@ -16,7 +16,7 @@ class JwtFilter(
     private val customUserDetailService: CustomUserDetailService,
     private val jwtResolver: JwtResolver,
     private val jwtAdapter: JwtAdapter
-): OncePerRequestFilter() {
+) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
         request: HttpServletRequest,
@@ -25,7 +25,7 @@ class JwtFilter(
     ) {
         val resolveToken: String? = jwtResolver.resolveToken(request)
 
-        if(resolveToken != null){
+        if (resolveToken != null) {
             val accountId = jwtAdapter.getSubjectWithExpiredCheck(resolveToken)
             val userDetails: UserDetails = customUserDetailService.loadUserByUsername(accountId)
             val authentication: Authentication =

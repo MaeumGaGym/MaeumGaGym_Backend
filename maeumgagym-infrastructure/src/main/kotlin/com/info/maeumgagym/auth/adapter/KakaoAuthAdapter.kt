@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 class KakaoAuthAdapter(
     private val kakaoAuthClient: KakaoAuthClient,
     private val kakaoProperties: KakaoProperties
-): GetKakaoAccessTokenPort {
+) : GetKakaoAccessTokenPort {
     override fun getAccessToken(code: String): KakaoTokenResponse {
         return kakaoAuthClient.kakaoAuth(
             grantType = kakaoProperties.grantType,

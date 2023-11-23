@@ -6,7 +6,7 @@ import com.info.maeumgagym.user.port.out.FindUserPort
 import java.util.*
 
 @PersistenceAdapter
-class UserPersistenceAdapter(): FindUserPort {
+class UserPersistenceAdapter() : FindUserPort {
     override fun findUserById(userId: UUID): User {
         TODO("Not yet implemented")
     }

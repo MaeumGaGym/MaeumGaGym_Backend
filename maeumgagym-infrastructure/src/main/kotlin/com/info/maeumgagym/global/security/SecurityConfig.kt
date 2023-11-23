@@ -36,7 +36,7 @@ class SecurityConfig(
             .authenticated()
 
         http
-            .apply(FilterConfig(objectMapper,customUserDetailService, jwtResolver, jwtAdapter))
+            .apply(FilterConfig(objectMapper, customUserDetailService, jwtResolver, jwtAdapter))
 
         return http.build()
     }

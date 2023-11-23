@@ -3,6 +3,7 @@ plugins {
     id("io.spring.dependency-management") version PluginVersions.DEPENDENCY_MANAGER_VERSION
     kotlin("plugin.spring") version PluginVersions.SPRING_PLUGIN_VERSION
     kotlin("plugin.jpa") version PluginVersions.JPA_PLUGIN_VERSION
+    id("org.jlleitschuh.gradle.ktlint") version PluginVersions.KLINT_VERSION
 }
 
 dependencies {
@@ -10,7 +11,6 @@ dependencies {
     implementation(project(":maeumgagym-core"))
     implementation(project(":maeumgagym-presentation"))
     implementation(project(":maeumgagym-common"))
-
 
     implementation(Dependencies.SPRING_CLOUD)
     implementation(Dependencies.SPRING_WEB)

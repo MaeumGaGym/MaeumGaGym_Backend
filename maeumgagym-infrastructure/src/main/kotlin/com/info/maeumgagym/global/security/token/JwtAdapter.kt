@@ -1,6 +1,5 @@
 package com.info.maeumgagym.global.security.token
 
-
 import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.JwtExpiredCheckPort
@@ -17,14 +16,14 @@ import java.util.*
 @Component
 class JwtAdapter(
     val jwtProperties: JwtProperties
-): GenerateJwtPort, JwtExpiredCheckPort {
+) : GenerateJwtPort, JwtExpiredCheckPort {
     override fun generateToken(email: String): TokenResponse {
         return TokenResponse(
             generateAccessToken(email)
         )
     }
 
-    private fun generateAccessToken(email: String): String{
+    private fun generateAccessToken(email: String): String {
         val now = Date()
         return Jwts.builder()
             .setSubject(email)
@@ -37,9 +36,9 @@ class JwtAdapter(
     override fun getSubjectWithExpiredCheck(token: String): String {
         val body = getBody(token)
 
-        if(body.expiration.before(Date())){
+        if (body.expiration.before(Date())) {
             throw ExpiredTokenException
-        } else{
+        } else {
             return body.subject
         }
     }
@@ -47,7 +46,7 @@ class JwtAdapter(
     private fun getBody(token: String): Claims {
         try {
             return Jwts.parser().setSigningKey(jwtProperties.secretKey).parseClaimsJws(token).body
-        } catch (e: JwtException){
+        } catch (e: JwtException) {
             throw InvalidTokenException
         }
     }

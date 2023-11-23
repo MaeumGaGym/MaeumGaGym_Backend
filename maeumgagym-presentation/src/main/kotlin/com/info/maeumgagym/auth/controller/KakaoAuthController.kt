@@ -6,6 +6,4 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class KakaoAuthController(
     private val getKakaoAccessTokenUseCase: GetKakaoAccessTokenUseCase
-) {
-
-}
+)

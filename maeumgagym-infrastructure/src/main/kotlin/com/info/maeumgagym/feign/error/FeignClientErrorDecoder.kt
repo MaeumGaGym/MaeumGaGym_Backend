@@ -10,21 +10,20 @@ import feign.Response
 import feign.codec.ErrorDecoder
 import mu.KotlinLogging
 
-class FeignClientErrorDecoder: ErrorDecoder {
+class FeignClientErrorDecoder : ErrorDecoder {
 
-    private companion object{
-        val logger = KotlinLogging.logger{}
+    private companion object {
+        val logger = KotlinLogging.logger {}
     }
 
     override fun decode(methodKey: String, response: Response): Exception {
-
         logger.error { methodKey }
         logger.error { response.status() }
         logger.error { response.body() }
         logger.error { response.reason() }
 
-        if(response.status() >= 400) {
-            when(response.status()){
+        if (response.status() >= 400) {
+            when (response.status()) {
                 400 -> throw FeignBadRequestException
                 401 -> throw FeignUnAuthorizationException
                 403 -> throw FeignForbbidenException
@@ -35,5 +34,4 @@ class FeignClientErrorDecoder: ErrorDecoder {
 
         return FeignException.errorStatus(methodKey, response)
     }
-
 }
