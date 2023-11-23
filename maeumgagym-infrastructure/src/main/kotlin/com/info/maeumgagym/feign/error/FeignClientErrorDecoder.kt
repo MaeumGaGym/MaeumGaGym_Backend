@@ -1,4 +1,4 @@
-package com.info.maeumgagym.feign.config
+package com.info.maeumgagym.feign.error
 
 import com.info.maeumgagym.feign.exception.FeignBadRequestException
 import com.info.maeumgagym.feign.exception.FeignDefaultException

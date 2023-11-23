@@ -42,4 +42,10 @@ object Dependencies {
     // logger
     const val LOGGER = "io.github.microutils:kotlin-logging-jvm:${DependencyVersions.LOGGER_VERSION}"
 
+    // starter
+    const val STARTER = "org.springframework.boot:spring-boot-starter";
+
+    // Transaction
+    const val SPRING_TRANSACTION = "org.springframework:spring-tx:${DependencyVersions.SPRING_TRANSACTION}"
+
 }

@@ -1,14 +1,16 @@
-package com.example.onui.global.config.feign
+package com.info.maeumgagym.global.config.feign
 
-import com.info.maeumgagym.feign.config.FeignClientErrorDecoder
+import com.info.maeumgagym.feign.error.FeignClientErrorDecoder
 import feign.Logger
 import feign.codec.ErrorDecoder
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
+import org.springframework.cloud.openfeign.EnableFeignClients
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 
 
+@EnableFeignClients(basePackages = ["com.info.maeumgagym.feign"])
 @Configuration
 @Import(FeignClientErrorDecoder::class)
 class FeignConfig {
