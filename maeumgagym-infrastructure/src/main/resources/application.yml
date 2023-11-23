@@ -8,8 +8,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${DB_URL:jdbc:mysql://localhost:3306/maeum}
-    username: ${DB_USER:root}
-    password: ${DB_PASSWORD:qpwoeiru1768}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
 
 
 
@@ -50,9 +50,9 @@ jwt:
     prefix: ${JWT_PREFIX:Bearer}
 
 kakao:
-    grantType: authorization_token
-    clientId: 6e50e797700d3b80c2a249091c3ca387
-    redirectUri: http://localhost:8080/app/login/kakao
+    grantType: ${GRANT_TYPE}
+    clientId: ${CLIENT_ID}
+    redirectUri: ${REDIRECT_URI}
 
  # data redis
 redis:
