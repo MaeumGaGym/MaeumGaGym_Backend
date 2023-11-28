@@ -1,4 +1,4 @@
-package com.info.maeumgagym.domain.auth
+package com.info.maeumgagym.auth.controller
 
 import com.info.maeumgagym.auth.port.`in`.GetGoogleLoginPageUseCase
 import com.info.maeumgagym.auth.port.`in`.GoogleLoginUseCase
@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/oauth/google")
 @RestController
 class GoogleController(
-    private val getGoogleLoginPageService: GetGoogleLoginPageUseCase,
+    private val getGoogleLoginPageUseCase: GetGoogleLoginPageUseCase,
     private val googleLoginService: GoogleLoginUseCase
 ) {
 
     @GetMapping("/login")
     fun getGoogleOAuthLoginPage() =
-        getGoogleLoginPageService.getGoogleLoginPage()
+        getGoogleLoginPageUseCase.getGoogleLoginPage()
 
     @GetMapping("/login/redirect")
     fun login(
