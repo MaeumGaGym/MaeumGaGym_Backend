@@ -25,13 +25,21 @@ class UserJpaEntity(
     var nickname: String = nickname
         protected set
 
-    fun updateNickname(nickname: String) {
-        this.nickname = nickname
-    }
-
     @Column(name = "is_deleted", nullable = false)
     var isDeleted: Boolean = false
         protected set
+
+    @Column(name = "oauth_id", nullable = false, length = 60, unique = true)
+    val oauthId: String = oauthId
+
+    @Convert(converter = RoleConverter::class)
+    @Column(name = "roles", length = 15)
+    var roles: MutableList<Role> = roles
+        protected set
+
+    fun updateNickname(nickname: String) {
+        this.nickname = nickname
+    }
 
     fun deleteUser() {
         this.isDeleted = true
@@ -41,11 +49,7 @@ class UserJpaEntity(
         this.isDeleted = false
     }
 
-    @Column(name = "oauth_id", nullable = false, length = 60, unique = true)
-    val oauthId: String = oauthId
-
-    @Convert(converter = RoleConverter::class)
-    @Column(name = "roles", length = 15)
-    var roles: MutableList<Role> = roles
-        protected set
+    fun updateProfile(profilePath: String) {
+        this.profilePath = profilePath
+    }
 }
