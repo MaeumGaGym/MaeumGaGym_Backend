@@ -12,7 +12,7 @@ class GetGoogleAccessTokenAdapter(
     private val baseProperty: BaseProperty,
     private val googleProperty: GoogleProperty,
     private val googleAuthClient: GoogleAuthClient
-): GetGoogleAccessTokenPort {
+) : GetGoogleAccessTokenPort {
 
     override fun getGoogleAccessToken(code: String): GoogleTokenResponse =
         googleAuthClient.googleAuth(

@@ -1,7 +1,6 @@
 package com.info.maeumgagym.auth.service
 
 import com.info.maeumgagym.auth.port.`in`.GoogleLoginUseCase
-import com.info.maeumgagym.auth.port.out.CreateUserPort
 import com.info.maeumgagym.auth.port.out.GetGoogleAccessTokenPort
 import com.info.maeumgagym.auth.port.out.GetGoogleInfoPort
 import org.springframework.stereotype.Service
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Service
 @Service
 class GoogleLoginService(
     private val getGoogleAccessTokenPort: GetGoogleAccessTokenPort,
-    private val getGoogleInfoPort: GetGoogleInfoPort,
+    private val getGoogleInfoPort: GetGoogleInfoPort
 //    private val createUserPort: CreateUserPort
 ) : GoogleLoginUseCase {
 
