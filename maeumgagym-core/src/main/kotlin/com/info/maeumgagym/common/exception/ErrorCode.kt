@@ -16,5 +16,8 @@ enum class ErrorCode(
 
     // UnAuthorization
     INVALID_TOKEN(401, "Invalid Token"),
-    EXPIRED_TOKEN(401, "Expired Token")
+    EXPIRED_TOKEN(401, "Expired Token"),
+
+    // Not Found
+    USER_NOT_FOUND(404, "User Not Found")
 }
