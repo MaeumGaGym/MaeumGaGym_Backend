@@ -17,16 +17,16 @@ import java.util.*
 class JwtAdapter(
     val jwtProperties: JwtProperties
 ) : GenerateJwtPort, JwtExpiredCheckPort {
-    override fun generateToken(email: String): TokenResponse {
+    override fun generateToken(userId: UUID): TokenResponse {
         return TokenResponse(
-            generateAccessToken(email)
+            generateAccessToken(userId)
         )
     }
 
-    private fun generateAccessToken(email: String): String {
+    private fun generateAccessToken(userId: UUID): String {
         val now = Date()
         return Jwts.builder()
-            .setSubject(email)
+            .setSubject(userId.toString())
             .setIssuedAt(now)
             .setExpiration(Date(now.time + jwtProperties.accessExpiredExp * 1000L))
             .signWith(SignatureAlgorithm.HS256, jwtProperties.secretKey)
