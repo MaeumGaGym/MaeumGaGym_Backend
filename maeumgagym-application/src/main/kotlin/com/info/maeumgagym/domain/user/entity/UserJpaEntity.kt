@@ -37,6 +37,10 @@ class UserJpaEntity(
     var roles: MutableList<Role> = roles
         protected set
 
+    @Column(name = "profile_path", nullable = true)
+    var profilePath: String? = null
+        protected set
+
     fun updateNickname(nickname: String) {
         this.nickname = nickname
     }
