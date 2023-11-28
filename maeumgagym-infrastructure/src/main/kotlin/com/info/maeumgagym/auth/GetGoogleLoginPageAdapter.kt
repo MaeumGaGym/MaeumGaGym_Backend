@@ -5,7 +5,6 @@ import com.info.maeumgagym.auth.dto.response.GoogleLinkResponse
 import com.info.maeumgagym.auth.port.out.GetGoogleLoginPagePort
 import com.info.maeumgagym.global.env.BaseProperty
 import com.info.maeumgagym.global.env.google.GoogleProperty
-import org.springframework.stereotype.Service
 
 @WebAdapter
 class GetGoogleLoginPageAdapter(
