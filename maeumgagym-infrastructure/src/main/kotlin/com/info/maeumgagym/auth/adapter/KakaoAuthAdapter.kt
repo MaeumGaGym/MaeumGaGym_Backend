@@ -24,5 +24,5 @@ class KakaoAuthAdapter(
         )
     }
 
-    override fun getInfo(accessToken: String): KakaoInfoResponse = kakaoInfoClient.kakaoInfo(accessToken)
+    override fun getInfo(accessToken: String): KakaoInfoResponse = kakaoInfoClient.kakaoInfo("Bearer $accessToken")
 }
