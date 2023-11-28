@@ -4,6 +4,7 @@ import com.info.maeumgagym.global.config.feign.FeignConfig
 import com.info.maeumgagym.auth.dto.response.KakaoInfoResponse
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestParam
 
 @FeignClient(
@@ -13,5 +14,5 @@ import org.springframework.web.bind.annotation.RequestParam
 )
 interface KakaoInfoClient {
     @PostMapping("/v2/user/me")
-    fun kakaoInfo(@RequestParam("Authorization") accessToken: String): KakaoInfoResponse
+    fun kakaoInfo(@RequestHeader("Authorization") accessToken: String): KakaoInfoResponse
 }

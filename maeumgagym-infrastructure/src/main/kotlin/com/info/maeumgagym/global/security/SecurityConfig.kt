@@ -33,6 +33,7 @@ class SecurityConfig(
             .requestMatchers(CorsUtils::isCorsRequest)
             .permitAll()
             .antMatchers("/oauth/google/**").permitAll()
+            .antMatchers("/app/login/kakao").permitAll()
             .anyRequest()
             .authenticated()
 

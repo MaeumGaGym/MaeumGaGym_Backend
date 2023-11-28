@@ -19,13 +19,14 @@ class KakaoLoginService(
 ) : KakaoLoginUseCase {
     override fun login(accessToken: String): TokenResponse {
         val userInfo = getKakaoInfoPort.getInfo(accessToken)
-        findUserByOAuthIdPort.findUserByOAuthId(userInfo.oauthId)?.let {
+        findUserByOAuthIdPort.findUserByOAuthId(userInfo.id)?.let {
             return generateJwtPort.generateToken(it.id)
         }
         val user = createUserPort.createUser(
             User(
                 nickname = userInfo.properties.nickname,
-                roles = mutableListOf(Role.USER)
+                roles = mutableListOf(Role.USER, Role.ADMIN),
+                oauthId = userInfo.id
             )
         )
         return generateJwtPort.generateToken(user.id)
