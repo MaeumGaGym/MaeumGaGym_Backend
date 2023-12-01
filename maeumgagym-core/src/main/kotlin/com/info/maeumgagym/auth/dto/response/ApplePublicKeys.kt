@@ -1,4 +1,4 @@
-package com.info.maeumgagym.feign.oauth.apple.dto
+package com.info.maeumgagym.auth.dto.response
 
 data class ApplePublicKeys(
     val keys: MutableList<ApplePublicKey>

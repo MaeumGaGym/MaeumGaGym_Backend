@@ -7,10 +7,12 @@ dependencies {
     implementation(project(":maeumgagym-common"))
 
     implementation(Dependencies.SPRING_TRANSACTION)
+    implementation(Dependencies.JWT)
 }
 
 allOpen {
     annotation("com.info.common.UseCase")
+    annotation("org.springframework.stereotype.Service")
     annotation("com.info.common.PersistenceAdapter")
     annotation("com.info.common.WebAdapter")
 }

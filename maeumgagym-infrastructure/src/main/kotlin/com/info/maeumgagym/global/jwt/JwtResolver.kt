@@ -1,4 +1,4 @@
-package com.info.maeumgagym.global.security.token
+package com.info.maeumgagym.global.jwt
 
 import com.info.maeumgagym.global.env.jwt.JwtProperties
 import org.springframework.stereotype.Component
