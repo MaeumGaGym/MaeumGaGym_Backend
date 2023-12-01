@@ -1,17 +1,13 @@
 package com.info.maeumgagym.global.jwt
 
 import com.info.maeumgagym.global.security.principle.CustomUserDetailService
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 class JwtFilter(
-    private val customUserDetailService: CustomUserDetailService,
     private val jwtResolver: JwtResolver,
     private val jwtAdapter: JwtAdapter
 ) : OncePerRequestFilter() {
@@ -21,15 +17,11 @@ class JwtFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val resolveToken: String? = jwtResolver.resolveToken(request)
+        jwtResolver.resolveToken(request)
+            ?.let {
+                SecurityContextHolder.getContext().authentication = jwtAdapter.getAuthentication(it)
 
-        if (resolveToken != null) {
-            val accountId = jwtAdapter.getSubjectWithExpiredCheck(resolveToken)
-            val userDetails: UserDetails = customUserDetailService.loadUserByUsername(accountId)
-            val authentication: Authentication =
-                UsernamePasswordAuthenticationToken(userDetails, "", userDetails.authorities)
-            SecurityContextHolder.getContext().authentication = authentication
-        }
-        filterChain.doFilter(request, response)
+                filterChain.doFilter(request, response)
+            }
     }
 }

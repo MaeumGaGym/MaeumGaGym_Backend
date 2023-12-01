@@ -2,7 +2,7 @@ package com.info.maeumgagym.auth.port.`in`
 
 import com.info.maeumgagym.auth.dto.response.TokenResponse
 
-interface GoogleLoginUseCase {
+interface AppleLoginUseCase {
 
-    fun googleLogin(accessToken: String): TokenResponse
+    fun execute(token: String): TokenResponse
 }

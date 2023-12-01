@@ -1,6 +1,6 @@
 package com.info.maeumgagym.auth.port.out
 
-import com.info.maeumgagym.auth.google.dto.response.GoogleInfoResponse
+import com.info.maeumgagym.auth.dto.response.GoogleInfoResponse
 
 interface GetGoogleInfoPort {
 

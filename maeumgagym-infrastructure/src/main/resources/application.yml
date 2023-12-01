@@ -33,13 +33,6 @@ logging:
   level:
     root: info
 
-oauth:
-  google:
-    clientId: ${GOOGLE_CLIENT_ID}
-    clientSecret: ${GOOGLE_SECRET}
-    redirectUrl: ${GOOGLE_REDIRECT_URI}
-    grantType: ${GOOGLE_GRANT_TYPE}
-
 jwt:
     secretKey: ${JWT_SECRET_KEY:asdjfkasdhfjkashdfkashdfkahsdjkfahskdf}
     accessExpiredExp: ${JWT_ACCESS_EXP:1800000}
@@ -57,6 +50,3 @@ redis:
     host: ${REDIS_HOST:localhost}
     port: ${REDIS_PORT:6379}
     database: 1
-
-base:
-    url: ${BASE_URL}
