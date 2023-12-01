@@ -1,5 +1,6 @@
 package com.info.maeumgagym.global.security.token
 
+import com.info.common.WebAdapter
 import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.JwtExpiredCheckPort
@@ -10,10 +11,9 @@ import io.jsonwebtoken.Claims
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import org.springframework.stereotype.Component
 import java.util.*
 
-@Component
+@WebAdapter
 class JwtAdapter(
     val jwtProperties: JwtProperties
 ) : GenerateJwtPort, JwtExpiredCheckPort {

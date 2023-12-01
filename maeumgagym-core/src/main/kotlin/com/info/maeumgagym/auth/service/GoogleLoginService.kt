@@ -1,5 +1,6 @@
 package com.info.maeumgagym.auth.service
 
+import com.info.common.UseCase
 import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.`in`.GoogleLoginUseCase
 import com.info.maeumgagym.auth.port.out.GenerateJwtPort
@@ -8,9 +9,8 @@ import com.info.maeumgagym.user.model.Role
 import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.CreateUserPort
 import com.info.maeumgagym.user.port.out.FindUserByOAuthIdPort
-import org.springframework.stereotype.Service
 
-@Service
+@UseCase
 class GoogleLoginService(
     private val getGoogleInfoPort: GetGoogleInfoPort,
     private val createUserPort: CreateUserPort,
