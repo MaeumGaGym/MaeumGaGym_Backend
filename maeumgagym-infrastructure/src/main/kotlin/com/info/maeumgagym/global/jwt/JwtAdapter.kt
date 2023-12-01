@@ -26,14 +26,14 @@ class JwtAdapter(
     private val findUserByUUIDPort: FindUserByUUIDPort,
     private val customUserDetailService: CustomUserDetailService
 ) : GenerateJwtPort, ReadCurrentUserPort, ParsePublicKeyPort {
-    override fun generateToken(subject: Any): TokenResponse {
+    override fun generateToken(subject: String): TokenResponse {
         return TokenResponse(
             generateAccessToken(subject),
             generateRefreshToken()
         )
     }
 
-    private fun generateAccessToken(subject: Any): String {
+    private fun generateAccessToken(subject: String): String {
         val now = Date()
         return Jwts.builder()
             .setSubject(subject.toString())

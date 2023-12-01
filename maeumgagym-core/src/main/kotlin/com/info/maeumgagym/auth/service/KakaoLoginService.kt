@@ -26,6 +26,6 @@ class KakaoLoginService(
                 oauthId = userInfo.id
             )
         )
-        return generateJwtPort.generateToken(user.id)
+        return generateJwtPort.generateToken(user.id.toString())
     }
 }

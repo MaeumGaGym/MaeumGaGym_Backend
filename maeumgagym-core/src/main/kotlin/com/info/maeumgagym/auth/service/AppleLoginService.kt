@@ -36,7 +36,7 @@ class AppleLoginService(
             )
         )
 
-        return generateJwtPort.generateToken(user.id)
+        return generateJwtPort.generateToken(user.id.toString())
     }
 
     private fun parseIdToken(token: String) = parsePublicKeyPort.parseClaimsFromPublicKey(
