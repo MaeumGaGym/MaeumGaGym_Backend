@@ -2,7 +2,7 @@ package com.info.maeumgagym.global.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.global.security.principle.CustomUserDetailService
-import com.info.maeumgagym.global.security.token.JwtAdapter
+import com.info.maeumgagym.global.security.jwt.JwtAdapter
 import com.info.maeumgagym.global.security.token.JwtResolver
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

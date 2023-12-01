@@ -1,4 +1,4 @@
-package com.info.maeumgagym.global.security.token
+package com.info.maeumgagym.global.security.jwt
 
 import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.out.GenerateJwtPort

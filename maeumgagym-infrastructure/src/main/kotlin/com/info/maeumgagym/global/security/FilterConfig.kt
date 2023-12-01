@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.global.error.GlobalExceptionFilter
 import com.info.maeumgagym.global.security.jwt.JwtFilter
 import com.info.maeumgagym.global.security.principle.CustomUserDetailService
-import com.info.maeumgagym.global.security.token.JwtAdapter
+import com.info.maeumgagym.global.security.jwt.JwtAdapter
 import com.info.maeumgagym.global.security.token.JwtResolver
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity

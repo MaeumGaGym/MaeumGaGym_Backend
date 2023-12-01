@@ -2,7 +2,6 @@ package com.info.maeumgagym.global.security.jwt
 
 import com.info.maeumgagym.global.security.principle.CustomUserDetailService
 import com.info.maeumgagym.global.security.token.JwtResolver
-import com.info.maeumgagym.global.security.token.JwtAdapter
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
