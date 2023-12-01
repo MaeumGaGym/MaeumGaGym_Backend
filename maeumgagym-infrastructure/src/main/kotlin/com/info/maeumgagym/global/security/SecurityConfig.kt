@@ -1,7 +1,6 @@
 package com.info.maeumgagym.global.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.info.maeumgagym.global.security.principle.CustomUserDetailService
 import com.info.maeumgagym.global.jwt.JwtAdapter
 import com.info.maeumgagym.global.jwt.JwtResolver
 import org.springframework.context.annotation.Bean
@@ -14,7 +13,6 @@ import org.springframework.web.cors.CorsUtils
 @Configuration
 class SecurityConfig(
     private val objectMapper: ObjectMapper,
-    private val customUserDetailService: CustomUserDetailService,
     private val jwtResolver: JwtResolver,
     private val jwtAdapter: JwtAdapter
 ) {
@@ -38,7 +36,7 @@ class SecurityConfig(
             .authenticated()
 
         http
-            .apply(FilterConfig(objectMapper, customUserDetailService, jwtResolver, jwtAdapter))
+            .apply(FilterConfig(objectMapper, jwtResolver, jwtAdapter))
 
         return http.build()
     }

@@ -1,6 +1,5 @@
 package com.info.maeumgagym.global.jwt
 
-import com.info.maeumgagym.global.security.principle.CustomUserDetailService
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
