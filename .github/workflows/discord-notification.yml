@@ -10,5 +10,7 @@ jobs:
       uses: sarisia/actions-status-discord@v1
       with:
         title: "안녕하세요! 냥뇽녕냥입니다❤️"
+        content: "@BACKEND"
         webhook: ${{ secrets.DISCORD_WEBHOOK }}
         color: FFFFFF
+        image: "https://hedwig-cf.netmarble.com/forum-common/skrv/skr/0d36bc9f09dd4f46b5432f0065a77cb4_1664534062576.gif"
