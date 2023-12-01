@@ -9,6 +9,6 @@ jobs:
     - name: Discord Webhook Action
       uses: sarisia/actions-status-discord@v1
       with:
-        title: "PR 리뷰해줘!!!!"
+        title: "안녕하세요! 냥뇽녕냥입니다❤️"
         webhook: ${{ secrets.DISCORD_WEBHOOK }}
-        color: 00FF00
+        color: FFFFFF
