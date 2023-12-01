@@ -19,7 +19,8 @@ class UserJpaEntity(
     nickname: String,
     oauthId: String,
     roles: MutableList<Role>,
-    profilePath: String?
+    profilePath: String?,
+    isDelete: Boolean
 ) : BaseUUIDEntity(id) {
 
     @Column(name = "nickname", nullable = false, length = 10, unique = true)
@@ -44,10 +45,6 @@ class UserJpaEntity(
 
     fun updateNickname(nickname: String) {
         this.nickname = nickname
-    }
-
-    fun deleteUser() {
-        this.isDeleted = true
     }
 
     fun restoreUser() {

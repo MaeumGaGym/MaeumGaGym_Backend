@@ -1,31 +1,36 @@
 package com.info.maeumgagym.domain.user
 
 import com.info.common.PersistenceAdapter
-import com.info.maeumgagym.domain.user.exception.UserNotFoundException
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.user.model.User
-import com.info.maeumgagym.user.port.out.CreateUserPort
+import com.info.maeumgagym.user.port.out.DeleteUserPort
+import com.info.maeumgagym.user.port.out.SaveUserPort
 import com.info.maeumgagym.user.port.out.FindUserByOAuthIdPort
-import com.info.maeumgagym.user.port.out.FindUserPort
+import com.info.maeumgagym.user.port.out.FindUserByUUIDPort
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
+@Transactional
 @PersistenceAdapter
 class UserPersistenceAdapter(
     private val userRepository: UserRepository,
     private val userMapper: UserMapper
-) : FindUserPort, CreateUserPort, FindUserByOAuthIdPort {
-    override fun findUserById(userId: UUID): User {
-        val user = userRepository.findByIdOrNull(userId) ?: throw UserNotFoundException
-        return userMapper.toDomain(user)
-    }
+) : FindUserByUUIDPort, SaveUserPort, FindUserByOAuthIdPort, DeleteUserPort {
+    override fun findUserById(userId: UUID): User? =
+        userRepository.findByIdOrNull(userId)?.let { userMapper.toDomain(it) }
 
-    override fun createUser(user: User): User {
+    override fun saveUser(user: User): User {
         val userJpaEntity = userRepository.save(userMapper.toEntity(user))
         return userMapper.toDomain(userJpaEntity)
     }
 
     override fun findUserByOAuthId(oauthId: String): User? =
         userRepository.findByOauthId(oauthId)?.let { userMapper.toDomain(it) }
+
+    override fun deleteUser(user: User) {
+        val userJpaEntity = userMapper.toEntity(user)
+        userRepository.delete(userJpaEntity)
+    }
 }
