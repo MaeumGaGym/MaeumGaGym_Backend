@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull
 @Validated
 @RequestMapping("/google")
 @RestController
-class GoogleController(
+class GoogleAuthController(
     private val googleLoginService: GoogleLoginUseCase
 ) {
 
