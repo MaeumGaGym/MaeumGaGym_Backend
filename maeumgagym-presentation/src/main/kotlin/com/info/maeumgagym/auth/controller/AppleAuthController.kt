@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/apple")
-class AppleController(private val appleLoginUseCase: AppleLoginUseCase) {
+class AppleAuthController(private val appleLoginUseCase: AppleLoginUseCase) {
 
     @PostMapping("/login")
     fun login(@RequestParam("token", required = true) token: String): TokenResponse = appleLoginUseCase.execute(token)
