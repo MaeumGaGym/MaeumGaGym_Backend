@@ -2,8 +2,8 @@ package com.info.maeumgagym.global.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.global.security.principle.CustomUserDetailService
-import com.info.maeumgagym.global.security.jwt.JwtAdapter
-import com.info.maeumgagym.global.security.token.JwtResolver
+import com.info.maeumgagym.global.jwt.JwtAdapter
+import com.info.maeumgagym.global.jwt.JwtResolver
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
