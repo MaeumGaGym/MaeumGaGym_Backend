@@ -5,6 +5,7 @@ import com.info.maeumgagym.global.jwt.JwtAdapter
 import com.info.maeumgagym.global.jwt.JwtResolver
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
@@ -17,7 +18,7 @@ class SecurityConfig(
     private val jwtAdapter: JwtAdapter
 ) {
     @Bean
-    protected fun filterChain(http: HttpSecurity): SecurityFilterChain {
+    protected fun filterChain(http: HttpSecurity): SecurityFilterChain =
         http.csrf()
             .disable()
             .cors()
@@ -25,19 +26,16 @@ class SecurityConfig(
             .formLogin()
             .disable()
             .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 
-        http.authorizeRequests()
+            .authorizeRequests()
             .requestMatchers(CorsUtils::isCorsRequest)
             .permitAll()
-            .antMatchers("/google/**").permitAll()
-            .antMatchers("/kakao/login").permitAll()
+            .antMatchers(HttpMethod.POST, "/google/login").permitAll()
+            .antMatchers(HttpMethod.POST, "/kakao/login").permitAll()
+            .antMatchers(HttpMethod.POST, "/apple/login").permitAll()
             .anyRequest()
-            .authenticated()
+            .authenticated().and()
 
-        http
-            .apply(FilterConfig(objectMapper, jwtResolver, jwtAdapter))
-
-        return http.build()
-    }
+            .apply(FilterConfig(objectMapper, jwtResolver, jwtAdapter)).and().build()
 }
