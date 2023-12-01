@@ -3,20 +3,26 @@ package com.info.maeumgagym.global.security.token
 import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.JwtExpiredCheckPort
+import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
+import com.info.maeumgagym.domain.user.exception.UserNotFoundException
 import com.info.maeumgagym.global.env.jwt.JwtProperties
 import com.info.maeumgagym.global.exception.ExpiredTokenException
 import com.info.maeumgagym.global.exception.InvalidTokenException
+import com.info.maeumgagym.user.model.User
+import com.info.maeumgagym.user.port.out.FindUserByUUIDPort
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
 class JwtAdapter(
-    val jwtProperties: JwtProperties
-) : GenerateJwtPort, JwtExpiredCheckPort {
+    private val jwtProperties: JwtProperties,
+    private val findUserByUUIDPort: FindUserByUUIDPort
+) : GenerateJwtPort, JwtExpiredCheckPort, ReadCurrentUserPort {
     override fun generateToken(userId: UUID): TokenResponse {
         return TokenResponse(
             generateAccessToken(userId)
@@ -49,5 +55,10 @@ class JwtAdapter(
         } catch (e: JwtException) {
             throw InvalidTokenException
         }
+    }
+
+    override fun readCurrentUser(): User {
+        val userId = SecurityContextHolder.getContext().authentication.name
+        return findUserByUUIDPort.findUserById(UUID.fromString(userId)) ?: throw UserNotFoundException
     }
 }
