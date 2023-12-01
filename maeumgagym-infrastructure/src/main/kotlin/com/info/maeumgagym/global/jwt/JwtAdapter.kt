@@ -38,7 +38,6 @@ class JwtAdapter(
     }
 
     fun getAuthentication(token: String): Authentication {
-
         val subject = getBody(token).subject
 
         val authDetails = customUserDetailService.loadUserByUsername(subject) as CustomUserDetails

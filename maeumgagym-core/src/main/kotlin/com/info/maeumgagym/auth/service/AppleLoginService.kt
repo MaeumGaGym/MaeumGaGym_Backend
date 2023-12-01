@@ -19,11 +19,10 @@ class AppleLoginService(
     private val findUserByOAuthIdPort: FindUserByOAuthIdPort,
     private val createUserPort: CreateUserPort,
     private val generateJwtPort: GenerateJwtPort
-): AppleLoginUseCase{
+) : AppleLoginUseCase {
 
     @Transactional
     override fun execute(token: String): TokenResponse {
-
         val idToken = parseIdToken(token)
 
         val sub = idToken.subject
@@ -41,6 +40,10 @@ class AppleLoginService(
     }
 
     private fun parseIdToken(token: String) = parsePublicKeyPort.parseClaimsFromPublicKey(
-        token, generatePublicKeyPort.generatePublicKey(appleJwtParsePort.parseHeaders(token), readApplePublicKey.readPublicKey())
+        token,
+        generatePublicKeyPort.generatePublicKey(
+            appleJwtParsePort.parseHeaders(token),
+            readApplePublicKey.readPublicKey()
+        )
     )
 }

@@ -7,7 +7,7 @@ import com.info.maeumgagym.feign.oauth.apple.AppleClient
 @WebAdapter
 class AppleAuthAdapter(
     private val appleClient: AppleClient
-): ReadApplePublicKeyPort {
+) : ReadApplePublicKeyPort {
 
     override fun readPublicKey() = appleClient.applePublicKeys()
 }

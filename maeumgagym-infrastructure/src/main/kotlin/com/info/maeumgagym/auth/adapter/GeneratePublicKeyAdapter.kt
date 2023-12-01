@@ -11,7 +11,7 @@ import java.security.PublicKey
 import java.security.spec.InvalidKeySpecException
 
 @WebAdapter
-class GeneratePublicKeyAdapter: GeneratePublicKeyPort {
+class GeneratePublicKeyAdapter : GeneratePublicKeyPort {
 
     private companion object {
         const val ALG_HEADER_KEY = "alg"
@@ -19,7 +19,6 @@ class GeneratePublicKeyAdapter: GeneratePublicKeyPort {
     }
 
     override fun generatePublicKey(tokenHeaders: MutableMap<String?, String?>, applePublicKeys: ApplePublicKeys): PublicKey {
-
         val publicKey: ApplePublicKey = applePublicKeys.matchesKey(
             tokenHeaders[ALG_HEADER_KEY]!!,
             tokenHeaders[KID_HEADER_KEY]!!

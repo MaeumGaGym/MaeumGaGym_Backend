@@ -7,9 +7,8 @@ import com.info.maeumgagym.global.exception.InvalidTokenException
 import org.springframework.stereotype.Component
 import org.springframework.util.Base64Utils
 
-
 @Component
-class AppleJwtParser(private val objectMapper: ObjectMapper): AppleJwtParsePort {
+class AppleJwtParser(private val objectMapper: ObjectMapper) : AppleJwtParsePort {
 
     companion object {
         private const val IDENTITY_TOKEN_VALUE_DELIMITER = "\\."

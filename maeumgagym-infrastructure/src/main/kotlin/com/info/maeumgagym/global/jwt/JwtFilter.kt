@@ -18,12 +18,11 @@ class JwtFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-
         jwtResolver.resolveToken(request)
             ?.let {
                 SecurityContextHolder.getContext().authentication = jwtAdapter.getAuthentication(it)
 
-            filterChain.doFilter(request, response)
-        }
+                filterChain.doFilter(request, response)
+            }
     }
 }
