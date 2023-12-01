@@ -18,7 +18,8 @@ class UserJpaEntity(
     id: UUID?,
     nickname: String,
     oauthId: String,
-    roles: MutableList<Role>
+    roles: MutableList<Role>,
+    profilePath: String?
 ) : BaseUUIDEntity(id) {
 
     @Column(name = "nickname", nullable = false, length = 10, unique = true)
@@ -38,7 +39,7 @@ class UserJpaEntity(
         protected set
 
     @Column(name = "profile_path", nullable = true)
-    var profilePath: String? = null
+    var profilePath: String? = profilePath
         protected set
 
     fun updateNickname(nickname: String) {

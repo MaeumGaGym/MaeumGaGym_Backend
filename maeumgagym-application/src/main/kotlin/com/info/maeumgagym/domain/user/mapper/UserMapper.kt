@@ -11,7 +11,8 @@ class UserMapper {
             id = user.id,
             nickname = user.nickname,
             oauthId = user.oauthId,
-            roles = user.roles
+            roles = user.roles,
+            profilePath = user.profilePath
         )
     }
 
@@ -20,7 +21,8 @@ class UserMapper {
             id = userJpaEntity.id!!,
             nickname = userJpaEntity.nickname,
             oauthId = userJpaEntity.oauthId,
-            roles = userJpaEntity.roles
+            roles = userJpaEntity.roles,
+            profilePath = userJpaEntity.profilePath
         )
     }
 }
