@@ -18,7 +18,10 @@ class GeneratePublicKeyAdapter : GeneratePublicKeyPort {
         const val KID_HEADER_KEY = "kid"
     }
 
-    override fun generatePublicKey(tokenHeaders: MutableMap<String?, String?>, applePublicKeys: ApplePublicKeys): PublicKey {
+    override fun generatePublicKey(
+        tokenHeaders: MutableMap<String?, String?>,
+        applePublicKeys: ApplePublicKeys
+    ): PublicKey {
         val publicKey: ApplePublicKey = applePublicKeys.matchesKey(
             tokenHeaders[ALG_HEADER_KEY]!!,
             tokenHeaders[KID_HEADER_KEY]!!
