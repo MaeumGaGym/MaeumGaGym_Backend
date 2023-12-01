@@ -26,16 +26,16 @@ class JwtAdapter(
     private val findUserByUUIDPort: FindUserByUUIDPort,
     private val customUserDetailService: CustomUserDetailService
 ) : GenerateJwtPort, ReadCurrentUserPort, ParsePublicKeyPort {
-    override fun generateToken(userId: UUID): TokenResponse {
+    override fun generateToken(subject: Any): TokenResponse {
         return TokenResponse(
-            generateAccessToken(userId)
+            generateAccessToken(subject),
         )
     }
 
-    private fun generateAccessToken(userId: UUID): String {
+    private fun generateAccessToken(subject: Any): String {
         val now = Date()
         return Jwts.builder()
-            .setSubject(userId.toString())
+            .setSubject(subject.toString())
             .setIssuedAt(now)
             .setExpiration(Date(now.time + jwtProperties.accessExpiredExp * 1000L))
             .signWith(SignatureAlgorithm.HS256, jwtProperties.secretKey)
