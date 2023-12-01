@@ -1,27 +1,22 @@
 package com.info.maeumgagym.auth.controller
 
-import com.info.maeumgagym.auth.port.`in`.GetGoogleLoginPageUseCase
 import com.info.maeumgagym.auth.port.`in`.GoogleLoginUseCase
-import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.validation.annotation.Validated
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import javax.validation.constraints.NotNull
 
-@RequestMapping("/oauth/google")
+@Validated
+@RequestMapping("/google")
 @RestController
 class GoogleController(
-    private val getGoogleLoginPageUseCase: GetGoogleLoginPageUseCase,
     private val googleLoginService: GoogleLoginUseCase
 ) {
 
-    @GetMapping("/login")
-    fun getGoogleOAuthLoginPage() =
-        getGoogleLoginPageUseCase.getGoogleLoginPage()
-
-    @GetMapping("/login/redirect")
-    fun login(
-        @RequestParam code: String
-    ) {
-        googleLoginService.googleLogin(code)
+    @PostMapping("/login")
+    fun login(@RequestParam(required = true) @NotNull accessToken: String?) {
+        googleLoginService.googleLogin(accessToken!!)
     }
 }
