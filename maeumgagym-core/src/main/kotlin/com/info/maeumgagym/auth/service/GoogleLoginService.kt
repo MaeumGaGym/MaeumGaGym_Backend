@@ -7,7 +7,7 @@ import com.info.maeumgagym.auth.port.out.GetGoogleAccessTokenPort
 import com.info.maeumgagym.auth.port.out.GetGoogleInfoPort
 import com.info.maeumgagym.user.model.Role
 import com.info.maeumgagym.user.model.User
-import com.info.maeumgagym.user.port.out.CreateUserPort
+import com.info.maeumgagym.user.port.out.SaveUserPort
 import com.info.maeumgagym.user.port.out.FindUserByOAuthIdPort
 import org.springframework.stereotype.Service
 
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service
 class GoogleLoginService(
     private val getGoogleAccessTokenPort: GetGoogleAccessTokenPort,
     private val getGoogleInfoPort: GetGoogleInfoPort,
-    private val createUserPort: CreateUserPort,
+    private val saveUserPort: SaveUserPort,
     private val findUserByOAuthIdPort: FindUserByOAuthIdPort,
     private val generateJwtPort: GenerateJwtPort
 ) : GoogleLoginUseCase {
@@ -24,7 +24,7 @@ class GoogleLoginService(
         val googleTokenResponse = getGoogleAccessTokenPort.getGoogleAccessToken(code)
         val googleInfoResponse = getGoogleInfoPort.getGoogleInfo(googleTokenResponse.accessToken)
 
-        val user = findUserByOAuthIdPort.findUserByOAuthId(googleInfoResponse.sub) ?: createUserPort.createUser(
+        val user = findUserByOAuthIdPort.findUserByOAuthId(googleInfoResponse.sub) ?: saveUserPort.saveUser(
             User(
                 nickname = googleInfoResponse.name,
                 roles = mutableListOf(Role.USER),
