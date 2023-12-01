@@ -12,7 +12,8 @@ class UserMapper {
             nickname = user.nickname,
             oauthId = user.oauthId,
             roles = user.roles,
-            profilePath = user.profilePath
+            profilePath = user.profilePath,
+            isDelete = user.isDeleted
         )
     }
 
@@ -22,7 +23,8 @@ class UserMapper {
             nickname = userJpaEntity.nickname,
             oauthId = userJpaEntity.oauthId,
             roles = userJpaEntity.roles,
-            profilePath = userJpaEntity.profilePath
+            profilePath = userJpaEntity.profilePath,
+            isDeleted = userJpaEntity.isDeleted
         )
     }
 }
