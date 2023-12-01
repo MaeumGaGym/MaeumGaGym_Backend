@@ -17,10 +17,7 @@ class FeignClientErrorDecoder : ErrorDecoder {
     }
 
     override fun decode(methodKey: String, response: Response): Exception {
-        logger.error { methodKey }
-        logger.error { response.status() }
-        logger.error { response.body() }
-        logger.error { response.reason() }
+        logger.error { "${response.status()} ${response.reason()} : $methodKey | ${response.body()}\n$response" }
 
         if (response.status() >= 400) {
             when (response.status()) {
