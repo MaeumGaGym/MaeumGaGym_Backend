@@ -50,6 +50,6 @@ class UserJpaEntity(
     }
 
     fun updateProfile(profilePath: String) {
-        this.profilePath = profilePath
+        this.profileImage = profilePath
     }
 }
