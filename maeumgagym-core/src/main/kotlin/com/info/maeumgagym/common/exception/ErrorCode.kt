@@ -23,5 +23,9 @@ enum class ErrorCode(
     USER_NOT_FOUND(404, "User Not Found"),
 
     // Bad Request
-    ALREADY_WITHDRAWAL_USER(400, "Already Withdrawal User")
+    ALREADY_WITHDRAWAL_USER(400, "Already Withdrawal User"),
+
+    // Conflict
+    DUPLICATED_NICKNAME(409, "Duplicated Nickname"),
+    ALREADY_EXIST_USER(409, "Already Exists User")
 }
