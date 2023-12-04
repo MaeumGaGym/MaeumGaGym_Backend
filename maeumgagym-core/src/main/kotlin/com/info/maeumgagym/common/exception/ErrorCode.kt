@@ -26,5 +26,6 @@ enum class ErrorCode(
     ALREADY_WITHDRAWAL_USER(400, "Already Withdrawal User"),
 
     // Conflict
-    DUPLICATED_NICKNAME(409, "Duplicated Nickname")
+    DUPLICATED_NICKNAME(409, "Duplicated Nickname"),
+    ALREADY_EXIST_USER(409, "Already Exists User")
 }
