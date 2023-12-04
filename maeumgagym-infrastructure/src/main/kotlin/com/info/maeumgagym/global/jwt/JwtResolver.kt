@@ -12,8 +12,11 @@ class JwtResolver(
 ) {
     fun resolveToken(request: HttpServletRequest): String? =
         (request.getHeader(jwtProperties.header) ?: throw NullTokenException).also {
-            if (it.startsWith(jwtProperties.prefix))
+            if (it.startsWith(jwtProperties.prefix)) {
                 return it.substring(jwtProperties.prefix.length)
-            else throw InvalidTokenException
+            }
+            else {
+                throw InvalidTokenException
+            }
         }
 }

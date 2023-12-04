@@ -23,6 +23,6 @@ class AuthController(
         nickname: String
     ) = duplicatedNicknameCheckUseCase.existByNickname(nickname)
 
-    @PostMapping("reissue")
+    @PostMapping("/reissue")
     fun reissue(@RequestBody request: ReissueRequest): TokenResponse = reissueUseCase.reissue(request)
 }
