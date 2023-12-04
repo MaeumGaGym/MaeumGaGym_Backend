@@ -9,4 +9,6 @@ interface UserRepository : JpaRepository<UserJpaEntity, UUID> {
     fun findByOauthId(oauthId: String): UserJpaEntity?
 
     fun existsByNickname(nickname: String): Boolean
+
+    fun existsByOauthId(oauthId: String): Boolean
 }
