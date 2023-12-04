@@ -14,8 +14,7 @@ class JwtResolver(
         (request.getHeader(jwtProperties.header) ?: throw NullTokenException).also {
             if (it.startsWith(jwtProperties.prefix)) {
                 return it.substring(jwtProperties.prefix.length)
-            }
-            else {
+            } else {
                 throw InvalidTokenException
             }
         }
