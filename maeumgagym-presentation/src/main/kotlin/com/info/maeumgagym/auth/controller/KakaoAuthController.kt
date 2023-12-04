@@ -19,7 +19,7 @@ class KakaoAuthController(
 ) {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/login")
-    fun login(@RequestParam("accessToken", required = true) @NotBlank accessToken: String?): TokenResponse {
+    fun login(@RequestParam("access_token", required = true) @NotBlank accessToken: String?): TokenResponse {
         return kakaoLoginUseCase.login(accessToken!!)
     }
 }
