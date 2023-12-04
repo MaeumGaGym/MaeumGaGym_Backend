@@ -18,7 +18,7 @@ class UserJpaEntity(
     oauthId: String,
     roles: MutableList<Role>,
     profilePath: String?,
-    isDelete: Boolean
+    isDelete: Boolean = false
 ) : BaseUUIDEntity(id) {
 
     @Column(name = "nickname", nullable = false, length = 10, unique = true)
@@ -26,7 +26,7 @@ class UserJpaEntity(
         protected set
 
     @Column(name = "is_deleted", nullable = false)
-    var isDeleted: Boolean = false
+    var isDeleted: Boolean = isDelete
         protected set
 
     @Column(name = "oauth_id", nullable = false, length = 60, unique = true)
@@ -37,8 +37,8 @@ class UserJpaEntity(
     var roles: MutableList<Role> = roles
         protected set
 
-    @Column(name = "profile_path", nullable = true)
-    var profilePath: String? = profilePath
+    @Column(name = "profile_image", nullable = true)
+    var profileImage: String? = profilePath
         protected set
 
     fun updateNickname(nickname: String) {
