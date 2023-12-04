@@ -6,10 +6,10 @@ import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.GetJwtBodyPort
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.auth.port.out.ReissuePort
-import com.info.maeumgagym.domain.user.exception.UserNotFoundException
 import com.info.maeumgagym.global.env.jwt.JwtProperties
 import com.info.maeumgagym.global.exception.ExpiredTokenException
 import com.info.maeumgagym.global.exception.InvalidTokenException
+import com.info.maeumgagym.global.exception.UnAuthorizedException
 import com.info.maeumgagym.global.security.principle.CustomUserDetailService
 import com.info.maeumgagym.global.security.principle.CustomUserDetails
 import com.info.maeumgagym.user.model.User
@@ -58,7 +58,7 @@ class JwtAdapter(
 
     override fun readCurrentUser(): User {
         val userId = SecurityContextHolder.getContext().authentication.name
-        return findUserByUUIDPort.findUserById(UUID.fromString(userId)) ?: throw UserNotFoundException
+        return findUserByUUIDPort.findUserById(UUID.fromString(userId)) ?: throw UnAuthorizedException
     }
 
     fun getAuthentication(token: String): Authentication {
