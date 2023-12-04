@@ -3,6 +3,7 @@ package com.info.maeumgagym.auth.service
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.exception.AlreadyWithdrawalUserException
+import com.info.maeumgagym.auth.exception.UserNotFoundException
 import com.info.maeumgagym.auth.port.`in`.KakaoLoginUseCase
 import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.GetKakaoInfoPort
@@ -16,7 +17,6 @@ class KakaoLoginService(
     private val getKakaoInfoPort: GetKakaoInfoPort,
     private val findUserByOAuthIdPort: FindUserByOAuthIdPort,
     private val generateJwtPort: GenerateJwtPort,
-    private val saveUserPort: SaveUserPort
 ) : KakaoLoginUseCase {
     override fun login(accessToken: String): TokenResponse {
         val userInfo = getKakaoInfoPort.getInfo(accessToken)
@@ -26,13 +26,7 @@ class KakaoLoginService(
             } else {
                 return@let it
             }
-        } ?: saveUserPort.saveUser(
-            User(
-                nickname = userInfo.properties.nickname,
-                roles = mutableListOf(Role.USER, Role.ADMIN),
-                oauthId = userInfo.id
-            )
-        )
+        } ?: throw UserNotFoundException
         return generateJwtPort.generateToken(user.id)
     }
 }
