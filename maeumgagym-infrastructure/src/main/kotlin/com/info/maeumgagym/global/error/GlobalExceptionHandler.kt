@@ -36,7 +36,6 @@ class GlobalExceptionHandler(
 
     @ExceptionHandler(ConstraintViolationException::class)
     protected fun handleConstraintViolationException(e: ConstraintViolationException): BindErrorResponse {
-
         val errorMap = HashMap<String, String?>()
 
         for (error: ConstraintViolation<*> in e.constraintViolations) {
