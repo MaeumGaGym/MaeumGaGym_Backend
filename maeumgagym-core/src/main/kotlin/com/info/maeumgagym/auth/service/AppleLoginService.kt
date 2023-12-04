@@ -2,6 +2,7 @@ package com.info.maeumgagym.auth.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.dto.response.TokenResponse
+import com.info.maeumgagym.auth.exception.AlreadyWithdrawalUserException
 import com.info.maeumgagym.auth.port.`in`.AppleLoginUseCase
 import com.info.maeumgagym.auth.port.out.AppleJwtParsePort
 import com.info.maeumgagym.auth.port.out.GeneratePublicKeyPort
@@ -30,12 +31,18 @@ class AppleLoginService(
 
         val sub = idToken.subject
 
-        val user: User = findUserByOAuthIdPort.findUserByOAuthId(sub) ?: saveUserPort.saveUser(
+        val user: User = findUserByOAuthIdPort.findUserByOAuthId(sub)?.let {
+            if (it.isDeleted) {
+                throw AlreadyWithdrawalUserException
+            } else {
+                return@let it
+            }
+        } ?: saveUserPort.saveUser(
             User(
                 nickname = idToken.get("name", String::class.java),
                 roles = mutableListOf(Role.USER),
                 oauthId = sub,
-                profilePath = null
+                profileImage = null
             )
         )
 

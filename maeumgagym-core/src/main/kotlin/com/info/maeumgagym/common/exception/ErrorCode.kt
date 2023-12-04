@@ -20,5 +20,8 @@ enum class ErrorCode(
     NULL_TOKEN(401, "Null Token"),
 
     // Not Found
-    USER_NOT_FOUND(404, "User Not Found")
+    USER_NOT_FOUND(404, "User Not Found"),
+
+    // Bad Request
+    ALREADY_WITHDRAWAL_USER(400, "Already Withdrawal User")
 }

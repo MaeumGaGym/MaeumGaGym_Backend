@@ -5,13 +5,11 @@ import com.info.maeumgagym.domain.base.BaseUUIDEntity
 import com.info.maeumgagym.domain.user.converter.RoleConverter
 import com.info.maeumgagym.user.model.Role
 import org.hibernate.annotations.SQLDelete
-import org.hibernate.annotations.Where
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Convert
 import javax.persistence.Entity
 
-@Where(clause = "is_deleted = false")
 @SQLDelete(sql = "UPDATE ${TableNames.USER_TABLE} SET is_deleted = true WHERE id = ?")
 @Entity(name = TableNames.USER_TABLE)
 class UserJpaEntity(
@@ -19,8 +17,8 @@ class UserJpaEntity(
     nickname: String,
     oauthId: String,
     roles: MutableList<Role>,
-    profilePath: String?,
-    isDelete: Boolean
+    profileImage: String?,
+    isDelete: Boolean = false
 ) : BaseUUIDEntity(id) {
 
     @Column(name = "nickname", nullable = false, length = 10, unique = true)
@@ -28,7 +26,7 @@ class UserJpaEntity(
         protected set
 
     @Column(name = "is_deleted", nullable = false)
-    var isDeleted: Boolean = false
+    var isDeleted: Boolean = isDelete
         protected set
 
     @Column(name = "oauth_id", nullable = false, length = 60, unique = true)
@@ -39,8 +37,8 @@ class UserJpaEntity(
     var roles: MutableList<Role> = roles
         protected set
 
-    @Column(name = "profile_path", nullable = true)
-    var profilePath: String? = profilePath
+    @Column(name = "profile_image", nullable = true)
+    var profileImage: String? = profileImage
         protected set
 
     fun updateNickname(nickname: String) {
@@ -51,7 +49,7 @@ class UserJpaEntity(
         this.isDeleted = false
     }
 
-    fun updateProfile(profilePath: String) {
-        this.profilePath = profilePath
+    fun updateProfile(profileImage: String) {
+        this.profileImage = profileImage
     }
 }

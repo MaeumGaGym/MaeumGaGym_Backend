@@ -1,5 +1,6 @@
 package com.info.maeumgagym.global.jwt
 
+import com.info.common.WebAdapter
 import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.GetJwtBodyPort
@@ -17,11 +18,10 @@ import io.jsonwebtoken.*
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.stereotype.Component
 import java.security.PublicKey
 import java.util.*
 
-@Component
+@WebAdapter
 class JwtAdapter(
     private val jwtProperties: JwtProperties,
     private val findUserByUUIDPort: FindUserByUUIDPort,
