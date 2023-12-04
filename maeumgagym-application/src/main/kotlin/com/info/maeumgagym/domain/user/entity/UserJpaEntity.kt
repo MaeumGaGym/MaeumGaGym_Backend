@@ -49,7 +49,7 @@ class UserJpaEntity(
         this.isDeleted = false
     }
 
-    fun updateProfile(profilePath: String) {
-        this.profileImage = profilePath
+    fun updateProfile(profileImage: String) {
+        this.profileImage = profileImage
     }
 }
