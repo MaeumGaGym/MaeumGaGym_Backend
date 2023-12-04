@@ -20,8 +20,8 @@ class AppleAuthController(
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.CREATED)
-    fun login(@RequestParam("token", required = true) token: String): TokenResponse = appleLoginUseCase.execute(token)
+    fun login(@RequestParam("access_token", required = true) token: String): TokenResponse = appleLoginUseCase.execute(token)
 
     @PatchMapping("/recovery")
-    fun recovery(@RequestParam("token", required = true) token: String) { appleRecoveryUseCase.execute() }
+    fun recovery(@RequestParam("access_token", required = true) token: String) { appleRecoveryUseCase.execute() }
 }

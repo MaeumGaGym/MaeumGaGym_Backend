@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import javax.validation.ConstraintViolation
+import javax.validation.ConstraintViolationException
 
 @RestControllerAdvice
 class GlobalExceptionHandler(
@@ -30,5 +32,17 @@ class GlobalExceptionHandler(
             ),
             HttpStatus.BAD_REQUEST
         )
+    }
+
+    @ExceptionHandler(ConstraintViolationException::class)
+    protected fun handleConstraintViolationException(e: ConstraintViolationException): BindErrorResponse {
+
+        val errorMap = HashMap<String, String?>()
+
+        for (error: ConstraintViolation<*> in e.constraintViolations) {
+            errorMap[error.propertyPath.toString().split('.').last()] = error.message
+        }
+
+        return BindErrorResponse(HttpStatus.BAD_REQUEST, listOf(errorMap))
     }
 }
