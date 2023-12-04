@@ -11,7 +11,7 @@ jobs:
       with:
         title: 🔀 Pull Request 🔀
         description: "안녕하세요! 냥뇽녕냥입니다❤️"
-        content: "<@1153326597844238366>"
+        content: "<@&1153326597844238366>"
         webhook: ${{ secrets.DISCORD_WEBHOOK }}
         color: FFFFFF
-        image: "https://hedwig-cf.netmarble.com/forum-common/skrv/skr/0d36bc9f09dd4f46b5432f0065a77cb4_1664534062576.gif"
+        image: ${{ secrets.IMAGE_URL }}
