@@ -1,5 +1,6 @@
 package com.info.maeumgagym.global.jwt
 
+import com.info.common.WebAdapter
 import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
@@ -10,7 +11,6 @@ import com.info.maeumgagym.global.exception.InvalidTokenException
 import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.FindUserByUUIDPort
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.stereotype.Component
 import com.info.maeumgagym.auth.port.out.ParsePublicKeyPort
 import com.info.maeumgagym.global.security.principle.CustomUserDetailService
 import com.info.maeumgagym.global.security.principle.CustomUserDetails
@@ -20,7 +20,7 @@ import org.springframework.security.core.Authentication
 import java.security.PublicKey
 import java.util.*
 
-@Component
+@WebAdapter
 class JwtAdapter(
     private val jwtProperties: JwtProperties,
     private val findUserByUUIDPort: FindUserByUUIDPort,
