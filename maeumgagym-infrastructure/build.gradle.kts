@@ -20,6 +20,7 @@ dependencies {
     implementation(Dependencies.JWT)
     implementation(Dependencies.REDIS)
     implementation(Dependencies.LOGGER)
+    implementation(Dependencies.SPRING_VALIDATION)
 }
 
 // Declaring a publicly-available repository
