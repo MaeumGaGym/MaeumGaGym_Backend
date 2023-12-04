@@ -14,7 +14,12 @@ import java.util.*
 class UserPersistenceAdapter(
     private val userRepository: UserRepository,
     private val userMapper: UserMapper
-) : FindUserByUUIDPort, SaveUserPort, FindUserByOAuthIdPort, DeleteUserPort, ExistUserByNicknamePort, ExistUserByOAuthIdPort {
+) : FindUserByUUIDPort,
+    SaveUserPort,
+    FindUserByOAuthIdPort,
+    DeleteUserPort,
+    ExistUserByNicknamePort,
+    ExistUserByOAuthIdPort {
     override fun findUserById(userId: UUID): User? =
         userRepository.findByIdOrNull(userId)?.let { userMapper.toDomain(it) }
 
