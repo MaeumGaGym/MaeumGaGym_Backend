@@ -48,4 +48,9 @@ object Dependencies {
     // Transaction
     const val SPRING_TRANSACTION = "org.springframework:spring-tx:${DependencyVersions.SPRING_TRANSACTION}"
 
+    // Transaction
+    const val QUERY_DSL_JPA = "com.querydsl:querydsl-jpa:${DependencyVersions.QUERY_DSL}"
+    const val QUERY_DSL_KAPT = "com.querydsl:querydsl-apt:${DependencyVersions.QUERY_DSL}"
+
+    const val ANNOTATION_PROCESSOR = "org.springframework.boot:spring-boot-configuration-processor"
 }

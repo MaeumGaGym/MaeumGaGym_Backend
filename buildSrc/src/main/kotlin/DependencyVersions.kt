@@ -7,4 +7,5 @@ object DependencyVersions {
     const val SPRING_CLOUD_VERSION = "2021.0.5"
     const val LOGGER_VERSION = "2.0.10"
     const val SPRING_TRANSACTION = "5.3.22"
+    const val QUERY_DSL = "5.0.0"
 }

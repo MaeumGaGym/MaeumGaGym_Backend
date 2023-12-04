@@ -2,6 +2,7 @@ package com.info.maeumgagym.auth.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.dto.response.TokenResponse
+import com.info.maeumgagym.auth.exception.AlreadyWithdrawalUserException
 import com.info.maeumgagym.auth.port.`in`.KakaoLoginUseCase
 import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.GetKakaoInfoPort
@@ -19,7 +20,13 @@ class KakaoLoginService(
 ) : KakaoLoginUseCase {
     override fun login(accessToken: String): TokenResponse {
         val userInfo = getKakaoInfoPort.getInfo(accessToken)
-        val user = findUserByOAuthIdPort.findUserByOAuthId(userInfo.id) ?: saveUserPort.saveUser(
+        val user = findUserByOAuthIdPort.findUserByOAuthId(userInfo.id)?.let {
+            if (it.isDeleted) {
+                throw AlreadyWithdrawalUserException
+            } else {
+                return@let it
+            }
+        } ?: saveUserPort.saveUser(
             User(
                 nickname = userInfo.properties.nickname,
                 roles = mutableListOf(Role.USER, Role.ADMIN),

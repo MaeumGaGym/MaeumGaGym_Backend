@@ -27,7 +27,6 @@ class SecurityConfig(
             .disable()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-
             .authorizeRequests()
             .requestMatchers(CorsUtils::isCorsRequest)
             .permitAll()
@@ -36,6 +35,5 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, "/apple/login").permitAll()
             .anyRequest()
             .authenticated().and()
-
             .apply(FilterConfig(objectMapper, jwtResolver, jwtAdapter)).and().build()
 }
