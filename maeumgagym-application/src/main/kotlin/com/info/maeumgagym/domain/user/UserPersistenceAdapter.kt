@@ -38,5 +38,5 @@ class UserPersistenceAdapter(
 
     override fun existByNickname(nickName: String) = userRepository.existsByNickname(nickName)
 
-    override fun existUserByOAuthId(oauthId: String): Boolean = userRepository.existsByOauthId(oauthId)
+    override fun existByOAuthId(oauthId: String): Boolean = userRepository.existsByOauthId(oauthId)
 }
