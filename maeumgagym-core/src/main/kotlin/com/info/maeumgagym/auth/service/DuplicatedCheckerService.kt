@@ -7,7 +7,7 @@ import com.info.maeumgagym.user.port.out.ExistUserByNicknamePort
 @UseCase
 class DuplicatedCheckerService(
     private val existUserByNicknamePort: ExistUserByNicknamePort
-): DuplicatedNicknameCheckUseCase {
+) : DuplicatedNicknameCheckUseCase {
 
     override fun existByNickname(nickname: String): Boolean = existUserByNicknamePort.existByNickname(nickname)
 }
