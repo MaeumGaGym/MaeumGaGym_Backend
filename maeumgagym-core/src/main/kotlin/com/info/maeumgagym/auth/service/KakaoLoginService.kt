@@ -21,8 +21,11 @@ class KakaoLoginService(
     override fun login(accessToken: String): TokenResponse {
         val userInfo = getKakaoInfoPort.getInfo(accessToken)
         val user = findUserByOAuthIdPort.findUserByOAuthId(userInfo.id)?.let {
-            if (it.isDeleted) throw AlreadyWithdrawalUserException
-            else return@let it
+            if (it.isDeleted) {
+                throw AlreadyWithdrawalUserException
+            } else {
+                return@let it
+            }
         } ?: saveUserPort.saveUser(
             User(
                 nickname = userInfo.properties.nickname,

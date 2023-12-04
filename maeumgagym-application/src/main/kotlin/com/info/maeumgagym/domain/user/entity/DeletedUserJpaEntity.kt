@@ -11,7 +11,8 @@ class DeletedUserJpaEntity(
     @Column(name = "id")
     var id: UUID? = null,
 
-    @OneToOne(fetch = FetchType.LAZY) @MapsId
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
     @JoinColumn(name = "id", columnDefinition = "BINARY(16)")
     var userJpaEntity: UserJpaEntity,
 

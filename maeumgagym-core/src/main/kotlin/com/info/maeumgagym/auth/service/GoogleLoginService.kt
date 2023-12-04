@@ -23,8 +23,11 @@ class GoogleLoginService(
         val googleInfoResponse = getGoogleInfoPort.getGoogleInfo(accessToken)
 
         val user = findUserByOAuthIdPort.findUserByOAuthId(googleInfoResponse.sub)?.let {
-            if (it.isDeleted) throw AlreadyWithdrawalUserException
-            else return@let it
+            if (it.isDeleted) {
+                throw AlreadyWithdrawalUserException
+            } else {
+                return@let it
+            }
         } ?: saveUserPort.saveUser(
             User(
                 nickname = googleInfoResponse.name,

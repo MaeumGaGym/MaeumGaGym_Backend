@@ -29,8 +29,11 @@ class AppleLoginService(
         val sub = idToken.subject
 
         val user: User = findUserByOAuthIdPort.findUserByOAuthId(sub)?.let {
-            if (it.isDeleted) throw AlreadyWithdrawalUserException
-            else return@let it
+            if (it.isDeleted) {
+                throw AlreadyWithdrawalUserException
+            } else {
+                return@let it
+            }
         } ?: saveUserPort.saveUser(
             User(
                 nickname = idToken.get("name", String::class.java),
