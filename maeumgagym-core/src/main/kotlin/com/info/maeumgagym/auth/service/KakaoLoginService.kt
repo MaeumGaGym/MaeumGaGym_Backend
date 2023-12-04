@@ -24,6 +24,6 @@ class KakaoLoginService(
                 return@let it
             }
         } ?: throw UserNotFoundException
-        return generateJwtPort.generateToken(user.id)
+        return generateJwtPort.generateToken(user.id.toString())
     }
 }

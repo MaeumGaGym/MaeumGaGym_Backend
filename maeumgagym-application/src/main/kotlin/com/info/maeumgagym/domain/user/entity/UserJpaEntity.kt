@@ -17,7 +17,7 @@ class UserJpaEntity(
     nickname: String,
     oauthId: String,
     roles: MutableList<Role>,
-    profilePath: String?,
+    profileImage: String?,
     isDelete: Boolean = false
 ) : BaseUUIDEntity(id) {
 
@@ -38,7 +38,7 @@ class UserJpaEntity(
         protected set
 
     @Column(name = "profile_image", nullable = true)
-    var profileImage: String? = profilePath
+    var profileImage: String? = profileImage
         protected set
 
     fun updateNickname(nickname: String) {
