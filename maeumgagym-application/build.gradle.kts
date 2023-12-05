@@ -6,6 +6,10 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version PluginVersions.KLINT_VERSION
 }
 
+sourceSets["main"].withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {
+    kotlin.srcDir("$buildDir/generated/source/kapt/main")
+}
+
 dependencies {
     // impl project
     implementation(project(":maeumgagym-core"))
@@ -16,6 +20,9 @@ dependencies {
 
     // jpa
     implementation(Dependencies.SPRING_DATA_JPA)
+    implementation("com.querydsl:querydsl-jpa:${PluginVersions.QUERY_DSL}")
+    kapt("com.querydsl:querydsl-apt:${PluginVersions.QUERY_DSL}:jpa")
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
 }
 
 allOpen {
