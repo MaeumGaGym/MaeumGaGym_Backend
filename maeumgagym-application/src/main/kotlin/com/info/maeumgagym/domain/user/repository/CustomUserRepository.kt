@@ -1,4 +1,3 @@
 package com.info.maeumgagym.domain.user.repository
 
-interface CustomUserRepository {
-}
+interface CustomUserRepository
