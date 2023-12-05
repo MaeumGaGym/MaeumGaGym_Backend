@@ -9,8 +9,7 @@ class AppleAuthAdapter(
     private val appleClient: AppleClient,
     private val appleJwtParsePort: AppleJwtParsePort,
     private val generatePublicKeyPort: GeneratePublicKeyPort,
-    private val getJwtBodyPort: GetJwtBodyPort,
-    private val readApplePublicKey: ReadApplePublicKeyPort
+    private val getJwtBodyPort: GetJwtBodyPort
 ) : ReadApplePublicKeyPort, ParseAppleTokenPort {
 
     override fun readPublicKey() = appleClient.applePublicKeys()
@@ -19,7 +18,7 @@ class AppleAuthAdapter(
         token,
         generatePublicKeyPort.generatePublicKey(
             appleJwtParsePort.parseHeaders(token),
-            readApplePublicKey.readPublicKey()
+            readPublicKey()
         )
     )
 }
