@@ -31,11 +31,9 @@ class GoogleOAuthService(
     }
 
     override fun signup(accessToken: String, signupRequest: SignupRequest) {
-        if (existUserByNicknamePort.existByNickname(signupRequest.nickname))
-            throw DuplicatedNicknameException
+        if (existUserByNicknamePort.existByNickname(signupRequest.nickname)) throw DuplicatedNicknameException
         val googleInfoResponse = getGoogleInfoPort.getGoogleInfo(accessToken)
-        if (existUserByOAuthIdPort.existByOAuthId(googleInfoResponse.sub))
-            throw AlreadyExistUserException
+        if (existUserByOAuthIdPort.existByOAuthId(googleInfoResponse.sub)) throw AlreadyExistUserException
         saveUserPort.saveUser(
             User(
                 nickname = signupRequest.nickname,
