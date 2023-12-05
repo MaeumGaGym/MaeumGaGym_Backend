@@ -1,4 +1,6 @@
 plugins {
+    id("org.springframework.boot") version PluginVersions.SPRING_BOOT_VERSION
+    id("io.spring.dependency-management") version PluginVersions.DEPENDENCY_MANAGER_VERSION
     kotlin("plugin.allopen") version PluginVersions.ALLOPEN_VERSION
     id("org.jlleitschuh.gradle.ktlint") version PluginVersions.KLINT_VERSION
 }
@@ -8,6 +10,8 @@ dependencies {
 
     implementation(Dependencies.SPRING_TRANSACTION)
     implementation(Dependencies.JWT)
+
+    implementation(Dependencies.SPRING_VALIDATION)
 }
 
 allOpen {
