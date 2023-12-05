@@ -32,6 +32,7 @@ class SecurityConfig(
             .permitAll()
             .antMatchers(HttpMethod.POST, "/google/login").permitAll()
             .antMatchers(HttpMethod.POST, "/kakao/login").permitAll()
+            .antMatchers(HttpMethod.POST, "/kakao/signup").permitAll()
             .antMatchers(HttpMethod.POST, "/apple/login").permitAll()
             .anyRequest()
             .authenticated().and()
