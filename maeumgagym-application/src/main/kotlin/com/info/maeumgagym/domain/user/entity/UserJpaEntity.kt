@@ -5,11 +5,13 @@ import com.info.maeumgagym.domain.base.BaseUUIDEntity
 import com.info.maeumgagym.domain.user.converter.RoleConverter
 import com.info.maeumgagym.user.model.Role
 import org.hibernate.annotations.SQLDelete
+import org.hibernate.annotations.Where
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Convert
 import javax.persistence.Entity
 
+@Where(clause = "is_deleted = false")
 @SQLDelete(sql = "UPDATE ${TableNames.USER_TABLE} SET is_deleted = true WHERE id = ?")
 @Entity(name = TableNames.USER_TABLE)
 class UserJpaEntity(
