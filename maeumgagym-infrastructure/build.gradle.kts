@@ -21,6 +21,11 @@ dependencies {
     implementation(Dependencies.REDIS)
     implementation(Dependencies.LOGGER)
     implementation(Dependencies.SPRING_VALIDATION)
+
+    implementation(Dependencies.SPRING_DATA_JPA)
+    implementation("com.querydsl:querydsl-jpa:${PluginVersions.QUERY_DSL}")
+    kapt("com.querydsl:querydsl-apt:${PluginVersions.QUERY_DSL}:jpa")
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
 }
 
 // Declaring a publicly-available repository
