@@ -7,6 +7,7 @@ import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.*
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.transaction.annotation.Transactional
+import java.math.BigInteger
 import java.util.*
 
 @Transactional
@@ -36,7 +37,9 @@ class UserPersistenceAdapter(
         userRepository.delete(userJpaEntity)
     }
 
-    override fun existByNickname(nickName: String): Boolean = userRepository.existsByNickname(nickName)
+    override fun existByNickname(nickName: String): Boolean =
+        userRepository.existsByNickname(nickName) > BigInteger.ZERO
 
-    override fun existByOAuthId(oauthId: String): Boolean = userRepository.existsByOauthId(oauthId)
+    override fun existByOAuthId(oauthId: String): Boolean =
+        userRepository.existsByOauthId(oauthId) > BigInteger.ZERO
 }
