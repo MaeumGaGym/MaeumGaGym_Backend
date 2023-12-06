@@ -9,5 +9,6 @@ class DuplicatedCheckerService(
     private val existUserByNicknamePort: ExistUserByNicknamePort
 ) : DuplicatedNicknameCheckUseCase {
 
-    override fun existByNickname(nickname: String): Boolean = existUserByNicknamePort.existByNickname(nickname)
+    override fun existByNickname(nickname: String): Boolean =
+        existUserByNicknamePort.existByNickname(nickname)
 }

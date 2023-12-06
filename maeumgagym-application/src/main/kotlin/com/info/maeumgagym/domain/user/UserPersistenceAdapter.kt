@@ -36,7 +36,7 @@ class UserPersistenceAdapter(
         userRepository.delete(userJpaEntity)
     }
 
-    override fun existByNickname(nickName: String) = userRepository.existsByNickname(nickName)
+    override fun existByNickname(nickName: String): Boolean = userRepository.existsByNickname(nickName)
 
     override fun existByOAuthId(oauthId: String): Boolean = userRepository.existsByOauthId(oauthId)
 }
