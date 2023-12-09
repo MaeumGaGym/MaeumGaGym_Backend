@@ -18,6 +18,9 @@ interface UserRepository : JpaRepository<UserJpaEntity, UUID> {
     )
     fun existsByNickname(@Param("nickname") nickname: String): BigInteger
 
-    @Query(value = "SELECT COUNT(u.id) FROM ${TableNames.USER_TABLE} u WHERE u.oauth_id = :oauthId", nativeQuery = true)
+    @Query(
+        value = "SELECT COUNT(u.id) FROM ${TableNames.USER_TABLE} u WHERE u.oauth_id = :oauthId",
+        nativeQuery = true
+    )
     fun existsByOauthId(@Param("oauthId") oauthId: String): BigInteger
 }
