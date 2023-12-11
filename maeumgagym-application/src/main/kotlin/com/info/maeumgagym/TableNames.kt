@@ -9,4 +9,6 @@ object TableNames {
     const val DELETED_USER_TABLE = "${TABLE_PREFIX}deleted_user"
 
     const val POSE_TABLE = "${TABLE_PREFIX}pose"
+
+    const val ROUTINE_TABLE = "${TABLE_PREFIX}routine"
 }
