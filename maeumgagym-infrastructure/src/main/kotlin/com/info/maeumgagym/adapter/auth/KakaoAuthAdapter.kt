@@ -1,4 +1,4 @@
-package com.info.maeumgagym.auth.adapter
+package com.info.maeumgagym.adapter.auth
 
 import com.info.maeumgagym.auth.dto.response.KakaoInfoResponse
 import com.info.maeumgagym.auth.port.out.GetKakaoInfoPort

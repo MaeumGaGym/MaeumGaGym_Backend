@@ -1,6 +1,7 @@
 package com.info.maeumgagym.domain.pose.entity
 
 import com.info.maeumgagym.TableNames
+import com.info.maeumgagym.domain.base.BaseUUIDEntity
 import java.util.*
 import javax.persistence.*
 
@@ -17,13 +18,7 @@ class PoseJpaEntity(
     breatheWay: String?,
     caution: String?,
     id: UUID? = null
-) {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", columnDefinition = "BINARY(16)", nullable = false)
-    var id: UUID? = id
-        protected set
+): BaseUUIDEntity(id) {
 
     @Column(name = "simple_name", length = 30, nullable = false)
     var simpleName: String = simpleName // 간단한 이름

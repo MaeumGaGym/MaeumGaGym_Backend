@@ -1,7 +1,7 @@
 package com.info.maeumgagym.auth.controller
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.auth.controller.dto.request.KakaoSignupRequest
+import com.info.maeumgagym.auth.dto.request.KakaoSignupRequest
 import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.`in`.KakaoLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.KakaoSignupUseCase

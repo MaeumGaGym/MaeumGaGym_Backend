@@ -1,4 +1,4 @@
-package com.info.maeumgagym.auth.adapter
+package com.info.maeumgagym.adapter.auth
 
 import com.info.maeumgagym.auth.dto.response.GoogleInfoResponse
 import com.info.maeumgagym.auth.port.out.GetGoogleInfoPort

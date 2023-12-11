@@ -1,10 +1,8 @@
-package com.info.maeumgagym.pose
+package com.info.maeumgagym.pose.dto.response
 
 import java.util.*
 
-data class Pose(
-
-    val id: UUID?,
+data class PoseDetailResponse(
 
     val simpleName: String,
 
