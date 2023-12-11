@@ -1,11 +1,8 @@
 package com.info.maeumgagym.pose.model
 
 import com.info.maeumgagym.pose.dto.response.PoseDetailResponse
-import java.util.*
 
 data class Pose(
-
-    val id: UUID?,
 
     val simpleName: String,
 
@@ -25,7 +22,9 @@ data class Pose(
 
     val breatheWay: String?,
 
-    val caution: String?
+    val caution: String?,
+
+    val id: Long?
 ) {
     fun toDetailResponse() = PoseDetailResponse(
         simpleName,

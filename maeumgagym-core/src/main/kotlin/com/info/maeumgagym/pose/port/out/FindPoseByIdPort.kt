@@ -1,9 +1,8 @@
 package com.info.maeumgagym.pose.port.out
 
 import com.info.maeumgagym.pose.model.Pose
-import java.util.*
 
-interface FindPoseByUUIDPort {
+interface FindPoseByIdPort {
 
-    fun findById(id: UUID): Pose?
+    fun findById(id: Long): Pose?
 }
