@@ -7,4 +7,3 @@ data class RoutineStatus(
     var isArchived: Boolean,
     var isShared: Boolean
 )
-
