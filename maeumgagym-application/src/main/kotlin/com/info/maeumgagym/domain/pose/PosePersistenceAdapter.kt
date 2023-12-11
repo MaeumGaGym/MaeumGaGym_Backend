@@ -14,7 +14,7 @@ import java.util.*
 class PosePersistenceAdapter(
     private val poseRepository: PoseRepository,
     private val poseMapper: PoseMapper
-): FindPoseByUUIDPort {
+) : FindPoseByUUIDPort {
 
     override fun findById(id: UUID): Pose? = poseRepository.findByIdOrNull(id)?.let { poseMapper.toDomain(it) }
 }

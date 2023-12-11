@@ -18,7 +18,7 @@ class PoseJpaEntity(
     breatheWay: String?,
     caution: String?,
     id: UUID? = null
-): BaseUUIDEntity(id) {
+) : BaseUUIDEntity(id) {
 
     @Column(name = "simple_name", length = 30, nullable = false)
     var simpleName: String = simpleName // 간단한 이름

@@ -10,7 +10,7 @@ import java.util.UUID
 @UseCase
 class ReadPoseService(
     private val findPoseByUUIDPort: FindPoseByUUIDPort
-): ReadByIdUseCase {
+) : ReadByIdUseCase {
 
     override fun poseDetailResponseById(id: UUID): PoseDetailResponse = findPoseByUUIDPort.findById(id)
         ?.toDetailResponse() ?: throw PoseNotFoundException
