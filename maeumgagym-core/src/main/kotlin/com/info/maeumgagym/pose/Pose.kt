@@ -2,7 +2,7 @@ package com.info.maeumgagym.pose
 
 import java.util.*
 
-data class Pose (
+data class Pose(
 
     val id: UUID?,
 

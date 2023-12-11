@@ -23,7 +23,8 @@ class PoseJpaEntity(
     id: UUID? = null
 ) {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", columnDefinition = "BINARY(16)", nullable = false)
     var id: UUID? = id
         protected set
