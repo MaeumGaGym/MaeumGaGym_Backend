@@ -22,7 +22,7 @@ data class Pose(
 
     val exerciseWay: String,
 
-    val breatheWay: String,
+    val breatheWay: String?,
 
     val caution: String
 )
