@@ -14,13 +14,7 @@ class RoutineMapper {
         RoutineJpaEntity(
             id = id,
             routineName = routineName,
-            exerciseInfoList = exerciseInfoModelList.map {
-                ExerciseInfo(
-                    exerciseName = it.exerciseName,
-                    repetitions = it.repetitions,
-                    sets = it.sets
-                )
-            }.toMutableList(),
+            exerciseInfoList = toExerciseInfoList(exerciseInfoModelList),
             dayOfWeeks = dayOfWeeks,
             routineStatus = RoutineStatus(
                 isArchived = routineStatusModel.isArchived,
@@ -33,13 +27,7 @@ class RoutineMapper {
         Routine(
             id = id,
             routineName = routineName,
-            exerciseInfoModelList = exerciseInfoList.map {
-                ExerciseInfoModel(
-                    exerciseName = it.exerciseName,
-                    repetitions = it.repetitions,
-                    sets = it.sets
-                )
-            }.toMutableList(),
+            exerciseInfoModelList = toExerciseInfoModelList(exerciseInfoList),
             dayOfWeeks = dayOfWeeks,
             routineStatusModel = RoutineStatusModel(
                 isArchived = routineStatus.isArchived,
@@ -47,4 +35,22 @@ class RoutineMapper {
             )
         )
     }
+
+    private fun toExerciseInfoList(exerciseInfoList: MutableList<ExerciseInfoModel>) =
+        exerciseInfoList.map {
+            ExerciseInfo(
+                exerciseName = it.exerciseName,
+                repetitions = it.repetitions,
+                sets = it.sets
+            )
+        }.toMutableList()
+
+    private fun toExerciseInfoModelList(exerciseInfoList: MutableList<ExerciseInfo>) =
+        exerciseInfoList.map {
+            ExerciseInfoModel(
+                exerciseName = it.exerciseName,
+                repetitions = it.repetitions,
+                sets = it.sets
+            )
+        }.toMutableList()
 }
