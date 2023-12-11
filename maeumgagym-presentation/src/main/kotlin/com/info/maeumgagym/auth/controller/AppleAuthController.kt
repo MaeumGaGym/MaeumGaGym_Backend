@@ -1,18 +1,14 @@
 package com.info.maeumgagym.auth.controller
 
+import com.info.common.WebAdapter
 import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.`in`.AppleLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.AppleRecoveryUseCase
 import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.PatchMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.ResponseStatus
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
-@RestController
 @RequestMapping("/apple")
+@WebAdapter
 class AppleAuthController(
     private val appleLoginUseCase: AppleLoginUseCase,
     private val appleRecoveryUseCase: AppleRecoveryUseCase

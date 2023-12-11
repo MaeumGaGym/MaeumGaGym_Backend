@@ -13,10 +13,11 @@ import com.info.maeumgagym.global.security.principle.CustomUserDetails
 import io.jsonwebtoken.*
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
+import org.springframework.stereotype.Component
 import java.security.PublicKey
 import java.util.*
 
-@WebAdapter
+@Component
 class JwtAdapter(
     private val jwtProperties: JwtProperties,
     private val customUserDetailService: CustomUserDetailService
