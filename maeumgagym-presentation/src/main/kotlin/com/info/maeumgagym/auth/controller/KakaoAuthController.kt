@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank
 
 @Validated
 @RequestMapping("/kakao")
+@RestController
 @WebAdapter
 class KakaoAuthController(
     private val kakaoLoginUseCase: KakaoLoginUseCase,
@@ -20,6 +21,7 @@ class KakaoAuthController(
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
     fun login(@RequestParam("access_token", required = true) @NotBlank accessToken: String?): TokenResponse {
+        println(accessToken)
         return kakaoLoginUseCase.login(accessToken!!)
     }
 
