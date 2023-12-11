@@ -1,5 +1,6 @@
 package com.info.maeumgagym.domain.pose.entity
 
+import com.info.maeumgagym.TableNames
 import java.util.UUID
 import javax.persistence.Column
 import javax.persistence.ElementCollection
@@ -8,7 +9,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 
-@Entity(name = "pose")
+@Entity(name = TableNames.POSE_TABLE)
 class PoseJpaEntity(
     name: String,
     exactName: String,
