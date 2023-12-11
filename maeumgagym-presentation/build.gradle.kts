@@ -8,6 +8,7 @@ plugins {
 dependencies {
     // impl project
     implementation(project(":maeumgagym-core"))
+    implementation(project(":maeumgagym-common"))
 
     // web
     implementation(Dependencies.SPRING_WEB)

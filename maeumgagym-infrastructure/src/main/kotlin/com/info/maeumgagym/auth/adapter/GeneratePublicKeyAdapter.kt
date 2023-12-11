@@ -1,16 +1,16 @@
 package com.info.maeumgagym.auth.adapter
 
-import com.info.common.WebAdapter
 import com.info.maeumgagym.auth.dto.response.ApplePublicKey
 import com.info.maeumgagym.auth.dto.response.ApplePublicKeys
 import com.info.maeumgagym.auth.port.out.GeneratePublicKeyPort
 import com.info.maeumgagym.global.exception.InvalidTokenException
+import org.springframework.stereotype.Component
 import java.security.KeyFactory
 import java.security.NoSuchAlgorithmException
 import java.security.PublicKey
 import java.security.spec.InvalidKeySpecException
 
-@WebAdapter
+@Component
 class GeneratePublicKeyAdapter : GeneratePublicKeyPort {
 
     private companion object {

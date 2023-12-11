@@ -1,5 +1,6 @@
 package com.info.maeumgagym.auth.controller
 
+import com.info.common.WebAdapter
 import com.info.maeumgagym.auth.dto.request.ReissueRequest
 import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.`in`.DuplicatedNicknameCheckUseCase
@@ -8,7 +9,7 @@ import com.info.maeumgagym.auth.port.`in`.WithdrawalUserUseCase
 import org.springframework.web.bind.annotation.*
 
 @RequestMapping("/auth")
-@RestController
+@WebAdapter
 class AuthController(
     private val withdrawalUserUseCase: WithdrawalUserUseCase,
     private val duplicatedNicknameCheckUseCase: DuplicatedNicknameCheckUseCase,
