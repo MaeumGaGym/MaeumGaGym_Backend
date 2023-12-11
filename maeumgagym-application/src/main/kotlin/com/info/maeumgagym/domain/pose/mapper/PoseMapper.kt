@@ -1,7 +1,7 @@
 package com.info.maeumgagym.domain.pose.mapper
 
 import com.info.maeumgagym.domain.pose.entity.PoseJpaEntity
-import com.info.maeumgagym.pose.Pose
+import com.info.maeumgagym.pose.model.Pose
 import org.springframework.stereotype.Component
 
 @Component
