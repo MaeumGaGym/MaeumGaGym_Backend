@@ -1,11 +1,11 @@
 package com.info.maeumgagym.auth.adapter
 
-import com.info.common.WebAdapter
 import com.info.maeumgagym.auth.dto.response.KakaoInfoResponse
 import com.info.maeumgagym.auth.port.out.GetKakaoInfoPort
 import com.info.maeumgagym.feign.oauth.kakao.KakaoInfoClient
+import org.springframework.stereotype.Component
 
-@WebAdapter
+@Component
 class KakaoAuthAdapter(
     private val kakaoInfoClient: KakaoInfoClient
 ) : GetKakaoInfoPort {
