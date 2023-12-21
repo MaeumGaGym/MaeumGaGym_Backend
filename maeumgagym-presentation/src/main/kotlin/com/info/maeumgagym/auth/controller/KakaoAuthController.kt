@@ -19,17 +19,15 @@ class KakaoAuthController(
 ) {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
-    fun login(@RequestParam("access_token", required = true) @NotBlank accessToken: String?): TokenResponse {
-        return kakaoLoginUseCase.login(accessToken!!)
-    }
+    fun login(@RequestParam("access_token", required = true) @NotBlank accessToken: String?): TokenResponse =
+        kakaoLoginUseCase.login(accessToken!!)
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/signup")
     fun signup(
         @RequestParam("access_token", required = true) @NotBlank accessToken: String?,
         @RequestBody kakaoSignupRequest: KakaoSignupRequest
-    ) = kakaoSignupUseCase.signup(
-        accessToken!!,
-        kakaoSignupRequest.nickname
-    )
+    ) {
+        kakaoSignupUseCase.signup(accessToken!!, kakaoSignupRequest.nickname)
+    }
 }

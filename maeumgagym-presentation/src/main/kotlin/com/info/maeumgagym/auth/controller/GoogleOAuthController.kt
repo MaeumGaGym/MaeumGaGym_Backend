@@ -2,13 +2,12 @@ package com.info.maeumgagym.auth.controller
 
 import com.info.common.WebAdapter
 import com.info.maeumgagym.auth.dto.request.SignupRequest
+import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.`in`.GoogleLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.GoogleSignupUseCase
+import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.*
 import javax.validation.constraints.NotBlank
 
 @Validated
@@ -20,10 +19,10 @@ class GoogleOAuthController(
 ) {
 
     @PostMapping("/login")
-    fun login(@RequestParam("access_token", required = true) @NotBlank accessToken: String?) {
+    fun login(@RequestParam("access_token", required = true) @NotBlank accessToken: String?): TokenResponse =
         googleLoginUseCase.login(accessToken!!)
-    }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/signup")
     fun signup(
         @RequestParam("access_token", required = true) @NotBlank accessToken: String?,
