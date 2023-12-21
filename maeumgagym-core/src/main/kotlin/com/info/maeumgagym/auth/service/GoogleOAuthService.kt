@@ -26,7 +26,7 @@ class GoogleOAuthService(
 
     override fun login(accessToken: String): TokenResponse {
         val googleInfoResponse = getGoogleInfoPort.getGoogleInfo(accessToken)
-        if (existUserByOAuthIdPort.existByOAuthId(googleInfoResponse.sub)) throw UserNotFoundException
+        if (!existUserByOAuthIdPort.existByOAuthId(googleInfoResponse.sub)) throw UserNotFoundException
         return generateTokenService.execute(googleInfoResponse.sub)
     }
 

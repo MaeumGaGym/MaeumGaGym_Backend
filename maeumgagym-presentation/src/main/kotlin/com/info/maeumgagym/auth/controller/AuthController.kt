@@ -16,14 +16,15 @@ class AuthController(
     private val reissueUseCase: ReissueUseCase
 ) {
     @DeleteMapping
-    fun withdrawal() = withdrawalUserUseCase.withdrawal()
+    fun userWithdrawal() {
+        withdrawalUserUseCase.withdrawal()
+    }
 
     @GetMapping
-    fun duplicatedNicknameCheck(
-        @RequestParam("nickname", required = true)
-        nickname: String
-    ) = duplicatedNicknameCheckUseCase.existByNickname(nickname)
+    fun duplicatedNicknameCheck(@RequestParam("nickname", required = true) nickname: String): Boolean =
+        duplicatedNicknameCheckUseCase.existByNickname(nickname)
 
     @PostMapping("/reissue")
-    fun reissue(@RequestBody request: ReissueRequest): TokenResponse = reissueUseCase.reissue(request)
+    fun reissue(@RequestBody request: ReissueRequest): TokenResponse =
+        reissueUseCase.reissue(request)
 }
