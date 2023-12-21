@@ -24,7 +24,6 @@ class PoseMapper {
 
     fun toDomain(poseJpaEntity: PoseJpaEntity): Pose = poseJpaEntity.run {
         Pose(
-            id,
             simpleName,
             exactName,
             thumbnail,
@@ -34,7 +33,8 @@ class PoseMapper {
             startPose,
             exerciseWay,
             breatheWay,
-            caution
+            caution,
+            id
         )
     }
 }

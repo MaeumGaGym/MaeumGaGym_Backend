@@ -1,8 +1,7 @@
 package com.info.maeumgagym.domain.pose.entity
 
 import com.info.maeumgagym.TableNames
-import com.info.maeumgagym.domain.base.BaseUUIDEntity
-import java.util.*
+import com.info.maeumgagym.domain.base.BaseTimeEntity
 import javax.persistence.*
 
 @Entity(name = TableNames.POSE_TABLE)
@@ -17,8 +16,8 @@ class PoseJpaEntity(
     exerciseWay: String,
     breatheWay: String?,
     caution: String?,
-    id: UUID? = null
-) : BaseUUIDEntity(id) {
+    id: Long? = null
+) : BaseTimeEntity() {
 
     @Column(name = "simple_name", length = 30, nullable = false)
     var simpleName: String = simpleName // 간단한 이름
@@ -59,4 +58,9 @@ class PoseJpaEntity(
     @Column(name = "caution", nullable = false)
     var caution: String? = caution // 주의사항
         protected set
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    val id: Long? = id
 }
