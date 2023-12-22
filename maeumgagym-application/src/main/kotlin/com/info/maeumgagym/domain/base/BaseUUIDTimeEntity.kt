@@ -6,7 +6,9 @@ import java.util.*
 import javax.persistence.Column
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.MappedSuperclass
 
+@MappedSuperclass
 abstract class BaseUUIDTimeEntity(
     id: UUID?,
     createdAt: LocalDateTime?

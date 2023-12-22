@@ -6,7 +6,7 @@ import javax.persistence.*
 @MappedSuperclass
 abstract class BaseLongIdTimeEntity(
     id: Long?,
-    createdAt: LocalDateTime?,
+    createdAt: LocalDateTime?
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
