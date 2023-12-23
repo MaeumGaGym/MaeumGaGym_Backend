@@ -12,7 +12,6 @@ import javax.validation.constraints.NotBlank
 
 @Validated
 @RequestMapping("/kakao")
-@RestController
 @WebAdapter
 class KakaoAuthController(
     private val kakaoLoginUseCase: KakaoLoginUseCase,
