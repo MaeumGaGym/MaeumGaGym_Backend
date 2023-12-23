@@ -1,10 +1,10 @@
-package com.info.maeumgagym.domain.pickle.converter
+package com.info.maeumgagym.converter
 
 import javax.persistence.AttributeConverter
 import javax.persistence.Converter
 
 @Converter
-class PickleTagConverter : AttributeConverter<MutableList<String>, String> {
+class StringAttributeConverter : AttributeConverter<MutableList<String>, String> {
 
     private companion object {
         const val SPLIT_CHAR = ","
