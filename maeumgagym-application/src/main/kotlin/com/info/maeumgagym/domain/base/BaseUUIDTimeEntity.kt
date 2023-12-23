@@ -1,14 +1,18 @@
 package com.info.maeumgagym.domain.base
 
 import org.hibernate.annotations.GenericGenerator
-import java.util.UUID
+import java.time.LocalDateTime
+import java.util.*
 import javax.persistence.Column
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.MappedSuperclass
 
 @MappedSuperclass
-abstract class BaseEntity(
+abstract class BaseUUIDTimeEntity(
+    id: UUID?,
+    createdAt: LocalDateTime?
+) : BaseTimeEntity(createdAt) {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -16,5 +20,5 @@ abstract class BaseEntity(
         columnDefinition = "BINARY(16)",
         nullable = false
     )
-    val id: UUID?
-) : BaseTimeEntity()
+    val id: UUID? = id
+}
