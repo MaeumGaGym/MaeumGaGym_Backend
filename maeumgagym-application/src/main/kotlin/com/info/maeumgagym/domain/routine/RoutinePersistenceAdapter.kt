@@ -1,8 +1,8 @@
-package com.info.maeumgagym.domain.routin
+package com.info.maeumgagym.domain.routine
 
 import com.info.common.PersistenceAdapter
-import com.info.maeumgagym.domain.routin.mapper.RoutineMapper
-import com.info.maeumgagym.domain.routin.repository.RoutineRepository
+import com.info.maeumgagym.domain.routine.mapper.RoutineMapper
+import com.info.maeumgagym.domain.routine.repository.RoutineRepository
 import com.info.maeumgagym.routine.model.Routine
 import com.info.maeumgagym.routine.port.out.SaveRoutinePort
 import org.springframework.transaction.annotation.Transactional

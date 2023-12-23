@@ -1,6 +1,6 @@
-package com.info.maeumgagym.domain.routin.repository
+package com.info.maeumgagym.domain.routine.repository
 
-import com.info.maeumgagym.domain.routin.entity.RoutineJpaEntity
+import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.UUID
 

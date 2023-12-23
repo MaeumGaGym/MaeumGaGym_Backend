@@ -1,4 +1,4 @@
-package com.info.maeumgagym.domain.routin.entity
+package com.info.maeumgagym.domain.routine.entity
 
 import com.info.maeumgagym.TableNames
 import com.info.maeumgagym.domain.base.BaseEntity
