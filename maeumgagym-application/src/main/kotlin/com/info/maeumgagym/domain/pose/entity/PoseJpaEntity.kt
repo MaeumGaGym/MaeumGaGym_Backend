@@ -1,9 +1,10 @@
 package com.info.maeumgagym.domain.pose.entity
 
 import com.info.maeumgagym.TableNames
-import com.info.maeumgagym.domain.base.BaseLongIdTimeEntity
-import java.time.LocalDateTime
-import javax.persistence.*
+import com.info.maeumgagym.domain.base.BaseLongIdEntity
+import javax.persistence.Column
+import javax.persistence.ElementCollection
+import javax.persistence.Entity
 
 @Entity(name = TableNames.POSE_TABLE)
 class PoseJpaEntity(
@@ -17,9 +18,8 @@ class PoseJpaEntity(
     exerciseWay: String,
     breatheWay: String?,
     caution: String?,
-    createdAt: LocalDateTime? = null,
     id: Long? = null
-) : BaseLongIdTimeEntity(id, createdAt) {
+) : BaseLongIdEntity(id) {
 
     @Column(name = "simple_name", length = 30, nullable = false)
     var simpleName: String = simpleName // 간단한 이름
