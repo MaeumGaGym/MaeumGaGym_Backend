@@ -21,6 +21,7 @@ enum class ErrorCode(
 
     // Not Found
     USER_NOT_FOUND(404, "User Not Found"),
+    POSE_NOT_FOUND(404, "Pose Not Found"),
 
     // Bad Request
     ALREADY_WITHDRAWAL_USER(400, "Already Withdrawal User"),

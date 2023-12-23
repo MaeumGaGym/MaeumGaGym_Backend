@@ -1,7 +1,7 @@
 package com.info.maeumgagym.auth.controller
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.auth.controller.dto.request.KakaoSignupRequest
+import com.info.maeumgagym.auth.dto.request.KakaoSignupRequest
 import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.`in`.KakaoLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.KakaoSignupUseCase
@@ -20,18 +20,15 @@ class KakaoAuthController(
 ) {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
-    fun login(@RequestParam("access_token", required = true) @NotBlank accessToken: String?): TokenResponse {
-        println(accessToken)
-        return kakaoLoginUseCase.login(accessToken!!)
-    }
+    fun login(@RequestParam("access_token", required = true) @NotBlank accessToken: String?): TokenResponse =
+        kakaoLoginUseCase.login(accessToken!!)
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/signup")
     fun signup(
         @RequestParam("access_token", required = true) @NotBlank accessToken: String?,
         @RequestBody kakaoSignupRequest: KakaoSignupRequest
-    ) = kakaoSignupUseCase.signup(
-        accessToken!!,
-        kakaoSignupRequest.nickname
-    )
+    ) {
+        kakaoSignupUseCase.signup(accessToken!!, kakaoSignupRequest.nickname)
+    }
 }

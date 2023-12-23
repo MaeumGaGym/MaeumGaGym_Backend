@@ -1,4 +1,4 @@
-package com.info.maeumgagym.auth.adapter
+package com.info.maeumgagym.adapter.auth
 
 import com.info.maeumgagym.auth.port.out.*
 import com.info.maeumgagym.feign.oauth.apple.AppleClient

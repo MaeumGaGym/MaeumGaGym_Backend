@@ -1,19 +1,19 @@
 package com.info.maeumgagym.domain.pose.mapper
 
 import com.info.maeumgagym.domain.pose.entity.PoseJpaEntity
-import com.info.maeumgagym.pose.Pose
+import com.info.maeumgagym.pose.model.Pose
 import org.springframework.stereotype.Component
 
 @Component
 class PoseMapper {
     fun toEntity(pose: Pose): PoseJpaEntity = pose.run {
         PoseJpaEntity(
-            name,
+            simpleName,
             exactName,
             thumbnail,
             poseImages,
+            simplePart,
             exactPart,
-            easyPart,
             startPose,
             exerciseWay,
             breatheWay,
@@ -24,17 +24,17 @@ class PoseMapper {
 
     fun toDomain(poseJpaEntity: PoseJpaEntity): Pose = poseJpaEntity.run {
         Pose(
-            id,
-            name,
+            simpleName,
             exactName,
             thumbnail,
             poseImages,
+            simplePart,
             exactPart,
-            easyPart,
             startPose,
             exerciseWay,
             breatheWay,
-            caution
+            caution,
+            id
         )
     }
 }

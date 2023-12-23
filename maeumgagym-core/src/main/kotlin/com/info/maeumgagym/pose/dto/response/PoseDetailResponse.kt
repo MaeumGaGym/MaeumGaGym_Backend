@@ -1,12 +1,10 @@
-package com.info.maeumgagym.pose
+package com.info.maeumgagym.pose.dto.response
 
 import java.util.*
 
-data class Pose(
+data class PoseDetailResponse(
 
-    val id: UUID?,
-
-    val name: String,
+    val simpleName: String,
 
     val exactName: String,
 
@@ -14,9 +12,9 @@ data class Pose(
 
     val poseImages: MutableList<String>,
 
-    val exactPart: String,
+    val simplePart: String,
 
-    val easyPart: String,
+    val exactPart: String,
 
     val startPose: String,
 
@@ -24,5 +22,5 @@ data class Pose(
 
     val breatheWay: String?,
 
-    val caution: String
+    val caution: String?
 )
