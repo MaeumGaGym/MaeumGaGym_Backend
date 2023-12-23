@@ -1,18 +1,17 @@
 package com.info.maeumgagym.global.security.principle
 
 import com.info.maeumgagym.domain.user.exception.UserNotFoundException
-import com.info.maeumgagym.user.port.out.FindUserByUUIDPort
+import com.info.maeumgagym.user.port.out.FindUserByOAuthIdPort
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Component
-import java.util.*
 
 @Component
 class CustomUserDetailService(
-    val findUserByUUIDPort: FindUserByUUIDPort
+    val findUserByOAuthIdPort: FindUserByOAuthIdPort
 ) : UserDetailsService {
     override fun loadUserByUsername(username: String?): UserDetails {
-        val user = findUserByUUIDPort.findUserById(UUID.fromString(username)) ?: throw UserNotFoundException
+        val user = findUserByOAuthIdPort.findUserByOAuthId(username!!) ?: throw UserNotFoundException
         return CustomUserDetails(user)
     }
 }
