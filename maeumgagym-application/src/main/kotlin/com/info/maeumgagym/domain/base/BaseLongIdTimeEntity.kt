@@ -7,12 +7,9 @@ import javax.persistence.*
 abstract class BaseLongIdTimeEntity(
     id: Long?,
     createdAt: LocalDateTime?
-) {
+) : BaseTimeEntity(createdAt) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false, updatable = false)
     val id: Long? = id
-
-    @Column(nullable = false, updatable = false, columnDefinition = "DATETIME(6)")
-    val createdAt: LocalDateTime = createdAt ?: LocalDateTime.now()
 }

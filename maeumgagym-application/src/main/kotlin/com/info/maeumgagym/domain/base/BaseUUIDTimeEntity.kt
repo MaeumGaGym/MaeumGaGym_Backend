@@ -12,7 +12,7 @@ import javax.persistence.MappedSuperclass
 abstract class BaseUUIDTimeEntity(
     id: UUID?,
     createdAt: LocalDateTime?
-) {
+) : BaseTimeEntity(createdAt) {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -21,7 +21,4 @@ abstract class BaseUUIDTimeEntity(
         nullable = false
     )
     val id: UUID? = id
-
-    @Column(nullable = false, updatable = false, columnDefinition = "DATETIME(6)")
-    val createdAt: LocalDateTime = createdAt ?: LocalDateTime.now()
 }
