@@ -1,8 +1,8 @@
-package com.info.maeumgagym.domain.routine.mapper
+package com.info.maeumgagym.domain.routin.mapper
 
-import com.info.maeumgagym.domain.routine.entity.ExerciseInfo
-import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
-import com.info.maeumgagym.domain.routine.entity.RoutineStatus
+import com.info.maeumgagym.domain.routin.entity.ExerciseInfo
+import com.info.maeumgagym.domain.routin.entity.RoutineJpaEntity
+import com.info.maeumgagym.domain.routin.entity.RoutineStatus
 import com.info.maeumgagym.routine.model.ExerciseInfoModel
 import com.info.maeumgagym.routine.model.Routine
 import com.info.maeumgagym.routine.model.RoutineStatusModel
