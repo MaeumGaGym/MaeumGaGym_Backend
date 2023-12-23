@@ -15,12 +15,12 @@ import javax.persistence.Entity
 @SQLDelete(sql = "UPDATE ${TableNames.USER_TABLE} SET is_deleted = true WHERE id = ?")
 @Entity(name = TableNames.USER_TABLE)
 class UserJpaEntity(
-    id: UUID?,
     nickname: String,
     oauthId: String,
     roles: MutableList<Role>,
     profileImage: String?,
-    isDelete: Boolean = false
+    isDelete: Boolean = false,
+    id: UUID? = null
 ) : BaseUUIDEntity(id) {
 
     @Column(name = "nickname", nullable = false, length = 10, unique = true)

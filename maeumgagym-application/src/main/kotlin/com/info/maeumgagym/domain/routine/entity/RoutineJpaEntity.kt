@@ -1,19 +1,21 @@
 package com.info.maeumgagym.domain.routine.entity
 
 import com.info.maeumgagym.TableNames
-import com.info.maeumgagym.domain.base.BaseEntity
+import com.info.maeumgagym.domain.base.BaseUUIDTimeEntity
 import java.time.DayOfWeek
+import java.time.LocalDateTime
 import java.util.*
 import javax.persistence.*
 
 @Entity(name = TableNames.ROUTINE_TABLE)
 class RoutineJpaEntity(
-    id: UUID?,
     routineName: String,
     exerciseInfoList: MutableList<ExerciseInfo>,
     dayOfWeeks: MutableSet<DayOfWeek>?,
-    routineStatus: RoutineStatus
-) : BaseEntity(id) {
+    routineStatus: RoutineStatus,
+    createdAt: LocalDateTime? = null,
+    id: UUID? = null
+) : BaseUUIDTimeEntity(id, createdAt) {
     @Column(name = "routine_name", nullable = false)
     var routineName: String = routineName
         protected set
