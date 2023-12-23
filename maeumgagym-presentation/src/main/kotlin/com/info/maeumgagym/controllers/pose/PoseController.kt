@@ -1,4 +1,4 @@
-package com.info.maeumgagym.pose.controller
+package com.info.maeumgagym.controllers.pose
 
 import com.info.common.WebAdapter
 import com.info.maeumgagym.pose.dto.response.PoseDetailResponse

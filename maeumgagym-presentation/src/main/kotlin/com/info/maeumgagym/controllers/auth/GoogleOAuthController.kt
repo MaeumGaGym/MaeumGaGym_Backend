@@ -1,33 +1,33 @@
-package com.info.maeumgagym.auth.controller
+package com.info.maeumgagym.controllers.auth
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.auth.dto.request.KakaoSignupRequest
+import com.info.maeumgagym.auth.dto.request.SignupRequest
 import com.info.maeumgagym.auth.dto.response.TokenResponse
-import com.info.maeumgagym.auth.port.`in`.KakaoLoginUseCase
-import com.info.maeumgagym.auth.port.`in`.KakaoSignupUseCase
+import com.info.maeumgagym.auth.port.`in`.GoogleLoginUseCase
+import com.info.maeumgagym.auth.port.`in`.GoogleSignupUseCase
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import javax.validation.constraints.NotBlank
 
 @Validated
-@RequestMapping("/kakao")
+@RequestMapping("/google")
 @WebAdapter
-class KakaoAuthController(
-    private val kakaoLoginUseCase: KakaoLoginUseCase,
-    private val kakaoSignupUseCase: KakaoSignupUseCase
+class GoogleOAuthController(
+    private val googleLoginUseCase: GoogleLoginUseCase,
+    private val googleSignupUseCase: GoogleSignupUseCase
 ) {
-    @ResponseStatus(HttpStatus.OK)
+
     @PostMapping("/login")
     fun login(@RequestParam("access_token", required = true) @NotBlank accessToken: String?): TokenResponse =
-        kakaoLoginUseCase.login(accessToken!!)
+        googleLoginUseCase.login(accessToken!!)
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/signup")
     fun signup(
         @RequestParam("access_token", required = true) @NotBlank accessToken: String?,
-        @RequestBody kakaoSignupRequest: KakaoSignupRequest
+        @RequestBody signupRequest: SignupRequest
     ) {
-        kakaoSignupUseCase.signup(accessToken!!, kakaoSignupRequest.nickname)
+        googleSignupUseCase.signup(accessToken!!, signupRequest)
     }
 }
