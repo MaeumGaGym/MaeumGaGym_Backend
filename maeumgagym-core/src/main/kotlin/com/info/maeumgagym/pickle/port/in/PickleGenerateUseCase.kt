@@ -4,5 +4,5 @@ import com.info.maeumgagym.pickle.dto.request.PicklePostRequest
 
 interface PickleGenerateUseCase {
 
-    fun execute(req: PicklePostRequest)
+    fun pickleUpload(req: PicklePostRequest)
 }

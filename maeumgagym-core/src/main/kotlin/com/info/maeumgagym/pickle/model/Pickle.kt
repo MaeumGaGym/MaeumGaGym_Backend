@@ -22,5 +22,5 @@ data class Pickle(
 
     val isDeleted: Boolean = false,
 
-    val id: UUID? = null
+    val id: Long? = null
 )

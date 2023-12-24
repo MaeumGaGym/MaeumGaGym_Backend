@@ -8,5 +8,5 @@ import java.util.UUID
 @Repository
 interface PickleLikeRepository : JpaRepository<PickleLikeJpaEntity, PickleLikeJpaEntity.IdClass> {
 
-    fun findAllByPickleId(id: UUID): MutableList<PickleLikeJpaEntity>
+    fun findAllByPickleId(id: Long): MutableList<PickleLikeJpaEntity>
 }

@@ -2,12 +2,11 @@ package com.info.maeumgagym.domain.pickle.entity
 
 import com.info.maeumgagym.TableNames
 import com.info.maeumgagym.converter.StringAttributeConverter
-import com.info.maeumgagym.domain.base.BaseUUIDTimeEntity
+import com.info.maeumgagym.domain.base.BaseLongIdTimeEntity
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
 import java.time.LocalDateTime
-import java.util.UUID
 import javax.persistence.*
 
 @Where(clause = "is_deleted = false")
@@ -17,12 +16,12 @@ class PickleJpaEntity(
     description: String? = null,
     title: String,
     uploader: UserJpaEntity,
-    link: String,
+    videoUrl: String,
     tags: MutableSet<String> = mutableSetOf(),
     likes: MutableList<PickleLikeJpaEntity> = mutableListOf(),
     createdAt: LocalDateTime,
-    id: UUID? = null
-) : BaseUUIDTimeEntity(id, createdAt) {
+    id: Long? = null
+) : BaseLongIdTimeEntity(id, createdAt) {
 
     @Column(name = "title", nullable = false)
     var title: String = title
@@ -37,8 +36,8 @@ class PickleJpaEntity(
     var uploader: UserJpaEntity = uploader
         protected set
 
-    @Column(name = "link", columnDefinition = "CHAR(52)", nullable = false)
-    var link: String = link
+    @Column(name = "video_url", columnDefinition = "CHAR(52)", nullable = false)
+    var videoUrl: String = videoUrl
         protected set
 
     @Convert(converter = StringAttributeConverter::class)

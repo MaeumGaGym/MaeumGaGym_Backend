@@ -1,8 +1,7 @@
-package com.info.maeumgagym.controllers.auth.dto.request
+package com.info.maeumgagym.controller.auth.dto.request
 
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
-import kotlin.math.min
 
 data class KakaoSignupRequest(
     @field:NotBlank(message = "nickname은 null, 공백, 띄어쓰기를 허용하지 않습니다.")

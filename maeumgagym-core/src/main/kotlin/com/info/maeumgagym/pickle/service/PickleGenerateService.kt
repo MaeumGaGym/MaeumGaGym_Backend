@@ -14,7 +14,7 @@ class PickleGenerateService(
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : PickleGenerateUseCase {
 
-    override fun execute(req: PicklePostRequest) {
+    override fun pickleUpload(req: PicklePostRequest) {
         val user = readCurrentUserPort.readCurrentUser()
 
         savePicklePort.savePickle(

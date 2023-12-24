@@ -36,5 +36,5 @@ class PickleMapper(
         pickle.id
     )
 
-    private fun toLikesEntity(pickleId: UUID) = pickleLikeRepository.findAllByPickleId(pickleId)
+    private fun toLikesEntity(pickleId: Long) = pickleLikeRepository.findAllByPickleId(pickleId)
 }

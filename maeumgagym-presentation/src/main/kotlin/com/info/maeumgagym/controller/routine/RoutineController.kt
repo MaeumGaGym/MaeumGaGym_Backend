@@ -1,4 +1,4 @@
-package com.info.maeumgagym.controllers.routine
+package com.info.maeumgagym.controller.routine
 
 import com.info.common.WebAdapter
 import com.info.maeumgagym.routine.dto.request.CreateRoutineRequest

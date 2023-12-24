@@ -1,4 +1,4 @@
-package com.info.maeumgagym.controllers.pickle
+package com.info.maeumgagym.controller.pickle
 
 import com.info.common.WebAdapter
 import com.info.maeumgagym.pickle.dto.request.PicklePostRequest
@@ -13,17 +13,17 @@ import javax.validation.Valid
 
 @Validated
 @WebAdapter
-@RequestMapping("/pickles")
+@RequestMapping("/pickle")
 class PickleController(
     private val pickleGenerateUseCase: PickleGenerateUseCase
 ) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun post(
+    fun pickleUpload(
         @RequestBody @Valid
         req: PicklePostRequest
     ) {
-        pickleGenerateUseCase.execute(req)
+        pickleGenerateUseCase.pickleUpload(req)
     }
 }

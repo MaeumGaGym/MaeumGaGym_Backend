@@ -1,4 +1,4 @@
-package com.info.maeumgagym.controllers.auth
+package com.info.maeumgagym.controller.auth
 
 import com.info.common.WebAdapter
 import com.info.maeumgagym.auth.dto.request.SignupRequest
