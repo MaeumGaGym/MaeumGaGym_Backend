@@ -1,8 +1,8 @@
 package com.info.maeumgagym.domain.pickle.entity
 
 import com.info.maeumgagym.TableNames
+import com.info.maeumgagym.converter.StringAttributeConverter
 import com.info.maeumgagym.domain.base.BaseLongIdTimeEntity
-import com.info.maeumgagym.domain.pickle.converter.PickleTagConverter
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
@@ -35,7 +35,7 @@ class PickleJpaEntity(
     var uploader: UserJpaEntity = uploader
         protected set
 
-    @Convert(converter = PickleTagConverter::class)
+    @Convert(converter = StringAttributeConverter::class)
     @Column(name = "tags", length = 1000, nullable = false)
     var tags: MutableSet<String> = tags
         get() = field.toMutableSet()
