@@ -3,7 +3,7 @@ package com.info.maeumgagym.pickle.dto.request
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
 
-data class PicklePostRequest(
+data class PickleUploadRequest(
 
     @field:NotBlank(message = "null일 수 없습니다")
     val title: String?,

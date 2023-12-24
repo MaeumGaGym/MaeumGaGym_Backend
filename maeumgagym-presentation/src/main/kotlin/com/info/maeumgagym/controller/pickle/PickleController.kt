@@ -1,8 +1,8 @@
 package com.info.maeumgagym.controller.pickle
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.pickle.dto.request.PicklePostRequest
-import com.info.maeumgagym.pickle.port.`in`.PickleGenerateUseCase
+import com.info.maeumgagym.pickle.dto.request.PickleUploadRequest
+import com.info.maeumgagym.pickle.port.`in`.PickleUploadUseCase
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.PostMapping
@@ -15,15 +15,15 @@ import javax.validation.Valid
 @WebAdapter
 @RequestMapping("/pickle")
 class PickleController(
-    private val pickleGenerateUseCase: PickleGenerateUseCase
+    private val pickleUploadUseCase: PickleUploadUseCase
 ) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun pickleUpload(
+    fun uploadPickle(
         @RequestBody @Valid
-        req: PicklePostRequest
+        req: PickleUploadRequest
     ) {
-        pickleGenerateUseCase.pickleUpload(req)
+        pickleUploadUseCase.uploadPickle(req)
     }
 }

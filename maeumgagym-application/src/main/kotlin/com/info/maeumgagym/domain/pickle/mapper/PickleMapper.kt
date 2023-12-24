@@ -16,7 +16,7 @@ class PickleMapper(
         pickleJpaEntity.title,
         pickleJpaEntity.description,
         userMapper.toDomain(pickleJpaEntity.uploader),
-        pickleJpaEntity.link,
+        pickleJpaEntity.videoUrl,
         pickleJpaEntity.tags,
         pickleJpaEntity.createdAt,
         pickleJpaEntity.likes.size,
