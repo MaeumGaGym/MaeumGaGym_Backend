@@ -14,7 +14,8 @@ class RoutineJpaEntity(
     dayOfWeeks: MutableSet<DayOfWeek>?,
     routineStatus: RoutineStatus,
     createdAt: LocalDateTime? = null,
-    id: UUID? = null
+    id: UUID? = null,
+    userId: UUID
 ) : BaseUUIDTimeEntity(id, createdAt) {
     @Column(name = "routine_name", nullable = false)
     var routineName: String = routineName
@@ -32,5 +33,9 @@ class RoutineJpaEntity(
     @Embedded
     @Column(name = "routine_status", nullable = false)
     var routineStatus: RoutineStatus = routineStatus
+        protected set
+
+    @Column(name = "user_id", columnDefinition = "BINARY(16)", nullable = false)
+    var userId: UUID = userId
         protected set
 }
