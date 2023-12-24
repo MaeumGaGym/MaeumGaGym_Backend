@@ -19,7 +19,8 @@ class RoutineMapper {
             routineStatus = RoutineStatus(
                 isArchived = routineStatusModel.isArchived,
                 isShared = routineStatusModel.isShared
-            )
+            ),
+            userId = userId
         )
     }
 
@@ -32,7 +33,8 @@ class RoutineMapper {
             routineStatusModel = RoutineStatusModel(
                 isArchived = routineStatus.isArchived,
                 isShared = routineStatus.isShared
-            )
+            ),
+            userId = userId
         )
     }
 

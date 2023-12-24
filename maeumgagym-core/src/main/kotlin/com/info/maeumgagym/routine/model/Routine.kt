@@ -8,5 +8,6 @@ data class Routine(
     val routineName: String,
     val exerciseInfoModelList: MutableList<ExerciseInfoModel>,
     val dayOfWeeks: MutableSet<DayOfWeek>?,
-    val routineStatusModel: RoutineStatusModel
+    val routineStatusModel: RoutineStatusModel,
+    val userId: UUID
 )
