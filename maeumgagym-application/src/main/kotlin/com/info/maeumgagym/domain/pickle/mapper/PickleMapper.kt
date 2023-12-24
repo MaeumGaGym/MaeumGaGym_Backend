@@ -5,7 +5,6 @@ import com.info.maeumgagym.domain.pickle.repository.PickleLikeRepository
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.pickle.model.Pickle
 import org.springframework.stereotype.Component
-import java.util.UUID
 
 @Component
 class PickleMapper(

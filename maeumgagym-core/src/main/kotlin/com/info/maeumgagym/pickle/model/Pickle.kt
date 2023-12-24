@@ -2,7 +2,6 @@ package com.info.maeumgagym.pickle.model
 
 import com.info.maeumgagym.user.model.User
 import java.time.LocalDateTime
-import java.util.UUID
 
 data class Pickle(
 
