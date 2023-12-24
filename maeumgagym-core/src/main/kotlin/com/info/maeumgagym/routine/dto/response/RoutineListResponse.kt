@@ -4,5 +4,5 @@ import com.info.maeumgagym.user.dto.response.UserResponse
 
 data class RoutineListResponse(
     val user: UserResponse,
-    val routineList: List<RoutineResponse>,
+    val routineList: List<RoutineResponse>
 )
