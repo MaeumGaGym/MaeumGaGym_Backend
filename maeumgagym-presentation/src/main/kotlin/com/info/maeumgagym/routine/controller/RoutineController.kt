@@ -21,5 +21,5 @@ class RoutineController(
         createRoutineUseCase.createRoutine(createRoutineRequest)
 
     @GetMapping("/all")
-    fun readAllMyRoutine(): RoutineListResponse = readAllMyRoutineUseCase.readRoutine()
+    fun readAllMyRoutine(): RoutineListResponse = readAllMyRoutineUseCase.readAllMyRoutine()
 }

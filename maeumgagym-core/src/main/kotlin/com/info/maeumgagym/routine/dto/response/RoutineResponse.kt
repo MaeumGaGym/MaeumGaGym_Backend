@@ -1,13 +1,13 @@
 package com.info.maeumgagym.routine.dto.response
 
-import com.info.maeumgagym.routine.model.ExerciseInfoModel
-import com.info.maeumgagym.routine.model.RoutineStatusModel
+import com.info.maeumgagym.routine.dto.ExerciseInfoDto
+import com.info.maeumgagym.routine.dto.RoutineStatusDto
 import java.util.*
 
 data class RoutineResponse(
     val id: UUID,
     val routineName: String,
-    val exerciseInfoList: MutableList<ExerciseInfoModel>,
+    val exerciseInfoList: List<ExerciseInfoDto>,
     val dayOfWeeks: List<String>?,
-    val routineStatus: RoutineStatusModel
+    val routineStatus: RoutineStatusDto
 )
