@@ -2,7 +2,7 @@ package com.info.maeumgagym.pickle.model
 
 import com.info.maeumgagym.user.model.User
 
-data class PickleLikes(
+data class PickleLike(
 
     val pickle: Pickle,
 

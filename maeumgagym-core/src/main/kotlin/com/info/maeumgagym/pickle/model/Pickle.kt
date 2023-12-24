@@ -13,11 +13,11 @@ data class Pickle(
 
     val videoUrl: String,
 
-    val tags: MutableSet<String>,
+    val likeCount: Long = 0,
 
-    val createdAt: LocalDateTime,
+    val tags: MutableSet<String> = mutableSetOf(),
 
-    val likes: Int = 0,
+    val createdAt: LocalDateTime? = null,
 
     val isDeleted: Boolean = false,
 

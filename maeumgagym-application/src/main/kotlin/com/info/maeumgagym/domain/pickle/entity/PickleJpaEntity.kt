@@ -17,9 +17,9 @@ class PickleJpaEntity(
     title: String,
     uploader: UserJpaEntity,
     videoUrl: String,
+    likeCount: Long = 0,
     tags: MutableSet<String> = mutableSetOf(),
-    likes: MutableList<PickleLikeJpaEntity> = mutableListOf(),
-    createdAt: LocalDateTime,
+    createdAt: LocalDateTime? = null,
     id: Long? = null
 ) : BaseLongIdTimeEntity(id, createdAt) {
 
@@ -40,15 +40,14 @@ class PickleJpaEntity(
     var videoUrl: String = videoUrl
         protected set
 
+    @Column(name = "like_count", nullable = false)
+    var likeCount: Long = likeCount
+        protected set
+
     @Convert(converter = StringAttributeConverter::class)
     @Column(name = "tags", length = 1000, nullable = false)
     var tags: MutableSet<String> = tags
         get() = field.toMutableSet()
-        protected set
-
-    @OneToMany(mappedBy = "pickle", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    var likes: MutableList<PickleLikeJpaEntity> = likes
-        get() = field.toMutableList()
         protected set
 
     @Column(name = "is_deleted", nullable = false)

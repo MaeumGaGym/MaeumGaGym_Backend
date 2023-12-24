@@ -13,6 +13,6 @@ data class PickleUploadRequest(
     val tags: MutableSet<String> = mutableSetOf(),
 
     @field:NotBlank(message = "null일 수 없습니다")
-    @field:Pattern(regexp = "https://([\\w-]+)/([\\w-]+)/index.m3u8", message = "올바른 url이 아닙니다")
+    @field:Pattern(regexp = "^(https://[\\w.-]+)/\\d{10}/m3u8.index", message = "올바른 url이 아닙니다")
     val videoUrl: String?
 )

@@ -6,7 +6,6 @@ import com.info.maeumgagym.pickle.dto.request.PickleUploadRequest
 import com.info.maeumgagym.pickle.model.Pickle
 import com.info.maeumgagym.pickle.port.`in`.PickleUploadUseCase
 import com.info.maeumgagym.pickle.port.out.SavePicklePort
-import java.time.LocalDateTime
 
 @UseCase
 class PickleUploadService(
@@ -19,12 +18,11 @@ class PickleUploadService(
 
         savePicklePort.savePickle(
             Pickle(
-                req.title!!,
-                req.description,
-                user,
-                req.videoUrl!!,
-                req.tags,
-                LocalDateTime.now()
+                title = req.title!!,
+                description = req.description,
+                uploader = user,
+                videoUrl = req.videoUrl!!,
+                tags = req.tags
             )
         )
     }

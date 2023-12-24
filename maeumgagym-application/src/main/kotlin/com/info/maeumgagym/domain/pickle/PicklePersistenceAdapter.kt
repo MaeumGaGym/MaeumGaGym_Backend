@@ -14,7 +14,8 @@ class PicklePersistenceAdapter(
     private val pickleMapper: PickleMapper
 ) : SavePicklePort {
 
-    override fun savePickle(pickle: Pickle): Pickle = pickleMapper.toDomain(
-        pickleRepository.save(pickleMapper.toEntity(pickle))
-    )
+    override fun savePickle(pickle: Pickle): Pickle =
+        pickleMapper.toDomain(
+            pickleRepository.save(pickleMapper.toEntity(pickle))
+        )
 }
