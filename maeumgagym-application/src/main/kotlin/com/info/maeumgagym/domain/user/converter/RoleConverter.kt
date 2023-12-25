@@ -1,6 +1,6 @@
 package com.info.maeumgagym.domain.user.converter
 
-import com.info.maeumgagym.domain.user.exception.RoleConverterException
+import com.info.maeumgagym.user.exception.RoleConverterException
 import com.info.maeumgagym.user.model.Role
 import javax.persistence.AttributeConverter
 import javax.persistence.Converter

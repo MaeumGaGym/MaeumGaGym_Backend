@@ -6,7 +6,6 @@ import com.info.maeumgagym.domain.routine.repository.RoutineRepository
 import com.info.maeumgagym.routine.model.Routine
 import com.info.maeumgagym.routine.port.out.ReadAllRoutineByUserIdPort
 import com.info.maeumgagym.routine.port.out.SaveRoutinePort
-import com.info.maeumgagym.user.port.out.FindUserByUUIDPort
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
@@ -14,9 +13,9 @@ import java.util.*
 @PersistenceAdapter
 class RoutinePersistenceAdapter(
     private val routineMapper: RoutineMapper,
-    private val routineRepository: RoutineRepository,
-    private val findUserByUUIDPort: FindUserByUUIDPort
+    private val routineRepository: RoutineRepository
 ) : SaveRoutinePort, ReadAllRoutineByUserIdPort {
+
     override fun saveRoutine(routine: Routine): Routine {
         val routineJpaEntity = routineRepository.save(routineMapper.toEntity(routine))
         return routineMapper.toDomain(routineJpaEntity)

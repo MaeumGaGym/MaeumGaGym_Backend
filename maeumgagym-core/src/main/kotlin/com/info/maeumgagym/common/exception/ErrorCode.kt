@@ -19,9 +19,13 @@ enum class ErrorCode(
     EXPIRED_TOKEN(401, "Expired Token"),
     UNAUTHORIZED(401, "Un Authorized"),
 
+    // Forbidden
+    PERMISSION_DENIED(403, "Permission Denied"),
+
     // Not Found
     USER_NOT_FOUND(404, "User Not Found"),
     POSE_NOT_FOUND(404, "Pose Not Found"),
+    PICKLE_NOT_FOUND(404, "Pickle Not Found"),
 
     // Bad Request
     ALREADY_WITHDRAWAL_USER(400, "Already Withdrawal User"),

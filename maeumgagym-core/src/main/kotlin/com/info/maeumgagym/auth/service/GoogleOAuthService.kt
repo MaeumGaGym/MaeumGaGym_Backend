@@ -4,8 +4,8 @@ import com.info.common.UseCase
 import com.info.maeumgagym.auth.dto.request.SignupRequest
 import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.exception.AlreadyExistUserException
-import com.info.maeumgagym.auth.exception.DuplicatedNicknameException
-import com.info.maeumgagym.auth.exception.UserNotFoundException
+import com.info.maeumgagym.user.exception.DuplicatedNicknameException
+import com.info.maeumgagym.user.exception.UserNotFoundException
 import com.info.maeumgagym.auth.port.`in`.GoogleLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.GoogleSignupUseCase
 import com.info.maeumgagym.auth.port.out.GetGoogleInfoPort
