@@ -12,30 +12,32 @@ class PickleMapper(
     private val userMapper: UserMapper
 ) {
 
-    fun toEntity(pickle: Pickle): PickleJpaEntity =
+    fun toEntity(pickle: Pickle) = pickle.run {
         PickleJpaEntity(
-            description = pickle.description,
-            title = pickle.title,
-            uploader = userMapper.toEntity(pickle.uploader),
-            videoUrl = pickle.videoUrl,
-            likeCount = pickle.likeCount,
-            tags = pickle.tags,
-            createdAt = pickle.createdAt,
-            id = pickle.id
+            description = description,
+            title = title,
+            uploader = userMapper.toEntity(uploader),
+            videoUrl = videoUrl,
+            likeCount = likeCount,
+            tags = tags,
+            createdAt = createdAt,
+            id = id
         )
+    }
 
-    fun toDomain(pickleJpaEntity: PickleJpaEntity): Pickle =
+    fun toDomain(pickleJpaEntity: PickleJpaEntity) = pickleJpaEntity.run {
         Pickle(
-            title = pickleJpaEntity.title,
-            description = pickleJpaEntity.description,
-            uploader = userMapper.toDomain(pickleJpaEntity.uploader),
-            videoUrl = pickleJpaEntity.videoUrl,
-            likeCount = pickleJpaEntity.likeCount,
-            tags = pickleJpaEntity.tags,
-            createdAt = pickleJpaEntity.createdAt,
-            isDeleted = pickleJpaEntity.isDeleted,
-            id = pickleJpaEntity.id
+            title = title,
+            description = description,
+            uploader = userMapper.toDomain(uploader),
+            videoUrl = videoUrl,
+            likeCount = likeCount,
+            tags = tags,
+            createdAt = createdAt,
+            isDeleted = isDeleted,
+            id = id
         )
+    }
 
     fun toEntityLike(pickleLike: PickleLike): PickleLikeJpaEntity =
         PickleLikeJpaEntity(
