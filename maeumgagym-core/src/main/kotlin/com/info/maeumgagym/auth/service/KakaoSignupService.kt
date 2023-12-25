@@ -2,7 +2,7 @@ package com.info.maeumgagym.auth.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.exception.AlreadyExistUserException
-import com.info.maeumgagym.auth.exception.DuplicatedNicknameException
+import com.info.maeumgagym.user.exception.DuplicatedNicknameException
 import com.info.maeumgagym.auth.port.`in`.KakaoSignupUseCase
 import com.info.maeumgagym.auth.port.out.GetKakaoInfoPort
 import com.info.maeumgagym.user.model.Role

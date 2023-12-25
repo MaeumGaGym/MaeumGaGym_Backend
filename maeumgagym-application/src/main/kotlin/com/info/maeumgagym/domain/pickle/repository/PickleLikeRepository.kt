@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface PickleLikeRepository : JpaRepository<PickleLikeJpaEntity, PickleLikeJpaEntity.IdClass> {
-
-    fun findAllByPickleId(id: Long): MutableList<PickleLikeJpaEntity>
 }
