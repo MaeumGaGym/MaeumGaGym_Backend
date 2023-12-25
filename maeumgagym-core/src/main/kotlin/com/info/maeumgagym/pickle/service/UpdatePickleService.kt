@@ -33,7 +33,7 @@ class UpdatePickleService(
                     title = req.title!!,
                     description = req.description,
                     uploader = uploader,
-                    videoUrl = req.videoUrl!!,
+                    videoUrl = videoUrl,
                     tags = req.tags,
                     likeCount = likeCount,
                     createdAt = createdAt,
