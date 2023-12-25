@@ -13,10 +13,9 @@ class PicklePutDownService(
     private val deletePicklePort: DeletePicklePort,
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val readPickleByIdPort: ReadPickleByIdPort
-): PicklePutDownUseCase {
+) : PicklePutDownUseCase {
 
     override fun putDownPickleById(id: Long) {
-
         val user = readCurrentUserPort.readCurrentUser()
 
         val pickle = readPickleByIdPort.readPickleById(id)

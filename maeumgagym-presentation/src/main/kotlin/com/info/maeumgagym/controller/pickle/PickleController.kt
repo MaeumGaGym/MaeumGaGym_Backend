@@ -32,7 +32,9 @@ class PickleController(
 
     @DeleteMapping
     fun putDownPickle(
-        @RequestParam(required = true) @Valid @NotNull(message = "null일 수 없습니다")
+        @RequestParam(required = true)
+        @Valid
+        @NotNull(message = "null일 수 없습니다")
         id: Long?
     ) { picklePutDownUseCase.putDownPickleById(id!!) }
 }
