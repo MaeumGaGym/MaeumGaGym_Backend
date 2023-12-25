@@ -10,6 +10,9 @@ enum class ErrorCode(
     FEIGN_FORBIDDEN(403, "Feign Forbidden"),
     FEIGN_SERVER_ERROR(500, "Feign Server Error"),
 
+    // Bad Request
+    FILE_TYPE_MISS_MATCHED(400, "File, Type Miss Matched"),
+
     // Internal Server Error
     INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
     ROLE_CONVERTER_ERROR(500, "Role Converter Error"),

@@ -30,8 +30,8 @@ server:
 
 # logging
 logging:
-  level:
-    root: info
+    level:
+        root: info
 
 jwt:
     secretKey: ${JWT_SECRET_KEY:asdjfkasdhfjkashdfkashdfkahsdjkfahskdf}
@@ -45,8 +45,11 @@ kakao:
     clientId: ${CLIENT_ID}
     redirectUri: ${REDIRECT_URI}
 
- # data redis
+# data redis
 redis:
     host: ${REDIS_HOST:localhost}
     port: ${REDIS_PORT:6379}
     database: 1
+
+file:
+    secret-key: ${FILE_SERVER_SECRET_KEY}
