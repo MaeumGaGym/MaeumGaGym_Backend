@@ -33,7 +33,7 @@ class PickleController(
 ) {
 
     @GetMapping("/url")
-    fun getPreSignedUrl(
+    fun getPreSignedUploadURL(
         @RequestBody @Valid
         req: PreSignedUploadURLRequest
     ): PreSignedUploadURLResponse = getPreSignedUploadURLUseCase.getPreSignedUploadURL(req.fileType!!)
