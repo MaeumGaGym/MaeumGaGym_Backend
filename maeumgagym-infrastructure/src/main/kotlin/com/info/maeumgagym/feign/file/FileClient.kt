@@ -4,9 +4,7 @@ import com.info.maeumgagym.feign.file.dto.response.FilePreSignedUploadURLFeignRe
 import com.info.maeumgagym.global.config.feign.FeignConfig
 import com.info.maeumgagym.feign.file.dto.request.PreSignedUploadURLFeignRequest
 import org.springframework.cloud.openfeign.FeignClient
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestHeader
+import org.springframework.web.bind.annotation.*
 
 @FeignClient(
     name = "FileClient",
@@ -22,4 +20,12 @@ interface FileClient {
         @RequestBody
         req: PreSignedUploadURLFeignRequest
     ): FilePreSignedUploadURLFeignResponse
+
+    @DeleteMapping("/{videoId}")
+    fun pickleDelete(
+        @RequestHeader(name = "MaeumgaGym-Token")
+        secretToken: String,
+        @PathVariable
+        videoId: Long
+    )
 }
