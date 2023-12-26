@@ -17,8 +17,8 @@ class GetPreSignedURLService(
     }
 
     override fun getPreSignedUploadURL(fileType: String): PreSignedUploadURLResponse {
-
-        if (fileType != QUICKTIME && fileType != MP4) throw FileTypeMissMatchedException // WHEN : 확인 되지 않은 파일 타입 -> Exception
+        // WHEN : 확인 되지 않은 파일 타입 -> Exception
+        if (fileType != QUICKTIME && fileType != MP4) throw FileTypeMissMatchedException
 
         return PreSignedUploadURLResponse(
             getPreSignedUrlPort.getPreSignedUploadURL(fileType) // WHAT : Feign으로 PreSignedURL 불러오기
