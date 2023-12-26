@@ -17,7 +17,6 @@ class GetPreSignedURLService(
     }
 
     override fun getPreSignedUploadURL(fileType: String): PreSignedUploadURLResponse {
-        
         // WHEN : 확인 되지 않은 파일 타입 -> Exception
         if (fileType != QUICKTIME && fileType != MP4) throw FileTypeMissMatchedException
 
