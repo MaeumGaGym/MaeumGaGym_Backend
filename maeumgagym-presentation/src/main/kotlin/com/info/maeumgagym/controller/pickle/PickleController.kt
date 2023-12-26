@@ -5,10 +5,12 @@ import com.info.maeumgagym.pickle.port.`in`.UpdatePickleUseCase
 import com.info.maeumgagym.pickle.dto.request.PickleUploadRequest
 import com.info.maeumgagym.pickle.dto.request.PreSignedUploadURLRequest
 import com.info.maeumgagym.pickle.dto.request.UpdatePickleRequest
+import com.info.maeumgagym.pickle.dto.response.PickleListResponse
 import com.info.maeumgagym.pickle.dto.response.PreSignedUploadURLResponse
 import com.info.maeumgagym.pickle.port.`in`.GetPreSignedUploadURLUseCase
 import com.info.maeumgagym.pickle.port.`in`.PickleDeleteUseCase
 import com.info.maeumgagym.pickle.port.`in`.PickleUploadUseCase
+import com.info.maeumgagym.pickle.port.`in`.LoadRecommendationPicklesUseCase
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
+import javax.servlet.http.HttpServletResponse
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 
@@ -26,11 +30,20 @@ import javax.validation.constraints.NotNull
 @WebAdapter
 @RequestMapping("/pickle")
 class PickleController(
+    private val loadRecommendationPicklesUseCase: LoadRecommendationPicklesUseCase,
     private val pickleUploadUseCase: PickleUploadUseCase,
     private val pickleDeleteUseCase: PickleDeleteUseCase,
     private val updatePickleUseCase: UpdatePickleUseCase,
     private val getPreSignedUploadURLUseCase: GetPreSignedUploadURLUseCase
 ) {
+
+    @GetMapping
+    fun recommendationPicklesLoad(
+        @RequestParam index: Int,
+        httpServletResponse: HttpServletResponse
+    ): PickleListResponse =
+        loadRecommendationPicklesUseCase.loadRecommendationPickles(index)
+
 
     @GetMapping("/url")
     fun getPreSignedUploadURL(
