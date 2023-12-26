@@ -1,24 +1,17 @@
 package com.info.maeumgagym.controller.pickle
 
 import com.info.common.WebAdapter
+import com.info.maeumgagym.controller.pickle.dto.response.PickleWebResponse
 import com.info.maeumgagym.controller.pickle.dto.request.PickleUploadWebRequest
 import com.info.maeumgagym.controller.pickle.dto.request.PreSignedUploadURLWebRequest
 import com.info.maeumgagym.controller.pickle.dto.request.UpdatePickleWebRequest
-import com.info.maeumgagym.pickle.port.`in`.UpdatePickleUseCase
 import com.info.maeumgagym.controller.pickle.dto.response.PreSignedUploadURLWebResponse
-import com.info.maeumgagym.pickle.port.`in`.GetPreSignedUploadURLUseCase
-import com.info.maeumgagym.pickle.port.`in`.PickleDeleteUseCase
-import com.info.maeumgagym.pickle.port.`in`.PickleUploadUseCase
+import com.info.maeumgagym.pickle.dto.response.PickleListResponse
+import com.info.maeumgagym.pickle.port.`in`.*
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.ResponseStatus
+import org.springframework.web.bind.annotation.*
+import javax.servlet.http.HttpServletResponse
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 
@@ -26,11 +19,31 @@ import javax.validation.constraints.NotNull
 @WebAdapter
 @RequestMapping("/pickles")
 class PickleController(
+    private val loadRecommendationPicklesUseCase: LoadRecommendationPicklesUseCase,
+    private val loadPickleFromIdUseCase: LoadPickleFromIdUseCase,
     private val pickleUploadUseCase: PickleUploadUseCase,
     private val pickleDeleteUseCase: PickleDeleteUseCase,
     private val updatePickleUseCase: UpdatePickleUseCase,
     private val getPreSignedUploadURLUseCase: GetPreSignedUploadURLUseCase
 ) {
+
+    @GetMapping
+    fun recommendationPicklesLoad(
+        @RequestParam index: Int,
+        httpServletResponse: HttpServletResponse
+    ): PickleListResponse =
+        loadRecommendationPicklesUseCase.loadRecommendationPickles(index)
+
+    @GetMapping("/{id}")
+    fun pickleLoadFromId(
+        @PathVariable(name = "id", required = true)
+        @Valid
+        @NotNull(message = "null일 수 없습니다.")
+        id: Long?
+    ): PickleWebResponse =
+        PickleWebResponse.toWebResponse(
+            loadPickleFromIdUseCase.loadPickleFromId(id!!)
+        )
 
     @GetMapping("/url")
     fun getPreSignedUploadURL(
@@ -43,7 +56,9 @@ class PickleController(
     fun uploadPickle(
         @RequestBody @Valid
         req: PickleUploadWebRequest
-    ) { pickleUploadUseCase.uploadPickle(req.toRequest()) }
+    ) {
+        pickleUploadUseCase.uploadPickle(req.toRequest())
+    }
 
     @DeleteMapping("/{id}")
     fun deletePickle(
@@ -51,7 +66,9 @@ class PickleController(
         @Valid
         @NotNull(message = "null일 수 없습니다")
         id: Long?
-    ) { pickleDeleteUseCase.deletePickle(id!!) }
+    ) {
+        pickleDeleteUseCase.deletePickle(id!!)
+    }
 
     @PutMapping("/{id}")
     fun updatePickle(

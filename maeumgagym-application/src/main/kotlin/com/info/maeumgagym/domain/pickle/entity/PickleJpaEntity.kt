@@ -18,6 +18,7 @@ class PickleJpaEntity(
     uploader: UserJpaEntity,
     videoUrl: String,
     likeCount: Long = 0,
+    commentCount: Long = 0,
     tags: MutableSet<String> = mutableSetOf(),
     createdAt: LocalDateTime? = null,
     id: Long? = null
@@ -42,6 +43,10 @@ class PickleJpaEntity(
 
     @Column(name = "like_count", nullable = false)
     var likeCount: Long = likeCount
+        protected set
+
+    @Column(name = "comment_count", nullable = false)
+    var commentCount: Long = commentCount
         protected set
 
     @Convert(converter = StringAttributeConverter::class)

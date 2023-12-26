@@ -10,7 +10,7 @@ data class RoutineWebListResponse(
 
     companion object {
         fun toWebResponse(res: RoutineListResponse) = RoutineWebListResponse(
-            UserWebResponse.toWrbResponse(res.userInfo),
+            UserWebResponse.toWebResponse(res.userInfo),
             res.routineList.map {
                 RoutineWebResponse.toWebResponse(it)
             }.toList()

@@ -10,8 +10,8 @@ enum class ErrorCode(
     FEIGN_FORBIDDEN(403, "Feign Forbidden"),
     FEIGN_SERVER_ERROR(500, "Feign Server Error"),
 
-    // Bad Request
-    FILE_TYPE_MISS_MATCHED(400, "File, Type Miss Matched"),
+    // No Content
+    THERE_NO_PICKLES(204, "업로드된 피클이 존재하지 않습니다."),
 
     // Internal Server Error
     INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
@@ -32,6 +32,7 @@ enum class ErrorCode(
 
     // Bad Request
     ALREADY_WITHDRAWAL_USER(400, "Already Withdrawal User"),
+    FILE_TYPE_MISS_MATCHED(400, "File, Type Miss Matched"),
 
     // Conflict
     DUPLICATED_NICKNAME(409, "Duplicated Nickname"),

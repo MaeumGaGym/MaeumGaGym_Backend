@@ -15,6 +15,8 @@ data class Pickle(
 
     val likeCount: Long = 0,
 
+    val commentCount: Long = 0,
+
     val tags: MutableSet<String> = mutableSetOf(),
 
     val createdAt: LocalDateTime? = null,
