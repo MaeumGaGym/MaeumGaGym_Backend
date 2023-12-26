@@ -1,7 +1,6 @@
 package com.info.maeumgagym.pickle.service
 
 import com.info.common.UseCase
-import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.pickle.dto.response.PickleListResponse
 import com.info.maeumgagym.pickle.dto.response.PickleResponse
 import com.info.maeumgagym.pickle.exception.ThereNoPicklesException
@@ -9,12 +8,11 @@ import com.info.maeumgagym.pickle.model.Pickle
 import com.info.maeumgagym.pickle.port.`in`.LoadRecommendationPicklesUseCase
 import com.info.maeumgagym.pickle.port.out.ReadAllPicklesPort
 import com.info.maeumgagym.user.dto.response.UserResponse
-import com.info.maeumgagym.user.model.User
 
 @UseCase
 class LoadPickleService(
     private val readAllPicklesPort: ReadAllPicklesPort,
-    private val readCurrentUserPort: ReadCurrentUserPort
+    private val readPickleByIdPort: ReadPickleByIdPort
 ) : LoadRecommendationPicklesUseCase {
 
     private companion object {
@@ -30,9 +28,7 @@ class LoadPickleService(
         val pickles: List<Pickle> = if (allPickles.size < INDEX_SIZE) allPickles else getRandomPickles(allPickles)
 
         return PickleListResponse(
-            readCurrentUserPort.readCurrentUser().run {
-                pickles.map { it.toResponseWithUser(this) }
-            }
+            pickles.map { it.toResponse() }
         )
     }
 
@@ -43,7 +39,7 @@ class LoadPickleService(
             }
         }.toList()
 
-    private fun Pickle.toResponseWithUser(user: User): PickleResponse =
+    private fun Pickle.toResponse(): PickleResponse =
         PickleResponse(
             id = id!!,
             videoUrl = videoUrl,
@@ -53,8 +49,8 @@ class LoadPickleService(
             likeCount = likeCount,
             commentCount = commentCount,
             userInfo = UserResponse(
-                nickname = user.nickname,
-                profileImage = user.profileImage
+                nickname = uploader.nickname,
+                profileImage = uploader.profileImage
             )
         )
 }
