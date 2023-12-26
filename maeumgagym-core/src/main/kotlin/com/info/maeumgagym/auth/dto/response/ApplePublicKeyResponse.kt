@@ -4,7 +4,7 @@ import org.springframework.util.Base64Utils
 import java.math.BigInteger
 import java.security.spec.RSAPublicKeySpec
 
-data class ApplePublicKey(
+data class ApplePublicKeyResponse(
     val kty: String,
     val kid: String,
     val use: String,

@@ -14,5 +14,5 @@ class GoogleAuthAdapter(
         googleInfoClient.googleInfo(
             "json",
             accessToken
-        )
+        ).toResponse()
 }

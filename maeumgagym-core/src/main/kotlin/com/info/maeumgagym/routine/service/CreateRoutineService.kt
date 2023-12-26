@@ -13,8 +13,8 @@ class CreateRoutineService(
     private val saveRoutinePort: SaveRoutinePort,
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : CreateRoutineUseCase {
-    override fun createRoutine(createRoutineRequest: CreateRoutineRequest) {
-        createRoutineRequest.run {
+    override fun createRoutine(req: CreateRoutineRequest) {
+        req.run {
             saveRoutinePort.saveRoutine(
                 Routine(
                     routineName = routineName,

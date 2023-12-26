@@ -14,6 +14,7 @@ class KakaoLoginService(
     private val generateJwtPort: GenerateJwtPort,
     private val existUserByOAuthIdPort: ExistUserByOAuthIdPort
 ) : KakaoLoginUseCase {
+
     override fun login(accessToken: String): TokenResponse {
         val userInfo = getKakaoInfoPort.getInfo(accessToken)
         if (!existUserByOAuthIdPort.existByOAuthId(userInfo.id)) throw UserNotFoundException

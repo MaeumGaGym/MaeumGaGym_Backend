@@ -9,5 +9,8 @@ import org.springframework.stereotype.Component
 class KakaoAuthAdapter(
     private val kakaoInfoClient: KakaoInfoClient
 ) : GetKakaoInfoPort {
-    override fun getInfo(accessToken: String): KakaoInfoResponse = kakaoInfoClient.kakaoInfo("Bearer $accessToken")
+    override fun getInfo(accessToken: String): KakaoInfoResponse =
+        kakaoInfoClient.kakaoInfo(
+            "Bearer $accessToken"
+        ).toResponse()
 }

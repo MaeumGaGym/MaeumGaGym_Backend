@@ -1,6 +1,6 @@
 package com.info.maeumgagym.feign.oauth.apple
 
-import com.info.maeumgagym.auth.dto.response.ApplePublicKeys
+import com.info.maeumgagym.feign.oauth.apple.dto.ApplePublicKeysFeignResponse
 import com.info.maeumgagym.global.config.feign.FeignConfig
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.GetMapping
@@ -13,5 +13,5 @@ import org.springframework.web.bind.annotation.GetMapping
 interface AppleClient {
 
     @GetMapping("/keys")
-    fun applePublicKeys(): ApplePublicKeys
+    fun applePublicKeys(): ApplePublicKeysFeignResponse
 }

@@ -1,6 +1,6 @@
 package com.info.maeumgagym.feign.oauth.google
 
-import com.info.maeumgagym.auth.dto.response.GoogleInfoResponse
+import com.info.maeumgagym.feign.oauth.google.dto.GoogleInfoFeignResponse
 import com.info.maeumgagym.global.config.feign.FeignConfig
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.GetMapping
@@ -17,5 +17,5 @@ interface GoogleInfoClient {
     fun googleInfo(
         @RequestParam("alt") alt: String,
         @RequestParam("access_token") accessToken: String
-    ): GoogleInfoResponse
+    ): GoogleInfoFeignResponse
 }

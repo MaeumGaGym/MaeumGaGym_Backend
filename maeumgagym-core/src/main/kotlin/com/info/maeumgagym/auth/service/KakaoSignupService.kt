@@ -18,10 +18,14 @@ class KakaoSignupService(
     private val saveUserPort: SaveUserPort,
     private val existUserByOAuthIdPort: ExistUserByOAuthIdPort
 ) : KakaoSignupUseCase {
+
     override fun signup(accessToken: String, nickname: String) {
         if (existUserByNicknamePort.existByNickname(nickname)) throw DuplicatedNicknameException
+
         val userInfo = kakaoInfoPort.getInfo(accessToken)
+
         if (existUserByOAuthIdPort.existByOAuthId(userInfo.id)) throw AlreadyExistUserException
+
         saveUserPort.saveUser(
             User(
                 nickname = nickname,

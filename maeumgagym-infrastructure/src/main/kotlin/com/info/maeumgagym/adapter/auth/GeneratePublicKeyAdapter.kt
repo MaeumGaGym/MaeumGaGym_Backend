@@ -1,7 +1,7 @@
 package com.info.maeumgagym.adapter.auth
 
-import com.info.maeumgagym.auth.dto.response.ApplePublicKey
-import com.info.maeumgagym.auth.dto.response.ApplePublicKeys
+import com.info.maeumgagym.auth.dto.response.ApplePublicKeyResponse
+import com.info.maeumgagym.auth.dto.response.ApplePublicKeysResponse
 import com.info.maeumgagym.auth.port.out.GeneratePublicKeyPort
 import com.info.maeumgagym.global.exception.InvalidTokenException
 import org.springframework.stereotype.Component
@@ -20,9 +20,9 @@ class GeneratePublicKeyAdapter : GeneratePublicKeyPort {
 
     override fun generatePublicKey(
         tokenHeaders: MutableMap<String?, String?>,
-        applePublicKeys: ApplePublicKeys
+        applePublicKeys: ApplePublicKeysResponse
     ): PublicKey {
-        val publicKey: ApplePublicKey = applePublicKeys.matchesKey(
+        val publicKey: ApplePublicKeyResponse = applePublicKeys.matchesKey(
             tokenHeaders[ALG_HEADER_KEY]!!,
             tokenHeaders[KID_HEADER_KEY]!!
         ) ?: throw InvalidTokenException

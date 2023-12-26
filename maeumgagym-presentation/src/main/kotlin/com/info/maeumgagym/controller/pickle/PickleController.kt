@@ -1,11 +1,11 @@
 package com.info.maeumgagym.controller.pickle
 
 import com.info.common.WebAdapter
+import com.info.maeumgagym.controller.pickle.dto.request.PickleUploadWebRequest
+import com.info.maeumgagym.controller.pickle.dto.request.PreSignedUploadURLWebRequest
+import com.info.maeumgagym.controller.pickle.dto.request.UpdatePickleWebRequest
 import com.info.maeumgagym.pickle.port.`in`.UpdatePickleUseCase
-import com.info.maeumgagym.pickle.dto.request.PickleUploadRequest
-import com.info.maeumgagym.pickle.dto.request.PreSignedUploadURLRequest
-import com.info.maeumgagym.pickle.dto.request.UpdatePickleRequest
-import com.info.maeumgagym.pickle.dto.response.PreSignedUploadURLResponse
+import com.info.maeumgagym.controller.pickle.dto.response.PreSignedUploadURLWebResponse
 import com.info.maeumgagym.pickle.port.`in`.GetPreSignedUploadURLUseCase
 import com.info.maeumgagym.pickle.port.`in`.PickleDeleteUseCase
 import com.info.maeumgagym.pickle.port.`in`.PickleUploadUseCase
@@ -35,15 +35,15 @@ class PickleController(
     @GetMapping("/url")
     fun getPreSignedUploadURL(
         @RequestBody @Valid
-        req: PreSignedUploadURLRequest
-    ): PreSignedUploadURLResponse = getPreSignedUploadURLUseCase.getPreSignedUploadURL(req.fileType!!)
+        req: PreSignedUploadURLWebRequest
+    ) = PreSignedUploadURLWebResponse(getPreSignedUploadURLUseCase.getPreSignedUploadURL(req.fileType!!))
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun uploadPickle(
         @RequestBody @Valid
-        req: PickleUploadRequest
-    ) { pickleUploadUseCase.uploadPickle(req) }
+        req: PickleUploadWebRequest
+    ) { pickleUploadUseCase.uploadPickle(req.toRequest()) }
 
     @DeleteMapping("/{id}")
     fun deletePickle(
@@ -60,6 +60,6 @@ class PickleController(
         @NotNull(message = "null일 수 없습니다")
         id: Long?,
         @RequestBody @Valid
-        req: UpdatePickleRequest
-    ) = updatePickleUseCase.updatePickle(id!!, req) // 피클 조회 완성 시 수정 후에 DTO에 담아 반환 하도록 변경하기
+        req: UpdatePickleWebRequest
+    ) = updatePickleUseCase.updatePickle(id!!, req.toRequest()) // 피클 조회 완성 시 수정 후에 DTO에 담아 반환 하도록 변경하기
 }
