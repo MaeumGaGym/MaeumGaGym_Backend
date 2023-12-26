@@ -4,7 +4,7 @@ import com.info.common.UseCase
 import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.exception.AlreadyWithdrawalUserException
 import com.info.maeumgagym.auth.port.`in`.AppleLoginUseCase
-import com.info.maeumgagym.auth.port.out.*
+import com.info.maeumgagym.auth.port.out.ParseAppleTokenPort
 import com.info.maeumgagym.user.model.Role
 import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.FindUserByOAuthIdPort
@@ -40,6 +40,6 @@ class AppleLoginService(
             )
         )
 
-        return generateTokenService.execute(user.id.toString())
+        return generateTokenService.execute(user.oauthId)
     }
 }

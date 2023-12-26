@@ -2,7 +2,7 @@ package com.info.maeumgagym.adapter.file
 
 import com.info.maeumgagym.feign.file.FileClient
 import com.info.maeumgagym.global.env.file.FileProperty
-import com.info.maeumgagym.pickle.dto.request.PreSignedUploadURLRequest
+import com.info.maeumgagym.feign.file.dto.request.PreSignedUploadURLFeignRequest
 import com.info.maeumgagym.pickle.port.out.GetPreSignedURLPort
 import org.springframework.stereotype.Component
 
@@ -15,6 +15,6 @@ class FileAdapter(
     override fun getPreSignedUploadURL(fileType: String) =
         fileClient.preSignedUploadURL(
             fileProperty.secretKey,
-            PreSignedUploadURLRequest(fileType)
+            PreSignedUploadURLFeignRequest(fileType)
         ).uploadURL
 }

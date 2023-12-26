@@ -1,7 +1,6 @@
 package com.info.maeumgagym.auth.service
 
 import com.info.common.UseCase
-import com.info.maeumgagym.auth.dto.request.SignupRequest
 import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.exception.AlreadyExistUserException
 import com.info.maeumgagym.user.exception.DuplicatedNicknameException
@@ -26,17 +25,22 @@ class GoogleOAuthService(
 
     override fun login(accessToken: String): TokenResponse {
         val googleInfoResponse = getGoogleInfoPort.getGoogleInfo(accessToken)
+
         if (!existUserByOAuthIdPort.existByOAuthId(googleInfoResponse.sub)) throw UserNotFoundException
+
         return generateTokenService.execute(googleInfoResponse.sub)
     }
 
-    override fun signup(accessToken: String, signupRequest: SignupRequest) {
-        if (existUserByNicknamePort.existByNickname(signupRequest.nickname)) throw DuplicatedNicknameException
+    override fun signup(accessToken: String, nickname: String) {
+        if (existUserByNicknamePort.existByNickname(nickname)) throw DuplicatedNicknameException
+
         val googleInfoResponse = getGoogleInfoPort.getGoogleInfo(accessToken)
+
         if (existUserByOAuthIdPort.existByOAuthId(googleInfoResponse.sub)) throw AlreadyExistUserException
+
         saveUserPort.saveUser(
             User(
-                nickname = signupRequest.nickname,
+                nickname = nickname,
                 roles = mutableListOf(Role.USER),
                 oauthId = googleInfoResponse.sub,
                 profileImage = googleInfoResponse.picture

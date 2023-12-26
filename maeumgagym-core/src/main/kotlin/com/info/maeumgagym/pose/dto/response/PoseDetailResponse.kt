@@ -1,7 +1,5 @@
 package com.info.maeumgagym.pose.dto.response
 
-import java.util.*
-
 data class PoseDetailResponse(
 
     val simpleName: String,

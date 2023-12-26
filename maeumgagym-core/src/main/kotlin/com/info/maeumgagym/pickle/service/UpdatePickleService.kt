@@ -30,7 +30,7 @@ class UpdatePickleService(
         pickle = pickle.run {
             savePicklePort.savePickle( // WHAT : 객체 변경 후 반환
                 Pickle(
-                    title = req.title!!,
+                    title = req.title,
                     description = req.description,
                     uploader = uploader,
                     videoUrl = videoUrl,

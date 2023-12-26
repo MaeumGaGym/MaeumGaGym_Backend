@@ -7,6 +7,6 @@ class CreateRoutineRequest(
     val routineName: String,
     val isArchived: Boolean,
     val isShared: Boolean,
-    val exerciseInfoModelList: MutableList<ExerciseInfoModel> = ArrayList(),
+    val exerciseInfoModelList: MutableList<ExerciseInfoModel>,
     val dayOfWeeks: MutableSet<DayOfWeek>?
 )
