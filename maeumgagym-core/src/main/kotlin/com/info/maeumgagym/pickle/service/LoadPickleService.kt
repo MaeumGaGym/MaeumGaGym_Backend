@@ -23,7 +23,6 @@ class LoadPickleService(
     }
 
     override fun loadRecommendationPickles(index: Int): PickleListResponse {
-
         val allPickles = readAllPicklesPort.readAllPickles()
 
         if (allPickles.isEmpty() || allPickles.size <= index * INDEX_SIZE) throw ThereNoPicklesException
