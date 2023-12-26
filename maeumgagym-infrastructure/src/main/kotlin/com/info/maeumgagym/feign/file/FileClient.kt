@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestHeader
 interface FileClient {
 
     @PostMapping
-    fun preSignedUploadUrl(
+    fun preSignedUploadURL(
         @RequestHeader(name = "MaeumgaGym-Token")
         secretToken: String,
         @RequestBody

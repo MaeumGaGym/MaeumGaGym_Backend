@@ -8,7 +8,7 @@ import com.info.maeumgagym.pickle.port.out.GetPreSignedURLPort
 
 @UseCase
 class GetPreSignedURLService(
-    private val getPreSignedUrlPort: GetPreSignedURLPort
+    private val getPreSignedURLPort: GetPreSignedURLPort
 ) : GetPreSignedUploadURLUseCase {
 
     private companion object {
@@ -17,11 +17,12 @@ class GetPreSignedURLService(
     }
 
     override fun getPreSignedUploadURL(fileType: String): PreSignedUploadURLResponse {
+        
         // WHEN : 확인 되지 않은 파일 타입 -> Exception
         if (fileType != QUICKTIME && fileType != MP4) throw FileTypeMissMatchedException
 
         return PreSignedUploadURLResponse(
-            getPreSignedUrlPort.getPreSignedUploadURL(fileType) // WHAT : Feign으로 PreSignedURL 불러오기
+            getPreSignedURLPort.getPreSignedUploadURL(fileType) // WHAT : Feign으로 PreSignedURL 불러오기
         )
     }
 }

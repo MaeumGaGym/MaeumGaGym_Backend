@@ -13,7 +13,7 @@ class FileAdapter(
 ) : GetPreSignedURLPort {
 
     override fun getPreSignedUploadURL(fileType: String) =
-        fileClient.preSignedUploadUrl(
+        fileClient.preSignedUploadURL(
             fileProperty.secretKey,
             PreSignedUploadURLRequest(fileType)
         ).uploadURL
