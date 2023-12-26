@@ -1,12 +1,13 @@
 package com.info.maeumgagym.controller.auth
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.auth.dto.request.ReissueRequest
-import com.info.maeumgagym.auth.dto.response.TokenResponse
+import com.info.maeumgagym.controller.auth.dto.request.ReissueWebRequest
+import com.info.maeumgagym.controller.auth.dto.response.TokenWebResponse
 import com.info.maeumgagym.auth.port.`in`.DuplicatedNicknameCheckUseCase
 import com.info.maeumgagym.auth.port.`in`.ReissueUseCase
 import com.info.maeumgagym.auth.port.`in`.WithdrawalUserUseCase
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RequestMapping("/auth")
 @WebAdapter
@@ -25,6 +26,9 @@ class AuthController(
         duplicatedNicknameCheckUseCase.existByNickname(nickname)
 
     @PostMapping("/reissue")
-    fun reissue(@RequestBody request: ReissueRequest): TokenResponse =
-        reissueUseCase.reissue(request)
+    fun reissue(
+        @RequestBody @Valid
+        req: ReissueWebRequest
+    ): TokenWebResponse =
+        TokenWebResponse.toWebResponse(reissueUseCase.reissue(req.refreshToken!!))
 }

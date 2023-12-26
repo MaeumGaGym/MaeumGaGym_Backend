@@ -1,8 +1,8 @@
 package com.info.maeumgagym.feign.file
 
-import com.info.maeumgagym.feign.file.dto.FilePreSignedUploadURLResponse
+import com.info.maeumgagym.feign.file.dto.response.FilePreSignedUploadURLFeignResponse
 import com.info.maeumgagym.global.config.feign.FeignConfig
-import com.info.maeumgagym.pickle.dto.request.PreSignedUploadURLRequest
+import com.info.maeumgagym.feign.file.dto.request.PreSignedUploadURLFeignRequest
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -20,6 +20,6 @@ interface FileClient {
         @RequestHeader(name = "MaeumgaGym-Token")
         secretToken: String,
         @RequestBody
-        req: PreSignedUploadURLRequest
-    ): FilePreSignedUploadURLResponse
+        req: PreSignedUploadURLFeignRequest
+    ): FilePreSignedUploadURLFeignResponse
 }
