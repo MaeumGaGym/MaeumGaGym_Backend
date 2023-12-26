@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull
 
 @Validated
 @WebAdapter
-@RequestMapping("/pickle")
+@RequestMapping("/pickles")
 class PickleController(
     private val pickleUploadUseCase: PickleUploadUseCase,
     private val pickleDeleteUseCase: PickleDeleteUseCase,

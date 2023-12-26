@@ -25,7 +25,7 @@ class AuthController(
     fun duplicatedNicknameCheck(@RequestParam("nickname", required = true) nickname: String): Boolean =
         duplicatedNicknameCheckUseCase.existByNickname(nickname)
 
-    @PostMapping("/reissue")
+    @PostMapping("/re-issue")
     fun reissue(
         @RequestBody @Valid
         req: ReissueWebRequest

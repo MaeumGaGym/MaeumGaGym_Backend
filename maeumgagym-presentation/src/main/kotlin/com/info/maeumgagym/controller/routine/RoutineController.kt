@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import javax.validation.Valid
 
-@RequestMapping("/routine")
+@RequestMapping("/routines")
 @WebAdapter
 class RoutineController(
     private val createRoutineUseCase: CreateRoutineUseCase,
