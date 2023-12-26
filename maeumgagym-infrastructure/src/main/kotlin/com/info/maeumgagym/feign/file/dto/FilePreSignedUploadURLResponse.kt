@@ -1,6 +1,6 @@
 package com.info.maeumgagym.feign.file.dto
 
-data class FilePreSignedUrlResponse(
+data class FilePreSignedUploadURLResponse(
 
     val uploadURL: String
 )

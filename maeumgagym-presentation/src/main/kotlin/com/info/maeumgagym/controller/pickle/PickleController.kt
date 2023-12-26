@@ -3,10 +3,10 @@ package com.info.maeumgagym.controller.pickle
 import com.info.common.WebAdapter
 import com.info.maeumgagym.pickle.port.`in`.UpdatePickleUseCase
 import com.info.maeumgagym.pickle.dto.request.PickleUploadRequest
-import com.info.maeumgagym.pickle.dto.request.PreSignedUrlRequest
+import com.info.maeumgagym.pickle.dto.request.PreSignedUploadURLRequest
 import com.info.maeumgagym.pickle.dto.request.UpdatePickleRequest
-import com.info.maeumgagym.pickle.dto.response.PreSignedUrlResponse
-import com.info.maeumgagym.pickle.port.`in`.GetPreSignedUrlUseCase
+import com.info.maeumgagym.pickle.dto.response.PreSignedUploadURLResponse
+import com.info.maeumgagym.pickle.port.`in`.GetPreSignedUploadURLUseCase
 import com.info.maeumgagym.pickle.port.`in`.PickleDeleteUseCase
 import com.info.maeumgagym.pickle.port.`in`.PickleUploadUseCase
 import org.springframework.http.HttpStatus
@@ -29,14 +29,14 @@ class PickleController(
     private val pickleUploadUseCase: PickleUploadUseCase,
     private val pickleDeleteUseCase: PickleDeleteUseCase,
     private val updatePickleUseCase: UpdatePickleUseCase,
-    private val getPreSignedUrlUseCase: GetPreSignedUrlUseCase
+    private val getPreSignedUploadURLUseCase: GetPreSignedUploadURLUseCase
 ) {
 
     @GetMapping("/url")
     fun getPreSignedUrl(
         @RequestBody @Valid
-        req: PreSignedUrlRequest
-    ): PreSignedUrlResponse = getPreSignedUrlUseCase.getPreSignedUrl(req.fileType!!)
+        req: PreSignedUploadURLRequest
+    ): PreSignedUploadURLResponse = getPreSignedUploadURLUseCase.getPreSignedUploadURL(req.fileType!!)
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
