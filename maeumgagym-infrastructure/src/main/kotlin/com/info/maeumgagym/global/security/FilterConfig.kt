@@ -17,6 +17,7 @@ class FilterConfig(
     private val jwtResolver: JwtResolver,
     private val jwtAdapter: JwtAdapter
 ) : SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
+
     override fun configure(builder: HttpSecurity) {
         builder.addFilterBefore(
             JwtFilter(jwtResolver, jwtAdapter),

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestHeader
 
 @FeignClient(
     name = "FileClient",
-    url = "https://video-macos.pokabook.kr",
+    url = "\${file.url}",
     configuration = [FeignConfig::class]
 )
 interface FileClient {

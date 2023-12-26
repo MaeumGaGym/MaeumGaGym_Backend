@@ -49,7 +49,7 @@ kakao:
 redis:
     host: ${REDIS_HOST:localhost}
     port: ${REDIS_PORT:6379}
-    database: 1
 
 file:
     secret-key: ${FILE_SERVER_SECRET_KEY}
+    url: ${FILE_SERVER_URL}
