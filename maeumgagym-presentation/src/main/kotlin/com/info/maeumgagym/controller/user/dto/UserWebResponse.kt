@@ -9,7 +9,7 @@ data class UserWebResponse(
 
     companion object {
 
-        fun toWrbResponse(res: UserResponse) = UserWebResponse(
+        fun toWebResponse(res: UserResponse) = UserWebResponse(
             res.nickname,
             res.profileImage
         )
