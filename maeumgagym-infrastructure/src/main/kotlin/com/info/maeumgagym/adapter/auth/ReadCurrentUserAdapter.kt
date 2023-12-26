@@ -12,8 +12,7 @@ class ReadCurrentUserAdapter(
     private val findUserByOAuthIdPort: FindUserByOAuthIdPort
 ) : ReadCurrentUserPort {
 
-    override fun readCurrentUser(): User {
-        val oauthId = SecurityContextHolder.getContext().authentication.name
-        return findUserByOAuthIdPort.findUserByOAuthId(oauthId) ?: throw UnAuthorizedException
-    }
+    override fun readCurrentUser(): User = findUserByOAuthIdPort.findUserByOAuthId(
+        SecurityContextHolder.getContext().authentication.name
+    ) ?: throw UnAuthorizedException
 }

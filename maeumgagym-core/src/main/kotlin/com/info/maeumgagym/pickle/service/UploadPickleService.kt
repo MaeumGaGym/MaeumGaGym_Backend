@@ -8,7 +8,7 @@ import com.info.maeumgagym.pickle.port.`in`.PickleUploadUseCase
 import com.info.maeumgagym.pickle.port.out.SavePicklePort
 
 @UseCase
-class PickleUploadService(
+class UploadPickleService(
     private val savePicklePort: SavePicklePort,
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : PickleUploadUseCase {
@@ -18,10 +18,10 @@ class PickleUploadService(
 
         savePicklePort.savePickle(
             Pickle(
-                title = req.title!!,
+                title = req.title,
                 description = req.description,
                 uploader = user,
-                videoUrl = req.videoUrl!!,
+                videoUrl = req.videoUrl,
                 tags = req.tags
             )
         )

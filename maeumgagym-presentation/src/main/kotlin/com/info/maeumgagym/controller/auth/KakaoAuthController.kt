@@ -1,8 +1,8 @@
 package com.info.maeumgagym.controller.auth
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.controller.auth.dto.request.KakaoSignupRequest
-import com.info.maeumgagym.auth.dto.response.TokenResponse
+import com.info.maeumgagym.controller.auth.dto.request.KakaoSignupWebRequest
+import com.info.maeumgagym.controller.auth.dto.response.TokenWebResponse
 import com.info.maeumgagym.auth.port.`in`.KakaoLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.KakaoSignupUseCase
 import org.springframework.http.HttpStatus
@@ -19,15 +19,15 @@ class KakaoAuthController(
 ) {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
-    fun login(@RequestParam("access_token", required = true) @NotBlank accessToken: String?): TokenResponse =
-        kakaoLoginUseCase.login(accessToken!!)
+    fun login(@RequestParam("access_token", required = true) @NotBlank accessToken: String?): TokenWebResponse =
+        TokenWebResponse.toWebResponse(kakaoLoginUseCase.login(accessToken!!))
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/signup")
     fun signup(
         @RequestParam("access_token", required = true) @NotBlank accessToken: String?,
-        @RequestBody kakaoSignupRequest: KakaoSignupRequest
+        @RequestBody req: KakaoSignupWebRequest
     ) {
-        kakaoSignupUseCase.signup(accessToken!!, kakaoSignupRequest.nickname)
+        kakaoSignupUseCase.signup(accessToken!!, req.nickname!!)
     }
 }
