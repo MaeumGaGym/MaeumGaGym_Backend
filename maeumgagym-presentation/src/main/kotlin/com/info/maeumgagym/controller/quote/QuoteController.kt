@@ -21,5 +21,4 @@ class QuoteController(
         QuoteWebResponse.toWebResponse(
             readRandomQuoteUseCase.readRandomQuote()
         )
-
 }
