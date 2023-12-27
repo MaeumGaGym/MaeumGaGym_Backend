@@ -43,7 +43,6 @@ jwt:
 kakao:
     grantType: ${GRANT_TYPE}
     clientId: ${CLIENT_ID}
-    redirectUri: ${REDIRECT_URI}
 
 # data redis
 redis:

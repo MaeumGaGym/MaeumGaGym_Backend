@@ -20,3 +20,7 @@ allOpen {
     annotation("com.info.common.PersistenceAdapter")
     annotation("com.info.common.WebAdapter")
 }
+
+tasks.getByName<Jar>("bootJar") {
+    enabled = false
+}
