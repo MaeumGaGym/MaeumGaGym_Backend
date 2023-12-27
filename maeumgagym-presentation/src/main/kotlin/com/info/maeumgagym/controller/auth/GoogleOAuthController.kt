@@ -22,12 +22,12 @@ class GoogleOAuthController(
     private val googleSignupUseCase: GoogleSignupUseCase
 ) {
 
-    @Operation(summary = "구글 OAuth 로그인")
+    @Operation(summary = "구글 OAuth 로그인 API")
     @PostMapping("/login")
     fun login(@RequestParam("access_token", required = true) @NotBlank accessToken: String?): TokenWebResponse =
         TokenWebResponse.toWebResponse(googleLoginUseCase.login(accessToken!!))
 
-    @Operation(summary = "구글 OAuth 회원가입")
+    @Operation(summary = "구글 OAuth 회원가입 API")
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     fun signup(
