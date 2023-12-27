@@ -8,6 +8,8 @@ import com.info.maeumgagym.controller.pickle.dto.request.UpdatePickleWebRequest
 import com.info.maeumgagym.controller.pickle.dto.response.PreSignedUploadURLWebResponse
 import com.info.maeumgagym.pickle.dto.response.PickleListResponse
 import com.info.maeumgagym.pickle.port.`in`.*
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletResponse
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 
+@Tag(name = "Pickle API")
 @Validated
 @WebAdapter
 @RequestMapping("/pickles")
@@ -27,6 +30,7 @@ class PickleController(
     private val getPreSignedUploadURLUseCase: GetPreSignedUploadURLUseCase
 ) {
 
+    @Operation(summary = "추천 피클 전체 조회 API")
     @GetMapping
     fun recommendationPicklesLoad(
         @RequestParam index: Int,
@@ -34,6 +38,7 @@ class PickleController(
     ): PickleListResponse =
         loadRecommendationPicklesUseCase.loadRecommendationPickles(index)
 
+    @Operation(summary = "피클 조회 API")
     @GetMapping("/{id}")
     fun pickleLoadFromId(
         @PathVariable(name = "id", required = true)
@@ -45,12 +50,14 @@ class PickleController(
             loadPickleFromIdUseCase.loadPickleFromId(id!!)
         )
 
+    @Operation(summary = "PreSignedUploadURL 조회 API")
     @GetMapping("/url")
     fun getPreSignedUploadURL(
         @RequestBody @Valid
         req: PreSignedUploadURLWebRequest
     ) = PreSignedUploadURLWebResponse(getPreSignedUploadURLUseCase.getPreSignedUploadURL(req.fileType!!))
 
+    @Operation(summary = "피클 업로드 API")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun uploadPickle(
@@ -60,6 +67,7 @@ class PickleController(
         pickleUploadUseCase.uploadPickle(req.toRequest())
     }
 
+    @Operation(summary = "피클 삭제 API")
     @DeleteMapping("/{id}")
     fun deletePickle(
         @PathVariable(name = "id", required = true)
@@ -70,6 +78,7 @@ class PickleController(
         pickleDeleteUseCase.deletePickle(id!!)
     }
 
+    @Operation(summary = "피클 수정 API")
     @PutMapping("/{id}")
     fun updatePickle(
         @PathVariable(name = "id", required = true)
