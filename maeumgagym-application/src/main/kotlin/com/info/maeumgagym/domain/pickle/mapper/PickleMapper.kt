@@ -14,28 +14,26 @@ class PickleMapper(
 
     fun toEntity(pickle: Pickle) = pickle.run {
         PickleJpaEntity(
+            videoId = videoId,
             description = description,
             title = title,
             uploader = userMapper.toEntity(uploader),
-            videoUrl = videoUrl,
             likeCount = likeCount,
             tags = tags,
             createdAt = createdAt,
-            id = id
         )
     }
 
     fun toDomain(pickleJpaEntity: PickleJpaEntity) = pickleJpaEntity.run {
         Pickle(
+            videoId = videoId,
             title = title,
             description = description,
             uploader = userMapper.toDomain(uploader),
-            videoUrl = videoUrl,
             likeCount = likeCount,
             tags = tags,
             createdAt = createdAt,
             isDeleted = isDeleted,
-            id = id
         )
     }
 

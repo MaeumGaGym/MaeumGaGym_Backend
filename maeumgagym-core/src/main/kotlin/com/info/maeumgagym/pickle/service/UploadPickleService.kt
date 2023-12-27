@@ -18,10 +18,10 @@ class UploadPickleService(
 
         savePicklePort.savePickle(
             Pickle(
+                videoId = req.videoId,
                 title = req.title,
                 description = req.description,
                 uploader = user,
-                videoUrl = req.videoUrl,
                 tags = req.tags
             )
         )

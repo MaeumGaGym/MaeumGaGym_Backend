@@ -31,5 +31,5 @@ class PickleLikeJpaEntity(
 
     override fun getId() = IdClass(pickle, user)
 
-    override fun isNew() = pickle.id == null || user.id == null
+    override fun isNew() = user.id == null
 }

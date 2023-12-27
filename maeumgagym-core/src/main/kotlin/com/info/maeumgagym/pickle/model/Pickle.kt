@@ -5,13 +5,13 @@ import java.time.LocalDateTime
 
 data class Pickle(
 
+    val videoId: Long,
+
     val title: String,
 
     val description: String?,
 
     val uploader: User,
-
-    val videoUrl: String,
 
     val likeCount: Long = 0,
 
@@ -21,7 +21,5 @@ data class Pickle(
 
     val createdAt: LocalDateTime? = null,
 
-    val isDeleted: Boolean = false,
-
-    val id: Long? = null
+    val isDeleted: Boolean = false
 )

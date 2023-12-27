@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*
 
 @FeignClient(
     name = "FileClient",
-    url = "\${file.url}",
+    url = "\${file.url-1}",
     configuration = [FeignConfig::class]
 )
 interface FileClient {
