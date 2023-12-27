@@ -27,6 +27,7 @@ dependencies {
     kapt("com.querydsl:querydsl-apt:${PluginVersions.QUERY_DSL}:jpa")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
 
+    implementation(Dependencies.SPRING_DOC)
     implementation(Dependencies.SWAGGER)
 }
 

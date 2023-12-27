@@ -54,5 +54,6 @@ object Dependencies {
 
     const val ANNOTATION_PROCESSOR = "org.springframework.boot:spring-boot-configuration-processor"
 
-    const val SWAGGER = "org.springdoc:springdoc-openapi-ui:1.6.11"
+    const val SPRING_DOC = "org.springdoc:springdoc-openapi-ui:1.6.11"
+    const val SWAGGER = "io.springfox:springfox-swagger2:2.9.2"
 }
