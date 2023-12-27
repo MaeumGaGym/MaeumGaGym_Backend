@@ -32,10 +32,7 @@ class PickleController(
 
     @Operation(summary = "추천 피클 전체 조회 API")
     @GetMapping
-    fun recommendationPicklesLoad(
-        @RequestParam index: Int,
-        httpServletResponse: HttpServletResponse
-    ): PickleListResponse =
+    fun recommendationPicklesLoad(@RequestParam index: Int): PickleListResponse =
         loadRecommendationPicklesUseCase.loadRecommendationPickles(index)
 
     @Operation(summary = "피클 조회 API")
