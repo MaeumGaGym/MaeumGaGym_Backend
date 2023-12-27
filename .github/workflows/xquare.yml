@@ -54,4 +54,3 @@ jobs:
               SWAGGER_PATH=${{ secrets.SWAGGER_PATH }}
               SWAGGER_UI_PATH=${{ secrets.SWAGGER_UI_PATH }}
 
-
