@@ -34,6 +34,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, "/kakao/login").permitAll()
             .antMatchers(HttpMethod.POST, "/kakao/signup").permitAll()
             .antMatchers(HttpMethod.POST, "/apple/login").permitAll()
+            .antMatchers("/swagger-ui/**", "/docs/**").permitAll()
             .anyRequest()
             .authenticated().and()
             .apply(FilterConfig(objectMapper, jwtResolver, jwtAdapter)).and().build()
