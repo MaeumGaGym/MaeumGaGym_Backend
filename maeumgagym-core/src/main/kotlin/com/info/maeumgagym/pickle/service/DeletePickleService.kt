@@ -26,6 +26,5 @@ class DeletePickleService(
 
         deletePicklePort.deletePickle(pickle)
         feignDeletePicklePort.deletePickle(pickle.videoId)
-        // TODO("PK 변경 후 해당 TODO 삭제")
     }
 }

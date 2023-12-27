@@ -15,6 +15,9 @@ dependencies {
 
     // validation
     implementation(Dependencies.SPRING_VALIDATION)
+
+    implementation(Dependencies.SPRING_DOC)
+    implementation(Dependencies.SWAGGER)
 }
 
 tasks.getByName<Jar>("bootJar") {

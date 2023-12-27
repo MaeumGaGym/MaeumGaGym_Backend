@@ -26,6 +26,9 @@ dependencies {
     implementation("com.querydsl:querydsl-jpa:${PluginVersions.QUERY_DSL}")
     kapt("com.querydsl:querydsl-apt:${PluginVersions.QUERY_DSL}:jpa")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
+
+    implementation(Dependencies.SPRING_DOC)
+    implementation(Dependencies.SWAGGER)
 }
 
 // Declaring a publicly-available repository
