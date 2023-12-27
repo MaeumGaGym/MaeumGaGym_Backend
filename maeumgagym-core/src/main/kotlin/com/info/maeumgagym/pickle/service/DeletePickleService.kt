@@ -25,7 +25,7 @@ class DeletePickleService(
         if (pickle.uploader.id != user.id) throw PermissionDeniedException
 
         deletePicklePort.deletePickle(pickle)
-        feignDeletePicklePort.deletePickle(pickle.id!!)
+        feignDeletePicklePort.deletePickle(pickle.videoId)
         // TODO("PK 변경 후 해당 TODO 삭제")
     }
 }

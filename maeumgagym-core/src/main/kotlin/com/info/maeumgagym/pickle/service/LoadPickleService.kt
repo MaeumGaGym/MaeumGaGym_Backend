@@ -8,6 +8,7 @@ import com.info.maeumgagym.pickle.exception.ThereNoPicklesException
 import com.info.maeumgagym.pickle.model.Pickle
 import com.info.maeumgagym.pickle.port.`in`.LoadPickleFromIdUseCase
 import com.info.maeumgagym.pickle.port.`in`.LoadRecommendationPicklesUseCase
+import com.info.maeumgagym.pickle.port.out.GenerateUploadURLPort
 import com.info.maeumgagym.pickle.port.out.ReadAllPicklesPort
 import com.info.maeumgagym.pickle.port.out.ReadPickleByIdPort
 import com.info.maeumgagym.user.dto.response.UserResponse
@@ -15,7 +16,8 @@ import com.info.maeumgagym.user.dto.response.UserResponse
 @UseCase
 class LoadPickleService(
     private val readAllPicklesPort: ReadAllPicklesPort,
-    private val readPickleByIdPort: ReadPickleByIdPort
+    private val readPickleByIdPort: ReadPickleByIdPort,
+    private val generateUploadURLPort: GenerateUploadURLPort
 ) : LoadRecommendationPicklesUseCase, LoadPickleFromIdUseCase {
 
     private companion object {
@@ -46,8 +48,8 @@ class LoadPickleService(
 
     private fun Pickle.toResponse(): PickleResponse =
         PickleResponse(
-            id = id!!,
-            videoUrl = videoUrl,
+            videoId = videoId,
+            videoURL = generateUploadURLPort.generateUploadURL(videoId),
             title = title,
             description = description,
             tags = tags.toList(),

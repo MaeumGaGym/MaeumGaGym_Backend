@@ -4,8 +4,8 @@ import com.info.maeumgagym.controller.user.dto.UserWebResponse
 import com.info.maeumgagym.pickle.dto.response.PickleResponse
 
 data class PickleWebResponse(
-    val id: Long,
-    val videoUrl: String,
+    val videoId: Long,
+    val videoURL: String,
     val title: String,
     val description: String?,
     val tags: List<String>,
@@ -18,8 +18,8 @@ data class PickleWebResponse(
         fun toWebResponse(response: PickleResponse): PickleWebResponse =
             response.run {
                 PickleWebResponse(
-                    id = id,
-                    videoUrl = videoUrl,
+                    videoId = videoId,
+                    videoURL = videoURL,
                     title = title,
                     description = description,
                     tags = tags,

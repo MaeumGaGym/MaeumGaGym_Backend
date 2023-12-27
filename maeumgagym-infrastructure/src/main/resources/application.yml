@@ -52,4 +52,6 @@ redis:
 
 file:
     secret-key: ${FILE_SERVER_SECRET_KEY}
-    url: ${FILE_SERVER_URL}
+    url-1: ${FILE_SERVER_URL_1}
+    url-2: ${FILE_SERVER_URL_2}
+    suffixPath: ${SUFFIX_PATH}
