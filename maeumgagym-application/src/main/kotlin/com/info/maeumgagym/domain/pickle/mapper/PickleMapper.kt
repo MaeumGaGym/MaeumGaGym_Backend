@@ -20,7 +20,7 @@ class PickleMapper(
             uploader = userMapper.toEntity(uploader),
             likeCount = likeCount,
             tags = tags,
-            createdAt = createdAt,
+            createdAt = createdAt
         )
     }
 
@@ -33,7 +33,7 @@ class PickleMapper(
             likeCount = likeCount,
             tags = tags,
             createdAt = createdAt,
-            isDeleted = isDeleted,
+            isDeleted = isDeleted
         )
     }
 

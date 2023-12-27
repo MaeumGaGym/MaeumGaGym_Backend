@@ -27,7 +27,6 @@ class FileAdapter(
     override fun generateUploadURL(videoId: Long): String =
         getBalancedURL() + videoId + fileProperty.suffixPath
 
-
     override fun deletePickle(videoId: Long) {
         fileClient.pickleDelete(
             fileProperty.secretKey,
@@ -36,8 +35,9 @@ class FileAdapter(
     }
 
     private fun getBalancedURL(): String {
-        if (fileProperty.urls.size == loadBalancingNum)
+        if (fileProperty.urls.size == loadBalancingNum) {
             loadBalancingNum--
+        }
         return fileProperty.urls[loadBalancingNum++] + "/"
     }
 }
