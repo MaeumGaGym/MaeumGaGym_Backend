@@ -3,7 +3,6 @@ plugins {
     id("io.spring.dependency-management") version PluginVersions.DEPENDENCY_MANAGER_VERSION
     kotlin("plugin.jpa") version PluginVersions.JPA_PLUGIN_VERSION
     kotlin("plugin.spring") version PluginVersions.SPRING_PLUGIN_VERSION
-    id("org.jlleitschuh.gradle.ktlint") version PluginVersions.KLINT_VERSION
 }
 
 sourceSets["main"].withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {
@@ -35,4 +34,8 @@ noArg {
     annotation("javax.persistence.Entity")
     annotation("javax.persistence.MappedSuperclass")
     annotation("javax.persistence.Embeddable")
+}
+
+tasks.getByName<Jar>("bootJar") {
+    enabled = false
 }
