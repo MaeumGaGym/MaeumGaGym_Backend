@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController
 @Tag(name = "Pose API")
 @RequestMapping("/poses")
 @WebAdapter
-@RestController
 @Validated
 class PoseController(
     private val readByIdUseCase: ReadByIdUseCase

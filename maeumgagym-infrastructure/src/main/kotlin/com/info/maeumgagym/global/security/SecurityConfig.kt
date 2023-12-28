@@ -1,6 +1,7 @@
 package com.info.maeumgagym.global.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.info.maeumgagym.global.env.security.SecurityProperties
 import com.info.maeumgagym.global.jwt.JwtAdapter
 import com.info.maeumgagym.global.jwt.JwtResolver
 import org.springframework.context.annotation.Bean
@@ -18,7 +19,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 class SecurityConfig(
     private val objectMapper: ObjectMapper,
     private val jwtResolver: JwtResolver,
-    private val jwtAdapter: JwtAdapter
+    private val jwtAdapter: JwtAdapter,
+    private val property: SecurityProperties
 ) {
     @Bean
     protected fun filterChain(http: HttpSecurity): SecurityFilterChain =
@@ -32,12 +34,13 @@ class SecurityConfig(
             .requestMatchers(CorsUtils::isCorsRequest)
             .permitAll()
 
-            .antMatchers(HttpMethod.POST, "/google/signup").permitAll()
-            .antMatchers(HttpMethod.POST, "/google/login").permitAll()
-            .antMatchers(HttpMethod.POST, "/kakao/login").permitAll()
-            .antMatchers(HttpMethod.POST, "/kakao/signup").permitAll()
-            .antMatchers(HttpMethod.POST, "/apple/login").permitAll()
+            .antMatchers(HttpMethod.POST, "/maeumgagym/google/signup").permitAll()
+            .antMatchers(HttpMethod.POST, "/maeumgagym/google/login").permitAll()
+            .antMatchers(HttpMethod.POST, "/maeumgagym/kakao/login").permitAll()
+            .antMatchers(HttpMethod.POST, "/maeumgagym/kakao/signup").permitAll()
+            .antMatchers(HttpMethod.POST, "/maeumgagym/apple/login").permitAll()
             .antMatchers("/swagger-ui/**", "/docs/**").permitAll()
+            .antMatchers("/maeumgagym/swagger-ui/**", "/maeumgagym/docs/**").permitAll()
             .anyRequest().authenticated()
             .and()
 
@@ -58,7 +61,7 @@ class SecurityConfig(
     fun corsConfigurationSource(): CorsConfigurationSource {
 
         val configuration = CorsConfiguration().apply {
-            allowedOrigins = listOf("http://localhost:8080")
+            allowedOrigins = listOf(property.backLocal, property.backDomain, property.frontLocal)
             allowedMethods = listOf("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD")
             allowCredentials = true
             addAllowedHeader("*")

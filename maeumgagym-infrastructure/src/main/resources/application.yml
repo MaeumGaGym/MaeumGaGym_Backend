@@ -1,32 +1,36 @@
 spring:
-  
-  # format
-  jackson:
-    property-naming-strategy: SNAKE_CASE
 
-  # jdbc
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    # format
+    jackson:
+        property-naming-strategy: SNAKE_CASE
 
-  # jpa
-  jpa:
-    hibernate:
-      ddl-auto: ${DDL_AUTO:update}
-    properties:
-      hibernate:
-        format_sql: false
-        show_sql: true
-        use_sql_comments: false
-    open-in-view: false
+    # jdbc
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: ${DB_URL}
+        username: ${DB_USERNAME}
+        password: ${DB_PASSWORD}
+
+    # jpa
+    jpa:
+        hibernate:
+            ddl-auto: ${DDL_AUTO:update}
+        properties:
+            hibernate:
+                format_sql: false
+                show_sql: true
+                use_sql_comments: false
+            open-in-view: false
 
 # server
 server:
     port: ${SERVER_PORT:8080}
+    domain:
+        front-local: ${FRONT_LOCAL}
+        back-local: ${BACK_LOCAL}
+        back-domain: ${BACK_DOMAIN}
     tomcat:
-      connection-timeout: 10s
+        connection-timeout: 10s
     servlet:
         context-path: /maeumgagym
 

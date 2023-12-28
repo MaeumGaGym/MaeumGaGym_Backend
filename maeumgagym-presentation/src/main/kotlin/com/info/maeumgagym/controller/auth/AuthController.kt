@@ -8,12 +8,14 @@ import com.info.maeumgagym.auth.port.`in`.ReissueUseCase
 import com.info.maeumgagym.auth.port.`in`.WithdrawalUserUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @Tag(name = "Auth API")
 @RequestMapping("/auth")
 @WebAdapter
+@Validated
 class AuthController(
     private val withdrawalUserUseCase: WithdrawalUserUseCase,
     private val duplicatedNicknameCheckUseCase: DuplicatedNicknameCheckUseCase,
