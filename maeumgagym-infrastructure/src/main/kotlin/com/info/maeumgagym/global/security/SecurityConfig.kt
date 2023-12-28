@@ -34,13 +34,12 @@ class SecurityConfig(
             .requestMatchers(CorsUtils::isCorsRequest)
             .permitAll()
 
-            .antMatchers(HttpMethod.POST, "/maeumgagym/google/signup").permitAll()
-            .antMatchers(HttpMethod.POST, "/maeumgagym/google/login").permitAll()
-            .antMatchers(HttpMethod.POST, "/maeumgagym/kakao/login").permitAll()
-            .antMatchers(HttpMethod.POST, "/maeumgagym/kakao/signup").permitAll()
-            .antMatchers(HttpMethod.POST, "/maeumgagym/apple/login").permitAll()
+            .antMatchers(HttpMethod.POST, "/google/signup").permitAll()
+            .antMatchers(HttpMethod.POST, "/google/login").permitAll()
+            .antMatchers(HttpMethod.POST, "/kakao/login").permitAll()
+            .antMatchers(HttpMethod.POST, "/kakao/signup").permitAll()
+            .antMatchers(HttpMethod.POST, "/apple/login").permitAll()
             .antMatchers("/swagger-ui/**", "/docs/**").permitAll()
-            .antMatchers("/maeumgagym/swagger-ui/**", "/maeumgagym/docs/**").permitAll()
             .anyRequest().authenticated()
             .and()
 

@@ -9,5 +9,4 @@ import org.springframework.web.bind.annotation.RestController
 @MustBeDocumented
 @RestController
 @Component
-@RequestMapping("/maeumgagym")
 annotation class WebAdapter()
