@@ -4,5 +4,5 @@ import com.info.maeumgagym.auth.dto.response.TokenResponse
 
 interface GenerateJwtPort {
 
-    fun generateToken(subject: String): TokenResponse
+    fun generateTokens(subject: String): TokenResponse
 }

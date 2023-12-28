@@ -1,5 +1,5 @@
 config:
-  name: maeumgagym
-  service_type: be
-  port: 8080
-  prefix: "/maeumgagym"
+    name: maeumgagym
+    service_type: be
+    port: 8080
+    prefix: "/maeumgagym"

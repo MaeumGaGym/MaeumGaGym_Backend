@@ -24,7 +24,7 @@ class GoogleOAuthController(
 
     @Operation(summary = "구글 OAuth 로그인 API")
     @PostMapping("/login")
-    fun login(@RequestParam("access_token", required = true) @NotBlank accessToken: String?): TokenWebResponse =
+    fun login(@RequestParam("access_token") @Valid @NotBlank accessToken: String?): TokenWebResponse =
         TokenWebResponse.toWebResponse(googleLoginUseCase.login(accessToken!!))
 
     @Operation(summary = "구글 OAuth 회원가입 API")
