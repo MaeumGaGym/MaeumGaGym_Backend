@@ -5,7 +5,7 @@ import com.info.maeumgagym.routine.dto.RoutineStatusDto
 import java.util.*
 
 data class RoutineResponse(
-    val id: UUID,
+    val id: Long,
     val routineName: String,
     val exerciseInfoList: List<ExerciseInfoDto>,
     val dayOfWeeks: List<String>?,
