@@ -35,7 +35,7 @@ jobs:
                 host port: 3306
                 container port: 3306
                 mysql database: 'maeumgagym'
-                mysql user: ${{ secrets.DB_USERNAME }}
+                mysql user: ${{ secrets.TEST_DB_USERNAME }}
                 mysql password: ${{ secrets.DB_PASSWORD }}
 
             - name: checkout
