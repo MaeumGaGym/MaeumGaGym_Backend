@@ -20,7 +20,7 @@ jobs:
             GRANT_TYPE: ${{ secrets.GRANT_TYPE }}
             CLIENT_ID: ${{ secrets.CLIENT_ID }}
             REDIS_HOST: ${{ secrets.TEST_REDIS_HOST }}
-            REDIS_PORT: ${{ secrets.TEST_REDIS_PORT }}
+            REDIS_PORT: ${{ secrets.REDIS_PORT }}
             FILE_SERVER_SECRET_KEY: ${{ secrets.FILE_SERVER_SECRET_KEY }}
             FILE_SERVER_URL_1: ${{ secrets.FILE_SERVER_URL_1 }}
             FILE_SERVER_URL_2: ${{ secrets.FILE_SERVER_URL_2 }}
