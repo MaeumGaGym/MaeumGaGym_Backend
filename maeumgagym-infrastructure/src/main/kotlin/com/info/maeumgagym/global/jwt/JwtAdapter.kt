@@ -30,7 +30,7 @@ class JwtAdapter(
 ) : GenerateJwtPort, ReissuePort, GetJwtBodyPort {
     override fun generateTokens(subject: String): TokenResponse {
 
-        val access = generateAccessToken(subject)
+        val access = generateAccessToken()
         val refresh = generateRefreshToken()
 
         accessTokenRepository.findByIdOrNull(subject)?.let {
@@ -71,10 +71,9 @@ class JwtAdapter(
         )
     }
 
-    private fun generateAccessToken(subject: String): String {
+    private fun generateAccessToken(): String {
         val now = Date()
         return Jwts.builder()
-            .setSubject(subject)
             .setIssuedAt(now)
             .setExpiration(Date(now.time + jwtProperties.accessExpiredExp))
             .signWith(SignatureAlgorithm.HS256, jwtProperties.secretKey)
@@ -90,11 +89,15 @@ class JwtAdapter(
             .compact()
     }
 
-    override fun reissue(refreshToken: String): TokenResponse =
-        generateTokens(getJwtBody(refreshToken).subject)
+    override fun reissue(refreshToken: String): TokenResponse {
 
-    fun getAuthentication(token: String): Authentication {
-        val subject = getJwtBody(token).subject
+        val rfToken = refreshTokenRepository.findByRfToken(refreshToken)
+            ?: throw InvalidTokenException
+
+        return generateTokens(rfToken.subject)
+    }
+
+    fun getAuthentication(subject: String): Authentication {
 
         val authDetails = customUserDetailService.loadUserByUsername(subject) as CustomUserDetails
 
@@ -110,17 +113,6 @@ class JwtAdapter(
                 else -> throw InvalidTokenException
             }
         }
-
-    override fun getJwtBody(token: String, key: String) {
-        try {
-            Jwts.parser().setSigningKey(key).parseClaimsJws(token).body
-        } catch (e: JwtException) {
-            when (e) {
-                is ExpiredJwtException -> throw ExpiredTokenException
-                else -> throw InvalidTokenException
-            }
-        }
-    }
 
     override fun getJwtBody(token: String): Claims =
         try {

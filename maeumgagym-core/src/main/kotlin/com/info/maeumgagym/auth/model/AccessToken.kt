@@ -1,6 +1,6 @@
 package com.info.maeumgagym.auth.model
 
-data class AccessToken (
+data class AccessToken(
 
     val subject: String,
 

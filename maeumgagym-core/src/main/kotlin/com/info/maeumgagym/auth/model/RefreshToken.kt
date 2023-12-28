@@ -1,6 +1,6 @@
 package com.info.maeumgagym.auth.model
 
-data class RefreshToken (
+data class RefreshToken(
 
     val subject: String,
 

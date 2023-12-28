@@ -18,7 +18,7 @@ class JwtResolver(
 
                 val token = it.substring(jwtProperties.prefix.length)
 
-                if (accessTokenRepository.existsByAccessToken(token)) token else throw InvalidTokenException
+                accessTokenRepository.findByAccessToken(token)?.subject ?: throw InvalidTokenException
 
             } else throw InvalidTokenException
         }

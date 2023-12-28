@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface AccessTokenRepository: CrudRepository<AccessTokenRedisEntity, String> {
 
-    fun existsByAccessToken(accessToken: String): Boolean
+    fun findByAccessToken(accessToken: String): AccessTokenRedisEntity?
 }
