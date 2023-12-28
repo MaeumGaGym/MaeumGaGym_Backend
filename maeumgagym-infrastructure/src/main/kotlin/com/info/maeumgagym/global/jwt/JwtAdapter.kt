@@ -33,15 +33,7 @@ class JwtAdapter(
         val access = generateAccessToken()
         val refresh = generateRefreshToken()
 
-        accessTokenRepository.findByIdOrNull(subject)?.let {
-            accessTokenRepository.save(
-                AccessTokenRedisEntity(
-                    it.subject,
-                    access,
-                    jwtProperties.accessExpiredExp
-                )
-            )
-        } ?: accessTokenRepository.save(
+        accessTokenRepository.save(
             AccessTokenRedisEntity(
                 subject,
                 access,
@@ -49,15 +41,7 @@ class JwtAdapter(
             )
         )
 
-        refreshTokenRepository.findByIdOrNull(subject)?.let {
-            refreshTokenRepository.save(
-                RefreshTokenRedisEntity(
-                    it.subject,
-                    refresh,
-                    jwtProperties.refreshExpiredExp
-                )
-            )
-        } ?: refreshTokenRepository.save(
+        refreshTokenRepository.save(
             RefreshTokenRedisEntity(
                 subject,
                 refresh,
