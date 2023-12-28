@@ -10,6 +10,18 @@ jobs:
         steps:
             - name: checkout
               uses: actions/checkout@v2
+
+            - name: setup jdk
+              uses: actions/setup-java@v3
+              with:
+                  java-version: 17
+                  distribution: 'temurin'
+
+            - name: chmod
+              run: chmod +x gradlew
+
+            - name: build
+              run: ./gradlew test
               with:
                   DB_URL: ${{ secrets.DB_URL }}
                   DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
@@ -29,16 +41,3 @@ jobs:
                   SUFFIX_PATH: ${{ secrets.SUFFIX_PATH }}
                   SWAGGER_PATH: ${{ secrets.SWAGGER_PATH }}
                   SWAGGER_UI_PATH: ${{ secrets.SWAGGER_UI_PATH }}
-
-            - name: setup jdk
-              uses: actions/setup-java
-              with:
-                  java-version: 17
-                  distribution: 'temurin'
-
-            - name: chmod
-              run: chmod +x gradlew
-
-            - name: build
-              run: ./gradlew test
-
