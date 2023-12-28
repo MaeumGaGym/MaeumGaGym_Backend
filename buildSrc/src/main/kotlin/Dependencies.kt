@@ -56,4 +56,9 @@ object Dependencies {
 
     const val SPRING_DOC = "org.springdoc:springdoc-openapi-ui:1.6.11"
     const val SWAGGER = "io.springfox:springfox-swagger2:2.9.2"
+
+    const val KOTEST_RUNNER = "io.kotest:kotest-runner-junit5:${DependencyVersions.KOTEST_RUNNER_VERSION}"
+    const val KOTEST_ASSERTIONS = "io.kotest:kotest-assertions-core:${DependencyVersions.KOTEST_ASSERTIONS_VERSION}"
+    const val MOCKK = "io.mockk:mockk:${DependencyVersions.MOCKK_VERSION}"
+    const val KOTEST_EXTENSION = "io.kotest:kotest-assertions-core:${DependencyVersions.KOTEST_EXTENSION_VERSION}"
 }
