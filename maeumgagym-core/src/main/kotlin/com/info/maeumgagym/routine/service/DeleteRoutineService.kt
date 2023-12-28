@@ -14,12 +14,12 @@ class DeleteRoutineService(
     private val deleteRoutinePort: DeleteRoutinePort,
     private val readRoutineByIdPort: ReadRoutineByIdPort,
     private val readCurrentUserPort: ReadCurrentUserPort
-): DeleteRoutineUseCase {
+) : DeleteRoutineUseCase {
     override fun deleteRoutine(routineId: UUID) {
         val routine = readRoutineByIdPort.readRoutineById(routineId) ?: throw RoutineNotFoundException
         val user = readCurrentUserPort.readCurrentUser()
 
-        if(user.id != routine.userId) throw PermissionDeniedException
+        if (user.id != routine.userId) throw PermissionDeniedException
 
         deleteRoutinePort.deleteRoutine(routine)
     }
