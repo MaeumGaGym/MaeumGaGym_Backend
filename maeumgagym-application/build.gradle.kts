@@ -16,6 +16,7 @@ dependencies {
 
     // MySQL
     implementation(Dependencies.MYSQL_CONNECTOR)
+    implementation(Dependencies.REDIS)
 
     // jpa
     implementation(Dependencies.SPRING_DATA_JPA)
@@ -28,12 +29,14 @@ allOpen {
     annotation("javax.persistence.Entity")
     annotation("javax.persistence.MappedSuperclass")
     annotation("javax.persistence.Embeddable")
+    annotations("org.springframework.data.redis.core.RedisHash")
 }
 
 noArg {
     annotation("javax.persistence.Entity")
     annotation("javax.persistence.MappedSuperclass")
     annotation("javax.persistence.Embeddable")
+    annotations("org.springframework.data.redis.core.RedisHash")
 }
 
 tasks.getByName<Jar>("bootJar") {

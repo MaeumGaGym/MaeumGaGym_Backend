@@ -19,4 +19,8 @@ object TableNames {
     const val PICKLE_COMMENT_TABLE = "${TABLE_PREFIX}pickle_comment"
 
     const val PICKLE_REPLY_TABLE = "${TABLE_PREFIX}pickle_reply"
+
+    const val ACCESS_TOKEN_TABLE = "${TABLE_PREFIX}access"
+
+    const val REFRESH_TOKEN_TABLE = "${TABLE_PREFIX}refresh"
 }

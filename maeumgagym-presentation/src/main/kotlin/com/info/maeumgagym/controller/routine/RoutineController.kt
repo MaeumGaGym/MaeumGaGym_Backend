@@ -8,7 +8,7 @@ import com.info.maeumgagym.routine.port.`in`.DeleteRoutineUseCase
 import com.info.maeumgagym.routine.port.`in`.ReadAllMyRoutineUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -21,6 +21,7 @@ import javax.validation.constraints.NotNull
 @Tag(name = "Routine API")
 @RequestMapping("/routines")
 @WebAdapter
+@Validated
 class RoutineController(
     private val createRoutineUseCase: CreateRoutineUseCase,
     private val readAllMyRoutineUseCase: ReadAllMyRoutineUseCase,

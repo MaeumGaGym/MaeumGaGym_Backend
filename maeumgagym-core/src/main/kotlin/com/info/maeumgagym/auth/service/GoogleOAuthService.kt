@@ -8,6 +8,7 @@ import com.info.maeumgagym.user.exception.UserNotFoundException
 import com.info.maeumgagym.auth.port.`in`.GoogleLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.GoogleSignupUseCase
 import com.info.maeumgagym.auth.port.out.GetGoogleInfoPort
+import com.info.maeumgagym.auth.port.out.RevokeGoogleTokenPort
 import com.info.maeumgagym.user.model.Role
 import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.ExistUserByNicknamePort
@@ -20,30 +21,33 @@ class GoogleOAuthService(
     private val saveUserPort: SaveUserPort,
     private val existUserByOAuthIdPort: ExistUserByOAuthIdPort,
     private val existUserByNicknamePort: ExistUserByNicknamePort,
-    private val generateTokenService: GenerateTokenService
+    private val generateTokenService: GenerateTokenService,
+    private val revokeGoogleTokenPort: RevokeGoogleTokenPort
 ) : GoogleLoginUseCase, GoogleSignupUseCase {
 
     override fun login(accessToken: String): TokenResponse {
-        val googleInfoResponse = getGoogleInfoPort.getGoogleInfo(accessToken)
+        val response = getGoogleInfoPort.getGoogleInfo(accessToken)
 
-        if (!existUserByOAuthIdPort.existByOAuthId(googleInfoResponse.sub)) throw UserNotFoundException
+        if (!existUserByOAuthIdPort.existByOAuthId(response.sub)) throw UserNotFoundException
 
-        return generateTokenService.execute(googleInfoResponse.sub)
+        revokeGoogleTokenPort.revokeGoogleToken(accessToken)
+
+        return generateTokenService.execute(response.sub)
     }
 
     override fun signup(accessToken: String, nickname: String) {
         if (existUserByNicknamePort.existByNickname(nickname)) throw DuplicatedNicknameException
 
-        val googleInfoResponse = getGoogleInfoPort.getGoogleInfo(accessToken)
+        val response = getGoogleInfoPort.getGoogleInfo(accessToken)
 
-        if (existUserByOAuthIdPort.existByOAuthId(googleInfoResponse.sub)) throw AlreadyExistUserException
+        if (existUserByOAuthIdPort.existByOAuthId(response.sub)) throw AlreadyExistUserException
 
         saveUserPort.saveUser(
             User(
                 nickname = nickname,
                 roles = mutableListOf(Role.USER),
-                oauthId = googleInfoResponse.sub,
-                profileImage = googleInfoResponse.picture
+                oauthId = response.sub,
+                profileImage = response.picture
             )
         )
     }
