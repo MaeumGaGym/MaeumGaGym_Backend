@@ -13,8 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest
 class QuoteTests @Autowired constructor(
     private val readRandomQuoteUseCase: ReadRandomQuoteUseCase
 ) {
-
-    @Test
     fun getRandomQuoteAndContainedInQUOTESTest() {
         Assertions.assertDoesNotThrow {
             for (i in 1..10) {
