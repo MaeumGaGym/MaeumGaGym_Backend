@@ -29,6 +29,15 @@ jobs:
             SWAGGER_UI_PATH: ${{ secrets.SWAGGER_UI_PATH }}
 
         steps:
+            - name: mysql
+              uses: mirromutth/mysql-action@v1.1
+              with:
+                host port: 3306
+                container port: 3306
+                mysql database: 'maeumgagym'
+                mysql user: ${{ secrets.DB_USERNAME }}
+                mysql password: ${{ secrets.DB_PASSWORD }}
+
             - name: checkout
               uses: actions/checkout@v2
 
@@ -42,4 +51,4 @@ jobs:
               run: chmod +x gradlew
 
             - name: build
-              run: ./gradlew test --scan
+              run: ./gradlew test --warning-mode all --info
