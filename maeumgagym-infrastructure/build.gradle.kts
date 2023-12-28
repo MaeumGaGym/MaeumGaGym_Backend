@@ -34,6 +34,11 @@ dependencies {
 
     implementation(Dependencies.SPRING_DOC)
     implementation(Dependencies.SWAGGER)
+
+
+    testImplementation(Dependencies.KOTEST_RUNNER)
+    testImplementation(Dependencies.KOTEST_ASSERTIONS)
+    testImplementation(Dependencies.MOCKK)
 }
 
 // Declaring a publicly-available repository
