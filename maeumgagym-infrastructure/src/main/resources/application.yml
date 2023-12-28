@@ -7,8 +7,8 @@ spring:
   # jdbc
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL:jdbc:mysql://localhost:3306/maeum}
-    username: ${DB_USER:root}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
 
   # jpa
