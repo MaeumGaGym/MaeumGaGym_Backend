@@ -9,6 +9,15 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
+            -   name: mysql
+                uses: mirromutth/mysql-action@v1.1
+                with:
+                    host port: 3306
+                    container port: 3306
+                    mysql database: 'maeumgagym'
+                    mysql user: ${{ secrets.TEST_DB_USERNAME }}
+                    mysql password: ${{ secrets.DB_PASSWORD }}
+
             -   name: checkout
                 uses: actions/checkout@v2
 
