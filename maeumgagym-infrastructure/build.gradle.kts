@@ -18,6 +18,7 @@ dependencies {
 
     implementation(Dependencies.SPRING_CLOUD)
     implementation(Dependencies.SPRING_WEB)
+    implementation(Dependencies.SPRING_TEST)
     implementation(Dependencies.OPEN_FEIGN)
     implementation(Dependencies.FEIGN_HTTP)
     implementation(Dependencies.SPRING_SECURITY)

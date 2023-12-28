@@ -36,5 +36,8 @@ enum class ErrorCode(
 
     // Conflict
     DUPLICATED_NICKNAME(409, "Duplicated Nickname"),
-    ALREADY_EXIST_USER(409, "Already Exists User")
+    ALREADY_EXIST_USER(409, "Already Exists User"),
+
+    // Test
+    MISMATCH_QUOTE_AND_QUOTER(500, "Mismatch Quote and Quoter")
 }
