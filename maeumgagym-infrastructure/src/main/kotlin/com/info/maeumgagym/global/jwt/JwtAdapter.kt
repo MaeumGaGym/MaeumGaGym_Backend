@@ -4,10 +4,10 @@ import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.GetJwtBodyPort
 import com.info.maeumgagym.auth.port.out.ReissuePort
-import com.info.maeumgagym.domain.auth.entity.AccessTokenRedisEntity
-import com.info.maeumgagym.domain.auth.entity.RefreshTokenRedisEntity
-import com.info.maeumgagym.domain.auth.repository.AccessTokenRepository
-import com.info.maeumgagym.domain.auth.repository.RefreshTokenRepository
+import com.info.maeumgagym.global.jwt.entity.AccessTokenRedisEntity
+import com.info.maeumgagym.global.jwt.entity.RefreshTokenRedisEntity
+import com.info.maeumgagym.global.jwt.repository.AccessTokenRepository
+import com.info.maeumgagym.global.jwt.repository.RefreshTokenRepository
 import com.info.maeumgagym.global.env.jwt.JwtProperties
 import com.info.maeumgagym.global.exception.ExpiredTokenException
 import com.info.maeumgagym.global.exception.InvalidTokenException

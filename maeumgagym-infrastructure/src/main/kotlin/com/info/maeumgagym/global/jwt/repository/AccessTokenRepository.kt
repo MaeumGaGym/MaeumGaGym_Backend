@@ -1,6 +1,6 @@
-package com.info.maeumgagym.domain.auth.repository
+package com.info.maeumgagym.global.jwt.repository
 
-import com.info.maeumgagym.domain.auth.entity.AccessTokenRedisEntity
+import com.info.maeumgagym.global.jwt.entity.AccessTokenRedisEntity
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 

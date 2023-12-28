@@ -1,4 +1,4 @@
-package com.info.maeumgagym.domain.auth.entity
+package com.info.maeumgagym.global.jwt.entity
 
 import com.info.maeumgagym.TableNames
 import org.springframework.data.annotation.Id
@@ -6,10 +6,10 @@ import org.springframework.data.redis.core.RedisHash
 import org.springframework.data.redis.core.TimeToLive
 import org.springframework.data.redis.core.index.Indexed
 
-@RedisHash(value = TableNames.ACCESS_TOKEN_TABLE)
-class AccessTokenRedisEntity (
+@RedisHash(value = TableNames.REFRESH_TOKEN_TABLE)
+class RefreshTokenRedisEntity (
     subject: String,
-    accessToken: String,
+    rfToken: String,
     ttl: Long
 ) {
     @Id
@@ -17,7 +17,7 @@ class AccessTokenRedisEntity (
         protected set
 
     @Indexed
-    var accessToken: String = accessToken
+    var rfToken: String = rfToken
         protected set
 
     @TimeToLive
