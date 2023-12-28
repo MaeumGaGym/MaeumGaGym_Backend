@@ -16,7 +16,7 @@ jobs:
                     container port: 3306
                     mysql database: 'maeumgagym'
                     mysql user: ${{ secrets.TEST_DB_USERNAME }}
-                    mysql password: ${{ secrets.DB_PASSWORD }}
+                    mysql password: ${{ secrets.TEST_DB_PASSWORD }}
 
             -   name: checkout
                 uses: actions/checkout@v2
@@ -31,13 +31,13 @@ jobs:
                 run: chmod +x gradlew
 
             -   run: echo ${{ secrets.REDIS_PORT }}
-                
+
             -   name: build
                 run: ./gradlew test --warning-mode all --info
                 env:
                     DB_URL: ${{ secrets.TEST_DB_URL }}
-                    DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
                     DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
+                    DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
                     JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
                     JWT_ACCESS_EXP: ${{ secrets.JWT_ACCESS_EXP }}
                     JWT_REFRESH_EXP: ${{ secrets.JWT_REFRESH_EXP }}
