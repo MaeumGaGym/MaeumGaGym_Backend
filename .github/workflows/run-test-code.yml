@@ -1,0 +1,44 @@
+name: Run Test Code
+
+on:
+    pull_request:
+        branches: [ 'main', 'develop' ]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v2
+              with:
+                  DB_URL: ${{ secrets.DB_URL }}
+                  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+                  DB_USERNAME: ${{ secrets.DB_USERNAME }}
+                  JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+                  JWT_ACCESS_EXP: ${{ secrets.JWT_ACCESS_EXP }}
+                  JWT_REFRESH_EXP: ${{ secrets.JWT_REFRESH_EXP }}
+                  JWT_HEADER: ${{ secrets.JWT_HEADER }}
+                  JWT_PREFIX: ${{ secrets.JWT_PREFIX }}
+                  GRANT_TYPE: ${{ secrets.GRANT_TYPE }}
+                  CLIENT_ID: ${{ secrets.CLIENT_ID }}
+                  REDIS_HOST: ${{ secrets.REDIS_HOST }}
+                  REDIS_PORT: ${{ secrets.REDIS_PORT }}
+                  FILE_SERVER_SECRET_KEY: ${{ secrets.FILE_SERVER_SECRET_KEY }}
+                  FILE_SERVER_URL_1: ${{ secrets.FILE_SERVER_URL_1 }}
+                  FILE_SERVER_URL_2: ${{ secrets.FILE_SERVER_URL_2 }}
+                  SUFFIX_PATH: ${{ secrets.SUFFIX_PATH }}
+                  SWAGGER_PATH: ${{ secrets.SWAGGER_PATH }}
+                  SWAGGER_UI_PATH: ${{ secrets.SWAGGER_UI_PATH }}
+
+            - name: setup jdk
+              uses: actions/setup-java
+              with:
+                  java-version: 17
+                  distribution: 'temurin'
+
+            - name: chmod
+              run: chmod +x gradlew
+
+            - name: build
+              run: ./gradlew test
+
