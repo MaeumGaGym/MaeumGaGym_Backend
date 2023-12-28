@@ -22,22 +22,32 @@ class SecurityConfig(
 ) {
     @Bean
     protected fun filterChain(http: HttpSecurity): SecurityFilterChain =
-        http.csrf()
-            .disable()
-            .formLogin()
-            .disable()
+        http.csrf().disable()
+            .formLogin().disable()
+
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+
             .authorizeRequests()
             .requestMatchers(CorsUtils::isCorsRequest)
             .permitAll()
+
             .antMatchers(HttpMethod.POST, "/google/signup").permitAll()
             .antMatchers(HttpMethod.POST, "/google/login").permitAll()
             .antMatchers(HttpMethod.POST, "/kakao/login").permitAll()
             .antMatchers(HttpMethod.POST, "/kakao/signup").permitAll()
             .antMatchers(HttpMethod.POST, "/apple/login").permitAll()
             .antMatchers("/swagger-ui/**", "/docs/**").permitAll()
-            .anyRequest().permitAll()
+            .anyRequest().authenticated()
+            .and()
+
+            .cors().and()
+            .exceptionHandling()
+
+            .and()
+            .headers()
+            .frameOptions()
+            .sameOrigin()
 
             .and()
             .apply(FilterConfig(objectMapper, jwtResolver, jwtAdapter))
