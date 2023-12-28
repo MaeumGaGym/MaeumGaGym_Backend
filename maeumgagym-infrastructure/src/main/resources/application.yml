@@ -24,9 +24,11 @@ spring:
 
 # server
 server:
-  port: ${SERVER_PORT:8080}
-  tomcat:
-    connection-timeout: 10s
+    port: ${SERVER_PORT:8080}
+    tomcat:
+      connection-timeout: 10s
+    servlet:
+        context-path: /maeumgagym
 
 # logging
 logging:
