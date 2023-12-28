@@ -7,6 +7,7 @@ import com.info.maeumgagym.routine.port.`in`.CreateRoutineUseCase
 import com.info.maeumgagym.routine.port.`in`.ReadAllMyRoutineUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -16,6 +17,7 @@ import javax.validation.Valid
 @Tag(name = "Routine API")
 @RequestMapping("/routines")
 @WebAdapter
+@Validated
 class RoutineController(
     private val createRoutineUseCase: CreateRoutineUseCase,
     private val readAllMyRoutineUseCase: ReadAllMyRoutineUseCase

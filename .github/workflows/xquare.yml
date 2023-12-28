@@ -53,4 +53,7 @@ jobs:
               SUFFIX_PATH=${{ secrets.SUFFIX_PATH }}
               SWAGGER_PATH=${{ secrets.SWAGGER_PATH }}
               SWAGGER_UI_PATH=${{ secrets.SWAGGER_UI_PATH }}
+              FRONT_LOCAL=${{ secrets.FRONT_LOCAL }}
+              BACK_LOCAL=${{ secrets.BACK_LOCAL }}
+              BACK_DOMAIN=${{ secrets.BACK_DOMAIN }}
 

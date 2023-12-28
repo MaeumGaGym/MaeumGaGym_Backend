@@ -9,5 +9,5 @@ class GenerateTokenService(
     private val generateJwtPort: GenerateJwtPort
 ) {
 
-    fun execute(subject: String): TokenResponse = generateJwtPort.generateToken(subject)
+    fun execute(subject: String): TokenResponse = generateJwtPort.generateTokens(subject)
 }
