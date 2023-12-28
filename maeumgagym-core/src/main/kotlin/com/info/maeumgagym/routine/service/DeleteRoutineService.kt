@@ -15,7 +15,7 @@ class DeleteRoutineService(
     private val readRoutineByIdPort: ReadRoutineByIdPort,
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : DeleteRoutineUseCase {
-    override fun deleteRoutine(routineId: UUID) {
+    override fun deleteRoutine(routineId: Long) {
         val routine = readRoutineByIdPort.readRoutineById(routineId) ?: throw RoutineNotFoundException
         val user = readCurrentUserPort.readCurrentUser()
 

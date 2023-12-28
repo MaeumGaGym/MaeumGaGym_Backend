@@ -47,7 +47,7 @@ internal class RoutineTests : BehaviorSpec({
     companion object {
         val user1Id = UUID.fromString("e25b8200-9e45-11ee-9c7e-0af86a3dcfb4")
         val user2Id = UUID.fromString("a25b8200-9e45-11ee-9c7e-0af86a3dcfb4")
-        val routineId = UUID.fromString("e25b8200-9e45-11ee-9c7e-0af86a3dcfb1")
+        val routineId = 1L
         val routine = Routine(
             routineName = "아침운동",
             exerciseInfoModelList = mutableListOf(ExerciseInfoModel(exerciseName = "스쿼드", repetitions = 10, sets = 10)),

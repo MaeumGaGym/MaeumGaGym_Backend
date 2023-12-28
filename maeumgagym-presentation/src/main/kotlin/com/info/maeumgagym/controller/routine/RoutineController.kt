@@ -44,7 +44,7 @@ class RoutineController(
         @PathVariable(required = true)
         @Valid
         @NotNull(message = "null일 수 없습니다.")
-        routineId: UUID?
+        routineId: Long?
     ) =
         deleteRoutineUseCase.deleteRoutine(routineId!!)
 }
