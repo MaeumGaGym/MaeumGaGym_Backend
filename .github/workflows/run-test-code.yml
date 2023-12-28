@@ -9,9 +9,9 @@ jobs:
         runs-on: ubuntu-latest
 
         env:
-            DB_URL: ${{ secrets.DB_URL }}
+            DB_URL: ${{ secrets.TEST_DB_URL }}
             DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-            DB_USERNAME: ${{ secrets.DB_USERNAME }}
+            DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
             JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
             JWT_ACCESS_EXP: ${{ secrets.JWT_ACCESS_EXP }}
             JWT_REFRESH_EXP: ${{ secrets.JWT_REFRESH_EXP }}
@@ -19,8 +19,8 @@ jobs:
             JWT_PREFIX: ${{ secrets.JWT_PREFIX }}
             GRANT_TYPE: ${{ secrets.GRANT_TYPE }}
             CLIENT_ID: ${{ secrets.CLIENT_ID }}
-            REDIS_HOST: ${{ secrets.REDIS_HOST }}
-            REDIS_PORT: ${{ secrets.REDIS_PORT }}
+            REDIS_HOST: ${{ secrets.TEST_REDIS_HOST }}
+            REDIS_PORT: ${{ secrets.TEST_REDIS_PORT }}
             FILE_SERVER_SECRET_KEY: ${{ secrets.FILE_SERVER_SECRET_KEY }}
             FILE_SERVER_URL_1: ${{ secrets.FILE_SERVER_URL_1 }}
             FILE_SERVER_URL_2: ${{ secrets.FILE_SERVER_URL_2 }}
