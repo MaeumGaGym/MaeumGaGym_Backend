@@ -1,5 +1,6 @@
 package com.info.maeumgagym.global.jwt
 
+import com.info.maeumgagym.domain.auth.repository.AccessTokenRepository
 import com.info.maeumgagym.global.env.jwt.JwtProperties
 import com.info.maeumgagym.global.exception.InvalidTokenException
 import org.springframework.stereotype.Component
@@ -7,14 +8,18 @@ import javax.servlet.http.HttpServletRequest
 
 @Component
 class JwtResolver(
-    val jwtProperties: JwtProperties
+    private val jwtProperties: JwtProperties,
+    private val accessTokenRepository: AccessTokenRepository
 ) {
     fun resolveToken(request: HttpServletRequest): String? =
         request.getHeader(jwtProperties.header)?.let {
+
             if (it.startsWith(jwtProperties.prefix)) {
-                return it.substring(jwtProperties.prefix.length)
-            } else {
-                throw InvalidTokenException
-            }
+
+                val token = it.substring(jwtProperties.prefix.length)
+
+                if (accessTokenRepository.existsByAccessToken(token)) token else throw InvalidTokenException
+
+            } else throw InvalidTokenException
         }
 }

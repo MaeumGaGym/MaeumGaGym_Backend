@@ -9,7 +9,10 @@ import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.CorsUtils
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 class SecurityConfig(
@@ -21,8 +24,6 @@ class SecurityConfig(
     protected fun filterChain(http: HttpSecurity): SecurityFilterChain =
         http.csrf()
             .disable()
-            .cors()
-            .and()
             .formLogin()
             .disable()
             .sessionManagement()
@@ -30,12 +31,31 @@ class SecurityConfig(
             .authorizeRequests()
             .requestMatchers(CorsUtils::isCorsRequest)
             .permitAll()
-            .antMatchers(HttpMethod.POST, "/google/**").permitAll()
+            .antMatchers(HttpMethod.POST, "/google/signup").permitAll()
+            .antMatchers(HttpMethod.POST, "/google/login").permitAll()
             .antMatchers(HttpMethod.POST, "/kakao/login").permitAll()
             .antMatchers(HttpMethod.POST, "/kakao/signup").permitAll()
             .antMatchers(HttpMethod.POST, "/apple/login").permitAll()
             .antMatchers("/swagger-ui/**", "/docs/**").permitAll()
-            .anyRequest()
-            .authenticated().and()
-            .apply(FilterConfig(objectMapper, jwtResolver, jwtAdapter)).and().build()
+            .anyRequest().permitAll()
+
+            .and()
+            .apply(FilterConfig(objectMapper, jwtResolver, jwtAdapter))
+
+            .and().build()
+
+    @Bean
+    fun corsConfigurationSource(): CorsConfigurationSource {
+
+        val configuration = CorsConfiguration().apply {
+            allowedOrigins = listOf("http://localhost:8080")
+            allowedMethods = listOf("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD")
+            allowCredentials = true
+            addAllowedHeader("*")
+        }
+
+        return UrlBasedCorsConfigurationSource().apply {
+            registerCorsConfiguration("/**", configuration)
+        }
+    }
 }

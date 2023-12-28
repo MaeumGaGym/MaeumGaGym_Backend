@@ -42,10 +42,6 @@ jwt:
     header: ${JWT_HEADER}
     prefix: ${JWT_PREFIX}
 
-kakao:
-    grantType: ${GRANT_TYPE}
-    clientId: ${CLIENT_ID}
-
 # data redis
 redis:
     host: ${REDIS_HOST}
