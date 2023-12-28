@@ -30,6 +30,8 @@ jobs:
             -   name: chmod
                 run: chmod +x gradlew
 
+            -   run: echo ${{ secrets.REDIS_PORT }}
+                
             -   name: build
                 run: ./gradlew test --warning-mode all --info
                 env:
