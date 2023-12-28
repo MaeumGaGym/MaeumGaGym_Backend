@@ -34,11 +34,11 @@ logging:
         root: info
 
 jwt:
-    secretKey: ${JWT_SECRET_KEY:asdjfkasdhfjkashdfkashdfkahsdjkfahskdf}
-    accessExpiredExp: ${JWT_ACCESS_EXP:1800000}
-    refreshExpiredExp: ${JWT_REFRESH_EXP:432000000}
-    header: ${JWT_HEADER:Authorization}
-    prefix: ${JWT_PREFIX:Bearer}
+    secretKey: ${JWT_SECRET_KEY}
+    accessExpiredExp: ${JWT_ACCESS_EXP}
+    refreshExpiredExp: ${JWT_REFRESH_EXP}
+    header: ${JWT_HEADER}
+    prefix: ${JWT_PREFIX}
 
 kakao:
     grantType: ${GRANT_TYPE}
@@ -46,8 +46,8 @@ kakao:
 
 # data redis
 redis:
-    host: ${REDIS_HOST:localhost}
-    port: ${REDIS_PORT:6379}
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
 
 file:
     secret-key: ${FILE_SERVER_SECRET_KEY}
