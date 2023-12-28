@@ -59,5 +59,5 @@ ENV SWAGGER_UI_PATH ${SWAGGER_UI_PATH}
 
 EXPOSE 8080
 
-COPY maeumgagym-infrastructure/build/libs/maeumgagym-infrastructure-0.0.1-SNAPSHOT-plain.jar app.jar
+COPY /maeumgagym-infrastructure/build/libs/maeumgagym-infrastructure-0.0.1-SNAPSHOT.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]

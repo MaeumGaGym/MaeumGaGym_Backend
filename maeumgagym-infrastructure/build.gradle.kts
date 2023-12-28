@@ -41,7 +41,3 @@ dependencyManagement {
         mavenBom("org.springframework.cloud:spring-cloud-dependencies:${DependencyVersions.SPRING_CLOUD_VERSION}")
     }
 }
-
-tasks.getByName<Jar>("bootJar") {
-    enabled = false
-}
