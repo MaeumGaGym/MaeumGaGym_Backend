@@ -19,7 +19,7 @@ class QuoteTests @Autowired constructor(
         Assertions.assertDoesNotThrow {
             for (i in 1..10) {
                 val quoteResponse = readRandomQuoteUseCase.readRandomQuote()
-                if (Quotes.QUOTES.contains(
+                if (!Quotes.QUOTES.contains(
                         QuoteValueObject(quoteResponse.quote, quoteResponse.quoter)
                     )
                 ) throw MismatchQuoteAndQuoterException
