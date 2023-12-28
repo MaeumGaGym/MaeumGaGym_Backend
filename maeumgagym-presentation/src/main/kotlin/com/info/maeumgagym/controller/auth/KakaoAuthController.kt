@@ -31,8 +31,12 @@ class KakaoAuthController(
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/signup")
     fun signup(
-        @RequestParam("access_token", required = true) @NotBlank accessToken: String?,
-        @RequestBody @Valid req: KakaoSignupWebRequest
+        @RequestParam("access_token", required = true)
+        @NotBlank
+        accessToken: String?,
+        @RequestBody
+        @Valid
+        req: KakaoSignupWebRequest
     ) {
         kakaoSignupUseCase.signup(accessToken!!, req.nickname!!)
     }
