@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 import javax.validation.constraints.NotBlank
 
 @Tag(name = "Kakao OAuth API")
@@ -30,8 +31,12 @@ class KakaoAuthController(
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/signup")
     fun signup(
-        @RequestParam("access_token", required = true) @NotBlank accessToken: String?,
-        @RequestBody req: KakaoSignupWebRequest
+        @RequestParam("access_token", required = true)
+        @NotBlank
+        accessToken: String?,
+        @RequestBody
+        @Valid
+        req: KakaoSignupWebRequest
     ) {
         kakaoSignupUseCase.signup(accessToken!!, req.nickname!!)
     }
