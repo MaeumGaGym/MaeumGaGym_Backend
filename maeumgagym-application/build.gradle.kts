@@ -16,6 +16,7 @@ dependencies {
 
     // MySQL
     implementation(Dependencies.MYSQL_CONNECTOR)
+    implementation(Dependencies.REDIS)
 
     // jpa
     implementation(Dependencies.SPRING_DATA_JPA)
