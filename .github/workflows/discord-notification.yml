@@ -6,6 +6,14 @@ jobs:
   message:
     runs-on: ubuntu-latest
     steps:
+    - name: Get Random Image URL
+      id: random_image_url
+      uses: actions/github-script@v3
+      with:
+          script: |
+              const urlList = [ ${{ secrets.IMAGE_URL }}, ${{ secrets.IMAGE_URL_1 }}, ${{ secrets.IMAGE_URL_2 }} ]
+              core.setOutput('image_url', urlList[Math.floor(Math.random() * urlList.length)]
+
     - name: Discord Webhook Action
       uses: sarisia/actions-status-discord@v1
       with:
@@ -14,4 +22,4 @@ jobs:
         content: "<@&1153326597844238366>"
         webhook: ${{ secrets.DISCORD_WEBHOOK }}
         color: FFFFFF
-        image: ${{ secrets.IMAGE_URL }}
+        image: ${{ steps.random_image_url.outputs.image_url }}
