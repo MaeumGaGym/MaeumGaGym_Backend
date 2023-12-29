@@ -2,5 +2,5 @@ package com.info.maeumgagym.user.port.out
 
 interface ExistUserByNicknamePort {
 
-    fun existByNickname(nickName: String): Boolean
+    fun existByNicknameInNative(nickName: String): Boolean
 }

@@ -1,4 +1,4 @@
-package com.info.maeumgagym.global.exception
+package com.info.maeumgagym.auth.exception
 
 import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.common.exception.ErrorCode

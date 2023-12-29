@@ -10,5 +10,5 @@ class DuplicatedCheckService(
 ) : DuplicatedNicknameCheckUseCase {
 
     override fun existByNickname(nickname: String): Boolean =
-        existUserByNicknamePort.existByNickname(nickname)
+        existUserByNicknamePort.existByNicknameInNative(nickname)
 }

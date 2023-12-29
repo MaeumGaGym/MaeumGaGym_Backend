@@ -8,6 +8,5 @@ import org.springframework.stereotype.Component
 class GenerateTokenService(
     private val generateJwtPort: GenerateJwtPort
 ) {
-
     fun execute(subject: String): TokenResponse = generateJwtPort.generateTokens(subject)
 }

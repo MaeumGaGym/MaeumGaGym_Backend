@@ -2,7 +2,7 @@ package com.info.maeumgagym.global.jwt
 
 import com.info.maeumgagym.global.jwt.repository.AccessTokenRepository
 import com.info.maeumgagym.global.env.jwt.JwtProperties
-import com.info.maeumgagym.global.exception.InvalidTokenException
+import com.info.maeumgagym.auth.exception.InvalidTokenException
 import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletRequest
 
