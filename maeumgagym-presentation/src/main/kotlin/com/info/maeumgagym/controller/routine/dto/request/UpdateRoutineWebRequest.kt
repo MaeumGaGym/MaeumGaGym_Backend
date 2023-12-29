@@ -16,9 +16,9 @@ data class UpdateRoutineWebRequest(
     @field:NotNull(message = "null일 수 없습니다")
     val isShared: Boolean?,
 
-    val exerciseInfoModelList: MutableList<ExerciseInfoModel> = ArrayList(),
+    val exerciseInfoModelList: MutableList<ExerciseInfoModel> = mutableListOf(),
 
-    val dayOfWeeks: MutableSet<DayOfWeek>?
+    val dayOfWeeks: MutableSet<DayOfWeek> = mutableSetOf()
 ) {
     fun toRequest() = UpdateRoutineRequest(
         routineName!!,
