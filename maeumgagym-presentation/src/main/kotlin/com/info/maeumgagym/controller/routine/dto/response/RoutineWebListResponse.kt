@@ -1,4 +1,4 @@
-package com.info.maeumgagym.controller.routine.dto
+package com.info.maeumgagym.controller.routine.dto.response
 
 import com.info.maeumgagym.controller.user.dto.UserWebResponse
 import com.info.maeumgagym.routine.dto.response.RoutineListResponse

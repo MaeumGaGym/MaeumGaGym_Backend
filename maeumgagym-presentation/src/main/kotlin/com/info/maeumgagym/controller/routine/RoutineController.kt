@@ -1,9 +1,9 @@
 package com.info.maeumgagym.controller.routine
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.controller.routine.dto.CreateRoutineWebRequest
-import com.info.maeumgagym.controller.routine.dto.RoutineWebListResponse
-import com.info.maeumgagym.routine.dto.request.UpdateRoutineRequest
+import com.info.maeumgagym.controller.routine.dto.request.CreateRoutineWebRequest
+import com.info.maeumgagym.controller.routine.dto.response.RoutineWebListResponse
+import com.info.maeumgagym.controller.routine.dto.request.UpdateRoutineWebRequest
 import com.info.maeumgagym.routine.port.`in`.CreateRoutineUseCase
 import com.info.maeumgagym.routine.port.`in`.DeleteRoutineUseCase
 import com.info.maeumgagym.routine.port.`in`.ReadAllMyRoutineUseCase
@@ -59,7 +59,7 @@ class RoutineController(
         @NotNull(message = "null일 수 없습니다.")
         routineId: Long?,
         @RequestBody @Valid
-        req: UpdateRoutineRequest
+        req: UpdateRoutineWebRequest
     ) =
-        updateRoutineUseCase.updateRoutine(req, routineId!!)
+        updateRoutineUseCase.updateRoutine(req.toRequest(), routineId!!)
 }
