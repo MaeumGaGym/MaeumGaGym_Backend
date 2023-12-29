@@ -17,7 +17,7 @@ class UpdatePickleService(
     private val readPickleByIdPort: ReadPickleByIdPort
 ) : UpdatePickleUseCase {
 
-    override fun updatePickle(id: Long, req: UpdatePickleRequest): Pickle {
+    override fun updatePickle(id: String, req: UpdatePickleRequest): Pickle {
         // WHAT : token으로 user 불러오기
         val user = readCurrentUserPort.readCurrentUser()
 

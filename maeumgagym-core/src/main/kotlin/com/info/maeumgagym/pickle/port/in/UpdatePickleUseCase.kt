@@ -5,5 +5,5 @@ import com.info.maeumgagym.pickle.model.Pickle
 
 interface UpdatePickleUseCase {
 
-    fun updatePickle(id: Long, req: UpdatePickleRequest): Pickle
+    fun updatePickle(id: String, req: UpdatePickleRequest): Pickle
 }

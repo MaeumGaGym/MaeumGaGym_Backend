@@ -1,10 +1,10 @@
 package com.info.maeumgagym.controller.pickle
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.controller.pickle.dto.response.PickleWebResponse
 import com.info.maeumgagym.controller.pickle.dto.request.PickleUploadWebRequest
 import com.info.maeumgagym.controller.pickle.dto.request.PreSignedUploadURLWebRequest
 import com.info.maeumgagym.controller.pickle.dto.request.UpdatePickleWebRequest
+import com.info.maeumgagym.controller.pickle.dto.response.PickleWebResponse
 import com.info.maeumgagym.controller.pickle.dto.response.PreSignedUploadURLWebResponse
 import com.info.maeumgagym.pickle.dto.response.PickleListResponse
 import com.info.maeumgagym.pickle.port.`in`.*
@@ -14,7 +14,8 @@ import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
-import javax.validation.constraints.NotNull
+import javax.validation.constraints.NotBlank
+import javax.validation.constraints.Pattern
 
 @Tag(name = "Pickle API")
 @Validated
@@ -39,8 +40,9 @@ class PickleController(
     fun pickleLoadFromId(
         @PathVariable(name = "id", required = true)
         @Valid
-        @NotNull(message = "null일 수 없습니다.")
-        id: Long?
+        @NotBlank(message = "null일 수 없습니다")
+        @Pattern(regexp = "^[0-9a-zA-Z]{8}$")
+        id: String?
     ): PickleWebResponse =
         PickleWebResponse.toWebResponse(
             loadPickleFromIdUseCase.loadPickleFromId(id!!)
@@ -68,8 +70,9 @@ class PickleController(
     fun deletePickle(
         @PathVariable(name = "id", required = true)
         @Valid
-        @NotNull(message = "null일 수 없습니다")
-        id: Long?
+        @NotBlank(message = "null일 수 없습니다")
+        @Pattern(regexp = "^[0-9a-zA-Z]{8}$")
+        id: String?
     ) {
         pickleDeleteUseCase.deletePickle(id!!)
     }
@@ -79,8 +82,9 @@ class PickleController(
     fun updatePickle(
         @PathVariable(name = "id", required = true)
         @Valid
-        @NotNull(message = "null일 수 없습니다")
-        id: Long?,
+        @NotBlank(message = "null일 수 없습니다")
+        @Pattern(regexp = "^[0-9a-zA-Z]{8}$")
+        id: String?,
         @RequestBody @Valid
         req: UpdatePickleWebRequest
     ) = updatePickleUseCase.updatePickle(id!!, req.toRequest()) // 피클 조회 완성 시 수정 후에 DTO에 담아 반환 하도록 변경하기
