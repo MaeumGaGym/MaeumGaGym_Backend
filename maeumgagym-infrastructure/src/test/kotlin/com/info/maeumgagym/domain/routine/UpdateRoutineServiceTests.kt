@@ -68,8 +68,6 @@ internal class UpdateRoutineServiceTests : BehaviorSpec({
             every { readCurrentUserPort.readCurrentUser() } returns user1
             every { saveRoutinePort.saveRoutine(any()) } returns updatedRoutine
 
-            println(routine.userId)
-            println(user1.id)
             val result = updateRoutineService.updateRoutine(updateRoutineReq, routineId)
 
             Then("루틴이 수정되어야 함") {

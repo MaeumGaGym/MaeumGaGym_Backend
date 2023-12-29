@@ -20,8 +20,6 @@ class UpdateRoutineService(
     override fun updateRoutine(req: UpdateRoutineRequest, routineId: Long): Routine {
         var routine = readRoutineByIdPort.readRoutineById(routineId) ?: throw RoutineNotFoundException
         val user = readCurrentUserPort.readCurrentUser()
-        println(user.id)
-        println(routine.userId)
         if (user.id.compareTo(routine.userId) != 0) {
             throw PermissionDeniedException
         }
