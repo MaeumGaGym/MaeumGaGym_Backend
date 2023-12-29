@@ -3,9 +3,11 @@ package com.info.maeumgagym.controller.routine
 import com.info.common.WebAdapter
 import com.info.maeumgagym.controller.routine.dto.CreateRoutineWebRequest
 import com.info.maeumgagym.controller.routine.dto.RoutineWebListResponse
+import com.info.maeumgagym.routine.dto.request.UpdateRoutineRequest
 import com.info.maeumgagym.routine.port.`in`.CreateRoutineUseCase
 import com.info.maeumgagym.routine.port.`in`.DeleteRoutineUseCase
 import com.info.maeumgagym.routine.port.`in`.ReadAllMyRoutineUseCase
+import com.info.maeumgagym.routine.port.`in`.UpdateRoutineUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.validation.annotation.Validated
@@ -21,7 +23,8 @@ import javax.validation.constraints.NotNull
 class RoutineController(
     private val createRoutineUseCase: CreateRoutineUseCase,
     private val readAllMyRoutineUseCase: ReadAllMyRoutineUseCase,
-    private val deleteRoutineUseCase: DeleteRoutineUseCase
+    private val deleteRoutineUseCase: DeleteRoutineUseCase,
+    private val updateRoutineUseCase: UpdateRoutineUseCase
 ) {
     @Operation(summary = "루틴 생성 API")
     @PostMapping
@@ -47,4 +50,16 @@ class RoutineController(
         routineId: Long?
     ) =
         deleteRoutineUseCase.deleteRoutine(routineId!!)
+
+    @Operation(summary = "루틴 수정 API")
+    @PutMapping("/{routineId}")
+    fun updateRoutine(
+        @PathVariable(required = true)
+        @Valid
+        @NotNull(message = "null일 수 없습니다.")
+        routineId: Long?,
+        @RequestBody @Valid
+        req: UpdateRoutineRequest
+    ) =
+        updateRoutineUseCase.updateRoutine(req, routineId!!)
 }
