@@ -1,9 +1,8 @@
-package com.info.maeumgagym.controller.routine.dto
+package com.info.maeumgagym.controller.routine.dto.response
 
 import com.info.maeumgagym.routine.dto.ExerciseInfoDto
 import com.info.maeumgagym.routine.dto.RoutineStatusDto
 import com.info.maeumgagym.routine.dto.response.RoutineResponse
-import java.util.*
 
 data class RoutineWebResponse(
     val id: Long,
