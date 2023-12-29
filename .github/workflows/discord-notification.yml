@@ -10,10 +10,10 @@ jobs:
       id: random_image_url
       uses: actions/github-script@v3
       with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-              const urlList = [ ${{ secrets.IMAGE_URL }}, ${{ secrets.IMAGE_URL_1 }}, ${{ secrets.IMAGE_URL_2 }} ];
-              core.setOutput('image_url', urlList[Math.floor(Math.random() * urlList.length)];
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const urlList = [ ${{ secrets.IMAGE_URL }}, ${{ secrets.IMAGE_URL_1 }}, ${{ secrets.IMAGE_URL_2 }} ];
+          core.setOutput('image_url', urlList[Math.floor(Math.random() * urlList.length)];
 
     - name: Discord Webhook Action
       uses: sarisia/actions-status-discord@v1
