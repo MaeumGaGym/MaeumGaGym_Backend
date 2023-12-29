@@ -16,7 +16,7 @@ class UpdateRoutineService(
     private val readRoutineByIdPort: ReadRoutineByIdPort,
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val saveRoutinePort: SaveRoutinePort
-): UpdateRoutineUseCase {
+) : UpdateRoutineUseCase {
     override fun updateRoutine(req: UpdateRoutineRequest, routineId: Long): Routine {
         var routine = readRoutineByIdPort.readRoutineById(routineId) ?: throw RoutineNotFoundException
         val user = readCurrentUserPort.readCurrentUser()
