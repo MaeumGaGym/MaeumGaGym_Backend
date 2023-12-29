@@ -52,14 +52,14 @@ class RoutineController(
         deleteRoutineUseCase.deleteRoutine(routineId!!)
 
     @Operation(summary = "루틴 수정 API")
-    @PutMapping("/{routineId}")
+    @PutMapping("/{id}")
     fun updateRoutine(
         @PathVariable(required = true)
         @Valid
         @NotNull(message = "null일 수 없습니다.")
-        routineId: Long?,
+        id: Long?,
         @RequestBody @Valid
         req: UpdateRoutineWebRequest
     ) =
-        updateRoutineUseCase.updateRoutine(req.toRequest(), routineId!!)
+        updateRoutineUseCase.updateRoutine(req.toRequest(), id!!)
 }
