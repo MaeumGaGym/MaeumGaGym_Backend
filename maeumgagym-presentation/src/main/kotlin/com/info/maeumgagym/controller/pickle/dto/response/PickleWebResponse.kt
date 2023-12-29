@@ -4,7 +4,7 @@ import com.info.maeumgagym.controller.user.dto.UserWebResponse
 import com.info.maeumgagym.pickle.dto.response.PickleResponse
 
 data class PickleWebResponse(
-    val videoId: Long,
+    val videoId: String,
     val videoURL: String,
     val title: String,
     val description: String?,

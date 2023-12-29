@@ -13,7 +13,7 @@ import javax.persistence.*
 @SQLDelete(sql = "UPDATE ${TableNames.PICKLE_TABLE} SET is_deleted = true WHERE id = ?")
 @Entity(name = TableNames.PICKLE_TABLE)
 class PickleJpaEntity(
-    videoId: Long,
+    videoId: String,
     title: String,
     description: String? = null,
     uploader: UserJpaEntity,
@@ -25,7 +25,7 @@ class PickleJpaEntity(
 
     @Id
     @Column(name = "video_id", nullable = false)
-    var videoId: Long = videoId
+    var videoId: String = videoId
         protected set
 
     @Column(name = "title", nullable = false)
