@@ -7,7 +7,7 @@ import javax.validation.constraints.Pattern
 data class PickleUploadWebRequest(
 
     @field:NotBlank(message = "null일 수 없습니다")
-    @field:Pattern(regexp = "^[0-9a-zA-Z]{8}$")
+    @field:Pattern(regexp = "^[0-9a-fA-F]{8}$")
     val videoId: String?,
 
     @field:NotBlank(message = "null일 수 없습니다")
