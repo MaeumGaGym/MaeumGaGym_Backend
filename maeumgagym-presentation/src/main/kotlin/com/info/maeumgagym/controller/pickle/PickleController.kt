@@ -41,7 +41,7 @@ class PickleController(
         @PathVariable(name = "id", required = true)
         @Valid
         @NotBlank(message = "null일 수 없습니다")
-        @Pattern(regexp = "^\\w{8}$")
+        @Pattern(regexp = "^[0-9a-zA-Z]{8}$")
         id: String?
     ): PickleWebResponse =
         PickleWebResponse.toWebResponse(
@@ -71,7 +71,7 @@ class PickleController(
         @PathVariable(name = "id", required = true)
         @Valid
         @NotBlank(message = "null일 수 없습니다")
-        @Pattern(regexp = "^\\w{8}$")
+        @Pattern(regexp = "^[0-9a-zA-Z]{8}$")
         id: String?
     ) {
         pickleDeleteUseCase.deletePickle(id!!)
@@ -83,7 +83,7 @@ class PickleController(
         @PathVariable(name = "id", required = true)
         @Valid
         @NotBlank(message = "null일 수 없습니다")
-        @Pattern(regexp = "^\\w{8}$")
+        @Pattern(regexp = "^[0-9a-zA-Z]{8}$")
         id: String?,
         @RequestBody @Valid
         req: UpdatePickleWebRequest
