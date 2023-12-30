@@ -3,7 +3,7 @@ package com.info.maeumgagym.pickle.dto.response
 import com.info.maeumgagym.user.dto.response.UserResponse
 
 data class PickleResponse(
-    val videoId: Long,
+    val videoId: String,
     val videoURL: String,
     val title: String,
     val description: String?,

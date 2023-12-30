@@ -1,6 +1,7 @@
 package com.info.maeumgagym.domain.routine.entity
 
 import com.info.maeumgagym.TableNames
+import com.info.maeumgagym.domain.base.BaseLongIdTimeEntity
 import com.info.maeumgagym.domain.base.BaseUUIDTimeEntity
 import java.time.DayOfWeek
 import java.time.LocalDateTime
@@ -14,9 +15,9 @@ class RoutineJpaEntity(
     dayOfWeeks: MutableSet<DayOfWeek>?,
     routineStatus: RoutineStatus,
     createdAt: LocalDateTime? = null,
-    id: UUID? = null,
+    id: Long? = null,
     userId: UUID
-) : BaseUUIDTimeEntity(id, createdAt) {
+) : BaseLongIdTimeEntity(id, createdAt) {
     @Column(name = "routine_name", nullable = false)
     var routineName: String = routineName
         protected set

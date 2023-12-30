@@ -4,5 +4,5 @@ import com.info.maeumgagym.pickle.model.Pickle
 
 interface ReadPickleByIdPort {
 
-    fun readPickleById(id: Long): Pickle?
+    fun readPickleById(id: String): Pickle?
 }

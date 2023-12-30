@@ -32,6 +32,6 @@ class RoutinePersistenceAdapter(
     override fun deleteRoutine(routine: Routine) =
         routineRepository.delete(routineMapper.toEntity(routine))
 
-    override fun readRoutineById(routineId: UUID): Routine? =
+    override fun readRoutineById(routineId: Long): Routine? =
         routineRepository.findByIdOrNull(routineId)?.let { routineMapper.toDomain(it) }
 }

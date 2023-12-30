@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 
 data class Pickle(
 
-    val videoId: Long,
+    val videoId: String,
 
     val title: String,
 

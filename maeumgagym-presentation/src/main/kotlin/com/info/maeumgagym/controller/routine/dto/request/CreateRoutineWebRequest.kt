@@ -1,4 +1,4 @@
-package com.info.maeumgagym.controller.routine.dto
+package com.info.maeumgagym.controller.routine.dto.request
 
 import com.info.maeumgagym.routine.dto.request.CreateRoutineRequest
 import com.info.maeumgagym.routine.model.ExerciseInfoModel

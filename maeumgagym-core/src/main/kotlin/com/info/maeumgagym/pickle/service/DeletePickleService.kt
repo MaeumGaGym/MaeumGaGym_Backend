@@ -17,7 +17,7 @@ class DeletePickleService(
     private val readPickleByIdPort: ReadPickleByIdPort
 ) : PickleDeleteUseCase {
 
-    override fun deletePickle(id: Long) {
+    override fun deletePickle(id: String) {
         val user = readCurrentUserPort.readCurrentUser()
 
         val pickle = readPickleByIdPort.readPickleById(id) ?: throw PickleNotFoundException
