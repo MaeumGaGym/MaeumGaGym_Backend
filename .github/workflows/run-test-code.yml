@@ -9,15 +9,6 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            -   name: mysql
-                uses: mirromutth/mysql-action@v1.1
-                with:
-                    host port: 3306
-                    container port: 3306
-                    mysql database: 'maeumgagym'
-                    mysql user: ${{ secrets.TEST_DB_USERNAME }}
-                    mysql password: ${{ secrets.TEST_DB_PASSWORD }}
-
             -   name: checkout
                 uses: actions/checkout@v2
 
@@ -30,9 +21,16 @@ jobs:
             -   name: chmod
                 run: chmod +x gradlew
 
-            -   run: echo ${{ secrets.REDIS_PORT }}
+            -   name: mysql
+                uses: mirromutth/mysql-action@v1.1
+                with:
+                    host port: 3306
+                    container port: 3306
+                    mysql database: 'maeumgagym'
+                    mysql username: ${{ secrets.TEST_DB_USERNAME }}
+                    mysql password: ${{ secrets.TEST_DB_PASSWORD }}
 
-            -   name: build
+            -   name: run test
                 run: ./gradlew test --warning-mode all --info
                 env:
                     DB_URL: ${{ secrets.TEST_DB_URL }}
