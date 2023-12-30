@@ -5,6 +5,7 @@ on:
 jobs:
   message:
     runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, 'test-') }}
     steps:
     - name: Discord Webhook Action
       uses: sarisia/actions-status-discord@v1
