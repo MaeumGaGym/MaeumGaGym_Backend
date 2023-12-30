@@ -24,7 +24,6 @@ class DeletedUserPersistenceAdapter(
     private val deletedAtRepository: DeletedAtRepository
 ): FindDeletedUserByIdPort, ExistsDeletedUserByIdPort, SaveDeletedAtPort, FindDeletedAtByIdPort {
 
-
     override fun findByIdOrNullInNative(oauthId: String): User? =
         userRepository.findDeletedUserByOauthIdInNative(oauthId)?.let { userMapper.toDomain(it) }
 

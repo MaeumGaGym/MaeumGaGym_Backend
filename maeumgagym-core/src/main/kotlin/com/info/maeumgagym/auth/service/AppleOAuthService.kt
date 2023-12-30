@@ -20,7 +20,7 @@ class AppleOAuthService(
     private val saveUserPort: SaveUserPort,
     private val generateTokenService: GenerateTokenService,
     private val parseAppleTokenPort: ParseAppleTokenPort,
-    private val findDeletedUserByIdPort: FindDeletedUserByIdPort,
+    private val findDeletedUserByIdPort: FindDeletedUserByIdPort
 
 ) : AppleLoginUseCase, AppleRecoveryUseCase, AppleSignUpUseCase {
 
@@ -52,7 +52,8 @@ class AppleOAuthService(
     override fun recovery(token: String) {
         val response = parseAppleTokenPort.parseIdToken(token)
 
-        val deletedUser = findDeletedUserByIdPort.findByIdOrNullInNative(response.subject) ?: throw UserNotFoundException
+        val deletedUser = findDeletedUserByIdPort.findByIdOrNullInNative(response.subject)
+            ?: throw UserNotFoundException
 
         deletedUser.apply {
             saveUserPort.saveUser(

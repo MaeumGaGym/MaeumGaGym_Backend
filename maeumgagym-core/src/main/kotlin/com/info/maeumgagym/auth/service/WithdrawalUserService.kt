@@ -9,7 +9,6 @@ import com.info.maeumgagym.user.model.DeleteAt
 import com.info.maeumgagym.user.port.out.DeleteUserPort
 import com.info.maeumgagym.user.port.out.ExistsDeletedUserByIdPort
 import com.info.maeumgagym.user.port.out.SaveDeletedAtPort
-import java.time.LocalDate
 
 @UseCase
 class WithdrawalUserService(
@@ -19,7 +18,6 @@ class WithdrawalUserService(
     private val saveDeleteAtPort: SaveDeletedAtPort
 ) : WithdrawalUserUseCase {
     override fun withdrawal() {
-
         val user = try {
             readCurrentUserPort.readCurrentUser()
         } catch (e: UnAuthorizedException) {

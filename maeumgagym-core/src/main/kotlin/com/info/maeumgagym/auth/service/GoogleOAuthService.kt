@@ -56,7 +56,6 @@ class GoogleOAuthService(
     }
 
     override fun recovery(accessToken: String) {
-
         val response = getGoogleInfoPort.getGoogleInfo(accessToken)
 
         val deletedUser = findDeletedUserByIdPort.findByIdOrNullInNative(response.sub) ?: throw UserNotFoundException
