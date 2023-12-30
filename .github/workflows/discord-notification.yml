@@ -5,10 +5,10 @@ on:
 jobs:
   message:
     runs-on: ubuntu-latest
-    if: ${{ !contains(github.event.head_commit.message, 'test-') }}
     steps:
     - name: Discord Webhook Action
       uses: sarisia/actions-status-discord@v1
+      if: ${{ ! startsWith(github.event.head_commit.message, '!!') }}
       with:
         title: 🔀 Pull Request 🔀
         description: "# 안녕하세요! 냥뇽녕냥입니다❤️"
