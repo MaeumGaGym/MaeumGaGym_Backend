@@ -27,8 +27,7 @@ jobs:
                     host port: 3306
                     container port: 3306
                     mysql database: 'maeumgagym'
-                    mysql user: ${{ secrets.TEST_DB_USERNAME }}
-                    mysql password: ${{ secrets.TEST_DB_PASSWORD }}
+                    mysql root password: ${{ secrets.TEST_DB_PASSWORD }}
 
             -   name: run test
                 run: ./gradlew test --warning-mode all --info
