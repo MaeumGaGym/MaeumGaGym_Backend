@@ -8,6 +8,12 @@ jobs:
     build:
         runs-on: ubuntu-latest
 
+        services:
+            redis:
+                image: redis
+                ports:
+                    - ${{ secrets.REDIS_PORT }}:${{ secrets.REDIS_PORT }}
+
         steps:
             -   name: checkout
                 uses: actions/checkout@v2
