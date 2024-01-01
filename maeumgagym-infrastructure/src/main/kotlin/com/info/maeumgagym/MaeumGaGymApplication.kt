@@ -7,7 +7,6 @@ import org.springframework.scheduling.annotation.EnableScheduling
 
 @ConfigurationPropertiesScan(basePackages = ["com.info.maeumgagym.global.env"])
 @SpringBootApplication
-@EnableScheduling
 class MaeumGaGymApplication
 
 fun main(args: Array<String>) {
