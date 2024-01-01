@@ -13,6 +13,7 @@ import com.info.maeumgagym.user.model.Role
 import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.ExistUserByOAuthIdPort
 import com.info.maeumgagym.user.port.out.FindDeletedUserByIdPort
+import com.info.maeumgagym.user.port.out.RecoveryUserPort
 import com.info.maeumgagym.user.port.out.SaveUserPort
 
 @UseCase
@@ -21,8 +22,7 @@ class AppleOAuthService(
     private val saveUserPort: SaveUserPort,
     private val generateTokenService: GenerateTokenService,
     private val parseAppleTokenPort: ParseAppleTokenPort,
-    private val findDeletedUserByIdPort: FindDeletedUserByIdPort,
-    private val deleteDeletedAtPort: DeleteDeletedAtPort
+    private val recoveryUserPort: RecoveryUserPort
 ) : AppleLoginUseCase, AppleRecoveryUseCase, AppleSignUpUseCase {
 
     override fun login(token: String): TokenResponse {
@@ -50,25 +50,10 @@ class AppleOAuthService(
         )
     }
 
+
     override fun recovery(token: String) {
         val response = parseAppleTokenPort.parseIdToken(token)
 
-        val deletedUser = findDeletedUserByIdPort.findByIdOrNullInNative(response.subject)
-            ?: throw UserNotFoundException
-
-        deletedUser.apply {
-            saveUserPort.saveUser(
-                User(
-                    id = id,
-                    nickname = nickname,
-                    roles = roles,
-                    oauthId = oauthId,
-                    profileImage = profileImage,
-                    isDeleted = false
-                )
-            )
-        }
-
-        deleteDeletedAtPort.delete(deletedUser.id)
+        recoveryUserPort.recovery(response.subject)
     }
 }

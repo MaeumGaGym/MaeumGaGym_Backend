@@ -13,10 +13,7 @@ import com.info.maeumgagym.auth.port.out.GetGoogleInfoPort
 import com.info.maeumgagym.auth.port.out.RevokeGoogleTokenPort
 import com.info.maeumgagym.user.model.Role
 import com.info.maeumgagym.user.model.User
-import com.info.maeumgagym.user.port.out.ExistUserByNicknamePort
-import com.info.maeumgagym.user.port.out.ExistUserByOAuthIdPort
-import com.info.maeumgagym.user.port.out.FindDeletedUserByIdPort
-import com.info.maeumgagym.user.port.out.SaveUserPort
+import com.info.maeumgagym.user.port.out.*
 
 @UseCase
 class GoogleOAuthService(
@@ -26,8 +23,7 @@ class GoogleOAuthService(
     private val existUserByNicknamePort: ExistUserByNicknamePort,
     private val generateTokenService: GenerateTokenService,
     private val revokeGoogleTokenPort: RevokeGoogleTokenPort,
-    private val findDeletedUserByIdPort: FindDeletedUserByIdPort,
-    private val deleteDeletedAtPort: DeleteDeletedAtPort
+    private val recoveryUserPort: RecoveryUserPort
 ) : GoogleLoginUseCase, GoogleSignupUseCase, GoogleRecoveryUseCase {
 
     override fun login(accessToken: String): TokenResponse {
@@ -60,21 +56,6 @@ class GoogleOAuthService(
     override fun recovery(accessToken: String) {
         val response = getGoogleInfoPort.getGoogleInfo(accessToken)
 
-        val deletedUser = findDeletedUserByIdPort.findByIdOrNullInNative(response.sub) ?: throw UserNotFoundException
-
-        deletedUser.apply {
-            saveUserPort.saveUser(
-                User(
-                    id = id,
-                    nickname = nickname,
-                    roles = roles,
-                    oauthId = oauthId,
-                    profileImage = profileImage,
-                    isDeleted = false
-                )
-            )
-        }
-
-        deleteDeletedAtPort.delete(deletedUser.id)
+        recoveryUserPort.recovery(response.sub)
     }
 }
