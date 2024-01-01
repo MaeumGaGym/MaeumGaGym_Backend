@@ -3,7 +3,7 @@ package com.info.maeumgagym.global.jwt
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.auth.port.out.AppleJwtParsePort
-import com.info.maeumgagym.auth.exception.InvalidTokenException
+import com.info.maeumgagym.global.exception.InvalidTokenException
 import org.springframework.stereotype.Component
 import org.springframework.util.Base64Utils
 

@@ -4,7 +4,7 @@ import com.info.maeumgagym.feign.exception.FeignBadRequestException
 import com.info.maeumgagym.feign.exception.FeignDefaultException
 import com.info.maeumgagym.feign.exception.FeignForbbidenException
 import com.info.maeumgagym.feign.exception.FeignUnAuthorizationException
-import com.info.maeumgagym.auth.exception.ExpiredTokenException
+import com.info.maeumgagym.global.exception.ExpiredTokenException
 import feign.FeignException
 import feign.Response
 import feign.codec.ErrorDecoder

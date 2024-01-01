@@ -3,7 +3,7 @@ package com.info.maeumgagym.adapter.auth
 import com.info.maeumgagym.auth.dto.response.ApplePublicKeyResponse
 import com.info.maeumgagym.auth.dto.response.ApplePublicKeysResponse
 import com.info.maeumgagym.auth.port.out.GeneratePublicKeyPort
-import com.info.maeumgagym.auth.exception.InvalidTokenException
+import com.info.maeumgagym.global.exception.InvalidTokenException
 import org.springframework.stereotype.Component
 import java.security.KeyFactory
 import java.security.NoSuchAlgorithmException

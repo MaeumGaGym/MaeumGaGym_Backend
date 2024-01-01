@@ -9,8 +9,8 @@ import com.info.maeumgagym.global.jwt.entity.RefreshTokenRedisEntity
 import com.info.maeumgagym.global.jwt.repository.AccessTokenRepository
 import com.info.maeumgagym.global.jwt.repository.RefreshTokenRepository
 import com.info.maeumgagym.global.env.jwt.JwtProperties
-import com.info.maeumgagym.auth.exception.ExpiredTokenException
-import com.info.maeumgagym.auth.exception.InvalidTokenException
+import com.info.maeumgagym.global.exception.ExpiredTokenException
+import com.info.maeumgagym.global.exception.InvalidTokenException
 import com.info.maeumgagym.global.security.principle.CustomUserDetailService
 import com.info.maeumgagym.global.security.principle.CustomUserDetails
 import io.jsonwebtoken.*
