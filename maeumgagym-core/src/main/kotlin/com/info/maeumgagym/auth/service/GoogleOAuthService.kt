@@ -8,7 +8,6 @@ import com.info.maeumgagym.user.exception.UserNotFoundException
 import com.info.maeumgagym.auth.port.`in`.GoogleLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.GoogleRecoveryUseCase
 import com.info.maeumgagym.auth.port.`in`.GoogleSignupUseCase
-import com.info.maeumgagym.auth.port.out.DeleteDeletedAtPort
 import com.info.maeumgagym.auth.port.out.GetGoogleInfoPort
 import com.info.maeumgagym.auth.port.out.RevokeGoogleTokenPort
 import com.info.maeumgagym.user.model.Role

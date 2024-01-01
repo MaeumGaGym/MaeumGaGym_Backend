@@ -7,7 +7,6 @@ import com.info.maeumgagym.auth.port.`in`.KakaoRecoveryUseCase
 import com.info.maeumgagym.user.exception.UserNotFoundException
 import com.info.maeumgagym.auth.port.`in`.KakaoLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.KakaoSignupUseCase
-import com.info.maeumgagym.auth.port.out.DeleteDeletedAtPort
 import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.GetKakaoInfoPort
 import com.info.maeumgagym.user.exception.DuplicatedNicknameException

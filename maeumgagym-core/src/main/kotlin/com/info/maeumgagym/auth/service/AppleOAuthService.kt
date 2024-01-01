@@ -6,13 +6,11 @@ import com.info.maeumgagym.auth.exception.AlreadyExistUserException
 import com.info.maeumgagym.auth.port.`in`.AppleLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.AppleRecoveryUseCase
 import com.info.maeumgagym.auth.port.`in`.AppleSignUpUseCase
-import com.info.maeumgagym.auth.port.out.DeleteDeletedAtPort
 import com.info.maeumgagym.auth.port.out.ParseAppleTokenPort
 import com.info.maeumgagym.user.exception.UserNotFoundException
 import com.info.maeumgagym.user.model.Role
 import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.ExistUserByOAuthIdPort
-import com.info.maeumgagym.user.port.out.FindDeletedUserByIdPort
 import com.info.maeumgagym.user.port.out.RecoveryUserPort
 import com.info.maeumgagym.user.port.out.SaveUserPort
 
@@ -49,7 +47,6 @@ class AppleOAuthService(
             )
         )
     }
-
 
     override fun recovery(token: String) {
         val response = parseAppleTokenPort.parseIdToken(token)
