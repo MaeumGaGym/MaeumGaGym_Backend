@@ -7,5 +7,4 @@ import org.springframework.web.bind.annotation.RestController
 @Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
 @RestController
-@Component
 annotation class WebAdapter()
