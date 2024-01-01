@@ -18,17 +18,10 @@ import java.util.UUID
 
 @Transactional
 @PersistenceAdapter
-class DeletedUserPersistenceAdapter(
+class DeletedAtPersistenceAdapter(
     private val userMapper: UserMapper,
-    private val userRepository: UserRepository,
     private val deletedAtRepository: DeletedAtRepository
-): FindDeletedUserByIdPort, ExistsDeletedUserByIdPort, SaveDeletedAtPort, FindDeletedAtByIdPort {
-
-    override fun findByIdOrNullInNative(oauthId: String): User? =
-        userRepository.findDeletedUserByOauthIdInNative(oauthId)?.let { userMapper.toDomain(it) }
-
-    override fun existsByIdInNative(oauthId: String): Boolean =
-        userRepository.existsDeletedUserByOauthIdInNative(oauthId) > BigInteger.ZERO
+): SaveDeletedAtPort, FindDeletedAtByIdPort {
 
     override fun save(domain: DeleteAt): DeleteAt =
         userMapper.toDomain(deletedAtRepository.save(userMapper.toEntity(domain)))

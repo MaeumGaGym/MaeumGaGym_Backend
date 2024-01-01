@@ -9,9 +9,9 @@ import javax.persistence.Entity
 
 @Entity(name = TableNames.DELETED_AT_TABLE)
 class DeleteAtJpaEntity(
-    id: UUID? = null,
+    userId: UUID? = null,
     date: LocalDate = LocalDate.now()
-): BaseUUIDEntity(id) {
+): BaseUUIDEntity(userId) {
 
     @Column(name = "date", nullable = false)
     var date: LocalDate = date
