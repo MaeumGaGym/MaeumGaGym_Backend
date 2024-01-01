@@ -2,7 +2,6 @@ package com.info.maeumgagym.auth.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.exception.AlreadyWithdrawalUserException
-import com.info.maeumgagym.auth.exception.UnAuthorizedException
 import com.info.maeumgagym.auth.port.`in`.WithdrawalUserUseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.user.model.DeleteAt
@@ -18,16 +17,12 @@ class WithdrawalUserService(
     private val saveDeleteAtPort: SaveDeletedAtPort
 ) : WithdrawalUserUseCase {
     override fun withdrawal() {
-        val user = try {
-            readCurrentUserPort.readCurrentUser()
-        } catch (e: UnAuthorizedException) {
-            throw AlreadyWithdrawalUserException
-        }
+        val user = readCurrentUserPort.readCurrentUser()
 
         if (existsDeletedUserByIdPort.existsByIdInNative(user.oauthId)) throw AlreadyWithdrawalUserException
 
-        saveDeleteAtPort.save(DeleteAt(user.id))
-
         deleteUserPort.deleteUser(user)
+
+        saveDeleteAtPort.save(DeleteAt(user.id))
     }
 }

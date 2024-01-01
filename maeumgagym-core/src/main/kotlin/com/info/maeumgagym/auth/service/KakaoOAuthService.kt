@@ -7,6 +7,7 @@ import com.info.maeumgagym.auth.port.`in`.KakaoRecoveryUseCase
 import com.info.maeumgagym.user.exception.UserNotFoundException
 import com.info.maeumgagym.auth.port.`in`.KakaoLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.KakaoSignupUseCase
+import com.info.maeumgagym.auth.port.out.DeleteDeletedAtPort
 import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.GetKakaoInfoPort
 import com.info.maeumgagym.user.exception.DuplicatedNicknameException
@@ -24,7 +25,8 @@ class KakaoOAuthService(
     private val existUserByOAuthIdPort: ExistUserByOAuthIdPort,
     private val existUserByNicknamePort: ExistUserByNicknamePort,
     private val saveUserPort: SaveUserPort,
-    private val findDeletedUserByIdPort: FindDeletedUserByIdPort
+    private val findDeletedUserByIdPort: FindDeletedUserByIdPort,
+    private val deleteDeletedAtPort: DeleteDeletedAtPort
 ) : KakaoLoginUseCase, KakaoSignupUseCase, KakaoRecoveryUseCase {
 
     override fun login(accessToken: String): TokenResponse {
@@ -66,5 +68,7 @@ class KakaoOAuthService(
                 )
             )
         }
+
+        deleteDeletedAtPort.delete(deletedUser.id)
     }
 }
