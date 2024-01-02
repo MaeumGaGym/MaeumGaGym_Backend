@@ -14,7 +14,6 @@ import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.util.*
 import javax.validation.Valid
-import javax.validation.constraints.NotNull
 
 @Tag(name = "Routine API")
 @RequestMapping("/routines")
