@@ -12,15 +12,39 @@ interface UserRepository : JpaRepository<UserJpaEntity, UUID> {
 
     fun findByOauthId(oauthId: String): UserJpaEntity?
 
+    fun existsByOauthId(oauthId: String): Boolean
+
     @Query(
         value = "SELECT COUNT(u.id) FROM ${TableNames.USER_TABLE} u WHERE u.nickname = :nickname",
         nativeQuery = true
     )
-    fun existsByNickname(@Param("nickname") nickname: String): BigInteger
+    fun existsByNicknameInNative(@Param("nickname") nickname: String): BigInteger
 
     @Query(
         value = "SELECT COUNT(u.id) FROM ${TableNames.USER_TABLE} u WHERE u.oauth_id = :oauthId",
         nativeQuery = true
     )
-    fun existsByOauthId(@Param("oauthId") oauthId: String): BigInteger
+    fun existsByOauthIdInNative(@Param("oauthId") oauthId: String): BigInteger
+
+    @Query(
+        value = "SELECT * FROM ${TableNames.USER_TABLE} u WHERE u.oauth_id = :oauthId and u.is_deleted = true",
+        nativeQuery = true
+    )
+    fun findDeletedUserByOauthIdInNative(@Param("oauthId") oauthId: String): UserJpaEntity?
+
+    @Query(
+        value = "SELECT COUNT(u.id) FROM ${TableNames.USER_TABLE} u WHERE u.oauth_id = :oauthId and u.is_deleted = true",
+        nativeQuery = true
+    )
+    fun existsDeletedUserByOauthIdInNative(@Param("oauthId") oauthId: String): BigInteger
+
+    @Query(
+        value = "DELETE users, delete_at " +
+            "FROM ${TableNames.USER_TABLE} users " +
+            "JOIN ${TableNames.DELETED_AT_TABLE} delete_at ON users.id = delete_at.id " +
+            "WHERE users.is_deleted = true " +
+            "AND delete_at.date <= DATE_SUB(NOW(), INTERVAL 30 DAY)",
+        nativeQuery = true
+    )
+    fun deleteAllWithdrawalUserOneMonthAgo(): MutableList<UserJpaEntity>
 }

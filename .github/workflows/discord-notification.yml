@@ -6,6 +6,21 @@ jobs:
   message:
     runs-on: ubuntu-latest
     steps:
+    - name: Get Random Image URL
+      id: random_image_url
+      uses: actions/github-script@v3
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const urlList = [ 
+            `https://hedwig-cf.netmarble.com/forum-common/skrv/skr/0d36bc9f09dd4f46b5432f0065a77cb4_1664534062576.gif`, 
+            `https://hedwig-cf.netmarble.com/forum-common/sknightsmmo/sk2/6f483725827e4e6cbf16aeee0e8c8e3c_1617941581098.gif`, 
+            `https://upload3.inven.co.kr/upload/2022/04/21/bbs/i013997846192.gif`,
+            `https://tenor.com/view/chodan-qwer-kpop-band-hong-jihye-gif-7734615214831958590`,
+            `https://tenor.com/view/black-man-maid-dancing-blm-gif-24518489`
+            ];
+          core.setOutput('image_url', urlList[Math.floor(Math.random() * urlList.length)]);
+
     - name: Discord Webhook Action
       uses: sarisia/actions-status-discord@v1
       if: ${{ ! startsWith(github.event.head_commit.message, '!!') }}
@@ -15,4 +30,4 @@ jobs:
         content: "<@&1153326597844238366>"
         webhook: ${{ secrets.DISCORD_WEBHOOK }}
         color: FFFFFF
-        image: ${{ secrets.IMAGE_URL }}
+        image: ${{ steps.random_image_url.outputs.image_url }}

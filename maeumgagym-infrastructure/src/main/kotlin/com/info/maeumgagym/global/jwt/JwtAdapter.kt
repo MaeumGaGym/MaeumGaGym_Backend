@@ -14,7 +14,6 @@ import com.info.maeumgagym.global.exception.InvalidTokenException
 import com.info.maeumgagym.global.security.principle.CustomUserDetailService
 import com.info.maeumgagym.global.security.principle.CustomUserDetails
 import io.jsonwebtoken.*
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component

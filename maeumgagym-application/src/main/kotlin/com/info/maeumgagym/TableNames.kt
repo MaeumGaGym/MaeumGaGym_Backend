@@ -6,7 +6,7 @@ object TableNames {
 
     const val USER_TABLE = "${TABLE_PREFIX}user"
 
-    const val DELETED_USER_TABLE = "${TABLE_PREFIX}deleted_user"
+    const val DELETED_AT_TABLE = "${TABLE_PREFIX}deleted_at"
 
     const val POSE_TABLE = "${TABLE_PREFIX}pose"
 

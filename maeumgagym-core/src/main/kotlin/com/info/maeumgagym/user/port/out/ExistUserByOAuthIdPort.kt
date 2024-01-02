@@ -1,5 +1,7 @@
 package com.info.maeumgagym.user.port.out
 
 interface ExistUserByOAuthIdPort {
-    fun existByOAuthId(oauthId: String): Boolean
+    fun existByOAuthIdInNative(oauthId: String): Boolean
+
+    fun existsUserByOAuthId(oauthId: String): Boolean
 }
