@@ -22,13 +22,14 @@ class GeneratePublicKeyAdapter : GeneratePublicKeyPort {
         tokenHeaders: MutableMap<String?, String?>,
         applePublicKeys: ApplePublicKeysResponse
     ): PublicKey {
+        // id_token에 사용된 공개키와 애플에서 가져온 공개키가 match 되는지 확인
         val publicKey: ApplePublicKeyResponse = applePublicKeys.matchesKey(
-            tokenHeaders[ALG_HEADER_KEY]!!,
-            tokenHeaders[KID_HEADER_KEY]!!
+            tokenHeaders[ALG_HEADER_KEY]!!, // token의 alg값
+            tokenHeaders[KID_HEADER_KEY]!! // token의 kid값
         ) ?: throw InvalidTokenException
 
         return try {
-            KeyFactory.getInstance(publicKey.kty).generatePublic(publicKey.publicKeySpec())
+            KeyFactory.getInstance(publicKey.kty).generatePublic(publicKey.publicKeySpec()) // 공개키 발급
         } catch (e: NoSuchAlgorithmException) {
             throw IllegalStateException("Apple OAuth 로그인 중 public key 생성에 문제가 발생했습니다.")
         } catch (e: InvalidKeySpecException) {

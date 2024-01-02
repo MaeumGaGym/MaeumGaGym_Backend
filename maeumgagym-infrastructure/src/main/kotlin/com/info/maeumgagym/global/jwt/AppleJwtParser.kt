@@ -16,15 +16,19 @@ class AppleJwtParser(private val objectMapper: ObjectMapper) : AppleJwtParsePort
     }
 
     @Suppress("unchecked_cast")
-    override fun parseHeaders(token: String): MutableMap<String?, String?> {
-        return try {
-            val encodedHeader: String = token.split(IDENTITY_TOKEN_VALUE_DELIMITER.toRegex())[HEADER_INDEX]
-            val decodedHeader = String(Base64Utils.decodeFromUrlSafeString(encodedHeader))
-            objectMapper.readValue(decodedHeader, MutableMap::class.java) as MutableMap<String?, String?>
-        } catch (e: JsonProcessingException) {
-            throw InvalidTokenException
-        } catch (e: ArrayIndexOutOfBoundsException) {
-            throw InvalidTokenException
-        }
+    override fun parseHeaders(token: String): MutableMap<String?, String?> = try {
+        // 인코딩된 토큰 슬라이싱
+        val encodedHeader: String = token.split(IDENTITY_TOKEN_VALUE_DELIMITER.toRegex())[HEADER_INDEX]
+
+        // url-safe 하도록 Base64 Decoding
+        val decodedHeader = String(Base64Utils.decodeFromUrlSafeString(encodedHeader))
+
+        // json데이터를 Map<String?, String?>형태로 cast
+        objectMapper.readValue(decodedHeader, MutableMap::class.java) as MutableMap<String?, String?>
+
+    } catch (e: JsonProcessingException) { // json형식의 데이터가 아닐 때
+        throw InvalidTokenException
+    } catch (e: ArrayIndexOutOfBoundsException) { // Index가 size를 벋어 났을 때
+        throw InvalidTokenException
     }
 }

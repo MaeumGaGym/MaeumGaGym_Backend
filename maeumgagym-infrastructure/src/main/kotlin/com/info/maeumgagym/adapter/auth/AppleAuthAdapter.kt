@@ -13,11 +13,12 @@ class AppleAuthAdapter(
     private val getJwtBodyPort: GetJwtBodyPort
 ) : ParseAppleTokenPort {
 
-    override fun parseIdToken(token: String): Claims = getJwtBodyPort.getJwtBody(
-        token,
-        generatePublicKeyPort.generatePublicKey(
-            appleJwtParsePort.parseHeaders(token),
-            appleClient.applePublicKeys().toResponse()
+    override fun parseIdToken(token: String): Claims =
+        getJwtBodyPort.getJwtBody( // 애플 id_token 파싱해서 Claims반환 하는 함수 호춯
+            token,
+            generatePublicKeyPort.generatePublicKey( // 애플 공개키 가져오는 함수 호출
+                appleJwtParsePort.parseHeaders(token), // json형식으로 인증정보 가져오기
+                appleClient.applePublicKeys().toResponse() // 인코딩 된 애플 공개키 가져오기
+            )
         )
-    )
 }
