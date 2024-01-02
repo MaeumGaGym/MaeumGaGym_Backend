@@ -23,14 +23,14 @@ class AppleAuthController(
 
     @Operation(summary = "애플 OAuth 로그인 API")
     @GetMapping("/login")
-    fun login(@RequestParam("access_token", required = true) token: String): TokenWebResponse =
+    fun login(@RequestParam("access_token") token: String): TokenWebResponse =
         TokenWebResponse.toWebResponse(appleLoginUseCase.login(token))
 
     @Operation(summary = "애플 OAuth 회원가입 API")
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     fun signup(
-        @RequestParam("access_token", required = true)
+        @RequestParam("access_token")
         token: String,
         @RequestBody
         @Valid
@@ -39,7 +39,7 @@ class AppleAuthController(
 
     @Operation(summary = "애플 OAuth 회원복구 API")
     @PutMapping("/recovery")
-    fun recovery(@RequestParam("access_token", required = true) token: String) {
+    fun recovery(@RequestParam("access_token") token: String) {
         appleRecoveryUseCase.recovery(token)
     }
 }

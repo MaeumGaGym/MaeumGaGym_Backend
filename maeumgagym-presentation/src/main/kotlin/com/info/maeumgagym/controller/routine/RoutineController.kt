@@ -42,24 +42,20 @@ class RoutineController(
     )
 
     @Operation(summary = "루틴 삭제 API")
-    @DeleteMapping("/{routineId}")
+    @DeleteMapping("/{id}")
     fun deleteRoutine(
-        @PathVariable(required = true)
-        @Valid
-        @NotNull(message = "null일 수 없습니다.")
-        routineId: Long?
+        @PathVariable("id")
+        id: Long
     ) =
-        deleteRoutineUseCase.deleteRoutine(routineId!!)
+        deleteRoutineUseCase.deleteRoutine(id)
 
     @Operation(summary = "루틴 수정 API")
     @PutMapping("/{id}")
     fun updateRoutine(
-        @PathVariable(required = true)
-        @Valid
-        @NotNull(message = "null일 수 없습니다.")
-        id: Long?,
+        @PathVariable("id")
+        id: Long,
         @RequestBody @Valid
         req: UpdateRoutineWebRequest
     ) =
-        updateRoutineUseCase.updateRoutine(req.toRequest(), id!!)
+        updateRoutineUseCase.updateRoutine(req.toRequest(), id)
 }

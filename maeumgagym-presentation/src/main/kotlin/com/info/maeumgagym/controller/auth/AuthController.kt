@@ -29,7 +29,7 @@ class AuthController(
 
     @Operation(summary = "nickname 중복체크 API")
     @GetMapping
-    fun duplicatedNicknameCheck(@RequestParam("nickname", required = true) nickname: String): Boolean =
+    fun duplicatedNicknameCheck(@RequestParam("nickname") nickname: String): Boolean =
         duplicatedNicknameCheckUseCase.existByNickname(nickname)
 
     @Operation(summary = "JWT 재발급 API")

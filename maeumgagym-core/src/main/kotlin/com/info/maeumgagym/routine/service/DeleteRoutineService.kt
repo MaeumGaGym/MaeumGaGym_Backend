@@ -7,7 +7,6 @@ import com.info.maeumgagym.routine.exception.RoutineNotFoundException
 import com.info.maeumgagym.routine.port.`in`.DeleteRoutineUseCase
 import com.info.maeumgagym.routine.port.out.DeleteRoutinePort
 import com.info.maeumgagym.routine.port.out.ReadRoutineByIdPort
-import java.util.*
 
 @UseCase
 class DeleteRoutineService(
@@ -15,8 +14,8 @@ class DeleteRoutineService(
     private val readRoutineByIdPort: ReadRoutineByIdPort,
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : DeleteRoutineUseCase {
-    override fun deleteRoutine(routineId: Long) {
-        val routine = readRoutineByIdPort.readRoutineById(routineId) ?: throw RoutineNotFoundException
+    override fun deleteRoutine(id: Long) {
+        val routine = readRoutineByIdPort.readRoutineById(id) ?: throw RoutineNotFoundException
         val user = readCurrentUserPort.readCurrentUser()
 
         if (user.id != routine.userId) throw PermissionDeniedException
