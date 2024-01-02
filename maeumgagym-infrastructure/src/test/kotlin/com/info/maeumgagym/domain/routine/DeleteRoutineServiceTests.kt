@@ -15,7 +15,7 @@ import io.kotest.core.spec.style.BehaviorSpec
 import io.mockk.*
 import java.util.*
 
-internal class RoutineTests : BehaviorSpec({
+internal class DeleteRoutineServiceTests : BehaviorSpec({
     val deleteRoutinePort = mockk<DeleteRoutinePort>()
     val readRoutineByIdPort = mockk<ReadRoutineByIdPort>()
     val readCurrentUserPort = mockk<ReadCurrentUserPort>()

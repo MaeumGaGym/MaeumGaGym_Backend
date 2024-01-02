@@ -27,7 +27,7 @@ class PicklePersistenceAdapter(
         pickleRepository.delete(pickleMapper.toEntity(pickle))
     }
 
-    override fun readPickleById(id: Long): Pickle? =
+    override fun readPickleById(id: String): Pickle? =
         pickleRepository.findByIdOrNull(id)?.let {
             pickleMapper.toDomain(it)
         }

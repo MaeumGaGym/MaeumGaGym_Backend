@@ -36,7 +36,7 @@ class LoadPickleService(
         )
     }
 
-    override fun loadPickleFromId(id: Long): PickleResponse =
+    override fun loadPickleFromId(id: String): PickleResponse =
         (readPickleByIdPort.readPickleById(id) ?: throw PickleNotFoundException).toResponse()
 
     private fun getRandomPickles(pickles: List<Pickle>): List<Pickle> =

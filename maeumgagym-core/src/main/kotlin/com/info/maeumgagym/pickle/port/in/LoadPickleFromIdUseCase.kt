@@ -4,5 +4,5 @@ import com.info.maeumgagym.pickle.dto.response.PickleResponse
 
 interface LoadPickleFromIdUseCase {
 
-    fun loadPickleFromId(id: Long): PickleResponse
+    fun loadPickleFromId(id: String): PickleResponse
 }

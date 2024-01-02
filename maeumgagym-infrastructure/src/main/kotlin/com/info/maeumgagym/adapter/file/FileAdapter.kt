@@ -18,16 +18,16 @@ class FileAdapter(
         var loadBalancingNum: Int = 0
     }
 
-    override fun getPreSignedUploadURL(fileType: String) =
+    override fun getPreSignedUploadURL(fileType: String): String =
         fileClient.preSignedUploadURL(
             fileProperty.secretKey,
             PreSignedUploadURLFeignRequest(fileType)
         ).uploadURL
 
-    override fun generateUploadURL(videoId: Long): String =
+    override fun generateUploadURL(videoId: String): String =
         getBalancedURL() + videoId + fileProperty.suffixPath
 
-    override fun deletePickle(videoId: Long) {
+    override fun deletePickle(videoId: String) {
         fileClient.pickleDelete(
             fileProperty.secretKey,
             videoId

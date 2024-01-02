@@ -20,9 +20,22 @@ class UserPersistenceAdapter(
     FindUserByOAuthIdPort,
     DeleteUserPort,
     ExistUserByNicknamePort,
-    ExistUserByOAuthIdPort {
+    ExistUserByOAuthIdPort,
+    FindDeletedUserByIdPort,
+    ExistsDeletedUserByIdPort
+{
+    override fun existsByIdInNative(oauthId: String): Boolean =
+        userRepository.existsDeletedUserByOauthIdInNative(oauthId) > BigInteger.ZERO
+
+    override fun findByIdOrNullInNative(oauthId: String): User? =
+        userRepository.findDeletedUserByOauthIdInNative(oauthId)?.let { userMapper.toDomain(it) }
+
+
     override fun findUserById(userId: UUID): User? =
         userRepository.findByIdOrNull(userId)?.let { userMapper.toDomain(it) }
+
+    override fun existsUserByOAuthId(oauthId: String): Boolean =
+        userRepository.existsByOauthId(oauthId)
 
     override fun saveUser(user: User): User {
         val userJpaEntity = userRepository.save(userMapper.toEntity(user))
@@ -33,13 +46,12 @@ class UserPersistenceAdapter(
         userRepository.findByOauthId(oauthId)?.let { userMapper.toDomain(it) }
 
     override fun deleteUser(user: User) {
-        val userJpaEntity = userMapper.toEntity(user)
-        userRepository.delete(userJpaEntity)
+        userRepository.delete(userMapper.toEntity(user))
     }
 
-    override fun existByNickname(nickName: String): Boolean =
-        userRepository.existsByNickname(nickName) > BigInteger.ZERO
+    override fun existByNicknameInNative(nickName: String): Boolean =
+        userRepository.existsByNicknameInNative(nickName) > BigInteger.ZERO
 
-    override fun existByOAuthId(oauthId: String): Boolean =
-        userRepository.existsByOauthId(oauthId) > BigInteger.ZERO
+    override fun existByOAuthIdInNative(oauthId: String): Boolean =
+        userRepository.existsByOauthIdInNative(oauthId) > BigInteger.ZERO
 }

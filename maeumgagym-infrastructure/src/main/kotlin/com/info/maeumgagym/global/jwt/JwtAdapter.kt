@@ -14,7 +14,6 @@ import com.info.maeumgagym.global.exception.InvalidTokenException
 import com.info.maeumgagym.global.security.principle.CustomUserDetailService
 import com.info.maeumgagym.global.security.principle.CustomUserDetails
 import io.jsonwebtoken.*
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
@@ -59,7 +58,7 @@ class JwtAdapter(
         val now = Date()
         return Jwts.builder()
             .setIssuedAt(now)
-            .setExpiration(Date(now.time + jwtProperties.accessExpiredExp))
+            .setExpiration(Date(now.time.plus(jwtProperties.accessExpiredExp)))
             .signWith(SignatureAlgorithm.HS256, jwtProperties.secretKey)
             .compact()
     }
@@ -92,16 +91,6 @@ class JwtAdapter(
         try {
             Jwts.parser().setSigningKey(publicKey).parseClaimsJws(token).body
         } catch (e: Exception) {
-            when (e) {
-                is ExpiredJwtException -> throw ExpiredTokenException
-                else -> throw InvalidTokenException
-            }
-        }
-
-    override fun getJwtBody(token: String): Claims =
-        try {
-            Jwts.parser().setSigningKey(jwtProperties.secretKey).parseClaimsJws(token).body
-        } catch (e: JwtException) {
             when (e) {
                 is ExpiredJwtException -> throw ExpiredTokenException
                 else -> throw InvalidTokenException
