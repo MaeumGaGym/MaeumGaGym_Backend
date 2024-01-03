@@ -14,6 +14,6 @@ class SchedulerConfig {
     @Bean
     fun scheduler(): TaskScheduler =
         ThreadPoolTaskScheduler().apply {
-            poolSize = 1
+            poolSize = 1 // 동시에 실행될 수 있는 작업 수
         }
 }

@@ -14,8 +14,10 @@ class UploadPickleService(
 ) : PickleUploadUseCase {
 
     override fun uploadPickle(req: PickleUploadRequest) {
+        // 토큰으로 유저 찾기
         val user = readCurrentUserPort.readCurrentUser()
 
+        // 피클 저장
         savePicklePort.savePickle(
             Pickle(
                 videoId = req.videoId,
