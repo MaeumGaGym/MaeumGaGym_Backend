@@ -12,7 +12,7 @@ import com.info.maeumgagym.domain.user.module.UserFunctionsModule.saveInContext
 import com.info.maeumgagym.domain.user.module.UserFunctionsModule.saveInRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.routine.exception.RoutineNotFoundException
-import com.info.maeumgagym.routine.service.DeleteRoutineService
+import com.info.maeumgagym.routine.port.`in`.DeleteRoutineUseCase
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 @SpringBootTest
 class DeleteRoutineServiceTests @Autowired constructor(
-    private val deleteRoutineService: DeleteRoutineService,
+    private val deleteRoutineUseCase: DeleteRoutineUseCase,
     private val routineRepository: RoutineRepository,
     private val userRepository: UserRepository,
     private val userMapper: UserMapper
@@ -43,7 +43,7 @@ class DeleteRoutineServiceTests @Autowired constructor(
     @Test
     fun deleteMyRoutine() {
         Assertions.assertDoesNotThrow {
-            deleteRoutineService.deleteRoutine(routine.id!!)
+            deleteRoutineUseCase.deleteRoutine(routine.id!!)
         }
         Assertions.assertNull(routineRepository.findByIdOrNull(routine.id!!))
     }
@@ -52,7 +52,7 @@ class DeleteRoutineServiceTests @Autowired constructor(
     fun deleteOtherRoutine() {
         otherUser.saveInContext(userMapper)
         Assertions.assertThrows(PermissionDeniedException::class.java) {
-            deleteRoutineService.deleteRoutine(routine.id!!)
+            deleteRoutineUseCase.deleteRoutine(routine.id!!)
         }
         Assertions.assertNotNull(routineRepository.findByIdOrNull(routine.id!!))
     }
@@ -61,7 +61,7 @@ class DeleteRoutineServiceTests @Autowired constructor(
     fun deleteNonExistentRoutine() {
         routineRepository.deleteById(routine.id!!)
         Assertions.assertThrows(RoutineNotFoundException::class.java) {
-            deleteRoutineService.deleteRoutine(routine.id!!)
+            deleteRoutineUseCase.deleteRoutine(routine.id!!)
         }
     }
 }
