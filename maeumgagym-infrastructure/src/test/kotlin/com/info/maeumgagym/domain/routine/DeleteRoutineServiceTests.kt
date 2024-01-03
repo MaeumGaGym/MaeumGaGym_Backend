@@ -1,76 +1,67 @@
 package com.info.maeumgagym.domain.routine
 
 import com.info.maeumgagym.auth.exception.PermissionDeniedException
-import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.routine.model.ExerciseInfoModel
-import com.info.maeumgagym.routine.model.Routine
-import com.info.maeumgagym.routine.model.RoutineStatusModel
-import com.info.maeumgagym.routine.port.out.DeleteRoutinePort
-import com.info.maeumgagym.routine.port.out.ReadRoutineByIdPort
+import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
+import com.info.maeumgagym.domain.routine.module.RoutineFunctionsModule
+import com.info.maeumgagym.domain.routine.module.RoutineFunctionsModule.saveInRepository
+import com.info.maeumgagym.domain.routine.repository.RoutineRepository
+import com.info.maeumgagym.domain.user.entity.UserJpaEntity
+import com.info.maeumgagym.domain.user.mapper.UserMapper
+import com.info.maeumgagym.domain.user.module.UserFunctionsModule
+import com.info.maeumgagym.domain.user.module.UserFunctionsModule.saveInContext
+import com.info.maeumgagym.domain.user.module.UserFunctionsModule.saveInRepository
+import com.info.maeumgagym.domain.user.repository.UserRepository
+import com.info.maeumgagym.routine.exception.RoutineNotFoundException
 import com.info.maeumgagym.routine.service.DeleteRoutineService
-import com.info.maeumgagym.user.model.Role
-import com.info.maeumgagym.user.model.User
-import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.core.spec.style.BehaviorSpec
-import io.mockk.*
-import java.util.*
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.data.repository.findByIdOrNull
+import org.springframework.transaction.annotation.Transactional
 
-internal class DeleteRoutineServiceTests : BehaviorSpec({
-    val deleteRoutinePort = mockk<DeleteRoutinePort>()
-    val readRoutineByIdPort = mockk<ReadRoutineByIdPort>()
-    val readCurrentUserPort = mockk<ReadCurrentUserPort>()
-    val deleteRoutineService = DeleteRoutineService(deleteRoutinePort, readRoutineByIdPort, readCurrentUserPort)
+@Transactional
+@SpringBootTest
+class DeleteRoutineServiceTests @Autowired constructor(
+    private val deleteRoutineService: DeleteRoutineService,
+    private val routineRepository: RoutineRepository,
+    private val userRepository: UserRepository,
+    private val userMapper: UserMapper
+) {
+    private lateinit var user: UserJpaEntity
+    private lateinit var otherUser: UserJpaEntity
+    private lateinit var routine: RoutineJpaEntity
 
-    Given("루틴을 삭제하려는 상황에서") {
-        When("자신의 루틴이 아닌것을 삭제하려고 할 때") {
-            Then("예외가 발생하여야 함") {
-                every { readRoutineByIdPort.readRoutineById(routineId) } returns routine
-                every { readCurrentUserPort.readCurrentUser() } returns user2
-                every { deleteRoutinePort.deleteRoutine(routine) } just runs
-                shouldThrow<PermissionDeniedException> {
-                    deleteRoutineService.deleteRoutine(routineId)
-                }
-            }
-        }
-        When("자신의 루틴이라면") {
-            every { readRoutineByIdPort.readRoutineById(routineId) } returns routine
-            every { readCurrentUserPort.readCurrentUser() } returns user1
-            every { deleteRoutinePort.deleteRoutine(routine) } just runs
-            deleteRoutineService.deleteRoutine(routineId)
-
-            Then("루틴이 삭제되어야 함") {
-                verify(exactly = 1) {deleteRoutinePort.deleteRoutine(routine)}
-            }
-        }
+    @BeforeEach
+    fun initialize() {
+        user = UserFunctionsModule.createTestUser().saveInRepository(userRepository).saveInContext(userMapper)
+        otherUser = UserFunctionsModule.createOtherUser().saveInRepository(userRepository)
+        routine = RoutineFunctionsModule.createTestRoutine(user.id!!).saveInRepository(routineRepository)
     }
-}) {
-    companion object {
-        val user1Id = UUID.fromString("e25b8200-9e45-11ee-9c7e-0af86a3dcfb4")
-        val user2Id = UUID.fromString("a25b8200-9e45-11ee-9c7e-0af86a3dcfb4")
-        val routineId = 1L
-        val routine = Routine(
-            routineName = "아침운동",
-            exerciseInfoModelList = mutableListOf(ExerciseInfoModel(exerciseName = "스쿼드", repetitions = 10, sets = 10)),
-            dayOfWeeks = null,
-            routineStatusModel = RoutineStatusModel(isShared = true, isArchived = true),
-            id = routineId,
-            userId = user1Id
-        )
 
-        val user1 = User(
-            nickname = "현수",
-            oauthId = "1234",
-            roles = mutableListOf(Role.USER),
-            profileImage = null,
-            id = user1Id
-        )
+    @Test
+    fun deleteMyRoutine() {
+        Assertions.assertDoesNotThrow {
+            deleteRoutineService.deleteRoutine(routine.id!!)
+        }
+        Assertions.assertNull(routineRepository.findByIdOrNull(routine.id!!))
+    }
 
-        val user2 = User(
-            nickname = "현수",
-            oauthId = "1234",
-            roles = mutableListOf(Role.USER),
-            profileImage = null,
-            id = user2Id
-        )
+    @Test
+    fun deleteOtherRoutine() {
+        otherUser.saveInContext(userMapper)
+        Assertions.assertThrows(PermissionDeniedException::class.java) {
+            deleteRoutineService.deleteRoutine(routine.id!!)
+        }
+        Assertions.assertNotNull(routineRepository.findByIdOrNull(routine.id!!))
+    }
+
+    @Test
+    fun deleteNonExistentRoutine() {
+        routineRepository.deleteById(routine.id!!)
+        Assertions.assertThrows(RoutineNotFoundException::class.java) {
+            deleteRoutineService.deleteRoutine(routine.id!!)
+        }
     }
 }
