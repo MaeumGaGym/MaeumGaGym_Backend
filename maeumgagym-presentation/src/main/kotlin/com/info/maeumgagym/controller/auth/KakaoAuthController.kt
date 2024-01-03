@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
-import javax.validation.constraints.NotBlank
 
 @Tag(name = "Kakao OAuth API")
 @Validated
@@ -25,21 +24,20 @@ class KakaoAuthController(
 ) {
     @Operation(summary = "카카오 OAuth 로그인 API")
     @GetMapping("/login")
-    fun login(@RequestParam("access_token", required = true) @NotBlank accessToken: String?): TokenWebResponse =
-        TokenWebResponse.toWebResponse(kakaoLoginUseCase.login(accessToken!!))
+    fun login(@RequestParam("access_token") accessToken: String): TokenWebResponse =
+        TokenWebResponse.toWebResponse(kakaoLoginUseCase.login(accessToken))
 
     @Operation(summary = "카카오 OAuth 회원가입 API")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/signup")
     fun signup(
-        @RequestParam("access_token", required = true)
-        @NotBlank
-        accessToken: String?,
+        @RequestParam("access_token")
+        accessToken: String,
         @RequestBody
         @Valid
         req: KakaoSignupWebRequest
     ) {
-        kakaoSignupUseCase.signup(accessToken!!, req.nickname!!)
+        kakaoSignupUseCase.signup(accessToken, req.nickname!!)
     }
 
     @Operation(summary = "카카오 OAuth 회원복구 API")

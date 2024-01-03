@@ -16,9 +16,11 @@ class JwtFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        jwtResolver.resolveToken(request)?.let {
+        jwtResolver.resolveToken(request)?.let { // WHEN : 헤더에 토큰이 존재한다면
+            // security context holder에 user저장
             SecurityContextHolder.getContext().authentication = jwtAdapter.getAuthentication(it)
         }
+        // 다음 필터로 넘기기
         filterChain.doFilter(request, response)
     }
 }

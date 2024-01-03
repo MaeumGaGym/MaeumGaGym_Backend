@@ -13,6 +13,7 @@ class ReadCurrentUserAdapter(
 ) : ReadCurrentUserPort {
 
     override fun readCurrentUser(): User = findUserByOAuthIdPort.findUserByOAuthId(
+        // jwt filter에서 집어 넣은 user를 context holder에서 꺼내오기
         SecurityContextHolder.getContext().authentication.name
     ) ?: throw UnAuthorizedException
 }

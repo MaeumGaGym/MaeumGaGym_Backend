@@ -32,16 +32,16 @@ class PickleController(
 
     @Operation(summary = "추천 피클 전체 조회 API")
     @GetMapping
-    fun recommendationPicklesLoad(@RequestParam index: Int): PickleListResponse =
+    fun recommendationPicklesLoad(@RequestParam("idx") index: Int): PickleListResponse =
         loadRecommendationPicklesUseCase.loadRecommendationPickles(index)
 
     @Operation(summary = "피클 조회 API")
     @GetMapping("/{id}")
     fun pickleLoadFromId(
-        @PathVariable(name = "id", required = true)
+        @PathVariable(name = "id")
         @Valid
         @NotBlank(message = "null일 수 없습니다")
-        @Pattern(regexp = "^[0-9a-fA-F]{8}$")
+        @Pattern(regexp = "^[0-9a-fA-F]{8}$", message = "잘못된 id입니다.")
         id: String?
     ): PickleWebResponse =
         PickleWebResponse.toWebResponse(
@@ -68,10 +68,10 @@ class PickleController(
     @Operation(summary = "피클 삭제 API")
     @DeleteMapping("/{id}")
     fun deletePickle(
-        @PathVariable(name = "id", required = true)
+        @PathVariable(name = "id")
         @Valid
         @NotBlank(message = "null일 수 없습니다")
-        @Pattern(regexp = "^[0-9a-fA-F]{8}$")
+        @Pattern(regexp = "^[0-9a-fA-F]{8}$", message = "잘못된 id입니다.")
         id: String?
     ) {
         pickleDeleteUseCase.deletePickle(id!!)
@@ -80,10 +80,10 @@ class PickleController(
     @Operation(summary = "피클 수정 API")
     @PutMapping("/{id}")
     fun updatePickle(
-        @PathVariable(name = "id", required = true)
+        @PathVariable(name = "id")
         @Valid
         @NotBlank(message = "null일 수 없습니다")
-        @Pattern(regexp = "^[0-9a-fA-F]{8}$")
+        @Pattern(regexp = "^[0-9a-fA-F]{8}$", message = "잘못된 id입니다.")
         id: String?,
         @RequestBody @Valid
         req: UpdatePickleWebRequest

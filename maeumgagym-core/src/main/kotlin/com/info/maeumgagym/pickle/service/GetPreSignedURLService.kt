@@ -19,6 +19,7 @@ class GetPreSignedURLService(
         // WHEN : 확인 되지 않은 파일 타입 -> Exception
         if (fileType != QUICKTIME && fileType != MP4) throw FileTypeMissMatchedException
 
-        return getPreSignedURLPort.getPreSignedUploadURL(fileType) // WHAT : Feign으로 PreSignedURL 불러오기
+        // WHAT : Feign으로 PreSignedURL 불러오기
+        return getPreSignedURLPort.getPreSignedUploadURL(fileType)
     }
 }

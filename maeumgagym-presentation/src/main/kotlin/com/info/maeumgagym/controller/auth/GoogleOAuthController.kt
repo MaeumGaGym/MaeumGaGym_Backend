@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
-import javax.validation.constraints.NotBlank
 
 @Tag(name = "Google OAuth API")
 @Validated
@@ -31,21 +30,19 @@ class GoogleOAuthController(
 
     @Operation(summary = "구글 OAuth 로그인 API")
     @GetMapping("/login")
-    fun login(@RequestParam("access_token") @Valid @NotBlank accessToken: String?): TokenWebResponse =
-        TokenWebResponse.toWebResponse(googleLoginUseCase.login(accessToken!!))
+    fun login(@RequestParam("access_token") accessToken: String): TokenWebResponse =
+        TokenWebResponse.toWebResponse(googleLoginUseCase.login(accessToken))
 
     @Operation(summary = "구글 OAuth 회원가입 API")
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     fun signup(
-        @RequestParam("access_token", required = true)
-        @Valid
-        @NotBlank
-        accessToken: String?,
+        @RequestParam("access_token")
+        accessToken: String,
         @RequestBody
         @Valid
         req: SignupWebRequest
     ) {
-        googleSignupUseCase.signup(accessToken!!, req.nickname!!)
+        googleSignupUseCase.signup(accessToken, req.nickname!!)
     }
 }

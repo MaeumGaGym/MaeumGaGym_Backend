@@ -49,3 +49,11 @@ dependencyManagement {
         mavenBom("org.springframework.cloud:spring-cloud-dependencies:${DependencyVersions.SPRING_CLOUD_VERSION}")
     }
 }
+
+allOpen {
+    annotations("org.springframework.data.redis.core.RedisHash")
+}
+
+noArg{
+    annotations("org.springframework.data.redis.core.RedisHash")
+}

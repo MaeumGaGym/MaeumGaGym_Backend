@@ -25,18 +25,27 @@ class KakaoOAuthService(
 ) : KakaoLoginUseCase, KakaoSignupUseCase, KakaoRecoveryUseCase {
 
     override fun login(accessToken: String): TokenResponse {
+        // kakao access_token으로 유저 정보 가져오기
         val userInfo = getKakaoInfoPort.getInfo(accessToken)
+
+        // 존재하지 않는 유저라면 NotFound 예외처리
         if (!existUserByOAuthIdPort.existsUserByOAuthId(userInfo.id)) throw UserNotFoundException
+
+        // subject로 토큰 발급 및 반환
         return generateJwtPort.generateTokens(userInfo.id)
     }
 
     override fun signup(accessToken: String, nickname: String) {
+        // nickname 중복 확인
         if (existUserByNicknamePort.existByNicknameInNative(nickname)) throw DuplicatedNicknameException
 
+        // kakao access_token으로 유저 정보 가져오기
         val userInfo = getKakaoInfoPort.getInfo(accessToken)
 
+        // 중복 유저 확인
         if (existUserByOAuthIdPort.existByOAuthIdInNative(userInfo.id)) throw AlreadyExistUserException
 
+        // 유저 생성
         saveUserPort.saveUser(
             User(
                 nickname = nickname,
@@ -47,8 +56,10 @@ class KakaoOAuthService(
     }
 
     override fun recovery(accessToken: String) {
+        // kakao access_token으로 유저 정보 가져오기
         val userInfo = getKakaoInfoPort.getInfo(accessToken)
 
+        // 회원 복구 함수 호출
         recoveryUserPort.recovery(userInfo.id)
     }
 }

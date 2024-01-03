@@ -26,35 +26,45 @@ class GoogleOAuthService(
 ) : GoogleLoginUseCase, GoogleSignupUseCase, GoogleRecoveryUseCase {
 
     override fun login(accessToken: String): TokenResponse {
-        val response = getGoogleInfoPort.getGoogleInfo(accessToken)
+        // google access_token으로 profile 가져오기
+        val profile = getGoogleInfoPort.getGoogleInfo(accessToken)
 
-        if (!existUserByOAuthIdPort.existsUserByOAuthId(response.sub)) throw UserNotFoundException
+        // 존재하지 않는 유저라면 NotFound 예외처리
+        if (!existUserByOAuthIdPort.existsUserByOAuthId(profile.sub)) throw UserNotFoundException
 
+        // google access_token 만료 시키기
         revokeGoogleTokenPort.revokeGoogleToken(accessToken)
 
-        return generateTokenService.execute(response.sub)
+        // subject로 토큰 발급 및 반환
+        return generateTokenService.execute(profile.sub)
     }
 
     override fun signup(accessToken: String, nickname: String) {
+        // nickname 중복 확인
         if (existUserByNicknamePort.existByNicknameInNative(nickname)) throw DuplicatedNicknameException
 
-        val response = getGoogleInfoPort.getGoogleInfo(accessToken)
+        // google access_token으로 profile 가져오기
+        val profile = getGoogleInfoPort.getGoogleInfo(accessToken)
 
-        if (existUserByOAuthIdPort.existByOAuthIdInNative(response.sub)) throw AlreadyExistUserException
+        // 중복 유저 확인
+        if (existUserByOAuthIdPort.existByOAuthIdInNative(profile.sub)) throw AlreadyExistUserException
 
+        // 유저 생성
         saveUserPort.saveUser(
             User(
                 nickname = nickname,
                 roles = mutableListOf(Role.USER),
-                oauthId = response.sub,
-                profileImage = response.picture
+                oauthId = profile.sub,
+                profileImage = profile.picture
             )
         )
     }
 
     override fun recovery(accessToken: String) {
-        val response = getGoogleInfoPort.getGoogleInfo(accessToken)
+        // google access_token으로 profile 가져오기
+        val profile = getGoogleInfoPort.getGoogleInfo(accessToken)
 
-        recoveryUserPort.recovery(response.sub)
+        // 회원 복구 함수 호출
+        recoveryUserPort.recovery(profile.sub)
     }
 }
