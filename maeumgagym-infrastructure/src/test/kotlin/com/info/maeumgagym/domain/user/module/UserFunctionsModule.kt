@@ -9,7 +9,7 @@ import com.info.maeumgagym.user.model.User
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 
-object UserFunctionsModule {
+internal object UserFunctionsModule {
 
     const val TEST_USER_NICKNAME = "테스트 유저 닉네임"
     const val TEST_USER_OAUTH_ID = "testUserOAuthId"
