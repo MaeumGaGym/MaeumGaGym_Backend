@@ -3,6 +3,7 @@ package com.info.maeumgagym.routine.service
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.routine.dto.request.CreateRoutineRequest
+import com.info.maeumgagym.routine.exception.ExerciseListCannotEmptyException
 import com.info.maeumgagym.routine.model.Routine
 import com.info.maeumgagym.routine.model.RoutineStatusModel
 import com.info.maeumgagym.routine.port.`in`.CreateRoutineUseCase
@@ -14,6 +15,8 @@ class CreateRoutineService(
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : CreateRoutineUseCase {
     override fun createRoutine(req: CreateRoutineRequest) {
+        if (req.exerciseInfoModelList.isEmpty()) throw ExerciseListCannotEmptyException
+
         req.run {
             saveRoutinePort.saveRoutine(
                 Routine(
