@@ -11,7 +11,8 @@ class UserScheduler(
     private val userRepository: UserRepository
 ) {
 
-    @Scheduled(cron = "0 0 * * * ?", zone = "Asia/Seoul")
+    // 매일
+    @Scheduled(cron = "0 0 0 * * ?", zone = "Asia/Seoul")
     fun deleteAtOneMonthAgoUserClear() {
         userRepository.deleteAllWithdrawalUserOneMonthAgo()
     }
