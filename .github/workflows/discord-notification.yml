@@ -17,8 +17,10 @@ jobs:
             [`냥뇽녕냥`, `https://hedwig-cf.netmarble.com/forum-common/sknightsmmo/sk2/6f483725827e4e6cbf16aeee0e8c8e3c_1617941581098.gif`], 
             [`냥뇽녕냥`, `https://upload3.inven.co.kr/upload/2022/04/21/bbs/i013997846192.gif`],
             [`쵸단`, `https://media1.tenor.com/m/a1bfjuJj-j4AAAAd/chodan-qwer.gif`],
+            [`카리나`, `https://media1.tenor.com/m/JWGYQ2D9JfkAAAAC/karina-aespa.gif`],
             [`투슬리스`, `https://media1.tenor.com/m/UTmEHkq-OJcAAAAC/dance-cas-van-de-pol.gif`],
-            [`카리나`, `https://media1.tenor.com/m/JWGYQ2D9JfkAAAAC/karina-aespa.gif`]
+            [`봇치`, `https://media1.tenor.com/m/9wllMjsxqaAAAAAd/bocchi-the-rock-bocchi-the-rock-gif.gif`],
+            [`키타`, `https://media.tenor.com/-uECH6sL_XgAAAAM/ikuyo-kita-meme.gif`]
           ];
           let output = urlList[Math.floor(Math.random() * urlList.length)]
           core.setOutput('name', output[0]);
