@@ -1,4 +1,4 @@
-package com.info.maeumgagym.domain.routine
+package com.info.maeumgagym.domain.routine.kotest
 
 import com.info.maeumgagym.auth.exception.PermissionDeniedException
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
@@ -39,7 +39,7 @@ internal class DeleteRoutineServiceTestsWithKotest : BehaviorSpec({
             deleteRoutineService.deleteRoutine(routineId)
 
             Then("루틴이 삭제되어야 함") {
-                verify(exactly = 1) {deleteRoutinePort.deleteRoutine(routine)}
+                verify(exactly = 1) { deleteRoutinePort.deleteRoutine(routine) }
             }
         }
     }

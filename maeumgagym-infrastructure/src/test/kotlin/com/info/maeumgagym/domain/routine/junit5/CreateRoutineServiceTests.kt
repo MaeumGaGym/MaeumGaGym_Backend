@@ -1,4 +1,4 @@
-package com.info.maeumgagym.domain.routine
+package com.info.maeumgagym.domain.routine.junit5
 
 import com.info.maeumgagym.domain.routine.module.RoutineFunctionsModule
 import com.info.maeumgagym.domain.routine.repository.RoutineRepository
