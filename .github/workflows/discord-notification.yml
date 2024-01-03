@@ -16,8 +16,8 @@ jobs:
             [`냥뇽녕냥`, `https://hedwig-cf.netmarble.com/forum-common/skrv/skr/0d36bc9f09dd4f46b5432f0065a77cb4_1664534062576.gif`], 
             [`냥뇽녕냥`, `https://hedwig-cf.netmarble.com/forum-common/sknightsmmo/sk2/6f483725827e4e6cbf16aeee0e8c8e3c_1617941581098.gif`], 
             [`냥뇽녕냥`, `https://upload3.inven.co.kr/upload/2022/04/21/bbs/i013997846192.gif`],
-            [`투슬리스`, `https://tenor.com/view/dance-cas-van-de-pol-how-to-train-your-dragon-gif-5852854456382535831`],
-            [`카리나`, `https://tenor.com/view/karina-aespa-kpop-wink-gif-24640528`]
+            [`투슬리스`, `https://media1.tenor.com/m/UTmEHkq-OJcAAAAC/dance-cas-van-de-pol.gif`],
+            [`카리나`, `https://media1.tenor.com/m/JWGYQ2D9JfkAAAAC/karina-aespa.gif`]
           ];
           let output = urlList[Math.floor(Math.random() * urlList.length)]
           core.setOutput('name', output[0]);
