@@ -19,8 +19,7 @@ jobs:
             [`쵸단`, `https://media1.tenor.com/m/a1bfjuJj-j4AAAAd/chodan-qwer.gif`],
             [`카리나`, `https://media1.tenor.com/m/JWGYQ2D9JfkAAAAC/karina-aespa.gif`],
             [`투슬리스`, `https://media1.tenor.com/m/UTmEHkq-OJcAAAAC/dance-cas-van-de-pol.gif`],
-            [`봇치`, `https://media1.tenor.com/m/9wllMjsxqaAAAAAd/bocchi-the-rock-bocchi-the-rock-gif.gif`],
-            [`키타`, `https://media.tenor.com/-uECH6sL_XgAAAAM/ikuyo-kita-meme.gif`]
+            [`봇치`, `https://media1.tenor.com/m/9wllMjsxqaAAAAAd/bocchi-the-rock-bocchi-the-rock-gif.gif`]
           ];
           let output = urlList[Math.floor(Math.random() * urlList.length)]
           core.setOutput('name', output[0]);
