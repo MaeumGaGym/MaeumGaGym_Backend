@@ -5,6 +5,7 @@ import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.global.security.principle.CustomUserDetails
 import com.info.maeumgagym.user.model.Role
+import com.info.maeumgagym.user.model.User
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 
@@ -50,4 +51,16 @@ object UserFunctionsModule {
                     UsernamePasswordAuthenticationToken(this, null, this.authorities)
                 }
         }
+
+    fun User.saveInContext(): User =
+        apply {
+            SecurityContextHolder.getContext().authentication =
+                CustomUserDetails(this).run {
+                    UsernamePasswordAuthenticationToken(this, null, this.authorities)
+                }
+        }
+
+    fun clearContext() {
+        SecurityContextHolder.getContext().authentication = null
+    }
 }
