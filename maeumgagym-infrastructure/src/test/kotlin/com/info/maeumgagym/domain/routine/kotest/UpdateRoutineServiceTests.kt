@@ -1,4 +1,4 @@
-package com.info.maeumgagym.domain.routine
+package com.info.maeumgagym.domain.routine.kotest
 
 import com.info.maeumgagym.auth.exception.PermissionDeniedException
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
