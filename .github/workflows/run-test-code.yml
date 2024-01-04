@@ -36,7 +36,7 @@ jobs:
                     mysql root password: ${{ secrets.TEST_DB_PASSWORD }}
 
             -   name: run test
-                run: ./gradlew test --warning-mode all --info
+                run: ./gradlew test --warning-mode all
                 env:
                     DB_URL: ${{ secrets.TEST_DB_URL }}
                     DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
