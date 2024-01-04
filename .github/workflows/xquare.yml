@@ -25,6 +25,25 @@ jobs:
 
       - name: Build gradle
         run: ./gradlew build
+        env:
+            DB_URL: ${{ secrets.TEST_DB_URL }}
+            DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
+            DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
+            JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+            JWT_ACCESS_EXP: ${{ secrets.JWT_ACCESS_EXP }}
+            JWT_REFRESH_EXP: ${{ secrets.JWT_REFRESH_EXP }}
+            JWT_HEADER: ${{ secrets.JWT_HEADER }}
+            JWT_PREFIX: ${{ secrets.JWT_PREFIX }}
+            GRANT_TYPE: ${{ secrets.GRANT_TYPE }}
+            CLIENT_ID: ${{ secrets.CLIENT_ID }}
+            REDIS_HOST: ${{ secrets.TEST_REDIS_HOST }}
+            REDIS_PORT: ${{ secrets.REDIS_PORT }}
+            FILE_SERVER_SECRET_KEY: ${{ secrets.FILE_SERVER_SECRET_KEY }}
+            FILE_SERVER_URL_1: ${{ secrets.FILE_SERVER_URL_1 }}
+            FILE_SERVER_URL_2: ${{ secrets.FILE_SERVER_URL_2 }}
+            SUFFIX_PATH: ${{ secrets.SUFFIX_PATH }}
+            SWAGGER_PATH: ${{ secrets.SWAGGER_PATH }}
+            SWAGGER_UI_PATH: ${{ secrets.SWAGGER_UI_PATH }}
 
       - name: Deploy to xquare
         uses: team-xquare/xquare-deployment-action@master
