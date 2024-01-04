@@ -1,7 +1,7 @@
 package com.info.maeumgagym.controller.quote
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.controller.quote.dto.response.QuoteWebResponse
+import com.info.maeumgagym.quote.dto.response.QuoteResponse
 import com.info.maeumgagym.quote.port.`in`.ReadRandomQuoteUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -17,8 +17,5 @@ class QuoteController(
 
     @Operation(summary = "동기부여 메세지 랜덤 조회 API")
     @GetMapping
-    fun readRandomQuote(): QuoteWebResponse =
-        QuoteWebResponse.toWebResponse(
-            readRandomQuoteUseCase.readRandomQuote()
-        )
+    fun readRandomQuote(): QuoteResponse = readRandomQuoteUseCase.readRandomQuote()
 }

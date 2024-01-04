@@ -1,4 +1,4 @@
-package com.info.maeumgagym.controller.auth.dto.request
+package com.info.maeumgagym.controller.auth.dto
 
 import javax.validation.constraints.NotBlank
 

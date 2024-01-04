@@ -1,4 +1,4 @@
-package com.info.maeumgagym.controller.pickle.dto.request
+package com.info.maeumgagym.controller.pickle.dto
 
 import javax.validation.constraints.NotBlank
 
