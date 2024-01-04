@@ -5,6 +5,7 @@ import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
 import com.info.maeumgagym.domain.routine.entity.RoutineStatus
 import com.info.maeumgagym.domain.routine.repository.RoutineRepository
 import com.info.maeumgagym.routine.dto.request.CreateRoutineRequest
+import com.info.maeumgagym.routine.dto.request.UpdateRoutineRequest
 import com.info.maeumgagym.routine.model.ExerciseInfoModel
 import java.time.DayOfWeek
 import java.util.*
@@ -45,6 +46,21 @@ internal object RoutineFunctionsModule {
                 )
             }.toMutableList(),
             dayOfWeeks = TEST_ROUTINE_DAY_OF_WEEKS.toMutableSet()
+        )
+
+    fun getUpdateRoutineRequest(originRoutineEntity: RoutineJpaEntity): UpdateRoutineRequest =
+        UpdateRoutineRequest(
+            routineName = originRoutineEntity.routineName,
+            isArchived = !originRoutineEntity.routineStatus.isArchived,
+            isShared = !originRoutineEntity.routineStatus.isShared,
+            exerciseInfoModelList = originRoutineEntity.exerciseInfoList.map {
+                ExerciseInfoModel(
+                    it.exerciseName,
+                    it.repetitions,
+                    it.sets
+                )
+            }.toMutableList(),
+            dayOfWeeks = originRoutineEntity.dayOfWeeks
         )
 
     fun RoutineJpaEntity.saveInRepository(routineRepository: RoutineRepository): RoutineJpaEntity =

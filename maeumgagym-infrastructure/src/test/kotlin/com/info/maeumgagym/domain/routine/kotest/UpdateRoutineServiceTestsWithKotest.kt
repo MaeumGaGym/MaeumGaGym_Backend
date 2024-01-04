@@ -1,3 +1,7 @@
+// FIXME("현재 로직에 맞지 않으며, kotest로 작성되어 수정이 어려움.
+//  또한, JUnit5 기반의 새로운 테스트 코드가 작성되어 필요하지 않게됨.
+//  가급적 삭제를 권하며, 복구를 원할 경우 로직에 맞게 테스트 코드 수정 요함.")
+/*
 package com.info.maeumgagym.domain.routine.kotest
 
 import com.info.maeumgagym.auth.exception.PermissionDeniedException
@@ -20,7 +24,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import java.util.*
 
-internal class UpdateRoutineServiceTests : BehaviorSpec({
+internal class UpdateRoutineServiceTestsWithKotest : BehaviorSpec({
     val readRoutineByIdPort = mockk<ReadRoutineByIdPort>()
     val readCurrentUserPort = mockk<ReadCurrentUserPort>()
     val saveRoutinePort = mockk<SaveRoutinePort>()
@@ -111,3 +115,4 @@ internal class UpdateRoutineServiceTests : BehaviorSpec({
         }
     }
 })
+*/
