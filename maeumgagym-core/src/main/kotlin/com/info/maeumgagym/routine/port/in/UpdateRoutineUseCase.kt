@@ -4,5 +4,5 @@ import com.info.maeumgagym.routine.dto.request.UpdateRoutineRequest
 import com.info.maeumgagym.routine.model.Routine
 
 interface UpdateRoutineUseCase {
-    fun updateRoutine(updateRoutineRequest: UpdateRoutineRequest, routineId: Long): Routine
+    fun updateRoutine(req: UpdateRoutineRequest, routineId: Long)
 }

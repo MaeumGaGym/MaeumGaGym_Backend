@@ -7,6 +7,7 @@ import com.info.maeumgagym.controller.pickle.dto.request.UpdatePickleWebRequest
 import com.info.maeumgagym.controller.pickle.dto.response.PickleWebResponse
 import com.info.maeumgagym.controller.pickle.dto.response.PreSignedUploadURLWebResponse
 import com.info.maeumgagym.pickle.dto.response.PickleListResponse
+import com.info.maeumgagym.pickle.dto.response.PickleResponse
 import com.info.maeumgagym.pickle.port.`in`.*
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -87,5 +88,5 @@ class PickleController(
         id: String?,
         @RequestBody @Valid
         req: UpdatePickleWebRequest
-    ) = updatePickleUseCase.updatePickle(id!!, req.toRequest()) // 피클 조회 완성 시 수정 후에 DTO에 담아 반환 하도록 변경하기
+    ) { updatePickleUseCase.updatePickle(id!!, req.toRequest()) }
 }

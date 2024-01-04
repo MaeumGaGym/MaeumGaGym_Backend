@@ -33,7 +33,7 @@ class AuthController(
         duplicatedNicknameCheckUseCase.existByNickname(nickname)
 
     @Operation(summary = "JWT 재발급 API")
-    @PostMapping("/re-issue")
+    @GetMapping("/re-issue")
     fun reissue(
         @RequestBody @Valid
         req: ReissueWebRequest
