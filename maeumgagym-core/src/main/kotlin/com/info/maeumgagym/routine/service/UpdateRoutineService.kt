@@ -18,8 +18,11 @@ class UpdateRoutineService(
     private val saveRoutinePort: SaveRoutinePort
 ) : UpdateRoutineUseCase {
     override fun updateRoutine(req: UpdateRoutineRequest, routineId: Long): Routine {
-        var routine = readRoutineByIdPort.readRoutineById(routineId) ?: throw RoutineNotFoundException
+        // 토큰으로 유저 찾기
         val user = readCurrentUserPort.readCurrentUser()
+
+        // (routine.id = routineId)인 루틴 찾기, 없다면 -> 예외처리
+        var routine = readRoutineByIdPort.readRoutineById(routineId) ?: throw RoutineNotFoundException
         if (user.id.compareTo(routine.userId) != 0) {
             throw PermissionDeniedException
         }
