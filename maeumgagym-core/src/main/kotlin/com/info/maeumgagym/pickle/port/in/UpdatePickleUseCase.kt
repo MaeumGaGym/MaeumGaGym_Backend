@@ -1,8 +1,6 @@
 package com.info.maeumgagym.pickle.port.`in`
 
 import com.info.maeumgagym.pickle.dto.request.UpdatePickleRequest
-import com.info.maeumgagym.pickle.dto.response.PickleResponse
-import com.info.maeumgagym.pickle.model.Pickle
 
 interface UpdatePickleUseCase {
 

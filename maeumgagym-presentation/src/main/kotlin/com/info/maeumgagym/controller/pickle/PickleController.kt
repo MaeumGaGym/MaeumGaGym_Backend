@@ -7,7 +7,6 @@ import com.info.maeumgagym.controller.pickle.dto.request.UpdatePickleWebRequest
 import com.info.maeumgagym.controller.pickle.dto.response.PickleWebResponse
 import com.info.maeumgagym.controller.pickle.dto.response.PreSignedUploadURLWebResponse
 import com.info.maeumgagym.pickle.dto.response.PickleListResponse
-import com.info.maeumgagym.pickle.dto.response.PickleResponse
 import com.info.maeumgagym.pickle.port.`in`.*
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag

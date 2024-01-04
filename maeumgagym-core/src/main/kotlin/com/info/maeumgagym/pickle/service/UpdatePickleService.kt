@@ -4,14 +4,11 @@ import com.info.common.UseCase
 import com.info.maeumgagym.auth.exception.PermissionDeniedException
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.pickle.dto.request.UpdatePickleRequest
-import com.info.maeumgagym.pickle.dto.response.PickleResponse
 import com.info.maeumgagym.pickle.exception.PickleNotFoundException
 import com.info.maeumgagym.pickle.model.Pickle
 import com.info.maeumgagym.pickle.port.`in`.UpdatePickleUseCase
-import com.info.maeumgagym.pickle.port.out.GenerateUploadURLPort
 import com.info.maeumgagym.pickle.port.out.ReadPickleByIdPort
 import com.info.maeumgagym.pickle.port.out.SavePicklePort
-import com.info.maeumgagym.user.dto.response.UserResponse
 
 @UseCase
 class UpdatePickleService(
