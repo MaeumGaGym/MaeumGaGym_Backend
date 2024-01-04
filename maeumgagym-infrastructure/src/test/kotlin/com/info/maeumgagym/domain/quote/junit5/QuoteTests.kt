@@ -1,4 +1,4 @@
-package com.info.maeumgagym.domain.quote
+package com.info.maeumgagym.domain.quote.junit5
 
 import com.info.maeumgagym.domain.quote.exception.MismatchQuoteAndQuoterException
 import com.info.maeumgagym.quote.service.ReadRandomQuoteService

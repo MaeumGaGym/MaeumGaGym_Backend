@@ -1,7 +1,5 @@
-package com.info.maeumgagym.domain.routine
+package com.info.maeumgagym.domain.routine.junit5
 
-import com.info.maeumgagym.auth.exception.PermissionDeniedException
-import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
 import com.info.maeumgagym.domain.routine.module.RoutineFunctionsModule
 import com.info.maeumgagym.domain.routine.module.RoutineFunctionsModule.saveInRepository
 import com.info.maeumgagym.domain.routine.repository.RoutineRepository
@@ -11,57 +9,56 @@ import com.info.maeumgagym.domain.user.module.UserFunctionsModule
 import com.info.maeumgagym.domain.user.module.UserFunctionsModule.saveInContext
 import com.info.maeumgagym.domain.user.module.UserFunctionsModule.saveInRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
-import com.info.maeumgagym.routine.exception.RoutineNotFoundException
-import com.info.maeumgagym.routine.service.DeleteRoutineService
+import com.info.maeumgagym.routine.service.ReadMyAllRoutineService
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.transaction.annotation.Transactional
+import kotlin.random.Random
 
 @Transactional
 @SpringBootTest
-class DeleteRoutineServiceTests @Autowired constructor(
-    private val deleteRoutineService: DeleteRoutineService,
+class ReadRoutineServiceTests @Autowired constructor(
+    private val readMyAllRoutineService: ReadMyAllRoutineService,
     private val routineRepository: RoutineRepository,
     private val userRepository: UserRepository,
     private val userMapper: UserMapper
 ) {
+
     private lateinit var user: UserJpaEntity
     private lateinit var otherUser: UserJpaEntity
-    private lateinit var routine: RoutineJpaEntity
 
     @BeforeEach
     fun initialize() {
         user = UserFunctionsModule.createTestUser().saveInRepository(userRepository).saveInContext(userMapper)
         otherUser = UserFunctionsModule.createOtherUser().saveInRepository(userRepository)
-        routine = RoutineFunctionsModule.createTestRoutine(user.id!!).saveInRepository(routineRepository)
     }
 
     @Test
-    fun deleteMyRoutine() {
-        Assertions.assertDoesNotThrow {
-            deleteRoutineService.deleteRoutine(routine.id!!)
+    fun readMyAllRoutine() {
+        var myRoutineSize = 0
+        var otherRoutineSize = 0
+        for (i in 1..10) {
+            if (Random.nextInt(0, 1) == 1) {
+                RoutineFunctionsModule.createTestRoutine(user.id!!).saveInRepository(routineRepository)
+                myRoutineSize++
+            } else {
+                RoutineFunctionsModule.createTestRoutine(otherUser.id!!).saveInRepository(routineRepository)
+                otherRoutineSize++
+            }
         }
-        Assertions.assertNull(routineRepository.findByIdOrNull(routine.id!!))
+        Assertions.assertEquals(readMyAllRoutineService.readAllMyRoutine().routineList.size, myRoutineSize)
     }
 
-    @Test
-    fun deleteOtherRoutine() {
-        otherUser.saveInContext(userMapper)
-        Assertions.assertThrows(PermissionDeniedException::class.java) {
-            deleteRoutineService.deleteRoutine(routine.id!!)
-        }
-        Assertions.assertNotNull(routineRepository.findByIdOrNull(routine.id!!))
+    // @Test
+    fun readSharedRoutine() {
+        TODO("루틴 단일 조회 기능 구현 후 생성")
     }
 
-    @Test
-    fun deleteNonExistentRoutine() {
-        routineRepository.deleteById(routine.id!!)
-        Assertions.assertThrows(RoutineNotFoundException::class.java) {
-            deleteRoutineService.deleteRoutine(routine.id!!)
-        }
+    // @Test
+    fun readNotSharedRoutine() {
+        TODO("루틴 단일 조회 기능 구현 후 생성")
     }
 }

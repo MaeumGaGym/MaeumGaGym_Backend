@@ -4,10 +4,12 @@ import com.info.maeumgagym.domain.routine.entity.ExerciseInfo
 import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
 import com.info.maeumgagym.domain.routine.entity.RoutineStatus
 import com.info.maeumgagym.domain.routine.repository.RoutineRepository
+import com.info.maeumgagym.routine.dto.request.CreateRoutineRequest
+import com.info.maeumgagym.routine.model.ExerciseInfoModel
 import java.time.DayOfWeek
 import java.util.*
 
-object RoutineFunctionsModule {
+internal object RoutineFunctionsModule {
 
     const val TEST_ROUTINE_NAME = "테스트 루틴 이름"
     val TEST_ROUTINE_STATUS = RoutineStatus(isArchived = false, isShared = false)
@@ -30,6 +32,32 @@ object RoutineFunctionsModule {
             userId = userId
         )
 
+    fun getCreateRoutineRequest(): CreateRoutineRequest =
+        CreateRoutineRequest(
+            routineName = TEST_ROUTINE_NAME,
+            isArchived = TEST_ROUTINE_STATUS.isArchived,
+            isShared = TEST_ROUTINE_STATUS.isShared,
+            exerciseInfoModelList = TEST_ROUTINE_EXERCISE_LIST.map {
+                ExerciseInfoModel(
+                    it.exerciseName,
+                    it.repetitions,
+                    it.sets
+                )
+            }.toMutableList(),
+            dayOfWeeks = TEST_ROUTINE_DAY_OF_WEEKS.toMutableSet()
+        )
+
     fun RoutineJpaEntity.saveInRepository(routineRepository: RoutineRepository): RoutineJpaEntity =
         routineRepository.save(this)
+
+    fun RoutineJpaEntity.setShared(boolean: Boolean): RoutineJpaEntity =
+        RoutineJpaEntity(
+            routineName = routineName,
+            exerciseInfoList = exerciseInfoList,
+            dayOfWeeks = dayOfWeeks,
+            routineStatus = RoutineStatus(routineStatus.isArchived, boolean),
+            createdAt = createdAt,
+            id = id,
+            userId = userId
+        )
 }
