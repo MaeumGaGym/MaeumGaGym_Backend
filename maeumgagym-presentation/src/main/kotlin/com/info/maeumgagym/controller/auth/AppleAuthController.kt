@@ -1,11 +1,11 @@
 package com.info.maeumgagym.controller.auth
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.controller.auth.dto.response.TokenWebResponse
+import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.`in`.AppleLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.AppleRecoveryUseCase
 import com.info.maeumgagym.auth.port.`in`.AppleSignUpUseCase
-import com.info.maeumgagym.controller.auth.dto.request.SignupWebRequest
+import com.info.maeumgagym.controller.auth.dto.SignupWebRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
@@ -23,8 +23,8 @@ class AppleAuthController(
 
     @Operation(summary = "애플 OAuth 로그인 API")
     @GetMapping("/login")
-    fun login(@RequestParam("access_token") token: String): TokenWebResponse =
-        TokenWebResponse.toWebResponse(appleLoginUseCase.login(token))
+    fun login(@RequestParam("access_token") token: String): TokenResponse =
+        appleLoginUseCase.login(token)
 
     @Operation(summary = "애플 OAuth 회원가입 API")
     @PostMapping("/signup")

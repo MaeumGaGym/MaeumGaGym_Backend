@@ -18,9 +18,15 @@ class ReadMyAllRoutineService(
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : ReadAllMyRoutineUseCase {
     override fun readAllMyRoutine(): RoutineListResponse {
+        // 토큰으로 유저 찾기
         val user = readCurrentUserPort.readCurrentUser()
+
+        // 내 루틴 라스트 불러오기
         val routineList = readAllRoutineByUserIdPort.readAllRoutineByUserId(user.id)
+
+        // 반환
         return RoutineListResponse(
+            // 루틴 리스트 돌면서 List<RoutineResponse>로 매핑
             routineList = routineList.map {
                 RoutineResponse(
                     id = it.id!!,
@@ -46,6 +52,7 @@ class ReadMyAllRoutineService(
                     }
                 )
             },
+            // 유저 정보
             userInfo = UserResponse(nickname = user.nickname, profileImage = user.profileImage)
         )
     }

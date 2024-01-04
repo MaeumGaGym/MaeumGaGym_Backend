@@ -1,8 +1,8 @@
 package com.info.maeumgagym.controller.auth
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.controller.auth.dto.request.KakaoSignupWebRequest
-import com.info.maeumgagym.controller.auth.dto.response.TokenWebResponse
+import com.info.maeumgagym.auth.dto.response.TokenResponse
+import com.info.maeumgagym.controller.auth.dto.KakaoSignupWebRequest
 import com.info.maeumgagym.auth.port.`in`.KakaoLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.KakaoRecoveryUseCase
 import com.info.maeumgagym.auth.port.`in`.KakaoSignupUseCase
@@ -24,8 +24,8 @@ class KakaoAuthController(
 ) {
     @Operation(summary = "카카오 OAuth 로그인 API")
     @GetMapping("/login")
-    fun login(@RequestParam("access_token") accessToken: String): TokenWebResponse =
-        TokenWebResponse.toWebResponse(kakaoLoginUseCase.login(accessToken))
+    fun login(@RequestParam("access_token") accessToken: String): TokenResponse =
+        kakaoLoginUseCase.login(accessToken)
 
     @Operation(summary = "카카오 OAuth 회원가입 API")
     @ResponseStatus(HttpStatus.CREATED)

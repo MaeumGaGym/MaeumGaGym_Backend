@@ -1,11 +1,11 @@
 package com.info.maeumgagym.controller.auth
 
 import com.info.common.WebAdapter
+import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.`in`.GoogleLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.GoogleRecoveryUseCase
 import com.info.maeumgagym.auth.port.`in`.GoogleSignupUseCase
-import com.info.maeumgagym.controller.auth.dto.request.SignupWebRequest
-import com.info.maeumgagym.controller.auth.dto.response.TokenWebResponse
+import com.info.maeumgagym.controller.auth.dto.SignupWebRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
@@ -30,8 +30,8 @@ class GoogleOAuthController(
 
     @Operation(summary = "구글 OAuth 로그인 API")
     @GetMapping("/login")
-    fun login(@RequestParam("access_token") accessToken: String): TokenWebResponse =
-        TokenWebResponse.toWebResponse(googleLoginUseCase.login(accessToken))
+    fun login(@RequestParam("access_token") accessToken: String): TokenResponse =
+        googleLoginUseCase.login(accessToken)
 
     @Operation(summary = "구글 OAuth 회원가입 API")
     @PostMapping("/signup")

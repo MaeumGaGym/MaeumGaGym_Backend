@@ -1,12 +1,13 @@
-package com.info.maeumgagym.controller.routine.dto.request
+package com.info.maeumgagym.controller.routine.dto
 
-import com.info.maeumgagym.routine.dto.request.UpdateRoutineRequest
+import com.info.maeumgagym.routine.dto.request.CreateRoutineRequest
 import com.info.maeumgagym.routine.model.ExerciseInfoModel
 import java.time.DayOfWeek
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
-data class UpdateRoutineWebRequest(
+class CreateRoutineWebRequest(
+
     @field:NotBlank(message = "null일 수 없습니다")
     val routineName: String?,
 
@@ -16,11 +17,12 @@ data class UpdateRoutineWebRequest(
     @field:NotNull(message = "null일 수 없습니다")
     val isShared: Boolean?,
 
-    val exerciseInfoModelList: MutableList<ExerciseInfoModel> = mutableListOf(),
+    val exerciseInfoModelList: MutableList<ExerciseInfoModel> = ArrayList(),
 
-    val dayOfWeeks: MutableSet<DayOfWeek> = mutableSetOf()
+    val dayOfWeeks: MutableSet<DayOfWeek>?
 ) {
-    fun toRequest() = UpdateRoutineRequest(
+
+    fun toRequest() = CreateRoutineRequest(
         routineName!!,
         isArchived!!,
         isShared!!,

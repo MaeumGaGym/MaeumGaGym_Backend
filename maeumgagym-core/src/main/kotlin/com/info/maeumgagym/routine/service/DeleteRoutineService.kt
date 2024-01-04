@@ -15,11 +15,16 @@ class DeleteRoutineService(
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : DeleteRoutineUseCase {
     override fun deleteRoutine(id: Long) {
+        // (routine.id = id)인 루틴 찾기, 없다면 -> 예외 처리
         val routine = readRoutineByIdPort.readRoutineById(id) ?: throw RoutineNotFoundException
+
+        // 토큰으로 유저 찾기
         val user = readCurrentUserPort.readCurrentUser()
 
+        // 루틴을 만든 사람이 토큰의 유저가 맞는지 검증, 아니면 -> 예외처리
         if (user.id != routine.userId) throw PermissionDeniedException
 
+        // 루틴 삭제
         deleteRoutinePort.deleteRoutine(routine)
     }
 }
