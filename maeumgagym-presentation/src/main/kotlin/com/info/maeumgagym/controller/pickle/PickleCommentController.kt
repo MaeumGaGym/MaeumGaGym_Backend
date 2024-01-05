@@ -1,8 +1,7 @@
 package com.info.maeumgagym.controller.pickle
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.controller.pickle.dto.request.PickleCommentWebRequest
-import com.info.maeumgagym.controller.pickle.dto.request.PickleUploadWebRequest
+import com.info.maeumgagym.controller.pickle.dto.PickleCommentWebRequest
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleCommentUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag

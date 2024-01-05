@@ -16,8 +16,6 @@ class PickleCommentPersistenceAdapter(
     override fun readPickleComment(pickleCommentId: Long): PickleComment? =
         pickleCommentRepository.findByIdOrNull(pickleCommentId)?.let { pickleCommentMapper.toDomain(it) }
 
-    override fun savePickleComment(pickleComment: PickleComment): PickleComment {
-        pickleCommentRepository.save(pickleCommentMapper.toEntity(pickleComment))
-        return pickleComment
-    }
+    override fun savePickleComment(pickleComment: PickleComment): PickleComment =
+        pickleCommentMapper.toDomain(pickleCommentRepository.save(pickleCommentMapper.toEntity(pickleComment)))
 }

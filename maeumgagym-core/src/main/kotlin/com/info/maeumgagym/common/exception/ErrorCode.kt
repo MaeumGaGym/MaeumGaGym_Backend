@@ -30,6 +30,7 @@ enum class ErrorCode(
     POSE_NOT_FOUND(404, "Pose Not Found"),
     PICKLE_NOT_FOUND(404, "Pickle Not Found"),
     ROUTINE_NOT_FOUND(404, "Routine Not Found"),
+    PICKLE_COMMENT_NOT_FOUND(404, "Pickle Comment Not Found"),
 
     // Bad Request
     ALREADY_WITHDRAWAL_USER(400, "Already Withdrawal User"),

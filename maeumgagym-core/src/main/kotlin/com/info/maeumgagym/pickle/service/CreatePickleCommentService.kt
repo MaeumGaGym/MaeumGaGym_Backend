@@ -3,6 +3,7 @@ package com.info.maeumgagym.pickle.service
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.pickle.dto.request.PickleCommentRequest
+import com.info.maeumgagym.pickle.exception.PickleCommentNotFoundException
 import com.info.maeumgagym.pickle.model.PickleComment
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleCommentUseCase
 import com.info.maeumgagym.pickle.port.out.ReadPickleCommentPort
@@ -22,7 +23,7 @@ class CreatePickleCommentService(
                     content = content,
                     pickleId = pickleId,
                     writerId = user.id,
-                    parentComment = pickleCommentRequest.parentId?.let { readPickleCommentPort.readPickleComment(it) }
+                    parentComment = pickleCommentRequest.parentId?.let { readPickleCommentPort.readPickleComment(it) ?: throw PickleCommentNotFoundException }
                 )
             )
         }

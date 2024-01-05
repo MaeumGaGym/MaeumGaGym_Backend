@@ -28,17 +28,17 @@ class PickleCommentJpaEntity(
     var pickleId: String = pickleId
         protected set
 
-    @Column(name = "writer_id", updatable = false, nullable = false)
+    @Column(name = "writer_id", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
     var writerId: UUID = writerId
         protected set
 
-    @Column(name = "parent_commnet_id", nullable = false)
+    @JoinColumn(name = "parent_commnet_id", nullable = true)
     @ManyToOne(fetch = FetchType.LAZY)
     var parentComment: PickleCommentJpaEntity? = parentComment
         protected set
 
-    @OneToMany(mappedBy = "comment", orphanRemoval = true)
-    var childrenComments: ArrayList<PickleCommentJpaEntity> = arrayListOf()
+    @OneToMany(mappedBy = "parentComment", orphanRemoval = true)
+    var childrenComments: MutableList<PickleCommentJpaEntity> = arrayListOf()
         protected set
 
     @Column(name = "is_deleted", nullable = false)
