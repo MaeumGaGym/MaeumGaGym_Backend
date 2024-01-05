@@ -8,9 +8,8 @@ import javax.validation.constraints.NotNull
 
 data class PickleUploadWebRequest(
 
-    @field:NotNull(message = "null일 수 없습니다")
-    @field:Max(value = 9999999999, message = "10자리여야 합니다.")
-    @field:Min(value = 1000000000, message = "10자리여야 합니다.")
+
+
     val videoId: Long?,
 
     @field:NotBlank(message = "null일 수 없습니다")
