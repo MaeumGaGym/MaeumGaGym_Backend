@@ -18,7 +18,6 @@ dependencies {
 
     implementation(Dependencies.SPRING_CLOUD)
     implementation(Dependencies.SPRING_WEB)
-    implementation(Dependencies.SPRING_TEST)
     implementation(Dependencies.OPEN_FEIGN)
     implementation(Dependencies.FEIGN_HTTP)
     implementation(Dependencies.SPRING_SECURITY)
@@ -35,10 +34,13 @@ dependencies {
     implementation(Dependencies.SPRING_DOC)
     implementation(Dependencies.SWAGGER)
 
-
     testImplementation(Dependencies.KOTEST_RUNNER)
     testImplementation(Dependencies.KOTEST_ASSERTIONS)
     testImplementation(Dependencies.MOCKK)
+    testImplementation(Dependencies.SPRING_TEST)
+    testImplementation(Dependencies.JUNIT_JUPITER)
+    testImplementation(Dependencies.JUNIT_JUPITER_API)
+    testRuntimeOnly(Dependencies.JUNIT_JUPITER_ENGINE)
 }
 
 // Declaring a publicly-available repository
@@ -46,4 +48,12 @@ dependencyManagement {
     imports {
         mavenBom("org.springframework.cloud:spring-cloud-dependencies:${DependencyVersions.SPRING_CLOUD_VERSION}")
     }
+}
+
+allOpen {
+    annotations("org.springframework.data.redis.core.RedisHash")
+}
+
+noArg{
+    annotations("org.springframework.data.redis.core.RedisHash")
 }

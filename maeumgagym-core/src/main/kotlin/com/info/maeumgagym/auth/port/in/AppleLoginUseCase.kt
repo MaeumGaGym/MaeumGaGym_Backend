@@ -4,5 +4,5 @@ import com.info.maeumgagym.auth.dto.response.TokenResponse
 
 interface AppleLoginUseCase {
 
-    fun execute(token: String): TokenResponse
+    fun login(token: String): TokenResponse
 }

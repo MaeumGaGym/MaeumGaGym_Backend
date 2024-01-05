@@ -36,7 +36,8 @@ class LoadPickleService(
         )
     }
 
-    override fun loadPickleFromId(id: Long): PickleResponse =
+    override fun loadPickleFromId(id: String): PickleResponse =
+        // (id = 파라미터)인 피클이 존재한다면 -> response, else -> 예외처리
         (readPickleByIdPort.readPickleById(id) ?: throw PickleNotFoundException).toResponse()
 
     private fun getRandomPickles(pickles: List<Pickle>): List<Pickle> =

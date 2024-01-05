@@ -13,9 +13,13 @@ class GoogleAuthAdapter(
     private val googleAuthClient: GoogleAuthClient
 ) : GetGoogleInfoPort, RevokeGoogleTokenPort {
 
+    private companion object {
+        const val ALT = "json"
+    }
+
     override fun getGoogleInfo(accessToken: String): GoogleInfoResponse =
         googleInfoClient.googleInfo(
-            "json",
+            ALT,
             accessToken
         ).toResponse()
 

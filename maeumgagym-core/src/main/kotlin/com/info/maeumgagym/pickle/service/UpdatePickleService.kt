@@ -17,17 +17,17 @@ class UpdatePickleService(
     private val readPickleByIdPort: ReadPickleByIdPort
 ) : UpdatePickleUseCase {
 
-    override fun updatePickle(id: Long, req: UpdatePickleRequest): Pickle {
+    override fun updatePickle(id: String, req: UpdatePickleRequest) {
         // WHAT : token으로 user 불러오기
         val user = readCurrentUserPort.readCurrentUser()
 
         // WHEN : id로 pickle을 찾을 수 없는 경우 -> Exception 처리
-        var pickle = readPickleByIdPort.readPickleById(id) ?: throw PickleNotFoundException
+        val pickle = readPickleByIdPort.readPickleById(id) ?: throw PickleNotFoundException
 
         // WHEN : 영상을 올린 사람의 요청이 아닌 경우 -> Exception 처리
         if (pickle.uploader != user) throw PermissionDeniedException
 
-        pickle = pickle.run {
+        pickle.run {
             savePicklePort.savePickle( // WHAT : 객체 변경 후 반환
                 Pickle(
                     videoId = this.videoId,
@@ -41,7 +41,5 @@ class UpdatePickleService(
                 )
             )
         }
-
-        return pickle //나중에 dto 반환
     }
 }

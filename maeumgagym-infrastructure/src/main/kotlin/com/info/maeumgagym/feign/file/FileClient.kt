@@ -26,6 +26,6 @@ interface FileClient {
         @RequestHeader(name = "MaeumgaGym-Token")
         secretToken: String,
         @PathVariable
-        videoId: Long
+        videoId: String
     )
 }

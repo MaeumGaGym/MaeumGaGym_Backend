@@ -14,7 +14,6 @@ import com.info.maeumgagym.global.exception.InvalidTokenException
 import com.info.maeumgagym.global.security.principle.CustomUserDetailService
 import com.info.maeumgagym.global.security.principle.CustomUserDetails
 import io.jsonwebtoken.*
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
@@ -28,11 +27,17 @@ class JwtAdapter(
     private val refreshTokenRepository: RefreshTokenRepository,
     private val accessTokenRepository: AccessTokenRepository
 ) : GenerateJwtPort, ReissuePort, GetJwtBodyPort {
-    override fun generateTokens(subject: String): TokenResponse {
 
+    // 모든 토큰 발급
+    override fun generateTokens(subject: String): TokenResponse {
+        // access_token 발급
         val access = generateAccessToken()
+
+        // refresh_token 발급
         val refresh = generateRefreshToken()
 
+        // access_token cache에 저장
+        // 만약 이전에 cache에 저장된 토큰이 있다 해도 id(subject)가 같으므로 update 쿼리가 나감
         accessTokenRepository.save(
             AccessTokenRedisEntity(
                 subject,
@@ -41,6 +46,8 @@ class JwtAdapter(
             )
         )
 
+        // refresh_token cache에 저장
+        // 만약 이전에 cache에 저장된 토큰이 있다 해도 id(subject)가 같으므로 update 쿼리가 나감
         refreshTokenRepository.save(
             RefreshTokenRedisEntity(
                 subject,
@@ -49,59 +56,65 @@ class JwtAdapter(
             )
         )
 
+        // tokens dto에 담아 반환
         return TokenResponse(
             access,
             refresh
         )
     }
 
+    // access_token 발급
     private fun generateAccessToken(): String {
+        // 현재 시각
         val now = Date()
+
+        // 토큰 발급 및 반환
         return Jwts.builder()
+            .setHeaderParam("role", "access")
             .setIssuedAt(now)
-            .setExpiration(Date(now.time + jwtProperties.accessExpiredExp))
+            .setExpiration(Date(now.time.plus(jwtProperties.accessExpiredExp))) // exp 설정
             .signWith(SignatureAlgorithm.HS256, jwtProperties.secretKey)
             .compact()
     }
 
+    // refresh_token 발급
     private fun generateRefreshToken(): String {
+        // 현재 시각
         val now = Date()
+
+        // 토큰 발급 및 반환
         return Jwts.builder()
+            .setHeaderParam("role", "refresh")
             .setIssuedAt(now)
-            .setExpiration(Date(now.time.plus(jwtProperties.refreshExpiredExp)))
+            .setExpiration(Date(now.time.plus(jwtProperties.refreshExpiredExp))) // exp 설정
             .signWith(SignatureAlgorithm.HS256, jwtProperties.secretKey)
             .compact()
     }
 
+    // 토큰 재발급
     override fun reissue(refreshToken: String): TokenResponse {
+        // refresh_token을 redis에서 불러오기
+        val rfToken = refreshTokenRepository.findByRfToken(refreshToken) ?: throw InvalidTokenException
 
-        val rfToken = refreshTokenRepository.findByRfToken(refreshToken)
-            ?: throw InvalidTokenException
-
+        // 토큰 재발급 및 반환
         return generateTokens(rfToken.subject)
     }
 
+    // 토큰의 subject값으로 Authentication얻는 함수
     fun getAuthentication(subject: String): Authentication {
-
+        // CustomUserDetails로 갑싼 user 불러오기
         val authDetails = customUserDetailService.loadUserByUsername(subject) as CustomUserDetails
 
+        // Authentication발급
         return UsernamePasswordAuthenticationToken(authDetails, null, authDetails.authorities)
     }
 
+    // Apple id_token parsing 함수
     override fun getJwtBody(token: String, publicKey: PublicKey): Claims =
         try {
+            // body 불러오기
             Jwts.parser().setSigningKey(publicKey).parseClaimsJws(token).body
         } catch (e: Exception) {
-            when (e) {
-                is ExpiredJwtException -> throw ExpiredTokenException
-                else -> throw InvalidTokenException
-            }
-        }
-
-    override fun getJwtBody(token: String): Claims =
-        try {
-            Jwts.parser().setSigningKey(jwtProperties.secretKey).parseClaimsJws(token).body
-        } catch (e: JwtException) {
             when (e) {
                 is ExpiredJwtException -> throw ExpiredTokenException
                 else -> throw InvalidTokenException

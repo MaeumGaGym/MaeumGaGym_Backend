@@ -10,8 +10,13 @@ import org.springframework.stereotype.Component
 class CustomUserDetailService(
     val findUserByOAuthIdPort: FindUserByOAuthIdPort
 ) : UserDetailsService {
+
+    // 유저를 DB에서 불러와 UserDetails를 반환하는 함수
     override fun loadUserByUsername(username: String?): UserDetails {
+        // user를 전달 받은 UK값으로 불러오기
         val user = findUserByOAuthIdPort.findUserByOAuthId(username!!) ?: throw UserNotFoundException
+
+        // CustomUserDetails로 형변환 후 반환
         return CustomUserDetails(user)
     }
 }

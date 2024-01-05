@@ -12,5 +12,6 @@ class ReadPoseService(
 ) : ReadByIdUseCase {
 
     override fun poseDetailResponseById(id: Long): PoseDetailResponse =
+        // (pose.id = id)라면 -> response, else -> 예외 처리
         findPoseByIdPort.findById(id)?.toDetailResponse() ?: throw PoseNotFoundException
 }

@@ -17,14 +17,20 @@ class DeletePickleService(
     private val readPickleByIdPort: ReadPickleByIdPort
 ) : PickleDeleteUseCase {
 
-    override fun deletePickle(id: Long) {
+    override fun deletePickle(id: String) {
+        // 토큰으로 유저 불러오기
         val user = readCurrentUserPort.readCurrentUser()
 
+        // 넘겨 받은 파라미터로 피클 찾기, 없다면 -> 예외처리
         val pickle = readPickleByIdPort.readPickleById(id) ?: throw PickleNotFoundException
 
+        // 업로더가 유저와 일치하는지 확인, 아닐시 -> 권한 에러
         if (pickle.uploader.id != user.id) throw PermissionDeniedException
 
+        // 피클 삭제
         deletePicklePort.deletePickle(pickle)
+
+        // 피클 파일 삭제
         feignDeletePicklePort.deletePickle(pickle.videoId)
     }
 }
