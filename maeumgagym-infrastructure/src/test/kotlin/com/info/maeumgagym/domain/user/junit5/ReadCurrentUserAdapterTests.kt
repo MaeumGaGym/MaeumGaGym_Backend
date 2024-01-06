@@ -1,11 +1,12 @@
 package com.info.maeumgagym.domain.user.junit5
 
 import com.info.maeumgagym.adapter.auth.ReadCurrentUserAdapter
+import com.info.maeumgagym.domain.auth.AuthTestModule
+import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
-import com.info.maeumgagym.domain.user.module.UserFunctionsModule
-import com.info.maeumgagym.domain.user.module.UserFunctionsModule.saveInContext
-import com.info.maeumgagym.domain.user.module.UserFunctionsModule.saveInRepository
+import com.info.maeumgagym.domain.user.module.UserTestModule
+import com.info.maeumgagym.domain.user.module.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.global.exception.UnAuthorizedException
 import org.junit.jupiter.api.Assertions
@@ -27,7 +28,7 @@ class ReadCurrentUserAdapterTests @Autowired constructor(
 
     @BeforeEach
     fun initialize() {
-        user = UserFunctionsModule.createTestUser()
+        user = UserTestModule.createTestUser()
     }
 
     @Test
@@ -51,7 +52,7 @@ class ReadCurrentUserAdapterTests @Autowired constructor(
     @Test
     fun readCurrentUserWithEmptyContext() {
         user.saveInRepository(userRepository)
-        UserFunctionsModule.clearContext()
+        AuthTestModule.clearContext()
         Assertions.assertThrows(NullPointerException::class.java) {
             readCurrentUserAdapter.readCurrentUser()
         }

@@ -2,7 +2,7 @@ package com.info.maeumgagym.domain.auth.junit5
 
 import com.info.maeumgagym.domain.auth.AuthTestModule
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
-import com.info.maeumgagym.domain.user.module.UserFunctionsModule
+import com.info.maeumgagym.domain.user.module.UserTestModule
 import com.info.maeumgagym.global.exception.InvalidTokenException
 import com.info.maeumgagym.global.jwt.JwtAdapter
 import com.info.maeumgagym.global.jwt.JwtResolver
@@ -30,7 +30,7 @@ class JwtTests @Autowired constructor(
 
     @BeforeEach
     fun initialize() {
-        user = UserFunctionsModule.createTestUser()
+        user = UserTestModule.createTestUser()
     }
 
     @Test
