@@ -1,6 +1,7 @@
 package com.info.maeumgagym.domain.routine.junit5
 
 import com.info.maeumgagym.auth.exception.PermissionDeniedException
+import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
 import com.info.maeumgagym.domain.routine.module.RoutineTestModule
 import com.info.maeumgagym.domain.routine.module.RoutineTestModule.saveInRepository

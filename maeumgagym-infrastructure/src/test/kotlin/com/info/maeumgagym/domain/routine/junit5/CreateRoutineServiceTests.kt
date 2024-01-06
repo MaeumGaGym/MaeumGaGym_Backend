@@ -1,5 +1,6 @@
 package com.info.maeumgagym.domain.routine.junit5
 
+import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.routine.module.RoutineTestModule
 import com.info.maeumgagym.domain.routine.repository.RoutineRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
