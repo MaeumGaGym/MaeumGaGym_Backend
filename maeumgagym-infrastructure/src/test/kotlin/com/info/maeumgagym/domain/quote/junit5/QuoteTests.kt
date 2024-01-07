@@ -24,7 +24,6 @@ class QuoteTests @Autowired constructor(
                     QuoteValueObject(quoteResponse.quote, quoteResponse.quoter)
                 )
             ) throw MismatchQuoteAndQuoterException
-
         }
     }
 }
