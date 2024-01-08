@@ -1,8 +1,8 @@
 package com.info.maeumgagym.user.port.out
 
-import com.info.maeumgagym.user.model.DeleteAt
+import com.info.maeumgagym.user.model.DeletedAt
 
 interface SaveDeletedAtPort {
 
-    fun save(domain: DeleteAt): DeleteAt
+    fun save(domain: DeletedAt): DeletedAt
 }
