@@ -1,8 +1,8 @@
 package com.info.maeumgagym.domain.user.mapper
 
-import com.info.maeumgagym.domain.user.entity.DeleteAtJpaEntity
+import com.info.maeumgagym.domain.user.entity.DeletedAtJpaEntity
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
-import com.info.maeumgagym.user.model.DeleteAt
+import com.info.maeumgagym.user.model.DeletedAt
 import com.info.maeumgagym.user.model.User
 import org.springframework.stereotype.Component
 
@@ -31,13 +31,13 @@ class UserMapper {
         )
     }
 
-    fun toEntity(domain: DeleteAt) = DeleteAtJpaEntity(
-        domain.id,
+    fun toEntity(domain: DeletedAt) = DeletedAtJpaEntity(
+        domain.userId,
         domain.date
     )
 
-    fun toDomain(entity: DeleteAtJpaEntity) = DeleteAt(
-        entity.id!!,
+    fun toDomain(entity: DeletedAtJpaEntity) = DeletedAt(
+        entity.userId,
         entity.date
     )
 }
