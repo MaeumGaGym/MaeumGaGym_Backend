@@ -4,7 +4,7 @@ import com.info.common.UseCase
 import com.info.maeumgagym.auth.exception.AlreadyWithdrawalUserException
 import com.info.maeumgagym.auth.port.`in`.WithdrawalUserUseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.user.model.DeleteAt
+import com.info.maeumgagym.user.model.DeletedAt
 import com.info.maeumgagym.user.port.out.DeleteUserPort
 import com.info.maeumgagym.user.port.out.ExistsDeletedUserByIdPort
 import com.info.maeumgagym.user.port.out.SaveDeletedAtPort
@@ -28,6 +28,6 @@ class WithdrawalUserService(
         deleteUserPort.deleteUser(user)
 
         // 삭제된 유저 생명주기 관리용 테이블 생성
-        saveDeleteAtPort.save(DeleteAt(user.id))
+        saveDeleteAtPort.save(DeletedAt(user.id))
     }
 }
