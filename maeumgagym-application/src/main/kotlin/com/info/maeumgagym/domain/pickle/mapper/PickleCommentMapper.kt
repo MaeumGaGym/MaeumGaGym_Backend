@@ -11,7 +11,7 @@ class PickleCommentMapper {
             PickleCommentJpaEntity(
                 id = id,
                 content = content,
-                pickleId = pickleId,
+                videoId = videoId,
                 writerId = writerId,
                 parentComment = pickleComment.parentComment?.let { toEntity(it) }
             )
@@ -23,7 +23,7 @@ class PickleCommentMapper {
             PickleComment(
                 id = id,
                 content = content,
-                pickleId = pickleId,
+                videoId = videoId,
                 writerId = writerId,
                 parentComment = pickleCommentJpaEntity.parentComment?.let { toDomain(it) }
             )

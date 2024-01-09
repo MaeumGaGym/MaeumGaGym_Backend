@@ -13,7 +13,7 @@ import javax.persistence.*
 @Entity(name = TableNames.PICKLE_COMMENT_TABLE)
 class PickleCommentJpaEntity(
     content: String,
-    pickleId: String,
+    videoId: String,
     writerId: UUID,
     createdAt: LocalDateTime? = null,
     id: Long? = null,
@@ -25,7 +25,7 @@ class PickleCommentJpaEntity(
         protected set
 
     @Column(name = "pickle_id", updatable = false, nullable = false)
-    var pickleId: String = pickleId
+    var videoId: String = videoId
         protected set
 
     @Column(name = "writer_id", columnDefinition = "BINARY(16)", updatable = false, nullable = false)

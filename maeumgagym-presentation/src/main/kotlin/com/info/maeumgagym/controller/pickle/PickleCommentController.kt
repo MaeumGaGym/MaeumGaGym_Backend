@@ -24,29 +24,31 @@ class PickleCommentController(
     private val createPickleReplyCommentUseCase: CreatePickleReplyCommentUseCase
 ) {
     @Operation(summary = "피클 댓글 추가 API")
-    @PostMapping("/{pickleId}")
+    @PostMapping("/{videoId}")
     fun createPickleComment(
         @RequestBody @Valid
         req: PickleCommentWebRequest,
         @PathVariable
-        @NotBlank(message = "pickleId는 null일 수 없습니다.")
-        pickleId: String?
+        @NotBlank(message = "videoId는 null일 수 없습니다.")
+        @Valid
+        videoId: String?
     ) {
-        createPickleCommentUseCase.createPickleComment(req.toRequest(), pickleId!!)
+        createPickleCommentUseCase.createPickleComment(req.toRequest(), videoId!!)
     }
 
     @Operation(summary = "피클 대댓글 추가 API")
-    @PostMapping("/{pickleId}/{parentId}")
+    @PostMapping("/{videoId}/{parentId}")
     fun createPickleReplyComment(
         @RequestBody @Valid
         req: PickleCommentWebRequest,
-        @PathVariable(value = "pickleId")
-        @NotBlank(message = "pickleId는 null일 수 없습니다.")
-        pickleId: String?,
+        @PathVariable(value = "videoId")
+        @NotBlank(message = "videoId는 null일 수 없습니다.")
+        @Valid
+        videoId: String?,
         @PathVariable(value = "parentId")
-        @NotEmpty(message = "parentId는 null이거나 값이 없을 수 없습니다.")
+        @Valid
         parentId: Long?
     ) {
-        createPickleReplyCommentUseCase.createPickleReplyComment(req.toRequest(), pickleId!!, parentId!!)
+        createPickleReplyCommentUseCase.createPickleReplyComment(req.toRequest(), videoId!!, parentId!!)
     }
 }
