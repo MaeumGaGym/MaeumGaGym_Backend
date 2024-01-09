@@ -17,15 +17,20 @@ class CreatePickleCommentService(
 ): CreatePickleCommentUseCase {
     override fun createPickleComment(pickleCommentRequest: PickleCommentRequest) {
         val user = readCurrentUserPort.readCurrentUser()
+        val parentComment = pickleCommentRequest.parentId?.let {
+            readPickleCommentPort.readPickleComment(it) ?: throw PickleCommentNotFoundException
+        }
+
         val comment = pickleCommentRequest.run {
             savePickleCommentPort.savePickleComment(
                 PickleComment(
                     content = content,
                     pickleId = pickleId,
                     writerId = user.id,
-                    parentComment = pickleCommentRequest.parentId?.let { readPickleCommentPort.readPickleComment(it) ?: throw PickleCommentNotFoundException }
+                    parentComment = parentComment
                 )
             )
         }
     }
+
 }
