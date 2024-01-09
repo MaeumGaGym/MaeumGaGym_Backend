@@ -17,7 +17,7 @@ class PickleCommentJpaEntity(
     writerId: UUID,
     createdAt: LocalDateTime? = null,
     id: Long? = null,
-    parentComment: PickleCommentJpaEntity?
+    parentComment: PickleCommentJpaEntity? = null
 ) : BaseLongIdTimeEntity(id, createdAt) {
 
     @Column(name = "content", length = 1000, nullable = false)
@@ -32,7 +32,7 @@ class PickleCommentJpaEntity(
     var writerId: UUID = writerId
         protected set
 
-    @JoinColumn(name = "parent_commnet_id", nullable = true)
+    @JoinColumn(name = "parent_commnet_id", updatable = false, nullable = true)
     @ManyToOne(fetch = FetchType.LAZY)
     var parentComment: PickleCommentJpaEntity? = parentComment
         protected set

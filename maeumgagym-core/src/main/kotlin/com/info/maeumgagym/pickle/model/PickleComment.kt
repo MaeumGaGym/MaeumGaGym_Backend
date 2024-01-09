@@ -8,7 +8,7 @@ data class PickleComment(
     val content: String,
     val pickleId: String,
     val writerId: UUID,
-    val parentComment: PickleComment?,
+    val parentComment: PickleComment? = null,
     val children: MutableList<PickleComment>? = arrayListOf(),
     val createdAt: LocalDateTime? = null,
     val isDeleted: Boolean = false
