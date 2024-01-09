@@ -56,13 +56,8 @@ class LoadPickleService(
         }
 
         return PickleListResponse(
-            (
-                if (pickles.size <= INDEX_SIZE) {
-                    pickles
-                } else {
-                    getRandomPickles(pickles)
-                }
-                ).map { it.toResponse() }
+            (if (pickles.size <= INDEX_SIZE) pickles else getRandomPickles(pickles))
+                .map { it.toResponse() }
         )
     }
 
