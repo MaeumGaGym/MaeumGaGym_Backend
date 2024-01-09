@@ -50,13 +50,19 @@ class LoadPickleService(
         val allPickles = readAllPicklesPort.readAllPickles()
         val pickles: MutableList<Pickle> = mutableListOf()
         allPickles.map {
-            if (it.tags.contains(pose.simpleName) || it.tags.contains(pose.exactName))
+            if (it.tags.contains(pose.simpleName) || it.tags.contains(pose.exactName)) {
                 pickles.add(it)
+            }
         }
 
         return PickleListResponse(
-            (if (pickles.size <= INDEX_SIZE) pickles
-            else getRandomPickles(pickles)).map { it.toResponse() }
+            (
+                if (pickles.size <= INDEX_SIZE) {
+                    pickles
+                } else {
+                    getRandomPickles(pickles)
+                }
+                ).map { it.toResponse() }
         )
     }
 
