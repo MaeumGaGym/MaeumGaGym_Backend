@@ -45,7 +45,6 @@ class PickleCommentController(
         @Valid
         videoId: String?,
         @PathVariable(value = "parentId")
-        @Valid
         parentId: Long?
     ) {
         createPickleReplyCommentUseCase.createPickleReplyComment(req.toRequest(), videoId!!, parentId!!)
