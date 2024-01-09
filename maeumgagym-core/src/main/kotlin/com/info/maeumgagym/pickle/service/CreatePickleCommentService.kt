@@ -14,7 +14,7 @@ class CreatePickleCommentService(
     private val savePickleCommentPort: SavePickleCommentPort,
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val readPickleCommentPort: ReadPickleCommentPort
-): CreatePickleCommentUseCase {
+) : CreatePickleCommentUseCase {
     override fun createPickleComment(pickleCommentRequest: PickleCommentRequest) {
         val user = readCurrentUserPort.readCurrentUser()
         val parentComment = pickleCommentRequest.parentId?.let {
@@ -32,5 +32,4 @@ class CreatePickleCommentService(
             )
         }
     }
-
 }
