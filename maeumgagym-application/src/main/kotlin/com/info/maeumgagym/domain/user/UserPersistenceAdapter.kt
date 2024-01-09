@@ -21,8 +21,11 @@ class UserPersistenceAdapter(
     DeleteUserPort,
     ExistUserByNicknamePort,
     ExistUserByOAuthIdPort,
-    FindDeletedUserByIdPort
+    FindDeletedUserByIdPort,
+    ExistsDeletedUserByIdPort
 {
+    override fun existsByIdInNative(oauthId: String): Boolean =
+        userRepository.existsDeletedUserByOauthIdInNative(oauthId) > BigInteger.ZERO
 
     override fun findByIdOrNullInNative(oauthId: String): User? =
         userRepository.findDeletedUserByOauthIdInNative(oauthId)?.let { userMapper.toDomain(it) }

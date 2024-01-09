@@ -1,13 +1,12 @@
 package com.info.maeumgagym.domain.routine.junit5
 
-import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
-import com.info.maeumgagym.domain.routine.module.RoutineTestModule
+import com.info.maeumgagym.domain.routine.module.RoutineFunctionsModule
 import com.info.maeumgagym.domain.routine.repository.RoutineRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
-import com.info.maeumgagym.domain.user.module.UserTestModule
-import com.info.maeumgagym.domain.user.module.UserTestModule.saveInContext
-import com.info.maeumgagym.domain.user.module.UserTestModule.saveInRepository
+import com.info.maeumgagym.domain.user.module.UserFunctionsModule
+import com.info.maeumgagym.domain.user.module.UserFunctionsModule.saveInContext
+import com.info.maeumgagym.domain.user.module.UserFunctionsModule.saveInRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.routine.exception.ExerciseListCannotEmptyException
 import com.info.maeumgagym.routine.port.`in`.CreateRoutineUseCase
@@ -32,14 +31,14 @@ class CreateRoutineServiceTests @Autowired constructor(
 
     @BeforeEach
     fun initialize() {
-        user = UserTestModule.createTestUser().saveInRepository(userRepository).saveInContext(userMapper)
-        otherUser = UserTestModule.createOtherUser().saveInRepository(userRepository)
+        user = UserFunctionsModule.createTestUser().saveInRepository(userRepository).saveInContext(userMapper)
+        otherUser = UserFunctionsModule.createOtherUser().saveInRepository(userRepository)
     }
 
     @Test
     fun createRoutine() {
         createRoutineUseCase.createRoutine(
-            RoutineTestModule.getCreateRoutineRequest()
+            RoutineFunctionsModule.getCreateRoutineRequest()
         )
         Assertions.assertNotNull(
             routineRepository.findAllByUserId(user.id!!)[0]
@@ -50,7 +49,7 @@ class CreateRoutineServiceTests @Autowired constructor(
     fun createRoutineWithEmptyExerciseInfoList() {
         Assertions.assertThrows(ExerciseListCannotEmptyException::class.java) {
             createRoutineUseCase.createRoutine(
-                RoutineTestModule.getCreateRoutineRequest().apply {
+                RoutineFunctionsModule.getCreateRoutineRequest().apply {
                     exerciseInfoModelList.clear()
                 }
             )

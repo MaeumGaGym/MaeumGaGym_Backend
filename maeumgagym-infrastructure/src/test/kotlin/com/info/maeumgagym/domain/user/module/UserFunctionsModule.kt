@@ -1,6 +1,7 @@
 package com.info.maeumgagym.domain.user.module
 
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
+import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.global.security.principle.CustomUserDetails
 import com.info.maeumgagym.user.model.Role
@@ -8,7 +9,7 @@ import com.info.maeumgagym.user.model.User
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 
-internal object UserTestModule {
+internal object UserFunctionsModule {
 
     const val TEST_USER_NICKNAME = "테스트 유저 닉네임"
     const val TEST_USER_OAUTH_ID = "testUserOAuthId"
@@ -43,6 +44,14 @@ internal object UserTestModule {
     fun UserJpaEntity.saveInRepository(userRepository: UserRepository): UserJpaEntity =
         userRepository.save(this)
 
+    fun UserJpaEntity.saveInContext(userMapper: UserMapper): UserJpaEntity =
+        apply {
+            SecurityContextHolder.getContext().authentication =
+                CustomUserDetails(userMapper.toDomain(this)).run {
+                    UsernamePasswordAuthenticationToken(this, null, this.authorities)
+                }
+        }
+
     fun User.saveInContext(): User =
         apply {
             SecurityContextHolder.getContext().authentication =
@@ -50,4 +59,8 @@ internal object UserTestModule {
                     UsernamePasswordAuthenticationToken(this, null, this.authorities)
                 }
         }
+
+    fun clearContext() {
+        SecurityContextHolder.getContext().authentication = null
+    }
 }

@@ -5,7 +5,7 @@ import com.info.maeumgagym.quote.service.ReadRandomQuoteService
 import com.info.maeumgagym.quote.vo.QuoteValueObject
 import com.info.maeumgagym.quote.vo.Quotes
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.RepeatedTest
+import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
@@ -16,14 +16,16 @@ class QuoteTests @Autowired constructor(
     private val readRandomQuoteService: ReadRandomQuoteService
 ) {
 
-    @RepeatedTest(value = 10)
+    @Test
     fun getRandomQuoteAndContainedInQUOTESTest() {
         Assertions.assertDoesNotThrow {
-            val quoteResponse = readRandomQuoteService.readRandomQuote()
-            if (!Quotes.QUOTES.contains(
-                    QuoteValueObject(quoteResponse.quote, quoteResponse.quoter)
-                )
-            ) throw MismatchQuoteAndQuoterException
+            for (i in 1..10) {
+                val quoteResponse = readRandomQuoteService.readRandomQuote()
+                if (!Quotes.QUOTES.contains(
+                        QuoteValueObject(quoteResponse.quote, quoteResponse.quoter)
+                    )
+                ) throw MismatchQuoteAndQuoterException
+            }
         }
     }
 }
