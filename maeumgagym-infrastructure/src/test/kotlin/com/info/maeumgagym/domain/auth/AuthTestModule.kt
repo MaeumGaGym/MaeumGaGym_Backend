@@ -22,11 +22,9 @@ object AuthTestModule {
     /**
      * @return is context not null
      */
-    fun clearContext(): Boolean {
-        return if (SecurityContextHolder.getContext().authentication != null) {
+    fun clearContext(): Boolean =
+        SecurityContextHolder.getContext().authentication?.let {
             SecurityContextHolder.clearContext()
             true
-        } else
-            false
-    }
+        } ?: false
 }
