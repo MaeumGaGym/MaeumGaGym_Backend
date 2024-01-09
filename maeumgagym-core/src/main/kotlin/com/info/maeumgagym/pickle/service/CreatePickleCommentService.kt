@@ -21,7 +21,7 @@ class CreatePickleCommentService(
             readPickleCommentPort.readPickleComment(it) ?: throw PickleCommentNotFoundException
         }
 
-        val comment = pickleCommentRequest.run {
+        pickleCommentRequest.run {
             savePickleCommentPort.savePickleComment(
                 PickleComment(
                     content = content,
