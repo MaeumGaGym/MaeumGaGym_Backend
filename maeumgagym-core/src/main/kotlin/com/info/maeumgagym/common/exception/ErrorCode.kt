@@ -36,6 +36,7 @@ enum class ErrorCode(
     ALREADY_WITHDRAWAL_USER(400, "Already Withdrawal User"),
     FILE_TYPE_MISS_MATCHED(400, "File, Type Miss Matched"),
     EXERCISE_LIST_CANNOT_EMPTY(400, "Exercise list cannot empty"),
+    PICKLE_MISMATCH(400, "Pickle Mismathce"),
 
     // Conflict
     DUPLICATED_NICKNAME(409, "Duplicated Nickname"),
