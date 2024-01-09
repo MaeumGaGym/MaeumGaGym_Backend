@@ -33,12 +33,6 @@ interface UserRepository : JpaRepository<UserJpaEntity, UUID> {
     fun findDeletedUserByOauthIdInNative(@Param("oauthId") oauthId: String): UserJpaEntity?
 
     @Query(
-        value = "SELECT COUNT(u.id) FROM ${TableNames.USER_TABLE} u WHERE u.oauth_id = :oauthId and u.is_deleted = true",
-        nativeQuery = true
-    )
-    fun existsDeletedUserByOauthIdInNative(@Param("oauthId") oauthId: String): BigInteger
-
-    @Query(
         value = "DELETE users, delete_at " +
             "FROM ${TableNames.USER_TABLE} users " +
             "JOIN ${TableNames.DELETED_AT_TABLE} delete_at ON users.id = delete_at.id " +

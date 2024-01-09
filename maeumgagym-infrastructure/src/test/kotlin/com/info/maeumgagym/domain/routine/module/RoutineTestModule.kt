@@ -10,7 +10,7 @@ import com.info.maeumgagym.routine.model.ExerciseInfoModel
 import java.time.DayOfWeek
 import java.util.*
 
-internal object RoutineFunctionsModule {
+internal object RoutineTestModule {
 
     const val TEST_ROUTINE_NAME = "테스트 루틴 이름"
     val TEST_ROUTINE_STATUS = RoutineStatus(isArchived = false, isShared = false)

@@ -43,6 +43,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, "/apple/signup").permitAll()
             .antMatchers(HttpMethod.GET, "/apple/login").permitAll()
             .antMatchers(HttpMethod.PUT, "/apple/recovery").permitAll()
+            .antMatchers(HttpMethod.GET, "/auth/re-issue").permitAll()
             .antMatchers("/swagger-ui/**", "/docs/**").permitAll()
             .anyRequest().authenticated()
             .and()
