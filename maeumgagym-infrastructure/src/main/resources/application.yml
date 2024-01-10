@@ -22,11 +22,6 @@ spring:
                 use_sql_comments: false
             open-in-view: false
 
-    # servlet
-    servlet:
-        multipart:
-            max-file-size: 30MB
-
 # server
 server:
     port: ${SERVER_PORT:8080}
