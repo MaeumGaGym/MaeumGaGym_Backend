@@ -37,14 +37,14 @@ class LoadPickleService(
 
         // dto로 변환
         return PickleListResponse(
-            getRandomPickles(allPickles).map { it.toResponse(generateUploadURLPort.generateUploadURL(it.videoId)) }
+            getRandomPickles(allPickles).map { it.toResponse(generateUploadURLPort.generateURL(it.videoId)) }
         )
     }
 
     override fun loadPickleFromId(id: String): PickleResponse =
         // (id = 파라미터)인 피클이 존재한다면 -> response, else -> 예외처리
         (readPickleByIdPort.readPickleById(id) ?: throw PickleNotFoundException)
-            .toResponse(generateUploadURLPort.generateUploadURL(id))
+            .toResponse(generateUploadURLPort.generateURL(id))
 
     override fun loadPicklesFromPose(poseId: Long): PickleListResponse {
         // id로 자세 불러오기
@@ -65,7 +65,7 @@ class LoadPickleService(
 
         // dto로 변환
         return PickleListResponse(
-            getRandomPickles(pickles).map { it.toResponse(generateUploadURLPort.generateUploadURL(it.videoId)) }
+            getRandomPickles(pickles).map { it.toResponse(generateUploadURLPort.generateURL(it.videoId)) }
         )
     }
 
