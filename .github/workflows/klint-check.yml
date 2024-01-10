@@ -9,6 +9,7 @@ jobs:
     ktlint:
         name: Check Code Quality
         runs-on: ubuntu-latest
+        if: ${{ ! startsWith(github.event.head_commit.message, '!!') }}
 
         steps:
             - name: Clone repo
@@ -22,6 +23,15 @@ jobs:
                   java-version: '17'
                   distribution: 'adopt'
 
+            - name: gradle caching
+              uses: actions/cache@v3
+              with:
+                  path: |
+                      ~/.gradle/caches
+                      ~/.gradle/wrapper
+                  key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+
             - name: Run ktlint
               run: |
                   ./gradlew ktlintCheck --daemon --parallel --configure-on-demand
+

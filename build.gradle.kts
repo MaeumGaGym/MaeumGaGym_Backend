@@ -1,25 +1,6 @@
 plugins {
     kotlin("jvm") version PluginVersions.JVM_VERSION
-}
-
-allprojects {
-    group = "com.info"
-    version = "0.0.1-SNAPSHOT"
-
-    repositories {
-        mavenCentral()
-    }
-
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions {
-            freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "17"
-        }
-    }
-
-    tasks.withType<Test> {
-        useJUnitPlatform()
-    }
+    id("org.jlleitschuh.gradle.ktlint") version PluginVersions.KLINT_VERSION
 }
 
 subprojects {
@@ -39,9 +20,36 @@ subprojects {
         implementation(Dependencies.KOTLIN_REFLECT)
         implementation(Dependencies.KOTLIN_JDK)
         implementation(Dependencies.JACKSON)
+    }
+}
 
-        // test
-        implementation(Dependencies.SPRING_TEST)
+allprojects {
+    group = "com.info"
+    version = "0.0.1-SNAPSHOT"
+
+    apply(plugin = "jacoco")
+
+    tasks {
+        compileKotlin {
+            kotlinOptions {
+                freeCompilerArgs = listOf("-Xjsr305=strict")
+                jvmTarget = "17"
+            }
+        }
+
+        compileJava {
+            sourceCompatibility = JavaVersion.VERSION_17.majorVersion
+        }
+
+        test {
+            useJUnitPlatform()
+        }
+    }
+
+    repositories {
+        mavenCentral()
+        maven { url = uri("https://repo.spring.io/milestone") }
+        maven { url = uri("https://repo.spring.io/snapshot") }
     }
 }
 

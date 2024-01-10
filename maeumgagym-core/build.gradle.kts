@@ -1,19 +1,26 @@
 plugins {
-    id("java")
-}
-
-group = "com.info"
-version = "0.0.1-SNAPSHOT"
-
-repositories {
-    mavenCentral()
+    id("org.springframework.boot") version PluginVersions.SPRING_BOOT_VERSION
+    id("io.spring.dependency-management") version PluginVersions.DEPENDENCY_MANAGER_VERSION
+    kotlin("plugin.allopen") version PluginVersions.ALLOPEN_VERSION
+    id("org.jlleitschuh.gradle.ktlint") version PluginVersions.KLINT_VERSION
 }
 
 dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+    implementation(project(":maeumgagym-common"))
+
+    implementation(Dependencies.SPRING_TRANSACTION)
+    implementation(Dependencies.JWT)
+
+    implementation(Dependencies.SPRING_VALIDATION)
 }
 
-tasks.getByName<Test>("test") {
-    useJUnitPlatform()
+allOpen {
+    annotation("com.info.common.UseCase")
+    annotation("org.springframework.stereotype.Service")
+    annotation("com.info.common.PersistenceAdapter")
+    annotation("com.info.common.WebAdapter")
+}
+
+tasks.getByName<Jar>("bootJar") {
+    enabled = false
 }
