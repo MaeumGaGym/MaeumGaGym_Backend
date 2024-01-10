@@ -42,7 +42,7 @@ class PickleController(
         @PathVariable(name = "id")
         @Valid
         @NotBlank(message = "null일 수 없습니다")
-        @Pattern(regexp = "^[0-9a-fA-F]{8}$", message = "잘못된 id입니다.")
+        @Pattern(regexp = "^[0-9a-f]{8}$", message = "잘못된 id입니다.")
         id: String?
     ): PickleResponse = loadPickleFromIdUseCase.loadPickleFromId(id!!)
 
