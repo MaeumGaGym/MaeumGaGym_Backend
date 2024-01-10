@@ -6,6 +6,7 @@ import com.info.maeumgagym.auth.exception.AlreadyExistUserException
 import com.info.maeumgagym.auth.port.`in`.AppleLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.AppleRecoveryUseCase
 import com.info.maeumgagym.auth.port.`in`.AppleSignUpUseCase
+import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.ParseAppleTokenPort
 import com.info.maeumgagym.user.exception.DuplicatedNicknameException
 import com.info.maeumgagym.user.exception.UserNotFoundException
@@ -20,7 +21,7 @@ import com.info.maeumgagym.user.port.out.SaveUserPort
 class AppleOAuthService(
     private val existUserByOAuthIdPort: ExistUserByOAuthIdPort,
     private val saveUserPort: SaveUserPort,
-    private val generateTokenService: GenerateTokenService,
+    private val generateJwtPort: GenerateJwtPort,
     private val parseAppleTokenPort: ParseAppleTokenPort,
     private val recoveryUserPort: RecoveryUserPort,
     private val existUserByNicknamePort: ExistUserByNicknamePort
@@ -34,7 +35,7 @@ class AppleOAuthService(
         if (!existUserByOAuthIdPort.existsUserByOAuthId(subject)) throw UserNotFoundException
 
         // subject로 토큰 발급 및 반환
-        return generateTokenService.execute(subject)
+        return generateJwtPort.generateTokens(subject)
     }
 
     override fun signUp(token: String, nickname: String) {
