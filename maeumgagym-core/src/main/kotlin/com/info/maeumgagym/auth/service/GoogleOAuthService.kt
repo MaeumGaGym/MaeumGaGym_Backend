@@ -8,6 +8,7 @@ import com.info.maeumgagym.user.exception.UserNotFoundException
 import com.info.maeumgagym.auth.port.`in`.GoogleLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.GoogleRecoveryUseCase
 import com.info.maeumgagym.auth.port.`in`.GoogleSignupUseCase
+import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.GetGoogleInfoPort
 import com.info.maeumgagym.auth.port.out.RevokeGoogleTokenPort
 import com.info.maeumgagym.user.model.Role
@@ -20,7 +21,7 @@ class GoogleOAuthService(
     private val saveUserPort: SaveUserPort,
     private val existUserByOAuthIdPort: ExistUserByOAuthIdPort,
     private val existUserByNicknamePort: ExistUserByNicknamePort,
-    private val generateTokenService: GenerateTokenService,
+    private val generateJwtPort: GenerateJwtPort,
     private val revokeGoogleTokenPort: RevokeGoogleTokenPort,
     private val recoveryUserPort: RecoveryUserPort
 ) : GoogleLoginUseCase, GoogleSignupUseCase, GoogleRecoveryUseCase {
@@ -36,7 +37,7 @@ class GoogleOAuthService(
         revokeGoogleTokenPort.revokeGoogleToken(accessToken)
 
         // subject로 토큰 발급 및 반환
-        return generateTokenService.execute(profile.sub)
+        return generateJwtPort.generateTokens(profile.sub)
     }
 
     override fun signup(accessToken: String, nickname: String) {

@@ -4,20 +4,23 @@ import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.GetJwtBodyPort
 import com.info.maeumgagym.auth.port.out.ReissuePort
+import com.info.maeumgagym.auth.port.out.RevokeTokensPort
+import com.info.maeumgagym.global.env.jwt.JwtProperties
+import com.info.maeumgagym.global.exception.ExpiredTokenException
+import com.info.maeumgagym.global.exception.InvalidTokenException
 import com.info.maeumgagym.global.jwt.entity.AccessTokenRedisEntity
 import com.info.maeumgagym.global.jwt.entity.RefreshTokenRedisEntity
 import com.info.maeumgagym.global.jwt.repository.AccessTokenRepository
 import com.info.maeumgagym.global.jwt.repository.RefreshTokenRepository
-import com.info.maeumgagym.global.env.jwt.JwtProperties
-import com.info.maeumgagym.global.exception.ExpiredTokenException
-import com.info.maeumgagym.global.exception.InvalidTokenException
 import com.info.maeumgagym.global.security.principle.CustomUserDetailService
 import com.info.maeumgagym.global.security.principle.CustomUserDetails
-import io.jsonwebtoken.*
+import io.jsonwebtoken.Claims
+import io.jsonwebtoken.ExpiredJwtException
+import io.jsonwebtoken.Jwts
+import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
-import org.springframework.transaction.annotation.Transactional
 import java.security.PublicKey
 import java.util.*
 
@@ -27,10 +30,9 @@ class JwtAdapter(
     private val customUserDetailService: CustomUserDetailService,
     private val refreshTokenRepository: RefreshTokenRepository,
     private val accessTokenRepository: AccessTokenRepository
-) : GenerateJwtPort, ReissuePort, GetJwtBodyPort {
+) : GenerateJwtPort, ReissuePort, GetJwtBodyPort, RevokeTokensPort {
 
     // 모든 토큰 발급
-    @Transactional
     override fun generateTokens(subject: String): TokenResponse {
         // access_token 발급
         val access = generateAccessToken()
@@ -91,6 +93,11 @@ class JwtAdapter(
             .setExpiration(Date(now.time.plus(jwtProperties.refreshExpiredExp))) // exp 설정
             .signWith(SignatureAlgorithm.HS256, jwtProperties.secretKey)
             .compact()
+    }
+
+    override fun revokeTokens(subject: String) {
+        accessTokenRepository.deleteById(subject)
+        refreshTokenRepository.deleteById(subject)
     }
 
     // 토큰 재발급

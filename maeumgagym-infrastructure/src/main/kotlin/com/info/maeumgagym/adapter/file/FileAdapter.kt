@@ -14,30 +14,19 @@ class FileAdapter(
     private val fileProperty: FileProperty
 ) : GetPreSignedURLPort, FeignDeletePicklePort, GenerateUploadURLPort {
 
-    private companion object {
-        var loadBalancingNum: Int = 0
-    }
-
     override fun getPreSignedUploadURL(fileType: String): String =
         fileClient.preSignedUploadURL(
             fileProperty.secretKey,
             PreSignedUploadURLFeignRequest(fileType)
         ).uploadURL
 
-    override fun generateUploadURL(videoId: String): String =
-        getBalancedURL() + videoId + fileProperty.suffixPath
+    override fun generateURL(videoId: String): String =
+        fileProperty.serverURL + videoId + fileProperty.suffixPath
 
     override fun deletePickle(videoId: String) {
         fileClient.pickleDelete(
             fileProperty.secretKey,
             videoId
         )
-    }
-
-    private fun getBalancedURL(): String {
-        if (fileProperty.urls.size == loadBalancingNum) {
-            loadBalancingNum--
-        }
-        return fileProperty.urls[loadBalancingNum++] + "/"
     }
 }

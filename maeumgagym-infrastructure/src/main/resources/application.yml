@@ -53,8 +53,7 @@ redis:
 
 file:
     secret-key: ${FILE_SERVER_SECRET_KEY}
-    url-1: ${FILE_SERVER_URL_1}
-    url-2: ${FILE_SERVER_URL_2}
+    server-url: ${FILE_SERVER_URL}
     suffixPath: ${SUFFIX_PATH}
 
 springdoc:
