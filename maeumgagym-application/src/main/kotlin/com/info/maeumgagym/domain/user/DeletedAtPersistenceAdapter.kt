@@ -8,11 +8,9 @@ import com.info.maeumgagym.user.model.DeletedAt
 import com.info.maeumgagym.user.port.out.FindDeletedAtByIdPort
 import com.info.maeumgagym.user.port.out.SaveDeletedAtPort
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
-import java.util.UUID
+import java.util.*
 
-@Transactional
 @PersistenceAdapter
 class DeletedAtPersistenceAdapter(
     private val userMapper: UserMapper,

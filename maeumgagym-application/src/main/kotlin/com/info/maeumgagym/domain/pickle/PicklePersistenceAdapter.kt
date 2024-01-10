@@ -6,9 +6,7 @@ import com.info.maeumgagym.domain.pickle.repository.PickleRepository
 import com.info.maeumgagym.pickle.model.Pickle
 import com.info.maeumgagym.pickle.port.out.*
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.transaction.annotation.Transactional
 
-@Transactional
 @PersistenceAdapter
 class PicklePersistenceAdapter(
     private val pickleRepository: PickleRepository,

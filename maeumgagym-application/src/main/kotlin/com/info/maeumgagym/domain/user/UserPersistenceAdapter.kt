@@ -6,11 +6,9 @@ import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.*
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.transaction.annotation.Transactional
 import java.math.BigInteger
 import java.util.*
 
-@Transactional
 @PersistenceAdapter
 class UserPersistenceAdapter(
     private val userRepository: UserRepository,
