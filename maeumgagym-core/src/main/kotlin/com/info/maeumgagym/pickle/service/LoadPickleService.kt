@@ -74,10 +74,7 @@ class LoadPickleService(
         pickles.toSet().takeIf { pickles.size <= INDEX_SIZE }?.toList()
             // 아니라면 빈 Set을 생성해서 (중복 제거)
             ?: mutableSetOf<Pickle>().apply {
-                // 총 개수가 INDEX_SIZE와 같아질 때까지
-                while (size < INDEX_SIZE) {
-                    // 랜덤 피클 추가
-                    add(pickles.random())
-                }
+                // 총 개수가 INDEX_SIZE와 같아질 때까지 랜덤 피클 추가
+                while (size < INDEX_SIZE) add(pickles.random())
             }.toList()
 }
