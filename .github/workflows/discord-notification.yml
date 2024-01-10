@@ -30,7 +30,7 @@ jobs:
       if: ${{ ! startsWith(github.event.head_commit.message, '!!') }}
       with:
         title: 🔀 Pull Request 🔀
-        description: "# 안녕하세요! ${{ steps.random_image_url.outputs.name }}입니다 ❤️"
+        description: "# 안녕하세요! ${{ steps.random_image_url.outputs.name }}입니다❤️"
         content: "<@&1153326597844238366>"
         webhook: ${{ secrets.DISCORD_WEBHOOK }}
         color: FFFFFF
