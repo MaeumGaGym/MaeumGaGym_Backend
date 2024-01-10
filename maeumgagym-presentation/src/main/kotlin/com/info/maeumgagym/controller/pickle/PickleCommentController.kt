@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import javax.validation.Valid
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.Pattern
 
 @Tag(name = "Pickle Comment API")
 @Validated
@@ -29,6 +30,7 @@ class PickleCommentController(
         req: PickleCommentWebRequest,
         @PathVariable
         @NotBlank(message = "videoId는 null일 수 없습니다.")
+        @Pattern(regexp = "^[0-9a-f]{8}$")
         @Valid
         videoId: String?
     ) {
@@ -42,6 +44,7 @@ class PickleCommentController(
         req: PickleCommentWebRequest,
         @PathVariable(value = "videoId")
         @NotBlank(message = "videoId는 null일 수 없습니다.")
+        @Pattern(regexp = "^[0-9a-f]{8}$")
         @Valid
         videoId: String?,
         @PathVariable(value = "parentId")
