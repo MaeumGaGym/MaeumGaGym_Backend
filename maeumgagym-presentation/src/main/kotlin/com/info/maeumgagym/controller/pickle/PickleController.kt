@@ -50,8 +50,8 @@ class PickleController(
     @GetMapping("/pose/{poseId}")
     fun picklesLoadFromPose(
         @PathVariable(name = "poseId")
-        poseId: Long?
-    ): PickleListResponse = loadPicklesFromPoseUseCase.loadPicklesFromPose(poseId!!)
+        poseId: Long
+    ): PickleListResponse = loadPicklesFromPoseUseCase.loadPicklesFromPose(poseId)
 
     @Operation(summary = "PreSignedUploadURL 조회 API")
     @GetMapping("/url")
