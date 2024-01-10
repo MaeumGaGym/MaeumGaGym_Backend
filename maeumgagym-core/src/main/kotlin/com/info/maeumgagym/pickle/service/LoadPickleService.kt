@@ -71,11 +71,11 @@ class LoadPickleService(
 
     private fun getRandomPickles(pickles: List<Pickle>): List<Pickle> =
         // 만약 랜덤 피클을 추출할 베이스 리스트의 크기가 추출할 크기보다 작다면 -> 베이스 리스트 그대로 반환
-        pickles.takeIf { pickles.size <= INDEX_SIZE }
+        pickles.toSet().takeIf { pickles.size <= INDEX_SIZE }?.toList()
             // 아니라면 빈 Set을 생성해서 (중복 제거)
             ?: mutableSetOf<Pickle>().apply {
                 // 총 개수가 INDEX_SIZE와 같아질 때까지
-                while (size <= INDEX_SIZE) {
+                while (size < INDEX_SIZE) {
                     // 랜덤 피클 추가
                     add(pickles.random())
                 }
