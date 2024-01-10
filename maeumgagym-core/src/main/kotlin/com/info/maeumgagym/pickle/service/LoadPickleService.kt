@@ -48,17 +48,18 @@ class LoadPickleService(
         val pose = readPoseByIdPort.findById(poseId) ?: throw PoseNotFoundException
 
         val allPickles = readAllPicklesPort.readAllPickles()
+
         val pickles: MutableList<Pickle> = mutableListOf()
+
         allPickles.map {
             if (it.tags.contains(pose.simpleName) || it.tags.contains(pose.exactName)) {
                 pickles.add(it)
             }
         }
 
-        return PickleListResponse(
-            (if (pickles.size <= INDEX_SIZE) pickles else getRandomPickles(pickles))
-                .map { it.toResponse() }
-        )
+        val responses = pickles.takeIf { it.size <= INDEX_SIZE } ?: getRandomPickles(pickles)
+
+        return PickleListResponse(responses.map { it.toResponse() })
     }
 
     private fun getRandomPickles(pickles: List<Pickle>): List<Pickle> =
