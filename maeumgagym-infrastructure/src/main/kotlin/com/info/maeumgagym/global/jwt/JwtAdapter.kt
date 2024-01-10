@@ -42,9 +42,9 @@ class JwtAdapter(
         // 만약 이전에 cache에 저장된 토큰이 있다 해도 id(subject)가 같으므로 update 쿼리가 나감
         accessTokenRepository.save(
             AccessTokenRedisEntity(
-                subject,
-                access,
-                jwtProperties.accessExpiredExp
+                subject = subject,
+                accessToken = access,
+                ttl = jwtProperties.accessExpiredExp
             )
         )
 
@@ -52,9 +52,9 @@ class JwtAdapter(
         // 만약 이전에 cache에 저장된 토큰이 있다 해도 id(subject)가 같으므로 update 쿼리가 나감
         refreshTokenRepository.save(
             RefreshTokenRedisEntity(
-                subject,
-                refresh,
-                jwtProperties.refreshExpiredExp
+                subject = subject,
+                rfToken = refresh,
+                ttl = jwtProperties.refreshExpiredExp
             )
         )
 
