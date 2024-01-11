@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface PickleCommentRepository : JpaRepository<PickleCommentJpaEntity, Long>
+interface PickleCommentRepository : JpaRepository<PickleCommentJpaEntity, Long> {
+    fun findAllByVideoId(videoId: String): List<PickleCommentJpaEntity>
+}
