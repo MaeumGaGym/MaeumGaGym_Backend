@@ -13,6 +13,7 @@ class PickleCommentMapper {
                 content = content,
                 videoId = videoId,
                 writerId = writerId,
+                createdAt = createdAt,
                 parentComment = pickleComment.parentComment?.let { toEntity(it) }
             )
         }
@@ -25,6 +26,7 @@ class PickleCommentMapper {
                 content = content,
                 videoId = videoId,
                 writerId = writerId,
+                createdAt = createdAt,
                 parentComment = pickleCommentJpaEntity.parentComment?.let { toDomain(it) }
             )
         }
