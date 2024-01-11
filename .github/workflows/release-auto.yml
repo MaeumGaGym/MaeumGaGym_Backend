@@ -17,7 +17,7 @@ jobs:
             -   name: Release 생성
                 uses: actions/create-release@v1
                 env:
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
                 with:
                     tag_name: ${{ steps.extract_version_name.outputs.version }}
                     release_name: ${{ steps.extract_version_name.outputs.version }}
