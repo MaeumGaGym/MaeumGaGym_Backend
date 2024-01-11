@@ -3,12 +3,12 @@ package com.info.maeumgagym.pickle.model
 import java.time.LocalDateTime
 import java.util.UUID
 
-data class PickleComment(
+data class PickleReply(
     val id: Long? = null,
     val content: String,
     val videoId: String,
     val writerId: UUID,
-    val children: MutableList<PickleReply>? = arrayListOf(),
+    val parentComment: PickleComment? = null,
     val createdAt: LocalDateTime? = null,
     val isDeleted: Boolean = false
 )
