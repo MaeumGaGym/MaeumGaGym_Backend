@@ -18,7 +18,10 @@ class UserMapper {
                 roles = roles,
                 profileImage = profileImage,
                 isDelete = isDeleted,
-                wakatime = wakatime
+                lastSaved = lastSaved,
+                dayCount = dayCount,
+                todayWaka = todayWaka,
+                waka = waka
             )
         }
 
@@ -31,7 +34,10 @@ class UserMapper {
                 roles = roles,
                 profileImage = profileImage,
                 isDeleted = isDeleted,
-                wakatime = wakatime
+                lastSaved = lastSaved,
+                dayCount = dayCount,
+                todayWaka = todayWaka,
+                waka = waka
             )
         }
 
