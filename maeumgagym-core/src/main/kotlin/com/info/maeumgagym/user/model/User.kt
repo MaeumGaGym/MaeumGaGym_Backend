@@ -12,18 +12,6 @@ data class User(
     var wakatime: Long = 0
 ) {
 
-    fun updateNickname(nickname: String) {
-        this.nickname = nickname
-    }
-
-    fun restoreUser() {
-        this.isDeleted = false
-    }
-
-    fun updateProfile(profileImage: String) {
-        this.profileImage = profileImage
-    }
-
     fun updateWakatime(waka: Long) {
         this.wakatime = waka
     }

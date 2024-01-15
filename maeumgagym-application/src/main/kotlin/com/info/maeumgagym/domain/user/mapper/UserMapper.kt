@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component
 @Component
 class UserMapper {
 
-    fun toEntity(user: User): UserJpaEntity =
-        user.run {
+    fun toEntity(domain: User): UserJpaEntity =
+        domain.run {
             UserJpaEntity(
                 id = id,
                 nickname = nickname,
