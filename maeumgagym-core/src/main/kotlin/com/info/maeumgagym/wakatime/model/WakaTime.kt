@@ -1,11 +1,12 @@
 package com.info.maeumgagym.wakatime.model
 
 import com.info.maeumgagym.user.model.User
-import java.time.LocalDateTime
+import java.time.LocalDate
 import java.util.UUID
 
-data class WakaStarted(
+data class WakaTime (
     val id: UUID? = null,
     val user: User,
-    val startAt: LocalDateTime
+    val waka: Long,
+    val date: LocalDate = LocalDate.now(),
 )

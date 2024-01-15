@@ -17,11 +17,7 @@ class UserMapper {
                 oauthId = oauthId,
                 roles = roles,
                 profileImage = profileImage,
-                isDelete = isDeleted,
-                lastSaved = lastSaved,
-                dayCount = dayCount,
-                todayWaka = todayWaka,
-                waka = waka
+                isDelete = isDeleted
             )
         }
 
@@ -33,11 +29,7 @@ class UserMapper {
                 oauthId = oauthId,
                 roles = roles,
                 profileImage = profileImage,
-                isDeleted = isDeleted,
-                lastSaved = lastSaved,
-                dayCount = dayCount,
-                todayWaka = todayWaka,
-                waka = waka
+                isDeleted = isDeleted
             )
         }
 

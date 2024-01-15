@@ -24,5 +24,7 @@ object TableNames {
 
     const val REFRESH_TOKEN_TABLE = "${TABLE_PREFIX}refresh"
 
+    const val WAKA_TIME_TABLE = "${TABLE_PREFIX}waka_time"
+
     const val WAKA_START_TABLE = "${TABLE_PREFIX}waka_start"
 }
