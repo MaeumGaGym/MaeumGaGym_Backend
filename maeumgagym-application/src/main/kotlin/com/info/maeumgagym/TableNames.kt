@@ -23,4 +23,6 @@ object TableNames {
     const val ACCESS_TOKEN_TABLE = "${TABLE_PREFIX}access"
 
     const val REFRESH_TOKEN_TABLE = "${TABLE_PREFIX}refresh"
+
+    const val WAKA_START_TABLE = "${TABLE_PREFIX}waka_start"
 }
