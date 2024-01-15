@@ -8,6 +8,7 @@ import com.info.maeumgagym.pickle.model.PickleComment
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleCommentUseCase
 import com.info.maeumgagym.pickle.port.out.ExistsPickleByIdPort
 import com.info.maeumgagym.pickle.port.out.SavePickleCommentPort
+import java.time.LocalDateTime
 
 @UseCase
 class CreatePickleCommentService(
@@ -27,7 +28,8 @@ class CreatePickleCommentService(
                 PickleComment(
                     content = content,
                     videoId = videoId,
-                    writerId = user.id
+                    writerId = user.id,
+                    createdAt = LocalDateTime.now()
                 )
             )
         }

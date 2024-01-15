@@ -5,17 +5,19 @@ import java.time.LocalDateTime
 import java.util.*
 import javax.persistence.*
 
-@Entity(name = TableNames.PICKLE_COMMENT_TABLE)
+@Entity(name = TableNames.PICKLE_REPLY_TABLE)
 @DiscriminatorValue(value = "comment")
-class PickleCommentJpaEntity(
+class PickleReplyJpaEntity(
     content: String,
     videoId: String,
     writerId: UUID,
     createdAt: LocalDateTime? = null,
-    id: Long? = null
+    id: Long? = null,
+    parentComment: PickleCommentJpaEntity? = null
 ) : PickleCommentMappedEntity(content, videoId, writerId, createdAt, id) {
 
-    @OneToMany(mappedBy = "parentComment", orphanRemoval = true)
-    var childrenComments: MutableList<PickleReplyJpaEntity> = arrayListOf()
+    @JoinColumn(name = "parent_commnet_id", updatable = false, nullable = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    var parentComment: PickleCommentJpaEntity? = parentComment
         protected set
 }
