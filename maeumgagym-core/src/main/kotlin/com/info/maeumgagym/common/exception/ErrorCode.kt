@@ -42,7 +42,6 @@ enum class ErrorCode(
     DUPLICATED_NICKNAME(409, "Duplicated Nickname"),
     ALREADY_EXIST_USER(409, "Already Exists User"),
     ALREADY_EXIST_PICKLE(409, "Already Exists Pickle"),
-    ALREADY_NICKNAME_USER(409, "Already Exists Nickname"),
 
     // Test
     MISMATCH_QUOTE_AND_QUOTER(500, "Mismatch Quote and Quoter")
