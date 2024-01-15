@@ -6,15 +6,16 @@ import com.info.maeumgagym.pickle.dto.request.PickleCommentRequest
 import com.info.maeumgagym.pickle.exception.PickleCommentNotFoundException
 import com.info.maeumgagym.pickle.exception.PickleMisMatchException
 import com.info.maeumgagym.pickle.exception.PickleNotFoundException
-import com.info.maeumgagym.pickle.model.PickleComment
+import com.info.maeumgagym.pickle.model.PickleReply
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleReplyCommentUseCase
 import com.info.maeumgagym.pickle.port.out.ExistsPickleByIdPort
 import com.info.maeumgagym.pickle.port.out.ReadPickleCommentPort
-import com.info.maeumgagym.pickle.port.out.SavePickleCommentPort
+import com.info.maeumgagym.pickle.port.out.SavePickleReplyCommentPort
+import java.time.LocalDateTime
 
 @UseCase
 class CreatePickleReplyCommentService(
-    private val savePickleCommentPort: SavePickleCommentPort,
+    private val savePickleReplyCommentPort: SavePickleReplyCommentPort,
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val readPickleCommentPort: ReadPickleCommentPort,
     private val existsPickleByIdPort: ExistsPickleByIdPort
@@ -36,12 +37,13 @@ class CreatePickleReplyCommentService(
         }
 
         pickleCommentRequest.run {
-            savePickleCommentPort.savePickleComment(
-                PickleComment(
+            savePickleReplyCommentPort.savePickleReplyComment(
+                PickleReply(
                     content = content,
                     videoId = videoId,
                     writerId = user.id,
-                    parentComment = parentComment
+                    parentComment = parentComment,
+                    createdAt = LocalDateTime.now()
                 )
             )
         }
