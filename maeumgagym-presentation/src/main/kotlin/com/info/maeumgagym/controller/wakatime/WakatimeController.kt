@@ -19,7 +19,7 @@ class WakatimeController(
     private val addWakatimeUseCase: AddWakatimeUseCase
 ) {
 
-    @Operation(summary = "와카타임 저장 API")
+    @Operation(summary = "와카타임 누적 API")
     @PostMapping
     fun addWakatime(
         @RequestBody @Valid
