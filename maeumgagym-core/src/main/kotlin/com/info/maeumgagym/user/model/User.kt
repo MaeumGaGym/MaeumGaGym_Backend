@@ -1,8 +1,5 @@
 package com.info.maeumgagym.user.model
 
-import java.sql.Time
-import java.time.LocalDateTime
-import java.time.LocalTime
 import java.util.UUID
 
 data class User(
@@ -12,7 +9,7 @@ data class User(
     val oauthId: String,
     var profileImage: String? = null,
     var isDeleted: Boolean = false,
-    var wakatime: LocalTime = LocalTime.of(0, 0, 0)
+    var wakatime: Long = 0
 ) {
 
     fun updateNickname(nickname: String) {
@@ -27,7 +24,7 @@ data class User(
         this.profileImage = profileImage
     }
 
-    fun updateWakatime(waka: LocalTime) {
+    fun updateWakatime(waka: Long) {
         this.wakatime = waka
     }
 }

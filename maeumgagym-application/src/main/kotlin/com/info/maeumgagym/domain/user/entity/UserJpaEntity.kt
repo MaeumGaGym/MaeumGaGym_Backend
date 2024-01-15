@@ -6,6 +6,7 @@ import com.info.maeumgagym.domain.user.converter.RoleConverter
 import com.info.maeumgagym.user.model.Role
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.util.*
 import javax.persistence.Column
@@ -21,7 +22,7 @@ class UserJpaEntity(
     roles: MutableList<Role>,
     profileImage: String?,
     isDelete: Boolean = false,
-    wakatime: LocalTime = LocalTime.of(0, 0, 0),
+    wakatime: Long,
     id: UUID? = null
 ) : BaseUUIDEntity(id) {
 
@@ -37,7 +38,7 @@ class UserJpaEntity(
     val oauthId: String = oauthId
 
     @Convert(converter = RoleConverter::class)
-    @Column(name = "roles", length = 15)
+    @Column(name = "roles", length = 15, nullable = false)
     var roles: MutableList<Role> = roles
         protected set
 
@@ -46,6 +47,6 @@ class UserJpaEntity(
         protected set
 
     @Column(name = "wakatime", nullable = false)
-    var wakatime: LocalTime = wakatime
+    var wakatime: Long = wakatime
         protected set
 }
