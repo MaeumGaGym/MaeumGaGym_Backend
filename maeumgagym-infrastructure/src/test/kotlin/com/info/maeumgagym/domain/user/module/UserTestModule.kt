@@ -16,6 +16,7 @@ internal object UserTestModule {
         "https://lh3.googleusercontent.com/a/ACg8ocJqPiMvxq0HiLHPr4_mDgUMvp2RZaeWZpOnvM3_90E9=s360-c-no"
     val TEST_USER_ROLES = listOf(Role.USER)
         get() = field.toMutableList()
+    const val TEST_USER_WAKA = 0L
 
     const val OTHER_USER_NICKNAME = "다른 유저 닉네임"
     const val OTHER_USER_OAUTH_ID = "otherUserOAuthId"
@@ -23,13 +24,15 @@ internal object UserTestModule {
         "https://lh3.googleusercontent.com/a/ACg8ocJqPiMvxq0HiLHPr4_mDgUMvp2RZaeWZpOnvM3_90E9=s360-c-no"
     val OTHER_USER_ROLES = listOf(Role.USER)
         get() = field.toMutableList()
+    const val OTHER_USER_WAKA = 756423129L
 
     fun createTestUser(): UserJpaEntity =
         UserJpaEntity(
             nickname = TEST_USER_NICKNAME,
             oauthId = TEST_USER_OAUTH_ID,
             profileImage = TEST_PROFILE_IMAGE,
-            roles = TEST_USER_ROLES.toMutableList()
+            roles = TEST_USER_ROLES.toMutableList(),
+            wakatime = TEST_USER_WAKA
         )
 
     fun createOtherUser(): UserJpaEntity =
@@ -37,7 +40,8 @@ internal object UserTestModule {
             nickname = OTHER_USER_NICKNAME,
             oauthId = OTHER_USER_OAUTH_ID,
             profileImage = OTHER_PROFILE_IMAGE,
-            roles = OTHER_USER_ROLES.toMutableList()
+            roles = OTHER_USER_ROLES.toMutableList(),
+            wakatime = OTHER_USER_WAKA
         )
 
     fun UserJpaEntity.saveInRepository(userRepository: UserRepository): UserJpaEntity =
