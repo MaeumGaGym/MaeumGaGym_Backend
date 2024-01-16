@@ -2,10 +2,11 @@ package com.info.maeumgagym.wakatime.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
+import com.info.maeumgagym.user.model.User
+import com.info.maeumgagym.user.port.out.SaveUserPort
 import com.info.maeumgagym.wakatime.exception.WakaStartedNotYetException
 import com.info.maeumgagym.wakatime.model.WakaTime
 import com.info.maeumgagym.wakatime.port.`in`.EndWakatimeUseCase
-import com.info.maeumgagym.wakatime.port.out.ReadWakaStartedFromUser
 import com.info.maeumgagym.wakatime.port.out.ReadWakaTimeFromUserAndDatePort
 import com.info.maeumgagym.wakatime.port.out.SaveWakaTimePort
 import java.time.Duration
@@ -15,9 +16,9 @@ import java.time.LocalDateTime
 @UseCase
 class EndWakatimeService(
     private val readCurrentUserPort: ReadCurrentUserPort,
-    private val readWakaStartedFromUser: ReadWakaStartedFromUser,
     private val readWakaTimeFromUserAndDatePort: ReadWakaTimeFromUserAndDatePort,
-    private val saveWakaTimePort: SaveWakaTimePort
+    private val saveWakaTimePort: SaveWakaTimePort,
+    private val saveUserPort: SaveUserPort
 ) : EndWakatimeUseCase {
 
     override fun endWakatime() {
@@ -25,11 +26,11 @@ class EndWakatimeService(
         val user = readCurrentUserPort.readCurrentUser()
 
         // 와카타임 시작 시간 불러오기
-        val wakaStarted = readWakaStartedFromUser.findByUser(user)
+        val wakaStarted = user.startedAt
             ?: throw WakaStartedNotYetException
 
         // 와카타임 구하기
-        val seconds = Duration.between(wakaStarted.startAt, LocalDateTime.now()).seconds
+        val seconds = Duration.between(wakaStarted, LocalDateTime.now()).seconds
 
         val now = LocalDate.now()
 
@@ -38,7 +39,6 @@ class EndWakatimeService(
             ?.let {
                 // 있으면 waka += seconds
                 WakaTime(
-                    id = it.id,
                     user = it.user,
                     waka = it.waka + seconds,
                     date = it.date
@@ -49,6 +49,21 @@ class EndWakatimeService(
                 waka = seconds,
                 date = now
             )
+
+        // 와카타임 시작시간 초기화
+        user.run {
+            saveUserPort.saveUserAnFlush(
+                User(
+                    id = id,
+                    nickname = nickname,
+                    roles = roles,
+                    oauthId = oauthId,
+                    profileImage = profileImage,
+                    startedAt = null,
+                    isDeleted = isDeleted
+                )
+            )
+        }
 
         // wakatime save
         saveWakaTimePort.save(wakaTime)
