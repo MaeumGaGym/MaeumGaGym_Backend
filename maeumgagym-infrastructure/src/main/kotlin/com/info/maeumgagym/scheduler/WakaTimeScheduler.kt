@@ -23,16 +23,22 @@ class WakaTimeScheduler(
     private val readWakaTimeFromUserAndDatePort: ReadWakaTimeFromUserAndDatePort
 ) {
 
+    // 매일 0시 0분 0초에 작동
     @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul")
     fun restartAllWakaTime() {
+        // 오늘 날짜, 지금 시간 = 0시 0분 0초
         val nowDate = LocalDate.now()
         val nowDateTime = LocalDateTime.now()
+        // 추후 사용될 와카타임 시간 저장용 변수
         var seconds: Long
 
+        // 와카타임을 시작하고 종료하지 않은 모든 유저 불러오기
         userRepository.findAllByWakaStartedAtNotNullInNative().forEach { user ->
+            // 와카타임 시작 시간 ~ 지금까지의 초
             seconds = Duration.between(userMapper.toDomain(user).wakaStartedAt, nowDateTime).seconds
 
             saveWakaTimePort.save(
+                // 먼저 생성한 와카타임 있는지 확인
                 readWakaTimeFromUserAndDatePort.findByUserAndDate(userMapper.toDomain(user), nowDate)
                     ?.let {
                         // 있으면 waka += seconds
@@ -49,6 +55,7 @@ class WakaTimeScheduler(
                     date = nowDate
                 ))
 
+            // 와카타임 재시작
             userRepository.save(
                 user.run {
                     UserJpaEntity(
