@@ -6,7 +6,7 @@ import com.info.maeumgagym.auth.port.`in`.ReissueUseCase
 import com.info.maeumgagym.auth.port.out.ReissuePort
 
 @UseCase
-class ReissueService(
+internal class ReissueService(
     private val reissuePort: ReissuePort
 ) : ReissueUseCase {
 

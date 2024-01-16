@@ -11,7 +11,7 @@ import java.security.PublicKey
 import java.security.spec.InvalidKeySpecException
 
 @Component
-class GeneratePublicKeyAdapter : GeneratePublicKeyPort {
+internal class GeneratePublicKeyAdapter : GeneratePublicKeyPort {
 
     private companion object {
         const val ALG_HEADER_KEY = "alg"

@@ -10,7 +10,7 @@ import com.info.maeumgagym.pickle.port.out.FeignDeletePicklePort
 import com.info.maeumgagym.pickle.port.out.ReadPickleByIdPort
 
 @UseCase
-class DeletePickleService(
+internal class DeletePickleService(
     private val deletePicklePort: DeletePicklePort,
     private val feignDeletePicklePort: FeignDeletePicklePort,
     private val readCurrentUserPort: ReadCurrentUserPort,
