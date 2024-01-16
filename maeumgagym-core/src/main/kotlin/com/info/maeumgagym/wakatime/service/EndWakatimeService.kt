@@ -44,11 +44,11 @@ class EndWakatimeService(
                     date = it.date
                 )
             } ?: WakaTime(
-                // 없으면 waka = seconds
-                user = user,
-                waka = seconds,
-                date = now
-            )
+            // 없으면 waka = seconds
+            user = user,
+            waka = seconds,
+            date = now
+        )
 
         // 와카타임 시작시간 초기화
         user.run {

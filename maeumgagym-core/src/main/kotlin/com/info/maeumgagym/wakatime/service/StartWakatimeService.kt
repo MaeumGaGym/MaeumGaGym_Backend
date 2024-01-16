@@ -15,7 +15,6 @@ class StartWakatimeService(
 ) : StartWakatimeUseCase {
 
     override fun startWakatime() {
-
         // 토큰으로 user불러오기
         val user = readCurrentUserPort.readCurrentUser()
 
