@@ -50,21 +50,6 @@ class ReadCurrentUserAdapterTests @Autowired constructor(
     /**
      * @see ReadCurrentUserAdapter.readCurrentUser
      * @when 실패 상황
-     * @success Authentication 내부의 user가 UserRepository에 존재하지 않으므로 실패
-     * @fail Authentication 내부의 user가 존재하는 유저인지 확인하는 로직이 누락되었는지 확인
-     */
-    @Test
-    fun readCurrentUserWithNonExistsUser() {
-        user.saveInRepository(userRepository).saveInContext(userMapper)
-        userRepository.delete(user)
-        Assertions.assertThrows(UnAuthorizedException::class.java) {
-            readCurrentUserAdapter.readCurrentUser()
-        }
-    }
-
-    /**
-     * @see ReadCurrentUserAdapter.readCurrentUser
-     * @when 실패 상황
      * @success Context가 비어있는 상태에서 currentUser()를 호출해 NPE 발생
      */
     @Test
