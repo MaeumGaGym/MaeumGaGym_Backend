@@ -14,7 +14,8 @@ class ReportJpaEntity(
     type: ReportType,
     reason: String,
     status: ReportStatus,
-    reporterId: UUID
+    reporterId: UUID,
+    targetId: String
 ) : BaseLongIdTimeEntity(null, null) {
 
     @Enumerated(EnumType.STRING)
@@ -32,5 +33,9 @@ class ReportJpaEntity(
 
     @Column(name = "reporter_id", updatable = false, nullable = false)
     var reporterId: UUID = reporterId
+        protected set
+
+    @Column(name  = "target_id", updatable = false, nullable = false)
+    var targetId: String = targetId
         protected set
 }
