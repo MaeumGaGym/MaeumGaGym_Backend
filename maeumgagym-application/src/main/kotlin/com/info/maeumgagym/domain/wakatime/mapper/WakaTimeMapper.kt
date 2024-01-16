@@ -6,7 +6,7 @@ import com.info.maeumgagym.wakatime.model.WakaTime
 import org.springframework.stereotype.Component
 
 @Component
-class WakaMapper(
+class WakaTimeMapper(
     private val userMapper: UserMapper
 ) {
 
