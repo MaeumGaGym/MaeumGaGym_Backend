@@ -11,7 +11,7 @@ data class PickleComment(
     val videoId: String,
     val writerId: UUID,
     val children: MutableList<PickleReply>? = arrayListOf(),
-    val createdAt: LocalDateTime,
+    val createdAt: LocalDateTime = LocalDateTime.now(),
     val isDeleted: Boolean = false
 ) {
     companion object {
