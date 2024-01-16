@@ -28,8 +28,7 @@ class CreatePickleCommentService(
                 PickleComment(
                     content = content,
                     videoId = videoId,
-                    writerId = user.id,
-                    createdAt = LocalDateTime.now()
+                    writerId = user.id
                 )
             )
         }

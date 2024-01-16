@@ -42,7 +42,7 @@ class CreatePickleReplyCommentService(
                     content = content,
                     videoId = videoId,
                     writerId = user.id,
-                    parentComment = parentComment,
+                    parentComment = parentComment
                 )
             )
         }
