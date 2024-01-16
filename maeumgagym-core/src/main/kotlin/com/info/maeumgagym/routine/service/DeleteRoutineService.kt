@@ -9,7 +9,7 @@ import com.info.maeumgagym.routine.port.out.DeleteRoutinePort
 import com.info.maeumgagym.routine.port.out.ReadRoutineByIdPort
 
 @UseCase
-internal class DeleteRoutineService(
+class DeleteRoutineService(
     private val deleteRoutinePort: DeleteRoutinePort,
     private val readRoutineByIdPort: ReadRoutineByIdPort,
     private val readCurrentUserPort: ReadCurrentUserPort
