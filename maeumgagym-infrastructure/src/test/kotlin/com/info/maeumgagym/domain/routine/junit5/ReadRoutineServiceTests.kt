@@ -21,7 +21,7 @@ import kotlin.random.Random
 @Transactional
 @SpringBootTest
 class ReadRoutineServiceTests @Autowired constructor(
-    private val readMyAllRoutineService: ReadAllMyRoutineUseCase,
+    private val readMyAllRoutineUseCase: ReadAllMyRoutineUseCase,
     private val routineRepository: RoutineRepository,
     private val userRepository: UserRepository,
     private val userMapper: UserMapper
@@ -49,7 +49,7 @@ class ReadRoutineServiceTests @Autowired constructor(
                 otherRoutineSize++
             }
         }
-        Assertions.assertEquals(readMyAllRoutineService.readAllMyRoutine().routineList.size, myRoutineSize)
+        Assertions.assertEquals(readMyAllRoutineUseCase.readAllMyRoutine().routineList.size, myRoutineSize)
     }
 
     // @Test

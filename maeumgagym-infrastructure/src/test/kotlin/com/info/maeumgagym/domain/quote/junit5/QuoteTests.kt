@@ -13,13 +13,13 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 @SpringBootTest
 class QuoteTests @Autowired constructor(
-    private val readRandomQuoteService: ReadRandomQuoteUseCase
+    private val readRandomQuoteUseCase: ReadRandomQuoteUseCase
 ) {
 
     @RepeatedTest(value = 10)
     fun getRandomQuoteAndContainedInQUOTESTest() {
         Assertions.assertDoesNotThrow {
-            val quoteResponse = readRandomQuoteService.readRandomQuote()
+            val quoteResponse = readRandomQuoteUseCase.readRandomQuote()
             if (!Quotes.QUOTES.contains(
                     QuoteValueObject(quoteResponse.quote, quoteResponse.quoter)
                 )

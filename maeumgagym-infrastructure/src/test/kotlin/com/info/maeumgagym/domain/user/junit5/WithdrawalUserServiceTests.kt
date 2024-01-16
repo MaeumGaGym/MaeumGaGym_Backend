@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 @SpringBootTest
 class WithdrawalUserServiceTests @Autowired constructor(
-    private val withdrawalUserService: WithdrawalUserUseCase,
+    private val withdrawalUserUseCase: WithdrawalUserUseCase,
     private val userRepository: UserRepository,
     private val userMapper: UserMapper,
     private val deletedAtRepository: DeletedAtRepository
@@ -43,7 +43,7 @@ class WithdrawalUserServiceTests @Autowired constructor(
     @Test
     fun withdrawalUser() {
         Assertions.assertDoesNotThrow {
-            withdrawalUserService.withdrawal()
+            withdrawalUserUseCase.withdrawal()
         }
         Assertions.assertNull(userRepository.findByIdOrNull(user.id!!))
         Assertions.assertNotNull(deletedAtRepository.findByIdOrNull(user.id!!))
