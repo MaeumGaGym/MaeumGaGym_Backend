@@ -7,6 +7,8 @@ import com.info.maeumgagym.user.model.Role
 import com.info.maeumgagym.user.model.User
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 internal object UserTestModule {
 
@@ -16,7 +18,7 @@ internal object UserTestModule {
         "https://lh3.googleusercontent.com/a/ACg8ocJqPiMvxq0HiLHPr4_mDgUMvp2RZaeWZpOnvM3_90E9=s360-c-no"
     val TEST_USER_ROLES = listOf(Role.USER)
         get() = field.toMutableList()
-    const val TEST_USER_WAKA = 0L
+    val TEST_USER_WAKA = null
 
     const val OTHER_USER_NICKNAME = "다른 유저 닉네임"
     const val OTHER_USER_OAUTH_ID = "otherUserOAuthId"
@@ -24,7 +26,7 @@ internal object UserTestModule {
         "https://lh3.googleusercontent.com/a/ACg8ocJqPiMvxq0HiLHPr4_mDgUMvp2RZaeWZpOnvM3_90E9=s360-c-no"
     val OTHER_USER_ROLES = listOf(Role.USER)
         get() = field.toMutableList()
-    const val OTHER_USER_WAKA = 756423129L
+    val OTHER_USER_WAKA = LocalDateTime.of(2024, 1, 15, 14, 30)
 
     fun createTestUser(): UserJpaEntity =
         UserJpaEntity(
@@ -32,7 +34,7 @@ internal object UserTestModule {
             oauthId = TEST_USER_OAUTH_ID,
             profileImage = TEST_PROFILE_IMAGE,
             roles = TEST_USER_ROLES.toMutableList(),
-            wakatime = TEST_USER_WAKA
+            startedAt = TEST_USER_WAKA
         )
 
     fun createOtherUser(): UserJpaEntity =
@@ -41,7 +43,7 @@ internal object UserTestModule {
             oauthId = OTHER_USER_OAUTH_ID,
             profileImage = OTHER_PROFILE_IMAGE,
             roles = OTHER_USER_ROLES.toMutableList(),
-            wakatime = OTHER_USER_WAKA
+            startedAt = OTHER_USER_WAKA
         )
 
     fun UserJpaEntity.saveInRepository(userRepository: UserRepository): UserJpaEntity =
