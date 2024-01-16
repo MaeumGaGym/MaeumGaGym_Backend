@@ -11,7 +11,7 @@ import com.info.maeumgagym.pickle.port.out.ReadPickleByIdPort
 import com.info.maeumgagym.pickle.port.out.SavePicklePort
 
 @UseCase
-class UpdatePickleService(
+internal class UpdatePickleService(
     private val savePicklePort: SavePicklePort,
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val readPickleByIdPort: ReadPickleByIdPort

@@ -8,7 +8,7 @@ import com.info.maeumgagym.feign.oauth.google.GoogleInfoClient
 import org.springframework.stereotype.Component
 
 @Component
-class GoogleAuthAdapter(
+internal class GoogleAuthAdapter(
     private val googleInfoClient: GoogleInfoClient,
     private val googleAuthClient: GoogleAuthClient
 ) : GetGoogleInfoPort, RevokeGoogleTokenPort {

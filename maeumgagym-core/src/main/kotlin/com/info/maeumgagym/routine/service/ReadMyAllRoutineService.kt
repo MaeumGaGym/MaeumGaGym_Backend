@@ -13,7 +13,7 @@ import java.time.format.TextStyle
 import java.util.*
 
 @UseCase
-class ReadMyAllRoutineService(
+internal class ReadMyAllRoutineService(
     private val readAllRoutineByUserIdPort: ReadAllRoutineByUserIdPort,
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : ReadAllMyRoutineUseCase {

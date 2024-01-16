@@ -7,7 +7,7 @@ import com.info.maeumgagym.pose.port.`in`.ReadByIdUseCase
 import com.info.maeumgagym.pose.port.out.FindPoseByIdPort
 
 @UseCase
-class ReadPoseService(
+internal class ReadPoseService(
     private val findPoseByIdPort: FindPoseByIdPort
 ) : ReadByIdUseCase {
 

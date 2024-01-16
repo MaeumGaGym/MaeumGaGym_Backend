@@ -17,7 +17,7 @@ import com.info.maeumgagym.pose.exception.PoseNotFoundException
 import com.info.maeumgagym.pose.port.out.FindPoseByIdPort
 
 @UseCase
-class LoadPickleService(
+internal class LoadPickleService(
     private val readAllPicklesPort: ReadAllPicklesPort,
     private val readPickleByIdPort: ReadPickleByIdPort,
     private val generateUploadURLPort: GenerateUploadURLPort,

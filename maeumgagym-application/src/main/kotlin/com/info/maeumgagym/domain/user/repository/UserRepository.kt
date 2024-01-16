@@ -35,7 +35,7 @@ interface UserRepository : JpaRepository<UserJpaEntity, UUID> {
     @Query(
         value = "DELETE users, delete_at " +
             "FROM ${TableNames.USER_TABLE} users " +
-            "JOIN ${TableNames.DELETED_AT_TABLE} delete_at ON users.id = delete_at.id " +
+            "JOIN ${TableNames.DELETED_AT_TABLE} delete_at ON users.id = delete_at.user_id " +
             "WHERE users.is_deleted = true " +
             "AND delete_at.date <= DATE_SUB(NOW(), INTERVAL 30 DAY)",
         nativeQuery = true

@@ -14,7 +14,7 @@ import com.info.maeumgagym.pickle.port.out.SavePickleReplyCommentPort
 import java.time.LocalDateTime
 
 @UseCase
-class CreatePickleReplyCommentService(
+internal class CreatePickleReplyCommentService(
     private val savePickleReplyCommentPort: SavePickleReplyCommentPort,
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val readPickleCommentPort: ReadPickleCommentPort,
