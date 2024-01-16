@@ -43,7 +43,6 @@ class CreatePickleReplyCommentService(
                     videoId = videoId,
                     writerId = user.id,
                     parentComment = parentComment,
-                    createdAt = LocalDateTime.now()
                 )
             )
         }
