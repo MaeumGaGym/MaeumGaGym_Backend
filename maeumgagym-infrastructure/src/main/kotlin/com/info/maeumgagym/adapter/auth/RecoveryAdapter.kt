@@ -9,7 +9,7 @@ import com.info.maeumgagym.user.port.out.SaveUserPort
 import org.springframework.stereotype.Component
 
 @Component
-class RecoveryAdapter(
+internal class RecoveryAdapter(
     private val findDeletedUserByIdPort: FindDeletedUserByIdPort,
     private val deleteDeletedAtPort: DeleteDeletedAtPort,
     private val saveUserPort: SaveUserPort

@@ -1,7 +1,9 @@
 package com.info.maeumgagym.domain.pickle.mapper
 
 import com.info.maeumgagym.domain.pickle.entity.PickleCommentJpaEntity
+import com.info.maeumgagym.domain.pickle.entity.PickleReplyJpaEntity
 import com.info.maeumgagym.pickle.model.PickleComment
+import com.info.maeumgagym.pickle.model.PickleReply
 import org.springframework.stereotype.Component
 
 @Component
@@ -13,8 +15,7 @@ class PickleCommentMapper {
                 content = content,
                 videoId = videoId,
                 writerId = writerId,
-                createdAt = createdAt,
-                parentComment = pickleComment.parentComment?.let { toEntity(it) }
+                createdAt = createdAt
             )
         }
     }
@@ -26,8 +27,33 @@ class PickleCommentMapper {
                 content = content,
                 videoId = videoId,
                 writerId = writerId,
+                createdAt = createdAt
+            )
+        }
+    }
+
+    fun toEntity(pickleReply: PickleReply): PickleReplyJpaEntity {
+        return pickleReply.run {
+            PickleReplyJpaEntity(
+                id = id,
+                content = content,
+                videoId = videoId,
+                writerId = writerId,
                 createdAt = createdAt,
-                parentComment = pickleCommentJpaEntity.parentComment?.let { toDomain(it) }
+                parentComment = toEntity(parentComment)
+            )
+        }
+    }
+
+    fun toDomain(pickleReplyJpaEntity: PickleReplyJpaEntity): PickleReply {
+        return pickleReplyJpaEntity.run {
+            PickleReply(
+                id = id,
+                content = content,
+                videoId = videoId,
+                writerId = writerId,
+                createdAt = createdAt,
+                parentComment = toDomain(parentComment)
             )
         }
     }

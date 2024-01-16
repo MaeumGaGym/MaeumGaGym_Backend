@@ -6,7 +6,7 @@ import io.jsonwebtoken.Claims
 import org.springframework.stereotype.Component
 
 @Component
-class AppleAuthAdapter(
+internal class AppleAuthAdapter(
     private val appleClient: AppleClient,
     private val appleJwtParsePort: AppleJwtParsePort,
     private val generatePublicKeyPort: GeneratePublicKeyPort,

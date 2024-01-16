@@ -10,7 +10,7 @@ import com.info.maeumgagym.pickle.port.out.SavePickleCommentPort
 import org.springframework.data.repository.findByIdOrNull
 
 @PersistenceAdapter
-class PickleCommentPersistenceAdapter(
+internal class PickleCommentPersistenceAdapter(
     private val pickleCommentRepository: PickleCommentRepository,
     private val pickleCommentMapper: PickleCommentMapper
 ): SavePickleCommentPort, ReadPickleCommentPort, ReadAllPickleCommentsByVideoIdPort {

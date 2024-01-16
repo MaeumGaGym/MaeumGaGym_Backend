@@ -16,6 +16,8 @@ object TableNames {
 
     const val PICKLE_LIKE_TABLE = "${TABLE_PREFIX}pickle_like"
 
+    const val PICKLE_MAP_TABLE = "${TABLE_PREFIX}pickle_comments"
+
     const val PICKLE_COMMENT_TABLE = "${TABLE_PREFIX}pickle_comment"
 
     const val PICKLE_REPLY_TABLE = "${TABLE_PREFIX}pickle_reply"
@@ -23,4 +25,8 @@ object TableNames {
     const val ACCESS_TOKEN_TABLE = "${TABLE_PREFIX}access"
 
     const val REFRESH_TOKEN_TABLE = "${TABLE_PREFIX}refresh"
+
+    const val WAKA_TIME_TABLE = "${TABLE_PREFIX}waka_time"
+
+    const val WAKA_START_TABLE = "${TABLE_PREFIX}waka_start"
 }

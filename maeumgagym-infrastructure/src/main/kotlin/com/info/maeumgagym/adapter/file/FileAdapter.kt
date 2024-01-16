@@ -9,7 +9,7 @@ import com.info.maeumgagym.pickle.port.out.GetPreSignedURLPort
 import org.springframework.stereotype.Component
 
 @Component
-class FileAdapter(
+internal class FileAdapter(
     private val fileClient: FileClient,
     private val fileProperty: FileProperty
 ) : GetPreSignedURLPort, FeignDeletePicklePort, GenerateUploadURLPort {

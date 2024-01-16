@@ -11,7 +11,7 @@ import com.info.maeumgagym.pickle.port.out.SavePickleCommentPort
 import java.time.LocalDateTime
 
 @UseCase
-class CreatePickleCommentService(
+internal class CreatePickleCommentService(
     private val savePickleCommentPort: SavePickleCommentPort,
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val existsPickleByIdPort: ExistsPickleByIdPort
@@ -28,8 +28,7 @@ class CreatePickleCommentService(
                 PickleComment(
                     content = content,
                     videoId = videoId,
-                    writerId = user.id,
-                    createdAt = LocalDateTime.now()
+                    writerId = user.id
                 )
             )
         }

@@ -9,27 +9,31 @@ import org.springframework.stereotype.Component
 @Component
 class UserMapper {
 
-    fun toEntity(user: User): UserJpaEntity {
-        return UserJpaEntity(
-            id = user.id,
-            nickname = user.nickname,
-            oauthId = user.oauthId,
-            roles = user.roles,
-            profileImage = user.profileImage,
-            isDelete = user.isDeleted
-        )
-    }
+    fun toEntity(domain: User): UserJpaEntity =
+        domain.run {
+            UserJpaEntity(
+                id = id,
+                nickname = nickname,
+                oauthId = oauthId,
+                roles = roles,
+                profileImage = profileImage,
+                wakaStartedAt = wakaStartedAt,
+                isDelete = isDeleted
+            )
+        }
 
-    fun toDomain(userJpaEntity: UserJpaEntity): User {
-        return User(
-            id = userJpaEntity.id!!,
-            nickname = userJpaEntity.nickname,
-            oauthId = userJpaEntity.oauthId,
-            roles = userJpaEntity.roles,
-            profileImage = userJpaEntity.profileImage,
-            isDeleted = userJpaEntity.isDeleted
-        )
-    }
+    fun toDomain(entity: UserJpaEntity): User =
+        entity.run {
+            User(
+                id = id!!,
+                nickname = nickname,
+                oauthId = oauthId,
+                roles = roles,
+                profileImage = profileImage,
+                wakaStartedAt = wakaStartedAt,
+                isDeleted = isDeleted
+            )
+        }
 
     fun toEntity(domain: DeletedAt) = DeletedAtJpaEntity(
         domain.userId,
