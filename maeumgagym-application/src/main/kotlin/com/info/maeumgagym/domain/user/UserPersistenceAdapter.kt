@@ -36,6 +36,11 @@ class UserPersistenceAdapter(
         return userMapper.toDomain(userJpaEntity)
     }
 
+    override fun saveUserAnFlush(user: User): User =
+        userMapper.toDomain(
+            userRepository.saveAndFlush(userMapper.toEntity(user))
+        )
+
     override fun findUserByOAuthId(oauthId: String): User? =
         userRepository.findByOauthId(oauthId)?.let { userMapper.toDomain(it) }
 
