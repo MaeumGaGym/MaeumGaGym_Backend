@@ -17,7 +17,7 @@ class UserMapper {
                 oauthId = oauthId,
                 roles = roles,
                 profileImage = profileImage,
-                startedAt = startedAt,
+                wakaStartedAt = wakaStartedAt,
                 isDelete = isDeleted
             )
         }
@@ -30,7 +30,7 @@ class UserMapper {
                 oauthId = oauthId,
                 roles = roles,
                 profileImage = profileImage,
-                startedAt = startedAt,
+                wakaStartedAt = wakaStartedAt,
                 isDeleted = isDeleted
             )
         }

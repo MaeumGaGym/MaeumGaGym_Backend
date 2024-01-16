@@ -23,7 +23,7 @@ class UserJpaEntity(
     oauthId: String,
     roles: MutableList<Role>,
     profileImage: String?,
-    startedAt: LocalDateTime? = null,
+    wakaStartedAt: LocalDateTime? = null,
     isDelete: Boolean = false,
     id: UUID? = null
 ) : BaseUUIDEntity(id) {
@@ -52,7 +52,7 @@ class UserJpaEntity(
     var wakaTime: MutableList<WakaTimeJpaEntity> = arrayListOf()
         protected set
 
-    @Column(name = "started_at")
-    var startedAt: LocalDateTime? = startedAt
+    @Column(name = "waka_started_at")
+    var wakaStartedAt: LocalDateTime? = wakaStartedAt
         protected set
 }

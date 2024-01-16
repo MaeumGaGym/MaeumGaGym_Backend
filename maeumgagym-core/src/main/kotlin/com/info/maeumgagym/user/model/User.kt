@@ -9,6 +9,6 @@ data class User(
     val roles: MutableList<Role> = mutableListOf(),
     val oauthId: String,
     var profileImage: String? = null,
-    var startedAt: LocalDateTime? = null,
+    var wakaStartedAt: LocalDateTime? = null,
     var isDeleted: Boolean = false
 )

@@ -7,7 +7,6 @@ import com.info.maeumgagym.user.model.Role
 import com.info.maeumgagym.user.model.User
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 internal object UserTestModule {
@@ -34,7 +33,7 @@ internal object UserTestModule {
             oauthId = TEST_USER_OAUTH_ID,
             profileImage = TEST_PROFILE_IMAGE,
             roles = TEST_USER_ROLES.toMutableList(),
-            startedAt = TEST_USER_WAKA
+            wakaStartedAt = TEST_USER_WAKA
         )
 
     fun createOtherUser(): UserJpaEntity =
@@ -43,7 +42,7 @@ internal object UserTestModule {
             oauthId = OTHER_USER_OAUTH_ID,
             profileImage = OTHER_PROFILE_IMAGE,
             roles = OTHER_USER_ROLES.toMutableList(),
-            startedAt = OTHER_USER_WAKA
+            wakaStartedAt = OTHER_USER_WAKA
         )
 
     fun UserJpaEntity.saveInRepository(userRepository: UserRepository): UserJpaEntity =

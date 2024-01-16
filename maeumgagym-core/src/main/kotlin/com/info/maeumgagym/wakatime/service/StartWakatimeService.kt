@@ -19,7 +19,7 @@ class StartWakatimeService(
         val user = readCurrentUserPort.readCurrentUser()
 
         // 이미 와카타임을 시작했는지 확인, 이미 시작했다면 -> Exception
-        user.startedAt?.let { throw AlreadyWakaStartedException }
+        user.wakaStartedAt?.let { throw AlreadyWakaStartedException }
 
         // 와카타임 시작
         user.run {
@@ -30,7 +30,7 @@ class StartWakatimeService(
                     roles = roles,
                     oauthId = oauthId,
                     profileImage = profileImage,
-                    startedAt = LocalDateTime.now(),
+                    wakaStartedAt = LocalDateTime.now(),
                     isDeleted = isDeleted
                 )
             )

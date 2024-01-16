@@ -26,8 +26,7 @@ class EndWakatimeService(
         val user = readCurrentUserPort.readCurrentUser()
 
         // 와카타임 시작 시간 불러오기
-        val wakaStarted = user.startedAt
-            ?: throw WakaStartedNotYetException
+        val wakaStarted = user.wakaStartedAt ?: throw WakaStartedNotYetException
 
         // 와카타임 구하기
         val seconds = Duration.between(wakaStarted, LocalDateTime.now()).seconds
@@ -52,14 +51,14 @@ class EndWakatimeService(
 
         // 와카타임 시작시간 초기화
         user.run {
-            saveUserPort.saveUserAnFlush(
+            saveUserPort.saveUserAndFlush(
                 User(
                     id = id,
                     nickname = nickname,
                     roles = roles,
                     oauthId = oauthId,
                     profileImage = profileImage,
-                    startedAt = null,
+                    wakaStartedAt = null,
                     isDeleted = isDeleted
                 )
             )
