@@ -15,7 +15,7 @@ abstract class BaseUUIDTimeEntity(
 ) : BaseTimeEntity(createdAt) {
     @Id
     @GeneratedValue(generator = "uuid4")
-    @GenericGenerator(name = "uuid4", strategy = "uuid4")
+    @GenericGenerator(name = "uuid4", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(
         columnDefinition = "BINARY(16)",
         nullable = false
