@@ -14,8 +14,8 @@ abstract class BaseUUIDTimeEntity(
     createdAt: LocalDateTime?
 ) : BaseTimeEntity(createdAt) {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @GeneratedValue(generator = "uuid4")
+    @GenericGenerator(name = "uuid4", strategy = "uuid4")
     @Column(
         columnDefinition = "BINARY(16)",
         nullable = false
