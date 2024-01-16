@@ -27,7 +27,7 @@ internal class CreatePickleCommentService(
                 PickleComment(
                     content = content,
                     videoId = videoId,
-                    writerId = user.id
+                    writer = user
                 )
             )
         }
