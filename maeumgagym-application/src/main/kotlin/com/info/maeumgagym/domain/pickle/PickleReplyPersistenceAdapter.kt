@@ -7,7 +7,7 @@ import com.info.maeumgagym.pickle.model.PickleReply
 import com.info.maeumgagym.pickle.port.out.SavePickleReplyCommentPort
 
 @PersistenceAdapter
-class PickleReplyPersistenceAdapter(
+internal class PickleReplyPersistenceAdapter(
     private val pickleReplyRepository: PickleReplyRepository,
     private val pickleCommentMapper: PickleCommentMapper
 ): SavePickleReplyCommentPort {
