@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class PickleCommentMapper {
-    fun toEntity(comment: PickleComment): PickleCommentJpaEntity {
-        return comment.run {
+    fun toEntity(pickleComment: PickleComment): PickleCommentJpaEntity {
+        return pickleComment.run {
             PickleCommentJpaEntity(
                 id = id,
                 content = content,
@@ -20,8 +20,8 @@ class PickleCommentMapper {
         }
     }
 
-    fun toDomain(entity: PickleCommentJpaEntity): PickleComment {
-        return entity.run {
+    fun toDomain(pickleCommentJpaEntity: PickleCommentJpaEntity): PickleComment {
+        return pickleCommentJpaEntity.run {
             PickleComment(
                 id = id,
                 content = content,
@@ -32,8 +32,8 @@ class PickleCommentMapper {
         }
     }
 
-    fun toEntity(reply: PickleReply): PickleReplyJpaEntity {
-        return reply.run {
+    fun toEntity(pickleReply: PickleReply): PickleReplyJpaEntity {
+        return pickleReply.run {
             PickleReplyJpaEntity(
                 id = id,
                 content = content,
@@ -45,8 +45,8 @@ class PickleCommentMapper {
         }
     }
 
-    fun toDomain(entity: PickleReplyJpaEntity): PickleReply {
-        return entity.run {
+    fun toDomain(pickleReplyJpaEntity: PickleReplyJpaEntity): PickleReply {
+        return pickleReplyJpaEntity.run {
             PickleReply(
                 id = id,
                 content = content,
