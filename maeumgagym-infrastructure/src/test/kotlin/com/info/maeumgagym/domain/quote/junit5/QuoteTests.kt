@@ -1,7 +1,7 @@
 package com.info.maeumgagym.domain.quote.junit5
 
 import com.info.maeumgagym.domain.quote.exception.MismatchQuoteAndQuoterException
-import com.info.maeumgagym.quote.service.ReadRandomQuoteService
+import com.info.maeumgagym.quote.port.`in`.ReadRandomQuoteUseCase
 import com.info.maeumgagym.quote.vo.QuoteValueObject
 import com.info.maeumgagym.quote.vo.Quotes
 import org.junit.jupiter.api.Assertions
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 @SpringBootTest
 class QuoteTests @Autowired constructor(
-    private val readRandomQuoteService: ReadRandomQuoteService
+    private val readRandomQuoteService: ReadRandomQuoteUseCase
 ) {
 
     @RepeatedTest(value = 10)

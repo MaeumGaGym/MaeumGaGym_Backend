@@ -7,10 +7,9 @@ import com.info.maeumgagym.domain.routine.repository.RoutineRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.module.UserTestModule
-import com.info.maeumgagym.domain.user.module.UserTestModule.saveInContext
 import com.info.maeumgagym.domain.user.module.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
-import com.info.maeumgagym.routine.service.ReadMyAllRoutineService
+import com.info.maeumgagym.routine.port.`in`.ReadAllMyRoutineUseCase
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -22,7 +21,7 @@ import kotlin.random.Random
 @Transactional
 @SpringBootTest
 class ReadRoutineServiceTests @Autowired constructor(
-    private val readMyAllRoutineService: ReadMyAllRoutineService,
+    private val readMyAllRoutineService: ReadAllMyRoutineUseCase,
     private val routineRepository: RoutineRepository,
     private val userRepository: UserRepository,
     private val userMapper: UserMapper

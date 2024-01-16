@@ -1,6 +1,6 @@
 package com.info.maeumgagym.domain.auth.junit5
 
-import com.info.maeumgagym.auth.service.DuplicatedCheckService
+import com.info.maeumgagym.auth.port.`in`.DuplicatedNicknameCheckUseCase
 import com.info.maeumgagym.domain.user.module.UserTestModule
 import com.info.maeumgagym.domain.user.module.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 @SpringBootTest
 class DuplicatedCheckServiceTests @Autowired constructor(
-    private val duplicatedCheckService: DuplicatedCheckService,
+    private val duplicatedCheckService: DuplicatedNicknameCheckUseCase,
     private val userRepository: UserRepository
 ) {
 

@@ -1,7 +1,6 @@
 package com.info.maeumgagym.domain.user.junit5
 
-import com.info.maeumgagym.adapter.auth.ReadCurrentUserAdapter
-import com.info.maeumgagym.auth.service.WithdrawalUserService
+import com.info.maeumgagym.auth.port.`in`.WithdrawalUserUseCase
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
@@ -9,7 +8,6 @@ import com.info.maeumgagym.domain.user.module.UserTestModule
 import com.info.maeumgagym.domain.user.module.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.repository.DeletedAtRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
-import com.info.maeumgagym.global.exception.UnAuthorizedException
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -21,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 @SpringBootTest
 class WithdrawalUserServiceTests @Autowired constructor(
-    private val withdrawalUserService: WithdrawalUserService,
+    private val withdrawalUserService: WithdrawalUserUseCase,
     private val userRepository: UserRepository,
     private val userMapper: UserMapper,
     private val deletedAtRepository: DeletedAtRepository
