@@ -12,7 +12,7 @@ class PickleReplyPersistenceAdapter(
     private val pickleReplyRepository: PickleReplyRepository,
     private val pickleCommentMapper: PickleCommentMapper
 ): SavePickleReplyCommentPort {
-    override fun savePickleReplyComment(pickleReply: PickleReply) {
-        pickleReplyRepository.save(pickleCommentMapper.toEntity(pickleReply))
-    }
+    override fun savePickleReplyComment(pickleReply: PickleReply): PickleReply =
+        pickleCommentMapper.toDomain(pickleReplyRepository.save(pickleCommentMapper.toEntity(pickleReply)))
+
 }
