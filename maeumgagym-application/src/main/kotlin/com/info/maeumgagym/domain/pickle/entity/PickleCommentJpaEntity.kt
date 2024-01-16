@@ -15,7 +15,7 @@ class PickleCommentJpaEntity(
     id: Long? = null
 ) : PickleCommentMappedEntity(content, videoId, writerId, createdAt, id) {
 
-    @OneToMany(mappedBy = "parentComment", orphanRemoval = true)
+    @OneToMany(mappedBy = "parentComment", orphanRemoval = true, cascade = [CascadeType.REMOVE])
     var childrenComments: MutableList<PickleReplyJpaEntity> = arrayListOf()
         protected set
 }
