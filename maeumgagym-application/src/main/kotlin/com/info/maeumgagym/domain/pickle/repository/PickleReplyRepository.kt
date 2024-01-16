@@ -1,10 +1,10 @@
 package com.info.maeumgagym.domain.pickle.repository
 
 import com.info.maeumgagym.domain.pickle.entity.PickleCommentJpaEntity
+import com.info.maeumgagym.domain.pickle.entity.PickleReplyJpaEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface PickleCommentRepository : JpaRepository<PickleCommentJpaEntity, Long> {
-    fun findAllByVideoId(videoId: String): List<PickleCommentJpaEntity>
+interface PickleReplyRepository : JpaRepository<PickleReplyJpaEntity, Long> {
 }
