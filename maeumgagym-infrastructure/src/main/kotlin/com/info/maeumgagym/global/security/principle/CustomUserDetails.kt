@@ -8,11 +8,11 @@ import org.springframework.security.core.userdetails.UserDetails
 class CustomUserDetails(
     val user: User
 ) : UserDetails {
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        val authList: MutableList<SimpleGrantedAuthority> = mutableListOf()
-        user.roles.forEach { authList.add(SimpleGrantedAuthority(it.name)) }
-        return authList
-    }
+
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
+        user.roles.map {
+            SimpleGrantedAuthority(it.name)
+        }.toMutableList()
 
     override fun getPassword(): String? = null
 
