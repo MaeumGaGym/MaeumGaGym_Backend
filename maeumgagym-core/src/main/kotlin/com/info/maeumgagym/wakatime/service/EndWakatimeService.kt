@@ -33,22 +33,6 @@ class EndWakatimeService(
 
         val now = LocalDate.now()
 
-        // 먼저 생성한 와카타임 있는지 확인
-        val wakaTime = readWakaTimeFromUserAndDatePort.findByUserAndDate(user, now)
-            ?.let {
-                // 있으면 waka += seconds
-                WakaTime(
-                    user = it.user,
-                    waka = it.waka + seconds,
-                    date = it.date
-                )
-            } ?: WakaTime(
-            // 없으면 waka = seconds
-            user = user,
-            waka = seconds,
-            date = now
-        )
-
         // 와카타임 시작시간 초기화
         user.run {
             saveUserPort.saveUser(
@@ -63,6 +47,23 @@ class EndWakatimeService(
                 )
             )
         }
+
+        // 먼저 생성한 와카타임 있는지 확인
+        val wakaTime = readWakaTimeFromUserAndDatePort.findByUserAndDate(user, now)
+            ?.let {
+                // 있으면 waka += seconds
+                WakaTime(
+                    user = it.user,
+                    waka = it.waka + seconds,
+                    date = it.date,
+                    isNew = it.isNew
+                )
+            } ?: WakaTime(
+            // 없으면 waka = seconds
+            user = user,
+            waka = seconds,
+            date = now
+        )
 
         // wakatime save
         saveWakaTimePort.save(wakaTime)
