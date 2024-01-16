@@ -3,17 +3,17 @@ package com.info.maeumgagym.domain.user.entity
 import com.info.maeumgagym.TableNames
 import com.info.maeumgagym.domain.base.BaseUUIDEntity
 import com.info.maeumgagym.domain.user.converter.RoleConverter
-import com.info.maeumgagym.domain.wakatime.entity.WakaStartedJpaEntity
 import com.info.maeumgagym.domain.wakatime.entity.WakaTimeJpaEntity
 import com.info.maeumgagym.user.model.Role
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
+import java.time.LocalDateTime
 import java.util.*
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Convert
 import javax.persistence.Entity
-import javax.persistence.OneToOne
+import javax.persistence.OneToMany
 
 @Where(clause = "is_deleted = false")
 @SQLDelete(sql = "UPDATE ${TableNames.USER_TABLE} SET is_deleted = true WHERE id = ?")
@@ -23,6 +23,7 @@ class UserJpaEntity(
     oauthId: String,
     roles: MutableList<Role>,
     profileImage: String?,
+    startedAt: LocalDateTime? = null,
     isDelete: Boolean = false,
     id: UUID? = null
 ) : BaseUUIDEntity(id) {
@@ -47,11 +48,11 @@ class UserJpaEntity(
     var profileImage: String? = profileImage
         protected set
 
-    @OneToOne(mappedBy = "user", cascade = [CascadeType.REMOVE])
-    var wakaTime: WakaTimeJpaEntity? = null
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.REMOVE])
+    var wakaTime: MutableList<WakaTimeJpaEntity> = arrayListOf()
         protected set
 
-    @OneToOne(mappedBy = "user", cascade = [CascadeType.REMOVE])
-    var wakaStarted: WakaStartedJpaEntity? = null
+    @Column(name = "started_at")
+    var startedAt: LocalDateTime? = startedAt
         protected set
 }

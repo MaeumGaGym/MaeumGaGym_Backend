@@ -1,6 +1,7 @@
 package com.info.maeumgagym.domain.wakatime
 
 import com.info.common.PersistenceAdapter
+import com.info.maeumgagym.domain.wakatime.entity.WakaTimeJpaEntity
 import com.info.maeumgagym.domain.wakatime.mapper.WakaMapper
 import com.info.maeumgagym.domain.wakatime.repository.WakaTimeRepository
 import com.info.maeumgagym.user.model.User
@@ -21,7 +22,9 @@ class WakaTimePersistenceAdapter(
         )
 
     override fun findByUserAndDate(user: User, date: LocalDate): WakaTime? =
-        wakaTimeRepository.findByIdAndDate(user.id, date)?.let {
+        wakaTimeRepository.findByIdOrNull(
+            WakaTimeJpaEntity.IdClass(user.id, date)
+        )?.let {
             wakaMapper.toDomain(it)
         }
 }

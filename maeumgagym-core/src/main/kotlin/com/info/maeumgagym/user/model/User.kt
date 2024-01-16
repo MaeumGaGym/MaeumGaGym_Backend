@@ -1,5 +1,6 @@
 package com.info.maeumgagym.user.model
 
+import java.time.LocalDateTime
 import java.util.*
 
 data class User(
@@ -8,5 +9,6 @@ data class User(
     val roles: MutableList<Role> = mutableListOf(),
     val oauthId: String,
     var profileImage: String? = null,
+    var startedAt: LocalDateTime? = null,
     var isDeleted: Boolean = false
 )

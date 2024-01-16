@@ -5,7 +5,6 @@ import java.time.LocalDate
 import java.util.UUID
 
 data class WakaTime (
-    val id: UUID? = null,
     val user: User,
     val waka: Long,
     val date: LocalDate = LocalDate.now(),
