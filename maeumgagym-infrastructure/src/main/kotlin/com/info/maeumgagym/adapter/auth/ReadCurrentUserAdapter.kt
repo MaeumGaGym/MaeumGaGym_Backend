@@ -7,7 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 
 @Component
-class ReadCurrentUserAdapter : ReadCurrentUserPort {
+internal class ReadCurrentUserAdapter : ReadCurrentUserPort {
 
     override fun readCurrentUser(): User =
         // jwt filter에서 집어 넣은 user를 context holder에서 꺼내오기
