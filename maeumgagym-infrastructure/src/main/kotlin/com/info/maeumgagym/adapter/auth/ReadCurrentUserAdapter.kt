@@ -11,5 +11,5 @@ class ReadCurrentUserAdapter : ReadCurrentUserPort {
 
     override fun readCurrentUser(): User =
         // jwt filter에서 집어 넣은 user를 context holder에서 꺼내오기
-        (SecurityContextHolder.getContext().authentication.details as CustomUserDetails).user
+        (SecurityContextHolder.getContext().authentication.principal as CustomUserDetails).user
 }
