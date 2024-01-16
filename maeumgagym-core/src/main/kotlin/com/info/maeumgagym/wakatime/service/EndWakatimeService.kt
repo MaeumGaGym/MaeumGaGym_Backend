@@ -51,7 +51,7 @@ class EndWakatimeService(
 
         // 와카타임 시작시간 초기화
         user.run {
-            saveUserPort.saveUserAndFlush(
+            saveUserPort.saveUser(
                 User(
                     id = id,
                     nickname = nickname,

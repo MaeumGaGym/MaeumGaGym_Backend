@@ -4,6 +4,4 @@ import com.info.maeumgagym.user.model.User
 
 interface SaveUserPort {
     fun saveUser(user: User): User
-
-    fun saveUserAndFlush(user: User): User
 }
