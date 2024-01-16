@@ -12,6 +12,7 @@ import com.info.maeumgagym.wakatime.port.out.SaveWakaTimePort
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 @UseCase
 internal class EndWakatimeService(
@@ -28,10 +29,11 @@ internal class EndWakatimeService(
         // 와카타임 시작 시간 불러오기
         val wakaStarted = user.wakaStartedAt ?: throw WakaStartedNotYetException
 
-        // 와카타임 구하기
-        val seconds = Duration.between(wakaStarted, LocalDateTime.now()).seconds
-
-        val now = LocalDate.now()
+        if (wakaStarted.toLocalDate().isBefore(LocalDate.now())) {
+            saveWakaTimeWhenStartedYesterday(user)
+        } else {
+            saveWakaTimeWhenStartedToday(user)
+        }
 
         // 와카타임 시작시간 초기화
         user.run {
@@ -47,25 +49,60 @@ internal class EndWakatimeService(
                 )
             )
         }
+    }
 
-        // 먼저 생성한 와카타임 있는지 확인
-        val wakaTime = readWakaTimeFromUserAndDatePort.findByUserAndDate(user, now)
-            ?.let {
-                // 있으면 waka += seconds
-                WakaTime(
-                    user = it.user,
-                    waka = it.waka + seconds,
-                    date = it.date,
-                    isNew = it.isNew
-                )
-            } ?: WakaTime(
+    private fun saveWakaTimeWhenStartedToday(user: User) {
+        val nowDate = LocalDate.now()
+
+        val seconds = Duration.between(user.wakaStartedAt!!, LocalDateTime.now()).seconds
+
+        saveWakaTimePort.save(readWakaTimeFromUserAndDatePort.findByUserAndDate(user, nowDate)?.let {
+            WakaTime(
+                user = it.user,
+                waka = it.waka + seconds,
+                date = it.date,
+                isNew = it.isNew
+            )
+        } ?: WakaTime(
             // 없으면 waka = seconds
             user = user,
             waka = seconds,
-            date = now
-        )
+            date = nowDate
+        ))
+    }
 
-        // wakatime save
-        saveWakaTimePort.save(wakaTime)
+    private fun saveWakaTimeWhenStartedYesterday(user: User) {
+        val nowDate = LocalDate.now()
+
+        val seconds = Duration.between(
+            user.wakaStartedAt!!,
+            LocalDateTime.of(nowDate, LocalTime.of(0, 0))
+        ).seconds
+
+        saveWakaTimePort.save(
+            readWakaTimeFromUserAndDatePort.findByUserAndDate(user, nowDate.minusDays(1))
+                ?.let {
+                    WakaTime(
+                        user = it.user,
+                        waka = it.waka + seconds,
+                        date = it.date,
+                        isNew = it.isNew
+                    )
+                } ?: WakaTime(
+                user = user,
+                waka = seconds,
+                date = nowDate
+            ))
+
+        saveWakaTimePort.save(
+            WakaTime(
+                user = user,
+                waka = Duration.between(
+                    LocalDateTime.of(nowDate, LocalTime.of(0, 0)),
+                    LocalDateTime.now()
+                ).seconds,
+                date = nowDate
+            )
+        )
     }
 }
