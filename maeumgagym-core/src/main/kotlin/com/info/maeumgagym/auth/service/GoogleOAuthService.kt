@@ -16,7 +16,7 @@ import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.*
 
 @UseCase
-class GoogleOAuthService(
+internal class GoogleOAuthService(
     private val getGoogleInfoPort: GetGoogleInfoPort,
     private val saveUserPort: SaveUserPort,
     private val existUserByOAuthIdPort: ExistUserByOAuthIdPort,

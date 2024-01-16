@@ -12,7 +12,7 @@ import com.info.maeumgagym.routine.port.out.ReadRoutineByIdPort
 import com.info.maeumgagym.routine.port.out.SaveRoutinePort
 
 @UseCase
-class UpdateRoutineService(
+internal class UpdateRoutineService(
     private val readRoutineByIdPort: ReadRoutineByIdPort,
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val saveRoutinePort: SaveRoutinePort

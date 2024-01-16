@@ -10,7 +10,7 @@ import com.info.maeumgagym.routine.port.`in`.CreateRoutineUseCase
 import com.info.maeumgagym.routine.port.out.SaveRoutinePort
 
 @UseCase
-class CreateRoutineService(
+internal class CreateRoutineService(
     private val saveRoutinePort: SaveRoutinePort,
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : CreateRoutineUseCase {

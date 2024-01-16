@@ -14,7 +14,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 @UseCase
-class EndWakatimeService(
+internal class EndWakatimeService(
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val readWakaTimeFromUserAndDatePort: ReadWakaTimeFromUserAndDatePort,
     private val saveWakaTimePort: SaveWakaTimePort,
