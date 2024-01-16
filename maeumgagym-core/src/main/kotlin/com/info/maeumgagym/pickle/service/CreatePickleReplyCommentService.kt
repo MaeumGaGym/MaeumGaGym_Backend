@@ -40,7 +40,7 @@ internal class CreatePickleReplyCommentService(
                 PickleReply(
                     content = content,
                     videoId = videoId,
-                    writerId = user.id,
+                    writer = user,
                     parentComment = parentComment
                 )
             )

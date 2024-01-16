@@ -1,19 +1,22 @@
 package com.info.maeumgagym.domain.pickle.entity
 
 import com.info.maeumgagym.TableNames
+import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import java.time.LocalDateTime
-import java.util.*
-import javax.persistence.*
+import javax.persistence.CascadeType
+import javax.persistence.DiscriminatorValue
+import javax.persistence.Entity
+import javax.persistence.OneToMany
 
 @Entity(name = TableNames.PICKLE_COMMENT_TABLE)
 @DiscriminatorValue(value = "comment")
 class PickleCommentJpaEntity(
     content: String,
     videoId: String,
-    writerId: UUID,
+    writer: UserJpaEntity,
     createdAt: LocalDateTime? = null,
     id: Long? = null
-) : PickleCommentMappedEntity(content, videoId, writerId, createdAt, id) {
+) : PickleCommentMappedEntity(content, videoId, writer, createdAt, id) {
 
     @OneToMany(mappedBy = "parentComment", orphanRemoval = true, cascade = [CascadeType.REMOVE])
     var childrenComments: MutableList<PickleReplyJpaEntity> = arrayListOf()

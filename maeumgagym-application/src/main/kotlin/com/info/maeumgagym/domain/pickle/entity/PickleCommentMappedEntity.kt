@@ -2,6 +2,7 @@ package com.info.maeumgagym.domain.pickle.entity
 
 import com.info.maeumgagym.TableNames
 import com.info.maeumgagym.domain.base.BaseLongIdTimeEntity
+import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
 import java.time.LocalDateTime
@@ -16,7 +17,7 @@ import javax.persistence.*
 abstract class PickleCommentMappedEntity(
     content: String,
     videoId: String,
-    writerId: UUID,
+    writer: UserJpaEntity,
     createdAt: LocalDateTime? = null,
     id: Long? = null
 ) : BaseLongIdTimeEntity(id, createdAt) {
@@ -29,8 +30,9 @@ abstract class PickleCommentMappedEntity(
     var videoId: String = videoId
         protected set
 
-    @Column(name = "writer_id", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
-    var writerId: UUID = writerId
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "writer", nullable = false)
+    var writer: UserJpaEntity = writer
         protected set
 
     @Column(name = "is_deleted", nullable = false)
