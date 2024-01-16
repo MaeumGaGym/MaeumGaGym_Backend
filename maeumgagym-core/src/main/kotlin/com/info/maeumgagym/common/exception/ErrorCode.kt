@@ -37,11 +37,13 @@ enum class ErrorCode(
     FILE_TYPE_MISS_MATCHED(400, "File, Type Miss Matched"),
     EXERCISE_LIST_CANNOT_EMPTY(400, "Exercise list cannot empty"),
     PICKLE_MISMATCH(400, "Pickle Mismathce"),
+    WAKA_STARTED_NOT_YET(400, "Wakatime Started Not Yet"),
 
     // Conflict
     DUPLICATED_NICKNAME(409, "Duplicated Nickname"),
     ALREADY_EXIST_USER(409, "Already Exists User"),
     ALREADY_EXIST_PICKLE(409, "Already Exists Pickle"),
+    ALREADY_STARTED_WAKA(409, "Already Started Wakatime"),
 
     // Test
     MISMATCH_QUOTE_AND_QUOTER(500, "Mismatch Quote and Quoter")

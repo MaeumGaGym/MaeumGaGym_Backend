@@ -3,13 +3,17 @@ package com.info.maeumgagym.domain.user.entity
 import com.info.maeumgagym.TableNames
 import com.info.maeumgagym.domain.base.BaseUUIDEntity
 import com.info.maeumgagym.domain.user.converter.RoleConverter
+import com.info.maeumgagym.domain.wakatime.entity.WakaTimeJpaEntity
 import com.info.maeumgagym.user.model.Role
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
+import java.time.LocalDateTime
 import java.util.*
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Convert
 import javax.persistence.Entity
+import javax.persistence.OneToMany
 
 @Where(clause = "is_deleted = false")
 @SQLDelete(sql = "UPDATE ${TableNames.USER_TABLE} SET is_deleted = true WHERE id = ?")
@@ -19,6 +23,7 @@ class UserJpaEntity(
     oauthId: String,
     roles: MutableList<Role>,
     profileImage: String?,
+    wakaStartedAt: LocalDateTime? = null,
     isDelete: Boolean = false,
     id: UUID? = null
 ) : BaseUUIDEntity(id) {
@@ -35,23 +40,19 @@ class UserJpaEntity(
     val oauthId: String = oauthId
 
     @Convert(converter = RoleConverter::class)
-    @Column(name = "roles", length = 15)
+    @Column(name = "roles", length = 15, nullable = false)
     var roles: MutableList<Role> = roles
         protected set
 
-    @Column(name = "profile_image", nullable = true)
+    @Column(name = "profile_image")
     var profileImage: String? = profileImage
         protected set
 
-    fun updateNickname(nickname: String) {
-        this.nickname = nickname
-    }
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.REMOVE])
+    var wakaTime: MutableList<WakaTimeJpaEntity> = arrayListOf()
+        protected set
 
-    fun restoreUser() {
-        this.isDeleted = false
-    }
-
-    fun updateProfile(profileImage: String) {
-        this.profileImage = profileImage
-    }
+    @Column(name = "waka_started_at")
+    var wakaStartedAt: LocalDateTime? = wakaStartedAt
+        protected set
 }
