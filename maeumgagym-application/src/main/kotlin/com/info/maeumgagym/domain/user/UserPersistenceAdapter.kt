@@ -36,7 +36,7 @@ class UserPersistenceAdapter(
         return userMapper.toDomain(userJpaEntity)
     }
 
-    override fun saveUserAnFlush(user: User): User =
+    override fun saveUserAndFlush(user: User): User =
         userMapper.toDomain(
             userRepository.saveAndFlush(userMapper.toEntity(user))
         )
