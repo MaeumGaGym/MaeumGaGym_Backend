@@ -15,7 +15,7 @@ import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.*
 
 @UseCase
-class KakaoOAuthService(
+internal class KakaoOAuthService(
     private val getKakaoInfoPort: GetKakaoInfoPort,
     private val generateJwtPort: GenerateJwtPort,
     private val existUserByOAuthIdPort: ExistUserByOAuthIdPort,

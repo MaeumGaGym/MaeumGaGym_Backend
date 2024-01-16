@@ -10,7 +10,7 @@ import com.info.maeumgagym.pickle.port.out.ExistsPickleByIdPort
 import com.info.maeumgagym.pickle.port.out.SavePickleCommentPort
 
 @UseCase
-class CreatePickleCommentService(
+internal class CreatePickleCommentService(
     private val savePickleCommentPort: SavePickleCommentPort,
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val existsPickleByIdPort: ExistsPickleByIdPort

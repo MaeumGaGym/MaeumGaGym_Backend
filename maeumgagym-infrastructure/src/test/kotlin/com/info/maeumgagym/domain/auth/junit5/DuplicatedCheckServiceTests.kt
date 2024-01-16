@@ -1,6 +1,6 @@
 package com.info.maeumgagym.domain.auth.junit5
 
-import com.info.maeumgagym.auth.service.DuplicatedCheckService
+import com.info.maeumgagym.auth.port.`in`.DuplicatedNicknameCheckUseCase
 import com.info.maeumgagym.domain.user.module.UserTestModule
 import com.info.maeumgagym.domain.user.module.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 @SpringBootTest
 class DuplicatedCheckServiceTests @Autowired constructor(
-    private val duplicatedCheckService: DuplicatedCheckService,
+    private val duplicatedCheckUseCase: DuplicatedNicknameCheckUseCase,
     private val userRepository: UserRepository
 ) {
 
@@ -28,8 +28,8 @@ class DuplicatedCheckServiceTests @Autowired constructor(
     fun checkExistsUserNickname() {
         UserTestModule.createTestUser().saveInRepository(userRepository)
         userRepository.delete(UserTestModule.createOtherUser().saveInRepository(userRepository))
-        Assertions.assertTrue(duplicatedCheckService.existByNickname(UserTestModule.TEST_USER_NICKNAME))
-        Assertions.assertTrue(duplicatedCheckService.existByNickname(UserTestModule.OTHER_USER_NICKNAME))
+        Assertions.assertTrue(duplicatedCheckUseCase.existByNickname(UserTestModule.TEST_USER_NICKNAME))
+        Assertions.assertTrue(duplicatedCheckUseCase.existByNickname(UserTestModule.OTHER_USER_NICKNAME))
     }
 
     /**
@@ -39,6 +39,6 @@ class DuplicatedCheckServiceTests @Autowired constructor(
      */
     @Test
     fun checkNonExistsUserNickname() {
-        Assertions.assertFalse(duplicatedCheckService.existByNickname(UserTestModule.TEST_USER_NICKNAME + "a"))
+        Assertions.assertFalse(duplicatedCheckUseCase.existByNickname(UserTestModule.TEST_USER_NICKNAME + "a"))
     }
 }

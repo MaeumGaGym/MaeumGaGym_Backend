@@ -6,7 +6,7 @@ import com.info.maeumgagym.feign.oauth.kakao.KakaoInfoClient
 import org.springframework.stereotype.Component
 
 @Component
-class KakaoAuthAdapter(
+internal class KakaoAuthAdapter(
     private val kakaoInfoClient: KakaoInfoClient
 ) : GetKakaoInfoPort {
 

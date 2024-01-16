@@ -1,6 +1,7 @@
 package com.info.maeumgagym.domain.user.junit5
 
 import com.info.maeumgagym.adapter.auth.ReadCurrentUserAdapter
+import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.domain.auth.AuthTestModule
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
@@ -22,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 @SpringBootTest
 class ReadCurrentUserAdapterTests @Autowired constructor(
-    private val readCurrentUserAdapter: ReadCurrentUserAdapter,
+    private val readCurrentUserPort: ReadCurrentUserPort,
     private val userRepository: UserRepository,
     private val userMapper: UserMapper
 ) {
@@ -43,7 +44,7 @@ class ReadCurrentUserAdapterTests @Autowired constructor(
         user.saveInRepository(userRepository).saveInContext(userMapper)
         Assertions.assertEquals(
             userMapper.toDomain(user),
-            readCurrentUserAdapter.readCurrentUser()
+            readCurrentUserPort.readCurrentUser()
         )
     }
 
@@ -57,7 +58,7 @@ class ReadCurrentUserAdapterTests @Autowired constructor(
         user.saveInRepository(userRepository)
         AuthTestModule.clearContext()
         Assertions.assertThrows(NullPointerException::class.java) {
-            readCurrentUserAdapter.readCurrentUser()
+            readCurrentUserPort.readCurrentUser()
         }
     }
 }

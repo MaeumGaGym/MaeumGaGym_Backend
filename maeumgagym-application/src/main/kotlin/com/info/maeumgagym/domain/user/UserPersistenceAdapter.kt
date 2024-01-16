@@ -10,7 +10,7 @@ import java.math.BigInteger
 import java.util.*
 
 @PersistenceAdapter
-class UserPersistenceAdapter(
+internal class UserPersistenceAdapter(
     private val userRepository: UserRepository,
     private val userMapper: UserMapper
 ) : FindUserByUUIDPort,

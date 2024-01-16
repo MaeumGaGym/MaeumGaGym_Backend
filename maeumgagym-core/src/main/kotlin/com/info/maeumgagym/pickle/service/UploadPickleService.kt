@@ -10,7 +10,7 @@ import com.info.maeumgagym.pickle.port.out.ExistsPickleByIdPort
 import com.info.maeumgagym.pickle.port.out.SavePicklePort
 
 @UseCase
-class UploadPickleService(
+internal class UploadPickleService(
     private val savePicklePort: SavePicklePort,
     private val existsPickleByIdPort: ExistsPickleByIdPort,
     private val readCurrentUserPort: ReadCurrentUserPort

@@ -12,7 +12,7 @@ import java.time.LocalDate
 import java.util.*
 
 @PersistenceAdapter
-class DeletedAtPersistenceAdapter(
+internal class DeletedAtPersistenceAdapter(
     private val userMapper: UserMapper,
     private val deletedAtRepository: DeletedAtRepository
 ): SaveDeletedAtPort, FindDeletedAtByIdPort, DeleteDeletedAtPort {

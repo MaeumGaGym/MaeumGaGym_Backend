@@ -8,7 +8,7 @@ import com.info.maeumgagym.pickle.port.out.*
 import org.springframework.data.repository.findByIdOrNull
 
 @PersistenceAdapter
-class PicklePersistenceAdapter(
+internal class PicklePersistenceAdapter(
     private val pickleRepository: PickleRepository,
     private val pickleMapper: PickleMapper
 ) : SavePicklePort, DeletePicklePort, ReadPickleByIdPort, ReadAllPicklesPort, ExistsPickleByIdPort {

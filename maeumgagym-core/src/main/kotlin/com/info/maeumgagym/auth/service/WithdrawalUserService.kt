@@ -9,7 +9,7 @@ import com.info.maeumgagym.user.port.out.DeleteUserPort
 import com.info.maeumgagym.user.port.out.SaveDeletedAtPort
 
 @UseCase
-class WithdrawalUserService(
+internal class WithdrawalUserService(
     private val deleteUserPort: DeleteUserPort,
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val saveDeleteAtPort: SaveDeletedAtPort,

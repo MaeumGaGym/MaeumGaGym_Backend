@@ -9,7 +9,7 @@ import com.info.maeumgagym.wakatime.port.`in`.StartWakatimeUseCase
 import java.time.LocalDateTime
 
 @UseCase
-class StartWakatimeService(
+internal class StartWakatimeService(
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val saveUserPort: SaveUserPort
 ) : StartWakatimeUseCase {

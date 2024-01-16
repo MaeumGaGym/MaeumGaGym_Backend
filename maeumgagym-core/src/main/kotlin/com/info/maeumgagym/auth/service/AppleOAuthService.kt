@@ -18,7 +18,7 @@ import com.info.maeumgagym.user.port.out.RecoveryUserPort
 import com.info.maeumgagym.user.port.out.SaveUserPort
 
 @UseCase
-class AppleOAuthService(
+internal class AppleOAuthService(
     private val existUserByOAuthIdPort: ExistUserByOAuthIdPort,
     private val saveUserPort: SaveUserPort,
     private val generateJwtPort: GenerateJwtPort,

@@ -13,7 +13,7 @@ import com.info.maeumgagym.pickle.port.out.ReadPickleCommentPort
 import com.info.maeumgagym.pickle.port.out.SavePickleCommentPort
 
 @UseCase
-class CreatePickleReplyCommentService(
+internal class CreatePickleReplyCommentService(
     private val savePickleCommentPort: SavePickleCommentPort,
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val readPickleCommentPort: ReadPickleCommentPort,

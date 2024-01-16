@@ -8,9 +8,8 @@ import com.info.maeumgagym.pose.port.out.FindPoseByIdPort
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.transaction.annotation.Transactional
 
-@Transactional
 @PersistenceAdapter
-class PosePersistenceAdapter(
+internal class PosePersistenceAdapter(
     private val poseRepository: PoseRepository,
     private val poseMapper: PoseMapper
 ) : FindPoseByIdPort {
