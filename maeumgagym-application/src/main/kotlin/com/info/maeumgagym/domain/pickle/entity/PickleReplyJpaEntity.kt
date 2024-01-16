@@ -13,11 +13,11 @@ class PickleReplyJpaEntity(
     writerId: UUID,
     createdAt: LocalDateTime? = null,
     id: Long? = null,
-    parentComment: PickleCommentJpaEntity? = null
+    parentComment: PickleCommentJpaEntity
 ) : PickleCommentMappedEntity(content, videoId, writerId, createdAt, id) {
 
-    @JoinColumn(name = "parent_commnet_id", updatable = false, nullable = true)
+    @JoinColumn(name = "parent_commnet_id", updatable = false, nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
-    var parentComment: PickleCommentJpaEntity? = parentComment
+    var parentComment: PickleCommentJpaEntity = parentComment
         protected set
 }

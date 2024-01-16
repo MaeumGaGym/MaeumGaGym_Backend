@@ -8,7 +8,7 @@ data class PickleReply(
     val content: String,
     val videoId: String,
     val writerId: UUID,
-    val parentComment: PickleComment? = null,
+    val parentComment: PickleComment,
     val createdAt: LocalDateTime? = null,
     val isDeleted: Boolean = false
 )

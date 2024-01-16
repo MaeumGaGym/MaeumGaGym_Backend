@@ -40,7 +40,7 @@ class PickleCommentMapper {
                 videoId = videoId,
                 writerId = writerId,
                 createdAt = createdAt,
-                parentComment = parentComment?.let { toEntity(it) }
+                parentComment = toEntity(parentComment)
             )
         }
     }
@@ -53,7 +53,7 @@ class PickleCommentMapper {
                 videoId = videoId,
                 writerId = writerId,
                 createdAt = createdAt,
-                parentComment = parentComment?.let { toDomain(it) }
+                parentComment = toDomain(parentComment)
             )
         }
     }
