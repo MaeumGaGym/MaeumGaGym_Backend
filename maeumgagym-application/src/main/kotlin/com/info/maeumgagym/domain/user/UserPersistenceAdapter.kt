@@ -13,12 +13,13 @@ import java.util.*
 internal class UserPersistenceAdapter(
     private val userRepository: UserRepository,
     private val userMapper: UserMapper
-) : FindUserByUUIDPort,
-    SaveUserPort,
+) : SaveUserPort,
+    FindUserByUUIDPort,
     FindUserByOAuthIdPort,
-    DeleteUserPort,
+    ReadUserByNicknamePort,
     ExistUserByNicknamePort,
     ExistUserByOAuthIdPort,
+    DeleteUserPort,
     FindDeletedUserByIdPort {
 
     override fun findByIdOrNullInNative(oauthId: String): User? =
@@ -27,6 +28,9 @@ internal class UserPersistenceAdapter(
 
     override fun findUserById(userId: UUID): User? =
         userRepository.findByIdOrNull(userId)?.let { userMapper.toDomain(it) }
+
+    override fun readUserByNickname(nickname: String): User? =
+        userRepository.findByNickname(nickname)?.let { userMapper.toDomain(it) }
 
     override fun existsUserByOAuthId(oauthId: String): Boolean =
         userRepository.existsByOauthId(oauthId)

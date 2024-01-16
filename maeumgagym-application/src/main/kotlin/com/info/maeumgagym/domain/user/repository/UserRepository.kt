@@ -12,6 +12,8 @@ interface UserRepository : JpaRepository<UserJpaEntity, UUID> {
 
     fun findByOauthId(oauthId: String): UserJpaEntity?
 
+    fun findByNickname(nickname: String): UserJpaEntity?
+
     fun existsByOauthId(oauthId: String): Boolean
 
     @Query(
