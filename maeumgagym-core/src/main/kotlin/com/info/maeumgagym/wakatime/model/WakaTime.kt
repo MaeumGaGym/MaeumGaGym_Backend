@@ -6,5 +6,6 @@ import java.time.LocalDate
 data class WakaTime(
     val user: User,
     val waka: Long,
-    val date: LocalDate = LocalDate.now()
+    val date: LocalDate = LocalDate.now(),
+    val isNew: Boolean = true
 )
