@@ -11,7 +11,7 @@ import org.springframework.data.repository.findByIdOrNull
 import java.time.LocalDate
 
 @PersistenceAdapter
-class WakaTimePersistenceAdapter(
+internal class WakaTimePersistenceAdapter(
     private val wakaTimeRepository: WakaTimeRepository,
     private val wakaTimeMapper: WakaTimeMapper
 ): SaveWakaTimePort, ReadWakaTimeFromUserAndDatePort {

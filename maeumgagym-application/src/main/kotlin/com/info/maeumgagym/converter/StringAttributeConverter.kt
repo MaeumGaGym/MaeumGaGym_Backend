@@ -4,7 +4,7 @@ import javax.persistence.AttributeConverter
 import javax.persistence.Converter
 
 @Converter
-class StringAttributeConverter : AttributeConverter<MutableSet<String>, String> {
+internal class StringAttributeConverter : AttributeConverter<MutableSet<String>, String> {
 
     private companion object {
         const val SPLIT_CHAR = ","

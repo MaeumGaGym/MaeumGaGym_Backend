@@ -12,9 +12,8 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
-@Transactional
 @PersistenceAdapter
-class RoutinePersistenceAdapter(
+internal class RoutinePersistenceAdapter(
     private val routineMapper: RoutineMapper,
     private val routineRepository: RoutineRepository
 ) : SaveRoutinePort, ReadAllRoutineByUserIdPort, DeleteRoutinePort, ReadRoutineByIdPort {
