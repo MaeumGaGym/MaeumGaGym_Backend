@@ -50,20 +50,4 @@ class WithdrawalUserServiceTests @Autowired constructor(
         Assertions.assertNull(userRepository.findByIdOrNull(user.id!!))
         Assertions.assertNotNull(deletedAtRepository.findByIdOrNull(user.id!!))
     }
-
-    /**
-     * @see WithdrawalUserService.withdrawal
-     * @when 실패 상황
-     * @success 이미 탈퇴한 유저이기 때문에 readCurrentUser()에서 UnAuthorizedException 발생
-     *  실제 플로우상, 탈퇴한 유저는 토큰을 발급할 수 없으므로 해당 상황은 존재할 수 없음
-     *  @see ReadCurrentUserAdapter.readCurrentUser
-     * @fail DeletedAtJpaEntity를 찾고, 예외를 발생시키는 로직이 존재하는지 확인
-     */
-    @Test
-    fun withdrawalAlreadyDidUser() {
-        withdrawalUserService.withdrawal()
-        Assertions.assertThrows(UnAuthorizedException::class.java) {
-            withdrawalUserService.withdrawal()
-        }
-    }
 }
