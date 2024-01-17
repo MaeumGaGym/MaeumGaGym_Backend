@@ -3,7 +3,6 @@ package com.info.maeumgagym.controller.pickle
 import com.info.common.WebAdapter
 import com.info.maeumgagym.controller.pickle.dto.PickleCommentWebRequest
 import com.info.maeumgagym.pickle.dto.response.PickleCommentListResponse
-import com.info.maeumgagym.pickle.dto.response.PickleReplyListResponse
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleCommentUseCase
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleReplyCommentUseCase
 import com.info.maeumgagym.pickle.port.`in`.LoadAllPickleReplyUseCase
@@ -23,12 +22,10 @@ import javax.validation.constraints.Pattern
 @Tag(name = "Pickle Comment API")
 @Validated
 @WebAdapter
-@RequestMapping("/pickles/comment")
+@RequestMapping("/pickle/comments")
 class PickleCommentController(
     private val createPickleCommentUseCase: CreatePickleCommentUseCase,
-    private val createPickleReplyCommentUseCase: CreatePickleReplyCommentUseCase,
-    private val readAllPickleCommentsUseCase: ReadAllPickleCommentsUseCase,
-    private val readAllPickleReplyUseCase: LoadAllPickleReplyUseCase
+    private val readAllPickleCommentsUseCase: ReadAllPickleCommentsUseCase
 ) {
     @Operation(summary = "피클 댓글 추가 API")
     @PostMapping("/{videoId}")
@@ -44,22 +41,6 @@ class PickleCommentController(
         createPickleCommentUseCase.createPickleComment(req.toRequest(), videoId!!)
     }
 
-    @Operation(summary = "피클 대댓글 추가 API")
-    @PostMapping("/{videoId}/{parentId}")
-    fun createPickleReplyComment(
-        @RequestBody @Valid
-        req: PickleCommentWebRequest,
-        @PathVariable(value = "videoId")
-        @NotBlank(message = "videoId는 null일 수 없습니다.")
-        @Pattern(regexp = "^[0-9a-f]{8}$")
-        @Valid
-        videoId: String?,
-        @PathVariable(value = "parentId")
-        parentId: Long
-    ) {
-        createPickleReplyCommentUseCase.createPickleReplyComment(req.toRequest(), videoId!!, parentId)
-    }
-
     @Operation(summary = "피클 댓글 전체조회 API")
     @GetMapping("/{videoId}")
     fun readPickleComment(
@@ -70,12 +51,4 @@ class PickleCommentController(
         videoId: String?
     ): PickleCommentListResponse =
         readAllPickleCommentsUseCase.readPickleCommentByVideoId(videoId!!)
-
-    @Operation(summary = "피클 대댓글 전체조회 API")
-    @GetMapping("/reply/{parentId}")
-    fun readAllPickleReply(
-        @PathVariable(value = "parentId")
-        parentId: Long
-    ): PickleReplyListResponse =
-        readAllPickleReplyUseCase.loadAllPickleReply(parentId)
 }
