@@ -33,5 +33,5 @@ internal class PicklePersistenceAdapter(
         }
 
     override fun existsPickleById(videoId: String): Boolean =
-        pickleRepository.existsByVideoId(videoId)
+        pickleRepository.findByIdOrNull(videoId)?.let { true } ?: false
 }

@@ -29,7 +29,7 @@ internal class UserPersistenceAdapter(
         userRepository.findByIdOrNull(userId)?.let { userMapper.toDomain(it) }
 
     override fun existsUserByOAuthId(oauthId: String): Boolean =
-        userRepository.existsByOauthId(oauthId)
+        userRepository.findByOauthId(oauthId)?.let { true } ?: false
 
     override fun saveUser(user: User): User {
         val userJpaEntity = userRepository.save(userMapper.toEntity(user))
@@ -44,8 +44,8 @@ internal class UserPersistenceAdapter(
     }
 
     override fun existByNicknameInNative(nickName: String): Boolean =
-        userRepository.existsByNicknameInNative(nickName) > BigInteger.ZERO
+        userRepository.findByNicknameInNative(nickName)?.let { true } ?: false
 
     override fun existByOAuthIdInNative(oauthId: String): Boolean =
-        userRepository.existsByOauthIdInNative(oauthId) > BigInteger.ZERO
+        userRepository.findByOauthIdInNative(oauthId)?.let { true } ?: false
 }
