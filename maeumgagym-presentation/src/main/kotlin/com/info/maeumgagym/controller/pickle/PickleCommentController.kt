@@ -78,5 +78,4 @@ class PickleCommentController(
         parentId: Long
     ): PickleReplyListResponse =
         readAllPickleReplyUseCase.loadAllPickleReply(parentId)
-
 }
