@@ -5,29 +5,26 @@ import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
-import java.math.BigInteger
 import java.util.UUID
 
 interface UserRepository : JpaRepository<UserJpaEntity, UUID> {
 
     fun findByOauthId(oauthId: String): UserJpaEntity?
 
-    fun existsByOauthId(oauthId: String): Boolean
-
     @Query(
-        value = "SELECT COUNT(u.id) FROM ${TableNames.USER_TABLE} u WHERE u.nickname = :nickname",
+        value = "SELECT * FROM ${TableNames.USER_TABLE} u WHERE u.nickname = :nickname limit 1",
         nativeQuery = true
     )
-    fun existsByNicknameInNative(@Param("nickname") nickname: String): BigInteger
+    fun findByNicknameInNative(@Param("nickname") nickname: String): UserJpaEntity?
 
     @Query(
-        value = "SELECT COUNT(u.id) FROM ${TableNames.USER_TABLE} u WHERE u.oauth_id = :oauthId",
+        value = "SELECT * FROM ${TableNames.USER_TABLE} u WHERE u.oauth_id = :oauthId limit 1",
         nativeQuery = true
     )
-    fun existsByOauthIdInNative(@Param("oauthId") oauthId: String): BigInteger
+    fun findByOauthIdInNative(@Param("oauthId") oauthId: String): UserJpaEntity?
 
     @Query(
-        value = "SELECT * FROM ${TableNames.USER_TABLE} u WHERE u.oauth_id = :oauthId and u.is_deleted = true",
+        value = "SELECT * FROM ${TableNames.USER_TABLE} u WHERE u.oauth_id = :oauthId and u.is_deleted = true limit 1",
         nativeQuery = true
     )
     fun findDeletedUserByOauthIdInNative(@Param("oauthId") oauthId: String): UserJpaEntity?
