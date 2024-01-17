@@ -26,8 +26,8 @@ class WakaTimeScheduler(
     // 매일 0시 0분 0초에 작동
     @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul")
     fun restartAllWakaTime() {
-        // 오늘 날짜, 지금 시간 = 0시 0분 0초
-        val nowDate = LocalDate.now()
+        // 이전 날의 날짜, 지금 시간 = 0시 0분 0초
+        val yesterday = LocalDate.now().minusDays(1)
         val nowDateTime = LocalDateTime.now()
         // 추후 사용될 와카타임 시간 저장용 변수
         var seconds: Long
@@ -39,7 +39,7 @@ class WakaTimeScheduler(
 
             saveWakaTimePort.save(
                 // 먼저 생성한 와카타임 있는지 확인
-                readWakaTimeFromUserAndDatePort.findByUserAndDate(userMapper.toDomain(user), nowDate)
+                readWakaTimeFromUserAndDatePort.findByUserAndDate(userMapper.toDomain(user), yesterday)
                     ?.let {
                         // 있으면 waka += seconds
                         WakaTime(
@@ -52,7 +52,7 @@ class WakaTimeScheduler(
                     // 없으면 waka = seconds
                     user = userMapper.toDomain(user),
                     waka = seconds,
-                    date = nowDate
+                    date = yesterday
                 ))
 
             // 와카타임 재시작
