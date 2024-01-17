@@ -21,7 +21,7 @@ import javax.validation.constraints.Pattern
 @Tag(name = "Pickle Comment API")
 @Validated
 @WebAdapter
-@RequestMapping("/pickles/comment")
+@RequestMapping("/pickle/comments")
 class PickleCommentController(
     private val createPickleCommentUseCase: CreatePickleCommentUseCase,
     private val createPickleReplyCommentUseCase: CreatePickleReplyCommentUseCase,
