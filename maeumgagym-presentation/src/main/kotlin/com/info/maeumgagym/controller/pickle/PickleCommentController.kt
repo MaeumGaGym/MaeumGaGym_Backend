@@ -4,8 +4,6 @@ import com.info.common.WebAdapter
 import com.info.maeumgagym.controller.pickle.dto.PickleCommentWebRequest
 import com.info.maeumgagym.pickle.dto.response.PickleCommentListResponse
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleCommentUseCase
-import com.info.maeumgagym.pickle.port.`in`.CreatePickleReplyCommentUseCase
-import com.info.maeumgagym.pickle.port.`in`.LoadAllPickleReplyUseCase
 import com.info.maeumgagym.pickle.port.`in`.ReadAllPickleCommentsUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
