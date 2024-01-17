@@ -38,4 +38,10 @@ interface UserRepository : JpaRepository<UserJpaEntity, UUID> {
         nativeQuery = true
     )
     fun deleteAllWithdrawalUserOneMonthAgo(): MutableList<UserJpaEntity>
+
+    @Query(
+        value = "SELECT * FROM ${TableNames.USER_TABLE} u WHERE u.waka_started_at IS NOT NULL",
+        nativeQuery = true
+    )
+    fun findAllByWakaStartedAtNotNullInNative(): MutableList<UserJpaEntity>
 }
