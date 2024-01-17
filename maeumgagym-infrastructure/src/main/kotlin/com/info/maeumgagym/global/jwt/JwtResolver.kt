@@ -19,7 +19,7 @@ class JwtResolver(
             if (it.startsWith(jwtProperties.prefix)) {
 
                 // prefix slicing
-                val token = it.substring(jwtProperties.prefix.length)
+                val token = it.substring(jwtProperties.prefix.length).trimStart()
 
                 // 만료된 access_token인지 확인 및 반환, 예외처리
                 accessTokenRepository.findByAccessToken(token)?.subject ?: throw InvalidTokenException
