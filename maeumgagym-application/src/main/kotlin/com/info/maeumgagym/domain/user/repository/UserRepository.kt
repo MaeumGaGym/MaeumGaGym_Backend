@@ -12,19 +12,19 @@ interface UserRepository : JpaRepository<UserJpaEntity, UUID> {
     fun findByOauthId(oauthId: String): UserJpaEntity?
 
     @Query(
-        value = "SELECT * FROM ${TableNames.USER_TABLE} u WHERE u.nickname = :nickname",
+        value = "SELECT * FROM ${TableNames.USER_TABLE} u WHERE u.nickname = :nickname limit 1",
         nativeQuery = true
     )
     fun findByNicknameInNative(@Param("nickname") nickname: String): UserJpaEntity?
 
     @Query(
-        value = "SELECT * FROM ${TableNames.USER_TABLE} u WHERE u.oauth_id = :oauthId",
+        value = "SELECT * FROM ${TableNames.USER_TABLE} u WHERE u.oauth_id = :oauthId limit 1",
         nativeQuery = true
     )
     fun findByOauthIdInNative(@Param("oauthId") oauthId: String): UserJpaEntity?
 
     @Query(
-        value = "SELECT * FROM ${TableNames.USER_TABLE} u WHERE u.oauth_id = :oauthId and u.is_deleted = true",
+        value = "SELECT * FROM ${TableNames.USER_TABLE} u WHERE u.oauth_id = :oauthId and u.is_deleted = true limit 1",
         nativeQuery = true
     )
     fun findDeletedUserByOauthIdInNative(@Param("oauthId") oauthId: String): UserJpaEntity?
