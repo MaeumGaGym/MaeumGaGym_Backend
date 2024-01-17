@@ -1,5 +1,6 @@
 package com.info.maeumgagym.domain.report.entity
 
+import com.info.maeumgagym.TableNames
 import com.info.maeumgagym.domain.base.BaseLongIdTimeEntity
 import com.info.maeumgagym.report.model.ReportStatus
 import com.info.maeumgagym.report.model.ReportType
@@ -9,7 +10,7 @@ import javax.persistence.Entity
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
 
-@Entity
+@Entity(name = TableNames.REPORT_TABLE)
 class ReportJpaEntity(
     type: ReportType,
     reason: String,
@@ -31,7 +32,7 @@ class ReportJpaEntity(
     var status: ReportStatus = status
         protected set
 
-    @Column(name = "reporter_id", updatable = false, nullable = false)
+    @Column(name = "reporter_id", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
     var reporterId: UUID = reporterId
         protected set
 
