@@ -18,7 +18,7 @@ class DuplicatedCheckServiceTests @Autowired constructor(
 ) {
 
     /**
-     * @see DuplicatedCheckService.existByNickname
+     * @see DuplicatedNicknameCheckUseCase.existByNickname
      * @when 성공 상황
      * @fail 다중 책임을 가졌던 Query 문이 수정되었는지 확인
      * @fail UserJpaEntity가 정상적으로 저장되는지 확인
@@ -33,7 +33,7 @@ class DuplicatedCheckServiceTests @Autowired constructor(
     }
 
     /**
-     * @see DuplicatedCheckService.existByNickname
+     * @see DuplicatedNicknameCheckUseCase.existByNickname
      * @when 성공 상황
      * @fail 다중 책임을 가졌던 Query 문이 수정되었는지 확인
      */
