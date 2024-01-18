@@ -1,6 +1,6 @@
 package com.info.maeumgagym.domain.quote.exception
 
-import com.info.maeumgagym.common.exception.ErrorCode
-import com.info.maeumgagym.common.exception.MaeumGaGymException
+import com.info.maeumgagym.global.MaeumGaGymTestException
+import com.info.maeumgagym.global.TestErrorCode
 
-internal object MismatchQuoteAndQuoterException : MaeumGaGymException(ErrorCode.MISMATCH_QUOTE_AND_QUOTER)
+internal object MismatchQuoteAndQuoterException : MaeumGaGymTestException(TestErrorCode.MISMATCH_QUOTE_AND_QUOTER)
