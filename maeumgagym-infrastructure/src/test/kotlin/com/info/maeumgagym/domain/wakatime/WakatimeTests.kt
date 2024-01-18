@@ -86,7 +86,7 @@ class WakatimeTests @Autowired constructor(
 
     /**
      * @see EndWakatimeUseCase.endWakatime
-     * @when 성공 상황
+     * @when 성공 상황 : 처음으로 와카타임을 저장함
      * @fail User의 wakaStartedAt이 정상적으로 적용되는지 확인
      * @fail 변경된 User를 정상적으로 저장하는지 확인
      * @fail 해당 클래스의 필드 user가 영속성 관리를 받는지 확인
@@ -109,6 +109,39 @@ class WakatimeTests @Autowired constructor(
             )
         }
         Assertions.assertNull(user.wakaStartedAt)
+    }
+
+    /**
+     * @see EndWakatimeUseCase.endWakatime
+     * @when 성공 상황 : n번째로 와카타임을 저장함
+     * @fail 아래 테스트도 실패하는지 확인
+     *  @see end
+     * @fail User의 wakaStartedAt이 정상적으로 적용되는지 확인
+     * @fail 변경된 User를 정상적으로 저장하는지 확인
+     * @fail 해당 클래스의 필드 user가 영속성 관리를 받는지 확인
+     *  @see user
+     * @fail 종료 시 8~12초(10초와 오차범위 2초 내외)의 와카타임이 정상적으로 저장되는지 확인
+     */
+    @Test
+    fun endWhenDidEnded() {
+        startWakatimeUseCase.startWakatime()
+        user.setWakaStartedAtToBefore10Seconds().saveInRepository(userRepository).saveInContext(userMapper)
+        endWakatimeUseCase.endWakatime()
+
+        user.saveInContext(userMapper)
+        startWakatimeUseCase.startWakatime()
+        user.setWakaStartedAtToBefore10Seconds().saveInRepository(userRepository).saveInContext(userMapper)
+        endWakatimeUseCase.endWakatime()
+
+        Assertions.assertDoesNotThrow {
+            WakatimeTestModule.isSimilarWithAllowableErrorSize(
+                a = 20,
+                b = wakaTimeRepository.findByIdOrNull(
+                    WakaTimeJpaEntity.IdClass(user.id!!, LocalDate.now())
+                )?.waka ?: throw WakatimeDoesNotSavedException,
+                allowableErrorSize = 3
+            )
+        }
     }
 
     /**
@@ -157,7 +190,7 @@ class WakatimeTests @Autowired constructor(
      * @see WakaTimeScheduler.restartAllWakaTime
      * @when 성공 상황 : 이전 날짜에 와카타임이 한 번 이상 저장된 적 있음
      * @fail 아래 테스트도 실패하는지 확인
-     *  @see
+     *  @see endWhenDidEnded
      * @fail User의 wakaStartedAt이 정상적으로 적용되는지 확인
      * @fail 변경된 User를 정상적으로 저장하는지 확인
      * @fail 해당 클래스의 필드 user가 영속성 관리를 받는지 확인
@@ -199,7 +232,6 @@ class WakatimeTests @Autowired constructor(
      * @fail 변경된 User를 정상적으로 저장하는지 확인
      * @fail 해당 클래스의 필드 user가 영속성 관리를 받는지 확인
      *  @see user
-     *  @see
      */
     @Test
     fun runSchedulerAndStart() {
