@@ -25,6 +25,14 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
 
+/**
+ * @see StartWakatimeUseCase
+ * @see EndWakatimeUseCase
+ * @see WakaTimeScheduler
+ *
+ * 두 UseCase를 번갈아 사용하는 경우가 잦아 Context의 초기화를 항상 확인할 것
+ * User의 영속성 관리에 민감함
+ */
 @Transactional
 @SpringBootTest
 class WakatimeTests @Autowired constructor(
@@ -43,12 +51,30 @@ class WakatimeTests @Autowired constructor(
         user = UserTestModule.createTestUser().saveInRepository(userRepository).saveInContext(userMapper)
     }
 
+    /**
+     * @see StartWakatimeUseCase.startWakatime
+     * @when 성공 상황
+     * @fail User의 wakaStartedAt이 정상적으로 적용되는지 확인
+     * @fail 변경된 User를 정상적으로 저장하는지 확인
+     * @fail 해당 클래스의 필드 user가 영속성 관리를 받는지 확인
+     *  @see user
+     */
     @Test
     fun start() {
         startWakatimeUseCase.startWakatime()
         Assertions.assertNotNull(user.wakaStartedAt)
     }
 
+    /**
+     * @see StartWakatimeUseCase.startWakatime
+     * @when 실패 상황
+     * @success 이미 시작한 상태에서 다시 시작하려 했으므로 예외 발생
+     * @fail 해당 상황에 대한 예외 처리가 되어 있는지 확인
+     * @fail User의 wakaStartedAt이 정상적으로 적용되는지 확인
+     * @fail 변경된 User를 정상적으로 저장하는지 확인
+     * @fail 해당 클래스의 필드 user가 영속성 관리를 받는지 확인
+     *  @see user
+     */
     @Test
     fun startWhenAlreadyStarted() {
         startWakatimeUseCase.startWakatime()
@@ -58,6 +84,15 @@ class WakatimeTests @Autowired constructor(
         }
     }
 
+    /**
+     * @see EndWakatimeUseCase.endWakatime
+     * @when 성공 상황
+     * @fail User의 wakaStartedAt이 정상적으로 적용되는지 확인
+     * @fail 변경된 User를 정상적으로 저장하는지 확인
+     * @fail 해당 클래스의 필드 user가 영속성 관리를 받는지 확인
+     *  @see user
+     * @fail 종료 시 8~12초(10초와 오차범위 2초 내외)의 와카타임이 정상적으로 저장되는지 확인
+     */
     @Test
     fun end() {
         startWakatimeUseCase.startWakatime()
@@ -76,6 +111,13 @@ class WakatimeTests @Autowired constructor(
         Assertions.assertNull(user.wakaStartedAt)
     }
 
+    /**
+     * @see EndWakatimeUseCase.endWakatime
+     * @when 실패 상황
+     * @success 시작하지 않은 상태에서 종료를 시도했으므로 예외 발생
+     * @fail 해당 상황에 대한 예외 처리가 되어 있는지 확인
+     * @fail 다른 곳에서 wakaStartedAt이 주입되었는지 확인
+     */
     @Test
     fun endWhenNotStarted() {
         Assertions.assertThrows(WakaStartedNotYetException::class.java) {
@@ -83,8 +125,17 @@ class WakatimeTests @Autowired constructor(
         }
     }
 
+    /**
+     * @see WakaTimeScheduler.restartAllWakaTime
+     * @when 성공 상황 : 이전 날짜에 와카타임이 한 번도 저장된 적 없음
+     * @fail User의 wakaStartedAt이 정상적으로 적용되는지 확인
+     * @fail 변경된 User를 정상적으로 저장하는지 확인
+     * @fail 해당 클래스의 필드 user가 영속성 관리를 받는지 확인
+     *  @see user
+     * @fail 재시작 시 8~12초(10초와 오차범위 2초 내외)의 와카타임이 정상적으로 저장되는지 확인
+     */
     @Test
-    fun runSchedulerWhenDoesNotEnded() {
+    fun runSchedulerWhenDidntEnded() {
         startWakatimeUseCase.startWakatime()
         user.setWakaStartedAtToBefore10Seconds().saveInRepository(userRepository).saveInContext(userMapper)
         wakaTimeScheduler.restartAllWakaTime()
@@ -102,8 +153,19 @@ class WakatimeTests @Autowired constructor(
         Assertions.assertNotNull(user.wakaStartedAt)
     }
 
+    /**
+     * @see WakaTimeScheduler.restartAllWakaTime
+     * @when 성공 상황 : 이전 날짜에 와카타임이 한 번 이상 저장된 적 있음
+     * @fail 아래 테스트도 실패하는지 확인
+     *  @see
+     * @fail User의 wakaStartedAt이 정상적으로 적용되는지 확인
+     * @fail 변경된 User를 정상적으로 저장하는지 확인
+     * @fail 해당 클래스의 필드 user가 영속성 관리를 받는지 확인
+     *  @see user
+     * @fail 재시작 시 8~12초(10초와 오차범위 2초 내외)의 와카타임이 정상적으로 저장되는지 확인
+     */
     @Test
-    fun runSchedulerWhenDoesEnded() {
+    fun runSchedulerWhenDidEnded() {
         startWakatimeUseCase.startWakatime()
         user.setWakaStartedAtToBefore10Seconds().saveInRepository(userRepository).saveInContext(userMapper)
         endWakatimeUseCase.endWakatime()
@@ -125,6 +187,20 @@ class WakatimeTests @Autowired constructor(
         Assertions.assertNotNull(user.wakaStartedAt)
     }
 
+    /**
+     * @see WakaTimeScheduler.restartAllWakaTime
+     * @when 실패 상황
+     * @success 와카타임이 재시작된 후 다시 시작하려 했으므로 예외 발생
+     * @fail 아래 테스트도 실패하는지 확인
+     *  @see startWhenAlreadyStarted
+     *  @see runSchedulerWhenDidntEnded
+     *  @see runSchedulerWhenDidEnded
+     * @fail User의 wakaStartedAt이 정상적으로 적용되는지 확인
+     * @fail 변경된 User를 정상적으로 저장하는지 확인
+     * @fail 해당 클래스의 필드 user가 영속성 관리를 받는지 확인
+     *  @see user
+     *  @see
+     */
     @Test
     fun runSchedulerAndStart() {
         startWakatimeUseCase.startWakatime()
@@ -135,6 +211,18 @@ class WakatimeTests @Autowired constructor(
         }
     }
 
+    /**
+     * @see WakaTimeScheduler.restartAllWakaTime
+     * @when 성공 상황 : 와카타임이 재시작된 후 종료
+     * @fail 아래 테스트도 실패하는지 확인
+     *  @see end
+     *  @see runSchedulerWhenDidntEnded
+     *  @see runSchedulerWhenDidEnded
+     * @fail User의 wakaStartedAt이 정상적으로 적용되는지 확인
+     * @fail 변경된 User를 정상적으로 저장하는지 확인
+     * @fail 해당 클래스의 필드 user가 영속성 관리를 받는지 확인
+     *  @see user
+     */
     @Test
     fun runSchedulerAndEnd() {
         startWakatimeUseCase.startWakatime()
