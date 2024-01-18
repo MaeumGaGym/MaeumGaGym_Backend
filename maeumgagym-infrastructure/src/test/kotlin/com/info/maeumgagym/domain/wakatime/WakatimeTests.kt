@@ -12,6 +12,7 @@ import com.info.maeumgagym.domain.wakatime.exception.WakatimeDoesNotSavedExcepti
 import com.info.maeumgagym.domain.wakatime.module.WakatimeTestModule
 import com.info.maeumgagym.domain.wakatime.module.WakatimeTestModule.setWakaStartedAtToBefore10Seconds
 import com.info.maeumgagym.domain.wakatime.repository.WakaTimeRepository
+import com.info.maeumgagym.scheduler.WakaTimeScheduler
 import com.info.maeumgagym.wakatime.exception.AlreadyWakaStartedException
 import com.info.maeumgagym.wakatime.exception.WakaStartedNotYetException
 import com.info.maeumgagym.wakatime.port.`in`.EndWakatimeUseCase
@@ -30,6 +31,7 @@ import java.time.LocalDate
 class WakatimeTests @Autowired constructor(
     private val startWakatimeUseCase: StartWakatimeUseCase,
     private val endWakatimeUseCase: EndWakatimeUseCase,
+    private val wakaTimeScheduler: WakaTimeScheduler,
     private val wakaTimeRepository: WakaTimeRepository,
     private val userRepository: UserRepository,
     private val userMapper: UserMapper
@@ -72,12 +74,74 @@ class WakatimeTests @Autowired constructor(
                 allowableErrorSize = 2
             )
         }
+        Assertions.assertNull(user.wakaStartedAt)
     }
 
     @Test
     fun endWhenNotStarted() {
         Assertions.assertThrows(WakaStartedNotYetException::class.java) {
             endWakatimeUseCase.endWakatime()
+        }
+    }
+
+    @Test
+    fun runSchedulerWhenDoesNotEnded() {
+        startWakatimeUseCase.startWakatime()
+        user.setWakaStartedAtToBefore10Seconds().saveInRepository(userRepository).saveInContext(userMapper)
+        wakaTimeScheduler.restartAllWakaTime()
+
+        Assertions.assertDoesNotThrow {
+            WakatimeTestModule.isSimilarWithAllowableErrorSize(
+                a = 10,
+                b = wakaTimeRepository.findByIdOrNull(
+                    WakaTimeJpaEntity.IdClass(user.id!!, LocalDate.now().minusDays(1))
+                )?.waka ?: throw WakatimeDoesNotSavedException,
+                allowableErrorSize = 2
+            )
+        }
+
+        Assertions.assertNotNull(user.wakaStartedAt)
+    }
+
+    @Test
+    fun runSchedulerWhenDoesEnded() {
+        startWakatimeUseCase.startWakatime()
+        user.setWakaStartedAtToBefore10Seconds().saveInRepository(userRepository).saveInContext(userMapper)
+        endWakatimeUseCase.endWakatime()
+        user.saveInContext(userMapper)
+        startWakatimeUseCase.startWakatime()
+        user.setWakaStartedAtToBefore10Seconds().saveInRepository(userRepository).saveInContext(userMapper)
+        wakaTimeScheduler.restartAllWakaTime()
+
+        Assertions.assertDoesNotThrow {
+            WakatimeTestModule.isSimilarWithAllowableErrorSize(
+                a = 10,
+                b = wakaTimeRepository.findByIdOrNull(
+                    WakaTimeJpaEntity.IdClass(user.id!!, LocalDate.now().minusDays(1))
+                )?.waka ?: throw WakatimeDoesNotSavedException,
+                allowableErrorSize = 2
+            )
+        }
+
+        Assertions.assertNotNull(user.wakaStartedAt)
+    }
+
+    @Test
+    fun runSchedulerAndEnd() {
+        startWakatimeUseCase.startWakatime()
+        user.setWakaStartedAtToBefore10Seconds().saveInContext(userMapper)
+        wakaTimeScheduler.restartAllWakaTime()
+
+        user.setWakaStartedAtToBefore10Seconds().saveInRepository(userRepository).saveInContext(userMapper)
+        endWakatimeUseCase.endWakatime()
+        Assertions.assertDoesNotThrow {
+            WakatimeTestModule.isSimilarWithAllowableErrorSize(
+                a = 10,
+                b = wakaTimeRepository.findByIdOrNull(
+                    WakaTimeJpaEntity.IdClass(user.id!!, LocalDate.now())
+                )?.waka ?: throw WakatimeDoesNotSavedException,
+                allowableErrorSize = 2
+            )
         }
     }
 }
