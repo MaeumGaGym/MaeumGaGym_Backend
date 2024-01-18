@@ -1,6 +1,5 @@
 package com.info.maeumgagym.domain.wakatime
 
-import com.info.maeumgagym.domain.auth.AuthTestModule
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
@@ -127,9 +126,18 @@ class WakatimeTests @Autowired constructor(
     }
 
     @Test
+    fun runSchedulerAndStart() {
+        startWakatimeUseCase.startWakatime()
+        wakaTimeScheduler.restartAllWakaTime()
+        user.saveInContext(userMapper)
+        Assertions.assertThrows(AlreadyWakaStartedException::class.java) {
+            startWakatimeUseCase.startWakatime()
+        }
+    }
+
+    @Test
     fun runSchedulerAndEnd() {
         startWakatimeUseCase.startWakatime()
-        user.setWakaStartedAtToBefore10Seconds().saveInContext(userMapper)
         wakaTimeScheduler.restartAllWakaTime()
 
         user.setWakaStartedAtToBefore10Seconds().saveInRepository(userRepository).saveInContext(userMapper)
