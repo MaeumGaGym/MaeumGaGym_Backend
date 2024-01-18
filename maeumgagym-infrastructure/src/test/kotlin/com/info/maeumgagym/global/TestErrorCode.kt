@@ -1,8 +1,6 @@
 package com.info.maeumgagym.global
 
-import com.info.maeumgagym.common.exception.ErrorCode
-
-enum class TestErrorCode(
+internal enum class TestErrorCode(
     val message: String
 ) {
     // Wakatime

@@ -1,5 +1,5 @@
 package com.info.maeumgagym.global
 
-abstract class MaeumGaGymTestException(
+internal abstract class MaeumGaGymTestException(
     errorCode: TestErrorCode
 ) : RuntimeException(errorCode.message)
