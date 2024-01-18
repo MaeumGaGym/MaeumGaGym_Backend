@@ -1,4 +1,4 @@
-package com.info.maeumgagym.domain.wakatime.module
+package com.info.maeumgagym.domain.wakatime
 
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.wakatime.entity.WakaTimeJpaEntity

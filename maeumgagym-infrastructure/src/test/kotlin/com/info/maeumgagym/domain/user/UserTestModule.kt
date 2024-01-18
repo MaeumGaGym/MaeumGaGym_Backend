@@ -1,4 +1,4 @@
-package com.info.maeumgagym.domain.user.module
+package com.info.maeumgagym.domain.user
 
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.repository.UserRepository

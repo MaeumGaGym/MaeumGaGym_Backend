@@ -1,11 +1,10 @@
-package com.info.maeumgagym.domain.user.junit5
+package com.info.maeumgagym.domain.user
 
 import com.info.maeumgagym.auth.port.`in`.WithdrawalUserUseCase
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
-import com.info.maeumgagym.domain.user.module.UserTestModule
-import com.info.maeumgagym.domain.user.module.UserTestModule.saveInRepository
+import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.repository.DeletedAtRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import org.junit.jupiter.api.Assertions

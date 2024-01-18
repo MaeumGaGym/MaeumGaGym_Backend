@@ -1,4 +1,4 @@
-package com.info.maeumgagym.domain.routine.module
+package com.info.maeumgagym.domain.routine
 
 import com.info.maeumgagym.domain.routine.entity.ExerciseInfo
 import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity

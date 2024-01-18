@@ -1,13 +1,11 @@
-package com.info.maeumgagym.domain.routine.junit5
+package com.info.maeumgagym.domain.routine
 
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
-import com.info.maeumgagym.domain.routine.module.RoutineTestModule
 import com.info.maeumgagym.domain.routine.repository.RoutineRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
-import com.info.maeumgagym.domain.user.module.UserTestModule
-import com.info.maeumgagym.domain.user.module.UserTestModule.saveInContext
-import com.info.maeumgagym.domain.user.module.UserTestModule.saveInRepository
+import com.info.maeumgagym.domain.user.UserTestModule
+import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.routine.exception.ExerciseListCannotEmptyException
 import com.info.maeumgagym.routine.port.`in`.CreateRoutineUseCase

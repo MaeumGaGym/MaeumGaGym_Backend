@@ -1,8 +1,8 @@
-package com.info.maeumgagym.domain.auth.junit5
+package com.info.maeumgagym.domain.auth
 
 import com.info.maeumgagym.auth.port.`in`.DuplicatedNicknameCheckUseCase
-import com.info.maeumgagym.domain.user.module.UserTestModule
-import com.info.maeumgagym.domain.user.module.UserTestModule.saveInRepository
+import com.info.maeumgagym.domain.user.UserTestModule
+import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
