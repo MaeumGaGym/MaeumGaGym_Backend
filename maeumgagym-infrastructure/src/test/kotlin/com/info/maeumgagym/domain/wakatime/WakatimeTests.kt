@@ -150,7 +150,7 @@ class WakatimeTests @Autowired constructor(
      * @fail 해당 상황에 대한 예외 처리가 되어 있는지 확인
      * @fail 다른 곳에서 wakaStartedAt이 주입되었는지 확인
      */
-    @Teast
+    @Test
     fun endWhenNotStarted() {
         Assertions.assertThrows(WakaStartedNotYetException::class.java) {
             endWakatimeUseCase.endWakatime()
