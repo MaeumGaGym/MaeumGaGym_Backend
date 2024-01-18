@@ -35,7 +35,8 @@ internal object WakatimeTestModule {
             oauthId = oauthId,
             roles = roles,
             profileImage = profileImage,
-            wakaStartedAt = wakaStartedAt?.minusSeconds(10) ?: throw RuntimeException()
+            wakaStartedAt = wakaStartedAt?.minusSeconds(10) ?: throw RuntimeException(),
+            id = id
         )
 
     fun isSimilarWithAllowableErrorSize(a: Long, b: Long, allowableErrorSize: Long) {
