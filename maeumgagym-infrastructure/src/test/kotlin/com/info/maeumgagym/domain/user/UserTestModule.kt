@@ -47,12 +47,4 @@ internal object UserTestModule {
 
     fun UserJpaEntity.saveInRepository(userRepository: UserRepository): UserJpaEntity =
         userRepository.save(this)
-
-    fun User.saveInContext(): User =
-        apply {
-            SecurityContextHolder.getContext().authentication =
-                CustomUserDetails(this).run {
-                    UsernamePasswordAuthenticationToken(this, null, this.authorities)
-                }
-        }
 }
