@@ -19,26 +19,27 @@ class DuplicatedCheckServiceTests @Autowired constructor(
 
     /**
      * @see DuplicatedNicknameCheckUseCase.existByNickname
-     * @when 성공 상황
+     * @when 성공 상황 : 현재 삭제되지 않은 유저와 삭제된 유저의 nickname이 모두 확인됨
      * @fail 다중 책임을 가졌던 Query 문이 수정되었는지 확인
      * @fail UserJpaEntity가 정상적으로 저장되는지 확인
      * @fail nickname이 UserJpaEntity에 정상적으로 주입되는지 확인
      */
     @Test
     fun checkExistsUserNickname() {
-        UserTestModule.createTestUser().saveInRepository(userRepository)
-        userRepository.delete(UserTestModule.createOtherUser().saveInRepository(userRepository))
-        Assertions.assertTrue(duplicatedCheckUseCase.existByNickname(UserTestModule.TEST_USER_NICKNAME))
-        Assertions.assertTrue(duplicatedCheckUseCase.existByNickname(UserTestModule.OTHER_USER_NICKNAME))
+        val testUser = UserTestModule.createTestUser().saveInRepository(userRepository)
+        val otherUser = UserTestModule.createOtherUser().saveInRepository(userRepository)
+        userRepository.delete(otherUser)
+        Assertions.assertTrue(duplicatedCheckUseCase.existByNickname(testUser.nickname))
+        Assertions.assertTrue(duplicatedCheckUseCase.existByNickname(otherUser.nickname))
     }
 
     /**
      * @see DuplicatedNicknameCheckUseCase.existByNickname
-     * @when 성공 상황
+     * @when 성공 상황 : 존재하지 않는 유저의 nickname으로 확인
      * @fail 다중 책임을 가졌던 Query 문이 수정되었는지 확인
      */
     @Test
     fun checkNonExistsUserNickname() {
-        Assertions.assertFalse(duplicatedCheckUseCase.existByNickname(UserTestModule.TEST_USER_NICKNAME + "a"))
+        Assertions.assertFalse(duplicatedCheckUseCase.existByNickname("a"))
     }
 }
