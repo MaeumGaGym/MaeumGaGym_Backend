@@ -12,16 +12,16 @@ import java.util.*
 
 internal object RoutineTestModule {
 
-    const val TEST_ROUTINE_NAME = "테스트 루틴 이름"
-    val TEST_ROUTINE_STATUS = RoutineStatus(isArchived = false, isShared = false)
+    private const val TEST_ROUTINE_NAME = "테스트 루틴 이름"
+    private val TEST_ROUTINE_STATUS = RoutineStatus(isArchived = false, isShared = false)
         get() = field.copy()
-    val TEST_ROUTINE_FIRST_EXERCISE = ExerciseInfo("첫번째 운동", 15, 3)
+    private val TEST_ROUTINE_FIRST_EXERCISE = ExerciseInfo("첫번째 운동", 15, 3)
         get() = field.copy()
-    val TEST_ROUTINE_SECOND_EXERCISE = ExerciseInfo("두번째 운동", 10, 5)
+    private val TEST_ROUTINE_SECOND_EXERCISE = ExerciseInfo("두번째 운동", 10, 5)
         get() = field.copy()
-    val TEST_ROUTINE_EXERCISE_LIST = listOf(TEST_ROUTINE_FIRST_EXERCISE, TEST_ROUTINE_SECOND_EXERCISE)
+    private val TEST_ROUTINE_EXERCISE_LIST = listOf(TEST_ROUTINE_FIRST_EXERCISE, TEST_ROUTINE_SECOND_EXERCISE)
         get() = field.toMutableList()
-    val TEST_ROUTINE_DAY_OF_WEEKS = setOf(DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY)
+    private val TEST_ROUTINE_DAY_OF_WEEKS = setOf(DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY)
         get() = field.toMutableSet()
 
     fun createTestRoutine(userId: UUID): RoutineJpaEntity =
