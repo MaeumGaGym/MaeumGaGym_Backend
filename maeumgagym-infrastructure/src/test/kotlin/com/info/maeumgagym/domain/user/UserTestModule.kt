@@ -11,21 +11,21 @@ import java.time.LocalDateTime
 
 internal object UserTestModule {
 
-    const val TEST_USER_NICKNAME = "테스트 유저 닉네임"
-    const val TEST_USER_OAUTH_ID = "testUserOAuthId"
-    const val TEST_PROFILE_IMAGE =
+    private const val TEST_USER_NICKNAME = "테스트 유저 닉네임"
+    private const val TEST_USER_OAUTH_ID = "testUserOAuthId"
+    private const val TEST_PROFILE_IMAGE =
         "https://lh3.googleusercontent.com/a/ACg8ocJqPiMvxq0HiLHPr4_mDgUMvp2RZaeWZpOnvM3_90E9=s360-c-no"
-    val TEST_USER_ROLES = listOf(Role.USER)
+    private val TEST_USER_ROLES = listOf(Role.USER)
         get() = field.toMutableList()
-    val TEST_USER_WAKA = null
+    private val TEST_USER_WAKA = null
 
-    const val OTHER_USER_NICKNAME = "다른 유저 닉네임"
-    const val OTHER_USER_OAUTH_ID = "otherUserOAuthId"
-    const val OTHER_PROFILE_IMAGE =
+    private const val OTHER_USER_NICKNAME = "다른 유저 닉네임"
+    private const val OTHER_USER_OAUTH_ID = "otherUserOAuthId"
+    private const val OTHER_PROFILE_IMAGE =
         "https://lh3.googleusercontent.com/a/ACg8ocJqPiMvxq0HiLHPr4_mDgUMvp2RZaeWZpOnvM3_90E9=s360-c-no"
-    val OTHER_USER_ROLES = listOf(Role.USER)
+    private val OTHER_USER_ROLES = listOf(Role.USER)
         get() = field.toMutableList()
-    val OTHER_USER_WAKA = LocalDateTime.of(2024, 1, 15, 14, 30)
+    private val OTHER_USER_WAKA = LocalDateTime.of(2024, 1, 15, 14, 30)
 
     fun createTestUser(): UserJpaEntity =
         UserJpaEntity(
