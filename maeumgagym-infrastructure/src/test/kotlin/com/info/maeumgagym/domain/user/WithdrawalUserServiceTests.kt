@@ -1,11 +1,10 @@
-package com.info.maeumgagym.domain.user.junit5
+package com.info.maeumgagym.domain.user
 
 import com.info.maeumgagym.auth.port.`in`.WithdrawalUserUseCase
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
-import com.info.maeumgagym.domain.user.module.UserTestModule
-import com.info.maeumgagym.domain.user.module.UserTestModule.saveInRepository
+import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.repository.DeletedAtRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import org.junit.jupiter.api.Assertions
@@ -33,7 +32,7 @@ class WithdrawalUserServiceTests @Autowired constructor(
     }
 
     /**
-     * @see WithdrawalUserService.withdrawal
+     * @see WithdrawalUserUseCase.withdrawal
      * @when 성공 상황
      * @fail UserJpaEntity의 isDeleted가 정상적으로 수정되는지 확인
      * @fail UserRepository.findById의 Query 문에  WHEN isDeleted == false가 정상적으로 적용되는지 확인

@@ -1,4 +1,4 @@
-package com.info.maeumgagym.domain.wakatime.module
+package com.info.maeumgagym.domain.wakatime
 
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.wakatime.entity.WakaTimeJpaEntity
@@ -8,7 +8,7 @@ import java.time.LocalDate
 
 internal object WakatimeTestModule {
 
-    const val WAKATIME_SECONDS = 30L
+    private const val WAKATIME_SECONDS = 30L
 
     fun createTodayWakatime(user: UserJpaEntity): WakaTimeJpaEntity =
         WakaTimeJpaEntity(

@@ -1,9 +1,8 @@
-package com.info.maeumgagym.domain.auth.junit5
+package com.info.maeumgagym.domain.auth
 
-import com.info.maeumgagym.domain.auth.AuthTestModule
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
-import com.info.maeumgagym.domain.user.module.UserTestModule
-import com.info.maeumgagym.domain.user.module.UserTestModule.saveInRepository
+import com.info.maeumgagym.domain.user.UserTestModule
+import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.global.exception.InvalidTokenException
 import com.info.maeumgagym.global.jwt.JwtAdapter
@@ -31,7 +30,6 @@ class JwtTests @Autowired constructor(
     private val userRepository: UserRepository,
     private val refreshTokenRepository: RefreshTokenRepository,
 ) {
-
 
     private val jwtFilter = JwtFilter(jwtResolver, jwtAdapter)
     private lateinit var user: UserJpaEntity

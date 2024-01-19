@@ -1,4 +1,4 @@
-package com.info.maeumgagym.global
+package com.info.maeumgagym.error
 
 internal enum class TestErrorCode(
     val message: String

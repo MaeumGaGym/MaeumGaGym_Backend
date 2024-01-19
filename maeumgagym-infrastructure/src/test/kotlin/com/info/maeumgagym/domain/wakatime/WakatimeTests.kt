@@ -3,13 +3,12 @@ package com.info.maeumgagym.domain.wakatime
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
-import com.info.maeumgagym.domain.user.module.UserTestModule
-import com.info.maeumgagym.domain.user.module.UserTestModule.saveInRepository
+import com.info.maeumgagym.domain.user.UserTestModule
+import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.domain.wakatime.entity.WakaTimeJpaEntity
 import com.info.maeumgagym.domain.wakatime.exception.WakatimeDoesNotSavedException
-import com.info.maeumgagym.domain.wakatime.module.WakatimeTestModule
-import com.info.maeumgagym.domain.wakatime.module.WakatimeTestModule.setWakaStartedAtToBefore10Seconds
+import com.info.maeumgagym.domain.wakatime.WakatimeTestModule.setWakaStartedAtToBefore10Seconds
 import com.info.maeumgagym.domain.wakatime.repository.WakaTimeRepository
 import com.info.maeumgagym.scheduler.WakaTimeScheduler
 import com.info.maeumgagym.wakatime.exception.AlreadyWakaStartedException

@@ -1,4 +1,4 @@
-package com.info.maeumgagym.global
+package com.info.maeumgagym.error
 
 internal abstract class MaeumGaGymTestException(
     errorCode: TestErrorCode
