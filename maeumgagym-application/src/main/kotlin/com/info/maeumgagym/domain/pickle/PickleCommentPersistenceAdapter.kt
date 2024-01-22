@@ -10,6 +10,8 @@ import com.info.maeumgagym.pickle.port.out.SavePickleCommentPort
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 
 @PersistenceAdapter
 internal class PickleCommentPersistenceAdapter(
@@ -17,8 +19,9 @@ internal class PickleCommentPersistenceAdapter(
     private val pickleCommentMapper: PickleCommentMapper
 ): SavePickleCommentPort, ReadPickleCommentPort, ReadAllPagedPickleCommentsByVideoIdPort {
     override fun readPickleComment(pickleCommentId: Long): PickleComment? =
-        pickleCommentRepository.findByIdOrNull(pickleCommentId)?.let { pickleCommentMapper.toDomain(it) }
+        pickleCommentRepository.findById(pickleCommentId)?.let { pickleCommentMapper.toDomain(it) }
 
+    @Transactional(propagation = Propagation.MANDATORY)
     override fun savePickleComment(pickleComment: PickleComment): PickleComment =
         pickleCommentMapper.toDomain(pickleCommentRepository.save(pickleCommentMapper.toEntity(pickleComment)))
 

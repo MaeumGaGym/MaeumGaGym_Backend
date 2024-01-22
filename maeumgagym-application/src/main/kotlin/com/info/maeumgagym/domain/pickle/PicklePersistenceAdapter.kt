@@ -6,6 +6,8 @@ import com.info.maeumgagym.domain.pickle.repository.PickleRepository
 import com.info.maeumgagym.pickle.model.Pickle
 import com.info.maeumgagym.pickle.port.out.*
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 
 @PersistenceAdapter
 internal class PicklePersistenceAdapter(
@@ -13,17 +15,19 @@ internal class PicklePersistenceAdapter(
     private val pickleMapper: PickleMapper
 ) : SavePicklePort, DeletePicklePort, ReadPickleByIdPort, ReadAllPicklesPort, ExistsPickleByIdPort {
 
+    @Transactional(propagation = Propagation.MANDATORY)
     override fun savePickle(pickle: Pickle): Pickle =
         pickleMapper.toDomain(
             pickleRepository.save(pickleMapper.toEntity(pickle))
         )
 
+    @Transactional(propagation = Propagation.MANDATORY)
     override fun deletePickle(pickle: Pickle) {
         pickleRepository.delete(pickleMapper.toEntity(pickle))
     }
 
     override fun readPickleById(id: String): Pickle? =
-        pickleRepository.findByIdOrNull(id)?.let {
+        pickleRepository.findByVideoId(id)?.let {
             pickleMapper.toDomain(it)
         }
 
@@ -33,5 +37,5 @@ internal class PicklePersistenceAdapter(
         }
 
     override fun existsPickleById(videoId: String): Boolean =
-        pickleRepository.findByIdOrNull(videoId)?.let { true } ?: false
+        pickleRepository.findByVideoId(videoId)?.let { true } ?: false
 }

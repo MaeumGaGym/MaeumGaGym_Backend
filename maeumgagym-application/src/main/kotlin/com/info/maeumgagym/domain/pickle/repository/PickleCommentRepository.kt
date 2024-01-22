@@ -3,10 +3,14 @@ package com.info.maeumgagym.domain.pickle.repository
 import com.info.maeumgagym.domain.pickle.entity.PickleCommentJpaEntity
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.stereotype.Repository
+import org.springframework.data.repository.Repository
 
-@Repository
-interface PickleCommentRepository : JpaRepository<PickleCommentJpaEntity, Long> {
+@org.springframework.stereotype.Repository
+interface PickleCommentRepository : Repository<PickleCommentJpaEntity, Long> {
+
+    fun save(entity: PickleCommentJpaEntity): PickleCommentJpaEntity
+  
     fun findAllByVideoId(videoId: String, pageable: Pageable): Page<PickleCommentJpaEntity>
+
+    fun findById(id: Long): PickleCommentJpaEntity?
 }

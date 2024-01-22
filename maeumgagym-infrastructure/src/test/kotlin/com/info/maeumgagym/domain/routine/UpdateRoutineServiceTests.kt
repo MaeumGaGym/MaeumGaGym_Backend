@@ -45,7 +45,7 @@ class UpdateRoutineServiceTests @Autowired constructor(
         entityManager.detach(routine)
         val request = RoutineTestModule.getUpdateRoutineRequest(routine)
         updateRoutineUseCase.updateRoutine(request, routine.id!!)
-        Assertions.assertNotEquals(routine, routineRepository.findByIdOrNull(routine.id!!))
+        Assertions.assertNotEquals(routine, routineRepository.findById(routine.id!!))
     }
 
     @Test
@@ -61,7 +61,7 @@ class UpdateRoutineServiceTests @Autowired constructor(
 
     @Test
     fun updateNonExistentRoutine() {
-        routineRepository.deleteById(routine.id!!)
+        routineRepository.delete(routine)
         Assertions.assertThrows(RoutineNotFoundException::class.java) {
             updateRoutineUseCase.updateRoutine(
                 RoutineTestModule.getUpdateRoutineRequest(routine),

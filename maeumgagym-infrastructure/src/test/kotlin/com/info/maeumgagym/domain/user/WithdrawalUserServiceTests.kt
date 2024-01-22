@@ -44,7 +44,7 @@ class WithdrawalUserServiceTests @Autowired constructor(
         Assertions.assertDoesNotThrow {
             withdrawalUserUseCase.withdrawal()
         }
-        Assertions.assertNull(userRepository.findByIdOrNull(user.id!!))
-        Assertions.assertNotNull(deletedAtRepository.findByIdOrNull(user.id!!))
+        Assertions.assertNull(userRepository.findById(user.id!!))
+        Assertions.assertNotNull(deletedAtRepository.findByUserId(user.id!!))
     }
 }

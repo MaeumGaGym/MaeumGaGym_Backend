@@ -7,8 +7,11 @@ import com.info.maeumgagym.auth.port.out.RevokeTokensPort
 import com.info.maeumgagym.user.model.DeletedAt
 import com.info.maeumgagym.user.port.out.DeleteUserPort
 import com.info.maeumgagym.user.port.out.SaveDeletedAtPort
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Transactional
 
 @UseCase
+@Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = [Exception::class])
 internal class WithdrawalUserService(
     private val deleteUserPort: DeleteUserPort,
     private val readCurrentUserPort: ReadCurrentUserPort,
@@ -25,7 +28,7 @@ internal class WithdrawalUserService(
         * if (existsDeletedUserByIdPort.existsByIdInNative(user.oauthId)) throw AlreadyWithdrawalUserException
         */
 
-        // user soft delete
+        // user soft deleteById
         deleteUserPort.deleteUser(user)
 
         // 삭제된 유저 생명주기 관리용 테이블 생성
