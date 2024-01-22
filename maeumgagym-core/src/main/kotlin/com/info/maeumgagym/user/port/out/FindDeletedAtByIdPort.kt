@@ -5,5 +5,5 @@ import java.util.*
 
 interface FindDeletedAtByIdPort {
 
-    fun findDeletedAt(id: UUID): LocalDate?
+    fun findDeletedAtById(id: UUID): LocalDate?
 }

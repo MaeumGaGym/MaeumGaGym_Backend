@@ -20,6 +20,7 @@ spring:
                 format_sql: false
                 show_sql: true
                 use_sql_comments: false
+                dialect: org.hibernate.dialect.MySQL5InnoDBDialect
             open-in-view: false
 
 # server
@@ -43,6 +44,8 @@ server:
 logging:
     level:
         root: info
+        org.hibernate.sql: debug
+        org.hibernate.type: trace
 
 jwt:
     secretKey: ${JWT_SECRET_KEY}

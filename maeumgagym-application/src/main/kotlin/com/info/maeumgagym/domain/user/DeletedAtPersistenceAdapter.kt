@@ -7,7 +7,8 @@ import com.info.maeumgagym.domain.user.repository.DeletedAtRepository
 import com.info.maeumgagym.user.model.DeletedAt
 import com.info.maeumgagym.user.port.out.FindDeletedAtByIdPort
 import com.info.maeumgagym.user.port.out.SaveDeletedAtPort
-import org.springframework.data.repository.findByIdOrNull
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
 import java.util.*
 
@@ -17,13 +18,17 @@ internal class DeletedAtPersistenceAdapter(
     private val deletedAtRepository: DeletedAtRepository
 ): SaveDeletedAtPort, FindDeletedAtByIdPort, DeleteDeletedAtPort {
 
+    @Transactional(propagation = Propagation.MANDATORY)
     override fun save(domain: DeletedAt): DeletedAt =
-        userMapper.toDomain(deletedAtRepository.save(userMapper.toEntity(domain)))
+        userMapper.toDomain(
+            deletedAtRepository.save(userMapper.toEntity(domain))
+        )
 
-    override fun findDeletedAt(id: UUID): LocalDate? =
-        deletedAtRepository.findByIdOrNull(id)?.date
+    override fun findDeletedAtById(id: UUID): LocalDate? =
+        deletedAtRepository.findByUserId(id)?.date
 
-    override fun delete(userId: UUID) {
-        deletedAtRepository.deleteById(userId)
+    @Transactional(propagation = Propagation.MANDATORY)
+    override fun deleteById(userId: UUID) {
+        deletedAtRepository.deleteByUserId(userId)
     }
 }

@@ -44,7 +44,7 @@ class DeleteRoutineServiceTests @Autowired constructor(
         Assertions.assertDoesNotThrow {
             deleteRoutineUseCase.deleteRoutine(routine.id!!)
         }
-        Assertions.assertNull(routineRepository.findByIdOrNull(routine.id!!))
+        Assertions.assertNull(routineRepository.findById(routine.id!!))
     }
 
     @Test
@@ -53,12 +53,12 @@ class DeleteRoutineServiceTests @Autowired constructor(
         Assertions.assertThrows(PermissionDeniedException::class.java) {
             deleteRoutineUseCase.deleteRoutine(routine.id!!)
         }
-        Assertions.assertNotNull(routineRepository.findByIdOrNull(routine.id!!))
+        Assertions.assertNotNull(routineRepository.findById(routine.id!!))
     }
 
     @Test
     fun deleteNonExistentRoutine() {
-        routineRepository.deleteById(routine.id!!)
+        routineRepository.delete(routine)
         Assertions.assertThrows(RoutineNotFoundException::class.java) {
             deleteRoutineUseCase.deleteRoutine(routine.id!!)
         }

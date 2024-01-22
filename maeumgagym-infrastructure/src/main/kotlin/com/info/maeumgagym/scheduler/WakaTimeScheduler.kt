@@ -2,6 +2,7 @@ package com.info.maeumgagym.scheduler
 
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
+import com.info.maeumgagym.domain.user.repository.UserNativeRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.wakatime.model.WakaTime
 import com.info.maeumgagym.wakatime.port.out.ReadWakaTimeFromUserAndDatePort
@@ -18,6 +19,7 @@ import java.time.LocalDateTime
 @Service
 class WakaTimeScheduler(
     private val userRepository: UserRepository,
+    private val userNativeRepository: UserNativeRepository,
     private val userMapper: UserMapper,
     private val saveWakaTimePort: SaveWakaTimePort,
     private val readWakaTimeFromUserAndDatePort: ReadWakaTimeFromUserAndDatePort
@@ -33,13 +35,16 @@ class WakaTimeScheduler(
         var seconds: Long
 
         // 와카타임을 시작하고 종료하지 않은 모든 유저 불러오기
-        userRepository.findAllByWakaStartedAtNotNullInNative().forEach { user ->
+        userNativeRepository.findAllByWakaStartedAtNotNullOnWithdrawalSafe().forEach { u ->
+
+            val user = userMapper.toDomain(u)
+
             // 와카타임 시작 시간 ~ 지금까지의 초
-            seconds = Duration.between(userMapper.toDomain(user).wakaStartedAt, now).seconds
+            seconds = Duration.between(user.wakaStartedAt, now).seconds
 
             saveWakaTimePort.save(
                 // 먼저 생성한 와카타임 있는지 확인
-                readWakaTimeFromUserAndDatePort.findByUserAndDate(userMapper.toDomain(user), yesterday)
+                readWakaTimeFromUserAndDatePort.findByUserAndDate(user, yesterday)
                     ?.let {
                         // 있으면 waka += seconds
                         WakaTime(
@@ -50,25 +55,41 @@ class WakaTimeScheduler(
                         )
                     } ?: WakaTime(
                     // 없으면 waka = seconds
-                    user = userMapper.toDomain(user),
+                    user = user,
                     waka = seconds,
                     date = yesterday
                 ))
 
-            // 와카타임 재시작
-            userRepository.save(
-                user.run {
-                    UserJpaEntity(
-                        nickname = nickname,
-                        oauthId = oauthId,
-                        roles = roles,
-                        profileImage = profileImage,
-                        wakaStartedAt = now,
-                        isDelete = isDeleted,
-                        id = id
-                    )
-                }
-            )
+            if (user.isDeleted) {
+                userRepository.save(
+                    user.run {
+                        UserJpaEntity(
+                            nickname = nickname,
+                            oauthId = oauthId,
+                            roles = roles,
+                            profileImage = profileImage,
+                            wakaStartedAt = null,
+                            isDelete = isDeleted,
+                            id = id
+                        )
+                    }
+                )
+            } else {
+                // 와카타임 재시작
+                userRepository.save(
+                    user.run {
+                        UserJpaEntity(
+                            nickname = nickname,
+                            oauthId = oauthId,
+                            roles = roles,
+                            profileImage = profileImage,
+                            wakaStartedAt = now,
+                            isDelete = isDeleted,
+                            id = id
+                        )
+                    }
+                )
+            }
         }
     }
 }

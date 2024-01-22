@@ -8,8 +8,11 @@ import com.info.maeumgagym.pickle.model.Pickle
 import com.info.maeumgagym.pickle.port.`in`.PickleUploadUseCase
 import com.info.maeumgagym.pickle.port.out.ExistsPickleByIdPort
 import com.info.maeumgagym.pickle.port.out.SavePicklePort
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Transactional
 
 @UseCase
+@Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = [Exception::class])
 internal class UploadPickleService(
     private val savePicklePort: SavePicklePort,
     private val existsPickleByIdPort: ExistsPickleByIdPort,

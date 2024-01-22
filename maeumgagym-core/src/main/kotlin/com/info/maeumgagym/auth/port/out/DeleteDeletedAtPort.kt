@@ -4,5 +4,5 @@ import java.util.*
 
 interface DeleteDeletedAtPort {
 
-    fun delete(userId: UUID)
+    fun deleteById(userId: UUID)
 }

@@ -14,5 +14,8 @@ internal class PosePersistenceAdapter(
     private val poseMapper: PoseMapper
 ) : FindPoseByIdPort {
 
-    override fun findById(id: Long): Pose? = poseRepository.findByIdOrNull(id)?.let { poseMapper.toDomain(it) }
+    override fun findById(id: Long): Pose? =
+        poseRepository.findById(id)?.let {
+            poseMapper.toDomain(it)
+        }
 }

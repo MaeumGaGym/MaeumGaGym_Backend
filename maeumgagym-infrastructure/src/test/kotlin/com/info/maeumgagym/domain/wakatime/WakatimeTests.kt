@@ -101,7 +101,7 @@ class WakatimeTests @Autowired constructor(
         Assertions.assertDoesNotThrow {
             WakatimeTestModule.isSimilarWithAllowableErrorSize(
                 a = 10,
-                b = wakaTimeRepository.findByIdOrNull(
+                b = wakaTimeRepository.findById(
                     WakaTimeJpaEntity.IdClass(user.id!!, LocalDate.now())
                 )?.waka ?: throw WakatimeDoesNotSavedException,
                 allowableErrorSize = 2
@@ -135,7 +135,7 @@ class WakatimeTests @Autowired constructor(
         Assertions.assertDoesNotThrow {
             WakatimeTestModule.isSimilarWithAllowableErrorSize(
                 a = 20,
-                b = wakaTimeRepository.findByIdOrNull(
+                b = wakaTimeRepository.findById(
                     WakaTimeJpaEntity.IdClass(user.id!!, LocalDate.now())
                 )?.waka ?: throw WakatimeDoesNotSavedException,
                 allowableErrorSize = 3
@@ -175,7 +175,7 @@ class WakatimeTests @Autowired constructor(
         Assertions.assertDoesNotThrow {
             WakatimeTestModule.isSimilarWithAllowableErrorSize(
                 a = 10,
-                b = wakaTimeRepository.findByIdOrNull(
+                b = wakaTimeRepository.findById(
                     WakaTimeJpaEntity.IdClass(user.id!!, LocalDate.now().minusDays(1))
                 )?.waka ?: throw WakatimeDoesNotSavedException,
                 allowableErrorSize = 2
@@ -209,7 +209,7 @@ class WakatimeTests @Autowired constructor(
         Assertions.assertDoesNotThrow {
             WakatimeTestModule.isSimilarWithAllowableErrorSize(
                 a = 10,
-                b = wakaTimeRepository.findByIdOrNull(
+                b = wakaTimeRepository.findById(
                     WakaTimeJpaEntity.IdClass(user.id!!, LocalDate.now().minusDays(1))
                 )?.waka ?: throw WakatimeDoesNotSavedException,
                 allowableErrorSize = 2
@@ -264,7 +264,7 @@ class WakatimeTests @Autowired constructor(
         Assertions.assertDoesNotThrow {
             WakatimeTestModule.isSimilarWithAllowableErrorSize(
                 a = 10,
-                b = wakaTimeRepository.findByIdOrNull(
+                b = wakaTimeRepository.findById(
                     WakaTimeJpaEntity.IdClass(user.id!!, LocalDate.now())
                 )?.waka ?: throw WakatimeDoesNotSavedException,
                 allowableErrorSize = 2
