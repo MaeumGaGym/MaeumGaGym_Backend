@@ -31,7 +31,12 @@ server:
         back-local: ${BACK_LOCAL}
         back-domain: ${BACK_DOMAIN}
     tomcat:
-        connection-timeout: 10s
+        threads:
+            max: 200
+            min-spare: 10
+        max-connections: 8192
+        accept-count: 100
+        connection-timeout: 20000
     servlet:
         context-path: /maeumgagym
 
