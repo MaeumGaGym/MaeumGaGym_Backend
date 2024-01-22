@@ -35,13 +35,16 @@ class WakaTimeScheduler(
         var seconds: Long
 
         // 와카타임을 시작하고 종료하지 않은 모든 유저 불러오기
-        userNativeRepository.findAllByWakaStartedAtNotNullInNative().forEach { user ->
+        userNativeRepository.findAllByWakaStartedAtNotNullInNative().forEach { u ->
+
+            val user = userMapper.toDomain(u)
+
             // 와카타임 시작 시간 ~ 지금까지의 초
-            seconds = Duration.between(userMapper.toDomain(user).wakaStartedAt, now).seconds
+            seconds = Duration.between(user.wakaStartedAt, now).seconds
 
             saveWakaTimePort.save(
                 // 먼저 생성한 와카타임 있는지 확인
-                readWakaTimeFromUserAndDatePort.findByUserAndDate(userMapper.toDomain(user), yesterday)
+                readWakaTimeFromUserAndDatePort.findByUserAndDate(user, yesterday)
                     ?.let {
                         // 있으면 waka += seconds
                         WakaTime(
@@ -52,7 +55,7 @@ class WakaTimeScheduler(
                         )
                     } ?: WakaTime(
                     // 없으면 waka = seconds
-                    user = userMapper.toDomain(user),
+                    user = user,
                     waka = seconds,
                     date = yesterday
                 ))
