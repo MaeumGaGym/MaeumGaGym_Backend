@@ -43,13 +43,13 @@ internal class AppleOAuthService(
 
     override fun signUp(token: String, nickname: String) {
         // nickname 중복 확인
-        if (existUserByNicknamePort.existByNicknameOfWithdrawalSafe(nickname)) throw DuplicatedNicknameException
+        if (existUserByNicknamePort.existByNicknameOnWithdrawalSafe(nickname)) throw DuplicatedNicknameException
 
         // Apple id_token에서 subject값을 받아온다
         val sub = parseAppleTokenPort.parseIdToken(token).subject
 
         // 중복 유저 확인
-        if (existUserByOAuthIdPort.existByOAuthIdOfWithdrawalSafe(sub)) throw AlreadyExistUserException
+        if (existUserByOAuthIdPort.existUserByOAuthIdOnWithdrawalSafe(sub)) throw AlreadyExistUserException
 
         // 유저 생성
         saveUserPort.saveUser(

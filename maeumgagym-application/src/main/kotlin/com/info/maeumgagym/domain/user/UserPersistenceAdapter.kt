@@ -47,9 +47,9 @@ internal class UserPersistenceAdapter(
         userRepository.delete(userMapper.toEntity(user))
     }
 
-    override fun existByNicknameOfWithdrawalSafe(nickName: String): Boolean =
-        userNativeRepository.findByNicknameOfWithdrawalSafe(nickName)?.let { true } ?: false
+    override fun existByNicknameOnWithdrawalSafe(nickName: String): Boolean =
+        userNativeRepository.findByNicknameOnWithdrawalSafe(nickName)?.let { true } ?: false
 
-    override fun existByOAuthIdOfWithdrawalSafe(oauthId: String): Boolean =
-        userNativeRepository.findByOauthIdOfWithdrawalSafe(oauthId)?.let { true } ?: false
+    override fun existUserByOAuthIdOnWithdrawalSafe(oauthId: String): Boolean =
+        userNativeRepository.findByOauthIdOnWithdrawalSafe(oauthId)?.let { true } ?: false
 }

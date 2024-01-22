@@ -45,13 +45,13 @@ internal class GoogleOAuthService(
 
     override fun signup(accessToken: String, nickname: String) {
         // nickname 중복 확인
-        if (existUserByNicknamePort.existByNicknameOfWithdrawalSafe(nickname)) throw DuplicatedNicknameException
+        if (existUserByNicknamePort.existByNicknameOnWithdrawalSafe(nickname)) throw DuplicatedNicknameException
 
         // google access_token으로 profile 가져오기
         val profile = getGoogleInfoPort.getGoogleInfo(accessToken)
 
         // 중복 유저 확인
-        if (existUserByOAuthIdPort.existByOAuthIdOfWithdrawalSafe(profile.sub)) throw AlreadyExistUserException
+        if (existUserByOAuthIdPort.existUserByOAuthIdOnWithdrawalSafe(profile.sub)) throw AlreadyExistUserException
 
         // 유저 생성
         saveUserPort.saveUser(

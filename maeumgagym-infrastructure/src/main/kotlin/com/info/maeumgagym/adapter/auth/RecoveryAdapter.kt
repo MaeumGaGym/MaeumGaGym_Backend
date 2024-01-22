@@ -34,6 +34,6 @@ internal class RecoveryAdapter(
         }
 
         // 삭제된 유저 생명 주기 테이블 삭제
-        deleteDeletedAtPort.delete(deletedUser.id)
+        deleteDeletedAtPort.deleteById(deletedUser.id)
     }
 }

@@ -40,13 +40,13 @@ internal class KakaoOAuthService(
 
     override fun signup(accessToken: String, nickname: String) {
         // nickname 중복 확인
-        if (existUserByNicknamePort.existByNicknameOfWithdrawalSafe(nickname)) throw DuplicatedNicknameException
+        if (existUserByNicknamePort.existByNicknameOnWithdrawalSafe(nickname)) throw DuplicatedNicknameException
 
         // kakao access_token으로 유저 정보 가져오기
         val userInfo = getKakaoInfoPort.getInfo(accessToken)
 
         // 중복 유저 확인
-        if (existUserByOAuthIdPort.existByOAuthIdOfWithdrawalSafe(userInfo.id)) throw AlreadyExistUserException
+        if (existUserByOAuthIdPort.existUserByOAuthIdOnWithdrawalSafe(userInfo.id)) throw AlreadyExistUserException
 
         // 유저 생성
         saveUserPort.saveUser(

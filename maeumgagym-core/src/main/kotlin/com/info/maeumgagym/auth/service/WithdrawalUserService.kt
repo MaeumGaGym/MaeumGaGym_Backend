@@ -28,7 +28,7 @@ internal class WithdrawalUserService(
         * if (existsDeletedUserByIdPort.existsByIdInNative(user.oauthId)) throw AlreadyWithdrawalUserException
         */
 
-        // user soft delete
+        // user soft deleteById
         deleteUserPort.deleteUser(user)
 
         // 삭제된 유저 생명주기 관리용 테이블 생성

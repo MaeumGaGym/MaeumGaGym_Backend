@@ -24,11 +24,11 @@ internal class DeletedAtPersistenceAdapter(
             deletedAtRepository.save(userMapper.toEntity(domain))
         )
 
-    override fun findDeletedAt(id: UUID): LocalDate? =
+    override fun findDeletedAtById(id: UUID): LocalDate? =
         deletedAtRepository.findByUserId(id)?.date
 
     @Transactional(propagation = Propagation.MANDATORY)
-    override fun delete(userId: UUID) {
+    override fun deleteById(userId: UUID) {
         deletedAtRepository.deleteByUserId(userId)
     }
 }
