@@ -2,6 +2,7 @@ package com.info.maeumgagym.scheduler
 
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
+import com.info.maeumgagym.domain.user.repository.UserNativeRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.wakatime.model.WakaTime
 import com.info.maeumgagym.wakatime.port.out.ReadWakaTimeFromUserAndDatePort
@@ -18,6 +19,7 @@ import java.time.LocalDateTime
 @Service
 class WakaTimeScheduler(
     private val userRepository: UserRepository,
+    private val userNativeRepository: UserNativeRepository,
     private val userMapper: UserMapper,
     private val saveWakaTimePort: SaveWakaTimePort,
     private val readWakaTimeFromUserAndDatePort: ReadWakaTimeFromUserAndDatePort
@@ -33,7 +35,7 @@ class WakaTimeScheduler(
         var seconds: Long
 
         // 와카타임을 시작하고 종료하지 않은 모든 유저 불러오기
-        userRepository.findAllByWakaStartedAtNotNullInNative().forEach { user ->
+        userNativeRepository.findAllByWakaStartedAtNotNullInNative().forEach { user ->
             // 와카타임 시작 시간 ~ 지금까지의 초
             seconds = Duration.between(userMapper.toDomain(user).wakaStartedAt, now).seconds
 
