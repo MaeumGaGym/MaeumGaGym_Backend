@@ -17,7 +17,7 @@ internal class RecoveryAdapter(
 
     override fun recovery(oauthId: String) {
         // 해딩 유저를 삭제된 유저들 중에서 확인
-        val deletedUser = findDeletedUserByIdPort.findByIdOrNullInNative(oauthId) ?: throw UserNotFoundException
+        val deletedUser = findDeletedUserByIdPort.findDeletedUserByOauthId(oauthId) ?: throw UserNotFoundException
 
         // 유저의 소프트 딜리트 변경
         deletedUser.apply {
