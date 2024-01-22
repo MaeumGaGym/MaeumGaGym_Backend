@@ -35,7 +35,7 @@ class WakaTimeScheduler(
         var seconds: Long
 
         // 와카타임을 시작하고 종료하지 않은 모든 유저 불러오기
-        userNativeRepository.findAllByWakaStartedAtNotNullInNative().forEach { u ->
+        userNativeRepository.findAllByWakaStartedAtNotNullOnWithdrawalSafe().forEach { u ->
 
             val user = userMapper.toDomain(u)
 
@@ -60,20 +60,36 @@ class WakaTimeScheduler(
                     date = yesterday
                 ))
 
-            // 와카타임 재시작
-            userRepository.save(
-                user.run {
-                    UserJpaEntity(
-                        nickname = nickname,
-                        oauthId = oauthId,
-                        roles = roles,
-                        profileImage = profileImage,
-                        wakaStartedAt = now,
-                        isDelete = isDeleted,
-                        id = id
-                    )
-                }
-            )
+            if (user.isDeleted) {
+                userRepository.save(
+                    user.run {
+                        UserJpaEntity(
+                            nickname = nickname,
+                            oauthId = oauthId,
+                            roles = roles,
+                            profileImage = profileImage,
+                            wakaStartedAt = null,
+                            isDelete = isDeleted,
+                            id = id
+                        )
+                    }
+                )
+            } else {
+                // 와카타임 재시작
+                userRepository.save(
+                    user.run {
+                        UserJpaEntity(
+                            nickname = nickname,
+                            oauthId = oauthId,
+                            roles = roles,
+                            profileImage = profileImage,
+                            wakaStartedAt = now,
+                            isDelete = isDeleted,
+                            id = id
+                        )
+                    }
+                )
+            }
         }
     }
 }
