@@ -10,8 +10,11 @@ import com.info.maeumgagym.routine.model.RoutineStatusModel
 import com.info.maeumgagym.routine.port.`in`.UpdateRoutineUseCase
 import com.info.maeumgagym.routine.port.out.ReadRoutineByIdPort
 import com.info.maeumgagym.routine.port.out.SaveRoutinePort
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Transactional
 
 @UseCase
+@Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = [Exception::class])
 internal class UpdateRoutineService(
     private val readRoutineByIdPort: ReadRoutineByIdPort,
     private val readCurrentUserPort: ReadCurrentUserPort,

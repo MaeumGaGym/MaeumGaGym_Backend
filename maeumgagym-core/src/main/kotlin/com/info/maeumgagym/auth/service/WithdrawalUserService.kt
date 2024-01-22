@@ -7,8 +7,11 @@ import com.info.maeumgagym.auth.port.out.RevokeTokensPort
 import com.info.maeumgagym.user.model.DeletedAt
 import com.info.maeumgagym.user.port.out.DeleteUserPort
 import com.info.maeumgagym.user.port.out.SaveDeletedAtPort
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Transactional
 
 @UseCase
+@Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = [Exception::class])
 internal class WithdrawalUserService(
     private val deleteUserPort: DeleteUserPort,
     private val readCurrentUserPort: ReadCurrentUserPort,

@@ -11,8 +11,11 @@ import com.info.maeumgagym.pickle.port.`in`.CreatePickleReplyCommentUseCase
 import com.info.maeumgagym.pickle.port.out.ExistsPickleByIdPort
 import com.info.maeumgagym.pickle.port.out.ReadPickleCommentPort
 import com.info.maeumgagym.pickle.port.out.SavePickleReplyCommentPort
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Transactional
 
 @UseCase
+@Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = [Exception::class])
 internal class CreatePickleReplyCommentService(
     private val savePickleReplyCommentPort: SavePickleReplyCommentPort,
     private val readCurrentUserPort: ReadCurrentUserPort,

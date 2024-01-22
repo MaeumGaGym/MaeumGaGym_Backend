@@ -16,8 +16,11 @@ import com.info.maeumgagym.user.port.out.ExistUserByNicknamePort
 import com.info.maeumgagym.user.port.out.ExistUserByOAuthIdPort
 import com.info.maeumgagym.user.port.out.RecoveryUserPort
 import com.info.maeumgagym.user.port.out.SaveUserPort
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Transactional
 
 @UseCase
+@Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = [Exception::class])
 internal class AppleOAuthService(
     private val existUserByOAuthIdPort: ExistUserByOAuthIdPort,
     private val saveUserPort: SaveUserPort,
@@ -40,13 +43,13 @@ internal class AppleOAuthService(
 
     override fun signUp(token: String, nickname: String) {
         // nickname 중복 확인
-        if (existUserByNicknamePort.existByNicknameInNative(nickname)) throw DuplicatedNicknameException
+        if (existUserByNicknamePort.existByNicknameOfWithdrawalSafe(nickname)) throw DuplicatedNicknameException
 
         // Apple id_token에서 subject값을 받아온다
         val sub = parseAppleTokenPort.parseIdToken(token).subject
 
         // 중복 유저 확인
-        if (existUserByOAuthIdPort.existByOAuthIdInNative(sub)) throw AlreadyExistUserException
+        if (existUserByOAuthIdPort.existByOAuthIdOfWithdrawalSafe(sub)) throw AlreadyExistUserException
 
         // 유저 생성
         saveUserPort.saveUser(
