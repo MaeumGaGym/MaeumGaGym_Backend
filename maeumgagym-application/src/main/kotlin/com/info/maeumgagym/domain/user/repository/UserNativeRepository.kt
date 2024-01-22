@@ -13,13 +13,13 @@ interface UserNativeRepository: Repository<UserJpaEntity, UUID> {
         value = "SELECT * FROM ${TableNames.USER_TABLE} u WHERE u.nickname = :nickname limit 1",
         nativeQuery = true
     )
-    fun findByNicknameOfWithdrawalSafe(@Param("nickname") nickname: String): UserJpaEntity?
+    fun findByNicknameOnWithdrawalSafe(@Param("nickname") nickname: String): UserJpaEntity?
 
     @Query(
         value = "SELECT * FROM ${TableNames.USER_TABLE} u WHERE u.oauth_id = :oauthId limit 1",
         nativeQuery = true
     )
-    fun findByOauthIdOfWithdrawalSafe(@Param("oauthId") oauthId: String): UserJpaEntity?
+    fun findByOauthIdOnWithdrawalSafe(@Param("oauthId") oauthId: String): UserJpaEntity?
 
     @Query(
         value = "SELECT * FROM ${TableNames.USER_TABLE} u WHERE u.oauth_id = :oauthId and u.is_deleted = true limit 1",
@@ -41,5 +41,5 @@ interface UserNativeRepository: Repository<UserJpaEntity, UUID> {
         value = "SELECT * FROM ${TableNames.USER_TABLE} u WHERE u.waka_started_at IS NOT NULL",
         nativeQuery = true
     )
-    fun findAllByWakaStartedAtNotNullInNative(): MutableList<UserJpaEntity>
+    fun findAllByWakaStartedAtNotNullOnWithdrawalSafe(): MutableList<UserJpaEntity>
 }
