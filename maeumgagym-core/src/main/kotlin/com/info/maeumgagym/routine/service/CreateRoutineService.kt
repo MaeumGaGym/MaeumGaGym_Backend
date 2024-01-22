@@ -17,6 +17,7 @@ internal class CreateRoutineService(
     private val saveRoutinePort: SaveRoutinePort,
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : CreateRoutineUseCase {
+
     override fun createRoutine(req: CreateRoutineRequest) {
         // 운동 리스트가 비어있다면 -> 예외 처리
         if (req.exerciseInfoModelList.isEmpty()) throw ExerciseListCannotEmptyException
