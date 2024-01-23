@@ -4,7 +4,7 @@ import com.info.common.WebAdapter
 import com.info.maeumgagym.controller.pickle.dto.PickleCommentWebRequest
 import com.info.maeumgagym.pickle.dto.response.PickleCommentListResponse
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleCommentUseCase
-import com.info.maeumgagym.pickle.port.`in`.ReadAllPickleCommentsUseCase
+import com.info.maeumgagym.pickle.port.`in`.ReadAllPagedPickleCommentUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.validation.annotation.Validated
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import javax.validation.Valid
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
@@ -23,7 +24,7 @@ import javax.validation.constraints.Pattern
 @RequestMapping("/pickle/comments")
 class PickleCommentController(
     private val createPickleCommentUseCase: CreatePickleCommentUseCase,
-    private val readAllPickleCommentsUseCase: ReadAllPickleCommentsUseCase
+    private val readAllPagedPickleCommentUseCase: ReadAllPagedPickleCommentUseCase
 ) {
     @Operation(summary = "피클 댓글 추가 API")
     @PostMapping("/{videoId}")
@@ -46,7 +47,9 @@ class PickleCommentController(
         @NotBlank(message = "videoId는 null일 수 없습니다.")
         @Pattern(regexp = "^[0-9a-f]{8}$")
         @Valid
-        videoId: String?
+        videoId: String?,
+        @RequestParam(required = false, defaultValue = "0", value = "page") page: Int,
+        @RequestParam(required = false, defaultValue = "5", value = "size") size: Int
     ): PickleCommentListResponse =
-        readAllPickleCommentsUseCase.readPickleCommentByVideoId(videoId!!)
+        readAllPagedPickleCommentUseCase.readAllPagedPickleCommentByVideoId(videoId!!, page, size)
 }
