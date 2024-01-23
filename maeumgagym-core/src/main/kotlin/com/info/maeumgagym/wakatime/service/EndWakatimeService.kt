@@ -30,28 +30,27 @@ internal class EndWakatimeService(
         val user = readCurrentUserPort.readCurrentUser()
 
         // 와카타임 시작 시간 불러오기
-        val wakaStarted = user.wakaStartedAt ?: throw WakaStartedNotYetException
+        var wakaStarted = user.wakaStartedAt ?: throw WakaStartedNotYetException
 
         val now = LocalDateTime.now()
         val nowDate = now.toLocalDate()
 
-        while (wakaStarted.toLocalDate() < nowDate) {
+        while (wakaStarted.toLocalDate() <= nowDate) {
 
-            val seconds = Duration.between(
-                wakaStarted,
-                LocalDateTime.of(
-                    wakaStarted.year,
-                    wakaStarted.month,
-                    wakaStarted.dayOfMonth,
-                    23, // hour
-                    0, // minute
-                    0 // second
-                )
-            ).seconds
+            val dateOfLastTime = LocalDateTime.of(
+                wakaStarted.year,
+                wakaStarted.month,
+                wakaStarted.dayOfMonth,
+                23, // hour
+                0, // minute
+                0 // second
+            )
+
+            val seconds = Duration.between(wakaStarted, if(dateOfLastTime > now) now else dateOfLastTime).seconds
 
             saveWakatime(user, wakaStarted.toLocalDate(), seconds)
 
-            wakaStarted.plusDays(1)
+            wakaStarted = wakaStarted.plusDays(1)
         }
 
         // 와카타임 시작시간 초기화
