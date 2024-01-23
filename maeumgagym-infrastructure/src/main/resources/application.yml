@@ -44,8 +44,8 @@ server:
 logging:
     level:
         root: info
-        org.hibernate.sql: debug
-        org.hibernate.type: trace
+#        org.hibernate.sql: debug
+#        org.hibernate.type: trace
 
 jwt:
     secretKey: ${JWT_SECRET_KEY}
