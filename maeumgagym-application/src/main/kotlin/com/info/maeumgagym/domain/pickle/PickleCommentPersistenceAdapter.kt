@@ -25,7 +25,7 @@ internal class PickleCommentPersistenceAdapter(
     override fun savePickleComment(pickleComment: PickleComment): PickleComment =
         pickleCommentMapper.toDomain(pickleCommentRepository.save(pickleCommentMapper.toEntity(pickleComment)))
 
-    override fun readAllPickleCommentsByVideoId(videoId: String, page: Int, size: Int): List<PickleComment> =
+    override fun readAllByViedoIdAndIndexAndSize(videoId: String, page: Int, size: Int): List<PickleComment> =
         pickleCommentRepository.findAllByVideoId(videoId, PageRequest.of(page, size) as Pageable).content
             .map { pickleCommentMapper.toDomain(it) }.toList()
 }

@@ -17,7 +17,7 @@ internal class ReadAllPagedPickleCommentService(
             throw PickleNotFoundException
         }
 
-        val comments = readAllPagedPickleCommentsByVideoIdPort.readAllPickleCommentsByVideoId(videoId, page, size)
+        val comments = readAllPagedPickleCommentsByVideoIdPort.readAllByViedoIdAndIndexAndSize(videoId, page, size)
         val commentList = comments.map { it.toResponse(it) }.toList()
         return PickleCommentListResponse(commentList)
     }
