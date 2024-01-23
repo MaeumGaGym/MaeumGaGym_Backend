@@ -12,7 +12,7 @@ class CustomUserDetailService(
 ) : UserDetailsService {
 
     // 유저를 DB에서 불러와 UserDetails를 반환하는 함수
-    override fun loadUserByUsername(username: String?): UserDetails {
+    override fun loadUserByUsername(username: String?): CustomUserDetails {
         // user를 전달 받은 UK값으로 불러오기
         val user = findUserByOAuthIdPort.findUserByOAuthId(username!!) ?: throw UserNotFoundException
 

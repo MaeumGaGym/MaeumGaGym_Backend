@@ -14,16 +14,14 @@ internal object WakatimeTestModule {
         WakaTimeJpaEntity(
             user = user,
             waka = WAKATIME_SECONDS,
-            date = LocalDate.now(),
-            isNew = true
+            date = LocalDate.now()
         )
 
     fun createYesterdayWakatime(user: UserJpaEntity): WakaTimeJpaEntity =
         WakaTimeJpaEntity(
             user = user,
             waka = WAKATIME_SECONDS,
-            date = LocalDate.now().minusDays(1),
-            isNew = true
+            date = LocalDate.now().minusDays(1)
         )
 
     fun WakaTimeJpaEntity.saveInRepository(wakaTimeRepository: WakaTimeRepository): WakaTimeJpaEntity =

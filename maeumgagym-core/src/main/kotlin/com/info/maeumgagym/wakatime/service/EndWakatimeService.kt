@@ -12,7 +12,9 @@ import com.info.maeumgagym.wakatime.port.out.SaveWakaTimePort
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
 import java.time.Duration
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.UUID
 
 @UseCase
 @Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = [Exception::class])
@@ -31,9 +33,26 @@ internal class EndWakatimeService(
         val wakaStarted = user.wakaStartedAt ?: throw WakaStartedNotYetException
 
         val now = LocalDateTime.now()
+        val nowDate = now.toLocalDate()
 
-        // 와카타임 구하기
-        val seconds = Duration.between(wakaStarted, now).seconds
+        while (wakaStarted.toLocalDate() < nowDate) {
+
+            val seconds = Duration.between(
+                wakaStarted,
+                LocalDateTime.of(
+                    wakaStarted.year,
+                    wakaStarted.month,
+                    wakaStarted.dayOfMonth,
+                    23, // hour
+                    0, // minute
+                    0 // second
+                )
+            ).seconds
+
+            saveWakatime(user, wakaStarted.toLocalDate(), seconds)
+
+            wakaStarted.plusDays(1)
+        }
 
         // 와카타임 시작시간 초기화
         user.run {
@@ -49,18 +68,19 @@ internal class EndWakatimeService(
                 )
             )
         }
+    }
 
-        val date = now.toLocalDate()
+    private fun saveWakatime(user: User, date: LocalDate, seconds: Long) {
 
         // 먼저 생성한 와카타임 있는지 확인
-        val wakaTime = readWakaTimeFromUserAndDatePort.findByUserAndDate(user, date)
+        val wakaTime = readWakaTimeFromUserAndDatePort.findByUserIdAndDate(user.id, date)
             ?.let {
                 // 있으면 waka += seconds
                 WakaTime(
                     user = it.user,
                     waka = it.waka + seconds,
                     date = it.date,
-                    isNew = it.isNew
+                    id = it.id
                 )
             } ?: WakaTime(
             // 없으면 waka = seconds

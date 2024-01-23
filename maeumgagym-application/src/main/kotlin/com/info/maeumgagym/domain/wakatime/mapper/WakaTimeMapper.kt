@@ -16,7 +16,7 @@ class WakaTimeMapper(
                 user = userMapper.toEntity(user),
                 date = date,
                 waka = waka,
-                isNew = isNew
+                id = id
             )
         }
 
@@ -26,7 +26,7 @@ class WakaTimeMapper(
                 user = userMapper.toDomain(user),
                 date = date,
                 waka = waka,
-                isNew = isNew()
+                id = id,
             )
         }
 }

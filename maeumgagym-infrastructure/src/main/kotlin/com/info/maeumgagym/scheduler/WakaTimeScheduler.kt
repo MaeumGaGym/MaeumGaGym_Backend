@@ -44,14 +44,14 @@ class WakaTimeScheduler(
 
             saveWakaTimePort.save(
                 // 먼저 생성한 와카타임 있는지 확인
-                readWakaTimeFromUserAndDatePort.findByUserAndDate(user, yesterday)
+                readWakaTimeFromUserAndDatePort.findByUserIdAndDate(user.id, yesterday)
                     ?.let {
                         // 있으면 waka += seconds
                         WakaTime(
                             user = it.user,
                             waka = it.waka + seconds,
                             date = it.date,
-                            isNew = it.isNew
+                            id = it.id
                         )
                     } ?: WakaTime(
                     // 없으면 waka = seconds
