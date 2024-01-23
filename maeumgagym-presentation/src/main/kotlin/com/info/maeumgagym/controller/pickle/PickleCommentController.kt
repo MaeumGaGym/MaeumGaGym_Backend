@@ -48,8 +48,8 @@ class PickleCommentController(
         @Pattern(regexp = "^[0-9a-f]{8}$")
         @Valid
         videoId: String?,
-        @RequestParam(required = false, defaultValue = "0",value = "page") page: Int,
-        @RequestParam(required = false, defaultValue = "5",value = "size") size: Int
+        @RequestParam(required = false, defaultValue = "0", value = "page") page: Int,
+        @RequestParam(required = false, defaultValue = "5", value = "size") size: Int
     ): PickleCommentListResponse =
         readAllPagedPickleCommentUseCase.readAllPagedPickleCommentByVideoId(videoId!!, page, size)
 }
