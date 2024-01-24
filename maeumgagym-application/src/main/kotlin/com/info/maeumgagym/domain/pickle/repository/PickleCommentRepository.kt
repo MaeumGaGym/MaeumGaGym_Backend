@@ -13,4 +13,6 @@ interface PickleCommentRepository : Repository<PickleCommentJpaEntity, Long> {
     fun findAllByVideoId(videoId: String, pageable: Pageable): Page<PickleCommentJpaEntity>
 
     fun findById(id: Long): PickleCommentJpaEntity?
+
+    fun delete(entity: PickleCommentJpaEntity)
 }
