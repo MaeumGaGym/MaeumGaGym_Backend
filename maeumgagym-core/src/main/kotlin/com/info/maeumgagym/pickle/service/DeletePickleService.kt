@@ -6,7 +6,7 @@ import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.pickle.exception.PickleNotFoundException
 import com.info.maeumgagym.pickle.port.`in`.PickleDeleteUseCase
 import com.info.maeumgagym.pickle.port.out.DeletePicklePort
-import com.info.maeumgagym.pickle.port.out.ExternalDeletePicklePort
+import com.info.maeumgagym.pickle.port.out.DeleteOriginalVideoPort
 import com.info.maeumgagym.pickle.port.out.ReadPicklePort
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class DeletePickleService(
     private val deletePicklePort: DeletePicklePort,
-    private val externalDeletePicklePort: ExternalDeletePicklePort,
+    private val deleteOriginalVideoPort: DeleteOriginalVideoPort,
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val readPicklePort: ReadPicklePort
 ) : PickleDeleteUseCase {
@@ -34,6 +34,6 @@ internal class DeletePickleService(
         deletePicklePort.delete(pickle)
 
         // 피클 파일 삭제
-        externalDeletePicklePort.delete(pickle.videoId)
+        deleteOriginalVideoPort.callDeleteAPIOnExternal(pickle.videoId)
     }
 }
