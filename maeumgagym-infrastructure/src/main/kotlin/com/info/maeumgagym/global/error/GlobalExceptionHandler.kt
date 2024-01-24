@@ -1,7 +1,6 @@
 package com.info.maeumgagym.global.error
 
 import com.info.maeumgagym.common.exception.MaeumGaGymException
-import org.springframework.context.MessageSource
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -12,11 +11,9 @@ import javax.validation.ConstraintViolation
 import javax.validation.ConstraintViolationException
 
 @RestControllerAdvice
-class GlobalExceptionHandler(
-    private val messageSource: MessageSource
-) {
+class GlobalExceptionHandler {
     @ExceptionHandler(MaeumGaGymException::class)
-    fun handlingEquusException(e: MaeumGaGymException): ResponseEntity<ErrorResponse> {
+    protected fun handlingEquusException(e: MaeumGaGymException): ResponseEntity<ErrorResponse> {
         val code = e.errorCode
         return ResponseEntity(
             ErrorResponse(code.status, code.message),
@@ -25,7 +22,7 @@ class GlobalExceptionHandler(
     }
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
-    fun validatorExceptionHandler(e: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
+    protected fun validatorExceptionHandler(e: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
         return ResponseEntity(
             ErrorResponse(
                 400,
@@ -47,13 +44,13 @@ class GlobalExceptionHandler(
     }
 
     @ExceptionHandler(MissingServletRequestParameterException::class)
-    protected fun handleMissingServletRequestParameterException(e: MissingServletRequestParameterException): ResponseEntity<ErrorResponse> {
-        return ResponseEntity(
-            ErrorResponse(
-                400,
-                e.message
-            ),
-            HttpStatus.BAD_REQUEST
-        )
-    }
+    protected fun handleMissingServletRequestParameterException(
+        e: MissingServletRequestParameterException
+    ): ResponseEntity<ErrorResponse> = ResponseEntity(
+        ErrorResponse(
+            400,
+            e.message
+        ),
+        HttpStatus.BAD_REQUEST
+    )
 }
