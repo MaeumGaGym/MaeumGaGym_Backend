@@ -6,11 +6,10 @@ import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.auth.port.out.RevokeTokensPort
 import com.info.maeumgagym.user.port.out.DeleteUserPort
 import org.springframework.transaction.annotation.Isolation
-import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 
 @UseCase
-@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.NESTED, rollbackFor = [Exception::class])
+@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class WithdrawalUserService(
     private val deleteUserPort: DeleteUserPort,
     private val readCurrentUserPort: ReadCurrentUserPort,
