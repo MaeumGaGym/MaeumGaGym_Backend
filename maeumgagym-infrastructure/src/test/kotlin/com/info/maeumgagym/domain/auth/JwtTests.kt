@@ -49,9 +49,9 @@ class JwtTests @Autowired constructor(
     @Test
     fun generateTokens() {
         val token = jwtAdapter.generateTokens(user.oauthId)
-        Assertions.assertNotNull(accessTokenRepository.findByIdOrNull(user.oauthId))
+        Assertions.assertNotNull(accessTokenRepository.findById(user.oauthId))
         Assertions.assertNotNull(accessTokenRepository.findByAccessToken(token.accessToken))
-        Assertions.assertNotNull(refreshTokenRepository.findByIdOrNull(user.oauthId))
+        Assertions.assertNotNull(refreshTokenRepository.findById(user.oauthId))
         Assertions.assertNotNull(refreshTokenRepository.findByRfToken(token.refreshToken))
     }
 

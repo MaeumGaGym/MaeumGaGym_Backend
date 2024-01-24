@@ -6,7 +6,9 @@ import org.springframework.data.repository.Repository
 @org.springframework.stereotype.Repository
 interface AccessTokenRepository : Repository<AccessTokenRedisEntity, String> {
 
-    fun deleteBySubject(subject: String)
+    fun findById(id: String): AccessTokenRedisEntity?
+
+    fun deleteById(id: String)
 
     fun save(entity: AccessTokenRedisEntity): AccessTokenRedisEntity
 

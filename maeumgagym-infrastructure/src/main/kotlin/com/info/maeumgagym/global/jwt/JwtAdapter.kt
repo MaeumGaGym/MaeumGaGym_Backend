@@ -95,8 +95,8 @@ class JwtAdapter(
     }
 
     override fun revokeTokens(subject: String) {
-        accessTokenRepository.deleteBySubject(subject)
-        refreshTokenRepository.deleteBySubject(subject)
+        accessTokenRepository.deleteById(subject)
+        refreshTokenRepository.deleteById(subject)
     }
 
     // 토큰 재발급
