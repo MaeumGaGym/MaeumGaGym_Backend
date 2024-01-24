@@ -21,6 +21,7 @@ spring:
                 show_sql: true
                 use_sql_comments: false
                 dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+                legacy_limit_handler: true
             open-in-view: false
 
 # server
