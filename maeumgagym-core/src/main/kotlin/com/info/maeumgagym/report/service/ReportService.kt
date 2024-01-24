@@ -31,7 +31,6 @@ internal class ReportService(
 ) : ReportUserUseCase, ReportPickleUseCase, ReportPickleCommentUseCase, ReportPickleReplyUseCase {
 
     override fun reportUser(request: ReportRequest, nickname: String) {
-
         val user = readCurrentUserPort.readCurrentUser()
 
         if (user.nickname == nickname) {
@@ -51,13 +50,13 @@ internal class ReportService(
     }
 
     override fun reportPickle(request: ReportRequest, videoId: String) {
-
         val user = readCurrentUserPort.readCurrentUser()
 
         val pickle = readPicklePort.readById(videoId) ?: throw PickleNotFoundException
 
-        if (user == pickle.uploader)
+        if (user == pickle.uploader) {
             throw CannotReportOneselfException
+        }
 
         saveReportPort.saveReport(
             Report(
@@ -70,13 +69,13 @@ internal class ReportService(
     }
 
     override fun reportPickleComment(request: ReportRequest, id: Long) {
-
         val user = readCurrentUserPort.readCurrentUser()
 
         val pickleComment = readPickleCommentPort.readById(id) ?: throw PickleCommentNotFoundException
 
-        if (user == pickleComment.writer)
+        if (user == pickleComment.writer) {
             throw CannotReportOneselfException
+        }
 
         saveReportPort.saveReport(
             Report(
@@ -89,7 +88,6 @@ internal class ReportService(
     }
 
     override fun reportPickleReply(request: ReportRequest, id: Long) {
-
         val user = readCurrentUserPort.readCurrentUser()
 
         val pickleReply = readPickleReplyPort.readById(id) ?: throw PickleReplyNotFoundException

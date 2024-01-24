@@ -36,7 +36,7 @@ class ReportJpaEntity(
     var reporterId: UUID = reporterId
         protected set
 
-    @Column(name  = "target_id", updatable = false, nullable = false)
+    @Column(name = "target_id", updatable = false, nullable = false)
     var targetId: String = targetId
         protected set
 }
