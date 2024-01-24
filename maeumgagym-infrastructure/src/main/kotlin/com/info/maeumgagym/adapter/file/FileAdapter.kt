@@ -3,7 +3,6 @@ package com.info.maeumgagym.adapter.file
 import com.info.maeumgagym.feign.file.FileClient
 import com.info.maeumgagym.feign.file.dto.request.PreSignedUploadURLFeignRequest
 import com.info.maeumgagym.global.env.file.FileProperty
-import com.info.maeumgagym.pickle.port.`in`.GetPreSignedUploadURLUseCase
 import com.info.maeumgagym.pickle.port.out.DeleteOriginalVideoPort
 import com.info.maeumgagym.pickle.port.out.GenerateM3u8URLPort
 import com.info.maeumgagym.pickle.port.out.GetPreSignedVideoUploadURLPort
