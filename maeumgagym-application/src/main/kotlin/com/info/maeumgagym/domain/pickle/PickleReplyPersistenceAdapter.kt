@@ -24,7 +24,11 @@ internal class PickleReplyPersistenceAdapter(
             pickleReplyRepository.save(pickleCommentMapper.toEntity(pickleReply))
         )
 
-    override fun readAllPickleReplyByParentComment(parentComment: PickleComment, page: Int, size: Int): List<PickleReply> =
+    override fun readAllPickleReplyByParentComment(
+        parentComment: PickleComment,
+        page: Int,
+        size: Int
+    ): List<PickleReply> =
         pickleReplyRepository.findAllByParentComment(
             pickleCommentMapper.toEntity(parentComment),
             PageRequest.of(page, size) as Pageable
