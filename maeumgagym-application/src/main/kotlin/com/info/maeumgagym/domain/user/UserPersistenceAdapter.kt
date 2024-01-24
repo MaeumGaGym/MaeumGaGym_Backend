@@ -26,7 +26,6 @@ internal class UserPersistenceAdapter(
     override fun findDeletedUserByOauthId(oauthId: String): User? =
         userNativeRepository.findDeletedUserByOauthId(oauthId)?.let { userMapper.toDomain(it) }
 
-
     override fun findUserById(userId: UUID): User? =
         userRepository.findById(userId)?.let { userMapper.toDomain(it) }
 
@@ -43,8 +42,8 @@ internal class UserPersistenceAdapter(
         userRepository.findByOauthId(oauthId)?.let { userMapper.toDomain(it) }
 
     @Transactional(propagation = Propagation.MANDATORY)
-    override fun deleteUser(user: User) {
-        userRepository.delete(userMapper.toEntity(user))
+    override fun deleteById(id: UUID) {
+        userRepository.deleteById(id)
     }
 
     override fun existByNicknameOnWithdrawalSafe(nickName: String): Boolean =

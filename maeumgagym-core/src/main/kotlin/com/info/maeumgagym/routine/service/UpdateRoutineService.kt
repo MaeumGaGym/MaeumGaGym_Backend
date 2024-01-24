@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
 
 @UseCase
-@Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = [Exception::class])
+@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class UpdateRoutineService(
     private val readRoutineByIdPort: ReadRoutineByIdPort,
     private val readCurrentUserPort: ReadCurrentUserPort,

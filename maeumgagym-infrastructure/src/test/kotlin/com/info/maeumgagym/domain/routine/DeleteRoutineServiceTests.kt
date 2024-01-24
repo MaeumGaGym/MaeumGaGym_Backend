@@ -17,12 +17,11 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @SpringBootTest
-class DeleteRoutineServiceTests @Autowired constructor(
+internal class DeleteRoutineServiceTests @Autowired constructor(
     private val deleteRoutineUseCase: DeleteRoutineUseCase,
     private val routineRepository: RoutineRepository,
     private val userRepository: UserRepository,

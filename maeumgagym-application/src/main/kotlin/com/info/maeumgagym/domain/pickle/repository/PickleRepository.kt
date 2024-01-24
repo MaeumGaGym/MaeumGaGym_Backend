@@ -14,4 +14,3 @@ interface PickleRepository : Repository<PickleJpaEntity, String> {
 
     fun findAll(): List<PickleJpaEntity>
 }
-

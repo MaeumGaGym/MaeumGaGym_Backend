@@ -8,7 +8,6 @@ import com.info.maeumgagym.routine.port.out.DeleteRoutinePort
 import com.info.maeumgagym.routine.port.out.ReadAllRoutineByUserIdPort
 import com.info.maeumgagym.routine.port.out.ReadRoutineByIdPort
 import com.info.maeumgagym.routine.port.out.SaveRoutinePort
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import java.util.*

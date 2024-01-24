@@ -28,7 +28,7 @@ class DuplicatedCheckServiceTests @Autowired constructor(
     fun checkExistsUserNickname() {
         val testUser = UserTestModule.createTestUser().saveInRepository(userRepository)
         val otherUser = UserTestModule.createOtherUser().saveInRepository(userRepository)
-        userRepository.delete(otherUser)
+        userRepository.deleteById(otherUser.id!!)
         Assertions.assertTrue(duplicatedCheckUseCase.existByNickname(testUser.nickname))
         Assertions.assertTrue(duplicatedCheckUseCase.existByNickname(otherUser.nickname))
     }
