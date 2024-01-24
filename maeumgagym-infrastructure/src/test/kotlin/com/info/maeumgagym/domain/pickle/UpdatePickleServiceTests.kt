@@ -61,7 +61,7 @@ class UpdatePickleServiceTests @Autowired constructor(
             )
         }
         Assertions.assertNull(
-            pickleRepository.findByIdOrNull(pickle.videoId)
+            pickleRepository.findByVideoId(pickle.videoId)
         )
     }
 

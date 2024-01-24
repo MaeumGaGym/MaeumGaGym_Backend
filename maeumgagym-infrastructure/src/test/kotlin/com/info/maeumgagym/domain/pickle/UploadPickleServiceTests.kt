@@ -45,7 +45,7 @@ class UploadPickleServiceTests @Autowired constructor(
             )
         }
         Assertions.assertNotNull(
-            pickleRepository.findByIdOrNull(pickle.videoId)
+            pickleRepository.findByVideoId(pickle.videoId)
         )
     }
 

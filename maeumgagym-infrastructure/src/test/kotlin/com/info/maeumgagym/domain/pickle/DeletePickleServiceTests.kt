@@ -45,20 +45,20 @@ class DeletePickleServiceTests @Autowired constructor(
             deletePickleUseCase.deletePickle(pickle.videoId)
         }
         Assertions.assertNull(
-            pickleRepository.findByIdOrNull(pickle.videoId)
+            pickleRepository.findByVideoId(pickle.videoId)
         )
     }
 
     @Test
     fun deleteNonExistsPickle() {
         Assertions.assertNull(
-            pickleRepository.findByIdOrNull(pickle.videoId)
+            pickleRepository.findByVideoId(pickle.videoId)
         )
         Assertions.assertThrows(PickleNotFoundException::class.java) {
             deletePickleUseCase.deletePickle(pickle.videoId)
         }
         Assertions.assertNull(
-            pickleRepository.findByIdOrNull(pickle.videoId)
+            pickleRepository.findByVideoId(pickle.videoId)
         )
     }
 
@@ -73,7 +73,7 @@ class DeletePickleServiceTests @Autowired constructor(
             )
         }
         Assertions.assertNotNull(
-            pickleRepository.findByIdOrNull(pickle.videoId)
+            pickleRepository.findByVideoId(pickle.videoId)
         )
     }
 }
