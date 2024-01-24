@@ -7,6 +7,8 @@ import com.info.maeumgagym.pickle.model.PickleComment
 import com.info.maeumgagym.pickle.model.PickleReply
 import com.info.maeumgagym.pickle.port.out.ReadAllReplyByParentCommentPort
 import com.info.maeumgagym.pickle.port.out.SavePickleReplyCommentPort
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 
@@ -22,7 +24,9 @@ internal class PickleReplyPersistenceAdapter(
             pickleReplyRepository.save(pickleCommentMapper.toEntity(pickleReply))
         )
 
-    override fun readAllPickleReplyByParentComment(parentComment: PickleComment): List<PickleReply> =
-        pickleReplyRepository.findAllByParentComment(pickleCommentMapper.toEntity(parentComment))
-            .map { pickleCommentMapper.toDomain(it) }.toList()
+    override fun readAllPickleReplyByParentComment(parentComment: PickleComment, page: Int, size: Int): List<PickleReply> =
+        pickleReplyRepository.findAllByParentComment(
+            pickleCommentMapper.toEntity(parentComment),
+            PageRequest.of(page, size) as Pageable
+        ).content.map { pickleCommentMapper.toDomain(it) }.toList()
 }
