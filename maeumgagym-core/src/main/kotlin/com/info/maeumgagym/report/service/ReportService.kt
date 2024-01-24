@@ -5,9 +5,9 @@ import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.pickle.exception.PickleCommentNotFoundException
 import com.info.maeumgagym.pickle.exception.PickleNotFoundException
 import com.info.maeumgagym.pickle.exception.PickleReplyNotFoundException
-import com.info.maeumgagym.pickle.port.out.ReadPickleByIdPort
 import com.info.maeumgagym.pickle.port.out.ReadPickleCommentPort
-import com.info.maeumgagym.pickle.port.out.ReadPickleReplyByIdPort
+import com.info.maeumgagym.pickle.port.out.ReadPicklePort
+import com.info.maeumgagym.pickle.port.out.ReadPickleReplyPort
 import com.info.maeumgagym.report.dto.request.ReportRequest
 import com.info.maeumgagym.report.exception.CannotReportOneselfException
 import com.info.maeumgagym.report.model.Report
@@ -18,16 +18,16 @@ import com.info.maeumgagym.report.port.`in`.ReportPickleUseCase
 import com.info.maeumgagym.report.port.`in`.ReportUserUseCase
 import com.info.maeumgagym.report.port.out.SaveReportPort
 import com.info.maeumgagym.user.exception.UserNotFoundException
-import com.info.maeumgagym.user.port.out.ReadUserByNicknamePort
+import com.info.maeumgagym.user.port.out.ReadUserPort
 
 @UseCase
 internal class ReportService(
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val saveReportPort: SaveReportPort,
-    private val readUserByNicknamePort: ReadUserByNicknamePort,
-    private val readPickleByIdPort: ReadPickleByIdPort,
+    private val readUserPort: ReadUserPort,
+    private val readPicklePort: ReadPicklePort,
     private val readPickleCommentPort: ReadPickleCommentPort,
-    private val readPickleReplyByIdPort: ReadPickleReplyByIdPort
+    private val readPickleReplyPort: ReadPickleReplyPort
 ) : ReportUserUseCase, ReportPickleUseCase, ReportPickleCommentUseCase, ReportPickleReplyUseCase {
 
     override fun reportUser(request: ReportRequest, nickname: String) {
@@ -38,7 +38,7 @@ internal class ReportService(
             throw CannotReportOneselfException
         }
 
-        val reportedUser = readUserByNicknamePort.readUserByNickname(nickname) ?: throw UserNotFoundException
+        val reportedUser = readUserPort.readByNickname(nickname) ?: throw UserNotFoundException
 
         saveReportPort.saveReport(
             Report(
@@ -54,7 +54,7 @@ internal class ReportService(
 
         val user = readCurrentUserPort.readCurrentUser()
 
-        val pickle = readPickleByIdPort.readPickleById(videoId) ?: throw PickleNotFoundException
+        val pickle = readPicklePort.readById(videoId) ?: throw PickleNotFoundException
 
         if (user == pickle.uploader)
             throw CannotReportOneselfException
@@ -73,7 +73,7 @@ internal class ReportService(
 
         val user = readCurrentUserPort.readCurrentUser()
 
-        val pickleComment = readPickleCommentPort.readPickleCommentById(id) ?: throw PickleCommentNotFoundException
+        val pickleComment = readPickleCommentPort.readById(id) ?: throw PickleCommentNotFoundException
 
         if (user == pickleComment.writer)
             throw CannotReportOneselfException
@@ -92,7 +92,7 @@ internal class ReportService(
 
         val user = readCurrentUserPort.readCurrentUser()
 
-        val pickleReply = readPickleReplyByIdPort.readPickleReplyById(id) ?: throw PickleReplyNotFoundException
+        val pickleReply = readPickleReplyPort.readById(id) ?: throw PickleReplyNotFoundException
 
         if (user == pickleReply.writer) {
             throw CannotReportOneselfException

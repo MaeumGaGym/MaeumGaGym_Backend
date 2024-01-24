@@ -10,4 +10,6 @@ interface ReadUserPort {
     fun readById(userId: UUID): User?
 
     fun readByOAuthId(oauthId: String): User?
+
+    fun readByNickname(nickname: String): User?
 }

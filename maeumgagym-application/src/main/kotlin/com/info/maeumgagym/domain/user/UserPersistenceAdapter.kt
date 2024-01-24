@@ -19,7 +19,6 @@ internal class UserPersistenceAdapter(
     DeleteUserPort,
     ExistUserPort,
     ReadUserPort {
-    ReadUserByNicknamePort,
 
     override fun readDeletedByOauthId(oauthId: String): User? =
         userNativeRepository.findDeletedUserByOauthId(oauthId)?.let { userMapper.toDomain(it) }
@@ -27,7 +26,7 @@ internal class UserPersistenceAdapter(
     override fun readById(userId: UUID): User? =
         userRepository.findById(userId)?.let { userMapper.toDomain(it) }
 
-    override fun readUserByNickname(nickname: String): User? =
+    override fun readByNickname(nickname: String): User? =
         userRepository.findByNickname(nickname)?.let { userMapper.toDomain(it) }
 
     override fun existsByOAuthId(oauthId: String): Boolean =
