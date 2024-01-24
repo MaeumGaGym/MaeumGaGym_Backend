@@ -10,7 +10,7 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 
 @EnableRedisRepositories(
     enableKeyspaceEvents = RedisKeyValueAdapter.EnableKeyspaceEvents.ON_STARTUP,
-    keyspaceNotificationsConfigParameter = ""
+    keyspaceNotificationsConfigParameter = "" // Elastic Cache는 CONFIG 명령어를 허용하지 않는 이슈
 )
 @Configuration
 class RedisConfig(

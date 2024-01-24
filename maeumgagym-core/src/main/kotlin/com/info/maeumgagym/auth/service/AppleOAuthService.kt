@@ -57,7 +57,7 @@ internal class AppleOAuthService(
                 nickname = nickname,
                 roles = mutableListOf(Role.USER),
                 oauthId = sub,
-                profileImage = null
+                profileImage = null // 나중에 추가
             )
         )
     }
