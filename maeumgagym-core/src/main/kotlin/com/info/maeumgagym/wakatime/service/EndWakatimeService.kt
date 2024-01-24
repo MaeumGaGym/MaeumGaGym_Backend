@@ -53,7 +53,7 @@ internal class EndWakatimeService(
         val date = now.toLocalDate()
 
         // 먼저 생성한 와카타임 있는지 확인
-        val wakaTime = readWakaTimeFromUserAndDatePort.findByUserIdAndDate(user.id!!, date)
+        val wakaTime = readWakaTimePort.findByUserIdAndDate(user.id!!, date)
             ?.let {
                 // 있으면 waka += seconds
                 WakaTime(

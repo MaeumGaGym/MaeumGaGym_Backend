@@ -52,8 +52,7 @@ class WakaTimeScheduler(
                                 user = it.user,
                                 waka = it.waka + seconds,
                                 date = it.date,
-                                id = it.id,
-                                isNewV = it.isNewV
+                                id = it.id
                             )
                         } ?: WakaTime(
                         // 없으면 waka = seconds
