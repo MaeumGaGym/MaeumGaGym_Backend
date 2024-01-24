@@ -4,7 +4,5 @@ import com.info.maeumgagym.wakatime.model.WakaTime
 
 interface SaveWakaTimePort {
 
-    fun saveAndFlush(wakaTime: WakaTime): WakaTime
-
     fun save(wakaTime: WakaTime): WakaTime
 }

@@ -10,7 +10,5 @@ interface WakaTimeRepository : Repository<WakaTimeJpaEntity, UUID?> {
 
     fun findByUserIdAndDate(userId: UUID, date: LocalDate): WakaTimeJpaEntity?
 
-    fun saveAndFlush(entity: WakaTimeJpaEntity): WakaTimeJpaEntity
-
     fun save(entity: WakaTimeJpaEntity): WakaTimeJpaEntity
 }

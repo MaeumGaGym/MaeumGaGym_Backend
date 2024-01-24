@@ -17,12 +17,6 @@ internal class WakaTimePersistenceAdapter(
 ) : SaveWakaTimePort, ReadWakaTimePort {
 
     @Transactional(propagation = Propagation.MANDATORY)
-    override fun saveAndFlush(wakaTime: WakaTime): WakaTime =
-        wakaTimeMapper.toDomain(
-            wakaTimeRepository.saveAndFlush(wakaTimeMapper.toEntity(wakaTime))
-        )
-
-    @Transactional(propagation = Propagation.MANDATORY)
     override fun save(wakaTime: WakaTime): WakaTime =
         wakaTimeMapper.toDomain(
             wakaTimeRepository.save(wakaTimeMapper.toEntity(wakaTime))

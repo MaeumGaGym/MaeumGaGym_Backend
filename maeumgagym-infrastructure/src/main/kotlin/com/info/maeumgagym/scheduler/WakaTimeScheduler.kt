@@ -43,7 +43,7 @@ class WakaTimeScheduler(
             seconds = Duration.between(user.wakaStartedAt, now).seconds
 
             try {
-                saveWakaTimePort.saveAndFlush(
+                saveWakaTimePort.save(
                     // 먼저 생성한 와카타임 있는지 확인
                     readWakaTimePort.findByUserIdAndDate(user.id!!, yesterday)
                         ?.let {
