@@ -25,6 +25,6 @@ internal class WithdrawalUserService(
         deleteUserPort.deleteById(user.id!!)
 
         // 토큰 만료시키기
-        revokeTokensPort.revokeTokens(user.oauthId)
+        revokeTokensPort.revoke(user.oauthId)
     }
 }

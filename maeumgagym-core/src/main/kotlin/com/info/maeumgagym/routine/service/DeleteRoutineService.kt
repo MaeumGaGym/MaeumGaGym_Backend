@@ -28,6 +28,6 @@ internal class DeleteRoutineService(
         if (user.id != routine.userId) throw PermissionDeniedException
 
         // 루틴 삭제
-        deleteRoutinePort.deleteRoutine(routine)
+        deleteRoutinePort.delete(routine)
     }
 }

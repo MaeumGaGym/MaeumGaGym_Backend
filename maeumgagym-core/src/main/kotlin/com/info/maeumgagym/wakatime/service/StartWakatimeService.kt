@@ -26,7 +26,7 @@ internal class StartWakatimeService(
 
         // 와카타임 시작
         user.run {
-            saveUserPort.saveUser(
+            saveUserPort.save(
                 User(
                     id = id,
                     nickname = nickname,

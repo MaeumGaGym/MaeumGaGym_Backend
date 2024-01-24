@@ -22,7 +22,7 @@ internal class WakaTimePersistenceAdapter(
             wakaTimeRepository.save(wakaTimeMapper.toEntity(wakaTime))
         )
 
-    override fun findByUserIdAndDate(userId: UUID, date: LocalDate): WakaTime? =
+    override fun readByUserIdAndDate(userId: UUID, date: LocalDate): WakaTime? =
         wakaTimeRepository.findByUserIdAndDate(userId, date)?.let {
             wakaTimeMapper.toDomain(it)
         }
