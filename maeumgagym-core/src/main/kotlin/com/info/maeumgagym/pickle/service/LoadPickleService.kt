@@ -10,18 +10,16 @@ import com.info.maeumgagym.pickle.model.Pickle.Companion.toResponse
 import com.info.maeumgagym.pickle.port.`in`.LoadPickleFromIdUseCase
 import com.info.maeumgagym.pickle.port.`in`.LoadPicklesFromPoseUseCase
 import com.info.maeumgagym.pickle.port.`in`.LoadRecommendationPicklesUseCase
-import com.info.maeumgagym.pickle.port.out.GenerateUploadURLPort
-import com.info.maeumgagym.pickle.port.out.ReadAllPicklesPort
-import com.info.maeumgagym.pickle.port.out.ReadPickleByIdPort
+import com.info.maeumgagym.pickle.port.out.ExternalGenerateUploadURLPort
+import com.info.maeumgagym.pickle.port.out.ReadPicklePort
 import com.info.maeumgagym.pose.exception.PoseNotFoundException
-import com.info.maeumgagym.pose.port.out.FindPoseByIdPort
+import com.info.maeumgagym.pose.port.out.ReadPosePort
 
 @UseCase
 internal class LoadPickleService(
-    private val readAllPicklesPort: ReadAllPicklesPort,
-    private val readPickleByIdPort: ReadPickleByIdPort,
-    private val generateUploadURLPort: GenerateUploadURLPort,
-    private val readPoseByIdPort: FindPoseByIdPort
+    private val readPicklePort: ReadPicklePort,
+    private val externalGenerateUploadURLPort: ExternalGenerateUploadURLPort,
+    private val readPosePort: ReadPosePort
 ) : LoadRecommendationPicklesUseCase, LoadPickleFromIdUseCase, LoadPicklesFromPoseUseCase {
 
     private companion object {
@@ -30,28 +28,28 @@ internal class LoadPickleService(
 
     override fun loadRecommendationPickles(index: Int): PickleListResponse {
         // 모든 피클 불러오기
-        val allPickles = readAllPicklesPort.readAllPickles()
+        val allPickles = readPicklePort.readAll()
 
         // 모든 피클의 개수가 현재 클라이언트가 이미 불러온 피클의 개수보다 적다면 - > 더이상 피클이 없다는 예외 처리
         if (allPickles.isEmpty() || allPickles.size <= index * INDEX_SIZE) throw ThereNoPicklesException
 
         // dto로 변환
         return PickleListResponse(
-            getRandomPickles(allPickles).map { it.toResponse(generateUploadURLPort.generateURL(it.videoId)) }
+            getRandomPickles(allPickles).map { it.toResponse(externalGenerateUploadURLPort.generateURL(it.videoId)) }
         )
     }
 
     override fun loadPickleFromId(id: String): PickleResponse =
         // (id = 파라미터)인 피클이 존재한다면 -> response, else -> 예외처리
-        (readPickleByIdPort.readPickleById(id) ?: throw PickleNotFoundException)
-            .toResponse(generateUploadURLPort.generateURL(id))
+        (readPicklePort.readById(id) ?: throw PickleNotFoundException)
+            .toResponse(externalGenerateUploadURLPort.generateURL(id))
 
     override fun loadPicklesFromPose(poseId: Long): PickleListResponse {
         // id로 자세 불러오기
-        val pose = readPoseByIdPort.findById(poseId) ?: throw PoseNotFoundException
+        val pose = readPosePort.readById(poseId) ?: throw PoseNotFoundException
 
         // 모든 피클 불러오기
-        val allPickles = readAllPicklesPort.readAllPickles()
+        val allPickles = readPicklePort.readAll()
         // 자세와 관련된 피클을 담을 빈 리스트
         val pickles: MutableList<Pickle> = mutableListOf()
         // 모든 피클 중에서
@@ -65,7 +63,7 @@ internal class LoadPickleService(
 
         // dto로 변환
         return PickleListResponse(
-            getRandomPickles(pickles).map { it.toResponse(generateUploadURLPort.generateURL(it.videoId)) }
+            getRandomPickles(pickles).map { it.toResponse(externalGenerateUploadURLPort.generateURL(it.videoId)) }
         )
     }
 

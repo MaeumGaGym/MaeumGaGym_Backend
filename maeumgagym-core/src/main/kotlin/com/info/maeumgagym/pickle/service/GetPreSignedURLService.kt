@@ -4,11 +4,11 @@ import com.info.common.UseCase
 import com.info.maeumgagym.pickle.dto.response.PreSignedUploadURLResponse
 import com.info.maeumgagym.pickle.exception.FileTypeMissMatchedException
 import com.info.maeumgagym.pickle.port.`in`.GetPreSignedUploadURLUseCase
-import com.info.maeumgagym.pickle.port.out.GetPreSignedURLPort
+import com.info.maeumgagym.pickle.port.out.ExternalGenerateUploadURLPort
 
 @UseCase
 internal class GetPreSignedURLService(
-    private val getPreSignedURLPort: GetPreSignedURLPort
+    private val externalGenerateUploadURLPort: ExternalGenerateUploadURLPort
 ) : GetPreSignedUploadURLUseCase {
 
     private companion object {
@@ -21,6 +21,6 @@ internal class GetPreSignedURLService(
         if (fileType != QUICKTIME && fileType != MP4) throw FileTypeMissMatchedException
 
         // WHAT : Feign으로 PreSignedURL 불러오기
-        return PreSignedUploadURLResponse(getPreSignedURLPort.getPreSignedUploadURL(fileType))
+        return PreSignedUploadURLResponse(externalGenerateUploadURLPort.getPreSignedURL(fileType))
     }
 }

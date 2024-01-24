@@ -2,7 +2,7 @@ package com.info.maeumgagym.pose.port.out
 
 import com.info.maeumgagym.pose.model.Pose
 
-interface FindPoseByIdPort {
+interface ReadPosePort {
 
-    fun findById(id: Long): Pose?
+    fun readById(id: Long): Pose?
 }

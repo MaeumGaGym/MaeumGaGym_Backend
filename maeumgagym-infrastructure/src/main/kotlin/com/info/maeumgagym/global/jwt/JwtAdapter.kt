@@ -94,7 +94,7 @@ class JwtAdapter(
             .compact()
     }
 
-    override fun revokeTokens(subject: String) {
+    override fun revoke(subject: String) {
         accessTokenRepository.deleteById(subject)
         refreshTokenRepository.deleteById(subject)
     }

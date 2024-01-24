@@ -32,7 +32,7 @@ internal class UpdateRoutineService(
 
         routine.run {
             // 루틴 업데이트
-            saveRoutinePort.saveRoutine(
+            saveRoutinePort.save(
                 Routine(
                     id = id,
                     dayOfWeeks = req.dayOfWeeks,

@@ -8,19 +8,19 @@ import com.info.maeumgagym.pickle.exception.PickleMisMatchException
 import com.info.maeumgagym.pickle.exception.PickleNotFoundException
 import com.info.maeumgagym.pickle.model.PickleReply
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleReplyCommentUseCase
-import com.info.maeumgagym.pickle.port.out.ExistsPickleByIdPort
+import com.info.maeumgagym.pickle.port.out.ExistsPicklePort
 import com.info.maeumgagym.pickle.port.out.ReadPickleCommentPort
-import com.info.maeumgagym.pickle.port.out.SavePickleReplyCommentPort
+import com.info.maeumgagym.pickle.port.out.SavePickleReplyPort
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
 
 @UseCase
 @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class CreatePickleReplyCommentService(
-    private val savePickleReplyCommentPort: SavePickleReplyCommentPort,
+    private val savePickleReplyPort: SavePickleReplyPort,
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val readPickleCommentPort: ReadPickleCommentPort,
-    private val existsPickleByIdPort: ExistsPickleByIdPort
+    private val existsPicklePort: ExistsPicklePort
 ) : CreatePickleReplyCommentUseCase {
     override fun createPickleReplyComment(
         pickleCommentRequest: PickleCommentRequest,
@@ -28,10 +28,10 @@ internal class CreatePickleReplyCommentService(
         parentId: Long
     ) {
         val user = readCurrentUserPort.readCurrentUser()
-        val parentComment = readPickleCommentPort.readPickleCommentById(parentId)
+        val parentComment = readPickleCommentPort.readById(parentId)
             ?: throw PickleCommentNotFoundException
 
-        if (!existsPickleByIdPort.existsPickleById(videoId)) {
+        if (!existsPicklePort.existsById(videoId)) {
             throw PickleNotFoundException
         }
 
@@ -40,7 +40,7 @@ internal class CreatePickleReplyCommentService(
         }
 
         pickleCommentRequest.run {
-            savePickleReplyCommentPort.savePickleReplyComment(
+            savePickleReplyPort.save(
                 PickleReply(
                     content = content,
                     videoId = videoId,

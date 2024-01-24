@@ -22,8 +22,7 @@ import org.springframework.transaction.annotation.Transactional
 internal class GoogleOAuthService(
     private val getGoogleInfoPort: GetGoogleInfoPort,
     private val saveUserPort: SaveUserPort,
-    private val existUserByOAuthIdPort: ExistUserByOAuthIdPort,
-    private val existUserByNicknamePort: ExistUserByNicknamePort,
+    private val existUserPort: ExistUserPort,
     private val generateJwtPort: GenerateJwtPort,
     private val revokeGoogleTokenPort: RevokeGoogleTokenPort,
     private val recoveryUserPort: RecoveryUserPort
@@ -34,10 +33,10 @@ internal class GoogleOAuthService(
         val profile = getGoogleInfoPort.getGoogleInfo(accessToken)
 
         // 존재하지 않는 유저라면 NotFound 예외처리
-        if (!existUserByOAuthIdPort.existsUserByOAuthId(profile.sub)) throw UserNotFoundException
+        if (!existUserPort.existsByOAuthId(profile.sub)) throw UserNotFoundException
 
         // google access_token 만료 시키기
-        revokeGoogleTokenPort.revokeGoogleToken(accessToken)
+        revokeGoogleTokenPort.revoke(accessToken)
 
         // subject로 토큰 발급 및 반환
         return generateJwtPort.generateTokens(profile.sub)
@@ -45,16 +44,16 @@ internal class GoogleOAuthService(
 
     override fun signup(accessToken: String, nickname: String) {
         // nickname 중복 확인
-        if (existUserByNicknamePort.existByNicknameOnWithdrawalSafe(nickname)) throw DuplicatedNicknameException
+        if (existUserPort.existByNicknameOnWithdrawalSafe(nickname)) throw DuplicatedNicknameException
 
         // google access_token으로 profile 가져오기
         val profile = getGoogleInfoPort.getGoogleInfo(accessToken)
 
         // 중복 유저 확인
-        if (existUserByOAuthIdPort.existUserByOAuthIdOnWithdrawalSafe(profile.sub)) throw AlreadyExistUserException
+        if (existUserPort.existByOAuthIdOnWithdrawalSafe(profile.sub)) throw AlreadyExistUserException
 
         // 유저 생성
-        saveUserPort.saveUser(
+        saveUserPort.save(
             User(
                 nickname = nickname,
                 roles = mutableListOf(Role.USER),
