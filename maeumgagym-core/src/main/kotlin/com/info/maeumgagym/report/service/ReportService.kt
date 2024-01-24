@@ -44,8 +44,8 @@ internal class ReportService(
             Report(
                 type = ReportType.USER,
                 reason = request.reason,
-                reporterId = user.id,
-                targetId = reportedUser.id
+                reporterId = user.id!!,
+                targetId = reportedUser.id!!
             )
         )
     }
@@ -63,7 +63,7 @@ internal class ReportService(
             Report(
                 type = ReportType.PICKLE,
                 reason = request.reason,
-                reporterId = user.id,
+                reporterId = user.id!!,
                 targetId = videoId
             )
         )
@@ -73,7 +73,7 @@ internal class ReportService(
 
         val user = readCurrentUserPort.readCurrentUser()
 
-        val pickleComment = readPickleCommentPort.readPickleComment(id) ?: throw PickleCommentNotFoundException
+        val pickleComment = readPickleCommentPort.readPickleCommentById(id) ?: throw PickleCommentNotFoundException
 
         if (user == pickleComment.writer)
             throw CannotReportOneselfException
@@ -82,7 +82,7 @@ internal class ReportService(
             Report(
                 type = ReportType.PICKLE_COMMENT,
                 reason = request.reason,
-                reporterId = user.id,
+                reporterId = user.id!!,
                 targetId = id
             )
         )
@@ -102,7 +102,7 @@ internal class ReportService(
             Report(
                 type = ReportType.PICKLE_REPLY,
                 reason = request.reason,
-                reporterId = user.id,
+                reporterId = user.id!!,
                 targetId = id
             )
         )
