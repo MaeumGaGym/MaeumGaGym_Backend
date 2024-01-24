@@ -13,7 +13,6 @@ import com.info.maeumgagym.global.jwt.entity.RefreshTokenRedisEntity
 import com.info.maeumgagym.global.jwt.repository.AccessTokenRepository
 import com.info.maeumgagym.global.jwt.repository.RefreshTokenRepository
 import com.info.maeumgagym.global.security.principle.CustomUserDetailService
-import com.info.maeumgagym.global.security.principle.CustomUserDetails
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
@@ -112,7 +111,7 @@ class JwtAdapter(
     // 토큰의 subject값으로 Authentication얻는 함수
     fun getAuthentication(subject: String): Authentication {
         // CustomUserDetails로 갑싼 user 불러오기
-        val authDetails = customUserDetailService.loadUserByUsername(subject) as CustomUserDetails
+        val authDetails = customUserDetailService.loadUserByUsername(subject)
 
         // Authentication발급
         return UsernamePasswordAuthenticationToken(authDetails, null, authDetails.authorities)

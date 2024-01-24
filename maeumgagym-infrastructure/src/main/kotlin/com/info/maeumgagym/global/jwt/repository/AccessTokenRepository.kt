@@ -1,11 +1,16 @@
 package com.info.maeumgagym.global.jwt.repository
 
 import com.info.maeumgagym.global.jwt.entity.AccessTokenRedisEntity
-import org.springframework.data.repository.CrudRepository
-import org.springframework.stereotype.Repository
+import org.springframework.data.repository.Repository
 
-@Repository
-interface AccessTokenRepository: CrudRepository<AccessTokenRedisEntity, String> {
+@org.springframework.stereotype.Repository
+interface AccessTokenRepository : Repository<AccessTokenRedisEntity, String> {
+
+    fun findById(id: String): AccessTokenRedisEntity?
+
+    fun deleteById(id: String)
+
+    fun save(entity: AccessTokenRedisEntity): AccessTokenRedisEntity
 
     fun findByAccessToken(accessToken: String): AccessTokenRedisEntity?
 }

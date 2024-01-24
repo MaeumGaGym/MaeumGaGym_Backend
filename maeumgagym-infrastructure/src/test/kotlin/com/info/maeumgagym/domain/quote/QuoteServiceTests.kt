@@ -1,4 +1,4 @@
-package com.info.maeumgagym.domain.quote.junit5
+package com.info.maeumgagym.domain.quote
 
 import com.info.maeumgagym.domain.quote.exception.MismatchQuoteAndQuoterException
 import com.info.maeumgagym.quote.port.`in`.ReadRandomQuoteUseCase
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @SpringBootTest
-class QuoteTests @Autowired constructor(
+internal class QuoteServiceTests @Autowired constructor(
     private val readRandomQuoteUseCase: ReadRandomQuoteUseCase
 ) {
 
@@ -23,7 +23,9 @@ class QuoteTests @Autowired constructor(
             if (!Quotes.QUOTES.contains(
                     QuoteValueObject(quoteResponse.quote, quoteResponse.quoter)
                 )
-            ) throw MismatchQuoteAndQuoterException
+            ) {
+                throw MismatchQuoteAndQuoterException
+            }
         }
     }
 }

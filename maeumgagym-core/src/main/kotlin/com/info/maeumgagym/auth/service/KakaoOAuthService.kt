@@ -13,8 +13,11 @@ import com.info.maeumgagym.user.exception.DuplicatedNicknameException
 import com.info.maeumgagym.user.model.Role
 import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.*
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Transactional
 
 @UseCase
+@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class KakaoOAuthService(
     private val getKakaoInfoPort: GetKakaoInfoPort,
     private val generateJwtPort: GenerateJwtPort,
@@ -37,13 +40,13 @@ internal class KakaoOAuthService(
 
     override fun signup(accessToken: String, nickname: String) {
         // nickname 중복 확인
-        if (existUserByNicknamePort.existByNicknameInNative(nickname)) throw DuplicatedNicknameException
+        if (existUserByNicknamePort.existByNicknameOnWithdrawalSafe(nickname)) throw DuplicatedNicknameException
 
         // kakao access_token으로 유저 정보 가져오기
         val userInfo = getKakaoInfoPort.getInfo(accessToken)
 
         // 중복 유저 확인
-        if (existUserByOAuthIdPort.existByOAuthIdInNative(userInfo.id)) throw AlreadyExistUserException
+        if (existUserByOAuthIdPort.existUserByOAuthIdOnWithdrawalSafe(userInfo.id)) throw AlreadyExistUserException
 
         // 유저 생성
         saveUserPort.saveUser(

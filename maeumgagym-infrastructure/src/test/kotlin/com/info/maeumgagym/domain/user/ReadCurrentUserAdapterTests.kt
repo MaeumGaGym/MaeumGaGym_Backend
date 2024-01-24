@@ -1,4 +1,4 @@
-package com.info.maeumgagym.domain.user.junit5
+package com.info.maeumgagym.domain.user
 
 import com.info.maeumgagym.adapter.auth.ReadCurrentUserAdapter
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
@@ -6,10 +6,8 @@ import com.info.maeumgagym.domain.auth.AuthTestModule
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
-import com.info.maeumgagym.domain.user.module.UserTestModule
-import com.info.maeumgagym.domain.user.module.UserTestModule.saveInRepository
+import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
-import com.info.maeumgagym.global.exception.UnAuthorizedException
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -22,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional
  */
 @Transactional
 @SpringBootTest
-class ReadCurrentUserAdapterTests @Autowired constructor(
+internal class ReadCurrentUserAdapterTests @Autowired constructor(
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val userRepository: UserRepository,
     private val userMapper: UserMapper

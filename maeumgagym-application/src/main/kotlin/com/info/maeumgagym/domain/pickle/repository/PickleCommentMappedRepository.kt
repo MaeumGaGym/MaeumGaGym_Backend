@@ -1,9 +1,7 @@
 package com.info.maeumgagym.domain.pickle.repository
 
 import com.info.maeumgagym.domain.pickle.entity.PickleCommentMappedEntity
-import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.stereotype.Repository
+import org.springframework.data.repository.Repository
 
-@Repository
-interface PickleCommentMappedRepository: JpaRepository<PickleCommentMappedEntity, Long> {
-}
+@org.springframework.stereotype.Repository
+interface PickleCommentMappedRepository : Repository<PickleCommentMappedEntity, Long>

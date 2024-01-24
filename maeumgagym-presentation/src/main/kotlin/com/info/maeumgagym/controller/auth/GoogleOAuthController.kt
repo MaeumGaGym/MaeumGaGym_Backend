@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
+import javax.validation.constraints.NotNull
 
 @Tag(name = "Google OAuth API")
 @Validated
@@ -41,8 +42,9 @@ class GoogleOAuthController(
         accessToken: String,
         @RequestBody
         @Valid
-        req: SignupWebRequest
+        @NotNull
+        req: SignupWebRequest?
     ) {
-        googleSignupUseCase.signup(accessToken, req.nickname!!)
+        googleSignupUseCase.signup(accessToken, req!!.nickname!!)
     }
 }

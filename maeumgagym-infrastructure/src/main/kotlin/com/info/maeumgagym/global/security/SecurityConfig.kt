@@ -27,14 +27,11 @@ class SecurityConfig(
     protected fun filterChain(http: HttpSecurity): SecurityFilterChain =
         http.csrf().disable()
             .formLogin().disable()
-
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-
             .authorizeRequests()
             .requestMatchers(CorsUtils::isCorsRequest)
             .permitAll()
-
             .antMatchers(HttpMethod.POST, "/google/signup").permitAll()
             .antMatchers(HttpMethod.GET, "/google/login").permitAll()
             .antMatchers(HttpMethod.PUT, "/google/recovery").permitAll()
@@ -49,23 +46,18 @@ class SecurityConfig(
             .antMatchers(HttpMethod.GET, "/report").hasRole(Role.ADMIN.name)
             .anyRequest().authenticated()
             .and()
-
             .cors().and()
             .exceptionHandling()
-
             .and()
             .headers()
             .frameOptions()
             .sameOrigin()
-
             .and()
             .apply(FilterConfig(objectMapper, jwtResolver, jwtAdapter))
-
             .and().build()
 
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
-
         val configuration = CorsConfiguration().apply {
             allowedOrigins = listOf(property.backLocal, property.backDomain, property.frontLocal)
             allowedMethods = listOf("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD")

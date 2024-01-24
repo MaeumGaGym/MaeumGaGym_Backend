@@ -8,12 +8,16 @@ import com.info.maeumgagym.routine.model.Routine
 import com.info.maeumgagym.routine.model.RoutineStatusModel
 import com.info.maeumgagym.routine.port.`in`.CreateRoutineUseCase
 import com.info.maeumgagym.routine.port.out.SaveRoutinePort
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Transactional
 
 @UseCase
+@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class CreateRoutineService(
     private val saveRoutinePort: SaveRoutinePort,
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : CreateRoutineUseCase {
+
     override fun createRoutine(req: CreateRoutineRequest) {
         // 운동 리스트가 비어있다면 -> 예외 처리
         if (req.exerciseInfoModelList.isEmpty()) throw ExerciseListCannotEmptyException
@@ -29,7 +33,7 @@ internal class CreateRoutineService(
                         isArchived = isArchived,
                         isShared = isShared
                     ),
-                    userId = readCurrentUserPort.readCurrentUser().id
+                    userId = readCurrentUserPort.readCurrentUser().id!!
                 )
             )
         }

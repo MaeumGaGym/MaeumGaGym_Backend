@@ -1,16 +1,14 @@
-package com.info.maeumgagym.domain.routine.junit5
+package com.info.maeumgagym.domain.routine
 
 import com.info.maeumgagym.auth.exception.PermissionDeniedException
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
-import com.info.maeumgagym.domain.routine.module.RoutineTestModule
-import com.info.maeumgagym.domain.routine.module.RoutineTestModule.saveInRepository
+import com.info.maeumgagym.domain.routine.RoutineTestModule.saveInRepository
 import com.info.maeumgagym.domain.routine.repository.RoutineRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
-import com.info.maeumgagym.domain.user.module.UserTestModule
-import com.info.maeumgagym.domain.user.module.UserTestModule.saveInContext
-import com.info.maeumgagym.domain.user.module.UserTestModule.saveInRepository
+import com.info.maeumgagym.domain.user.UserTestModule
+import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.routine.exception.RoutineNotFoundException
 import com.info.maeumgagym.routine.port.`in`.UpdateRoutineUseCase
@@ -19,13 +17,12 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityManager
 
 @Transactional
 @SpringBootTest
-class UpdateRoutineServiceTests @Autowired constructor(
+internal class UpdateRoutineServiceTests @Autowired constructor(
     private val updateRoutineUseCase: UpdateRoutineUseCase,
     private val routineRepository: RoutineRepository,
     private val userRepository: UserRepository,
@@ -47,7 +44,7 @@ class UpdateRoutineServiceTests @Autowired constructor(
         entityManager.detach(routine)
         val request = RoutineTestModule.getUpdateRoutineRequest(routine)
         updateRoutineUseCase.updateRoutine(request, routine.id!!)
-        Assertions.assertNotEquals(routine, routineRepository.findByIdOrNull(routine.id!!))
+        Assertions.assertNotEquals(routine, routineRepository.findById(routine.id!!))
     }
 
     @Test
@@ -63,7 +60,7 @@ class UpdateRoutineServiceTests @Autowired constructor(
 
     @Test
     fun updateNonExistentRoutine() {
-        routineRepository.deleteById(routine.id!!)
+        routineRepository.delete(routine)
         Assertions.assertThrows(RoutineNotFoundException::class.java) {
             updateRoutineUseCase.updateRoutine(
                 RoutineTestModule.getUpdateRoutineRequest(routine),

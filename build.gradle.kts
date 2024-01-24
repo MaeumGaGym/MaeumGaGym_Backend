@@ -29,6 +29,11 @@ allprojects {
 
     apply(plugin = "jacoco")
 
+    apply {
+        plugin("org.jlleitschuh.gradle.ktlint")
+        version = PluginVersions.KLINT_VERSION
+    }
+
     tasks {
         compileKotlin {
             kotlinOptions {
