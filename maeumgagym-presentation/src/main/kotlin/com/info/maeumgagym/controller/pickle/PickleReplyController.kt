@@ -38,7 +38,7 @@ class PickleReplyController(
     }
 
     @Operation(summary = "피클 대댓글 전체조회 API")
-    @GetMapping("/reply/{parentId}")
+    @GetMapping("/{parentId}")
     fun readAllPickleReply(
         @PathVariable(value = "parentId")
         parentId: Long,
