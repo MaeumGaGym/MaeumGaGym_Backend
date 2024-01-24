@@ -20,4 +20,4 @@ jobs:
                     GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
                 with:
                     tag_name: ${{ steps.extract_version_name.outputs.version }}
-                    release_name: ${{ steps.extract_version_name.outputs.version }}
+                    release_name: ${{ github.event.head_commit.message.title }}
