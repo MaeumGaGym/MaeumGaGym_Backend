@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional
  */
 @Transactional
 @SpringBootTest
-class ReadCurrentUserAdapterTests @Autowired constructor(
+internal class ReadCurrentUserAdapterTests @Autowired constructor(
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val userRepository: UserRepository,
     private val userMapper: UserMapper

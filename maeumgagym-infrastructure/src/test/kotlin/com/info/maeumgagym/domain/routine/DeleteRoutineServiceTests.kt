@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @SpringBootTest
-class DeleteRoutineServiceTests @Autowired constructor(
+internal class DeleteRoutineServiceTests @Autowired constructor(
     private val deleteRoutineUseCase: DeleteRoutineUseCase,
     private val routineRepository: RoutineRepository,
     private val userRepository: UserRepository,

@@ -22,7 +22,7 @@ import javax.persistence.EntityManager
 
 @Transactional
 @SpringBootTest
-class UpdateRoutineServiceTests @Autowired constructor(
+internal class UpdateRoutineServiceTests @Autowired constructor(
     private val updateRoutineUseCase: UpdateRoutineUseCase,
     private val routineRepository: RoutineRepository,
     private val userRepository: UserRepository,

@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @SpringBootTest
-class WithdrawalUserServiceTests @Autowired constructor(
+internal class WithdrawalUserServiceTests @Autowired constructor(
     private val withdrawalUserUseCase: WithdrawalUserUseCase,
     private val userRepository: UserRepository,
     private val userMapper: UserMapper
