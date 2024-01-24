@@ -34,10 +34,8 @@ dependencies {
     implementation(Dependencies.SPRING_DOC)
     implementation(Dependencies.SWAGGER)
 
-    testImplementation(Dependencies.KOTEST_RUNNER)
-    testImplementation(Dependencies.KOTEST_ASSERTIONS)
-    testImplementation(Dependencies.MOCKK)
     testImplementation(Dependencies.SPRING_TEST)
+    testImplementation(Dependencies.MOCKK)
     testImplementation(Dependencies.JUNIT_JUPITER)
     testImplementation(Dependencies.JUNIT_JUPITER_API)
     testRuntimeOnly(Dependencies.JUNIT_JUPITER_ENGINE)
@@ -54,6 +52,6 @@ allOpen {
     annotations("org.springframework.data.redis.core.RedisHash")
 }
 
-noArg{
+noArg {
     annotations("org.springframework.data.redis.core.RedisHash")
 }

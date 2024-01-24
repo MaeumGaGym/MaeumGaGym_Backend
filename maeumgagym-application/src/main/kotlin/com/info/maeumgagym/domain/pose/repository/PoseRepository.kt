@@ -1,8 +1,10 @@
 package com.info.maeumgagym.domain.pose.repository
 
 import com.info.maeumgagym.domain.pose.entity.PoseJpaEntity
-import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.stereotype.Repository
+import org.springframework.data.repository.Repository
 
-@Repository
-interface PoseRepository : JpaRepository<PoseJpaEntity, Long?>
+@org.springframework.stereotype.Repository
+interface PoseRepository : Repository<PoseJpaEntity, Long?>{
+
+    fun findById(id: Long): PoseJpaEntity?
+}

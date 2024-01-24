@@ -14,9 +14,12 @@ import com.info.maeumgagym.auth.port.out.RevokeGoogleTokenPort
 import com.info.maeumgagym.user.model.Role
 import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.*
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Transactional
 
 @UseCase
-class GoogleOAuthService(
+@Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = [Exception::class])
+internal class GoogleOAuthService(
     private val getGoogleInfoPort: GetGoogleInfoPort,
     private val saveUserPort: SaveUserPort,
     private val existUserByOAuthIdPort: ExistUserByOAuthIdPort,
@@ -42,13 +45,13 @@ class GoogleOAuthService(
 
     override fun signup(accessToken: String, nickname: String) {
         // nickname 중복 확인
-        if (existUserByNicknamePort.existByNicknameInNative(nickname)) throw DuplicatedNicknameException
+        if (existUserByNicknamePort.existByNicknameOnWithdrawalSafe(nickname)) throw DuplicatedNicknameException
 
         // google access_token으로 profile 가져오기
         val profile = getGoogleInfoPort.getGoogleInfo(accessToken)
 
         // 중복 유저 확인
-        if (existUserByOAuthIdPort.existByOAuthIdInNative(profile.sub)) throw AlreadyExistUserException
+        if (existUserByOAuthIdPort.existUserByOAuthIdOnWithdrawalSafe(profile.sub)) throw AlreadyExistUserException
 
         // 유저 생성
         saveUserPort.saveUser(

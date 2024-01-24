@@ -7,7 +7,7 @@ import com.info.maeumgagym.pickle.port.`in`.GetPreSignedUploadURLUseCase
 import com.info.maeumgagym.pickle.port.out.GetPreSignedURLPort
 
 @UseCase
-class GetPreSignedURLService(
+internal class GetPreSignedURLService(
     private val getPreSignedURLPort: GetPreSignedURLPort
 ) : GetPreSignedUploadURLUseCase {
 

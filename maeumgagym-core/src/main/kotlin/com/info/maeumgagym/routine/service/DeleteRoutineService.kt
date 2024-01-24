@@ -7,9 +7,12 @@ import com.info.maeumgagym.routine.exception.RoutineNotFoundException
 import com.info.maeumgagym.routine.port.`in`.DeleteRoutineUseCase
 import com.info.maeumgagym.routine.port.out.DeleteRoutinePort
 import com.info.maeumgagym.routine.port.out.ReadRoutineByIdPort
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Transactional
 
 @UseCase
-class DeleteRoutineService(
+@Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = [Exception::class])
+internal class DeleteRoutineService(
     private val deleteRoutinePort: DeleteRoutinePort,
     private val readRoutineByIdPort: ReadRoutineByIdPort,
     private val readCurrentUserPort: ReadCurrentUserPort

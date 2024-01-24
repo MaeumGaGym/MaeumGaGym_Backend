@@ -6,7 +6,7 @@ import javax.persistence.AttributeConverter
 import javax.persistence.Converter
 
 @Converter
-class RoleConverter : AttributeConverter<MutableList<Role>, String> {
+internal class RoleConverter : AttributeConverter<MutableList<Role>, String> {
 
     private companion object {
         const val SPLIT_CHAR = ","

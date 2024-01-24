@@ -4,5 +4,5 @@ import com.info.maeumgagym.user.model.User
 
 interface FindDeletedUserByIdPort {
 
-    fun findByIdOrNullInNative(oauthId: String): User?
+    fun findDeletedUserByOauthId(oauthId: String): User?
 }

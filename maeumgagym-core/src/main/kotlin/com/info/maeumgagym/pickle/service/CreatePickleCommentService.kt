@@ -8,9 +8,12 @@ import com.info.maeumgagym.pickle.model.PickleComment
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleCommentUseCase
 import com.info.maeumgagym.pickle.port.out.ExistsPickleByIdPort
 import com.info.maeumgagym.pickle.port.out.SavePickleCommentPort
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Transactional
 
 @UseCase
-class CreatePickleCommentService(
+@Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = [Exception::class])
+internal class CreatePickleCommentService(
     private val savePickleCommentPort: SavePickleCommentPort,
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val existsPickleByIdPort: ExistsPickleByIdPort
@@ -27,7 +30,7 @@ class CreatePickleCommentService(
                 PickleComment(
                     content = content,
                     videoId = videoId,
-                    writerId = user.id
+                    writer = user
                 )
             )
         }

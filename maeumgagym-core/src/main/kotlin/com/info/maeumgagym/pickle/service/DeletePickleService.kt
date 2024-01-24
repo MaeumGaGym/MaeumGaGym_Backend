@@ -8,9 +8,12 @@ import com.info.maeumgagym.pickle.port.`in`.PickleDeleteUseCase
 import com.info.maeumgagym.pickle.port.out.DeletePicklePort
 import com.info.maeumgagym.pickle.port.out.FeignDeletePicklePort
 import com.info.maeumgagym.pickle.port.out.ReadPickleByIdPort
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Transactional
 
 @UseCase
-class DeletePickleService(
+@Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = [Exception::class])
+internal class DeletePickleService(
     private val deletePicklePort: DeletePicklePort,
     private val feignDeletePicklePort: FeignDeletePicklePort,
     private val readCurrentUserPort: ReadCurrentUserPort,
