@@ -41,7 +41,9 @@ class PickleReplyController(
     @GetMapping("/reply/{parentId}")
     fun readAllPickleReply(
         @PathVariable(value = "parentId")
-        parentId: Long
+        parentId: Long,
+        @RequestParam(required = false, defaultValue = "0", value = "page") page: Int,
+        @RequestParam(required = false, defaultValue = "5", value = "size") size: Int
     ): PickleReplyListResponse =
-        readAllPickleReplyUseCase.loadAllPickleReply(parentId)
+        readAllPickleReplyUseCase.loadAllPickleReply(parentId, page, size)
 }
