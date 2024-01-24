@@ -1,8 +1,6 @@
 package com.info.maeumgagym.pickle.port.out
 
-interface ExternalGenerateUploadURLPort {
+interface GenerateM3u8URLPort {
 
     fun generateURL(videoId: String): String
-
-    fun getPreSignedURL(fileType: String): String
 }
