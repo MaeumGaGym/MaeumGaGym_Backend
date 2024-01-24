@@ -14,7 +14,7 @@ internal class ReadAllPickleReplyService(
 ) : LoadAllPickleReplyUseCase {
     override fun loadAllPickleReply(parentCommentId: Long, page: Int, size: Int): PickleReplyListResponse {
         val replies = readAllReplyByParentCommentPort.readAllPickleReplyByParentComment(
-            readPickleCommentPort.readPickleComment(parentCommentId) ?: throw PickleCommentNotFoundException,
+            readPickleCommentPort.readPickleCommentById(parentCommentId) ?: throw PickleCommentNotFoundException,
             page,
             size
         )
