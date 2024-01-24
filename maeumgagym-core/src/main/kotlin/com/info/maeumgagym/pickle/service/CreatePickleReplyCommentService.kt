@@ -28,7 +28,7 @@ internal class CreatePickleReplyCommentService(
         parentId: Long
     ) {
         val user = readCurrentUserPort.readCurrentUser()
-        val parentComment = readPickleCommentPort.readPickleComment(parentId) ?: throw PickleCommentNotFoundException
+        val parentComment = readPickleCommentPort.readPickleCommentById(parentId) ?: throw PickleCommentNotFoundException
 
         if (!existsPickleByIdPort.existsPickleById(videoId)) {
             throw PickleNotFoundException

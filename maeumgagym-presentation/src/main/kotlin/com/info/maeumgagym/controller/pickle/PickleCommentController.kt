@@ -62,6 +62,6 @@ class PickleCommentController(
         @PathVariable(value = "commentId")
         commentId: Long
     ) {
-        deletePickleCommentUseCase.deletePickleById(commentId)
+        deletePickleCommentUseCase.deletePickleComment(commentId)
     }
 }

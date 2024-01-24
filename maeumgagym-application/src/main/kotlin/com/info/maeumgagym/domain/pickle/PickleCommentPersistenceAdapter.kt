@@ -18,7 +18,7 @@ internal class PickleCommentPersistenceAdapter(
     private val pickleCommentRepository: PickleCommentRepository,
     private val pickleCommentMapper: PickleCommentMapper
 ) : SavePickleCommentPort, ReadPickleCommentPort, ReadAllPagedPickleCommentsByVideoIdPort, DeletePickleCommentPort {
-    override fun readPickleComment(pickleCommentId: Long): PickleComment? =
+    override fun readPickleCommentById(pickleCommentId: Long): PickleComment? =
         pickleCommentRepository.findById(pickleCommentId)?.let { pickleCommentMapper.toDomain(it) }
 
     @Transactional(propagation = Propagation.MANDATORY)
