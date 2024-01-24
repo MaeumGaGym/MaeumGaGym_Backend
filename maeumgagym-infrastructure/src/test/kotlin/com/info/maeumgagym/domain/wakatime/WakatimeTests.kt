@@ -6,7 +6,6 @@ import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.UserTestModule
 import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
-import com.info.maeumgagym.domain.wakatime.entity.WakaTimeJpaEntity
 import com.info.maeumgagym.domain.wakatime.exception.WakatimeDoesNotSavedException
 import com.info.maeumgagym.domain.wakatime.WakatimeTestModule.setWakaStartedAtToBefore10Seconds
 import com.info.maeumgagym.domain.wakatime.repository.WakaTimeRepository
@@ -20,7 +19,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
 

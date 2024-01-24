@@ -14,7 +14,7 @@ import java.util.*
 internal class WakaTimePersistenceAdapter(
     private val wakaTimeRepository: WakaTimeRepository,
     private val wakaTimeMapper: WakaTimeMapper
-): SaveWakaTimePort, ReadWakaTimeFromUserAndDatePort {
+) : SaveWakaTimePort, ReadWakaTimeFromUserAndDatePort {
 
     @Transactional(propagation = Propagation.MANDATORY)
     override fun save(wakaTime: WakaTime): WakaTime =

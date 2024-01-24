@@ -6,7 +6,7 @@ import java.time.LocalDate
 import java.util.*
 
 @org.springframework.stereotype.Repository
-interface WakaTimeRepository: Repository<WakaTimeJpaEntity, UUID?> {
+interface WakaTimeRepository : Repository<WakaTimeJpaEntity, UUID?> {
 
     fun findByUserIdAndDate(userId: UUID, date: LocalDate): WakaTimeJpaEntity?
 

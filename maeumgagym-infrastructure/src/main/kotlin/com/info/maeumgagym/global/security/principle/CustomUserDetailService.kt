@@ -2,7 +2,6 @@ package com.info.maeumgagym.global.security.principle
 
 import com.info.maeumgagym.user.exception.UserNotFoundException
 import com.info.maeumgagym.user.port.out.FindUserByOAuthIdPort
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Component
 

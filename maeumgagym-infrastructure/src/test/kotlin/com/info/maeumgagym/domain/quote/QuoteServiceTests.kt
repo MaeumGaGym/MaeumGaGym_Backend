@@ -23,7 +23,9 @@ class QuoteServiceTests @Autowired constructor(
             if (!Quotes.QUOTES.contains(
                     QuoteValueObject(quoteResponse.quote, quoteResponse.quoter)
                 )
-            ) throw MismatchQuoteAndQuoterException
+            ) {
+                throw MismatchQuoteAndQuoterException
+            }
         }
     }
 }

@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.UUID
 
 @UseCase
 @Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = [Exception::class])
@@ -36,7 +35,6 @@ internal class EndWakatimeService(
         val nowDate = now.toLocalDate()
 
         while (wakaStarted.toLocalDate() <= nowDate) {
-
             val dateOfLastTime = LocalDateTime.of(
                 wakaStarted.year,
                 wakaStarted.month,
@@ -46,7 +44,7 @@ internal class EndWakatimeService(
                 0 // second
             )
 
-            val seconds = Duration.between(wakaStarted, if(dateOfLastTime > now) now else dateOfLastTime).seconds
+            val seconds = Duration.between(wakaStarted, if (dateOfLastTime > now) now else dateOfLastTime).seconds
 
             saveWakatime(user, wakaStarted.toLocalDate(), seconds)
 
@@ -63,16 +61,15 @@ internal class EndWakatimeService(
                     oauthId = oauthId,
                     profileImage = profileImage,
                     wakaStartedAt = null,
-                    isDeleted = isDeleted
+                    isDeletedAt = isDeletedAt
                 )
             )
         }
     }
 
     private fun saveWakatime(user: User, date: LocalDate, seconds: Long) {
-
         // 먼저 생성한 와카타임 있는지 확인
-        val wakaTime = readWakaTimeFromUserAndDatePort.findByUserIdAndDate(user.id, date)
+        val wakaTime = readWakaTimeFromUserAndDatePort.findByUserIdAndDate(user.id!!, date)
             ?.let {
                 // 있으면 waka += seconds
                 WakaTime(

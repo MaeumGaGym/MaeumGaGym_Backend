@@ -26,7 +26,7 @@ class WakaTimeMapper(
                 user = userMapper.toDomain(user),
                 date = date,
                 waka = waka,
-                id = id,
+                id = id
             )
         }
 }

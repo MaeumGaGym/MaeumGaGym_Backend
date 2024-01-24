@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional
 internal class PickleReplyPersistenceAdapter(
     private val pickleReplyRepository: PickleReplyRepository,
     private val pickleCommentMapper: PickleCommentMapper
-): SavePickleReplyCommentPort, ReadAllReplyByParentCommentPort {
+) : SavePickleReplyCommentPort, ReadAllReplyByParentCommentPort {
 
     @Transactional(propagation = Propagation.MANDATORY)
     override fun savePickleReplyComment(pickleReply: PickleReply): PickleReply =

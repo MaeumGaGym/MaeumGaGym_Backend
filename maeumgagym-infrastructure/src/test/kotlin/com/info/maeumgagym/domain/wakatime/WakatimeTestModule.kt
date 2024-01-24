@@ -38,7 +38,8 @@ internal object WakatimeTestModule {
         )
 
     fun isSimilarWithAllowableErrorSize(a: Long, b: Long, allowableErrorSize: Long) {
-        if (a - allowableErrorSize > b || a + allowableErrorSize < b)
+        if (a - allowableErrorSize > b || a + allowableErrorSize < b) {
             throw ErrorTooBigException
+        }
     }
 }

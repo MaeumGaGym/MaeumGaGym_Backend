@@ -5,8 +5,6 @@ import com.info.maeumgagym.domain.pose.mapper.PoseMapper
 import com.info.maeumgagym.domain.pose.repository.PoseRepository
 import com.info.maeumgagym.pose.model.Pose
 import com.info.maeumgagym.pose.port.out.FindPoseByIdPort
-import org.springframework.data.repository.findByIdOrNull
-import org.springframework.transaction.annotation.Transactional
 
 @PersistenceAdapter
 internal class PosePersistenceAdapter(

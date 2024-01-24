@@ -5,7 +5,6 @@ import com.info.maeumgagym.domain.pickle.mapper.PickleMapper
 import com.info.maeumgagym.domain.pickle.repository.PickleRepository
 import com.info.maeumgagym.pickle.model.Pickle
 import com.info.maeumgagym.pickle.port.out.*
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 

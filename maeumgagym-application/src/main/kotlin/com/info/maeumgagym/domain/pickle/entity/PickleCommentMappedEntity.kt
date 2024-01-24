@@ -6,7 +6,6 @@ import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
 import java.time.LocalDateTime
-import java.util.UUID
 import javax.persistence.*
 
 @Where(clause = "is_deleted = false")

@@ -7,20 +7,22 @@ import java.time.LocalDate
 import java.util.*
 import javax.persistence.*
 
-
 @Entity
-@Table(name = TableNames.WAKA_TIME_TABLE, uniqueConstraints = [
-    UniqueConstraint(
-        name = "UNIQUE_USER_AND_DATE",
-        columnNames = ["user_id", "date"]
-    )
-])
+@Table(
+    name = TableNames.WAKA_TIME_TABLE,
+    uniqueConstraints = [
+        UniqueConstraint(
+            name = "UNIQUE_USER_AND_DATE",
+            columnNames = ["user_id", "date"]
+        )
+    ]
+)
 class WakaTimeJpaEntity(
     user: UserJpaEntity,
     waka: Long,
     date: LocalDate,
     id: UUID? = null
-): BaseUUIDEntity(id) {
+) : BaseUUIDEntity(id) {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", columnDefinition = "BINARY(16)")

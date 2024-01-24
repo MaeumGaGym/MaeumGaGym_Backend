@@ -25,7 +25,6 @@ class AppleJwtParser(private val objectMapper: ObjectMapper) : AppleJwtParsePort
 
         // json데이터를 Map<String?, String?>형태로 cast
         objectMapper.readValue(decodedHeader, MutableMap::class.java) as MutableMap<String?, String?>
-
     } catch (e: JsonProcessingException) { // json형식의 데이터가 아닐 때
         throw InvalidTokenException
     } catch (e: ArrayIndexOutOfBoundsException) { // Index가 size를 벋어 났을 때

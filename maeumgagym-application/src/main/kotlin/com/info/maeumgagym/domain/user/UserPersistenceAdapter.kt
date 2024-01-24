@@ -26,7 +26,6 @@ internal class UserPersistenceAdapter(
     override fun findDeletedUserByOauthId(oauthId: String): User? =
         userNativeRepository.findDeletedUserByOauthId(oauthId)?.let { userMapper.toDomain(it) }
 
-
     override fun findUserById(userId: UUID): User? =
         userRepository.findById(userId)?.let { userMapper.toDomain(it) }
 

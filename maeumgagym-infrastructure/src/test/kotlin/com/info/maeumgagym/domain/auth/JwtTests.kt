@@ -28,7 +28,7 @@ class JwtTests @Autowired constructor(
     private val jwtResolver: JwtResolver,
     private val accessTokenRepository: AccessTokenRepository,
     private val userRepository: UserRepository,
-    private val refreshTokenRepository: RefreshTokenRepository,
+    private val refreshTokenRepository: RefreshTokenRepository
 ) {
 
     private val jwtFilter = JwtFilter(jwtResolver, jwtAdapter)
