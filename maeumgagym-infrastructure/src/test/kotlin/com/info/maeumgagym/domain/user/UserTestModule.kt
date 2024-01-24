@@ -2,11 +2,7 @@ package com.info.maeumgagym.domain.user
 
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.repository.UserRepository
-import com.info.maeumgagym.global.security.principle.CustomUserDetails
 import com.info.maeumgagym.user.model.Role
-import com.info.maeumgagym.user.model.User
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.context.SecurityContextHolder
 import java.time.LocalDateTime
 
 internal object UserTestModule {

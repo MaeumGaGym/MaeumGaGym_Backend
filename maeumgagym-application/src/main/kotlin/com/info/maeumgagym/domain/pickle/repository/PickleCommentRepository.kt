@@ -9,7 +9,7 @@ import org.springframework.data.repository.Repository
 interface PickleCommentRepository : Repository<PickleCommentJpaEntity, Long> {
 
     fun save(entity: PickleCommentJpaEntity): PickleCommentJpaEntity
-  
+
     fun findAllByVideoId(videoId: String, pageable: Pageable): Page<PickleCommentJpaEntity>
 
     fun findById(id: Long): PickleCommentJpaEntity?

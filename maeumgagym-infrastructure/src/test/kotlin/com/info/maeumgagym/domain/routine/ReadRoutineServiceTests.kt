@@ -19,7 +19,7 @@ import kotlin.random.Random
 
 @Transactional
 @SpringBootTest
-class ReadRoutineServiceTests @Autowired constructor(
+internal class ReadRoutineServiceTests @Autowired constructor(
     private val readMyAllRoutineUseCase: ReadAllMyRoutineUseCase,
     private val routineRepository: RoutineRepository,
     private val userRepository: UserRepository,

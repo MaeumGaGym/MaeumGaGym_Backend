@@ -6,7 +6,7 @@ import com.info.maeumgagym.global.security.principle.CustomUserDetails
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 
-object AuthTestModule {
+internal object AuthTestModule {
 
     const val TOKEN_HEADER = "Authorization"
     const val TOKEN_PREFIX = "Bearer "
