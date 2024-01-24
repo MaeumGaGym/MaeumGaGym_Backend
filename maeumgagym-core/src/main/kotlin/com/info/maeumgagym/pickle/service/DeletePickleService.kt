@@ -6,8 +6,8 @@ import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.pickle.exception.PickleNotFoundException
 import com.info.maeumgagym.pickle.port.`in`.PickleDeleteUseCase
 import com.info.maeumgagym.pickle.port.out.DeletePicklePort
-import com.info.maeumgagym.pickle.port.out.FeignDeletePicklePort
-import com.info.maeumgagym.pickle.port.out.ReadPickleByIdPort
+import com.info.maeumgagym.pickle.port.out.DeleteOriginalVideoPort
+import com.info.maeumgagym.pickle.port.out.ReadPicklePort
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
 
@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class DeletePickleService(
     private val deletePicklePort: DeletePicklePort,
-    private val feignDeletePicklePort: FeignDeletePicklePort,
+    private val deleteOriginalVideoPort: DeleteOriginalVideoPort,
     private val readCurrentUserPort: ReadCurrentUserPort,
-    private val readPickleByIdPort: ReadPickleByIdPort
+    private val readPicklePort: ReadPicklePort
 ) : PickleDeleteUseCase {
 
     override fun deletePickle(id: String) {
@@ -25,15 +25,15 @@ internal class DeletePickleService(
         val user = readCurrentUserPort.readCurrentUser()
 
         // 넘겨 받은 파라미터로 피클 찾기, 없다면 -> 예외처리
-        val pickle = readPickleByIdPort.readPickleById(id) ?: throw PickleNotFoundException
+        val pickle = readPicklePort.readById(id) ?: throw PickleNotFoundException
 
         // 업로더가 유저와 일치하는지 확인, 아닐시 -> 권한 에러
         if (pickle.uploader.id != user.id) throw PermissionDeniedException
 
         // 피클 삭제
-        deletePicklePort.deletePickle(pickle)
+        deletePicklePort.delete(pickle)
 
         // 피클 파일 삭제
-        feignDeletePicklePort.deletePickle(pickle.videoId)
+        deleteOriginalVideoPort.callDeleteAPIOnExternal(pickle.videoId)
     }
 }

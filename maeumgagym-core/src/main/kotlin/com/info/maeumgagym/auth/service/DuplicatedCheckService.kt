@@ -2,13 +2,13 @@ package com.info.maeumgagym.auth.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.`in`.DuplicatedNicknameCheckUseCase
-import com.info.maeumgagym.user.port.out.ExistUserByNicknamePort
+import com.info.maeumgagym.user.port.out.ExistUserPort
 
 @UseCase
 internal class DuplicatedCheckService(
-    private val existUserByNicknamePort: ExistUserByNicknamePort
+    private val existUserPort: ExistUserPort
 ) : DuplicatedNicknameCheckUseCase {
 
     override fun existByNickname(nickname: String): Boolean =
-        existUserByNicknamePort.existByNicknameOnWithdrawalSafe(nickname)
+        existUserPort.existByNicknameOnWithdrawalSafe(nickname)
 }

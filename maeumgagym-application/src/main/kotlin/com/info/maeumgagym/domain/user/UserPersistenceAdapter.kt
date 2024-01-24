@@ -15,30 +15,27 @@ internal class UserPersistenceAdapter(
     private val userRepository: UserRepository,
     private val userMapper: UserMapper,
     private val userNativeRepository: UserNativeRepository
-) : FindUserByUUIDPort,
-    SaveUserPort,
-    FindUserByOAuthIdPort,
+) : SaveUserPort,
     DeleteUserPort,
-    ExistUserByNicknamePort,
-    ExistUserByOAuthIdPort,
-    FindDeletedUserByIdPort {
+    ExistUserPort,
+    ReadUserPort {
 
-    override fun findDeletedUserByOauthId(oauthId: String): User? =
+    override fun readDeletedByOauthId(oauthId: String): User? =
         userNativeRepository.findDeletedUserByOauthId(oauthId)?.let { userMapper.toDomain(it) }
 
-    override fun findUserById(userId: UUID): User? =
+    override fun readById(userId: UUID): User? =
         userRepository.findById(userId)?.let { userMapper.toDomain(it) }
 
-    override fun existsUserByOAuthId(oauthId: String): Boolean =
+    override fun existsByOAuthId(oauthId: String): Boolean =
         userRepository.findByOauthId(oauthId)?.let { true } ?: false
 
     @Transactional(propagation = Propagation.MANDATORY)
-    override fun saveUser(user: User): User =
+    override fun save(user: User): User =
         userMapper.toDomain(
             userRepository.save(userMapper.toEntity(user))
         )
 
-    override fun findUserByOAuthId(oauthId: String): User? =
+    override fun readByOAuthId(oauthId: String): User? =
         userRepository.findByOauthId(oauthId)?.let { userMapper.toDomain(it) }
 
     @Transactional(propagation = Propagation.MANDATORY)
@@ -49,6 +46,6 @@ internal class UserPersistenceAdapter(
     override fun existByNicknameOnWithdrawalSafe(nickName: String): Boolean =
         userNativeRepository.findByNicknameOnWithdrawalSafe(nickName)?.let { true } ?: false
 
-    override fun existUserByOAuthIdOnWithdrawalSafe(oauthId: String): Boolean =
+    override fun existByOAuthIdOnWithdrawalSafe(oauthId: String): Boolean =
         userNativeRepository.findByOauthIdOnWithdrawalSafe(oauthId)?.let { true } ?: false
 }

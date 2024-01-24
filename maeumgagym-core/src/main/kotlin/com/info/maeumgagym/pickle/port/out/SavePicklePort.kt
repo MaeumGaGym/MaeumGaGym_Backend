@@ -4,5 +4,5 @@ import com.info.maeumgagym.pickle.model.Pickle
 
 interface SavePicklePort {
 
-    fun savePickle(pickle: Pickle): Pickle
+    fun save(pickle: Pickle): Pickle
 }
