@@ -33,7 +33,7 @@ internal class CreateRoutineService(
                         isArchived = isArchived,
                         isShared = isShared
                     ),
-                    userId = readCurrentUserPort.readCurrentUser().id
+                    userId = readCurrentUserPort.readCurrentUser().id!!
                 )
             )
         }

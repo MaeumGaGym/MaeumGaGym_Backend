@@ -5,18 +5,20 @@ import com.info.maeumgagym.domain.base.BaseUUIDEntity
 import com.info.maeumgagym.domain.user.converter.RoleConverter
 import com.info.maeumgagym.domain.wakatime.entity.WakaTimeJpaEntity
 import com.info.maeumgagym.user.model.Role
+import org.hibernate.annotations.DynamicInsert
+import org.hibernate.annotations.DynamicUpdate
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
 import java.time.LocalDateTime
 import java.util.*
-import javax.persistence.CascadeType
-import javax.persistence.Column
-import javax.persistence.Convert
-import javax.persistence.Entity
-import javax.persistence.OneToMany
+import javax.persistence.*
 
-@Where(clause = "is_deleted = false")
-@SQLDelete(sql = "UPDATE ${TableNames.USER_TABLE} SET is_deleted = true WHERE id = ?")
+@DynamicInsert
+@DynamicUpdate
+@Where(clause = "is_deleted_at IS NULL")
+@SQLDelete(
+    sql = "UPDATE ${TableNames.USER_TABLE} SET is_deleted_at = CURRENT_TIME, waka_started_at = null WHERE id = ?"
+)
 @Entity(name = TableNames.USER_TABLE)
 class UserJpaEntity(
     nickname: String,
@@ -24,7 +26,7 @@ class UserJpaEntity(
     roles: MutableList<Role>,
     profileImage: String?,
     wakaStartedAt: LocalDateTime? = null,
-    isDelete: Boolean = false,
+    isDeletedAt: LocalDateTime? = null,
     id: UUID? = null
 ) : BaseUUIDEntity(id) {
 
@@ -32,8 +34,8 @@ class UserJpaEntity(
     var nickname: String = nickname
         protected set
 
-    @Column(name = "is_deleted", nullable = false)
-    var isDeleted: Boolean = isDelete
+    @Column(name = "is_deleted_at")
+    var isDeletedAt: LocalDateTime? = isDeletedAt
         protected set
 
     @Column(name = "oauth_id", nullable = false, length = 60, unique = true)

@@ -14,7 +14,6 @@ import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-
 @Transactional
 @Service
 class WakaTimeScheduler(
@@ -44,7 +43,7 @@ class WakaTimeScheduler(
 
             saveWakaTimePort.save(
                 // 먼저 생성한 와카타임 있는지 확인
-                readWakaTimeFromUserAndDatePort.findByUserIdAndDate(user.id, yesterday)
+                readWakaTimeFromUserAndDatePort.findByUserIdAndDate(user.id!!, yesterday)
                     ?.let {
                         // 있으면 waka += seconds
                         WakaTime(
@@ -58,38 +57,23 @@ class WakaTimeScheduler(
                     user = user,
                     waka = seconds,
                     date = yesterday
-                ))
+                )
+            )
 
-            if (user.isDeleted) {
-                userRepository.save(
-                    user.run {
-                        UserJpaEntity(
-                            nickname = nickname,
-                            oauthId = oauthId,
-                            roles = roles,
-                            profileImage = profileImage,
-                            wakaStartedAt = null,
-                            isDelete = isDeleted,
-                            id = id
-                        )
-                    }
-                )
-            } else {
-                // 와카타임 재시작
-                userRepository.save(
-                    user.run {
-                        UserJpaEntity(
-                            nickname = nickname,
-                            oauthId = oauthId,
-                            roles = roles,
-                            profileImage = profileImage,
-                            wakaStartedAt = now,
-                            isDelete = isDeleted,
-                            id = id
-                        )
-                    }
-                )
-            }
+            // 와카타임 재시작
+            userRepository.save(
+                user.run {
+                    UserJpaEntity(
+                        nickname = nickname,
+                        oauthId = oauthId,
+                        roles = roles,
+                        profileImage = profileImage,
+                        wakaStartedAt = now,
+                        isDeletedAt = isDeletedAt,
+                        id = id
+                    )
+                }
+            )
         }
     }
 }
