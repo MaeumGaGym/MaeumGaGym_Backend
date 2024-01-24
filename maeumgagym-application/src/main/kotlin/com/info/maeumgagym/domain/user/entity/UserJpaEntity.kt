@@ -50,7 +50,7 @@ class UserJpaEntity(
     var profileImage: String? = profileImage
         protected set
 
-    @OneToMany(mappedBy = "user", cascade = [CascadeType.REMOVE])
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.REMOVE], orphanRemoval = true)
     var wakaTime: MutableList<WakaTimeJpaEntity> = arrayListOf()
         protected set
 
