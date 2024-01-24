@@ -13,7 +13,6 @@ import com.info.maeumgagym.global.jwt.entity.RefreshTokenRedisEntity
 import com.info.maeumgagym.global.jwt.repository.AccessTokenRepository
 import com.info.maeumgagym.global.jwt.repository.RefreshTokenRepository
 import com.info.maeumgagym.global.security.principle.CustomUserDetailService
-import com.info.maeumgagym.global.security.principle.CustomUserDetails
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
@@ -96,8 +95,8 @@ class JwtAdapter(
     }
 
     override fun revokeTokens(subject: String) {
-        accessTokenRepository.deleteById(subject)
-        refreshTokenRepository.deleteById(subject)
+        accessTokenRepository.deleteBySubject(subject)
+        refreshTokenRepository.deleteBySubject(subject)
     }
 
     // 토큰 재발급
