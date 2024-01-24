@@ -29,6 +29,7 @@ internal class PickleCommentPersistenceAdapter(
         pickleCommentRepository.findAllByVideoId(videoId, PageRequest.of(page, size) as Pageable).content
             .map { pickleCommentMapper.toDomain(it) }.toList()
 
+    @Transactional(propagation = Propagation.MANDATORY)
     override fun deletePickleComment(pickleComment: PickleComment) {
         pickleCommentRepository.delete(pickleCommentMapper.toEntity(pickleComment))
     }
