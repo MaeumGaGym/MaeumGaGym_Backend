@@ -9,7 +9,6 @@ import java.util.*
 
 object PickleTestModule {
 
-    private const val PICKLE_VIDEO_ID = "19fdae8z"
     private const val PICKLE_TITLE = "테스트 피클"
     private const val PICKLE_DESCRIPTION = "테스트 피클 설명"
     private const val PICKLE_LIKE_COUNT = 0L
