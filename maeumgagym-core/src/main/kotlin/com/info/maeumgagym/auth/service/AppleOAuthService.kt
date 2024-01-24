@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
 
 @UseCase
-@Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = [Exception::class])
+@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class AppleOAuthService(
     private val existUserByOAuthIdPort: ExistUserByOAuthIdPort,
     private val saveUserPort: SaveUserPort,
@@ -57,7 +57,7 @@ internal class AppleOAuthService(
                 nickname = nickname,
                 roles = mutableListOf(Role.USER),
                 oauthId = sub,
-                profileImage = null
+                profileImage = null // 나중에 추가
             )
         )
     }

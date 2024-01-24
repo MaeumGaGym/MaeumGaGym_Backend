@@ -7,7 +7,7 @@ import org.springframework.data.redis.core.TimeToLive
 import org.springframework.data.redis.core.index.Indexed
 
 @RedisHash(value = TableNames.REFRESH_TOKEN_TABLE)
-class RefreshTokenRedisEntity (
+class RefreshTokenRedisEntity(
     subject: String,
     rfToken: String,
     ttl: Long

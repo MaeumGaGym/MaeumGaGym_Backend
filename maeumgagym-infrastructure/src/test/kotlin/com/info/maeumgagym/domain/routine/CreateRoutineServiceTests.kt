@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @SpringBootTest
-class CreateRoutineServiceTests @Autowired constructor(
+internal class CreateRoutineServiceTests @Autowired constructor(
     private val createRoutineUseCase: CreateRoutineUseCase,
     private val routineRepository: RoutineRepository,
     private val userRepository: UserRepository,

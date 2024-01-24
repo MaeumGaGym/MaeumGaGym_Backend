@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @SpringBootTest
-class DuplicatedCheckServiceTests @Autowired constructor(
+internal class DuplicatedCheckServiceTests @Autowired constructor(
     private val duplicatedCheckUseCase: DuplicatedNicknameCheckUseCase,
     private val userRepository: UserRepository
 ) {
@@ -28,7 +28,7 @@ class DuplicatedCheckServiceTests @Autowired constructor(
     fun checkExistsUserNickname() {
         val testUser = UserTestModule.createTestUser().saveInRepository(userRepository)
         val otherUser = UserTestModule.createOtherUser().saveInRepository(userRepository)
-        userRepository.delete(otherUser)
+        userRepository.deleteById(otherUser.id!!)
         Assertions.assertTrue(duplicatedCheckUseCase.existByNickname(testUser.nickname))
         Assertions.assertTrue(duplicatedCheckUseCase.existByNickname(otherUser.nickname))
     }

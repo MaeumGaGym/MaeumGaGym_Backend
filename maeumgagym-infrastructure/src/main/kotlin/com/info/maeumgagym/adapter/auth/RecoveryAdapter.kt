@@ -1,6 +1,5 @@
 package com.info.maeumgagym.adapter.auth
 
-import com.info.maeumgagym.auth.port.out.DeleteDeletedAtPort
 import com.info.maeumgagym.user.exception.UserNotFoundException
 import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.FindDeletedUserByIdPort
@@ -11,9 +10,8 @@ import org.springframework.stereotype.Component
 @Component
 internal class RecoveryAdapter(
     private val findDeletedUserByIdPort: FindDeletedUserByIdPort,
-    private val deleteDeletedAtPort: DeleteDeletedAtPort,
     private val saveUserPort: SaveUserPort
-): RecoveryUserPort {
+) : RecoveryUserPort {
 
     override fun recovery(oauthId: String) {
         // 해딩 유저를 삭제된 유저들 중에서 확인
@@ -28,12 +26,9 @@ internal class RecoveryAdapter(
                     roles = roles,
                     oauthId = oauthId,
                     profileImage = profileImage,
-                    isDeleted = false
+                    isDeletedAt = null
                 )
             )
         }
-
-        // 삭제된 유저 생명 주기 테이블 삭제
-        deleteDeletedAtPort.deleteById(deletedUser.id)
     }
 }

@@ -7,7 +7,7 @@ import com.info.maeumgagym.user.port.out.SaveUserPort
 import com.info.maeumgagym.wakatime.exception.WakaStartedNotYetException
 import com.info.maeumgagym.wakatime.model.WakaTime
 import com.info.maeumgagym.wakatime.port.`in`.EndWakatimeUseCase
-import com.info.maeumgagym.wakatime.port.out.ReadWakaTimeFromUserAndDatePort
+import com.info.maeumgagym.wakatime.port.out.ReadWakaTimePort
 import com.info.maeumgagym.wakatime.port.out.SaveWakaTimePort
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
@@ -15,12 +15,12 @@ import java.time.Duration
 import java.time.LocalDateTime
 
 @UseCase
-@Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = [Exception::class])
+@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class EndWakatimeService(
     private val readCurrentUserPort: ReadCurrentUserPort,
-    private val readWakaTimeFromUserAndDatePort: ReadWakaTimeFromUserAndDatePort,
+    private val saveUserPort: SaveUserPort,
     private val saveWakaTimePort: SaveWakaTimePort,
-    private val saveUserPort: SaveUserPort
+    private val readWakaTimePort: ReadWakaTimePort
 ) : EndWakatimeUseCase {
 
     override fun endWakatime() {
@@ -45,7 +45,7 @@ internal class EndWakatimeService(
                     oauthId = oauthId,
                     profileImage = profileImage,
                     wakaStartedAt = null,
-                    isDeleted = isDeleted
+                    isDeletedAt = isDeletedAt
                 )
             )
         }
@@ -53,14 +53,14 @@ internal class EndWakatimeService(
         val date = now.toLocalDate()
 
         // 먼저 생성한 와카타임 있는지 확인
-        val wakaTime = readWakaTimeFromUserAndDatePort.findByUserAndDate(user, date)
+        val wakaTime = readWakaTimePort.findByUserIdAndDate(user.id!!, date)
             ?.let {
                 // 있으면 waka += seconds
                 WakaTime(
                     user = it.user,
                     waka = it.waka + seconds,
                     date = it.date,
-                    isNew = it.isNew
+                    id = it.id
                 )
             } ?: WakaTime(
             // 없으면 waka = seconds

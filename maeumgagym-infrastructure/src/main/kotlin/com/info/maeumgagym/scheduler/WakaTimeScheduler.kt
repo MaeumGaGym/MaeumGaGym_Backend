@@ -5,24 +5,24 @@ import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserNativeRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.wakatime.model.WakaTime
-import com.info.maeumgagym.wakatime.port.out.ReadWakaTimeFromUserAndDatePort
+import com.info.maeumgagym.wakatime.port.out.ReadWakaTimePort
 import com.info.maeumgagym.wakatime.port.out.SaveWakaTimePort
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-
-@Transactional
 @Service
+@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 class WakaTimeScheduler(
     private val userRepository: UserRepository,
     private val userNativeRepository: UserNativeRepository,
     private val userMapper: UserMapper,
     private val saveWakaTimePort: SaveWakaTimePort,
-    private val readWakaTimeFromUserAndDatePort: ReadWakaTimeFromUserAndDatePort
+    private val readWakaTimePort: ReadWakaTimePort
 ) {
 
     // 매일 0시 0분 0초에 작동
@@ -42,39 +42,26 @@ class WakaTimeScheduler(
             // 와카타임 시작 시간 ~ 지금까지의 초
             seconds = Duration.between(user.wakaStartedAt, now).seconds
 
-            saveWakaTimePort.save(
-                // 먼저 생성한 와카타임 있는지 확인
-                readWakaTimeFromUserAndDatePort.findByUserAndDate(user, yesterday)
-                    ?.let {
-                        // 있으면 waka += seconds
-                        WakaTime(
-                            user = it.user,
-                            waka = it.waka + seconds,
-                            date = it.date,
-                            isNew = it.isNew
-                        )
-                    } ?: WakaTime(
-                    // 없으면 waka = seconds
-                    user = user,
-                    waka = seconds,
-                    date = yesterday
-                ))
-
-            if (user.isDeleted) {
-                userRepository.save(
-                    user.run {
-                        UserJpaEntity(
-                            nickname = nickname,
-                            oauthId = oauthId,
-                            roles = roles,
-                            profileImage = profileImage,
-                            wakaStartedAt = null,
-                            isDelete = isDeleted,
-                            id = id
-                        )
-                    }
+            try {
+                saveWakaTimePort.save(
+                    // 먼저 생성한 와카타임 있는지 확인
+                    readWakaTimePort.findByUserIdAndDate(user.id!!, yesterday)
+                        ?.let {
+                            // 있으면 waka += seconds
+                            WakaTime(
+                                user = it.user,
+                                waka = it.waka + seconds,
+                                date = it.date,
+                                id = it.id
+                            )
+                        } ?: WakaTime(
+                        // 없으면 waka = seconds
+                        user = user,
+                        waka = seconds,
+                        date = yesterday
+                    )
                 )
-            } else {
+
                 // 와카타임 재시작
                 userRepository.save(
                     user.run {
@@ -84,11 +71,13 @@ class WakaTimeScheduler(
                             roles = roles,
                             profileImage = profileImage,
                             wakaStartedAt = now,
-                            isDelete = isDeleted,
+                            isDeletedAt = isDeletedAt,
                             id = id
                         )
                     }
                 )
+            } catch (e: Exception) {
+                return@forEach
             }
         }
     }

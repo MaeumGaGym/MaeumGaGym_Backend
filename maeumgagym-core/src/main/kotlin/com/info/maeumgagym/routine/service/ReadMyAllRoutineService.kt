@@ -22,7 +22,7 @@ internal class ReadMyAllRoutineService(
         val user = readCurrentUserPort.readCurrentUser()
 
         // 내 루틴 라스트 불러오기
-        val routineList = readAllRoutineByUserIdPort.readAllRoutineByUserId(user.id)
+        val routineList = readAllRoutineByUserIdPort.readAllRoutineByUserId(user.id!!)
 
         // 반환
         return RoutineListResponse(

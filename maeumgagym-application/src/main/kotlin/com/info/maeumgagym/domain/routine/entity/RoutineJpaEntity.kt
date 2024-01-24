@@ -2,7 +2,6 @@ package com.info.maeumgagym.domain.routine.entity
 
 import com.info.maeumgagym.TableNames
 import com.info.maeumgagym.domain.base.BaseLongIdTimeEntity
-import com.info.maeumgagym.domain.base.BaseUUIDTimeEntity
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 import java.util.*
