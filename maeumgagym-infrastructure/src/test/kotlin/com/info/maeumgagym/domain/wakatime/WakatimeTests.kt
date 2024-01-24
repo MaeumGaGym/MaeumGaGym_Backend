@@ -32,7 +32,7 @@ import java.time.LocalDate
  */
 @Transactional
 @SpringBootTest
-class WakatimeTests @Autowired constructor(
+internal class WakatimeTests @Autowired constructor(
     private val startWakatimeUseCase: StartWakatimeUseCase,
     private val endWakatimeUseCase: EndWakatimeUseCase,
     private val wakaTimeScheduler: WakaTimeScheduler,
@@ -171,7 +171,7 @@ class WakatimeTests @Autowired constructor(
         Assertions.assertDoesNotThrow {
             WakatimeTestModule.isSimilarWithAllowableErrorSize(
                 a = 10,
-                b = wakaTimeRepository.findByUserIdAndDate(user.id!!, LocalDate.now())?.waka
+                b = wakaTimeRepository.findByUserIdAndDate(user.id!!, LocalDate.now().minusDays(1))?.waka
                     ?: throw WakatimeDoesNotSavedException,
                 allowableErrorSize = 2
             )
