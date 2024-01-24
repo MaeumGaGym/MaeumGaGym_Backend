@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @SpringBootTest
-class DuplicatedCheckServiceTests @Autowired constructor(
+internal class DuplicatedCheckServiceTests @Autowired constructor(
     private val duplicatedCheckUseCase: DuplicatedNicknameCheckUseCase,
     private val userRepository: UserRepository
 ) {

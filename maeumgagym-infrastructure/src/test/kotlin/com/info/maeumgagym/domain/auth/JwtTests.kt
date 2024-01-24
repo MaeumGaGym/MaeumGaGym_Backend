@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @SpringBootTest
-class JwtTests @Autowired constructor(
+internal class JwtTests @Autowired constructor(
     private val jwtAdapter: JwtAdapter,
     private val jwtResolver: JwtResolver,
     private val accessTokenRepository: AccessTokenRepository,
