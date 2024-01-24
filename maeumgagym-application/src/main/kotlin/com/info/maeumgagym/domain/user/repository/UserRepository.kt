@@ -13,5 +13,5 @@ interface UserRepository : Repository<UserJpaEntity, UUID> {
 
     fun save(entity: UserJpaEntity): UserJpaEntity
 
-    fun delete(entity: UserJpaEntity)
+    fun deleteById(id: UUID)
 }
