@@ -6,9 +6,12 @@ import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.SaveUserPort
 import com.info.maeumgagym.wakatime.exception.AlreadyWakaStartedException
 import com.info.maeumgagym.wakatime.port.`in`.StartWakatimeUseCase
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 
 @UseCase
+@Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = [Exception::class])
 internal class StartWakatimeService(
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val saveUserPort: SaveUserPort
@@ -31,7 +34,7 @@ internal class StartWakatimeService(
                     oauthId = oauthId,
                     profileImage = profileImage,
                     wakaStartedAt = LocalDateTime.now(),
-                    isDeleted = isDeleted
+                    isDeletedAt = isDeletedAt
                 )
             )
         }

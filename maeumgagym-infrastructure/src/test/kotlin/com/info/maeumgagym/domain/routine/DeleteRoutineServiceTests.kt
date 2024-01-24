@@ -17,12 +17,11 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @SpringBootTest
-class DeleteRoutineServiceTests @Autowired constructor(
+internal class DeleteRoutineServiceTests @Autowired constructor(
     private val deleteRoutineUseCase: DeleteRoutineUseCase,
     private val routineRepository: RoutineRepository,
     private val userRepository: UserRepository,
@@ -44,7 +43,7 @@ class DeleteRoutineServiceTests @Autowired constructor(
         Assertions.assertDoesNotThrow {
             deleteRoutineUseCase.deleteRoutine(routine.id!!)
         }
-        Assertions.assertNull(routineRepository.findByIdOrNull(routine.id!!))
+        Assertions.assertNull(routineRepository.findById(routine.id!!))
     }
 
     @Test
@@ -53,12 +52,12 @@ class DeleteRoutineServiceTests @Autowired constructor(
         Assertions.assertThrows(PermissionDeniedException::class.java) {
             deleteRoutineUseCase.deleteRoutine(routine.id!!)
         }
-        Assertions.assertNotNull(routineRepository.findByIdOrNull(routine.id!!))
+        Assertions.assertNotNull(routineRepository.findById(routine.id!!))
     }
 
     @Test
     fun deleteNonExistentRoutine() {
-        routineRepository.deleteById(routine.id!!)
+        routineRepository.delete(routine)
         Assertions.assertThrows(RoutineNotFoundException::class.java) {
             deleteRoutineUseCase.deleteRoutine(routine.id!!)
         }

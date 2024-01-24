@@ -1,7 +1,7 @@
 package com.info.maeumgagym.user.port.out
 
-import com.info.maeumgagym.user.model.User
+import java.util.UUID
 
 interface DeleteUserPort {
-    fun deleteUser(user: User)
+    fun deleteById(id: UUID)
 }

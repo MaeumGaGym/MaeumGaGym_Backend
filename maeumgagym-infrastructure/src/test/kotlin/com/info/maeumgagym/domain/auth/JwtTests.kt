@@ -15,7 +15,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.mock.web.MockFilterChain
 import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.mock.web.MockHttpServletResponse
@@ -23,12 +22,12 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @SpringBootTest
-class JwtTests @Autowired constructor(
+internal class JwtTests @Autowired constructor(
     private val jwtAdapter: JwtAdapter,
     private val jwtResolver: JwtResolver,
     private val accessTokenRepository: AccessTokenRepository,
     private val userRepository: UserRepository,
-    private val refreshTokenRepository: RefreshTokenRepository,
+    private val refreshTokenRepository: RefreshTokenRepository
 ) {
 
     private val jwtFilter = JwtFilter(jwtResolver, jwtAdapter)
@@ -49,9 +48,9 @@ class JwtTests @Autowired constructor(
     @Test
     fun generateTokens() {
         val token = jwtAdapter.generateTokens(user.oauthId)
-        Assertions.assertNotNull(accessTokenRepository.findByIdOrNull(user.oauthId))
+        Assertions.assertNotNull(accessTokenRepository.findById(user.oauthId))
         Assertions.assertNotNull(accessTokenRepository.findByAccessToken(token.accessToken))
-        Assertions.assertNotNull(refreshTokenRepository.findByIdOrNull(user.oauthId))
+        Assertions.assertNotNull(refreshTokenRepository.findById(user.oauthId))
         Assertions.assertNotNull(refreshTokenRepository.findByRfToken(token.refreshToken))
     }
 

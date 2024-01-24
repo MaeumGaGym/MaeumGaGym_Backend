@@ -12,9 +12,11 @@ internal class ReadAllPickleReplyService(
     private val readAllReplyByParentCommentPort: ReadAllReplyByParentCommentPort,
     private val readPickleCommentPort: ReadPickleCommentPort
 ) : LoadAllPickleReplyUseCase {
-    override fun loadAllPickleReply(parentCommentId: Long): PickleReplyListResponse {
+    override fun loadAllPickleReply(parentCommentId: Long, page: Int, size: Int): PickleReplyListResponse {
         val replies = readAllReplyByParentCommentPort.readAllPickleReplyByParentComment(
-            readPickleCommentPort.readPickleComment(parentCommentId) ?: throw PickleCommentNotFoundException
+            readPickleCommentPort.readPickleCommentById(parentCommentId) ?: throw PickleCommentNotFoundException,
+            page,
+            size
         )
         return PickleReplyListResponse(replies.map { it.toResponse(it) }.toList())
     }

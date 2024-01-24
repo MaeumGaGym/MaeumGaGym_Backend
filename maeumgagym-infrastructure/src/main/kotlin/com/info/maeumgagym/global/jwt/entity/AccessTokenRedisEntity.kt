@@ -7,7 +7,7 @@ import org.springframework.data.redis.core.TimeToLive
 import org.springframework.data.redis.core.index.Indexed
 
 @RedisHash(value = TableNames.ACCESS_TOKEN_TABLE)
-class AccessTokenRedisEntity (
+class AccessTokenRedisEntity(
     subject: String,
     accessToken: String,
     ttl: Long

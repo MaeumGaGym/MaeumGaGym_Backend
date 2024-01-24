@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @SpringBootTest
-class QuoteServiceTests @Autowired constructor(
+internal class QuoteServiceTests @Autowired constructor(
     private val readRandomQuoteUseCase: ReadRandomQuoteUseCase
 ) {
 
@@ -23,7 +23,9 @@ class QuoteServiceTests @Autowired constructor(
             if (!Quotes.QUOTES.contains(
                     QuoteValueObject(quoteResponse.quote, quoteResponse.quoter)
                 )
-            ) throw MismatchQuoteAndQuoterException
+            ) {
+                throw MismatchQuoteAndQuoterException
+            }
         }
     }
 }

@@ -38,10 +38,12 @@ class PickleReplyController(
     }
 
     @Operation(summary = "피클 대댓글 전체조회 API")
-    @GetMapping("/reply/{parentId}")
+    @GetMapping("/{parentId}")
     fun readAllPickleReply(
         @PathVariable(value = "parentId")
-        parentId: Long
+        parentId: Long,
+        @RequestParam(required = false, defaultValue = "0", value = "page") page: Int,
+        @RequestParam(required = false, defaultValue = "5", value = "size") size: Int
     ): PickleReplyListResponse =
-        readAllPickleReplyUseCase.loadAllPickleReply(parentId)
+        readAllPickleReplyUseCase.loadAllPickleReply(parentId, page, size)
 }

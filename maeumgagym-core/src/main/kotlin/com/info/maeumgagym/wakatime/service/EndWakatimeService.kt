@@ -7,18 +7,20 @@ import com.info.maeumgagym.user.port.out.SaveUserPort
 import com.info.maeumgagym.wakatime.exception.WakaStartedNotYetException
 import com.info.maeumgagym.wakatime.model.WakaTime
 import com.info.maeumgagym.wakatime.port.`in`.EndWakatimeUseCase
-import com.info.maeumgagym.wakatime.port.out.ReadWakaTimeFromUserAndDatePort
+import com.info.maeumgagym.wakatime.port.out.ReadWakaTimePort
 import com.info.maeumgagym.wakatime.port.out.SaveWakaTimePort
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Transactional
 import java.time.Duration
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 @UseCase
+@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class EndWakatimeService(
     private val readCurrentUserPort: ReadCurrentUserPort,
-    private val readWakaTimeFromUserAndDatePort: ReadWakaTimeFromUserAndDatePort,
+    private val saveUserPort: SaveUserPort,
     private val saveWakaTimePort: SaveWakaTimePort,
-    private val saveUserPort: SaveUserPort
+    private val readWakaTimePort: ReadWakaTimePort
 ) : EndWakatimeUseCase {
 
     override fun endWakatime() {
@@ -28,10 +30,10 @@ internal class EndWakatimeService(
         // 와카타임 시작 시간 불러오기
         val wakaStarted = user.wakaStartedAt ?: throw WakaStartedNotYetException
 
-        // 와카타임 구하기
-        val seconds = Duration.between(wakaStarted, LocalDateTime.now()).seconds
+        val now = LocalDateTime.now()
 
-        val now = LocalDate.now()
+        // 와카타임 구하기
+        val seconds = Duration.between(wakaStarted, now).seconds
 
         // 와카타임 시작시간 초기화
         user.run {
@@ -43,26 +45,28 @@ internal class EndWakatimeService(
                     oauthId = oauthId,
                     profileImage = profileImage,
                     wakaStartedAt = null,
-                    isDeleted = isDeleted
+                    isDeletedAt = isDeletedAt
                 )
             )
         }
 
+        val date = now.toLocalDate()
+
         // 먼저 생성한 와카타임 있는지 확인
-        val wakaTime = readWakaTimeFromUserAndDatePort.findByUserAndDate(user, now)
+        val wakaTime = readWakaTimePort.findByUserIdAndDate(user.id!!, date)
             ?.let {
                 // 있으면 waka += seconds
                 WakaTime(
                     user = it.user,
                     waka = it.waka + seconds,
                     date = it.date,
-                    isNew = it.isNew
+                    id = it.id
                 )
             } ?: WakaTime(
             // 없으면 waka = seconds
             user = user,
             waka = seconds,
-            date = now
+            date = date
         )
 
         // wakatime save

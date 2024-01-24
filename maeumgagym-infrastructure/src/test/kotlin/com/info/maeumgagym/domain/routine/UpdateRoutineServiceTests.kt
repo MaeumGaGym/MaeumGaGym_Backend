@@ -17,13 +17,12 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityManager
 
 @Transactional
 @SpringBootTest
-class UpdateRoutineServiceTests @Autowired constructor(
+internal class UpdateRoutineServiceTests @Autowired constructor(
     private val updateRoutineUseCase: UpdateRoutineUseCase,
     private val routineRepository: RoutineRepository,
     private val userRepository: UserRepository,
@@ -45,7 +44,7 @@ class UpdateRoutineServiceTests @Autowired constructor(
         entityManager.detach(routine)
         val request = RoutineTestModule.getUpdateRoutineRequest(routine)
         updateRoutineUseCase.updateRoutine(request, routine.id!!)
-        Assertions.assertNotEquals(routine, routineRepository.findByIdOrNull(routine.id!!))
+        Assertions.assertNotEquals(routine, routineRepository.findById(routine.id!!))
     }
 
     @Test
@@ -61,7 +60,7 @@ class UpdateRoutineServiceTests @Autowired constructor(
 
     @Test
     fun updateNonExistentRoutine() {
-        routineRepository.deleteById(routine.id!!)
+        routineRepository.delete(routine)
         Assertions.assertThrows(RoutineNotFoundException::class.java) {
             updateRoutineUseCase.updateRoutine(
                 RoutineTestModule.getUpdateRoutineRequest(routine),
