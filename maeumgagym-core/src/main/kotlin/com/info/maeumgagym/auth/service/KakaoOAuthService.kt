@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
 
 @UseCase
-@Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = [Exception::class])
+@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class KakaoOAuthService(
     private val getKakaoInfoPort: GetKakaoInfoPort,
     private val generateJwtPort: GenerateJwtPort,
