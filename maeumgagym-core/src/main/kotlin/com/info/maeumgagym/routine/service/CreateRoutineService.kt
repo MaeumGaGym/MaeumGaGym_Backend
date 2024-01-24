@@ -24,7 +24,7 @@ internal class CreateRoutineService(
 
         req.run {
             // 루틴 저장
-            saveRoutinePort.saveRoutine(
+            saveRoutinePort.save(
                 Routine(
                     routineName = routineName,
                     exerciseInfoModelList = exerciseInfoModelList,

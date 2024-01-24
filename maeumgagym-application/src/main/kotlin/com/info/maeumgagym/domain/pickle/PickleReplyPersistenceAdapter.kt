@@ -5,8 +5,8 @@ import com.info.maeumgagym.domain.pickle.mapper.PickleCommentMapper
 import com.info.maeumgagym.domain.pickle.repository.PickleReplyRepository
 import com.info.maeumgagym.pickle.model.PickleComment
 import com.info.maeumgagym.pickle.model.PickleReply
-import com.info.maeumgagym.pickle.port.out.ReadAllReplyByParentCommentPort
-import com.info.maeumgagym.pickle.port.out.SavePickleReplyCommentPort
+import com.info.maeumgagym.pickle.port.out.ReadPickleReplyPort
+import com.info.maeumgagym.pickle.port.out.SavePickleReplyPort
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.transaction.annotation.Propagation
@@ -16,15 +16,15 @@ import org.springframework.transaction.annotation.Transactional
 internal class PickleReplyPersistenceAdapter(
     private val pickleReplyRepository: PickleReplyRepository,
     private val pickleCommentMapper: PickleCommentMapper
-) : SavePickleReplyCommentPort, ReadAllReplyByParentCommentPort {
+) : SavePickleReplyPort, ReadPickleReplyPort {
 
     @Transactional(propagation = Propagation.MANDATORY)
-    override fun savePickleReplyComment(pickleReply: PickleReply): PickleReply =
+    override fun save(pickleReply: PickleReply): PickleReply =
         pickleCommentMapper.toDomain(
             pickleReplyRepository.save(pickleCommentMapper.toEntity(pickleReply))
         )
 
-    override fun readAllPickleReplyByParentComment(
+    override fun readAllByParentComment(
         parentComment: PickleComment,
         page: Int,
         size: Int

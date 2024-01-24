@@ -6,5 +6,5 @@ import java.util.*
 
 interface ReadWakaTimePort {
 
-    fun findByUserIdAndDate(userId: UUID, date: LocalDate): WakaTime?
+    fun readByUserIdAndDate(userId: UUID, date: LocalDate): WakaTime?
 }

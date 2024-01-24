@@ -5,7 +5,7 @@ import com.info.maeumgagym.domain.routine.mapper.RoutineMapper
 import com.info.maeumgagym.domain.routine.repository.RoutineRepository
 import com.info.maeumgagym.routine.model.Routine
 import com.info.maeumgagym.routine.port.out.DeleteRoutinePort
-import com.info.maeumgagym.routine.port.out.ReadAllRoutineByUserIdPort
+import com.info.maeumgagym.routine.port.out.ReadRoutinePort
 import com.info.maeumgagym.routine.port.out.ReadRoutineByIdPort
 import com.info.maeumgagym.routine.port.out.SaveRoutinePort
 import org.springframework.transaction.annotation.Propagation
@@ -16,21 +16,21 @@ import java.util.*
 internal class RoutinePersistenceAdapter(
     private val routineMapper: RoutineMapper,
     private val routineRepository: RoutineRepository
-) : SaveRoutinePort, ReadAllRoutineByUserIdPort, DeleteRoutinePort, ReadRoutineByIdPort {
+) : SaveRoutinePort, ReadRoutinePort, DeleteRoutinePort, ReadRoutineByIdPort {
 
     @Transactional(propagation = Propagation.MANDATORY)
-    override fun saveRoutine(routine: Routine): Routine {
+    override fun save(routine: Routine): Routine {
         val routineJpaEntity = routineRepository.save(routineMapper.toEntity(routine))
         return routineMapper.toDomain(routineJpaEntity)
     }
 
-    override fun readAllRoutineByUserId(userId: UUID): List<Routine> {
+    override fun readAllByUserId(userId: UUID): List<Routine> {
         val routineEntityList = routineRepository.findAllByUserId(userId)
         return routineEntityList.map { routineMapper.toDomain(it) }
     }
 
     @Transactional(propagation = Propagation.MANDATORY)
-    override fun deleteRoutine(routine: Routine) =
+    override fun delete(routine: Routine) =
         routineRepository.delete(routineMapper.toEntity(routine))
 
     override fun readRoutineById(routineId: Long): Routine? =

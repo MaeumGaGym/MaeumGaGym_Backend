@@ -12,29 +12,29 @@ import org.springframework.transaction.annotation.Transactional
 internal class PicklePersistenceAdapter(
     private val pickleRepository: PickleRepository,
     private val pickleMapper: PickleMapper
-) : SavePicklePort, DeletePicklePort, ReadPickleByIdPort, ReadAllPicklesPort, ExistsPickleByIdPort {
+) : SavePicklePort, DeletePicklePort, ReadPicklePort, ExistsPicklePort {
 
     @Transactional(propagation = Propagation.MANDATORY)
-    override fun savePickle(pickle: Pickle): Pickle =
+    override fun save(pickle: Pickle): Pickle =
         pickleMapper.toDomain(
             pickleRepository.save(pickleMapper.toEntity(pickle))
         )
 
     @Transactional(propagation = Propagation.MANDATORY)
-    override fun deletePickle(pickle: Pickle) {
+    override fun delete(pickle: Pickle) {
         pickleRepository.delete(pickleMapper.toEntity(pickle))
     }
 
-    override fun readPickleById(id: String): Pickle? =
+    override fun readById(id: String): Pickle? =
         pickleRepository.findByVideoId(id)?.let {
             pickleMapper.toDomain(it)
         }
 
-    override fun readAllPickles(): List<Pickle> =
+    override fun readAll(): List<Pickle> =
         pickleRepository.findAll().map {
             pickleMapper.toDomain(it)
         }
 
-    override fun existsPickleById(videoId: String): Boolean =
+    override fun existsById(videoId: String): Boolean =
         pickleRepository.findByVideoId(videoId)?.let { true } ?: false
 }

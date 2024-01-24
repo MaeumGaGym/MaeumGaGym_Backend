@@ -4,15 +4,15 @@ import com.info.common.PersistenceAdapter
 import com.info.maeumgagym.domain.pose.mapper.PoseMapper
 import com.info.maeumgagym.domain.pose.repository.PoseRepository
 import com.info.maeumgagym.pose.model.Pose
-import com.info.maeumgagym.pose.port.out.FindPoseByIdPort
+import com.info.maeumgagym.pose.port.out.ReadPosePort
 
 @PersistenceAdapter
 internal class PosePersistenceAdapter(
     private val poseRepository: PoseRepository,
     private val poseMapper: PoseMapper
-) : FindPoseByIdPort {
+) : ReadPosePort {
 
-    override fun findById(id: Long): Pose? =
+    override fun readById(id: Long): Pose? =
         poseRepository.findById(id)?.let {
             poseMapper.toDomain(it)
         }

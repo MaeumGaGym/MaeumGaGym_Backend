@@ -21,8 +21,7 @@ import org.springframework.transaction.annotation.Transactional
 internal class KakaoOAuthService(
     private val getKakaoInfoPort: GetKakaoInfoPort,
     private val generateJwtPort: GenerateJwtPort,
-    private val existUserByOAuthIdPort: ExistUserByOAuthIdPort,
-    private val existUserByNicknamePort: ExistUserByNicknamePort,
+    private val existUserPort: ExistUserPort,
     private val saveUserPort: SaveUserPort,
     private val recoveryUserPort: RecoveryUserPort
 ) : KakaoLoginUseCase, KakaoSignupUseCase, KakaoRecoveryUseCase {
@@ -32,7 +31,7 @@ internal class KakaoOAuthService(
         val userInfo = getKakaoInfoPort.getInfo(accessToken)
 
         // 존재하지 않는 유저라면 NotFound 예외처리
-        if (!existUserByOAuthIdPort.existsUserByOAuthId(userInfo.id)) throw UserNotFoundException
+        if (!existUserPort.existsByOAuthId(userInfo.id)) throw UserNotFoundException
 
         // subject로 토큰 발급 및 반환
         return generateJwtPort.generateTokens(userInfo.id)
@@ -40,16 +39,16 @@ internal class KakaoOAuthService(
 
     override fun signup(accessToken: String, nickname: String) {
         // nickname 중복 확인
-        if (existUserByNicknamePort.existByNicknameOnWithdrawalSafe(nickname)) throw DuplicatedNicknameException
+        if (existUserPort.existByNicknameOnWithdrawalSafe(nickname)) throw DuplicatedNicknameException
 
         // kakao access_token으로 유저 정보 가져오기
         val userInfo = getKakaoInfoPort.getInfo(accessToken)
 
         // 중복 유저 확인
-        if (existUserByOAuthIdPort.existUserByOAuthIdOnWithdrawalSafe(userInfo.id)) throw AlreadyExistUserException
+        if (existUserPort.existByOAuthIdOnWithdrawalSafe(userInfo.id)) throw AlreadyExistUserException
 
         // 유저 생성
-        saveUserPort.saveUser(
+        saveUserPort.save(
             User(
                 nickname = nickname,
                 roles = mutableListOf(Role.USER),

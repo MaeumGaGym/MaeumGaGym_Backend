@@ -19,13 +19,13 @@ internal class DeletePickleCommentService(
 ) : DeletePickleCommentUseCase {
     override fun deletePickleComment(pickleCommentId: Long) {
         val user = currentUserPort.readCurrentUser()
-        val pickleComment = readPickleCommentPort.readPickleCommentById(pickleCommentId)
+        val pickleComment = readPickleCommentPort.readById(pickleCommentId)
             ?: throw PickleCommentNotFoundException
 
         if (pickleComment.writer.oauthId != user.oauthId) {
             throw PermissionDeniedException
         }
 
-        deletePickleCommentPort.deletePickleComment(pickleComment)
+        deletePickleCommentPort.delete(pickleComment)
     }
 }
