@@ -90,6 +90,7 @@ jobs:
                       FILE_SERVER_SECRET_KEY=${{ secrets.FILE_SERVER_SECRET_KEY }}
                       FILE_SERVER_URL_1=${{ secrets.FILE_SERVER_URL_1 }}
                       FILE_SERVER_URL_2=${{ secrets.FILE_SERVER_URL_2 }}
+                      VIDEO_ID_SAVE_TTL=${{ secrets.VIDEO_ID_SAVE_TTL }}
                       SUFFIX_PATH=${{ secrets.SUFFIX_PATH }}
                       SWAGGER_PATH=${{ secrets.SWAGGER_PATH }}
                       SWAGGER_UI_PATH=${{ secrets.SWAGGER_UI_PATH }}
