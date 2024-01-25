@@ -1,7 +1,7 @@
 package com.info.maeumgagym.controller.pickle
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.controller.pickle.dto.PickleUploadWebRequest
+import com.info.maeumgagym.controller.pickle.dto.CreatePickleWebRequest
 import com.info.maeumgagym.controller.pickle.dto.PreSignedUploadURLWebRequest
 import com.info.maeumgagym.controller.pickle.dto.UpdatePickleWebRequest
 import com.info.maeumgagym.pickle.dto.response.PreSignedUploadURLResponse
@@ -63,9 +63,9 @@ class PickleController(
     @Operation(summary = "피클 업로드 API")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun uploadPickle(
+    fun createPickle(
         @RequestBody @Valid
-        req: PickleUploadWebRequest
+        req: CreatePickleWebRequest
     ) {
         createPickleUseCase.createPickle(req.toRequest())
     }

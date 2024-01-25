@@ -1,6 +1,6 @@
 package com.info.maeumgagym.pickle.dto.request
 
-data class PickleUploadRequest(
+data class CreatePickleRequest(
 
     val videoId: String,
 

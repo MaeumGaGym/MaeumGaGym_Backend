@@ -1,8 +1,8 @@
 package com.info.maeumgagym.pickle.port.`in`
 
-import com.info.maeumgagym.pickle.dto.request.PickleUploadRequest
+import com.info.maeumgagym.pickle.dto.request.CreatePickleRequest
 
 interface CreatePickleUseCase {
 
-    fun createPickle(req: PickleUploadRequest)
+    fun createPickle(req: CreatePickleRequest)
 }
