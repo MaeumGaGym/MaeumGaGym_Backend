@@ -12,7 +12,7 @@ internal class ReportPersistenceAdapter(
     private val reportMapper: ReportMapper
 ) : SaveReportPort {
 
-    override fun saveReport(report: Report): Report =
+    override fun save(report: Report): Report =
         reportMapper.toDomain(
             reportRepository.save(reportMapper.toEntity(report))
         )

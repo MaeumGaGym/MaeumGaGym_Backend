@@ -39,7 +39,7 @@ internal class ReportService(
 
         val reportedUser = readUserPort.readByNickname(nickname) ?: throw UserNotFoundException
 
-        saveReportPort.saveReport(
+        saveReportPort.save(
             Report(
                 type = ReportType.USER,
                 reason = request.reason,
@@ -58,7 +58,7 @@ internal class ReportService(
             throw CannotReportOneselfException
         }
 
-        saveReportPort.saveReport(
+        saveReportPort.save(
             Report(
                 type = ReportType.PICKLE,
                 reason = request.reason,
@@ -77,7 +77,7 @@ internal class ReportService(
             throw CannotReportOneselfException
         }
 
-        saveReportPort.saveReport(
+        saveReportPort.save(
             Report(
                 type = ReportType.PICKLE_COMMENT,
                 reason = request.reason,
@@ -96,7 +96,7 @@ internal class ReportService(
             throw CannotReportOneselfException
         }
 
-        saveReportPort.saveReport(
+        saveReportPort.save(
             Report(
                 type = ReportType.PICKLE_REPLY,
                 reason = request.reason,

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import javax.validation.Valid
 import javax.validation.constraints.Pattern
 
-@Tag(name = "Report API")
+@Tag(name = "Reports API")
 @Validated
 @RequestMapping("/report")
 @WebAdapter
