@@ -4,8 +4,8 @@ import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.pickle.dto.request.CreatePickleRequest
 import com.info.maeumgagym.pickle.exception.AlreadyExistPickleException
-import com.info.maeumgagym.pickle.exception.DoesNotUploadedInVideoServerException
-import com.info.maeumgagym.pickle.exception.VideoAndUploaderNotMatchedException
+import com.info.maeumgagym.pickle.exception.NotUploadedToVideoServerException
+import com.info.maeumgagym.pickle.exception.VideoAndUploaderMismatchException
 import com.info.maeumgagym.pickle.model.Pickle
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleUseCase
 import com.info.maeumgagym.pickle.port.out.ExistsPicklePort
@@ -32,10 +32,10 @@ internal class CreatePickleService(
 
         // 만약 영상 서버에 업로드된 영상이 아니라면 -> 예외 발생
         val videoIdAndUploaderId = readVideoIdAndUploaderIdPort.readByVideoId(req.videoId)
-            ?: throw DoesNotUploadedInVideoServerException
+            ?: throw NotUploadedToVideoServerException
 
         // 만약 영상 서버에 업로드한 사람과 서버에 등록하려는 사람이 다르다면 -> 예외 발생
-        if (videoIdAndUploaderId.uploaderId != user.id!!) throw VideoAndUploaderNotMatchedException
+        if (videoIdAndUploaderId.uploaderId != user.id!!) throw VideoAndUploaderMismatchException
 
         // 피클 저장
         savePicklePort.save(
