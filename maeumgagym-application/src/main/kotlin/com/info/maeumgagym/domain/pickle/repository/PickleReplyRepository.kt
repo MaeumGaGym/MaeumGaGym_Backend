@@ -17,4 +17,6 @@ interface PickleReplyRepository : Repository<PickleReplyJpaEntity, Long> {
     ): Page<PickleReplyJpaEntity>
 
     fun save(entity: PickleReplyJpaEntity): PickleReplyJpaEntity
+
+    fun delete(entity: PickleReplyJpaEntity)
 }
