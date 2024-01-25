@@ -2,7 +2,7 @@ package com.info.maeumgagym.pickle.port.`in`
 
 import com.info.maeumgagym.pickle.dto.request.PickleUploadRequest
 
-interface PickleUploadUseCase {
+interface CreatePickleUseCase {
 
-    fun uploadPickle(req: PickleUploadRequest)
+    fun createPickle(req: PickleUploadRequest)
 }
