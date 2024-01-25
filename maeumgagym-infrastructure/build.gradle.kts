@@ -6,6 +6,14 @@ plugins {
     application
 }
 
+tasks.named<Jar>("jar") {
+    enabled = true
+}
+
+tasks.named<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+    enabled = false
+}
+
 tasks.jar {
     archiveBaseName.set("maeumgagym-server")
     archiveVersion.set("1.0.0")
