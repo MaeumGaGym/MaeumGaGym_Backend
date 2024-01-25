@@ -6,6 +6,11 @@ plugins {
     application
 }
 
+tasks.jar {
+    archiveBaseName.set("maeumgagym-server")
+    archiveVersion.set("1.0.0")
+}
+
 application {
     mainClass.set("com.info.maeumgagym.MaeumGaGymApplicationKt")
 }
