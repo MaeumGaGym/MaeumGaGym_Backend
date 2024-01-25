@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.global.env.security.SecurityProperties
 import com.info.maeumgagym.global.jwt.JwtAdapter
 import com.info.maeumgagym.global.jwt.JwtResolver
+import com.info.maeumgagym.user.model.Role
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -42,6 +43,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.PUT, "/apple/recovery").permitAll()
             .antMatchers(HttpMethod.GET, "/auth/re-issue").permitAll()
             .antMatchers("/swagger-ui/**", "/docs/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/report").hasRole(Role.ADMIN.name)
             .anyRequest().authenticated()
             .and()
             .cors().and()

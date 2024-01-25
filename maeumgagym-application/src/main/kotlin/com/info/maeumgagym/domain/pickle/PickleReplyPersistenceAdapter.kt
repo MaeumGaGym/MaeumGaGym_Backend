@@ -24,6 +24,11 @@ internal class PickleReplyPersistenceAdapter(
             pickleReplyRepository.save(pickleCommentMapper.toEntity(pickleReply))
         )
 
+    override fun readById(id: Long): PickleReply? =
+        pickleReplyRepository.findById(id)?.let {
+            pickleCommentMapper.toDomain(it)
+        }
+
     override fun readAllByParentComment(
         parentComment: PickleComment,
         page: Int,
