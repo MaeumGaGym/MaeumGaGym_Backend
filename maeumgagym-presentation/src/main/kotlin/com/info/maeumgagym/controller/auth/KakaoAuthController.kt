@@ -29,7 +29,7 @@ class KakaoAuthController(
         kakaoLoginUseCase.login(token).run {
             val responseHeaders = HttpHeaders().apply {
                 add(HttpHeaders.SET_COOKIE, "RF-TOKEN=$second; Secure; HttpOnly; SameSite=Strict")
-                add(HttpHeaders.AUTHORIZATION, "Bearer $first")
+                setBearerAuth(first)
             }
 
             ResponseEntity.ok().headers(responseHeaders).build()
