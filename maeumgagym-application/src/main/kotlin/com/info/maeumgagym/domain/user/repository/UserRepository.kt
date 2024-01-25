@@ -11,6 +11,8 @@ interface UserRepository : Repository<UserJpaEntity, UUID> {
 
     fun findById(id: UUID): UserJpaEntity?
 
+    fun findByNickname(nickname: String): UserJpaEntity?
+
     fun save(entity: UserJpaEntity): UserJpaEntity
 
     fun deleteById(id: UUID)

@@ -28,9 +28,10 @@ enum class ErrorCode(
     // Not Found
     USER_NOT_FOUND(404, "User Not Found"),
     POSE_NOT_FOUND(404, "Pose Not Found"),
-    PICKLE_NOT_FOUND(404, "Pickle Not Found"),
     ROUTINE_NOT_FOUND(404, "Routine Not Found"),
+    PICKLE_NOT_FOUND(404, "Pickle Not Found"),
     PICKLE_COMMENT_NOT_FOUND(404, "Pickle Comment Not Found"),
+    PICKLE_REPLY_NOT_FOUND(404, "Pickle Reply Not Found"),
 
     // Bad Request
     ALREADY_WITHDRAWAL_USER(400, "Already Withdrawal User"),
@@ -38,6 +39,7 @@ enum class ErrorCode(
     EXERCISE_LIST_CANNOT_EMPTY(400, "Exercise list cannot empty"),
     PICKLE_MISMATCH(400, "Pickle Mismathce"),
     WAKA_STARTED_NOT_YET(400, "Wakatime Started Not Yet"),
+    CANNNOT_REPORT_ONESELF(400, "Cannot Report Oneself"),
 
     // Conflict
     DUPLICATED_NICKNAME(409, "Duplicated Nickname"),

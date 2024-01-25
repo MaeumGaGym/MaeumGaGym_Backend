@@ -9,6 +9,8 @@ import org.springframework.data.repository.Repository
 @org.springframework.stereotype.Repository
 interface PickleReplyRepository : Repository<PickleReplyJpaEntity, Long> {
 
+    fun findById(id: Long): PickleReplyJpaEntity?
+
     fun findAllByParentComment(
         pickleCommentJpaEntity: PickleCommentJpaEntity,
         pageable: Pageable
