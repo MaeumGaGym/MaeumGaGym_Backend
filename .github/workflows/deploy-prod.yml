@@ -61,6 +61,7 @@ jobs:
                   REDIS_PORT: ${{ secrets.REDIS_PORT }}
                   FILE_SERVER_SECRET_KEY: ${{ secrets.FILE_SERVER_SECRET_KEY }}
                   FILE_SERVER_URL: ${{ secrets.FILE_SERVER_URL }}
+                  VIDEO_ID_SAVE_TTL: ${{ secrets.VIDEO_ID_SAVE_TTL }}
                   SUFFIX_PATH: ${{ secrets.SUFFIX_PATH }}
                   SWAGGER_PATH: ${{ secrets.SWAGGER_PATH }}
                   SWAGGER_UI_PATH: ${{ secrets.SWAGGER_UI_PATH }}
