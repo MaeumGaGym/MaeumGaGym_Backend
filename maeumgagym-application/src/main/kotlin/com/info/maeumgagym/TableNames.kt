@@ -28,5 +28,5 @@ object TableNames {
 
     const val WAKA_TIME_TABLE = "${TABLE_PREFIX}waka_time"
 
-    const val WAKA_START_TABLE = "${TABLE_PREFIX}waka_start"
+    const val REPORT_TABLE = "${TABLE_PREFIX}report"
 }

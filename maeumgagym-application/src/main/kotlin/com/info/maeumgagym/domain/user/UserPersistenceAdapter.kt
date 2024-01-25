@@ -26,6 +26,9 @@ internal class UserPersistenceAdapter(
     override fun readById(userId: UUID): User? =
         userRepository.findById(userId)?.let { userMapper.toDomain(it) }
 
+    override fun readByNickname(nickname: String): User? =
+        userRepository.findByNickname(nickname)?.let { userMapper.toDomain(it) }
+
     override fun existsByOAuthId(oauthId: String): Boolean =
         userRepository.findByOauthId(oauthId)?.let { true } ?: false
 
