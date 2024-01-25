@@ -17,7 +17,7 @@ internal class DeletePickleReplyService(
     private val readPickleReplyPort: ReadPickleReplyPort,
     private val pickleReplyPort: DeletePickleReplyPort
 ) : DeletePickleReplyUseCase {
-    override fun deletePickleReply(pickleReplyId: Long) {
+    override fun deleteFromId(pickleReplyId: Long) {
         val user = readCurrentUserPort.readCurrentUser()
         val pickleReply = readPickleReplyPort.readById(pickleReplyId) ?: throw PickleReplyNotFoundException
 

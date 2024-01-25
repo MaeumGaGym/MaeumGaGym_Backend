@@ -55,6 +55,6 @@ class PickleReplyController(
         @PathVariable(value = "replyId")
         replyId: Long
     ) {
-        deletePickleReplyUseCase.deletePickleReply(replyId)
+        deletePickleReplyUseCase.deleteFromId(replyId)
     }
 }

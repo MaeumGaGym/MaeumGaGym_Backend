@@ -25,8 +25,8 @@ class PickleController(
     private val loadRecommendationPicklesUseCase: LoadRecommendationPicklesUseCase,
     private val loadPickleFromIdUseCase: LoadPickleFromIdUseCase,
     private val loadPicklesFromPoseUseCase: LoadPicklesFromPoseUseCase,
-    private val pickleUploadUseCase: PickleUploadUseCase,
-    private val pickleDeleteUseCase: PickleDeleteUseCase,
+    private val createPickleUseCase: CreatePickleUseCase,
+    private val deletePickleUseCase: DeletePickleUseCase,
     private val updatePickleUseCase: UpdatePickleUseCase,
     private val getPreSignedUploadURLUseCase: GetPreSignedUploadURLUseCase
 ) {
@@ -67,7 +67,7 @@ class PickleController(
         @RequestBody @Valid
         req: PickleUploadWebRequest
     ) {
-        pickleUploadUseCase.uploadPickle(req.toRequest())
+        createPickleUseCase.createPickle(req.toRequest())
     }
 
     @Operation(summary = "피클 삭제 API")
@@ -79,7 +79,7 @@ class PickleController(
         @Pattern(regexp = "^[0-9a-fA-F]{8}$", message = "잘못된 id입니다.")
         id: String?
     ) {
-        pickleDeleteUseCase.deletePickle(id!!)
+        deletePickleUseCase.deleteFromId(id!!)
     }
 
     @Operation(summary = "피클 수정 API")

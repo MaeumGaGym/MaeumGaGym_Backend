@@ -5,7 +5,7 @@ import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.pickle.dto.request.PickleUploadRequest
 import com.info.maeumgagym.pickle.exception.AlreadyExistPickleException
 import com.info.maeumgagym.pickle.model.Pickle
-import com.info.maeumgagym.pickle.port.`in`.PickleUploadUseCase
+import com.info.maeumgagym.pickle.port.`in`.CreatePickleUseCase
 import com.info.maeumgagym.pickle.port.out.ExistsPicklePort
 import com.info.maeumgagym.pickle.port.out.SavePicklePort
 import org.springframework.transaction.annotation.Isolation
@@ -13,13 +13,13 @@ import org.springframework.transaction.annotation.Transactional
 
 @UseCase
 @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
-internal class UploadPickleService(
+internal class UploadCreatePickleService(
     private val savePicklePort: SavePicklePort,
     private val existsPicklePort: ExistsPicklePort,
     private val readCurrentUserPort: ReadCurrentUserPort
-) : PickleUploadUseCase {
+) : CreatePickleUseCase {
 
-    override fun uploadPickle(req: PickleUploadRequest) {
+    override fun createPickle(req: PickleUploadRequest) {
         // 토큰으로 유저 찾기
         val user = readCurrentUserPort.readCurrentUser()
 
