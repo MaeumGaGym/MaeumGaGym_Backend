@@ -24,7 +24,7 @@ enum class ErrorCode(
 
     // Forbidden
     PERMISSION_DENIED(403, "Permission Denied"),
-    VIDEO_AND_UPLOADER_NOT_MATCHED(404, "Video And Uploader Not Matched"),
+    VIDEO_AND_UPLOADER_NOT_MATCHED(403, "Video And Uploader Not Matched"),
 
     // Not Found
     USER_NOT_FOUND(404, "User Not Found"),
