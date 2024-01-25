@@ -24,6 +24,7 @@ enum class ErrorCode(
 
     // Forbidden
     PERMISSION_DENIED(403, "Permission Denied"),
+    VIDEO_AND_UPLOADER_NOT_MATCHED(404, "Video And Uploader Not Matched"),
 
     // Not Found
     USER_NOT_FOUND(404, "User Not Found"),
@@ -40,6 +41,7 @@ enum class ErrorCode(
     PICKLE_MISMATCH(400, "Pickle Mismathce"),
     WAKA_STARTED_NOT_YET(400, "Wakatime Started Not Yet"),
     CANNNOT_REPORT_ONESELF(400, "Cannot Report Oneself"),
+    DOES_NOT_UPLOADED_IN_VIDEO_SERVER(404, "Does Not Uploaded In Video Server"),
 
     // Conflict
     DUPLICATED_NICKNAME(409, "Duplicated Nickname"),

@@ -5,5 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty
 data class FilePreSignedUploadURLFeignResponse(
 
     @JsonProperty("uploadURL")
-    val uploadURL: String
+    val uploadURL: String,
+
+    @JsonProperty("videoId")
+    val videoId: String
 )

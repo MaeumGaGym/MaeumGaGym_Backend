@@ -4,9 +4,12 @@ import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.pickle.dto.request.PickleUploadRequest
 import com.info.maeumgagym.pickle.exception.AlreadyExistPickleException
+import com.info.maeumgagym.pickle.exception.DoesNotUploadedInVideoServerException
+import com.info.maeumgagym.pickle.exception.VideoAndUploaderNotMatchedException
 import com.info.maeumgagym.pickle.model.Pickle
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleUseCase
 import com.info.maeumgagym.pickle.port.out.ExistsPicklePort
+import com.info.maeumgagym.pickle.port.out.ReadVideoIdAndUploaderIdPort
 import com.info.maeumgagym.pickle.port.out.SavePicklePort
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
@@ -16,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional
 internal class UploadCreatePickleService(
     private val savePicklePort: SavePicklePort,
     private val existsPicklePort: ExistsPicklePort,
+    private val readVideoIdAndUploaderIdPort: ReadVideoIdAndUploaderIdPort,
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : CreatePickleUseCase {
 
@@ -25,6 +29,13 @@ internal class UploadCreatePickleService(
 
         // 이미 이 id의 영상이 존재한다면 -> 예외 발생
         if (existsPicklePort.existsById(req.videoId)) throw AlreadyExistPickleException
+
+        // 만약 영상 서버에 업로드된 영상이 아니라면 -> 예외 발생
+        val videoIdAndUploaderId = readVideoIdAndUploaderIdPort.readByVideoId(req.videoId)
+            ?: throw DoesNotUploadedInVideoServerException
+
+        // 만약 영상 서버에 업로드한 사람과 서버에 등록하려는 사람이 다르다면 -> 예외 발생
+        if (videoIdAndUploaderId.uploaderId != user.id!!) throw VideoAndUploaderNotMatchedException
 
         // 피클 저장
         savePicklePort.save(

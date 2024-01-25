@@ -64,6 +64,7 @@ file:
     secret-key: ${FILE_SERVER_SECRET_KEY}
     server-url: ${FILE_SERVER_URL}
     suffixPath: ${SUFFIX_PATH}
+    videoIdSaveTtl: ${VIDEO_ID_SAVE_TTL}
 
 springdoc:
     api-docs:
