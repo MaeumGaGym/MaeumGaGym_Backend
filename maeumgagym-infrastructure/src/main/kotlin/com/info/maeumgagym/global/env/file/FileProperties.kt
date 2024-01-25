@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConstructorBinding
 
 @ConstructorBinding
 @ConfigurationProperties("file")
-data class FileProperty(
+data class FileProperties(
 
     val secretKey: String,
 
