@@ -3,6 +3,7 @@ package com.info.maeumgagym.adapter.file
 import com.info.maeumgagym.feign.file.FileClient
 import com.info.maeumgagym.feign.file.dto.request.PreSignedUploadURLFeignRequest
 import com.info.maeumgagym.global.env.file.FileProperties
+import com.info.maeumgagym.pickle.dto.PreSignedUploadURLDto
 import com.info.maeumgagym.pickle.port.out.DeleteOriginalVideoPort
 import com.info.maeumgagym.pickle.port.out.GenerateM3u8URLPort
 import com.info.maeumgagym.pickle.port.out.GetPreSignedVideoUploadURLPort
@@ -14,11 +15,13 @@ internal class FileAdapter(
     private val fileProperty: FileProperties
 ) : DeleteOriginalVideoPort, GenerateM3u8URLPort, GetPreSignedVideoUploadURLPort {
 
-    override fun getPreSignedURL(fileType: String): String =
+    override fun getPreSignedURL(fileType: String): PreSignedUploadURLDto =
         fileClient.preSignedUploadURL(
             fileProperty.secretKey,
             PreSignedUploadURLFeignRequest(fileType)
-        ).uploadURL
+        ).run {
+            PreSignedUploadURLDto(uploadURL, videoId)
+        }
 
     override fun generateURL(videoId: String): String =
         fileProperty.serverURL + videoId + fileProperty.suffixPath

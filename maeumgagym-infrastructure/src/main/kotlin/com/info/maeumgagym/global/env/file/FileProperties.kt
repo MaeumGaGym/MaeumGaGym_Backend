@@ -11,5 +11,7 @@ data class FileProperties(
 
     val serverURL: String,
 
-    val suffixPath: String
+    val suffixPath: String,
+
+    val videoIdSaveTTL: Long
 )

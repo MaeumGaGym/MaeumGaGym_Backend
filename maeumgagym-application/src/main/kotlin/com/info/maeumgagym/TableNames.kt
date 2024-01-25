@@ -22,11 +22,13 @@ object TableNames {
 
     const val PICKLE_REPLY_TABLE = "${TABLE_PREFIX}pickle_reply"
 
+    const val WAKA_TIME_TABLE = "${TABLE_PREFIX}waka_time"
+
+    const val REPORT_TABLE = "${TABLE_PREFIX}report"
+
     const val ACCESS_TOKEN_TABLE = "${TABLE_PREFIX}access"
 
     const val REFRESH_TOKEN_TABLE = "${TABLE_PREFIX}refresh"
 
-    const val WAKA_TIME_TABLE = "${TABLE_PREFIX}waka_time"
-
-    const val REPORT_TABLE = "${TABLE_PREFIX}report"
+    const val VIDEO_ID_AND_UPLOADER_ID_TABLE = "${TABLE_PREFIX}viui"
 }
