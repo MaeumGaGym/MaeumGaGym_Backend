@@ -19,8 +19,11 @@ import com.info.maeumgagym.report.port.`in`.ReportUserUseCase
 import com.info.maeumgagym.report.port.out.SaveReportPort
 import com.info.maeumgagym.user.exception.UserNotFoundException
 import com.info.maeumgagym.user.port.out.ReadUserPort
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Transactional
 
 @UseCase
+@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class ReportService(
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val saveReportPort: SaveReportPort,
