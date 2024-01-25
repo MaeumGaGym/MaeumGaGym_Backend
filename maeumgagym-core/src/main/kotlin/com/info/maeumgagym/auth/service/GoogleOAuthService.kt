@@ -1,7 +1,6 @@
 package com.info.maeumgagym.auth.service
 
 import com.info.common.UseCase
-import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.exception.AlreadyExistUserException
 import com.info.maeumgagym.user.exception.DuplicatedNicknameException
 import com.info.maeumgagym.user.exception.UserNotFoundException
@@ -28,7 +27,7 @@ internal class GoogleOAuthService(
     private val recoveryUserPort: RecoveryUserPort
 ) : GoogleLoginUseCase, GoogleSignupUseCase, GoogleRecoveryUseCase {
 
-    override fun login(accessToken: String): TokenResponse {
+    override fun login(accessToken: String): Pair<String, String> {
         // google access_token으로 profile 가져오기
         val profile = getGoogleInfoPort.getGoogleInfo(accessToken)
 

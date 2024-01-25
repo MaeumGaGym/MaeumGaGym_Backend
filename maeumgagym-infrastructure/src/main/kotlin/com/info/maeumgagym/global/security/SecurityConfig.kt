@@ -11,6 +11,7 @@ import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.CorsUtils
@@ -25,34 +26,23 @@ class SecurityConfig(
 ) {
     @Bean
     protected fun filterChain(http: HttpSecurity): SecurityFilterChain =
-        http.csrf().disable()
+        http.csrf().csrfTokenRepository(CookieCsrfTokenRepository()).and()
             .formLogin().disable()
+            .requiresChannel().anyRequest().requiresSecure().and() // XSS 공격 방지(HTTPS 요청 요구) local test시 주석 처리할 것
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
-            .requestMatchers(CorsUtils::isCorsRequest)
-            .permitAll()
-            .antMatchers(HttpMethod.POST, "/google/signup").permitAll()
-            .antMatchers(HttpMethod.GET, "/google/login").permitAll()
-            .antMatchers(HttpMethod.PUT, "/google/recovery").permitAll()
-            .antMatchers(HttpMethod.POST, "/kakao/signup").permitAll()
-            .antMatchers(HttpMethod.GET, "/kakao/login").permitAll()
-            .antMatchers(HttpMethod.PUT, "/kakao/recovery").permitAll()
-            .antMatchers(HttpMethod.POST, "/apple/signup").permitAll()
-            .antMatchers(HttpMethod.GET, "/apple/login").permitAll()
-            .antMatchers(HttpMethod.PUT, "/apple/recovery").permitAll()
+            .requestMatchers(CorsUtils::isCorsRequest).permitAll()
+            .antMatchers(HttpMethod.POST, "/*/signup").permitAll()
+            .antMatchers(HttpMethod.GET, "/*/login").permitAll()
+            .antMatchers(HttpMethod.PUT, "/*/recovery").permitAll()
             .antMatchers(HttpMethod.GET, "/auth/re-issue").permitAll()
             .antMatchers("/swagger-ui/**", "/docs/**").permitAll()
             .antMatchers(HttpMethod.GET, "/report").hasRole(Role.ADMIN.name)
-            .anyRequest().authenticated()
-            .and()
+            .anyRequest().authenticated().and()
             .cors().and()
-            .exceptionHandling()
-            .and()
-            .headers()
-            .frameOptions()
-            .sameOrigin()
-            .and()
+            .exceptionHandling().and()
+            .headers().frameOptions().sameOrigin().and()
             .apply(FilterConfig(objectMapper, jwtResolver, jwtAdapter))
             .and().build()
 

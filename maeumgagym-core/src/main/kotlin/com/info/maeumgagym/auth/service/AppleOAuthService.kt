@@ -1,7 +1,6 @@
 package com.info.maeumgagym.auth.service
 
 import com.info.common.UseCase
-import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.exception.AlreadyExistUserException
 import com.info.maeumgagym.auth.port.`in`.AppleLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.AppleRecoveryUseCase
@@ -28,7 +27,7 @@ internal class AppleOAuthService(
     private val existUserPort: ExistUserPort
 ) : AppleLoginUseCase, AppleRecoveryUseCase, AppleSignUpUseCase {
 
-    override fun login(token: String): TokenResponse {
+    override fun login(token: String): Pair<String, String> {
         // Apple id_token에서 subject값을 받아온다
         val subject = parseAppleTokenPort.parseIdToken(token).subject
 

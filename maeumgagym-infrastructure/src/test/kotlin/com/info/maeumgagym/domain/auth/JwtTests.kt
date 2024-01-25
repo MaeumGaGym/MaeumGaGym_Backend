@@ -49,9 +49,9 @@ internal class JwtTests @Autowired constructor(
     fun generateTokens() {
         val token = jwtAdapter.generateTokens(user.oauthId)
         Assertions.assertNotNull(accessTokenRepository.findById(user.oauthId))
-        Assertions.assertNotNull(accessTokenRepository.findByAccessToken(token.accessToken))
+        Assertions.assertNotNull(accessTokenRepository.findByAccessToken(token.first))
         Assertions.assertNotNull(refreshTokenRepository.findById(user.oauthId))
-        Assertions.assertNotNull(refreshTokenRepository.findByRfToken(token.refreshToken))
+        Assertions.assertNotNull(refreshTokenRepository.findByRfToken(token.second))
     }
 
     /**
@@ -63,7 +63,7 @@ internal class JwtTests @Autowired constructor(
     fun reissue() {
         val tokenResponse = jwtAdapter.generateTokens(user.oauthId)
         Assertions.assertDoesNotThrow {
-            jwtAdapter.reissue(tokenResponse.refreshToken)
+            jwtAdapter.reissue(tokenResponse.second)
         }
     }
 
@@ -78,7 +78,7 @@ internal class JwtTests @Autowired constructor(
     fun reissueWithAccessToken() {
         val tokenResponse = jwtAdapter.generateTokens(user.oauthId)
         Assertions.assertThrows(InvalidTokenException::class.java) {
-            jwtAdapter.reissue(tokenResponse.accessToken)
+            jwtAdapter.reissue(tokenResponse.first)
         }
     }
 
@@ -93,7 +93,7 @@ internal class JwtTests @Autowired constructor(
         val tokenResponse = jwtAdapter.generateTokens(user.oauthId)
         refreshTokenRepository.deleteById(user.oauthId)
         Assertions.assertThrows(InvalidTokenException::class.java) {
-            jwtAdapter.reissue(tokenResponse.accessToken)
+            jwtAdapter.reissue(tokenResponse.first)
         }
     }
 
@@ -120,7 +120,7 @@ internal class JwtTests @Autowired constructor(
     @Test
     fun resolve() {
         val request = MockHttpServletRequest()
-        val accessToken = jwtAdapter.generateTokens(user.oauthId).accessToken
+        val accessToken = jwtAdapter.generateTokens(user.oauthId).first
         request.addHeader(AuthTestModule.TOKEN_HEADER, AuthTestModule.TOKEN_PREFIX + accessToken)
         Assertions.assertEquals(
             jwtResolver.resolveToken(request),
@@ -140,8 +140,8 @@ internal class JwtTests @Autowired constructor(
         lateinit var accessToken: String
         lateinit var refreshToken: String
         jwtAdapter.generateTokens(user.oauthId).run {
-            accessToken = this.accessToken
-            refreshToken = this.refreshToken
+            accessToken = this.first
+            refreshToken = this.second
         }
         Assertions.assertThrows(InvalidTokenException::class.java) {
             request.addHeader(AuthTestModule.TOKEN_HEADER, accessToken)
@@ -162,7 +162,7 @@ internal class JwtTests @Autowired constructor(
     @Test
     fun resolveWithBearerRefreshToken() {
         val request = MockHttpServletRequest()
-        val refreshToken = jwtAdapter.generateTokens(user.oauthId).refreshToken
+        val refreshToken = jwtAdapter.generateTokens(user.oauthId).second
         request.addHeader(AuthTestModule.TOKEN_HEADER, AuthTestModule.TOKEN_HEADER + refreshToken)
         Assertions.assertThrows(InvalidTokenException::class.java) {
             jwtResolver.resolveToken(request)
@@ -194,7 +194,7 @@ internal class JwtTests @Autowired constructor(
     @Test
     fun runFilter() {
         val request = MockHttpServletRequest()
-        val accessToken = jwtAdapter.generateTokens(user.oauthId).accessToken
+        val accessToken = jwtAdapter.generateTokens(user.oauthId).first
         request.addHeader(AuthTestModule.TOKEN_HEADER, AuthTestModule.TOKEN_PREFIX + accessToken)
         jwtFilter.doFilter(
             request,

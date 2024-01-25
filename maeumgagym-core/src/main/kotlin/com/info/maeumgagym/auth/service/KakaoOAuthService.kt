@@ -1,7 +1,6 @@
 package com.info.maeumgagym.auth.service
 
 import com.info.common.UseCase
-import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.exception.AlreadyExistUserException
 import com.info.maeumgagym.auth.port.`in`.KakaoRecoveryUseCase
 import com.info.maeumgagym.user.exception.UserNotFoundException
@@ -26,7 +25,7 @@ internal class KakaoOAuthService(
     private val recoveryUserPort: RecoveryUserPort
 ) : KakaoLoginUseCase, KakaoSignupUseCase, KakaoRecoveryUseCase {
 
-    override fun login(accessToken: String): TokenResponse {
+    override fun login(accessToken: String): Pair<String, String> {
         // kakao access_token으로 유저 정보 가져오기
         val userInfo = getKakaoInfoPort.getInfo(accessToken)
 
