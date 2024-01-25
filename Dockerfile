@@ -69,5 +69,5 @@ ENV BACK_DOMAIN ${BACK_DOMAIN}
 
 EXPOSE 8080
 
-COPY /maeumgagym-infrastructure/build/libs/maeumgagym-infrastructure-0.0.1-SNAPSHOT.jar app.jar
+COPY /maeumgagym-infrastructure/build/libs/maeumgagym-server-1.0.0.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
