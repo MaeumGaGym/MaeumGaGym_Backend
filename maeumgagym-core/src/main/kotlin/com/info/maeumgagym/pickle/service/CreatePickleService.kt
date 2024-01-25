@@ -2,7 +2,7 @@ package com.info.maeumgagym.pickle.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.pickle.dto.request.PickleUploadRequest
+import com.info.maeumgagym.pickle.dto.request.CreatePickleRequest
 import com.info.maeumgagym.pickle.exception.AlreadyExistPickleException
 import com.info.maeumgagym.pickle.exception.DoesNotUploadedInVideoServerException
 import com.info.maeumgagym.pickle.exception.VideoAndUploaderNotMatchedException
@@ -16,14 +16,14 @@ import org.springframework.transaction.annotation.Transactional
 
 @UseCase
 @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
-internal class UploadCreatePickleService(
+internal class CreatePickleService(
     private val savePicklePort: SavePicklePort,
     private val existsPicklePort: ExistsPicklePort,
     private val readVideoIdAndUploaderIdPort: ReadVideoIdAndUploaderIdPort,
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : CreatePickleUseCase {
 
-    override fun createPickle(req: PickleUploadRequest) {
+    override fun createPickle(req: CreatePickleRequest) {
         // 토큰으로 유저 찾기
         val user = readCurrentUserPort.readCurrentUser()
 
