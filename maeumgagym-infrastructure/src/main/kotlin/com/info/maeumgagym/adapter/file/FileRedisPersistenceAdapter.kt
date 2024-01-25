@@ -19,7 +19,7 @@ internal class FileRedisPersistenceAdapter(
             VideoIdAndUploaderIdRedisEntity(
                 videoIdAndUploaderId.videoId,
                 videoIdAndUploaderId.uploaderId,
-                fileProperties.videoIdSaveTTL
+                fileProperties.videoIdSaveTtl
             )
         ).run { VideoIdAndUploaderId(videoId, uploaderId) }
 
