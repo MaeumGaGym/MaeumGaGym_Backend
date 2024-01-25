@@ -1,14 +1,15 @@
 package com.info.maeumgagym.controller.auth
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.`in`.AppleLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.AppleRecoveryUseCase
 import com.info.maeumgagym.auth.port.`in`.AppleSignUpUseCase
 import com.info.maeumgagym.controller.auth.dto.SignupWebRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
@@ -23,8 +24,15 @@ class AppleAuthController(
 
     @Operation(summary = "애플 OAuth 로그인 API")
     @GetMapping("/login")
-    fun login(@RequestParam("access_token") token: String): TokenResponse =
-        appleLoginUseCase.login(token)
+    fun login(@RequestParam("access_token") token: String): ResponseEntity<Any> =
+        appleLoginUseCase.login(token).run {
+            val responseHeaders = HttpHeaders().apply {
+                add(HttpHeaders.SET_COOKIE, "RF-TOKEN=$second; Secure; HttpOnly; SameSite=Strict")
+                add(HttpHeaders.AUTHORIZATION, "Bearer $first")
+            }
+
+            ResponseEntity.ok().headers(responseHeaders).build()
+        }
 
     @Operation(summary = "애플 OAuth 회원가입 API")
     @PostMapping("/signup")
