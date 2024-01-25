@@ -14,7 +14,7 @@ internal class ReportPersistenceAdapter(
     private val reportMapper: ReportMapper
 ) : SaveReportPort {
 
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.MANDATORY)
     override fun save(report: Report): Report =
         reportMapper.toDomain(
             reportRepository.save(reportMapper.toEntity(report))
