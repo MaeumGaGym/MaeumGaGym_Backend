@@ -2,6 +2,7 @@ package com.info.maeumgagym.domain.pickle
 
 import com.info.maeumgagym.domain.pickle.entity.PickleJpaEntity
 import com.info.maeumgagym.domain.pickle.repository.PickleRepository
+import com.info.maeumgagym.domain.pose.PoseTestModule
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.pickle.dto.request.PickleUploadRequest
 import com.info.maeumgagym.pickle.dto.request.UpdatePickleRequest
@@ -13,8 +14,8 @@ object PickleTestModule {
     private const val PICKLE_DESCRIPTION = "테스트 피클 설명"
     private const val PICKLE_LIKE_COUNT = 0L
     private const val PICKLE_COMMENT_COUNT = 0L
-    private val PICKLE_TAGS = setOf("태그1", "태그2", "태그3", "테스트 자세")
-    private val PICKLE_UPDATED_TAGS = setOf("태그1", "태그3", "테스트 자세")
+    private val PICKLE_TAGS = setOf("태그1", "태그2", "태그3", PoseTestModule.createPose().simpleName)
+    private val PICKLE_UPDATED_TAGS = setOf("태그1", "태그3", PoseTestModule.createPose().exactName)
 
     private const val UPDATE_SUFFIX = " update"
 
