@@ -50,7 +50,7 @@ object PickleTestModule {
 
     fun verifyUpdatedPickle(pickleJpaEntity: PickleJpaEntity, uploader: UserJpaEntity): Boolean =
         getUpdatePickleRequest().run {
-                pickleJpaEntity.title == title &&
+            pickleJpaEntity.title == title &&
                 pickleJpaEntity.description == description &&
                 pickleJpaEntity.tags == tags &&
                 pickleJpaEntity.likeCount == 0L &&

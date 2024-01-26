@@ -31,7 +31,8 @@ internal class PickleLikePersistenceAdapter(
     override fun readByVideoIdAndUser(videoId: String, user: User): PickleLike? =
         pickleLikeRepository.findById(
             PickleLikeJpaEntity.IdClass(
-                videoId, userMapper.toEntity(user)
+                videoId,
+                userMapper.toEntity(user)
             )
         )?.let { pickleLikeMapper.toDomain(it) }
 

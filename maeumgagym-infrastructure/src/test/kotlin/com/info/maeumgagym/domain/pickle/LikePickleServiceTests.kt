@@ -4,7 +4,6 @@ import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.pickle.PickleTestModule.saveInRepository
 import com.info.maeumgagym.domain.pickle.entity.PickleJpaEntity
 import com.info.maeumgagym.domain.pickle.entity.PickleLikeJpaEntity
-import com.info.maeumgagym.domain.pickle.mapper.PickleLikeMapper
 import com.info.maeumgagym.domain.pickle.repository.PickleLikeRepository
 import com.info.maeumgagym.domain.pickle.repository.PickleRepository
 import com.info.maeumgagym.domain.user.UserTestModule
@@ -91,7 +90,7 @@ class LikePickleServiceTests(
         )
         Assertions.assertTrue(
             likeCountBeforeLike == pickle.likeCount &&
-            likeCountAfterLike - 1 == pickle.likeCount
+                likeCountAfterLike - 1 == pickle.likeCount
         )
     }
 

@@ -39,8 +39,14 @@ internal class LikePickleService(
             savePicklePort.save(
                 pickle.run {
                     Pickle(
-                        videoId, title, description, uploader,
-                        likeCount - 1, commentCount, tags, createdAt
+                        videoId,
+                        title,
+                        description,
+                        uploader,
+                        likeCount - 1,
+                        commentCount,
+                        tags,
+                        createdAt
                     )
                 }
             )
@@ -53,8 +59,14 @@ internal class LikePickleService(
             savePicklePort.save(
                 pickle.run {
                     Pickle(
-                        videoId, title, description, uploader,
-                        likeCount + 1, commentCount, tags, createdAt
+                        videoId,
+                        title,
+                        description,
+                        uploader,
+                        likeCount + 1,
+                        commentCount,
+                        tags,
+                        createdAt
                     )
                 }
             )
