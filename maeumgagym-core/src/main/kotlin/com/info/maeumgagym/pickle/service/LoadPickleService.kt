@@ -8,7 +8,7 @@ import com.info.maeumgagym.pickle.exception.ThereNoPicklesException
 import com.info.maeumgagym.pickle.model.Pickle
 import com.info.maeumgagym.pickle.model.Pickle.Companion.toResponse
 import com.info.maeumgagym.pickle.port.`in`.LoadPickleFromIdUseCase
-import com.info.maeumgagym.pickle.port.`in`.LoadPicklesFromPoseUseCase
+import com.info.maeumgagym.pickle.port.`in`.LoadPicklePoseUseCase
 import com.info.maeumgagym.pickle.port.`in`.LoadRecommendationPicklesUseCase
 import com.info.maeumgagym.pickle.port.out.GenerateM3u8URLPort
 import com.info.maeumgagym.pickle.port.out.ReadPicklePort
@@ -20,7 +20,7 @@ internal class LoadPickleService(
     private val readPicklePort: ReadPicklePort,
     private val generateM3u8URLPort: GenerateM3u8URLPort,
     private val readPosePort: ReadPosePort
-) : LoadRecommendationPicklesUseCase, LoadPickleFromIdUseCase, LoadPicklesFromPoseUseCase {
+) : LoadRecommendationPicklesUseCase, LoadPickleFromIdUseCase, LoadPicklePoseUseCase {
 
     private companion object {
         const val INDEX_SIZE = 5
@@ -44,26 +44,17 @@ internal class LoadPickleService(
         (readPicklePort.readById(id) ?: throw PickleNotFoundException)
             .toResponse(generateM3u8URLPort.generateURL(id))
 
-    override fun loadPicklesFromPose(poseId: Long): PickleListResponse {
+    override fun loadAllPagedFromPose(poseId: Long, idx: Int, size: Int): PickleListResponse {
         // id로 자세 불러오기
         val pose = readPosePort.readById(poseId) ?: throw PoseNotFoundException
 
-        // 모든 피클 불러오기
-        val allPickles = readPicklePort.readAll()
-        // 자세와 관련된 피클을 담을 빈 리스트
-        val pickles: MutableList<Pickle> = mutableListOf()
-        // 모든 피클 중에서
-        allPickles.map {
-            // 만약 선택된 자세의 이름과 같은 태그가 있다면 ->
-            if (it.tags.contains(pose.simpleName) || it.tags.contains(pose.exactName)) {
-                // 리스트에 추가
-                pickles.add(it)
-            }
-        }
+        val pickles = readPicklePort.readAllPagedByTagsContaining(pose.simpleName, pose.exactName, idx, size)
 
         // dto로 변환
         return PickleListResponse(
-            getRandomPickles(pickles).map { it.toResponse(generateM3u8URLPort.generateURL(it.videoId)) }
+            pickles.map {
+                it.toResponse(generateM3u8URLPort.generateURL(it.videoId))
+            }
         )
     }
 
