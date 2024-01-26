@@ -9,13 +9,12 @@ import javax.persistence.*
 @Entity(name = TableNames.PICKLE_LIKE_TABLE)
 @IdClass(PickleLikeJpaEntity.IdClass::class)
 class PickleLikeJpaEntity(
-    pickle: PickleJpaEntity,
+    pickleId: String,
     user: UserJpaEntity
 ) : Persistable<PickleLikeJpaEntity.IdClass> {
     @Id
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pickle_id", updatable = false, nullable = false)
-    var pickle: PickleJpaEntity = pickle
+    @Column(name = "pickle_id", updatable = false, nullable = false)
+    var pickleId: String = pickleId
         protected set
 
     @Id
@@ -25,11 +24,11 @@ class PickleLikeJpaEntity(
         protected set
 
     data class IdClass(
-        val pickle: PickleJpaEntity? = null,
-        val user: UserJpaEntity? = null
+        val pickleId: String,
+        val user: UserJpaEntity
     ) : Serializable
 
-    override fun getId() = IdClass(pickle, user)
+    override fun getId() = IdClass(pickleId, user)
 
     override fun isNew() = user.id == null
 }

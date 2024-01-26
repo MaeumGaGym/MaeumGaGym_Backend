@@ -1,10 +1,8 @@
 package com.info.maeumgagym.domain.pickle.mapper
 
 import com.info.maeumgagym.domain.pickle.entity.PickleJpaEntity
-import com.info.maeumgagym.domain.pickle.entity.PickleLikeJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.pickle.model.Pickle
-import com.info.maeumgagym.pickle.model.PickleLike
 import org.springframework.stereotype.Component
 
 @Component
@@ -36,16 +34,4 @@ class PickleMapper(
             isDeleted = isDeleted
         )
     }
-
-    fun toEntityLike(pickleLike: PickleLike): PickleLikeJpaEntity =
-        PickleLikeJpaEntity(
-            pickle = toEntity(pickleLike.pickle),
-            user = userMapper.toEntity(pickleLike.user)
-        )
-
-    fun toDomainLike(pickleLikeJpaEntity: PickleLikeJpaEntity): PickleLike =
-        PickleLike(
-            pickle = toDomain(pickleLikeJpaEntity.pickle),
-            user = userMapper.toDomain(pickleLikeJpaEntity.user)
-        )
 }

@@ -4,7 +4,7 @@ import com.info.maeumgagym.user.model.User
 
 data class PickleLike(
 
-    val pickle: Pickle,
+    val pickleId: String,
 
     val user: User
 )
