@@ -10,7 +10,7 @@ data class UpdatePickleWebRequest(
     @field:NotBlank(message = "null일 수 없습니다")
     val title: String?,
 
-    @field:Size(max = 1000, message = "1자 이상 1000자 이하여야 합니다.")
+    @field:Size(max = 700, message = "1자 이상 700자 이하여야 합니다.")
     val description: String?,
 
     @field:Size(max = 30, message = "최대 30개입니다.")

@@ -36,7 +36,7 @@ class PickleJpaEntity(
     var title: String = title
         protected set
 
-    @Column(name = "description", length = 1500, nullable = true)
+    @Column(name = "description", length = 700, nullable = true)
     var description: String? = description
         protected set
 
