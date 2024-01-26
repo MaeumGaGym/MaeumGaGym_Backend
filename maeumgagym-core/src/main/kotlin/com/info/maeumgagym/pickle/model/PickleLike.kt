@@ -6,5 +6,7 @@ data class PickleLike(
 
     val pickleId: String,
 
-    val user: User
+    val user: User,
+
+    val isNew: Boolean = true
 )

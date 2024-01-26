@@ -9,9 +9,12 @@ import javax.persistence.*
 @Entity(name = TableNames.PICKLE_LIKE_TABLE)
 @IdClass(PickleLikeJpaEntity.IdClass::class)
 class PickleLikeJpaEntity(
-    pickleId: String,
-    user: UserJpaEntity
+    pickle: PickleJpaEntity,
+    user: UserJpaEntity,
+    @Transient
+    private var isNew: Boolean
 ) : Persistable<PickleLikeJpaEntity.IdClass> {
+
     @Id
     @Column(name = "pickle_id", updatable = false, nullable = false)
     var pickleId: String = pickleId
@@ -30,5 +33,11 @@ class PickleLikeJpaEntity(
 
     override fun getId() = IdClass(pickleId, user)
 
-    override fun isNew() = user.id == null
+    @PrePersist
+    @PostLoad
+    protected fun modifyIsNew() {
+        this.isNew = false
+    }
+
+    override fun isNew() = isNew
 }

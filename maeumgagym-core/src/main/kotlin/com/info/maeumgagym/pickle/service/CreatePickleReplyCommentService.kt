@@ -4,7 +4,7 @@ import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.pickle.dto.request.PickleCommentRequest
 import com.info.maeumgagym.pickle.exception.PickleCommentNotFoundException
-import com.info.maeumgagym.pickle.exception.PickleMisMatchException
+import com.info.maeumgagym.pickle.exception.PickleMismatchedException
 import com.info.maeumgagym.pickle.exception.PickleNotFoundException
 import com.info.maeumgagym.pickle.model.PickleReply
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleReplyCommentUseCase
@@ -36,7 +36,7 @@ internal class CreatePickleReplyCommentService(
         }
 
         if (parentComment.videoId != videoId) {
-            throw PickleMisMatchException
+            throw PickleMismatchedException
         }
 
         pickleCommentRequest.run {
