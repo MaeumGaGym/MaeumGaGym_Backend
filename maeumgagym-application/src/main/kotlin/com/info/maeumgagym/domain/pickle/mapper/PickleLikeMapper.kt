@@ -4,23 +4,28 @@ import com.info.maeumgagym.domain.pickle.entity.PickleLikeJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.pickle.model.PickleLike
 import org.springframework.stereotype.Component
+import javax.persistence.EntityManager
 
 @Component
 class PickleLikeMapper(
-    private val userMapper: UserMapper
+    private val pickleMapper: PickleMapper,
+    private val userMapper: UserMapper,
+    private val em: EntityManager
 ) {
 
-    fun toEntity(domain: PickleLike): PickleLikeJpaEntity =
+    fun toEntity(domain: PickleLike): PickleLikeJpaEntity = domain.run {
         PickleLikeJpaEntity(
-            domain.pickleId,
-            userMapper.toEntity(domain.user),
-            domain.isNew
+            em.merge(pickleMapper.toEntity(pickle)),
+            em.merge(userMapper.toEntity(user)),
+            isNew
         )
+    }
 
-    fun toDomain(entity: PickleLikeJpaEntity): PickleLike =
+    fun toDomain(entity: PickleLikeJpaEntity): PickleLike = entity.run {
         PickleLike(
-            entity.pickleId,
-            userMapper.toDomain(entity.user),
-            entity.isNew
+            pickleMapper.toDomain(pickle),
+            userMapper.toDomain(user),
+            isNew
         )
+    }
 }

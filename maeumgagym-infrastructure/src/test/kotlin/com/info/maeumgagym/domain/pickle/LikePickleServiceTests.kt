@@ -1,6 +1,7 @@
 package com.info.maeumgagym.domain.pickle
 
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
+import com.info.maeumgagym.domain.pickle.PickleTestModule.createPickle
 import com.info.maeumgagym.domain.pickle.PickleTestModule.saveInRepository
 import com.info.maeumgagym.domain.pickle.entity.PickleJpaEntity
 import com.info.maeumgagym.domain.pickle.entity.PickleLikeJpaEntity
@@ -56,7 +57,7 @@ class LikePickleServiceTests @Autowired constructor(
 
         Assertions.assertNotNull(
             pickleLikeRepository.findById(
-                PickleLikeJpaEntity.IdClass(pickle.videoId, user)
+                PickleLikeJpaEntity.IdClass(pickle, user)
             )
         )
         Assertions.assertTrue(
@@ -86,7 +87,7 @@ class LikePickleServiceTests @Autowired constructor(
 
         Assertions.assertNull(
             pickleLikeRepository.findById(
-                PickleLikeJpaEntity.IdClass(pickle.videoId, user)
+                PickleLikeJpaEntity.IdClass(pickle, user)
             )
         )
         Assertions.assertTrue(
@@ -104,12 +105,14 @@ class LikePickleServiceTests @Autowired constructor(
      */
     @Test
     fun likeNonExistsPickle() {
+        pickle = createPickle(user)
+
         Assertions.assertThrows(PickleNotFoundException::class.java) {
-            likePickleUseCase.likePickle("a")
+            likePickleUseCase.likePickle(pickle.videoId)
         }
         Assertions.assertNull(
             pickleLikeRepository.findById(
-                PickleLikeJpaEntity.IdClass("a", user)
+                PickleLikeJpaEntity.IdClass(pickle, user)
             )
         )
     }
