@@ -35,9 +35,9 @@ enum class ErrorCode(
     PICKLE_REPLY_NOT_FOUND(404, "Pickle Reply Not Found"),
 
     // Bad Request
-    FILE_TYPE_MISS_MATCHED(400, "File, Type Miss Matched"),
+    FILE_TYPE_MISS_MATCHED(400, "File Type Miss Matched"),
     EXERCISE_LIST_CANNOT_EMPTY(400, "Exercise list cannot empty"),
-    PICKLE_MISMATCH(400, "Pickle Mismathce"),
+    PICKLE_MISMATCH(400, "Pickle Miss Matched"),
     WAKA_STARTED_NOT_YET(400, "Wakatime Started Not Yet"),
     CANNNOT_REPORT_ONESELF(400, "Cannot Report Oneself"),
     NOT_UPLOADED_TO_VIDEO_SERVER(404, "Does Not Uploaded In Video Server"),
