@@ -9,9 +9,13 @@ import org.hibernate.annotations.Where
 import java.time.LocalDateTime
 import javax.persistence.*
 
+@Entity
 @Where(clause = "is_deleted = false")
 @SQLDelete(sql = "UPDATE ${TableNames.PICKLE_TABLE} SET is_deleted = true WHERE id = ?")
-@Entity(name = TableNames.PICKLE_TABLE)
+@Table(
+    name = TableNames.PICKLE_TABLE,
+    indexes = [Index(name = TableNames.PICKLE_TAG_INDEX, columnList = "tags")]
+)
 class PickleJpaEntity(
     videoId: String,
     title: String,
@@ -50,7 +54,7 @@ class PickleJpaEntity(
         protected set
 
     @Convert(converter = StringAttributeConverter::class)
-    @Column(name = "tags", length = 1000, nullable = false)
+    @Column(name = "tags", length = 400, nullable = false)
     var tags: MutableSet<String> = tags
         get() = field.toMutableSet()
         protected set

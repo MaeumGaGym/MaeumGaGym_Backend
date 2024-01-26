@@ -15,7 +15,10 @@ import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
 import javax.validation.constraints.Pattern
+import javax.validation.constraints.Positive
+import javax.validation.constraints.PositiveOrZero
 
 @Tag(name = "Pickle API")
 @Validated
@@ -24,7 +27,7 @@ import javax.validation.constraints.Pattern
 class PickleController(
     private val loadRecommendationPicklesUseCase: LoadRecommendationPicklesUseCase,
     private val loadPickleFromIdUseCase: LoadPickleFromIdUseCase,
-    private val loadPicklesFromPoseUseCase: LoadPicklesFromPoseUseCase,
+    private val loadPickleFromPoseUseCase: LoadPickleFromPoseUseCase,
     private val createPickleUseCase: CreatePickleUseCase,
     private val deletePickleUseCase: DeletePickleUseCase,
     private val updatePickleUseCase: UpdatePickleUseCase,
@@ -33,8 +36,14 @@ class PickleController(
 
     @Operation(summary = "추천 피클 전체 조회 API")
     @GetMapping
-    fun recommendationPicklesLoad(@RequestParam("idx") index: Int): PickleListResponse =
-        loadRecommendationPicklesUseCase.loadRecommendationPickles(index)
+    fun recommendationPicklesLoad(
+        @RequestParam("idx", required = false)
+        @Valid
+        @NotNull(message = "null일 수 없습니다.")
+        @PositiveOrZero(message = "0보다 크거나 같아야 합니다.")
+        idx: Int?
+    ): PickleListResponse =
+        loadRecommendationPicklesUseCase.loadRecommendationPickles(idx!!)
 
     @Operation(summary = "피클 조회 API")
     @GetMapping("/{id}")
@@ -49,9 +58,21 @@ class PickleController(
     @Operation(summary = "자세 관련 피클 조회 API")
     @GetMapping("/pose/{poseId}")
     fun picklesLoadFromPose(
-        @PathVariable(name = "poseId")
-        poseId: Long
-    ): PickleListResponse = loadPicklesFromPoseUseCase.loadPicklesFromPose(poseId)
+        @PathVariable(name = "poseId", required = false)
+        @Valid
+        @NotNull(message = "null일 수 없습니다.")
+        @Positive(message = "0보다 커야 합니다.")
+        poseId: Long?,
+        @RequestParam("idx", required = false)
+        @Valid
+        @NotNull(message = "null일 수 없습니다.")
+        @PositiveOrZero(message = "0보다 크거나 같아야 합니다.")
+        idx: Int?,
+        @RequestParam("size", required = false, defaultValue = "5")
+        @Valid
+        @Positive(message = "0보다 크거나 같아야 합니다.")
+        size: Int
+    ): PickleListResponse = loadPickleFromPoseUseCase.loadAllPagedFromPose(poseId!!, idx!!, size)
 
     @Operation(summary = "PreSignedUploadURL 조회 API")
     @GetMapping("/url")
@@ -60,7 +81,7 @@ class PickleController(
         req: PreSignedUploadURLWebRequest
     ): PreSignedUploadURLResponse = getPreSignedUploadURLUseCase.getPreSignedUploadURL(req.fileType!!)
 
-    @Operation(summary = "피클 업로드 API")
+    @Operation(summary = "피클 생성 API")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun createPickle(

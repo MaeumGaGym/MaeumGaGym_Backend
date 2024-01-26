@@ -4,7 +4,9 @@ import com.info.maeumgagym.pickle.model.Pickle
 
 interface ReadPicklePort {
 
+    fun readById(id: String): Pickle?
+
     fun readAll(): List<Pickle>
 
-    fun readById(id: String): Pickle?
+    fun readAllPagedByTagsContaining(simpleTag: String, exactTag: String, idx: Int, size: Int): MutableList<Pickle>
 }

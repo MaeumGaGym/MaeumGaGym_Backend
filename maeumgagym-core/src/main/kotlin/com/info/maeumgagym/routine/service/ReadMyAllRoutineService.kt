@@ -21,7 +21,7 @@ internal class ReadMyAllRoutineService(
         // 토큰으로 유저 찾기
         val user = readCurrentUserPort.readCurrentUser()
 
-        // 내 루틴 라스트 불러오기
+        // 내 루틴 리스트 불러오기
         val routineList = readRoutinePort.readAllByUserId(user.id!!)
 
         // 반환
