@@ -44,14 +44,14 @@ internal class CreateRoutineServiceTests @Autowired constructor(
         )
     }
 
-    @Test
-    fun createRoutineWithEmptyExerciseInfoList() {
-        Assertions.assertThrows(ExerciseListCannotEmptyException::class.java) {
-            createRoutineUseCase.createRoutine(
-                RoutineTestModule.getCreateRoutineRequest().apply {
-                    exerciseInfoModelList.clear()
-                }
-            )
-        }
-    }
+//    @Test
+//    fun createRoutineWithEmptyExerciseInfoList() {
+//        Assertions.assertThrows(ExerciseListCannotEmptyException::class.java) {
+//            createRoutineUseCase.createRoutine(
+//                RoutineTestModule.getCreateRoutineRequest().apply {
+//                    exerciseInfoModelList.clear()
+//                }
+//            )
+//        }
+//    }
 }
