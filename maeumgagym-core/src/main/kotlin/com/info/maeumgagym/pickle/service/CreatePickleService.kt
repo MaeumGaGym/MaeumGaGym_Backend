@@ -5,6 +5,7 @@ import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.pickle.dto.request.CreatePickleRequest
 import com.info.maeumgagym.pickle.exception.AlreadyExistPickleException
 import com.info.maeumgagym.pickle.exception.NotUploadedToVideoServerException
+import com.info.maeumgagym.pickle.exception.TagTooLongException
 import com.info.maeumgagym.pickle.exception.VideoAndUploaderMismatchException
 import com.info.maeumgagym.pickle.model.Pickle
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleUseCase
@@ -29,6 +30,12 @@ internal class CreatePickleService(
 
         // 이미 이 id의 영상이 존재한다면 -> 예외 발생
         if (existsPicklePort.existsById(req.videoId)) throw AlreadyExistPickleException
+
+        // 태그 중에서
+        req.tags.forEach {
+            // 10자보다 큰 태그가 있다면 -> 예외 발생
+            if (it.length > 10) throw TagTooLongException
+        }
 
         // 만약 영상 서버에 업로드된 영상이 아니라면 -> 예외 발생
         val videoIdAndUploaderId = readVideoIdAndUploaderIdPort.readByVideoId(req.videoId)
