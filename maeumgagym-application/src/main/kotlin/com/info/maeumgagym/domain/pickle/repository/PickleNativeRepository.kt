@@ -9,7 +9,7 @@ import org.springframework.data.repository.Repository
 import org.springframework.data.repository.query.Param
 
 @org.springframework.stereotype.Repository
-interface PickleNativeRepository: Repository<PickleJpaEntity, String> {
+interface PickleNativeRepository : Repository<PickleJpaEntity, String> {
 
     @Query(
         value = "SELECT p.* FROM ${TableNames.PICKLE_TABLE} p " +

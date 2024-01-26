@@ -41,7 +41,7 @@ class PickleController(
         @Valid
         @NotNull(message = "null일 수 없습니다.")
         @PositiveOrZero(message = "0보다 크거나 같아야 합니다.")
-        idx: Int?,
+        idx: Int?
     ): PickleListResponse =
         loadRecommendationPicklesUseCase.loadRecommendationPickles(idx!!)
 

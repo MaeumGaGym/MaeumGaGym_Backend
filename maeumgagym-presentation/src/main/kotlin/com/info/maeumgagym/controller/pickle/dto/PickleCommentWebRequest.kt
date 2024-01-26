@@ -2,7 +2,6 @@ package com.info.maeumgagym.controller.pickle.dto
 
 import com.info.maeumgagym.pickle.dto.request.PickleCommentRequest
 import javax.validation.constraints.NotBlank
-import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
 data class PickleCommentWebRequest(

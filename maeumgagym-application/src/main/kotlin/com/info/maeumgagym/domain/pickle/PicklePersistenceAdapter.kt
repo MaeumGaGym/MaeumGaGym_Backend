@@ -37,10 +37,16 @@ internal class PicklePersistenceAdapter(
     override fun readAll(): List<Pickle> =
         pickleRepository.findAll().map { pickleMapper.toDomain(it) }
 
-    override fun readAllPagedByTagsContaining(simpleTag: String, exactTag: String, idx: Int, size: Int): MutableList<Pickle> =
-        prickleNativeRepository.findByTagsContaining(
-            simpleTag, exactTag, PageRequest.of(idx, size, Sort.by("created_at").descending())
-        ).map { pickleMapper.toDomain(it) }.toMutableList()
+    override fun readAllPagedByTagsContaining(
+        simpleTag: String,
+        exactTag: String,
+        idx: Int,
+        size: Int
+    ): MutableList<Pickle> = prickleNativeRepository.findByTagsContaining(
+        simpleTag,
+        exactTag,
+        PageRequest.of(idx, size, Sort.by("created_at").descending())
+    ).map { pickleMapper.toDomain(it) }.toMutableList()
 
     override fun existsById(videoId: String): Boolean =
         pickleRepository.findByVideoId(videoId)?.let { true } ?: false
