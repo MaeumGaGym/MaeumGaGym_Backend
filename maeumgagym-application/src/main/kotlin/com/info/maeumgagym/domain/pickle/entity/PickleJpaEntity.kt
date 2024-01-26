@@ -14,7 +14,7 @@ import javax.persistence.*
 @SQLDelete(sql = "UPDATE ${TableNames.PICKLE_TABLE} SET is_deleted = true WHERE id = ?")
 @Table(
     name = TableNames.PICKLE_TABLE,
-    indexes = [Index(name = "TAG_IDX", columnList = "tags")]
+    indexes = [Index(name = TableNames.PICKLE_TAG_INDEX, columnList = "tags")]
 )
 class PickleJpaEntity(
     videoId: String,
