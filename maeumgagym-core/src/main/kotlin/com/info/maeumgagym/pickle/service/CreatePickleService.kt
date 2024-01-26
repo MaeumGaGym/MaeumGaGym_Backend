@@ -42,7 +42,7 @@ internal class CreatePickleService(
             ?: throw NotUploadedToVideoServerException
 
         // 만약 영상 서버에 업로드한 사람과 서버에 등록하려는 사람이 다르다면 -> 예외 발생
-        if (videoIdAndUploaderId.uploaderId != user.id!!) throw VideoAndUploaderMismatchException
+        if (videoIdAndUploaderId.uploaderId != user.id!!) throw VideoAndUploaderMismatchedException
 
         // 피클 저장
         savePicklePort.save(
