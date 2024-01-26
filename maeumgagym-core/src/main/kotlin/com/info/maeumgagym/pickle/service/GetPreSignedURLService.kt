@@ -25,8 +25,10 @@ internal class GetPreSignedURLService(
         // WHEN : 확인 되지 않은 파일 타입 -> Exception
         if (fileType != QUICKTIME && fileType != MP4) throw FileTypeMissMatchedException
 
+        // WHAT : Feign으로 PreSignedURL 불러오기
         val preSignedUploadURLDto = getPreSignedVideoUploadURLPort.getPreSignedURL(fileType)
 
+        // video id 저장
         saveVideoIdAndUploaderIdPort.save(
             VideoIdAndUploaderId(
                 preSignedUploadURLDto.videoId,
@@ -34,7 +36,6 @@ internal class GetPreSignedURLService(
             )
         )
 
-        // WHAT : Feign으로 PreSignedURL 불러오기
         return PreSignedUploadURLResponse(preSignedUploadURLDto.url)
     }
 }
