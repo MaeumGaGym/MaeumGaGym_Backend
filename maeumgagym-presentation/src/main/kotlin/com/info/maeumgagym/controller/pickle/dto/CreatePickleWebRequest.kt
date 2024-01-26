@@ -1,7 +1,6 @@
 package com.info.maeumgagym.controller.pickle.dto
 
 import com.info.maeumgagym.pickle.dto.request.CreatePickleRequest
-import javax.validation.Valid
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
 import javax.validation.constraints.Size
