@@ -9,7 +9,7 @@ import javax.persistence.*
 @Entity(name = TableNames.PICKLE_LIKE_TABLE)
 @IdClass(PickleLikeJpaEntity.IdClass::class)
 class PickleLikeJpaEntity(
-    pickle: PickleJpaEntity,
+    pickleId: String,
     user: UserJpaEntity,
     @Transient
     private var isNew: Boolean
@@ -27,8 +27,8 @@ class PickleLikeJpaEntity(
         protected set
 
     data class IdClass(
-        val pickleId: String,
-        val user: UserJpaEntity
+        val pickleId: String? = null,
+        val user: UserJpaEntity? = null
     ) : Serializable
 
     override fun getId() = IdClass(pickleId, user)

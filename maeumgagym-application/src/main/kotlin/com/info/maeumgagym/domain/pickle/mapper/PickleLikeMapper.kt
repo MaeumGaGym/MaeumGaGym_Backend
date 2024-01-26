@@ -13,12 +13,14 @@ class PickleLikeMapper(
     fun toEntity(domain: PickleLike): PickleLikeJpaEntity =
         PickleLikeJpaEntity(
             domain.pickleId,
-            userMapper.toEntity(domain.user)
+            userMapper.toEntity(domain.user),
+            domain.isNew
         )
 
     fun toDomain(entity: PickleLikeJpaEntity): PickleLike =
         PickleLike(
             entity.pickleId,
-            userMapper.toDomain(entity.user)
+            userMapper.toDomain(entity.user),
+            entity.isNew
         )
 }
