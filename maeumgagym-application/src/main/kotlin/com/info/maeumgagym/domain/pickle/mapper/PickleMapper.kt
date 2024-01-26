@@ -37,15 +37,22 @@ class PickleMapper(
         )
     }
 
-    fun toEntityLike(pickleLike: PickleLike): PickleLikeJpaEntity =
-        PickleLikeJpaEntity(
-            pickle = toEntity(pickleLike.pickle),
-            user = userMapper.toEntity(pickleLike.user)
-        )
+    fun toEntityLike(domain: PickleLike): PickleLikeJpaEntity =
+        domain.run {
+            PickleLikeJpaEntity(
+                pickle = toEntity(pickle),
+                user = userMapper.toEntity(user),
+                isNew = isNew
+            )
+        }
 
-    fun toDomainLike(pickleLikeJpaEntity: PickleLikeJpaEntity): PickleLike =
-        PickleLike(
-            pickle = toDomain(pickleLikeJpaEntity.pickle),
-            user = userMapper.toDomain(pickleLikeJpaEntity.user)
-        )
+    fun toDomainLike(entity: PickleLikeJpaEntity): PickleLike =
+        entity.run {
+            PickleLike(
+                pickle = toDomain(pickle),
+                user = userMapper.toDomain(user),
+                isNew = isNew
+            )
+        }
+
 }

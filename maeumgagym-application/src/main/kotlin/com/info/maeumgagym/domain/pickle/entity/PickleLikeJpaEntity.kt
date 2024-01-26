@@ -10,8 +10,11 @@ import javax.persistence.*
 @IdClass(PickleLikeJpaEntity.IdClass::class)
 class PickleLikeJpaEntity(
     pickle: PickleJpaEntity,
-    user: UserJpaEntity
+    user: UserJpaEntity,
+    @Transient
+    private var isNew: Boolean
 ) : Persistable<PickleLikeJpaEntity.IdClass> {
+
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pickle_id", updatable = false, nullable = false)
@@ -31,5 +34,11 @@ class PickleLikeJpaEntity(
 
     override fun getId() = IdClass(pickle, user)
 
-    override fun isNew() = user.id == null
+    @PrePersist
+    @PostLoad
+    protected fun modifyIsNew() {
+        this.isNew = false
+    }
+
+    override fun isNew() = isNew
 }
