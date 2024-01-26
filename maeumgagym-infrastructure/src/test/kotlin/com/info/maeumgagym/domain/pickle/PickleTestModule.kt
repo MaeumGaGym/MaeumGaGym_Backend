@@ -4,7 +4,6 @@ import com.info.maeumgagym.domain.pickle.entity.PickleJpaEntity
 import com.info.maeumgagym.domain.pickle.repository.PickleRepository
 import com.info.maeumgagym.domain.pose.PoseTestModule
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
-import com.info.maeumgagym.pickle.dto.request.PickleUploadRequest
 import com.info.maeumgagym.pickle.dto.request.UpdatePickleRequest
 import java.util.*
 
