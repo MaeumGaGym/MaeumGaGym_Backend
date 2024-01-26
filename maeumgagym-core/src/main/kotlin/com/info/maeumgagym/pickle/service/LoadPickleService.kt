@@ -8,7 +8,7 @@ import com.info.maeumgagym.pickle.exception.ThereNoPicklesException
 import com.info.maeumgagym.pickle.model.Pickle
 import com.info.maeumgagym.pickle.model.Pickle.Companion.toResponse
 import com.info.maeumgagym.pickle.port.`in`.LoadPickleFromIdUseCase
-import com.info.maeumgagym.pickle.port.`in`.LoadPicklePoseUseCase
+import com.info.maeumgagym.pickle.port.`in`.LoadPickleFromPoseUseCase
 import com.info.maeumgagym.pickle.port.`in`.LoadRecommendationPicklesUseCase
 import com.info.maeumgagym.pickle.port.out.GenerateM3u8URLPort
 import com.info.maeumgagym.pickle.port.out.ReadPicklePort
@@ -20,7 +20,7 @@ internal class LoadPickleService(
     private val readPicklePort: ReadPicklePort,
     private val generateM3u8URLPort: GenerateM3u8URLPort,
     private val readPosePort: ReadPosePort
-) : LoadRecommendationPicklesUseCase, LoadPickleFromIdUseCase, LoadPicklePoseUseCase {
+) : LoadRecommendationPicklesUseCase, LoadPickleFromIdUseCase, LoadPickleFromPoseUseCase {
 
     private companion object {
         const val INDEX_SIZE = 5

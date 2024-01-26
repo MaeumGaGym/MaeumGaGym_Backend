@@ -27,7 +27,7 @@ import javax.validation.constraints.PositiveOrZero
 class PickleController(
     private val loadRecommendationPicklesUseCase: LoadRecommendationPicklesUseCase,
     private val loadPickleFromIdUseCase: LoadPickleFromIdUseCase,
-    private val loadPicklePoseUseCase: LoadPicklePoseUseCase,
+    private val loadPickleFromPoseUseCase: LoadPickleFromPoseUseCase,
     private val createPickleUseCase: CreatePickleUseCase,
     private val deletePickleUseCase: DeletePickleUseCase,
     private val updatePickleUseCase: UpdatePickleUseCase,
@@ -72,7 +72,7 @@ class PickleController(
         @Valid
         @Positive(message = "0보다 크거나 같아야 합니다.")
         size: Int
-    ): PickleListResponse = loadPicklePoseUseCase.loadAllPagedFromPose(poseId!!, idx!!, size)
+    ): PickleListResponse = loadPickleFromPoseUseCase.loadAllPagedFromPose(poseId!!, idx!!, size)
 
     @Operation(summary = "PreSignedUploadURL 조회 API")
     @GetMapping("/url")
