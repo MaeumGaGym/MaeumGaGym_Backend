@@ -32,14 +32,14 @@ object PickleTestModule {
 
     fun PickleJpaEntity.saveInRepository(pickleRepository: PickleRepository): PickleJpaEntity =
         pickleRepository.save(this)
-/*
-    fun getUploadPickleRequest(videoId: String): PickleUploadRequest =
-        PickleUploadRequest(
-            videoId = videoId,
-            title = PICKLE_TITLE,
-            description = PICKLE_DESCRIPTION,
-            tags = PICKLE_TAGS.toMutableSet()
-        )*/
+    /*
+        fun getUploadPickleRequest(videoId: String): PickleUploadRequest =
+            PickleUploadRequest(
+                videoId = videoId,
+                title = PICKLE_TITLE,
+                description = PICKLE_DESCRIPTION,
+                tags = PICKLE_TAGS.toMutableSet()
+            )*/
 
     fun getUpdatePickleRequest(): UpdatePickleRequest =
         UpdatePickleRequest(
