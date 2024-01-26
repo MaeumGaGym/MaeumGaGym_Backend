@@ -24,15 +24,15 @@ class PickleJpaEntity(
 ) : BaseTimeEntity(createdAt) {
 
     @Id
-    @Column(name = "video_id", nullable = false)
+    @Column(name = "video_id", length = 8, nullable = false)
     var videoId: String = videoId
         protected set
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title", length = 100, nullable = false)
     var title: String = title
         protected set
 
-    @Column(name = "description", nullable = true)
+    @Column(name = "description", length = 1500, nullable = true)
     var description: String? = description
         protected set
 
