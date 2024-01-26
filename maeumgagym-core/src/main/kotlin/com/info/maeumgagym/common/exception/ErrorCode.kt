@@ -41,6 +41,7 @@ enum class ErrorCode(
     WAKA_STARTED_NOT_YET(400, "Wakatime Started Not Yet"),
     CANNNOT_REPORT_ONESELF(400, "Cannot Report Oneself"),
     NOT_UPLOADED_TO_VIDEO_SERVER(404, "Does Not Uploaded In Video Server"),
+    TAG_TOO_LONG(404, "Tag Too Long, Tag Cannot Longer than 10"),
 
     // Conflict
     DUPLICATED_NICKNAME(409, "Duplicated Nickname"),
