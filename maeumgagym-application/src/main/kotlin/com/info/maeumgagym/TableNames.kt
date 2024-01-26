@@ -3,10 +3,9 @@ package com.info.maeumgagym
 object TableNames {
 
     private const val TABLE_PREFIX = "tbl_"
+    private const val INDEX_PREFIX = "idx_"
 
     const val USER_TABLE = "${TABLE_PREFIX}user"
-
-    const val DELETED_AT_TABLE = "${TABLE_PREFIX}deleted_at"
 
     const val POSE_TABLE = "${TABLE_PREFIX}pose"
 
@@ -30,5 +29,5 @@ object TableNames {
 
     const val REFRESH_TOKEN_TABLE = "${TABLE_PREFIX}refresh"
 
-    const val VIDEO_ID_AND_UPLOADER_ID_TABLE = "${TABLE_PREFIX}viui"
+    const val PICKLE_TAG_INDEX = "${INDEX_PREFIX}pickle_tag"
 }

@@ -3,7 +3,7 @@ package com.info.maeumgagym.pickle.service
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.pickle.dto.response.PreSignedUploadURLResponse
-import com.info.maeumgagym.pickle.exception.FileTypeMissMatchedException
+import com.info.maeumgagym.pickle.exception.FileTypeMismatchException
 import com.info.maeumgagym.pickle.model.VideoIdAndUploaderId
 import com.info.maeumgagym.pickle.port.`in`.GetPreSignedUploadURLUseCase
 import com.info.maeumgagym.pickle.port.out.GetPreSignedVideoUploadURLPort
@@ -23,10 +23,12 @@ internal class GetPreSignedURLService(
 
     override fun getPreSignedUploadURL(fileType: String): PreSignedUploadURLResponse {
         // WHEN : 확인 되지 않은 파일 타입 -> Exception
-        if (fileType != QUICKTIME && fileType != MP4) throw FileTypeMissMatchedException
+        if (fileType != QUICKTIME && fileType != MP4) throw FileTypeMismatchException
 
+        // WHAT : Feign으로 PreSignedURL 불러오기
         val preSignedUploadURLDto = getPreSignedVideoUploadURLPort.getPreSignedURL(fileType)
 
+        // video id 저장
         saveVideoIdAndUploaderIdPort.save(
             VideoIdAndUploaderId(
                 preSignedUploadURLDto.videoId,
@@ -34,7 +36,6 @@ internal class GetPreSignedURLService(
             )
         )
 
-        // WHAT : Feign으로 PreSignedURL 불러오기
         return PreSignedUploadURLResponse(preSignedUploadURLDto.url)
     }
 }

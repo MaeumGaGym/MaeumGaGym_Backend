@@ -49,9 +49,9 @@ logging:
 #        org.hibernate.type: trace
 
 jwt:
-    secretKey: ${JWT_SECRET_KEY}
-    accessExpiredExp: ${JWT_ACCESS_EXP}
-    refreshExpiredExp: ${JWT_REFRESH_EXP}
+    secret-key: ${JWT_SECRET_KEY}
+    access-expired-exp: ${JWT_ACCESS_EXP}
+    refresh-expired-exp: ${JWT_REFRESH_EXP}
     header: ${JWT_HEADER}
     prefix: ${JWT_PREFIX}
 
@@ -63,8 +63,8 @@ redis:
 file:
     secret-key: ${FILE_SERVER_SECRET_KEY}
     server-url: ${FILE_SERVER_URL}
-    suffixPath: ${SUFFIX_PATH}
-    videoIdSaveTtl: ${VIDEO_ID_SAVE_TTL}
+    suffix-path: ${SUFFIX_PATH}
+    video-id-save-ttl: ${VIDEO_ID_SAVE_TTL}
 
 springdoc:
     api-docs:
