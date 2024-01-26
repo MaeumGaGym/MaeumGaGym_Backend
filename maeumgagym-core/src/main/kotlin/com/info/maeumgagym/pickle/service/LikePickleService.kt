@@ -2,11 +2,11 @@ package com.info.maeumgagym.pickle.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
+import com.info.maeumgagym.pickle.exception.PickleNotFoundException
+import com.info.maeumgagym.pickle.model.Pickle
 import com.info.maeumgagym.pickle.model.PickleLike
 import com.info.maeumgagym.pickle.port.`in`.LikePickleUseCase
-import com.info.maeumgagym.pickle.port.out.DeletePickleLikePort
-import com.info.maeumgagym.pickle.port.out.ReadPickleLikePort
-import com.info.maeumgagym.pickle.port.out.SavePickleLikePort
+import com.info.maeumgagym.pickle.port.out.*
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
 
@@ -15,13 +15,18 @@ import org.springframework.transaction.annotation.Transactional
 internal class LikePickleService(
     private val savePickleLikePort: SavePickleLikePort,
     private val readPickleLikePort: ReadPickleLikePort,
-    private val deletePickleLikePort: DeletePickleLikePort
-    private val readCurrentUserPort: ReadCurrentUserPort
+    private val deletePickleLikePort: DeletePickleLikePort,
+    private val readCurrentUserPort: ReadCurrentUserPort,
+    private val savePicklePort: SavePicklePort,
+    private val readPicklePort: ReadPicklePort
 ) : LikePickleUseCase {
 
     override fun likePickle(id: String) {
         // 현재 로그인한 유저 추출
         val user = readCurrentUserPort.readCurrentUser()
+
+        // 피클 불러오기 : null이라면 -> 예외
+        val pickle = readPicklePort.readById(id) ?: throw PickleNotFoundException
 
         // 좋아요 객체 nullable로 불러오기
         val like = readPickleLikePort.readByVideoIdAndUser(id, user)
@@ -30,10 +35,28 @@ internal class LikePickleService(
         if (like != null) {
             // 좋아요 삭제하기
             deletePickleLikePort.delete(like)
+            // 좋아요 수 - 1 저장
+            savePicklePort.save(
+                pickle.run {
+                    Pickle(
+                        videoId, title, description, uploader,
+                        likeCount - 1, commentCount, tags, createdAt
+                    )
+                }
+            )
         } else { // 좋아요를 안눌렀다면
             // 좋아요 추가하기
             savePickleLikePort.save(
                 PickleLike(id, user)
+            )
+            // 좋아요 수 + 1 저장
+            savePicklePort.save(
+                pickle.run {
+                    Pickle(
+                        videoId, title, description, uploader,
+                        likeCount + 1, commentCount, tags, createdAt
+                    )
+                }
             )
         }
     }
