@@ -1,7 +1,10 @@
-package com.info.maeumgagym.global.security
+package com.info.maeumgagym.global.config.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.info.maeumgagym.global.config.filter.FilterConfig
 import com.info.maeumgagym.global.env.security.SecurityProperties
+import com.info.maeumgagym.global.error.CustomAccessDeniedHandler
+import com.info.maeumgagym.global.error.CustomAuthenticationEntryPoint
 import com.info.maeumgagym.global.jwt.JwtAdapter
 import com.info.maeumgagym.global.jwt.JwtResolver
 import com.info.maeumgagym.user.model.Role
@@ -28,20 +31,23 @@ class SecurityConfig(
     protected fun filterChain(http: HttpSecurity): SecurityFilterChain =
         http.csrf().csrfTokenRepository(CookieCsrfTokenRepository()).and()
             .formLogin().disable()
-            .requiresChannel().anyRequest().requiresSecure().and() // XSS 공격 방지(HTTPS 요청 요구) local test시 주석 처리할 것
+            //.requiresChannel().anyRequest().requiresSecure().and() // XSS 공격 방지(HTTPS 요청 요구) local test시 주석 처리할 것
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
             .requestMatchers(CorsUtils::isCorsRequest).permitAll()
-            .antMatchers(HttpMethod.POST, "/*/signup").permitAll()
-            .antMatchers(HttpMethod.GET, "/*/login").permitAll()
-            .antMatchers(HttpMethod.PUT, "/*/recovery").permitAll()
+            .antMatchers(HttpMethod.POST, "/**/signup").permitAll()
+            .antMatchers(HttpMethod.GET, "/**/login").permitAll()
+            .antMatchers(HttpMethod.PUT, "/**/recovery").permitAll()
             .antMatchers(HttpMethod.GET, "/auth/re-issue").permitAll()
+            .antMatchers(HttpMethod.GET, "/public/csrf").permitAll()
             .antMatchers("/swagger-ui/**", "/docs/**").permitAll()
             .antMatchers(HttpMethod.GET, "/report").hasRole(Role.ADMIN.name)
-            .anyRequest().authenticated().and()
+            .anyRequest().authenticated()
+            .and()
             .cors().and()
-            .exceptionHandling().and()
+            .exceptionHandling().accessDeniedHandler(CustomAccessDeniedHandler())
+            .authenticationEntryPoint(CustomAuthenticationEntryPoint()).and()
             .headers().frameOptions().sameOrigin().and()
             .apply(FilterConfig(objectMapper, jwtResolver, jwtAdapter))
             .and().build()
