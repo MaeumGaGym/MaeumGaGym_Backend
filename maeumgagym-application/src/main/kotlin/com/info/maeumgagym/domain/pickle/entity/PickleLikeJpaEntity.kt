@@ -3,8 +3,6 @@ package com.info.maeumgagym.domain.pickle.entity
 import com.info.maeumgagym.TableNames
 import com.info.maeumgagym.domain.base.BaseLongIdEntity
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
-import org.springframework.data.domain.Persistable
-import java.io.Serializable
 import javax.persistence.*
 
 @Entity(name = TableNames.PICKLE_LIKE_TABLE)
