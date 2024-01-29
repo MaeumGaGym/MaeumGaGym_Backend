@@ -6,6 +6,10 @@ import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import javax.persistence.*
 
 @Entity(name = TableNames.PICKLE_LIKE_TABLE)
+@Table(
+    name = TableNames.PICKLE_LIKE_TABLE,
+    indexes = [Index(name = TableNames.PICKLE_LIKE_INDEX, columnList = "pickle_id, user_id", unique = true)]
+)
 class PickleLikeJpaEntity(
     pickle: PickleJpaEntity,
     user: UserJpaEntity,
