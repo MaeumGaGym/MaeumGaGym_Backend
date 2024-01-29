@@ -20,7 +20,7 @@ object PickleTestModule {
 
     fun createPickle(userJpaEntity: UserJpaEntity): PickleJpaEntity =
         PickleJpaEntity(
-            videoId = UUID.randomUUID().toString().removeRange(8, 31),
+            videoId = UUID.randomUUID().toString().removeRange(8, 36),
             title = PICKLE_TITLE,
             description = PICKLE_DESCRIPTION,
             uploader = userJpaEntity,

@@ -1,10 +1,9 @@
 package com.info.maeumgagym.domain.pickle
 
 import com.info.common.PersistenceAdapter
-import com.info.maeumgagym.domain.pickle.entity.PickleLikeJpaEntity
 import com.info.maeumgagym.domain.pickle.mapper.PickleLikeMapper
-import com.info.maeumgagym.domain.pickle.mapper.PickleMapper
 import com.info.maeumgagym.domain.pickle.repository.PickleLikeRepository
+import com.info.maeumgagym.domain.pickle.repository.PickleRepository
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.pickle.model.Pickle
 import com.info.maeumgagym.pickle.model.PickleLike
@@ -18,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional
 @PersistenceAdapter
 internal class PickleLikePersistenceAdapter(
     private val pickleLikeRepository: PickleLikeRepository,
+    private val pickleRepository: PickleRepository,
     private val pickleLikeMapper: PickleLikeMapper,
-    private val pickleMapper: PickleMapper,
     private val userMapper: UserMapper
 ) : SavePickleLikePort,
     ReadPickleLikePort,
@@ -31,12 +30,10 @@ internal class PickleLikePersistenceAdapter(
             pickleLikeRepository.save(pickleLikeMapper.toEntity(pickleLike))
         )
 
-    override fun readByVideoIdAndUser(pickle: Pickle, user: User): PickleLike? =
-        pickleLikeRepository.findById(
-            PickleLikeJpaEntity.IdClass(
-                pickleMapper.toEntity(pickle),
-                userMapper.toEntity(user)
-            )
+    override fun readByPickleAndUser(pickle: Pickle, user: User): PickleLike? =
+        pickleLikeRepository.findByPickleAndUser(
+            pickleRepository.findById(pickle.videoId)!!,
+            userMapper.toEntity(user)
         )?.let { pickleLikeMapper.toDomain(it) }
 
     @Transactional(propagation = Propagation.MANDATORY)

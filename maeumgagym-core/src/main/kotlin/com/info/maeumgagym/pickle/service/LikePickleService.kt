@@ -29,7 +29,7 @@ internal class LikePickleService(
         val pickle = readPicklePort.readById(id) ?: throw PickleNotFoundException
 
         // 좋아요 객체 nullable로 불러오기
-        val like = readPickleLikePort.readByVideoIdAndUser(pickle, user)
+        val like = readPickleLikePort.readByPickleAndUser(pickle, user)
 
         // 좋아요를 눌렀다면
         if (like != null) {
@@ -39,14 +39,15 @@ internal class LikePickleService(
             savePicklePort.save(
                 pickle.run {
                     Pickle(
-                        videoId,
-                        title,
-                        description,
-                        uploader,
-                        likeCount - 1,
-                        commentCount,
-                        tags,
-                        createdAt
+                        videoId = videoId,
+                        title = title,
+                        description = description,
+                        uploader = uploader,
+                        likes = likes,
+                        likeCount = likeCount - 1,
+                        commentCount = commentCount,
+                        tags = tags,
+                        createdAt = createdAt
                     )
                 }
             )
@@ -59,14 +60,15 @@ internal class LikePickleService(
             savePicklePort.save(
                 pickle.run {
                     Pickle(
-                        videoId,
-                        title,
-                        description,
-                        uploader,
-                        likeCount + 1,
-                        commentCount,
-                        tags,
-                        createdAt
+                        videoId = videoId,
+                        title = title,
+                        description = description,
+                        uploader = uploader,
+                        likes = likes,
+                        likeCount = likeCount + 1,
+                        commentCount = commentCount,
+                        tags = tags,
+                        createdAt = createdAt
                     )
                 }
             )

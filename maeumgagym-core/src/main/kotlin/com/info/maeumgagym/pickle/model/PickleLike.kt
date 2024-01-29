@@ -8,5 +8,5 @@ data class PickleLike(
 
     val user: User,
 
-    val isNew: Boolean = true
+    val id: Long? = null
 )

@@ -4,7 +4,6 @@ import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.pickle.PickleTestModule.createPickle
 import com.info.maeumgagym.domain.pickle.PickleTestModule.saveInRepository
 import com.info.maeumgagym.domain.pickle.entity.PickleJpaEntity
-import com.info.maeumgagym.domain.pickle.entity.PickleLikeJpaEntity
 import com.info.maeumgagym.domain.pickle.repository.PickleLikeRepository
 import com.info.maeumgagym.domain.pickle.repository.PickleRepository
 import com.info.maeumgagym.domain.user.UserTestModule
@@ -56,9 +55,7 @@ class LikePickleServiceTests @Autowired constructor(
         likePickleUseCase.likePickle(pickle.videoId)
 
         Assertions.assertNotNull(
-            pickleLikeRepository.findById(
-                PickleLikeJpaEntity.IdClass(pickle, user)
-            )
+            pickleLikeRepository.findByPickleAndUser(pickle, user)
         )
         Assertions.assertTrue(
             likeCountBeforeLike + 1 == pickle.likeCount
@@ -86,9 +83,7 @@ class LikePickleServiceTests @Autowired constructor(
         likePickleUseCase.likePickle(pickle.videoId)
 
         Assertions.assertNull(
-            pickleLikeRepository.findById(
-                PickleLikeJpaEntity.IdClass(pickle, user)
-            )
+            pickleLikeRepository.findByPickleAndUser(pickle, user)
         )
         Assertions.assertTrue(
             likeCountBeforeLike == pickle.likeCount &&
@@ -111,9 +106,7 @@ class LikePickleServiceTests @Autowired constructor(
             likePickleUseCase.likePickle(pickle.videoId)
         }
         Assertions.assertNull(
-            pickleLikeRepository.findById(
-                PickleLikeJpaEntity.IdClass(pickle, user)
-            )
+            pickleLikeRepository.findByPickleAndUser(pickle, user)
         )
     }
 }

@@ -5,5 +5,5 @@ import com.info.maeumgagym.pickle.model.PickleLike
 import com.info.maeumgagym.user.model.User
 
 interface ReadPickleLikePort {
-    fun readByVideoIdAndUser(pickle: Pickle, user: User): PickleLike?
+    fun readByPickleAndUser(pickle: Pickle, user: User): PickleLike?
 }

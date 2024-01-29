@@ -15,6 +15,8 @@ data class Pickle(
 
     val uploader: User,
 
+    val likes: MutableSet<PickleLike> = mutableSetOf(),
+
     val likeCount: Long = 0,
 
     val commentCount: Long = 0,
