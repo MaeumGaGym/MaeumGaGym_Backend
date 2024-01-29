@@ -23,8 +23,6 @@ class CustomAuthenticationEntryPoint : AuthenticationEntryPoint {
         logger.debug { "Pre-authenticated entry point called. Rejecting access" }
         //response!!.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied")
 
-        authException.printStackTrace()
-
         val responseBody = ObjectMapper().writeValueAsString(
             ErrorResponse(
                 401,
