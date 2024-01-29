@@ -1,7 +1,10 @@
-package com.info.maeumgagym.global.security
+package com.info.maeumgagym.global.config.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.info.maeumgagym.global.config.filter.FilterConfig
 import com.info.maeumgagym.global.env.security.SecurityProperties
+import com.info.maeumgagym.global.error.CustomAccessDeniedHandler
+import com.info.maeumgagym.global.error.CustomAuthenticationEntryPoint
 import com.info.maeumgagym.global.jwt.JwtAdapter
 import com.info.maeumgagym.global.jwt.JwtResolver
 import com.info.maeumgagym.user.model.Role
@@ -33,15 +36,19 @@ class SecurityConfig(
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
             .requestMatchers(CorsUtils::isCorsRequest).permitAll()
-            .antMatchers(HttpMethod.POST, "/*/signup").permitAll()
-            .antMatchers(HttpMethod.GET, "/*/login").permitAll()
-            .antMatchers(HttpMethod.PUT, "/*/recovery").permitAll()
+            .antMatchers(HttpMethod.POST, "/**/signup").permitAll()
+            .antMatchers(HttpMethod.GET, "/**/login").permitAll()
+            .antMatchers(HttpMethod.PUT, "/**/recovery").permitAll()
             .antMatchers(HttpMethod.GET, "/auth/re-issue").permitAll()
+            .antMatchers(HttpMethod.GET, "/public/csrf").permitAll()
             .antMatchers("/swagger-ui/**", "/docs/**").permitAll()
             .antMatchers(HttpMethod.GET, "/report").hasRole(Role.ADMIN.name)
-            .anyRequest().authenticated().and()
+            .antMatchers(HttpMethod.GET, "/actuator/health").permitAll()
+            .anyRequest().authenticated()
+            .and()
             .cors().and()
-            .exceptionHandling().and()
+            .exceptionHandling().accessDeniedHandler(CustomAccessDeniedHandler())
+            .authenticationEntryPoint(CustomAuthenticationEntryPoint()).and()
             .headers().frameOptions().sameOrigin().and()
             .apply(FilterConfig(objectMapper, jwtResolver, jwtAdapter))
             .and().build()

@@ -20,6 +20,8 @@ subprojects {
         implementation(Dependencies.KOTLIN_REFLECT)
         implementation(Dependencies.KOTLIN_JDK)
         implementation(Dependencies.JACKSON)
+
+        implementation(Dependencies.HEALTH_CHECKER)
     }
 }
 
