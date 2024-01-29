@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
+import javax.validation.constraints.NotBlank
 
 @Tag(name = "Auth API")
 @RequestMapping("/auth")
@@ -29,9 +30,13 @@ class AuthController(
     }
 
     @Operation(summary = "nickname 중복체크 API")
-    @GetMapping
-    fun duplicatedNicknameCheck(@RequestParam("nickname") nickname: String): Boolean =
-        duplicatedNicknameCheckUseCase.existByNickname(nickname)
+    @GetMapping("/nickname/{nickname}")
+    fun duplicatedNicknameCheck(
+        @PathVariable("nickname", required = false)
+        @Valid
+        @NotBlank(message = "null일 수 없습니다.")
+        nickname: String?
+    ): Boolean = duplicatedNicknameCheckUseCase.existByNickname(nickname!!)
 
     @Operation(summary = "JWT 재발급 API")
     @GetMapping("/re-issue")
