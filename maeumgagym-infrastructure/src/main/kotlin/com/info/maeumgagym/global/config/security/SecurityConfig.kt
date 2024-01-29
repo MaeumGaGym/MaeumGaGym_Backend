@@ -43,6 +43,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.GET, "/public/csrf").permitAll()
             .antMatchers("/swagger-ui/**", "/docs/**").permitAll()
             .antMatchers(HttpMethod.GET, "/report").hasRole(Role.ADMIN.name)
+            .antMatchers(HttpMethod.GET, "/actuator/health").permitAll()
             .anyRequest().authenticated()
             .and()
             .cors().and()
