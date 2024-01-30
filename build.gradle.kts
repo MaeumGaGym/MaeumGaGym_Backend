@@ -60,6 +60,11 @@ allprojects {
     }
 }
 
+tasks.test {
+    useJUnitPlatform()
+    systemProperty("spring.profiles.active", "local")
+}
+
 tasks.getByName<Jar>("jar") {
     enabled = false
 }

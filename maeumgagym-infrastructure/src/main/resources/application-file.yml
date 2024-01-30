@@ -1,0 +1,10 @@
+spring:
+    config:
+        activate:
+            on-profile: file
+
+file:
+    secret-key: ${FILE_SERVER_SECRET_KEY}
+    server-url: ${FILE_SERVER_URL}
+    suffix-path: ${SUFFIX_PATH:index.m3u8}
+    video-id-save-ttl: ${VIDEO_ID_SAVE_TTL:65789}
