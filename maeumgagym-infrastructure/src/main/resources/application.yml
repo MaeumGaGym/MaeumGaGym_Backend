@@ -1,7 +1,8 @@
 spring:
     profiles:
+        active: local
         group:
-            local: "local-config, jwt, file, swagger"
+            local: "local-config, jwt, file"
             prod: "prod-config, datasource, jwt, log, redis, file, swagger"
             stag: "stag-config, datasource, jwt, log, redis, file, swagger"
 
