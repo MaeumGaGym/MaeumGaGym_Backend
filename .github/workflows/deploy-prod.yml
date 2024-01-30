@@ -88,13 +88,11 @@ jobs:
                       REDIS_HOST=${{ secrets.REDIS_HOST }}
                       REDIS_PORT=${{ secrets.REDIS_PORT }}
                       FILE_SERVER_SECRET_KEY=${{ secrets.FILE_SERVER_SECRET_KEY }}
-                      FILE_SERVER_URL_1=${{ secrets.FILE_SERVER_URL_1 }}
-                      FILE_SERVER_URL_2=${{ secrets.FILE_SERVER_URL_2 }}
+                      FILE_SERVER_URL=${{ secrets.FILE_SERVER_URL }}
                       VIDEO_ID_SAVE_TTL=${{ secrets.VIDEO_ID_SAVE_TTL }}
                       SUFFIX_PATH=${{ secrets.SUFFIX_PATH }}
                       SWAGGER_PATH=${{ secrets.SWAGGER_PATH }}
                       SWAGGER_UI_PATH=${{ secrets.SWAGGER_UI_PATH }}
-                      FRONT_LOCAL=${{ secrets.FRONT_LOCAL }}
-                      BACK_LOCAL=${{ secrets.BACK_LOCAL }}
-                      BACK_DOMAIN=${{ secrets.BACK_DOMAIN }}
+                      FRONT_DOMAIN=${{ secrets.FRONT_DOMAIN }}
+                      BACK_DOMAIN=${{ secrets.BACK_DOMAIN_PROD }}
 
