@@ -43,7 +43,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 
       - name: run test
-        run: ./gradlew test --warning-mode all
+        run: ./gradlew test --warning-mode all -Dspring.profiles.active=local
         env:
           DB_URL: ${{ secrets.TEST_DB_URL }}
           DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
