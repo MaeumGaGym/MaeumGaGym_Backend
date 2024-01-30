@@ -1,7 +1,7 @@
 spring:
     config:
         activate:
-            on-profile: stag
+            on-profile: stag-config
 
     jpa:
         hibernate:
