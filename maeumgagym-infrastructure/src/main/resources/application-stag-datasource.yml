@@ -1,7 +1,7 @@
 spring:
     config:
         activate:
-            on-profile: datasource
+            on-profile: stag-datasource
 
     jpa:
         properties:
