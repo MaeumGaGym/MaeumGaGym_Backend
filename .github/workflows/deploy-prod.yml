@@ -46,8 +46,9 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 
       - name: Build gradle
-        run: ./gradlew build -e PROFILE=prod
+        run: ./gradlew build
         env:
+          PROFILE: local
           DB_URL: ${{ secrets.TEST_DB_URL }}
           DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
