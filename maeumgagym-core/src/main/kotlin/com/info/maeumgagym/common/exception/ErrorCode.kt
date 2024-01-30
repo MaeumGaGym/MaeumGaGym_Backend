@@ -24,20 +24,24 @@ enum class ErrorCode(
 
     // Forbidden
     PERMISSION_DENIED(403, "Permission Denied"),
+    VIDEO_AND_UPLOADER_MISMATCHED(403, "Video And Uploader Mismatched"),
 
     // Not Found
     USER_NOT_FOUND(404, "User Not Found"),
     POSE_NOT_FOUND(404, "Pose Not Found"),
-    PICKLE_NOT_FOUND(404, "Pickle Not Found"),
     ROUTINE_NOT_FOUND(404, "Routine Not Found"),
+    PICKLE_NOT_FOUND(404, "Pickle Not Found"),
     PICKLE_COMMENT_NOT_FOUND(404, "Pickle Comment Not Found"),
+    PICKLE_REPLY_NOT_FOUND(404, "Pickle Reply Not Found"),
 
     // Bad Request
-    ALREADY_WITHDRAWAL_USER(400, "Already Withdrawal User"),
-    FILE_TYPE_MISS_MATCHED(400, "File, Type Miss Matched"),
+    FILE_TYPE_MISMATCHED(400, "File Type Mismatched"),
     EXERCISE_LIST_CANNOT_EMPTY(400, "Exercise list cannot empty"),
-    PICKLE_MISMATCH(400, "Pickle Mismathce"),
+    PICKLE_MISMATCHED(400, "Pickle Mismatched"),
     WAKA_STARTED_NOT_YET(400, "Wakatime Started Not Yet"),
+    CANNNOT_REPORT_ONESELF(400, "Cannot Report Oneself"),
+    NOT_UPLOADED_TO_VIDEO_SERVER(404, "Does Not Uploaded In Video Server"),
+    TAG_TOO_LONG(404, "Tag Too Long, Tag Cannot Longer than 10"),
 
     // Conflict
     DUPLICATED_NICKNAME(409, "Duplicated Nickname"),

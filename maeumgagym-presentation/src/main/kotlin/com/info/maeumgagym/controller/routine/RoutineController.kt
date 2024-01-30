@@ -10,9 +10,11 @@ import com.info.maeumgagym.routine.port.`in`.ReadAllMyRoutineUseCase
 import com.info.maeumgagym.routine.port.`in`.UpdateRoutineUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
+import javax.validation.constraints.Positive
 
 @Tag(name = "Routine API")
 @RequestMapping("/routines")
@@ -26,6 +28,7 @@ class RoutineController(
 ) {
     @Operation(summary = "루틴 생성 API")
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     fun createRoutine(
         @RequestBody @Valid
         req: CreateRoutineWebRequest
@@ -34,13 +37,15 @@ class RoutineController(
     }
 
     @Operation(summary = "내 루틴 전체 조회 API")
-    @GetMapping("/all")
+    @GetMapping("/me/all")
     fun readAllMyRoutine(): RoutineListResponse = readAllMyRoutineUseCase.readAllMyRoutine()
 
     @Operation(summary = "루틴 삭제 API")
     @DeleteMapping("/{id}")
     fun deleteRoutine(
         @PathVariable("id")
+        @Valid
+        @Positive(message = "0보다 커야 합니다.")
         id: Long
     ) { deleteRoutineUseCase.deleteRoutine(id) }
 
@@ -48,6 +53,8 @@ class RoutineController(
     @PutMapping("/{id}")
     fun updateRoutine(
         @PathVariable("id")
+        @Valid
+        @Positive(message = "0보다 커야 합니다.")
         id: Long,
         @RequestBody @Valid
         req: UpdateRoutineWebRequest

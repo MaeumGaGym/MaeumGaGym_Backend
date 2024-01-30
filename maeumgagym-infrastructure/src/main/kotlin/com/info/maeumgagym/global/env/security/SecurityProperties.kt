@@ -7,9 +7,7 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConfigurationProperties("server.domain")
 data class SecurityProperties(
 
-    val frontLocal: String,
-
-    val backLocal: String,
+    val frontDomain: String,
 
     val backDomain: String
 )

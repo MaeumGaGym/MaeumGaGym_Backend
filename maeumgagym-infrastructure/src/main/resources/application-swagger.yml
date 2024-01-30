@@ -1,0 +1,13 @@
+spring:
+    config:
+        activate:
+            on-profile: swagger
+
+springdoc:
+    api-docs:
+        path: ${SWAGGER_PATH:/docs}
+    swagger-ui:
+        path: ${SWAGGER_UI_PATH:/swagger-ui}
+        display-request-duration: true
+    cache:
+        disabled: true

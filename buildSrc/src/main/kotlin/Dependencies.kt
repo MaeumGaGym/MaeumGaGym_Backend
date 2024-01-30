@@ -6,16 +6,19 @@ object Dependencies {
     const val JACKSON = "com.fasterxml.jackson.module:jackson-module-kotlin:${DependencyVersions.JACKSON_VERSION}"
     const val JACKSON_TYPE = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${DependencyVersions.JACKSON_VERSION}"
 
+    // starter
+    private const val STARTER = "org.springframework.boot:spring-boot-starter"
+
     // web
-    const val SPRING_WEB = "org.springframework.boot:spring-boot-starter-web"
+    const val SPRING_WEB = "$STARTER-web"
 
     // database
-    const val SPRING_DATA_JPA = "org.springframework.boot:spring-boot-starter-data-jpa:${PluginVersions.SPRING_BOOT_VERSION}"
+    const val SPRING_DATA_JPA = "$STARTER-data-jpa:${PluginVersions.SPRING_BOOT_VERSION}"
     const val MYSQL_CONNECTOR = "mysql:mysql-connector-java:${DependencyVersions.MYSQL}"
-    const val REDIS = "org.springframework.boot:spring-boot-starter-data-redis"
+    const val REDIS = "$STARTER-data-redis"
 
     // test
-    const val SPRING_TEST = "org.springframework.boot:spring-boot-starter-test:${PluginVersions.SPRING_BOOT_VERSION}"
+    const val SPRING_TEST = "$STARTER-test:${PluginVersions.SPRING_BOOT_VERSION}"
     const val JUNIT_JUPITER = "org.junit.jupiter:junit-jupiter"
     const val JUNIT_JUPITER_API = "org.junit.jupiter:junit-jupiter-api"
     const val JUNIT_JUPITER_ENGINE = "org.junit.jupiter:junit-jupiter-engine"
@@ -25,13 +28,13 @@ object Dependencies {
     const val SENTRY = "io.sentry:sentry-spring-boot-starter:${DependencyVersions.SENTRY_VERSION}"
 
     // validation
-    const val SPRING_VALIDATION = "org.springframework.boot:spring-boot-starter-validation"
+    const val SPRING_VALIDATION = "$STARTER-validation"
 
     // gson
     const val JSON = "org.json:json:${DependencyVersions.JSON_VERSION}"
 
     // security
-    const val SPRING_SECURITY = "org.springframework.boot:spring-boot-starter-security"
+    const val SPRING_SECURITY = "$STARTER-security"
 
     // Jwt
     const val JWT = "io.jsonwebtoken:jjwt:${DependencyVersions.JWT_VERSION}"
@@ -46,8 +49,6 @@ object Dependencies {
     // logger
     const val LOGGER = "io.github.microutils:kotlin-logging-jvm:${DependencyVersions.LOGGER_VERSION}"
 
-    // starter
-    const val STARTER = "org.springframework.boot:spring-boot-starter";
 
     // Transaction
     const val SPRING_TRANSACTION = "org.springframework:spring-tx:${DependencyVersions.SPRING_TRANSACTION}"
@@ -60,4 +61,6 @@ object Dependencies {
 
     const val SPRING_DOC = "org.springdoc:springdoc-openapi-ui:1.6.11"
     const val SWAGGER = "io.springfox:springfox-swagger2:2.9.2"
+
+    const val HEALTH_CHECKER = "$STARTER-actuator"
 }

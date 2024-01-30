@@ -1,36 +1,17 @@
 spring:
+    profiles:
+        active: local
+        group:
+            local: "local-config, jwt, file, swagger"
+            prod: "prod-config, datasource, jwt, log, redis, file, swagger"
+            stag: "stag-config, datasource, jwt, log, redis, file, swagger"
 
     # format
     jackson:
         property-naming-strategy: SNAKE_CASE
 
-    # jdbc
-    datasource:
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: ${DB_URL}
-        username: ${DB_USERNAME}
-        password: ${DB_PASSWORD}
-
-    # jpa
-    jpa:
-        hibernate:
-            ddl-auto: ${DDL_AUTO:update}
-        properties:
-            hibernate:
-                format_sql: false
-                show_sql: true
-                use_sql_comments: false
-                dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-                legacy_limit_handler: true
-            open-in-view: false
-
 # server
 server:
-    port: ${SERVER_PORT:8080}
-    domain:
-        front-local: ${FRONT_LOCAL}
-        back-local: ${BACK_LOCAL}
-        back-domain: ${BACK_DOMAIN}
     tomcat:
         threads:
             max: 200
@@ -38,38 +19,3 @@ server:
         max-connections: 8192
         accept-count: 100
         connection-timeout: 20000
-    servlet:
-        context-path: /maeumgagym
-
-# logging
-logging:
-    level:
-        root: info
-#        org.hibernate.sql: debug
-#        org.hibernate.type: trace
-
-jwt:
-    secretKey: ${JWT_SECRET_KEY}
-    accessExpiredExp: ${JWT_ACCESS_EXP}
-    refreshExpiredExp: ${JWT_REFRESH_EXP}
-    header: ${JWT_HEADER}
-    prefix: ${JWT_PREFIX}
-
-# data redis
-redis:
-    host: ${REDIS_HOST}
-    port: ${REDIS_PORT}
-
-file:
-    secret-key: ${FILE_SERVER_SECRET_KEY}
-    server-url: ${FILE_SERVER_URL}
-    suffixPath: ${SUFFIX_PATH}
-
-springdoc:
-    api-docs:
-        path: ${SWAGGER_PATH:/docs}
-    swagger-ui:
-        path: ${SWAGGER_UI_PATH:/swagger-ui}
-        display-request-duration: true
-    cache:
-        disabled: true

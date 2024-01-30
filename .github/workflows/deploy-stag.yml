@@ -1,0 +1,98 @@
+name: xquare-deployment
+
+on:
+  push:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+    permissions:
+      id-token: write
+      contents: read
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: mysql
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          host port: 3306
+          container port: 3306
+          mysql database: 'maeumgagym'
+          mysql root password: ${{ secrets.TEST_DB_PASSWORD }}
+
+      - name: gradle caching
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts*', '**/gradle-wrapper.properties') }}
+
+      - name: Build gradle
+        run: ./gradlew build
+        env:
+          SPRING_PROFILES_ACTIVE: local
+          DB_URL: ${{ secrets.TEST_DB_URL }}
+          DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
+          JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+          JWT_ACCESS_EXP: ${{ secrets.JWT_ACCESS_EXP }}
+          JWT_REFRESH_EXP: ${{ secrets.JWT_REFRESH_EXP }}
+          JWT_HEADER: ${{ secrets.JWT_HEADER }}
+          JWT_PREFIX: ${{ secrets.JWT_PREFIX }}
+          GRANT_TYPE: ${{ secrets.GRANT_TYPE }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          REDIS_HOST: ${{ secrets.TEST_REDIS_HOST }}
+          REDIS_PORT: ${{ secrets.REDIS_PORT }}
+          FILE_SERVER_SECRET_KEY: ${{ secrets.FILE_SERVER_SECRET_KEY }}
+          FILE_SERVER_URL: ${{ secrets.FILE_SERVER_URL }}
+          VIDEO_ID_SAVE_TTL: ${{ secrets.VIDEO_ID_SAVE_TTL }}
+          SUFFIX_PATH: ${{ secrets.SUFFIX_PATH }}
+          SWAGGER_PATH: ${{ secrets.SWAGGER_PATH }}
+          SWAGGER_UI_PATH: ${{ secrets.SWAGGER_UI_PATH }}
+
+      - name: Deploy to xquare
+        uses: team-xquare/xquare-deployment-action@master
+        with:
+          environment: stag
+          access_key: ${{ secrets.ACCESS_KEY }}
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          buildargs: |
+            PROFILE=stag
+            DB_URL=${{ secrets.DB_URL }}
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            DB_USERNAME=${{ secrets.DB_USERNAME }}
+            JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
+            JWT_ACCESS_EXP=${{ secrets.JWT_ACCESS_EXP }}
+            JWT_REFRESH_EXP=${{ secrets.JWT_REFRESH_EXP }}
+            JWT_HEADER=${{ secrets.JWT_HEADER }}
+            JWT_PREFIX=${{ secrets.JWT_PREFIX }}
+            GRANT_TYPE=${{ secrets.GRANT_TYPE }}
+            CLIENT_ID=${{ secrets.CLIENT_ID }}
+            REDIRECT_URI=${{ secrets.REDIRECT_URI }}
+            REDIS_HOST=${{ secrets.REDIS_HOST }}
+            REDIS_PORT=${{ secrets.REDIS_PORT }}
+            FILE_SERVER_SECRET_KEY=${{ secrets.FILE_SERVER_SECRET_KEY }}
+            FILE_SERVER_URL=${{ secrets.FILE_SERVER_URL }}
+            VIDEO_ID_SAVE_TTL=${{ secrets.VIDEO_ID_SAVE_TTL }}
+            SUFFIX_PATH=${{ secrets.SUFFIX_PATH }}
+            SWAGGER_PATH=${{ secrets.SWAGGER_PATH }}
+            SWAGGER_UI_PATH=${{ secrets.SWAGGER_UI_PATH }}
+            FRONT_LOCAL=${{ secrets.FRONT_LOCAL }}
+            BACK_DOMAIN=${{ secrets.BACK_DOMAIN_STAG }}

@@ -7,22 +7,22 @@ import com.info.maeumgagym.routine.dto.RoutineStatusDto
 import com.info.maeumgagym.routine.dto.response.RoutineListResponse
 import com.info.maeumgagym.routine.dto.response.RoutineResponse
 import com.info.maeumgagym.routine.port.`in`.ReadAllMyRoutineUseCase
-import com.info.maeumgagym.routine.port.out.ReadAllRoutineByUserIdPort
+import com.info.maeumgagym.routine.port.out.ReadRoutinePort
 import com.info.maeumgagym.user.dto.response.UserResponse
 import java.time.format.TextStyle
 import java.util.*
 
 @UseCase
 internal class ReadMyAllRoutineService(
-    private val readAllRoutineByUserIdPort: ReadAllRoutineByUserIdPort,
+    private val readRoutinePort: ReadRoutinePort,
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : ReadAllMyRoutineUseCase {
     override fun readAllMyRoutine(): RoutineListResponse {
         // 토큰으로 유저 찾기
         val user = readCurrentUserPort.readCurrentUser()
 
-        // 내 루틴 라스트 불러오기
-        val routineList = readAllRoutineByUserIdPort.readAllRoutineByUserId(user.id!!)
+        // 내 루틴 리스트 불러오기
+        val routineList = readRoutinePort.readAllByUserId(user.id!!)
 
         // 반환
         return RoutineListResponse(

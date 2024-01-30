@@ -20,6 +20,8 @@ subprojects {
         implementation(Dependencies.KOTLIN_REFLECT)
         implementation(Dependencies.KOTLIN_JDK)
         implementation(Dependencies.JACKSON)
+
+        implementation(Dependencies.HEALTH_CHECKER)
     }
 }
 
@@ -56,6 +58,11 @@ allprojects {
         maven { url = uri("https://repo.spring.io/milestone") }
         maven { url = uri("https://repo.spring.io/snapshot") }
     }
+}
+
+tasks.test {
+    useJUnitPlatform()
+    systemProperty("spring.profiles.active", "local")
 }
 
 tasks.getByName<Jar>("jar") {
