@@ -1,66 +1,65 @@
 name: Run Test Code
 
 on:
-    pull_request:
-        branches: [ 'main', 'develop' ]
+  pull_request:
+    branches: [ 'main', 'develop' ]
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
 
-        services:
-            redis:
-                image: redis
-                ports:
-                    - 6379:6379
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
 
-        steps:
-            -   name: checkout
-                uses: actions/checkout@v2
+      - name: setup jdk
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'temurin'
 
-            -   name: setup jdk
-                uses: actions/setup-java@v3
-                with:
-                    java-version: 17
-                    distribution: 'temurin'
+      - name: chmod
+        run: chmod +x gradlew
 
-            -   name: chmod
-                run: chmod +x gradlew
+      - name: mysql
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          host port: 3306
+          container port: 3306
+          mysql database: 'maeumgagym'
+          mysql root password: ${{ secrets.TEST_DB_PASSWORD }}
 
-            -   name: mysql
-                uses: mirromutth/mysql-action@v1.1
-                with:
-                    host port: 3306
-                    container port: 3306
-                    mysql database: 'maeumgagym'
-                    mysql root password: ${{ secrets.TEST_DB_PASSWORD }}
+      - name: gradle caching
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 
-            -   name: gradle caching
-                uses: actions/cache@v3
-                with:
-                    path: |
-                        ~/.gradle/caches
-                        ~/.gradle/wrapper
-                    key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-
-            -   name: run test
-                run: ./gradlew test --warning-mode all
-                env:
-                    DB_URL: ${{ secrets.TEST_DB_URL }}
-                    DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
-                    DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
-                    JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
-                    JWT_ACCESS_EXP: ${{ secrets.JWT_ACCESS_EXP }}
-                    JWT_REFRESH_EXP: ${{ secrets.JWT_REFRESH_EXP }}
-                    JWT_HEADER: ${{ secrets.JWT_HEADER }}
-                    JWT_PREFIX: ${{ secrets.JWT_PREFIX }}
-                    GRANT_TYPE: ${{ secrets.GRANT_TYPE }}
-                    CLIENT_ID: ${{ secrets.CLIENT_ID }}
-                    REDIS_HOST: ${{ secrets.TEST_REDIS_HOST }}
-                    REDIS_PORT: ${{ secrets.REDIS_PORT }}
-                    FILE_SERVER_SECRET_KEY: ${{ secrets.FILE_SERVER_SECRET_KEY }}
-                    FILE_SERVER_URL: ${{ secrets.FILE_SERVER_URL }}
-                    VIDEO_ID_SAVE_TTL: ${{ secrets.VIDEO_ID_SAVE_TTL }}
-                    SUFFIX_PATH: ${{ secrets.SUFFIX_PATH }}
-                    SWAGGER_PATH: ${{ secrets.SWAGGER_PATH }}
-                    SWAGGER_UI_PATH: ${{ secrets.SWAGGER_UI_PATH }}
+      - name: run test
+        run: ./gradlew test --warning-mode all -e PROFILE=local
+        env:
+          DB_URL: ${{ secrets.TEST_DB_URL }}
+          DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
+          JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+          JWT_ACCESS_EXP: ${{ secrets.JWT_ACCESS_EXP }}
+          JWT_REFRESH_EXP: ${{ secrets.JWT_REFRESH_EXP }}
+          JWT_HEADER: ${{ secrets.JWT_HEADER }}
+          JWT_PREFIX: ${{ secrets.JWT_PREFIX }}
+          GRANT_TYPE: ${{ secrets.GRANT_TYPE }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          REDIS_HOST: ${{ secrets.TEST_REDIS_HOST }}
+          REDIS_PORT: ${{ secrets.REDIS_PORT }}
+          FILE_SERVER_SECRET_KEY: ${{ secrets.FILE_SERVER_SECRET_KEY }}
+          FILE_SERVER_URL: ${{ secrets.FILE_SERVER_URL }}
+          VIDEO_ID_SAVE_TTL: ${{ secrets.VIDEO_ID_SAVE_TTL }}
+          SUFFIX_PATH: ${{ secrets.SUFFIX_PATH }}
+          SWAGGER_PATH: ${{ secrets.SWAGGER_PATH }}
+          SWAGGER_UI_PATH: ${{ secrets.SWAGGER_UI_PATH }}
