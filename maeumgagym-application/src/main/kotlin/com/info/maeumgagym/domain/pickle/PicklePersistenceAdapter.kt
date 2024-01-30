@@ -30,7 +30,7 @@ internal class PicklePersistenceAdapter(
     }
 
     override fun readById(id: String): Pickle? =
-        pickleRepository.findByVideoId(id)?.let {
+        pickleRepository.findById(id)?.let {
             pickleMapper.toDomain(it)
         }
 
@@ -49,5 +49,5 @@ internal class PicklePersistenceAdapter(
     ).map { pickleMapper.toDomain(it) }.toMutableList()
 
     override fun existsById(videoId: String): Boolean =
-        pickleRepository.findByVideoId(videoId)?.let { true } ?: false
+        pickleRepository.findById(videoId)?.let { true } ?: false
 }

@@ -30,4 +30,6 @@ object TableNames {
     const val REFRESH_TOKEN_TABLE = "${TABLE_PREFIX}refresh"
 
     const val PICKLE_TAG_INDEX = "${INDEX_PREFIX}pickle_tag"
+
+    const val PICKLE_LIKE_INDEX = "${INDEX_PREFIX}pickle_like"
 }
