@@ -45,7 +45,6 @@ jobs:
       - name: run test
         run: ./gradlew test --warning-mode all
         env:
-          PROFILE: local
           DB_URL: ${{ secrets.TEST_DB_URL }}
           DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
