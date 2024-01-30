@@ -1,6 +1,6 @@
 spring:
     profiles:
-        active: local
+        active: ${PROFILE}
         group:
             local: "local-config, jwt, file, swagger"
             prod: "prod-config, prod-datasource, jwt, log, redis, file, swagger"
