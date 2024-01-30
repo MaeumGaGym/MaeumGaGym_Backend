@@ -31,7 +31,8 @@ class PickleController(
     private val createPickleUseCase: CreatePickleUseCase,
     private val deletePickleUseCase: DeletePickleUseCase,
     private val updatePickleUseCase: UpdatePickleUseCase,
-    private val getPreSignedUploadURLUseCase: GetPreSignedUploadURLUseCase
+    private val getPreSignedUploadURLUseCase: GetPreSignedUploadURLUseCase,
+    private val likePickleUseCase: LikePickleUseCase
 ) {
 
     @Operation(summary = "추천 피클 전체 조회 API")
@@ -114,4 +115,16 @@ class PickleController(
         @RequestBody @Valid
         req: UpdatePickleWebRequest
     ) { updatePickleUseCase.updatePickle(id!!, req.toRequest()) }
+
+    @Operation(summary = "피클 좋아요 API")
+    @PostMapping("{id}")
+    fun likePickle(
+        @PathVariable(name = "id")
+        @Valid
+        @NotBlank(message = "null일 수 없습니다")
+        @Pattern(regexp = "^[0-9a-fA-F]{8}$", message = "잘못된 id입니다.")
+        id: String?
+    ) {
+        likePickleUseCase.likePickle(id!!)
+    }
 }

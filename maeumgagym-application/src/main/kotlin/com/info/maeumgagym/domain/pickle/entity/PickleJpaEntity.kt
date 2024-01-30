@@ -21,6 +21,7 @@ class PickleJpaEntity(
     title: String,
     description: String? = null,
     uploader: UserJpaEntity,
+    likes: MutableSet<PickleLikeJpaEntity> = mutableSetOf(),
     likeCount: Long = 0,
     commentCount: Long = 0,
     tags: MutableSet<String> = mutableSetOf(),
@@ -28,7 +29,7 @@ class PickleJpaEntity(
 ) : BaseTimeEntity(createdAt) {
 
     @Id
-    @Column(name = "video_id", length = 8, nullable = false)
+    @Column(name = "video_id", length = 9, nullable = false)
     var videoId: String = videoId
         protected set
 
@@ -43,6 +44,11 @@ class PickleJpaEntity(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uploader_id", nullable = false)
     var uploader: UserJpaEntity = uploader
+        protected set
+
+    @OneToMany(mappedBy = "pickle", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
+    var likes: MutableSet<PickleLikeJpaEntity> = likes
+        get() = field.toMutableSet()
         protected set
 
     @Column(name = "like_count", nullable = false)
