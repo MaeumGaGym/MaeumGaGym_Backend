@@ -3,8 +3,8 @@ spring:
         active: local
         group:
             local: "local-config, jwt, file, swagger"
-            prod: "prod-config, datasource, jwt, log, redis, file, swagger"
-            stag: "stag-config, datasource, jwt, log, redis, file, swagger"
+            prod: "prod-config, prod-datasource, jwt, log, redis, file, swagger"
+            stag: "stag-config, stag-datasource, jwt, log, redis, file, swagger"
 
     # format
     jackson:
