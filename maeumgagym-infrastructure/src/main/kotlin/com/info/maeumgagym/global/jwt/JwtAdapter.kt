@@ -1,6 +1,5 @@
 package com.info.maeumgagym.global.jwt
 
-import com.info.maeumgagym.auth.dto.response.TokenResponse
 import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.GetJwtBodyPort
 import com.info.maeumgagym.auth.port.out.ReissuePort
@@ -32,7 +31,7 @@ class JwtAdapter(
 ) : GenerateJwtPort, ReissuePort, GetJwtBodyPort, RevokeTokensPort {
 
     // 모든 토큰 발급
-    override fun generateTokens(subject: String): TokenResponse {
+    override fun generateTokens(subject: String): Pair<String, String> {
         // access_token 발급
         val access = generateAccessToken()
 
@@ -60,10 +59,7 @@ class JwtAdapter(
         )
 
         // tokens dto에 담아 반환
-        return TokenResponse(
-            access,
-            refresh
-        )
+        return Pair(access, refresh)
     }
 
     // access_token 발급
@@ -94,13 +90,13 @@ class JwtAdapter(
             .compact()
     }
 
-    override fun revokeTokens(subject: String) {
+    override fun revoke(subject: String) {
         accessTokenRepository.deleteById(subject)
         refreshTokenRepository.deleteById(subject)
     }
 
     // 토큰 재발급
-    override fun reissue(refreshToken: String): TokenResponse {
+    override fun reissue(refreshToken: String): Pair<String, String> {
         // refresh_token을 redis에서 불러오기
         val rfToken = refreshTokenRepository.findByRfToken(refreshToken) ?: throw InvalidTokenException
 

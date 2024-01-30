@@ -1,0 +1,23 @@
+spring:
+    config:
+        activate:
+            on-profile: prod-config
+
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                show_sql: false
+
+management:
+    endpoint:
+        health:
+            show-details: when_authorized
+
+server:
+    domain:
+        front-domain: ${FRONT_DOMAIN}
+        back-domain: ${BACK_DOMAIN}
+    servlet:
+        context-path: /maeumgagym

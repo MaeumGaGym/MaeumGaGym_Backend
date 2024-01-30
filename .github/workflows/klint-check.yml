@@ -1,37 +1,36 @@
 name: ktlint
 
 on:
-    pull_request:
-        branches:
-            - develop
+  pull_request:
+    branches:
+      - develop
 
 jobs:
-    ktlint:
-        name: Check Code Quality
-        runs-on: ubuntu-latest
-        if: ${{ ! startsWith(github.event.head_commit.message, '!!') }}
+  ktlint:
+    name: Check Code Quality
+    runs-on: ubuntu-latest
+    if: ${{ ! startsWith(github.event.head_commit.message, '!!') }}
 
-        steps:
-            - name: Clone repo
-              uses: actions/checkout@v2
-              with:
-                  fetch-depth: 1
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
 
-            - name: Setup JDK
-              uses: actions/setup-java@v2
-              with:
-                  java-version: '17'
-                  distribution: 'adopt'
+      - name: Setup JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'adopt'
 
-            - name: gradle caching
-              uses: actions/cache@v3
-              with:
-                  path: |
-                      ~/.gradle/caches
-                      ~/.gradle/wrapper
-                  key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+      - name: gradle caching
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts*', '**/gradle-wrapper.properties') }}
 
-            - name: Run ktlint
-              run: |
-                  ./gradlew ktlintCheck --daemon --parallel --configure-on-demand
-
+      - name: Run ktlint
+        run: |
+          ./gradlew ktlintCheck --daemon --parallel --configure-on-demand

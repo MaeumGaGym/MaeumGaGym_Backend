@@ -6,7 +6,7 @@ import com.info.maeumgagym.pickle.dto.request.PickleCommentRequest
 import com.info.maeumgagym.pickle.exception.PickleNotFoundException
 import com.info.maeumgagym.pickle.model.PickleComment
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleCommentUseCase
-import com.info.maeumgagym.pickle.port.out.ExistsPickleByIdPort
+import com.info.maeumgagym.pickle.port.out.ExistsPicklePort
 import com.info.maeumgagym.pickle.port.out.SavePickleCommentPort
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
@@ -16,17 +16,17 @@ import org.springframework.transaction.annotation.Transactional
 internal class CreatePickleCommentService(
     private val savePickleCommentPort: SavePickleCommentPort,
     private val readCurrentUserPort: ReadCurrentUserPort,
-    private val existsPickleByIdPort: ExistsPickleByIdPort
+    private val existsPicklePort: ExistsPicklePort
 ) : CreatePickleCommentUseCase {
     override fun createPickleComment(pickleCommentRequest: PickleCommentRequest, videoId: String) {
         val user = readCurrentUserPort.readCurrentUser()
 
-        if (!existsPickleByIdPort.existsPickleById(videoId)) {
+        if (!existsPicklePort.existsById(videoId)) {
             throw PickleNotFoundException
         }
 
         pickleCommentRequest.run {
-            savePickleCommentPort.savePickleComment(
+            savePickleCommentPort.save(
                 PickleComment(
                     content = content,
                     videoId = videoId,

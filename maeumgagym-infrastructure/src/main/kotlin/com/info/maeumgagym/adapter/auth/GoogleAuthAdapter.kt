@@ -23,7 +23,7 @@ internal class GoogleAuthAdapter(
             accessToken
         ).toResponse()
 
-    override fun revokeGoogleToken(token: String) {
+    override fun revoke(token: String) {
         googleAuthClient.revokeToken(token)
     }
 }

@@ -6,6 +6,14 @@ plugins {
     application
 }
 
+tasks.named<Jar>("jar") {
+    enabled = false
+}
+
+tasks.bootJar {
+    archiveFileName.set("maeumgagym-server.jar")
+}
+
 application {
     mainClass.set("com.info.maeumgagym.MaeumGaGymApplicationKt")
 }

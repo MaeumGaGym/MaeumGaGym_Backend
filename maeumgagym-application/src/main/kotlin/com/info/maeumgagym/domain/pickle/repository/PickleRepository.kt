@@ -10,7 +10,7 @@ interface PickleRepository : Repository<PickleJpaEntity, String> {
 
     fun delete(entity: PickleJpaEntity)
 
-    fun findByVideoId(id: String): PickleJpaEntity?
+    fun findById(id: String): PickleJpaEntity?
 
     fun findAll(): List<PickleJpaEntity>
 }

@@ -9,14 +9,19 @@ import org.hibernate.annotations.Where
 import java.time.LocalDateTime
 import javax.persistence.*
 
+@Entity
 @Where(clause = "is_deleted = false")
 @SQLDelete(sql = "UPDATE ${TableNames.PICKLE_TABLE} SET is_deleted = true WHERE id = ?")
-@Entity(name = TableNames.PICKLE_TABLE)
+@Table(
+    name = TableNames.PICKLE_TABLE,
+    indexes = [Index(name = TableNames.PICKLE_TAG_INDEX, columnList = "tags")]
+)
 class PickleJpaEntity(
     videoId: String,
     title: String,
     description: String? = null,
     uploader: UserJpaEntity,
+    likes: MutableSet<PickleLikeJpaEntity> = mutableSetOf(),
     likeCount: Long = 0,
     commentCount: Long = 0,
     tags: MutableSet<String> = mutableSetOf(),
@@ -24,21 +29,26 @@ class PickleJpaEntity(
 ) : BaseTimeEntity(createdAt) {
 
     @Id
-    @Column(name = "video_id", nullable = false)
+    @Column(name = "video_id", length = 9, nullable = false)
     var videoId: String = videoId
         protected set
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title", length = 100, nullable = false)
     var title: String = title
         protected set
 
-    @Column(name = "description", nullable = true)
+    @Column(name = "description", length = 700, nullable = true)
     var description: String? = description
         protected set
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uploader_id", nullable = false)
     var uploader: UserJpaEntity = uploader
+        protected set
+
+    @OneToMany(mappedBy = "pickle", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
+    var likes: MutableSet<PickleLikeJpaEntity> = likes
+        get() = field.toMutableSet()
         protected set
 
     @Column(name = "like_count", nullable = false)
@@ -50,7 +60,7 @@ class PickleJpaEntity(
         protected set
 
     @Convert(converter = StringAttributeConverter::class)
-    @Column(name = "tags", length = 1000, nullable = false)
+    @Column(name = "tags", length = 400, nullable = false)
     var tags: MutableSet<String> = tags
         get() = field.toMutableSet()
         protected set
