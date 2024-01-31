@@ -3,13 +3,6 @@ spring:
         activate:
             on-profile: stag-config
 
-    jpa:
-        hibernate:
-            ddl-auto: update
-        properties:
-            hibernate:
-                show_sql: true
-
 management:
     endpoint:
         health:
