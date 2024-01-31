@@ -29,12 +29,9 @@ internal class LikePickleService(
         val pickle = readPicklePort.readById(id) ?: throw PickleNotFoundException
 
         // 좋아요 객체 nullable로 불러오기
-        val like = readPickleLikePort.readByPickleAndUser(pickle, user)
-
-        // 좋아요를 눌렀다면
-        if (like != null) {
+        readPickleLikePort.readByPickleAndUser(pickle, user)?.apply {// 좋아요를 눌렀다면
             // 좋아요 삭제하기
-            deletePickleLikePort.delete(like)
+            deletePickleLikePort.delete(this)
             // 좋아요 수 - 1 저장
             savePicklePort.save(
                 pickle.run {
@@ -51,7 +48,7 @@ internal class LikePickleService(
                     )
                 }
             )
-        } else { // 좋아요를 안눌렀다면
+        } ?: apply{ // 좋아요를 안눌렀다면
             // 좋아요 추가하기
             savePickleLikePort.save(
                 PickleLike(pickle, user)
