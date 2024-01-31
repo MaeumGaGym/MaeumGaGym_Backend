@@ -38,7 +38,8 @@ class SecurityConfig(
                 setHeaderName(csrfProperties.header)
                 setCookieHttpOnly(true)
                 setParameterName(csrfProperties.parameter)
-            }).and()
+            }
+        ).and()
             .formLogin().disable()
             .requiresChannel().anyRequest().requiresSecure().and() // XSS 공격 방지(HTTPS 요청 요구) local test시 주석 처리할 것
             .sessionManagement()
