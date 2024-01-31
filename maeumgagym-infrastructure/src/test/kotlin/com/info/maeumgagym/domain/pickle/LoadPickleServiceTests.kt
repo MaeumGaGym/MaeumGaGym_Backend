@@ -61,7 +61,6 @@ class LoadPickleServiceTests @Autowired constructor(
                 loadRecommendationPicklesUseCase.loadRecommendationPickles(0).pickleList
             )
         )
-
     }
 
     @Test
