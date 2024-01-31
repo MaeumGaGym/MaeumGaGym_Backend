@@ -98,5 +98,5 @@ jobs:
             FRONT_DOMAIN=${{ secrets.FRONT_DOMAIN }}
             BACK_DOMAIN=${{ secrets.BACK_DOMAIN_PROD }}
             CSRF_HEADER=${{ secrets.CSRF_HEADER }}
-            CSRF_COOKIE${{ secrets.CSRF_COOKIE$ }}
+            CSRF_COOKIE=${{ secrets.CSRF_COOKIE$ }}
             CSRF_PARAMETER=${{ secrets.CSRF_PARAMETER }}
