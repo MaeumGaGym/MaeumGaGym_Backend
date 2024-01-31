@@ -1,9 +1,9 @@
-package com.info.maeumgagym.global.security
+package com.info.maeumgagym.global.config.filter
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.global.error.GlobalExceptionFilter
-import com.info.maeumgagym.global.jwt.JwtFilter
 import com.info.maeumgagym.global.jwt.JwtAdapter
+import com.info.maeumgagym.global.jwt.JwtFilter
 import com.info.maeumgagym.global.jwt.JwtResolver
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity

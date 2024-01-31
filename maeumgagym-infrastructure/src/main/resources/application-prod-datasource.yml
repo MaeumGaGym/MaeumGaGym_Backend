@@ -1,0 +1,19 @@
+spring:
+    config:
+        activate:
+            on-profile: prod-datasource
+
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                show_sql: false
+                dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        open-in-view: false
+
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: ${DB_URL}/prod_maeumgagym
+        username: ${DB_USERNAME}
+        password: ${DB_PASSWORD}

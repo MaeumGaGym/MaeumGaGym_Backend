@@ -34,7 +34,7 @@ class UserJpaEntity(
     var nickname: String = nickname
         protected set
 
-    @Column(name = "is_deleted_at")
+    @Column(name = "is_deleted_at", nullable = true)
     var isDeletedAt: LocalDateTime? = isDeletedAt
         protected set
 

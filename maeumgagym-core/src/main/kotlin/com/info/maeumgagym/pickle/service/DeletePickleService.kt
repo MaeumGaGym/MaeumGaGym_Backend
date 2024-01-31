@@ -4,7 +4,7 @@ import com.info.common.UseCase
 import com.info.maeumgagym.auth.exception.PermissionDeniedException
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.pickle.exception.PickleNotFoundException
-import com.info.maeumgagym.pickle.port.`in`.PickleDeleteUseCase
+import com.info.maeumgagym.pickle.port.`in`.DeletePickleUseCase
 import com.info.maeumgagym.pickle.port.out.DeletePicklePort
 import com.info.maeumgagym.pickle.port.out.DeleteOriginalVideoPort
 import com.info.maeumgagym.pickle.port.out.ReadPicklePort
@@ -18,9 +18,9 @@ internal class DeletePickleService(
     private val deleteOriginalVideoPort: DeleteOriginalVideoPort,
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val readPicklePort: ReadPicklePort
-) : PickleDeleteUseCase {
+) : DeletePickleUseCase {
 
-    override fun deletePickle(id: String) {
+    override fun deleteFromId(id: String) {
         // 토큰으로 유저 불러오기
         val user = readCurrentUserPort.readCurrentUser()
 

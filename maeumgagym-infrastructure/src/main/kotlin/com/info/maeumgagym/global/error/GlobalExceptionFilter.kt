@@ -23,7 +23,6 @@ class GlobalExceptionFilter(
         try {
             filterChain.doFilter(request, response)
         } catch (e: MaeumGaGymException) {
-            println(e.errorCode)
             writerErrorCode(response, e.errorCode)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -33,10 +32,12 @@ class GlobalExceptionFilter(
 
     @Throws(IOException::class)
     private fun writerErrorCode(response: HttpServletResponse, errorCode: ErrorCode) {
-        val errorResponse = ErrorResponse(errorCode.status, errorCode.message)
-        response.status = errorCode.status
-        response.characterEncoding = StandardCharsets.UTF_8.name()
-        response.contentType = MediaType.APPLICATION_JSON_VALUE
-        response.writer.write(objectMapper.writeValueAsString(errorResponse))
+        response.apply {
+            status = errorCode.status
+            characterEncoding = StandardCharsets.UTF_8.name()
+            contentType = MediaType.APPLICATION_JSON_VALUE
+            writer.write(objectMapper.writeValueAsString(ErrorResponse(errorCode.status, errorCode.message)))
+            writer.flush()
+        }
     }
 }

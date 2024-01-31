@@ -1,0 +1,16 @@
+spring:
+    config:
+        activate:
+            on-profile: prod-config
+
+management:
+    endpoint:
+        health:
+            show-details: when_authorized
+
+server:
+    domain:
+        front-domain: ${FRONT_DOMAIN}
+        back-domain: ${BACK_DOMAIN}
+    servlet:
+        context-path: /maeumgagym

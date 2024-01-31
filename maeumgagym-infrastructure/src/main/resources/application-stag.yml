@@ -1,0 +1,16 @@
+spring:
+    config:
+        activate:
+            on-profile: stag-config
+
+management:
+    endpoint:
+        health:
+            show-details: always
+
+server:
+    domain:
+        front-domain: ${FRONT_LOCAL}
+        back-domain: ${BACK_DOMAIN}
+    servlet:
+        context-path: /maeumgagym
