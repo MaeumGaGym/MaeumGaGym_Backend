@@ -1,5 +1,5 @@
 object PluginVersions {
-    const val QUERY_DSL: String = "5.0.0"
+    const val QUERY_DSL = "5.0.0"
     const val SPRING_BOOT_VERSION = "2.7.5"
     const val DEPENDENCY_MANAGER_VERSION = "1.0.11.RELEASE"
     const val JVM_VERSION = "1.7.22"
