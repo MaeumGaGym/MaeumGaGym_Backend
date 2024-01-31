@@ -4,7 +4,7 @@ import com.info.maeumgagym.domain.pickle.entity.PickleJpaEntity
 import com.info.maeumgagym.domain.pickle.repository.PickleRepository
 import com.info.maeumgagym.domain.pose.PoseTestModule
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
-import com.info.maeumgagym.pickle.dto.request.PickleUploadRequest
+import com.info.maeumgagym.pickle.dto.request.CreatePickleRequest
 import com.info.maeumgagym.pickle.dto.request.UpdatePickleRequest
 import java.util.*
 
@@ -33,8 +33,8 @@ object PickleTestModule {
     fun PickleJpaEntity.saveInRepository(pickleRepository: PickleRepository): PickleJpaEntity =
         pickleRepository.save(this)
 
-    fun getUploadPickleRequest(videoId: String): PickleUploadRequest =
-        PickleUploadRequest(
+    fun getUploadPickleRequest(videoId: String): CreatePickleRequest =
+        CreatePickleRequest(
             videoId = videoId,
             title = PICKLE_TITLE,
             description = PICKLE_DESCRIPTION,
@@ -50,7 +50,7 @@ object PickleTestModule {
 
     fun verifyUpdatedPickle(pickleJpaEntity: PickleJpaEntity, uploader: UserJpaEntity): Boolean =
         getUpdatePickleRequest().run {
-                pickleJpaEntity.title == title &&
+            pickleJpaEntity.title == title &&
                 pickleJpaEntity.description == description &&
                 pickleJpaEntity.tags == tags &&
                 pickleJpaEntity.likeCount == 0L &&

@@ -15,7 +15,7 @@ import com.info.maeumgagym.pickle.exception.PickleNotFoundException
 import com.info.maeumgagym.pickle.exception.ThereNoPicklesException
 import com.info.maeumgagym.pickle.model.Pickle.Companion.toResponse
 import com.info.maeumgagym.pickle.port.`in`.LoadPickleFromIdUseCase
-import com.info.maeumgagym.pickle.port.`in`.LoadPicklesFromPoseUseCase
+import com.info.maeumgagym.pickle.port.`in`.LoadPickleFromPoseUseCase
 import com.info.maeumgagym.pickle.port.`in`.LoadRecommendationPicklesUseCase
 import com.info.maeumgagym.pickle.port.out.GenerateM3u8URLPort
 import org.junit.jupiter.api.Assertions
@@ -31,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional
 class LoadPickleServiceTests @Autowired constructor(
     private val loadRecommendationPicklesUseCase: LoadRecommendationPicklesUseCase,
     private val loadPickleFromIdUseCase: LoadPickleFromIdUseCase,
-    private val loadPicklesFromPoseUseCase: LoadPicklesFromPoseUseCase,
+    private val loadPickleFromPoseUseCase: LoadPickleFromPoseUseCase,
     private val pickleRepository: PickleRepository,
     private val pickleMapper: PickleMapper,
     private val userRepository: UserRepository,

@@ -10,20 +10,19 @@ import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.pickle.exception.AlreadyExistPickleException
-import com.info.maeumgagym.pickle.port.`in`.PickleUploadUseCase
+import com.info.maeumgagym.pickle.port.`in`.CreatePickleUseCase
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @SpringBootTest
 class UploadPickleServiceTests @Autowired constructor(
     private val pickleRepository: PickleRepository,
-    private val uploadPickleUseCase: PickleUploadUseCase,
+    private val createPickleUseCase: CreatePickleUseCase,
     private val userRepository: UserRepository,
     private val userMapper: UserMapper
 ) {
@@ -40,12 +39,12 @@ class UploadPickleServiceTests @Autowired constructor(
     @Test
     fun uploadPickle() {
         Assertions.assertDoesNotThrow {
-            uploadPickleUseCase.uploadPickle(
+            createPickleUseCase.createPickle(
                 PickleTestModule.getUploadPickleRequest(pickle.videoId)
             )
         }
         Assertions.assertNotNull(
-            pickleRepository.findByVideoId(pickle.videoId)
+            pickleRepository.findById(pickle.videoId)
         )
     }
 
@@ -53,7 +52,7 @@ class UploadPickleServiceTests @Autowired constructor(
     fun uploadPickleWithExistsVideoId() {
         pickle = pickle.saveInRepository(pickleRepository)
         Assertions.assertThrows(AlreadyExistPickleException::class.java) {
-            uploadPickleUseCase.uploadPickle(
+            createPickleUseCase.createPickle(
                 PickleTestModule.getUploadPickleRequest(pickle.videoId)
             )
         }
