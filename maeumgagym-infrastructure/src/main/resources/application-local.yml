@@ -13,7 +13,7 @@ spring:
                 use_sql_comments: ture
                 dialect: org.hibernate.dialect.MySQL5InnoDBDialect
                 legacy_limit_handler: true
-            open-in-view: true
+        open-in-view: false
 
     datasource:
         url: ${DB_URL:jdbc:mysql://localhost:3306/maeumgagym}

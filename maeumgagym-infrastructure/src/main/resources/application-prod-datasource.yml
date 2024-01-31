@@ -4,9 +4,13 @@ spring:
             on-profile: prod-datasource
 
     jpa:
+        hibernate:
+            ddl-auto: update
         properties:
             hibernate:
+                show_sql: false
                 dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        open-in-view: false
 
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver

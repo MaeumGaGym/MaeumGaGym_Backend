@@ -14,7 +14,7 @@ object Dependencies {
 
     // database
     const val SPRING_DATA_JPA = "$STARTER-data-jpa:${PluginVersions.SPRING_BOOT_VERSION}"
-    const val MYSQL_CONNECTOR = "mysql:mysql-connector-java:${DependencyVersions.MYSQL}"
+    const val MYSQL_CONNECTOR = "mysql:mysql-connector-java:${DependencyVersions.MYSQL_VERSION}"
     const val REDIS = "$STARTER-data-redis"
 
     // test
@@ -54,13 +54,13 @@ object Dependencies {
     const val SPRING_TRANSACTION = "org.springframework:spring-tx:${DependencyVersions.SPRING_TRANSACTION}"
 
     // Transaction
-    const val QUERY_DSL_JPA = "com.querydsl:querydsl-jpa:${DependencyVersions.QUERY_DSL}"
-    const val QUERY_DSL_KAPT = "com.querydsl:querydsl-apt:${DependencyVersions.QUERY_DSL}"
+    const val QUERY_DSL_JPA = "com.querydsl:querydsl-jpa:${DependencyVersions.QUERY_DSL_VERSION}"
+    const val QUERY_DSL_KAPT = "com.querydsl:querydsl-apt:${DependencyVersions.QUERY_DSL_VERSION}"
 
     const val ANNOTATION_PROCESSOR = "org.springframework.boot:spring-boot-configuration-processor"
 
-    const val SPRING_DOC = "org.springdoc:springdoc-openapi-ui:1.6.11"
-    const val SWAGGER = "io.springfox:springfox-swagger2:2.9.2"
+    const val SPRING_DOC = "org.springdoc:springdoc-openapi-ui:${DependencyVersions.OPEN_API_VERSION}"
+    const val SWAGGER = "io.springfox:springfox-swagger2:${DependencyVersions.SWAGGER_VERSION}"
 
     const val HEALTH_CHECKER = "$STARTER-actuator"
 }

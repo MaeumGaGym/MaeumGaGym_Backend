@@ -3,13 +3,6 @@ spring:
         activate:
             on-profile: prod-config
 
-    jpa:
-        hibernate:
-            ddl-auto: update
-        properties:
-            hibernate:
-                show_sql: false
-
 management:
     endpoint:
         health:
