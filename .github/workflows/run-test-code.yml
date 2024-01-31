@@ -45,6 +45,7 @@ jobs:
       - name: run test
         run: ./gradlew test --warning-mode all
         env:
+          SPRING_PROFILES_ACTIVE: local
           DB_URL: ${{ secrets.TEST_DB_URL }}
           DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}

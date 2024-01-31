@@ -47,7 +47,7 @@ jobs:
       - name: Build gradle
         run: ./gradlew build
         env:
-          PROFILE: local
+          SPRING_PROFILES_ACTIVE: local
           DB_URL: ${{ secrets.TEST_DB_URL }}
           DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
