@@ -96,3 +96,6 @@ jobs:
             SWAGGER_UI_PATH=${{ secrets.SWAGGER_UI_PATH }}
             FRONT_LOCAL=${{ secrets.FRONT_LOCAL }}
             BACK_DOMAIN=${{ secrets.BACK_DOMAIN_STAG }}
+            CSRF_HEADER=${{ secrets.CSRF_HEADER }}
+            CSRF_COOKIE=${{ secrets.CSRF_COOKIE }}
+            CSRF_PARAMETER=${{ secrets.CSRF_PARAMETER }}

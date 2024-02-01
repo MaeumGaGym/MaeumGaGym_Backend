@@ -5,7 +5,7 @@ spring:
 
     jpa:
         hibernate:
-            ddl-auto: create
+            ddl-auto: update
         properties:
             hibernate:
                 format_sql: true
@@ -39,3 +39,8 @@ redis:
 logging:
     level:
         root: info
+
+csrf:
+    header: ${CSRF_HEADER:X-XSRF-TOKEN}
+    cookie: ${CSRF_COOKIE:XSRF-TOKEN}
+    parameter: ${CSRF_PARAMETER:_csrf}
