@@ -9,5 +9,8 @@ springdoc:
     swagger-ui:
         path: ${SWAGGER_UI_PATH:/swagger-ui}
         display-request-duration: true
+        csrf:
+            header-name: ${CSRF_HEADER:X-XSRF-TOKEN}
+            cookie-name: ${CSRF_COOKIE:XSRF-TOKEN}
     cache:
         disabled: true
