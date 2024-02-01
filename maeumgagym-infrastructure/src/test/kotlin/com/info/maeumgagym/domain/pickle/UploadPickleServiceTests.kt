@@ -9,6 +9,8 @@ import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserRepository
+import com.info.maeumgagym.global.file.VideoIdAndUploaderIdRepository
+import com.info.maeumgagym.global.file.entity.VideoIdAndUploaderIdRedisEntity
 import com.info.maeumgagym.pickle.exception.AlreadyExistPickleException
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleUseCase
 import org.junit.jupiter.api.Assertions
@@ -22,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional
 @SpringBootTest
 class UploadPickleServiceTests @Autowired constructor(
     private val pickleRepository: PickleRepository,
+    private val videoIdAndUploaderIdRepository: VideoIdAndUploaderIdRepository,
     private val createPickleUseCase: CreatePickleUseCase,
     private val userRepository: UserRepository,
     private val userMapper: UserMapper
@@ -38,6 +41,7 @@ class UploadPickleServiceTests @Autowired constructor(
 
     @Test
     fun uploadPickle() {
+        videoIdAndUploaderIdRepository.save(VideoIdAndUploaderIdRedisEntity(pickle.videoId, user.id!!, 1000))
         Assertions.assertDoesNotThrow {
             createPickleUseCase.createPickle(
                 PickleTestModule.getUploadPickleRequest(pickle.videoId)
