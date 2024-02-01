@@ -19,7 +19,7 @@ class PickleMapper(
             description = description,
             title = title,
             uploader = userMapper.toEntity(uploader),
-            likes = em.find(PickleJpaEntity::class.java, videoId).likes,
+            likes = em.find(PickleJpaEntity::class.java, videoId)?.likes ?: mutableSetOf(),
             likeCount = likeCount,
             tags = tags,
             createdAt = createdAt
