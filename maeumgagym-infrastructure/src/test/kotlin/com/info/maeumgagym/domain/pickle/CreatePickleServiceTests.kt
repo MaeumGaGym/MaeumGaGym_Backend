@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @SpringBootTest
-class UploadPickleServiceTests @Autowired constructor(
+class CreatePickleServiceTests @Autowired constructor(
     private val pickleRepository: PickleRepository,
     private val videoIdAndUploaderIdRepository: VideoIdAndUploaderIdRepository,
     private val createPickleUseCase: CreatePickleUseCase,
