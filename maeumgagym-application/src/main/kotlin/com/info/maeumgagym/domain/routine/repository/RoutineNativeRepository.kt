@@ -5,12 +5,10 @@ import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.Repository
 import org.springframework.data.repository.query.Param
-import java.time.DayOfWeek
 import java.util.*
 
 @org.springframework.stereotype.Repository
 interface RoutineNativeRepository : Repository<RoutineJpaEntity, Long?> {
-
 
     @Query(
         value = "SELECT * FROM ${TableNames.ROUTINE_TABLE} r " +

@@ -57,7 +57,6 @@ internal class CreateRoutineServiceTests @Autowired constructor(
 //        }
 //    }
 
-
     /**
      * @see CreateRoutineUseCase.createRoutine
      * @when 실패 상황 : 이미 다른 루틴이 할당된 요일로 새로운 루틴을 생성하려 함
