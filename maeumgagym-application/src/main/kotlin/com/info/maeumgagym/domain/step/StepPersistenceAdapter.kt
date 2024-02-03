@@ -14,11 +14,8 @@ internal class StepPersistenceAdapter(
     private val stepRepository: StepRepository,
     private val stepMapper: StepMapper
 ) : SaveStepPort, ReadStepPort {
-    override fun readByUserOauthId(oauthId: String): Step? = stepRepository.findById(oauthId)?.let {
-        stepMapper.toDomain(
-            it
-        )
-    }
+    override fun readByUserOauthId(oauthId: String): Step? =
+        stepRepository.findById(oauthId)?.let { stepMapper.toDomain(it) }
 
     @Transactional(propagation = Propagation.MANDATORY)
     override fun save(step: Step): Step = stepMapper.toDomain(stepRepository.save(stepMapper.toEntity(step)))
