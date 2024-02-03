@@ -34,6 +34,11 @@ internal class RoutinePersistenceAdapter(
         return routineEntityList.map { routineMapper.toDomain(it) }
     }
 
+    override fun readByUserIdAndDayOfWeek(userId: UUID, dayOfWeek: DayOfWeek): Routine? =
+        routineNativeRepository.findByUserIdAndDayOfWeeks(userId, dayOfWeek)?.run {
+            routineMapper.toDomain(this)
+        }
+
     @Transactional(propagation = Propagation.MANDATORY)
     override fun delete(routine: Routine) =
         routineRepository.delete(routineMapper.toEntity(routine))
