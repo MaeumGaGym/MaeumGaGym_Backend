@@ -4,6 +4,7 @@ import com.info.common.UseCase
 import com.info.maeumgagym.auth.exception.PermissionDeniedException
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.routine.dto.request.UpdateRoutineRequest
+import com.info.maeumgagym.routine.exception.OtherRoutineAlreadyUsingAtDayOfWeekException
 import com.info.maeumgagym.routine.exception.RoutineNotFoundException
 import com.info.maeumgagym.routine.model.Routine
 import com.info.maeumgagym.routine.model.RoutineStatusModel
@@ -29,6 +30,12 @@ internal class UpdateRoutineService(
 
         // 루틴을 만든 이가 토큰의 유저가 맞는지 검증, 아닐시 -> 예외처리
         if (user.id != routine.userId) throw PermissionDeniedException
+
+        req.dayOfWeeks?.forEach {
+            if (readRoutinePort.readByUserIdAndDayOfWeek(user.id!!, it) != null) {
+                throw OtherRoutineAlreadyUsingAtDayOfWeekException
+            }
+        }
 
         routine.run {
             // 루틴 업데이트
