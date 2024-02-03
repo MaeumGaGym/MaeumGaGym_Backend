@@ -35,7 +35,7 @@ internal class RoutinePersistenceAdapter(
     }
 
     override fun readByUserIdAndDayOfWeek(userId: UUID, dayOfWeek: DayOfWeek): Routine? =
-        routineNativeRepository.findByUserIdAndDayOfWeeks(userId, dayOfWeek)?.run {
+        routineNativeRepository.findByUserIdAndDayOfWeeks(userId, dayOfWeek.name)?.run {
             routineMapper.toDomain(this)
         }
 

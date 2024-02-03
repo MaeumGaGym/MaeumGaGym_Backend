@@ -56,6 +56,11 @@ dependencyManagement {
     }
 }
 
+tasks.test {
+    useJUnitPlatform()
+    systemProperty("spring.profiles.active", "local")
+}
+
 allOpen {
     annotations("org.springframework.data.redis.core.RedisHash")
 }
