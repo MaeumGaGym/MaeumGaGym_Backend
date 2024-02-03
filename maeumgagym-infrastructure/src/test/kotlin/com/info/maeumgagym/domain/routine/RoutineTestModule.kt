@@ -60,7 +60,7 @@ internal object RoutineTestModule {
                     it.sets
                 )
             }.toMutableList(),
-            dayOfWeeks = originRoutineEntity.dayOfWeeks
+            dayOfWeeks = mutableSetOf(DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY)
         )
 
     fun RoutineJpaEntity.saveInRepository(routineRepository: RoutineRepository): RoutineJpaEntity =

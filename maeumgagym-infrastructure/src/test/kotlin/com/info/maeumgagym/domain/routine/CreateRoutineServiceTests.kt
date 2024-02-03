@@ -1,12 +1,15 @@
 package com.info.maeumgagym.domain.routine
 
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
+import com.info.maeumgagym.domain.routine.RoutineTestModule.saveInRepository
+import com.info.maeumgagym.domain.routine.repository.RoutineNativeRepository
 import com.info.maeumgagym.domain.routine.repository.RoutineRepository
-import com.info.maeumgagym.domain.user.entity.UserJpaEntity
-import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.UserTestModule
 import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
+import com.info.maeumgagym.domain.user.entity.UserJpaEntity
+import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserRepository
+import com.info.maeumgagym.routine.exception.OtherRoutineAlreadyUsingAtDayOfWeekException
 import com.info.maeumgagym.routine.port.`in`.CreateRoutineUseCase
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -53,4 +56,23 @@ internal class CreateRoutineServiceTests @Autowired constructor(
 //            )
 //        }
 //    }
+
+
+    /**
+     * @see CreateRoutineUseCase.createRoutine
+     * @when 실패 상황 : 이미 다른 루틴이 할당된 요일로 새로운 루틴을 생성하려 함
+     * @fail 정상적으로 루틴이 저장되는지 확인
+     * @fail 아래의 함수가 정상 작동하는지 확인
+     *  @see RoutineNativeRepository.findByUserIdAndDayOfWeeks
+     */
+    @Test
+    fun createRoutineWithDayOfWeeksAlreadyOtherRoutineUsingAt() {
+        RoutineTestModule.createTestRoutine(user.id!!).saveInRepository(routineRepository)
+
+        Assertions.assertThrows(OtherRoutineAlreadyUsingAtDayOfWeekException::class.java) {
+            createRoutineUseCase.createRoutine(
+                RoutineTestModule.getCreateRoutineRequest()
+            )
+        }
+    }
 }
