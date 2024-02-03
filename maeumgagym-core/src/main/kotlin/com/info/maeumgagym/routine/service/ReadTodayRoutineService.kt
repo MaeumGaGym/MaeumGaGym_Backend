@@ -9,11 +9,14 @@ import java.time.LocalDate
 
 @UseCase
 class ReadTodayRoutineService(
-    private val readRoutinePort: ReadRoutinePort, private val readCurrentUserPort: ReadCurrentUserPort
+    private val readRoutinePort: ReadRoutinePort,
+    private val readCurrentUserPort: ReadCurrentUserPort
 ) : ReadTodayRoutineUseCase {
 
     override fun readTodayRoutine(): RoutineResponseWrapper = RoutineResponseWrapper(
         readRoutinePort.readByUserIdAndDayOfWeekAndIsArchivedFalse(
-            readCurrentUserPort.readCurrentUser().id!!, LocalDate.now().dayOfWeek
-        )?.run { toResponse() })
+            readCurrentUserPort.readCurrentUser().id!!,
+            LocalDate.now().dayOfWeek
+        )?.run { toResponse() }
+    )
 }
