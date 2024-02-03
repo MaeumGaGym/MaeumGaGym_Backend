@@ -14,10 +14,10 @@ interface RoutineNativeRepository : Repository<RoutineJpaEntity, Long?> {
         value = "SELECT * FROM ${TableNames.ROUTINE_TABLE} r " +
             "INNER JOIN ${TableNames.ROUTINE_TABLE}_day_of_weeks d " +
             "ON r.id = d.${TableNames.ROUTINE_TABLE}_id " +
-            "WHERE r.user_id = :userId AND d.day_of_weeks LIKE :dayOfWeek",
+            "WHERE r.is_archived = false AND r.user_id = :userId AND d.day_of_weeks LIKE :dayOfWeek",
         nativeQuery = true
     )
-    fun findByUserIdAndDayOfWeeks(
+    fun findByUserIdAndDayOfWeekAndIsArchivedFalse(
         @Param("userId") userId: UUID,
         @Param("dayOfWeek") dayOfWeek: String
     ): RoutineJpaEntity?

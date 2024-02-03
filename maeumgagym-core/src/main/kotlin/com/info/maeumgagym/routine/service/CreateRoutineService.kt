@@ -24,7 +24,7 @@ internal class CreateRoutineService(
         val user = readCurrentUserPort.readCurrentUser()
 
         req.dayOfWeeks?.forEach {
-            if (readRoutinePort.readByUserIdAndDayOfWeek(user.id!!, it) != null) {
+            if (readRoutinePort.readByUserIdAndDayOfWeekAndIsArchivedFalse(user.id!!, it) != null) {
                 throw OtherRoutineAlreadyUsingAtDayOfWeekException
             }
         }

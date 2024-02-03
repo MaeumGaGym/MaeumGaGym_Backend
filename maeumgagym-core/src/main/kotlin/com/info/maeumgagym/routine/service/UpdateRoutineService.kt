@@ -32,7 +32,7 @@ internal class UpdateRoutineService(
         if (user.id != routine.userId) throw PermissionDeniedException
 
         req.dayOfWeeks?.forEach {
-            if (readRoutinePort.readByUserIdAndDayOfWeek(user.id!!, it) != null) {
+            if (readRoutinePort.readByUserIdAndDayOfWeekAndIsArchivedFalse(user.id!!, it) != null) {
                 throw OtherRoutineAlreadyUsingAtDayOfWeekException
             }
         }

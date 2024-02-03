@@ -51,8 +51,8 @@ internal object RoutineTestModule {
     fun getUpdateRoutineRequest(originRoutineEntity: RoutineJpaEntity): UpdateRoutineRequest =
         UpdateRoutineRequest(
             routineName = originRoutineEntity.routineName,
-            isArchived = !originRoutineEntity.routineStatus.isArchived,
-            isShared = !originRoutineEntity.routineStatus.isShared,
+            isArchived = originRoutineEntity.routineStatus.isArchived,
+            isShared = originRoutineEntity.routineStatus.isShared,
             exerciseInfoModelList = originRoutineEntity.exerciseInfoList.map {
                 ExerciseInfoModel(
                     it.exerciseName,
@@ -65,6 +65,17 @@ internal object RoutineTestModule {
 
     fun RoutineJpaEntity.saveInRepository(routineRepository: RoutineRepository): RoutineJpaEntity =
         routineRepository.save(this)
+
+    fun RoutineJpaEntity.setArchived(boolean: Boolean): RoutineJpaEntity =
+        RoutineJpaEntity(
+            routineName = routineName,
+            exerciseInfoList = exerciseInfoList,
+            dayOfWeeks = dayOfWeeks,
+            routineStatus = RoutineStatus(boolean, routineStatus.isShared),
+            createdAt = createdAt,
+            id = id,
+            userId = userId
+        )
 
     fun RoutineJpaEntity.setShared(boolean: Boolean): RoutineJpaEntity =
         RoutineJpaEntity(
