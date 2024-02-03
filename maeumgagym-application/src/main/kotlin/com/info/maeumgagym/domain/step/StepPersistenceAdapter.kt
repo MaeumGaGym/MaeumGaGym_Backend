@@ -11,7 +11,7 @@ import com.info.maeumgagym.step.port.out.SaveStepPort
 internal class StepPersistenceAdapter(
     private val stepRepository: StepRepository,
     private val stepMapper: StepMapper
-): SaveStepPort, ReadStepPort {
+) : SaveStepPort, ReadStepPort {
     override fun readStep(userId: String): Step? = stepRepository.findById(userId)?.let { stepMapper.toDomain(it) }
 
     override fun saveStep(step: Step): Step = stepMapper.toDomain(stepRepository.save(stepMapper.toEntity(step)))
