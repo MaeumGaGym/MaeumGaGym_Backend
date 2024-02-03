@@ -4,11 +4,12 @@ import com.info.common.UseCase
 import com.info.maeumgagym.auth.exception.PermissionDeniedException
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.routine.dto.request.UpdateRoutineRequest
+import com.info.maeumgagym.routine.exception.OtherRoutineAlreadyUsingAtDayOfWeekException
 import com.info.maeumgagym.routine.exception.RoutineNotFoundException
 import com.info.maeumgagym.routine.model.Routine
 import com.info.maeumgagym.routine.model.RoutineStatusModel
 import com.info.maeumgagym.routine.port.`in`.UpdateRoutineUseCase
-import com.info.maeumgagym.routine.port.out.ReadRoutineByIdPort
+import com.info.maeumgagym.routine.port.out.ReadRoutinePort
 import com.info.maeumgagym.routine.port.out.SaveRoutinePort
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
@@ -16,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional
 @UseCase
 @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class UpdateRoutineService(
-    private val readRoutineByIdPort: ReadRoutineByIdPort,
+    private val readRoutinePort: ReadRoutinePort,
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val saveRoutinePort: SaveRoutinePort
 ) : UpdateRoutineUseCase {
@@ -25,10 +26,16 @@ internal class UpdateRoutineService(
         val user = readCurrentUserPort.readCurrentUser()
 
         // (routine.id = routineId)인 루틴 찾기, 없다면 -> 예외처리
-        val routine = readRoutineByIdPort.readRoutineById(routineId) ?: throw RoutineNotFoundException
+        val routine = readRoutinePort.readById(routineId) ?: throw RoutineNotFoundException
 
         // 루틴을 만든 이가 토큰의 유저가 맞는지 검증, 아닐시 -> 예외처리
         if (user.id != routine.userId) throw PermissionDeniedException
+
+        req.dayOfWeeks?.forEach {
+            if (readRoutinePort.readByUserIdAndDayOfWeekAndIsArchivedFalse(user.id!!, it) != null) {
+                throw OtherRoutineAlreadyUsingAtDayOfWeekException
+            }
+        }
 
         routine.run {
             // 루틴 업데이트
