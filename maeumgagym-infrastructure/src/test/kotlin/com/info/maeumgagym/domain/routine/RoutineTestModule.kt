@@ -60,7 +60,7 @@ internal object RoutineTestModule {
                     it.sets
                 )
             }.toMutableList(),
-            dayOfWeeks = mutableSetOf(DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY)
+            dayOfWeeks = mutableSetOf(DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY)
         )
 
     fun RoutineJpaEntity.saveInRepository(routineRepository: RoutineRepository): RoutineJpaEntity =
@@ -83,6 +83,17 @@ internal object RoutineTestModule {
             exerciseInfoList = exerciseInfoList,
             dayOfWeeks = dayOfWeeks,
             routineStatus = RoutineStatus(routineStatus.isArchived, boolean),
+            createdAt = createdAt,
+            id = id,
+            userId = userId
+        )
+
+    fun RoutineJpaEntity.appendDayOfWeek(dayOfWeek: DayOfWeek): RoutineJpaEntity =
+        RoutineJpaEntity(
+            routineName = routineName,
+            exerciseInfoList = exerciseInfoList,
+            dayOfWeeks = dayOfWeeks?.apply { add(dayOfWeek) } ?: mutableSetOf(dayOfWeek),
+            routineStatus = routineStatus,
             createdAt = createdAt,
             id = id,
             userId = userId
