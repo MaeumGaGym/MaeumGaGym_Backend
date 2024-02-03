@@ -18,8 +18,8 @@ internal class UpdateStepService(
 ) : UpdateStepUseCase {
     override fun updateStep(numberOfSteps: Int) {
         val user = readCurrentUserPort.readCurrentUser()
-        val step = readStepPort.readStep(user.oauthId) ?: throw StepNotFoundException
+        val step = readStepPort.readByUserOauthId(user.oauthId) ?: throw StepNotFoundException
 
-        saveStepPort.saveStep(step.copy(numberOfSteps = numberOfSteps))
+        saveStepPort.save(step.copy(numberOfSteps = numberOfSteps))
     }
 }

@@ -21,11 +21,11 @@ internal class CreateStepService(
 ) : CreateStepUseCase {
     override fun createStep() {
         val user = readCurrentUserPort.readCurrentUser()
-        if (readStepPort.readStep(user.oauthId) != null) {
+        if (readStepPort.readByUserOauthId(user.oauthId) != null) {
             throw AlreadyExistStepException
         }
 
-        saveStepPort.saveStep(
+        saveStepPort.save(
             Step(
                 id = user.oauthId,
                 numberOfSteps = 0,
