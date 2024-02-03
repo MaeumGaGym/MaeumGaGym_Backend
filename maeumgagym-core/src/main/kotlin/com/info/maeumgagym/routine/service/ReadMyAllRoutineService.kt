@@ -2,15 +2,10 @@ package com.info.maeumgagym.routine.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.routine.dto.ExerciseInfoDto
-import com.info.maeumgagym.routine.dto.RoutineStatusDto
 import com.info.maeumgagym.routine.dto.response.RoutineListResponse
-import com.info.maeumgagym.routine.dto.response.RoutineResponse
 import com.info.maeumgagym.routine.port.`in`.ReadAllMyRoutineUseCase
 import com.info.maeumgagym.routine.port.out.ReadRoutinePort
 import com.info.maeumgagym.user.dto.response.UserResponse
-import java.time.format.TextStyle
-import java.util.*
 
 @UseCase
 internal class ReadMyAllRoutineService(
@@ -27,31 +22,7 @@ internal class ReadMyAllRoutineService(
         // 반환
         return RoutineListResponse(
             // 루틴 리스트 돌면서 List<RoutineResponse>로 매핑
-            routineList = routineList.map {
-                RoutineResponse(
-                    id = it.id!!,
-                    routineName = it.routineName,
-                    exerciseInfoList = it.exerciseInfoModelList.map { exerciseInfoModel ->
-                        ExerciseInfoDto(
-                            exerciseName = exerciseInfoModel.exerciseName,
-                            repetitions = exerciseInfoModel.repetitions,
-                            sets = exerciseInfoModel.sets
-                        )
-                    },
-                    dayOfWeeks = it.dayOfWeeks?.map { dayOfWeek ->
-                        dayOfWeek.getDisplayName(
-                            TextStyle.FULL,
-                            Locale.KOREA
-                        )
-                    },
-                    routineStatus = it.routineStatusModel.run {
-                        RoutineStatusDto(
-                            isArchived = isArchived,
-                            isShared = isShared
-                        )
-                    }
-                )
-            },
+            routineList = routineList.map { it.toResponse() },
             // 유저 정보
             userInfo = UserResponse(nickname = user.nickname, profileImage = user.profileImage)
         )
