@@ -2,6 +2,7 @@ package com.info.maeumgagym.domain.routine
 
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.routine.RoutineTestModule.appendDayOfWeek
+import com.info.maeumgagym.domain.routine.RoutineTestModule.deleteDayOfWeek
 import com.info.maeumgagym.domain.routine.RoutineTestModule.saveInRepository
 import com.info.maeumgagym.domain.routine.repository.RoutineRepository
 import com.info.maeumgagym.domain.user.UserTestModule
@@ -67,12 +68,21 @@ internal class ReadRoutineServiceTests @Autowired constructor(
 
     @Test
     fun readTodayRoutine() {
-        val todayDayOfWeek = LocalDate.now().dayOfWeek
-        RoutineTestModule.createTestRoutine(user.id!!).appendDayOfWeek(todayDayOfWeek)
+        RoutineTestModule.createTestRoutine(user.id!!).appendDayOfWeek(LocalDate.now().dayOfWeek)
             .saveInRepository(routineRepository)
 
         Assertions.assertNotNull(
-            readTodayRoutineUseCase.readTodayRoutine().routineResponse
+            readTodayRoutineUseCase.readTodayRoutine()
+        )
+    }
+
+    @Test
+    fun readTodayRoutineButNotExists() {
+        RoutineTestModule.createTestRoutine(user.id!!).deleteDayOfWeek(LocalDate.now().dayOfWeek)
+            .saveInRepository(routineRepository)
+
+        Assertions.assertNull(
+            readTodayRoutineUseCase.readTodayRoutine()
         )
     }
 }
