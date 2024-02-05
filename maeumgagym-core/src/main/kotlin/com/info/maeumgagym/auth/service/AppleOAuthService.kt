@@ -14,11 +14,8 @@ import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.ExistUserPort
 import com.info.maeumgagym.user.port.out.RecoveryUserPort
 import com.info.maeumgagym.user.port.out.SaveUserPort
-import org.springframework.transaction.annotation.Isolation
-import org.springframework.transaction.annotation.Transactional
 
 @UseCase
-@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class AppleOAuthService(
     private val saveUserPort: SaveUserPort,
     private val generateJwtPort: GenerateJwtPort,

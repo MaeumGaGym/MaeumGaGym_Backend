@@ -1,10 +1,10 @@
 package com.info.maeumgagym.auth.service
 
-import com.info.common.UseCase
+import com.info.common.ReadOnlyUseCase
 import com.info.maeumgagym.auth.port.`in`.DuplicatedNicknameCheckUseCase
 import com.info.maeumgagym.user.port.out.ExistUserPort
 
-@UseCase
+@ReadOnlyUseCase
 internal class DuplicatedCheckService(
     private val existUserPort: ExistUserPort
 ) : DuplicatedNicknameCheckUseCase {

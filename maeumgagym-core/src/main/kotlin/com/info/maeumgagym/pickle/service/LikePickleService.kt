@@ -7,11 +7,8 @@ import com.info.maeumgagym.pickle.model.Pickle
 import com.info.maeumgagym.pickle.model.PickleLike
 import com.info.maeumgagym.pickle.port.`in`.LikePickleUseCase
 import com.info.maeumgagym.pickle.port.out.*
-import org.springframework.transaction.annotation.Isolation
-import org.springframework.transaction.annotation.Transactional
 
 @UseCase
-@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class LikePickleService(
     private val savePickleLikePort: SavePickleLikePort,
     private val readPickleLikePort: ReadPickleLikePort,

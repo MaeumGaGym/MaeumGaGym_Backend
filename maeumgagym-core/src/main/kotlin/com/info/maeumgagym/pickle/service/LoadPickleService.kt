@@ -1,6 +1,6 @@
 package com.info.maeumgagym.pickle.service
 
-import com.info.common.UseCase
+import com.info.common.ReadOnlyUseCase
 import com.info.maeumgagym.pickle.dto.response.PickleListResponse
 import com.info.maeumgagym.pickle.dto.response.PickleResponse
 import com.info.maeumgagym.pickle.exception.PickleNotFoundException
@@ -15,7 +15,7 @@ import com.info.maeumgagym.pickle.port.out.ReadPicklePort
 import com.info.maeumgagym.pose.exception.PoseNotFoundException
 import com.info.maeumgagym.pose.port.out.ReadPosePort
 
-@UseCase
+@ReadOnlyUseCase
 internal class LoadPickleService(
     private val readPicklePort: ReadPicklePort,
     private val generateM3u8URLPort: GenerateM3u8URLPort,

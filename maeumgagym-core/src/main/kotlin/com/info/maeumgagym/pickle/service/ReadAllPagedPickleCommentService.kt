@@ -1,13 +1,13 @@
 package com.info.maeumgagym.pickle.service
 
-import com.info.common.UseCase
+import com.info.common.ReadOnlyUseCase
 import com.info.maeumgagym.pickle.dto.response.PickleCommentListResponse
 import com.info.maeumgagym.pickle.exception.PickleNotFoundException
 import com.info.maeumgagym.pickle.port.`in`.ReadAllPagedPickleCommentUseCase
 import com.info.maeumgagym.pickle.port.out.ExistsPicklePort
 import com.info.maeumgagym.pickle.port.out.ReadPickleCommentsPort
 
-@UseCase
+@ReadOnlyUseCase
 internal class ReadAllPagedPickleCommentService(
     private val existsPicklePort: ExistsPicklePort,
     private val readPickleCommentsPort: ReadPickleCommentsPort

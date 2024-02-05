@@ -9,13 +9,10 @@ import com.info.maeumgagym.wakatime.model.WakaTime
 import com.info.maeumgagym.wakatime.port.`in`.EndWakatimeUseCase
 import com.info.maeumgagym.wakatime.port.out.ReadWakaTimePort
 import com.info.maeumgagym.wakatime.port.out.SaveWakaTimePort
-import org.springframework.transaction.annotation.Isolation
-import org.springframework.transaction.annotation.Transactional
 import java.time.Duration
 import java.time.LocalDateTime
 
 @UseCase
-@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class EndWakatimeService(
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val saveUserPort: SaveUserPort,
