@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
 
 @UseCase
-@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class CreateRoutineService(
     private val saveRoutinePort: SaveRoutinePort,
     private val readRoutinePort: ReadRoutinePort,

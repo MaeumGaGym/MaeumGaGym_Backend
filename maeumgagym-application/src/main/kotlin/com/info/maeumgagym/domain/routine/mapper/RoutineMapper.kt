@@ -7,9 +7,12 @@ import com.info.maeumgagym.routine.model.ExerciseInfoModel
 import com.info.maeumgagym.routine.model.Routine
 import com.info.maeumgagym.routine.model.RoutineStatusModel
 import org.springframework.stereotype.Component
+import javax.persistence.EntityManager
 
 @Component
-class RoutineMapper {
+class RoutineMapper(
+    private val em: EntityManager
+) {
     fun toEntity(routine: Routine): RoutineJpaEntity = routine.run {
         RoutineJpaEntity(
             id = id,

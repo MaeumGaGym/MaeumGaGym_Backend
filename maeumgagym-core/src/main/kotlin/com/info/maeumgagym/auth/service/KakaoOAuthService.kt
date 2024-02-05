@@ -2,21 +2,20 @@ package com.info.maeumgagym.auth.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.exception.AlreadyExistUserException
-import com.info.maeumgagym.auth.port.`in`.KakaoRecoveryUseCase
-import com.info.maeumgagym.user.exception.UserNotFoundException
 import com.info.maeumgagym.auth.port.`in`.KakaoLoginUseCase
+import com.info.maeumgagym.auth.port.`in`.KakaoRecoveryUseCase
 import com.info.maeumgagym.auth.port.`in`.KakaoSignupUseCase
 import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.GetKakaoInfoPort
 import com.info.maeumgagym.user.exception.DuplicatedNicknameException
+import com.info.maeumgagym.user.exception.UserNotFoundException
 import com.info.maeumgagym.user.model.Role
 import com.info.maeumgagym.user.model.User
-import com.info.maeumgagym.user.port.out.*
-import org.springframework.transaction.annotation.Isolation
-import org.springframework.transaction.annotation.Transactional
+import com.info.maeumgagym.user.port.out.ExistUserPort
+import com.info.maeumgagym.user.port.out.RecoveryUserPort
+import com.info.maeumgagym.user.port.out.SaveUserPort
 
 @UseCase
-@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class KakaoOAuthService(
     private val getKakaoInfoPort: GetKakaoInfoPort,
     private val generateJwtPort: GenerateJwtPort,

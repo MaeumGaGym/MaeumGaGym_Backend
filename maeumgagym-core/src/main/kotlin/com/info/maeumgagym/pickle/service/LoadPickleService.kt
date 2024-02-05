@@ -1,6 +1,6 @@
 package com.info.maeumgagym.pickle.service
 
-import com.info.common.UseCase
+import com.info.common.ReadOnlyUseCase
 import com.info.maeumgagym.pickle.dto.response.PickleListResponse
 import com.info.maeumgagym.pickle.dto.response.PickleResponse
 import com.info.maeumgagym.pickle.exception.PickleNotFoundException
@@ -15,7 +15,7 @@ import com.info.maeumgagym.pickle.port.out.ReadPicklePort
 import com.info.maeumgagym.pose.exception.PoseNotFoundException
 import com.info.maeumgagym.pose.port.out.ReadPosePort
 
-@UseCase
+@ReadOnlyUseCase
 internal class LoadPickleService(
     private val readPicklePort: ReadPicklePort,
     private val generateM3u8URLPort: GenerateM3u8URLPort,
@@ -61,7 +61,7 @@ internal class LoadPickleService(
     private fun getRandomPickles(pickles: List<Pickle>): List<Pickle> =
         // 만약 랜덤 피클을 추출할 베이스 리스트의 크기가 추출할 크기보다 작다면 -> 베이스 리스트 그대로 반환
         pickles.takeIf { pickles.toSet().size <= INDEX_SIZE }
-            // 아니라면 빈 Set을 생성해서 (중복 제거)
+        // 아니라면 빈 Set을 생성해서 (중복 제거)
             ?: mutableSetOf<Pickle>().apply {
                 // 총 개수가 INDEX_SIZE와 같아질 때까지 랜덤 피클 추가
                 while (size < INDEX_SIZE) add(pickles.random())

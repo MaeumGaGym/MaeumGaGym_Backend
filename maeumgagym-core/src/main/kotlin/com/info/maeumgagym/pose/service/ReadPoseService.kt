@@ -1,12 +1,12 @@
 package com.info.maeumgagym.pose.service
 
-import com.info.common.UseCase
+import com.info.common.ReadOnlyUseCase
 import com.info.maeumgagym.pose.dto.response.PoseDetailResponse
 import com.info.maeumgagym.pose.exception.PoseNotFoundException
 import com.info.maeumgagym.pose.port.`in`.ReadByIdUseCase
 import com.info.maeumgagym.pose.port.out.ReadPosePort
 
-@UseCase
+@ReadOnlyUseCase
 internal class ReadPoseService(
     private val readPosePort: ReadPosePort
 ) : ReadByIdUseCase {

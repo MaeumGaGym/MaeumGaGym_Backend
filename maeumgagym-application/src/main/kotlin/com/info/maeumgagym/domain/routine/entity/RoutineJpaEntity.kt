@@ -21,7 +21,7 @@ class RoutineJpaEntity(
     var routineName: String = routineName
         protected set
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     var exerciseInfoList: MutableList<ExerciseInfo> = exerciseInfoList
         protected set
 

@@ -7,13 +7,10 @@ import com.info.maeumgagym.step.model.Step
 import com.info.maeumgagym.step.port.`in`.CreateStepUseCase
 import com.info.maeumgagym.step.port.out.ReadStepPort
 import com.info.maeumgagym.step.port.out.SaveStepPort
-import org.springframework.transaction.annotation.Isolation
-import org.springframework.transaction.annotation.Transactional
 import java.time.Duration
 import java.time.LocalDateTime
 
 @UseCase
-@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class CreateStepService(
     private val saveStepPort: SaveStepPort,
     private val readStepPort: ReadStepPort,
