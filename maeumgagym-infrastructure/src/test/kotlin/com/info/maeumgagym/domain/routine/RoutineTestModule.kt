@@ -98,4 +98,15 @@ internal object RoutineTestModule {
             id = id,
             userId = userId
         )
+
+    fun RoutineJpaEntity.deleteDayOfWeek(dayOfWeek: DayOfWeek): RoutineJpaEntity =
+        RoutineJpaEntity(
+            routineName = routineName,
+            exerciseInfoList = exerciseInfoList,
+            dayOfWeeks = dayOfWeeks?.apply { remove(dayOfWeek) },
+            routineStatus = routineStatus,
+            createdAt = createdAt,
+            id = id,
+            userId = userId
+        )
 }
