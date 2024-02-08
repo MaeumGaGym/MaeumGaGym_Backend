@@ -33,6 +33,7 @@ enum class ErrorCode(
     PICKLE_NOT_FOUND(404, "Pickle Not Found"),
     PICKLE_COMMENT_NOT_FOUND(404, "Pickle Comment Not Found"),
     PICKLE_REPLY_NOT_FOUND(404, "Pickle Reply Not Found"),
+    STEP_NOT_FOUND(404, "Step Not Found"),
 
     // Bad Request
     FILE_TYPE_MISMATCHED(400, "File Type Mismatched"),
@@ -47,5 +48,7 @@ enum class ErrorCode(
     DUPLICATED_NICKNAME(409, "Duplicated Nickname"),
     ALREADY_EXIST_USER(409, "Already Exists User"),
     ALREADY_EXIST_PICKLE(409, "Already Exists Pickle"),
-    ALREADY_STARTED_WAKA(409, "Already Started Wakatime")
+    ALREADY_EXIST_STEP(409, "Alreay Exists Step"),
+    ALREADY_STARTED_WAKA(409, "Already Started Wakatime"),
+    OTHER_ROUTINE_ALREADY_USING_AT_DAY_OF_WEEK(409, "Other Routine Already Using At Day of week")
 }

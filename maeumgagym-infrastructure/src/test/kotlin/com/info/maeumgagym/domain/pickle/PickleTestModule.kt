@@ -4,6 +4,7 @@ import com.info.maeumgagym.domain.pickle.entity.PickleJpaEntity
 import com.info.maeumgagym.domain.pickle.repository.PickleRepository
 import com.info.maeumgagym.domain.pose.PoseTestModule
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
+import com.info.maeumgagym.pickle.dto.request.CreatePickleRequest
 import com.info.maeumgagym.pickle.dto.request.UpdatePickleRequest
 import java.util.*
 
@@ -31,14 +32,14 @@ object PickleTestModule {
 
     fun PickleJpaEntity.saveInRepository(pickleRepository: PickleRepository): PickleJpaEntity =
         pickleRepository.save(this)
-    /*
-        fun getUploadPickleRequest(videoId: String): PickleUploadRequest =
-            PickleUploadRequest(
-                videoId = videoId,
-                title = PICKLE_TITLE,
-                description = PICKLE_DESCRIPTION,
-                tags = PICKLE_TAGS.toMutableSet()
-            )*/
+
+    fun getUploadPickleRequest(videoId: String): CreatePickleRequest =
+        CreatePickleRequest(
+            videoId = videoId,
+            title = PICKLE_TITLE,
+            description = PICKLE_DESCRIPTION,
+            tags = PICKLE_TAGS.toMutableSet()
+        )
 
     fun getUpdatePickleRequest(): UpdatePickleRequest =
         UpdatePickleRequest(

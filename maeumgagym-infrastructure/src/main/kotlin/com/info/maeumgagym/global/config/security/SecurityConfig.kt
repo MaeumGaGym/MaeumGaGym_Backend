@@ -2,6 +2,7 @@ package com.info.maeumgagym.global.config.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.global.config.filter.FilterConfig
+import com.info.maeumgagym.global.env.security.CSRFProperties
 import com.info.maeumgagym.global.env.security.SecurityProperties
 import com.info.maeumgagym.global.error.CustomAccessDeniedHandler
 import com.info.maeumgagym.global.error.CustomAuthenticationEntryPoint
@@ -25,11 +26,20 @@ class SecurityConfig(
     private val objectMapper: ObjectMapper,
     private val jwtResolver: JwtResolver,
     private val jwtAdapter: JwtAdapter,
-    private val property: SecurityProperties
+    private val securityProperty: SecurityProperties,
+    private val csrfProperties: CSRFProperties
 ) {
     @Bean
     protected fun filterChain(http: HttpSecurity): SecurityFilterChain =
-        http.csrf().csrfTokenRepository(CookieCsrfTokenRepository()).and()
+        http.csrf().csrfTokenRepository(
+            CookieCsrfTokenRepository().apply {
+                setSecure(true)
+                setCookieName(csrfProperties.cookie)
+                setHeaderName(csrfProperties.header)
+                setCookieHttpOnly(true)
+                setParameterName(csrfProperties.parameter)
+            }
+        ).and()
             .formLogin().disable()
             .requiresChannel().anyRequest().requiresSecure().and() // XSS 공격 방지(HTTPS 요청 요구) local test시 주석 처리할 것
             .sessionManagement()
@@ -47,8 +57,8 @@ class SecurityConfig(
             .anyRequest().authenticated()
             .and()
             .cors().and()
-            .exceptionHandling().accessDeniedHandler(CustomAccessDeniedHandler())
-            .authenticationEntryPoint(CustomAuthenticationEntryPoint()).and()
+            .exceptionHandling().accessDeniedHandler(CustomAccessDeniedHandler(objectMapper, csrfProperties.header))
+            .authenticationEntryPoint(CustomAuthenticationEntryPoint(objectMapper)).and()
             .headers().frameOptions().sameOrigin().and()
             .apply(FilterConfig(objectMapper, jwtResolver, jwtAdapter))
             .and().build()
@@ -56,7 +66,7 @@ class SecurityConfig(
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration().apply {
-            allowedOrigins = listOf(property.frontDomain, property.backDomain)
+            allowedOrigins = listOf(securityProperty.frontDomain, securityProperty.backDomain)
             allowedMethods = listOf("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD")
             allowCredentials = true
             addAllowedHeader("*")

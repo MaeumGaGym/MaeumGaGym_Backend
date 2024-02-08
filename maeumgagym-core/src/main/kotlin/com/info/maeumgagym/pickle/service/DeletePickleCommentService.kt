@@ -7,11 +7,8 @@ import com.info.maeumgagym.pickle.exception.PickleCommentNotFoundException
 import com.info.maeumgagym.pickle.port.`in`.DeletePickleCommentUseCase
 import com.info.maeumgagym.pickle.port.out.DeletePickleCommentPort
 import com.info.maeumgagym.pickle.port.out.ReadPickleCommentPort
-import org.springframework.transaction.annotation.Isolation
-import org.springframework.transaction.annotation.Transactional
 
 @UseCase
-@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class DeletePickleCommentService(
     private val deletePickleCommentPort: DeletePickleCommentPort,
     private val currentUserPort: ReadCurrentUserPort,

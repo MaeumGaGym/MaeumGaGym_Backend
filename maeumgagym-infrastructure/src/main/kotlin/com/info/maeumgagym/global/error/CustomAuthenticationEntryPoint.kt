@@ -9,7 +9,9 @@ import org.springframework.security.web.AuthenticationEntryPoint
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class CustomAuthenticationEntryPoint : AuthenticationEntryPoint {
+class CustomAuthenticationEntryPoint(
+    private val objectMapper: ObjectMapper
+) : AuthenticationEntryPoint {
 
     private companion object {
         val logger: KLogger = KotlinLogging.logger { }
@@ -23,7 +25,7 @@ class CustomAuthenticationEntryPoint : AuthenticationEntryPoint {
         logger.debug { "Pre-authenticated entry point called. Rejecting access" }
         //response!!.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied")
 
-        val responseBody = ObjectMapper().writeValueAsString(
+        val responseBody = objectMapper.writeValueAsString(
             ErrorResponse(
                 401,
                 "Access Token Not in Possession"

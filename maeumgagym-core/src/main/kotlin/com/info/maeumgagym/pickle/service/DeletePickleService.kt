@@ -5,14 +5,11 @@ import com.info.maeumgagym.auth.exception.PermissionDeniedException
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.pickle.exception.PickleNotFoundException
 import com.info.maeumgagym.pickle.port.`in`.DeletePickleUseCase
-import com.info.maeumgagym.pickle.port.out.DeletePicklePort
 import com.info.maeumgagym.pickle.port.out.DeleteOriginalVideoPort
+import com.info.maeumgagym.pickle.port.out.DeletePicklePort
 import com.info.maeumgagym.pickle.port.out.ReadPicklePort
-import org.springframework.transaction.annotation.Isolation
-import org.springframework.transaction.annotation.Transactional
 
 @UseCase
-@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class DeletePickleService(
     private val deletePicklePort: DeletePicklePort,
     private val deleteOriginalVideoPort: DeleteOriginalVideoPort,

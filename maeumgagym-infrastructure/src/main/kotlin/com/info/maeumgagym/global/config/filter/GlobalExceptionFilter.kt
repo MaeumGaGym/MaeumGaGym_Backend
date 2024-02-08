@@ -1,8 +1,9 @@
-package com.info.maeumgagym.global.error
+package com.info.maeumgagym.global.config.filter
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.common.exception.ErrorCode
+import com.info.maeumgagym.global.error.ErrorResponse
 import org.springframework.http.MediaType
 import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException

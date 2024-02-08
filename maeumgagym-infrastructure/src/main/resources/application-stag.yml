@@ -1,7 +1,7 @@
 spring:
     config:
         activate:
-            on-profile: stag-config
+            on-profile: stag
 
 management:
     endpoint:
@@ -14,3 +14,8 @@ server:
         back-domain: ${BACK_DOMAIN}
     servlet:
         context-path: /maeumgagym
+
+csrf:
+    header: ${CSRF_HEADER:X-XSRF-TOKEN}
+    cookie: ${CSRF_COOKIE:XSRF-TOKEN}
+    parameter: ${CSRF_PARAMETER:_csrf}

@@ -6,20 +6,17 @@ import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.routine.exception.RoutineNotFoundException
 import com.info.maeumgagym.routine.port.`in`.DeleteRoutineUseCase
 import com.info.maeumgagym.routine.port.out.DeleteRoutinePort
-import com.info.maeumgagym.routine.port.out.ReadRoutineByIdPort
-import org.springframework.transaction.annotation.Isolation
-import org.springframework.transaction.annotation.Transactional
+import com.info.maeumgagym.routine.port.out.ReadRoutinePort
 
 @UseCase
-@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class DeleteRoutineService(
     private val deleteRoutinePort: DeleteRoutinePort,
-    private val readRoutineByIdPort: ReadRoutineByIdPort,
+    private val readRoutinePort: ReadRoutinePort,
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : DeleteRoutineUseCase {
     override fun deleteRoutine(id: Long) {
         // (routine.id = id)인 루틴 찾기, 없다면 -> 예외 처리
-        val routine = readRoutineByIdPort.readRoutineById(id) ?: throw RoutineNotFoundException
+        val routine = readRoutinePort.readById(id) ?: throw RoutineNotFoundException
 
         // 토큰으로 유저 찾기
         val user = readCurrentUserPort.readCurrentUser()

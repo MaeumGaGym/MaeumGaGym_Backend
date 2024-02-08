@@ -10,7 +10,10 @@ import org.springframework.security.web.access.AccessDeniedHandler
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class CustomAccessDeniedHandler : AccessDeniedHandler {
+class CustomAccessDeniedHandler(
+    private val objectMapper: ObjectMapper,
+    private val headerName: String
+) : AccessDeniedHandler {
 
     private var errorPage: String? = null
 
@@ -28,8 +31,14 @@ class CustomAccessDeniedHandler : AccessDeniedHandler {
         } else if (this.errorPage == null) {
             logger.debug { "Responding with 403 status code" }
             //response.sendError(HttpStatus.FORBIDDEN.value(), "csrf token missing")
-            val responseBody = ObjectMapper().writeValueAsString(
-                ErrorResponse(
+
+            val responseBody = objectMapper.writeValueAsString(
+                request.getHeader(headerName)?.run {
+                    ErrorResponse(
+                        403,
+                        "Invalid CSRF Token"
+                    )
+                } ?: ErrorResponse(
                     403,
                     "CSRF Token Not in Possession"
                 )

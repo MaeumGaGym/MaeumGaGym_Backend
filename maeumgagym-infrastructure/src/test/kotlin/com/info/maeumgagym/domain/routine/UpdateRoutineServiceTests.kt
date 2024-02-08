@@ -2,14 +2,17 @@ package com.info.maeumgagym.domain.routine
 
 import com.info.maeumgagym.auth.exception.PermissionDeniedException
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
-import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
 import com.info.maeumgagym.domain.routine.RoutineTestModule.saveInRepository
+import com.info.maeumgagym.domain.routine.RoutineTestModule.setArchived
+import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
+import com.info.maeumgagym.domain.routine.repository.RoutineNativeRepository
 import com.info.maeumgagym.domain.routine.repository.RoutineRepository
-import com.info.maeumgagym.domain.user.entity.UserJpaEntity
-import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.UserTestModule
 import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
+import com.info.maeumgagym.domain.user.entity.UserJpaEntity
+import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserRepository
+import com.info.maeumgagym.routine.exception.OtherRoutineAlreadyUsingAtDayOfWeekException
 import com.info.maeumgagym.routine.exception.RoutineNotFoundException
 import com.info.maeumgagym.routine.port.`in`.UpdateRoutineUseCase
 import org.junit.jupiter.api.Assertions
@@ -65,6 +68,62 @@ internal class UpdateRoutineServiceTests @Autowired constructor(
             updateRoutineUseCase.updateRoutine(
                 RoutineTestModule.getUpdateRoutineRequest(routine),
                 routine.id!!
+            )
+        }
+    }
+
+    /**
+     * @see UpdateRoutineUseCase.updateRoutine
+     * @when 실패 상황 : 이미 다른 루틴이 할당된 요일로 루틴의 정보를 수정하려함
+     * @fail 정상적으로 수정한 루틴이 저장되는지 확인
+     * @fail 정상적으로 루틴이 저장되는지 확인
+     * @fail 아래의 함수가 정상 작동하는지 확인
+     *  @see RoutineNativeRepository.findByUserIdAndDayOfWeekAndIsArchivedFalse
+     */
+    @Test
+    fun updateRoutineWithDayOfWeeksAlreadyOtherRoutineUsingAt() {
+        // 기본 루틴을 수요일, 금요일, 토요일에 할당
+        updateRoutineUseCase.updateRoutine(
+            RoutineTestModule.getUpdateRoutineRequest(routine),
+            routine.id!!
+        )
+        // 새로운 루틴 생성 (기본 루틴과 요일이 겹치지 않음)
+        val otherRoutine = RoutineTestModule.createTestRoutine(user.id!!).saveInRepository(routineRepository)
+
+        // 새로운 루틴을 기본 루틴의 요일과 똑같이 변경 -> 예외 발생해야 함
+        Assertions.assertThrows(OtherRoutineAlreadyUsingAtDayOfWeekException::class.java) {
+            updateRoutineUseCase.updateRoutine(
+                RoutineTestModule.getUpdateRoutineRequest(otherRoutine),
+                otherRoutine.id!!
+            )
+        }
+    }
+
+    /**
+     * @see UpdateRoutineUseCase.updateRoutine
+     * @when 성공 상황 : 이미 다른 루틴이 할당된 요일로 루틴의 정보를 수정하려 했으나, 그 루틴은 보관 상태
+     * @fail 정상적으로 수정한 루틴이 저장되는지 확인
+     * @fail 정상적으로 루틴이 저장되는지 확인
+     * @fail 아래의 함수가 정상 작동하는지 확인
+     *  @see RoutineNativeRepository.findByUserIdAndDayOfWeekAndIsArchivedFalse
+     */
+    @Test
+    fun updateRoutineWithDayOfWeeksAlreadyOtherRoutineUsingAtButArchived() {
+        // 기본 루틴을 수요일, 금요일, 토요일에 할당
+        updateRoutineUseCase.updateRoutine(
+            RoutineTestModule.getUpdateRoutineRequest(routine),
+            routine.id!!
+        )
+        // 루틴 보관
+        routine.setArchived(true).saveInRepository(routineRepository)
+        // 새로운 루틴 생성 (기본 루틴과 요일이 겹치지 않음)
+        val otherRoutine = RoutineTestModule.createTestRoutine(user.id!!).saveInRepository(routineRepository)
+
+        // 새로운 루틴을 기본 루틴의 요일과 똑같이 변경 -> 예외 발생해야 함
+        Assertions.assertDoesNotThrow {
+            updateRoutineUseCase.updateRoutine(
+                RoutineTestModule.getUpdateRoutineRequest(otherRoutine),
+                otherRoutine.id!!
             )
         }
     }
