@@ -1,7 +1,7 @@
 spring:
     config:
         activate:
-            on-profile: stag-config
+            on-profile: stag
 
 management:
     endpoint:

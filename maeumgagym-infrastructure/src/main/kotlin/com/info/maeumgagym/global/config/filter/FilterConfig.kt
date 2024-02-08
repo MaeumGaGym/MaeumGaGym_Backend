@@ -1,7 +1,6 @@
 package com.info.maeumgagym.global.config.filter
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.info.maeumgagym.global.error.GlobalExceptionFilter
 import com.info.maeumgagym.global.jwt.JwtAdapter
 import com.info.maeumgagym.global.jwt.JwtFilter
 import com.info.maeumgagym.global.jwt.JwtResolver

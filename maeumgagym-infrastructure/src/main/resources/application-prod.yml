@@ -1,7 +1,7 @@
 spring:
     config:
         activate:
-            on-profile: prod-config
+            on-profile: prod
 
 management:
     endpoint:
