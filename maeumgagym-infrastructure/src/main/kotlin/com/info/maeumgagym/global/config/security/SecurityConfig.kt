@@ -25,22 +25,22 @@ class SecurityConfig(
             .csrf().csrfTokenRepository(getCsrfTokenRepository()).and() // CSRF 설정
             .cors().and() // CORS 활성화
             //.requiresChannel().anyRequest().requiresSecure().and() // XSS Attack (HTTPS 요청 요구) local test시 주석 처리할 것
-
+//
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-
+//
             .exceptionHandling() // 인증 관련 예외에 관한 설정들
             .accessDeniedHandler(accessDeniedHandler) // 인증 실패시 발생하는 예외에 대한 커스텀 예외로의 핸들링
             .authenticationEntryPoint(authenticationEntryPoint)
             .and()
-
+//
             .apply(requestPermitConfig).and() // 매핑에 따른 인증이 필요한지에 대한 설정
             .authorizeRequests()
             .antMatchers("/swagger-ui/**", "/docs/**").permitAll().and()
-
+//
             .headers().frameOptions().sameOrigin()
             .and()
-
+//
             .apply(securityFilterChainConfig) // SecurityFilterChain에 대한 설정
             .and().build()
 
