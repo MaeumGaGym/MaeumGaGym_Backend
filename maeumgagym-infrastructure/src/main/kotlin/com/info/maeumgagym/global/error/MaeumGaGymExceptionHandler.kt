@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 import javax.validation.ConstraintViolationException
 
 @RestControllerAdvice
-class GlobalExceptionHandler {
+class MaeumGaGymExceptionHandler {
     @ExceptionHandler(MaeumGaGymException::class)
     fun handlingDefaultCustomException(e: MaeumGaGymException): ResponseEntity<ErrorResponse> =
         e.errorCode.run {
@@ -53,3 +53,8 @@ class GlobalExceptionHandler {
             HttpStatus.BAD_REQUEST
         )
 }
+
+data class ErrorResponse(
+    val status: Int,
+    val message: String?
+)

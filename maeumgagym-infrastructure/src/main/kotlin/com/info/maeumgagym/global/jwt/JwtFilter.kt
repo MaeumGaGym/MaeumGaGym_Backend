@@ -1,11 +1,13 @@
 package com.info.maeumgagym.global.jwt
 
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+@Component
 class JwtFilter(
     private val jwtResolver: JwtResolver,
     private val jwtAdapter: JwtAdapter
