@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Component
-class GlobalExceptionFilter(
+class MaeumGaGymExceptionFilter(
     private val objectMapper: ObjectMapper
 ) : OncePerRequestFilter() {
 
