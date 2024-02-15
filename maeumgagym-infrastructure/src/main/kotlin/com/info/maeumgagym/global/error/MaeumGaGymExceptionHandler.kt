@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.MissingServletRequestParameterException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import java.time.LocalDateTime
 import javax.validation.ConstraintViolationException
 
 @RestControllerAdvice
@@ -56,5 +57,6 @@ class MaeumGaGymExceptionHandler {
 
 data class ErrorResponse(
     val status: Int,
-    val message: String?
+    val message: String?,
+    val timestamp: LocalDateTime = LocalDateTime.now()
 )
