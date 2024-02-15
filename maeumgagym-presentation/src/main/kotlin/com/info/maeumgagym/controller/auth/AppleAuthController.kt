@@ -35,7 +35,7 @@ class AppleAuthController(
             ),
             Header(
                 name = "Set-Cookie",
-                schema = Schema(type = "string", example = "RF-TOKEN=...; Secure; HttpOnly; SameSite=Strict")
+                schema = Schema(type = "string", example = "RF-TOKEN=...; Secure; HttpOnly; SameSite=lax")
             )
         ]
     )
@@ -43,7 +43,7 @@ class AppleAuthController(
     fun login(@RequestParam("access_token") token: String): ResponseEntity<Any> =
         appleLoginUseCase.login(token).run {
             val responseHeaders = HttpHeaders().apply {
-                add(HttpHeaders.SET_COOKIE, "RF-TOKEN=$second; Secure; HttpOnly; SameSite=Strict")
+                add(HttpHeaders.SET_COOKIE, "RF-TOKEN=$second; Secure; HttpOnly; SameSite=lax")
                 setBearerAuth(first)
             }
 
