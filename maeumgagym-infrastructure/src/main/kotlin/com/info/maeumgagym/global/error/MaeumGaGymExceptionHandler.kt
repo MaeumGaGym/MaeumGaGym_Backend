@@ -53,3 +53,8 @@ class MaeumGaGymExceptionHandler {
             HttpStatus.BAD_REQUEST
         )
 }
+
+data class ErrorResponse(
+    val status: Int,
+    val message: String?
+)
