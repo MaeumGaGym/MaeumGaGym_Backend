@@ -24,7 +24,7 @@ class SecurityConfig(
             .formLogin().disable() // Html Form 로그인 비활성화
             .csrf().csrfTokenRepository(getCsrfTokenRepository()).and() // CSRF 설정
             .cors().and() // CORS 활성화
-            //.requiresChannel().anyRequest().requiresSecure().and() // XSS Attack (HTTPS 요청 요구) local test시 주석 처리할 것
+            .requiresChannel().anyRequest().requiresSecure().and() // XSS Attack (HTTPS 요청 요구) local test시 주석 처리할 것
 //
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
