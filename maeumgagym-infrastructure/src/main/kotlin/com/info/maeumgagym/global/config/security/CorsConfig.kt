@@ -8,9 +8,7 @@ import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
-class CorsConfig(
-    private val securityProperty: SecurityProperties
-) {
+class CorsConfig(private val securityProperty: SecurityProperties) {
 
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
