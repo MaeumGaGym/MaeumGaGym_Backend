@@ -13,7 +13,7 @@ object LocalDateConvertor {
         val month: Int
         val day: Int
 
-        string.split(".").run {
+        string.split("-/").run {
             year = get(0).toInt()
             month = get(1).toInt()
             day = get(2).toInt()
