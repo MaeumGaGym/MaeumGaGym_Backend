@@ -1,10 +1,12 @@
 package com.info.maeumgagym.global.config.filter
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.common.exception.ErrorCode
+import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.global.error.ErrorResponse
+import org.springframework.core.annotation.Order
 import org.springframework.http.MediaType
+import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException
 import java.nio.charset.StandardCharsets
@@ -12,7 +14,9 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class GlobalExceptionFilter(
+@Component
+@Order(0)
+class MaeumGaGymExceptionFilter(
     private val objectMapper: ObjectMapper
 ) : OncePerRequestFilter() {
 

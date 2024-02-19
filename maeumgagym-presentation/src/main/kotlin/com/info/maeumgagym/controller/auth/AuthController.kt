@@ -46,7 +46,7 @@ class AuthController(
     ): ResponseEntity<Any> =
         reissueUseCase.reissue(req.refreshToken!!).run {
             val responseHeaders = HttpHeaders().apply {
-                add(HttpHeaders.SET_COOKIE, "RF-TOKEN=$second; Secure; HttpOnly; SameSite=Strict")
+                add(HttpHeaders.SET_COOKIE, "RF-TOKEN=$second; Secure; HttpOnly; SameSite=lax")
                 setBearerAuth(first)
             }
 

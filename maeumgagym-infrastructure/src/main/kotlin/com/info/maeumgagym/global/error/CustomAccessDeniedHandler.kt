@@ -1,18 +1,21 @@
 package com.info.maeumgagym.global.error
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.info.maeumgagym.global.env.security.CSRFProperties
 import mu.KLogger
 import mu.KotlinLogging
 import org.springframework.core.log.LogMessage
 import org.springframework.http.HttpStatus
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.web.access.AccessDeniedHandler
+import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+@Component
 class CustomAccessDeniedHandler(
     private val objectMapper: ObjectMapper,
-    private val headerName: String
+    private val csrfProperties: CSRFProperties
 ) : AccessDeniedHandler {
 
     private var errorPage: String? = null
@@ -33,7 +36,7 @@ class CustomAccessDeniedHandler(
             //response.sendError(HttpStatus.FORBIDDEN.value(), "csrf token missing")
 
             val responseBody = objectMapper.writeValueAsString(
-                request.getHeader(headerName)?.run {
+                request.getHeader(csrfProperties.header)?.run {
                     ErrorResponse(
                         403,
                         "Invalid CSRF Token"
