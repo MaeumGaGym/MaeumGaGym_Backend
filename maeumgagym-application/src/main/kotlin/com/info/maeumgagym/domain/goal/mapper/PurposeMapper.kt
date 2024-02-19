@@ -1,17 +1,17 @@
 package com.info.maeumgagym.domain.goal.mapper
 
-import com.info.maeumgagym.domain.goal.entity.GoalJpaEntity
+import com.info.maeumgagym.domain.goal.entity.PurposeJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
-import com.info.maeumgagym.goal.model.Goal
+import com.info.maeumgagym.purpose.model.Purpose
 import org.springframework.stereotype.Component
 
 @Component
-internal class GoalMapper(
+internal class PurposeMapper(
     private val userMapper: UserMapper
 ) {
 
-    fun toEntity(domain: Goal): GoalJpaEntity = domain.run {
-        GoalJpaEntity(
+    fun toEntity(domain: Purpose): PurposeJpaEntity = domain.run {
+        PurposeJpaEntity(
             title = title,
             content = content,
             startDate = startDate,
@@ -21,8 +21,8 @@ internal class GoalMapper(
         )
     }
 
-    fun toDomain(entity: GoalJpaEntity): Goal = entity.run {
-        Goal(
+    fun toDomain(entity: PurposeJpaEntity): Purpose = entity.run {
+        Purpose(
             title = title,
             content = content,
             startDate = startDate,

@@ -1,11 +1,11 @@
 package com.info.maeumgagym.controller.goal.dto
 
 import com.info.maeumgagym.common.convertor.LocalDateConvertor
-import com.info.maeumgagym.goal.dto.request.CreateGoalRequest
+import com.info.maeumgagym.purpose.dto.request.CreatePurposeRequest
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
 
-data class CreateGoalWebRequest(
+data class CreatePurposeWebRequest(
 
     @field:NotBlank(message = "null일 수 없습니다.")
     val title: String,
@@ -21,7 +21,7 @@ data class CreateGoalWebRequest(
     @field:Pattern(regexp = "^[1-2][0-9]{3}-[0-1][0-9]-[0-3][0-9]$")
     val endDate: String
 ) {
-    fun toRequest(): CreateGoalRequest = CreateGoalRequest(
+    fun toRequest(): CreatePurposeRequest = CreatePurposeRequest(
         title = title,
         content = content,
         startDate = LocalDateConvertor.stringToLocalDate(startDate),

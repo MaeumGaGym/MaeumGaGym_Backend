@@ -35,5 +35,5 @@ object TableNames {
 
     const val REDIS_STEP_TABLE = "${TABLE_PREFIX}step"
 
-    const val GOAL_TABLE = "${TABLE_PREFIX}goal"
+    const val PURPOSE_TABLE = "${TABLE_PREFIX}purpose"
 }

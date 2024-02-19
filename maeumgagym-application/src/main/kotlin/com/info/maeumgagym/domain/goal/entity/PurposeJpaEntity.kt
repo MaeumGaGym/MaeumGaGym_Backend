@@ -6,8 +6,8 @@ import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import java.time.LocalDate
 import javax.persistence.*
 
-@Entity(name = TableNames.GOAL_TABLE)
-class GoalJpaEntity(
+@Entity(name = TableNames.PURPOSE_TABLE)
+class PurposeJpaEntity(
     title: String,
     content: String,
     startDate: LocalDate,

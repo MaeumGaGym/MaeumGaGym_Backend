@@ -1,9 +1,9 @@
-package com.info.maeumgagym.goal.model
+package com.info.maeumgagym.purpose.model
 
 import com.info.maeumgagym.user.model.User
 import java.time.LocalDate
 
-data class Goal(
+data class Purpose(
     val title: String,
     val content: String,
     val startDate: LocalDate,

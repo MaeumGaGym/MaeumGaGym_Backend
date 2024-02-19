@@ -1,8 +1,8 @@
-package com.info.maeumgagym.goal.dto.request
+package com.info.maeumgagym.purpose.dto.request
 
 import java.time.LocalDate
 
-data class CreateGoalRequest(
+data class CreatePurposeRequest(
     val title: String,
     val content: String,
     val startDate: LocalDate,

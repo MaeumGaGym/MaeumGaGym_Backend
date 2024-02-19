@@ -1,8 +1,8 @@
 package com.info.maeumgagym.controller.goal
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.controller.goal.dto.CreateGoalWebRequest
-import com.info.maeumgagym.goal.port.`in`.CreateGoalUseCase
+import com.info.maeumgagym.controller.goal.dto.CreatePurposeWebRequest
+import com.info.maeumgagym.purpose.port.`in`.CreatePurposeUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.validation.annotation.Validated
@@ -13,19 +13,19 @@ import javax.validation.Valid
 
 @Tag(name = "Goal APIs")
 @Validated
-@RequestMapping("/goal")
+@RequestMapping("/purposes")
 @WebAdapter
-class GoalController(
-    private val createGoalUseCase: CreateGoalUseCase
+class PurposeController(
+    private val createPurposeUseCase: CreatePurposeUseCase
 ) {
 
     @Operation(summary = "목표 생성 API")
     @PostMapping
-    fun goalCreate(
+    fun purposeCreate(
         @Valid
         @RequestBody
-        req: CreateGoalWebRequest
+        req: CreatePurposeWebRequest
     ) {
-        createGoalUseCase.createGoal(req.toRequest())
+        createPurposeUseCase.createPurpose(req.toRequest())
     }
 }
