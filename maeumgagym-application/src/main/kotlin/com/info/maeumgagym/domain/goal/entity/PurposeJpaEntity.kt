@@ -14,7 +14,7 @@ class PurposeJpaEntity(
     endDate: LocalDate,
     user: UserJpaEntity,
     id: Long? = null
-): BaseLongIdEntity(id) {
+) : BaseLongIdEntity(id) {
 
     @Column(name = "title", updatable = true, nullable = false)
     var title: String = title

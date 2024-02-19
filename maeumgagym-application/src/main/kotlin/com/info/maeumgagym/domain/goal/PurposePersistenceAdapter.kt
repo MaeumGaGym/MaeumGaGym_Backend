@@ -12,7 +12,6 @@ internal class PurposePersistenceAdapter(
     private val purposeMapper: PurposeMapper
 ) : SavePurposePort {
 
-
     override fun save(purpose: Purpose): Purpose =
         purposeMapper.toDomain(
             purposeRepository.save(purposeMapper.toEntity(purpose))
