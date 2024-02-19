@@ -24,11 +24,11 @@ class CreateGoalService(
         req.run {
             saveGoalPort.save(
                 Goal(
-                    user = user,
                     title = title,
                     content = content,
                     startDate = startDate,
-                    endDate = endDate
+                    endDate = endDate,
+                    user = user
                 )
             )
         }

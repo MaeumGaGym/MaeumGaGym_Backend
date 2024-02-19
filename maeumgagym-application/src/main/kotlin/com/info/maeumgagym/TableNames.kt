@@ -34,4 +34,6 @@ object TableNames {
     const val PICKLE_LIKE_INDEX = "${INDEX_PREFIX}pickle_like"
 
     const val REDIS_STEP_TABLE = "${TABLE_PREFIX}step"
+
+    const val GOAL_TABLE = "${TABLE_PREFIX}goal"
 }
