@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import javax.validation.Valid
 
-@Tag(name = "Goal APIs")
+@Tag(name = "Purpose APIs")
 @Validated
 @RequestMapping("/purposes")
 @WebAdapter
