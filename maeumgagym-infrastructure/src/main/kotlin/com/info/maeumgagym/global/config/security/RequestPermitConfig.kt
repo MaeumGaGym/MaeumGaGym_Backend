@@ -17,6 +17,7 @@ class RequestPermitConfig : SecurityConfigurerAdapter<DefaultSecurityFilterChain
             antMatchers(HttpMethod.POST, "/**/signup").permitAll()
             antMatchers(HttpMethod.GET, "/**/login").permitAll()
             antMatchers(HttpMethod.PUT, "/**/recovery").permitAll()
+            antMatchers(HttpMethod.GET, "/auth/nickname/*").permitAll()
             antMatchers(HttpMethod.GET, "/auth/re-issue").permitAll()
             antMatchers(HttpMethod.GET, "/public/csrf").permitAll()
             antMatchers(HttpMethod.GET, "/report").hasRole(Role.ADMIN.name)
