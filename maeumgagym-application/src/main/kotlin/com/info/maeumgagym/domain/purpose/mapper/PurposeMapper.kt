@@ -1,6 +1,6 @@
-package com.info.maeumgagym.domain.goal.mapper
+package com.info.maeumgagym.domain.purpose.mapper
 
-import com.info.maeumgagym.domain.goal.entity.PurposeJpaEntity
+import com.info.maeumgagym.domain.purpose.entity.PurposeJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.purpose.model.Purpose
 import org.springframework.stereotype.Component

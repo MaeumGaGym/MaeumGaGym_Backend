@@ -1,4 +1,4 @@
-package com.info.maeumgagym.controller.goal.dto
+package com.info.maeumgagym.controller.purpose.dto
 
 import com.info.maeumgagym.common.convertor.LocalDateConvertor
 import com.info.maeumgagym.purpose.dto.request.CreatePurposeRequest

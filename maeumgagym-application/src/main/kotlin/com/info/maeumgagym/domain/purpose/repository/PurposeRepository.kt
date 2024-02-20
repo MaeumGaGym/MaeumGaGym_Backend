@@ -1,6 +1,6 @@
-package com.info.maeumgagym.domain.goal.repository
+package com.info.maeumgagym.domain.purpose.repository
 
-import com.info.maeumgagym.domain.goal.entity.PurposeJpaEntity
+import com.info.maeumgagym.domain.purpose.entity.PurposeJpaEntity
 import org.springframework.data.repository.Repository
 
 @org.springframework.stereotype.Repository

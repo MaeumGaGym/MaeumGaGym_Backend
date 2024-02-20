@@ -9,7 +9,7 @@ import com.info.maeumgagym.purpose.port.`in`.CreatePurposeUseCase
 import com.info.maeumgagym.purpose.port.out.SavePurposePort
 
 @UseCase
-class CreatePurposeService(
+internal class CreatePurposeService(
     private val savePurposePort: SavePurposePort,
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : CreatePurposeUseCase {

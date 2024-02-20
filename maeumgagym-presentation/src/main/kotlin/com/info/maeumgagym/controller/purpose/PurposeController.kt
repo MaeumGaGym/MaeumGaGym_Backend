@@ -1,7 +1,7 @@
-package com.info.maeumgagym.controller.goal
+package com.info.maeumgagym.controller.purpose
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.controller.goal.dto.CreatePurposeWebRequest
+import com.info.maeumgagym.controller.purpose.dto.CreatePurposeWebRequest
 import com.info.maeumgagym.purpose.port.`in`.CreatePurposeUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag

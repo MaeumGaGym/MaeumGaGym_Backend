@@ -1,8 +1,8 @@
-package com.info.maeumgagym.domain.goal
+package com.info.maeumgagym.domain.purpose
 
 import com.info.common.PersistenceAdapter
-import com.info.maeumgagym.domain.goal.mapper.PurposeMapper
-import com.info.maeumgagym.domain.goal.repository.PurposeRepository
+import com.info.maeumgagym.domain.purpose.mapper.PurposeMapper
+import com.info.maeumgagym.domain.purpose.repository.PurposeRepository
 import com.info.maeumgagym.purpose.model.Purpose
 import com.info.maeumgagym.purpose.port.out.SavePurposePort
 

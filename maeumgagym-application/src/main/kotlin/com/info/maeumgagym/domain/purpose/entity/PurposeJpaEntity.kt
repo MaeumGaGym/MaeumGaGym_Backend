@@ -1,4 +1,4 @@
-package com.info.maeumgagym.domain.goal.entity
+package com.info.maeumgagym.domain.purpose.entity
 
 import com.info.maeumgagym.TableNames
 import com.info.maeumgagym.domain.base.BaseLongIdEntity
