@@ -22,9 +22,9 @@ data class UpdatePurposeWebRequest(
     val endDate: String
 ) {
     fun toRequest(): UpdatePurposeRequest = UpdatePurposeRequest(
-            title = title,
-            content = content,
-            startDate = LocalDateConvertor.stringToLocalDate(startDate),
-            endDate = LocalDateConvertor.stringToLocalDate(endDate)
-        )
+        title = title,
+        content = content,
+        startDate = LocalDateConvertor.stringToLocalDate(startDate),
+        endDate = LocalDateConvertor.stringToLocalDate(endDate)
+    )
 }
