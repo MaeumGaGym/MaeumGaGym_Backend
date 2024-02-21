@@ -7,4 +7,6 @@ import org.springframework.data.repository.Repository
 interface PurposeRepository : Repository<PurposeJpaEntity, Long?> {
 
     fun save(purposeJpaEntity: PurposeJpaEntity): PurposeJpaEntity
+
+    fun findById(id: Long): PurposeJpaEntity?
 }

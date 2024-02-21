@@ -40,7 +40,8 @@ internal class UpdatePurposeService(
                     content = content,
                     startDate = startDate,
                     endDate = endDate,
-                    user = user
+                    user = purpose.user,
+                    id = purpose.id
                 )
             )
         }
