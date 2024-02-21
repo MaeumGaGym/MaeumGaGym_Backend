@@ -34,6 +34,7 @@ enum class ErrorCode(
     PICKLE_COMMENT_NOT_FOUND(404, "Pickle Comment Not Found"),
     PICKLE_REPLY_NOT_FOUND(404, "Pickle Reply Not Found"),
     STEP_NOT_FOUND(404, "Step Not Found"),
+    PURPOSE_NOT_FOUND(404, "Purpose Not Found"),
 
     // Bad Request
     FILE_TYPE_MISMATCHED(400, "File Type Mismatched"),
