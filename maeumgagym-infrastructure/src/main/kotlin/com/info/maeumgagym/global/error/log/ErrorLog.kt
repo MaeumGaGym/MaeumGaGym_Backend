@@ -17,11 +17,11 @@ data class ErrorLog(
  * [ErrorLog]가 어디에서 발생했는지에 대한 enum
  *
  *
- * - [ErrorLogLayer.DOMAIN] : 비즈니스 로직에서 발생. 특히, [DomainException]
+ * - [ErrorLogLayer.DOMAIN] : 비즈니스 로직에서 발생. 특히, [BusinessLogicException], [SecurityException]
  *
  * - [ErrorLogLayer.PRESENTATION] : Presentation 계층에서 Validation 실패로 인해 발생. 특히, [PresentationValidationException]
  *
- * - [ErrorLogLayer.FILTER] : Filter 실행 중 발생. 특히, [SecurityException], [FilterException]
+ * - [ErrorLogLayer.FILTER] : Filter 실행 중 발생. 특히, [AuthenticationException], [FilterException]
  *
  * - [ErrorLogLayer.INTERCEPTOR] : Interceptor 실행 중 발생. 특히, [InterceptorException]
  *
@@ -56,15 +56,17 @@ enum class ErrorLogLayer(
             }
 
         /**
-         * exception을 기준으로 판별
+         * [Exception]을 기준으로 [ErrorLogLayer]를 판별
          *
-         * @author Daybreak312
-         * [MaeumGaGymException] 내부 필드에 layer를 작성하기 보단,
+         * > Daybreak312 - [MaeumGaGymException]에 Layer를 명시하지 않은 이유 -
+         * > [MaeumGaGymException]의 하위 타입으로 이미 예외의 종류를 이용한 여러 명시는 충분하다 생각했으며, [MaeumGaGymException]에서 [ErrorLog]와의 논리적 결합도를 형성할 필요가 없으며, 이를 저장하기 위한 [ErrorLogLayer]의 명시를 추가적으로 가질 이유 또한 없다고 판단했기에 이와 관련한 필드를 선언하지 않았습니다. 대신, 관련한 책임을 모두 [ErrorLog]와 관련한 필터, 클래스 등으로 이전해 [ErrorLogLayer]의 내장 함수로 예외에 따라 [ErrorLogLayer]를 결정할 수 있도록 했습니다. 다만, 일부 예외에 대하여 [ErrorLogLayer]가 정확히 기록되지 않을 수도 있습니다. [ErrorLog.layer]는 단순히 [ErrorLog]를 읽는 개발자를 위한 참고용이며, [ErrorLog.log]에 집중해주세요.
+         *
+         * @param e 기준삼을 [Exception]
          */
-        fun of(maeumGaGymException: MaeumGaGymException): ErrorLogLayer =
-            when (maeumGaGymException) {
-                is DomainException -> ErrorLogLayer.DOMAIN
-                is FilterException, is SecurityException -> ErrorLogLayer.FILTER
+        fun of(e: Exception): ErrorLogLayer =
+            when (e) {
+                is BusinessLogicException, is SecurityException -> ErrorLogLayer.DOMAIN
+                is FilterException, is AuthenticationException -> ErrorLogLayer.FILTER
                 is InterceptorException -> ErrorLogLayer.INTERCEPTOR
                 is PresentationValidationException -> ErrorLogLayer.PRESENTATION
                 is CriticalException -> ErrorLogLayer.UNKNOWN

@@ -8,10 +8,9 @@ import com.info.maeumgagym.common.enum.DomainNames
  *
  * 이 타입으로 예외를 발생시키기보단, 하위 클래스 사용을 권고
  *
- * | Daybreak312
+ * | Daybreak312 - Exception을 이와 같이 개선한 이유 -
  *
  * 이전의 Exception 사용 방식은 다음과 같았습니다;
- *
  * 1. 한 최상위 abstract class(MaeumGaGymException)와,
  * 2. 하위 object class,
  * 3. 그 object class의 본질인 Status Code와 Message가 담긴 enum 클래스.
@@ -43,9 +42,10 @@ import com.info.maeumgagym.common.enum.DomainNames
  * @param status Http 표준 상태 코드
  * @param message 해당 예외 발생의 설명
  *
- * @see DomainException
+ * @see BusinessLogicException
  * @see FilterException
  * @see InterceptorException
+ * @see AuthenticationException
  * @see SecurityException
  * @see CriticalException
  */
@@ -57,116 +57,117 @@ open class MaeumGaGymException(
     companion object {
 
         // Feign
-        val FEIGN_BAD_REQUEST = DomainException(400, "Feign Bad Request")
-        val FEIGN_UNAUTHORIZED = DomainException(401, "Feign UnAuthorized")
-        val FEIGN_FORBIDDEN = DomainException(403, "Feign Forbidden")
-        val FEIGN_SERVER_ERROR = DomainException(500, "Feign Server Error")
+        val FEIGN_BAD_REQUEST = BusinessLogicException(400, "Feign Bad Request")
+        val FEIGN_UNAUTHORIZED = BusinessLogicException(401, "Feign UnAuthorized")
+        val FEIGN_FORBIDDEN = BusinessLogicException(403, "Feign Forbidden")
+        val FEIGN_SERVER_ERROR = BusinessLogicException(500, "Feign Server Error")
 
         // No Content
-        val THERE_NO_PICKLES = DomainException(204, "업로드된 피클이 존재하지 않습니다.")
+        val THERE_NO_PICKLES = BusinessLogicException(204, "업로드된 피클이 존재하지 않습니다.")
 
         // Internal Server Error
         val INTERNAL_SERVER_ERROR = MaeumGaGymException(500, "Internal Server Error")
         val ROLE_CONVERTER_ERROR = CriticalException(500, "Role Converter Error")
 
         // UnAuthorized
-        val INVALID_TOKEN = SecurityException(401, "Invalid Token")
-        val EXPIRED_TOKEN = SecurityException(401, "Expired Token")
-        val UNAUTHORIZED = SecurityException(401, "Un Authorized")
+        val INVALID_TOKEN = AuthenticationException(401, "Invalid Token")
+        val EXPIRED_TOKEN = AuthenticationException(401, "Expired Token")
+        val UNAUTHORIZED = AuthenticationException(401, "Un Authorized")
 
         // Forbidden
-        val PERMISSION_DENIED = DomainException(403, "Permission Denied")
-        val VIDEO_AND_UPLOADER_MISMATCHED = DomainException(403, "Video And Uploader Mismatched")
+        val PERMISSION_DENIED = BusinessLogicException(403, "Permission Denied")
+        val VIDEO_AND_UPLOADER_MISMATCHED = BusinessLogicException(403, "Video And Uploader Mismatched")
 
         // Not Found
-        val USER_NOT_FOUND = DomainException(404, "User Not Found")
-        val POSE_NOT_FOUND = DomainException(404, "Pose Not Found")
-        val ROUTINE_NOT_FOUND = DomainException(404, "Routine Not Found")
-        val PICKLE_NOT_FOUND = DomainException(404, "Pickle Not Found")
-        val PICKLE_COMMENT_NOT_FOUND = DomainException(404, "Pickle Comment Not Found")
-        val PICKLE_REPLY_NOT_FOUND = DomainException(404, "Pickle Reply Not Found")
-        val STEP_NOT_FOUND = DomainException(404, "Step Not Found")
+        val USER_NOT_FOUND = BusinessLogicException(404, "User Not Found")
+        val POSE_NOT_FOUND = BusinessLogicException(404, "Pose Not Found")
+        val ROUTINE_NOT_FOUND = BusinessLogicException(404, "Routine Not Found")
+        val PICKLE_NOT_FOUND = BusinessLogicException(404, "Pickle Not Found")
+        val PICKLE_COMMENT_NOT_FOUND = BusinessLogicException(404, "Pickle Comment Not Found")
+        val PICKLE_REPLY_NOT_FOUND = BusinessLogicException(404, "Pickle Reply Not Found")
+        val STEP_NOT_FOUND = BusinessLogicException(404, "Step Not Found")
 
         // Bad Request
-        val FILE_TYPE_MISMATCHED = DomainException(400, "File Type Mismatched")
-        val EXERCISE_LIST_CANNOT_EMPTY = DomainException(400, "Exercise list cannot empty")
-        val PICKLE_MISMATCHED = DomainException(400, "Pickle Mismatched")
-        val WAKA_STARTED_NOT_YET = DomainException(400, "Wakatime Started Not Yet")
-        val CANNNOT_REPORT_ONESELF = DomainException(400, "Cannot Report Oneself")
-        val NOT_UPLOADED_TO_VIDEO_SERVER = DomainException(400, "Does Not Uploaded In Video Server")
-        val TAG_TOO_LONG = DomainException(400, "Tag Too Long, Tag Cannot Longer than 10")
-        val START_DATE_CANNOT_AFTER_THAN_END_TIME = DomainException(400, "Start Date Cannot After than End Time.")
+        val FILE_TYPE_MISMATCHED = BusinessLogicException(400, "File Type Mismatched")
+        val EXERCISE_LIST_CANNOT_EMPTY = BusinessLogicException(400, "Exercise list cannot empty")
+        val PICKLE_MISMATCHED = BusinessLogicException(400, "Pickle Mismatched")
+        val WAKA_STARTED_NOT_YET = BusinessLogicException(400, "Wakatime Started Not Yet")
+        val CANNNOT_REPORT_ONESELF = BusinessLogicException(400, "Cannot Report Oneself")
+        val NOT_UPLOADED_TO_VIDEO_SERVER = BusinessLogicException(400, "Does Not Uploaded In Video Server")
+        val TAG_TOO_LONG = BusinessLogicException(400, "Tag Too Long, Tag Cannot Longer than 10")
+        val START_DATE_CANNOT_AFTER_THAN_END_TIME = BusinessLogicException(400, "Start Date Cannot After than End Time.")
 
         // Conflict
-        val DUPLICATED_NICKNAME = DomainException(409, "Duplicated Nickname")
-        val ALREADY_EXIST_USER = DomainException(409, "Already Exists User")
-        val ALREADY_EXIST_PICKLE = DomainException(409, "Already Exists Pickle")
-        val ALREADY_EXIST_STEP = DomainException(409, "Alreay Exists Step")
-        val ALREADY_STARTED_WAKA = DomainException(409, "Already Started Wakatime")
+        val DUPLICATED_NICKNAME = BusinessLogicException(409, "Duplicated Nickname")
+        val ALREADY_EXIST_USER = BusinessLogicException(409, "Already Exists User")
+        val ALREADY_EXIST_PICKLE = BusinessLogicException(409, "Already Exists Pickle")
+        val ALREADY_EXIST_STEP = BusinessLogicException(409, "Alreay Exists Step")
+        val ALREADY_STARTED_WAKA = BusinessLogicException(409, "Already Started Wakatime")
         val OTHER_ROUTINE_ALREADY_USING_AT_DAY_OF_WEEK =
-            DomainException(409, "Other Routine Already Using At Day of week")
+            BusinessLogicException(409, "Other Routine Already Using At Day of week")
     }
 }
 
 /**
- * 도메인 로직 실행 중에 발생한 예외를 위한 클래스
+ * 비즈니스 로직 실행 중에 발생한 예외를 위한 클래스
  *
  * @see MaeumGaGymException
  * @see UseCase
  */
-class DomainException(
+class BusinessLogicException(
     status: Int,
     message: String
 ) : MaeumGaGymException(status, message) {
 
     /**
      * [message] 표준화를 위해 도메인 이름과 Http 상태 코드 메세지를 이용해 [message]를 작성하는 생성자
+     *
+     *
      * Sample: "찾을 수 없는 피클" 예외 발생 상황
      *
-     * Pickle([domainName]) + Not Found([ErrorCodeSuffix]) -> Pickle Not Found([message])
+     * | Pickle([domainName]) + Not Found([ErrorCodePrefixSuffix]) -> Pickle Not Found([message])
      *
+     * Sample: "이미 존재하는 유저" 예외 발생 상황
      *
-     * @param status 기본 생성자의 [status]
+     * | Already Exists([ErrorCodePrefixSuffix]) + User([DomainNames]) -> Already Exists User([message])
+     *
+     * @param errorCodePrefixSuffix 기본 생성자의 [status]와 [status]를 결정
      * @param domainName 도메인 이름; [status]를 기준으로 [domainName] + Http Status Message를 합쳐 기본 생성자의 [message]로 삽입
      *
      *
-     * @see ErrorCodeSuffix
+     * @see ErrorCodePrefixSuffix
      */
-    constructor(status: Int, domainName: DomainNames) :
+    constructor(errorCodePrefixSuffix: ErrorCodePrefixSuffix, domainName: DomainNames) :
         this(
-            status = status,
-            message = domainName.value + (getErrorCodeSuffixWithStatus(status)?.message
-                ?: throw MaeumGaGymException.INTERNAL_SERVER_ERROR as CriticalException)
+            status = errorCodePrefixSuffix.status,
+            message = if (errorCodePrefixSuffix.isPrefix) errorCodePrefixSuffix.message + domainName.value
+            else domainName.value + errorCodePrefixSuffix.message
         )
 }
 
 /**
- * 예외 발생 시에 [message] 표준화를 위해 사용하는 에러 코드 접미사
+ * [BusinessLogicException] 발생 시에 [message] 표준화를 위해 사용하는 에러 코드 접두사/접미사
  *
  * Sample: "찾을 수 없는 피클" 예외 발생 상황
  *
- * [DomainException]
- * (400,
+ * | [BusinessLogicException]
+ * ([ErrorCodePrefixSuffix.NOT_FOUND],
  * [DomainNames.PICKLE])
  *
- * @see DomainException
+ * @see BusinessLogicException
  */
-enum class ErrorCodeSuffix(
+enum class ErrorCodePrefixSuffix(
     val status: Int,
-    val message: String
+    val message: String,
+    val isPrefix: Boolean
 ) {
-    NOT_FOUND(400, " Not Found")
-}
-
-private fun getErrorCodeSuffixWithStatus(status: Int): ErrorCodeSuffix? {
-    ErrorCodeSuffix.values().forEach {
-        if (it.status == status) return it
-    }
-    return null
+    NOT_FOUND(404, " Not Found", false),
+    PERMISSION_DENIED(403, " Permission Denied", false),
+    ALREADY_EXISTS(409, "Already Exists ", true)
 }
 
 /**
- * 필터 실행 중에 발생한 예외
+ * 필터, 정확히는 커스텀 필터 실행 중에 발생한 예외
  *
  * @see MaeumGaGymException
  */
@@ -176,7 +177,7 @@ class FilterException(
 ) : MaeumGaGymException(status, message)
 
 /**
- * 인터셉터 실행 중에 발생한 예외
+ * 인터셉터, 정확히는 커스텀 인터셉터 실행 중에 발생한 예외
  *
  * @see MaeumGaGymException
  */
@@ -186,7 +187,7 @@ class InterceptorException(
 ) : MaeumGaGymException(status, message)
 
 /**
- * 컨트롤러에서 유효성 검증 과정에서 발생한 예외
+ * 컨트롤러에서의 유효성 검증 과정 중 발생한 예외
  *
  * [ErrorLogResponseFilter]에서 Validation 실패시 발생하는 예외들을 이 예외로 변환 후 처리
  *
@@ -200,6 +201,16 @@ class PresentationValidationException(
 
 /**
  * SecurityFilterChain 실행 중에 발생한 예외
+ *
+ * @see MaeumGaGymException
+ */
+class AuthenticationException(
+    status: Int,
+    message: String
+) : MaeumGaGymException(status, message)
+
+/**
+ * 비즈니스 로직 실행 중에 권한 부족 등으로 인해 발생한 예외
  *
  * @see MaeumGaGymException
  */

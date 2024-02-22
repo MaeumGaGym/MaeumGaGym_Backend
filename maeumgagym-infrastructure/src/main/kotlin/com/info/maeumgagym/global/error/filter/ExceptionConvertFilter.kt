@@ -2,7 +2,7 @@ package com.info.maeumgagym.global.error.filter
 
 import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.common.exception.PresentationValidationException
-import com.info.maeumgagym.global.error.ErrorResponse
+import com.info.maeumgagym.global.error.filter.ErrorLogResponseFilter.ErrorResponse
 import com.info.maeumgagym.global.error.log.ErrorLog
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component

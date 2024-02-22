@@ -95,10 +95,10 @@ class ErrorLogResponseFilter(
      * 일반적인 예외에 대한 [ErrorResponse]를 작성
      *
      * 해당하는 예외들
-     * - [DomainException]
+     * - [BusinessLogicException]
      * - [FilterException]
      * - [InterceptorException]
-     * - [SecurityException]
+     * - [AuthenticationException]
      * - [CriticalException]
      * - 그 외 [PresentationValidationException]을 제외한 나머지 [Exception]
      */
