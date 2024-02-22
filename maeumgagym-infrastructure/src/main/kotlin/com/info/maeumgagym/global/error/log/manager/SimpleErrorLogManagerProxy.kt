@@ -15,17 +15,17 @@ class SimpleErrorLogManagerProxy(
 ) : ErrorLogManager {
 
     override fun save(errorLog: ErrorLog) {
-        simpleErrorLogManager.save(errorLog)
         errorLogRepository.save(errorLog.run {
             ErrorLogJpaEntity(
                 status = status,
                 message = message,
                 log = log,
-                layer = layer.name,
+                layer = layer.value,
                 timestamp = timestamp,
                 id = id
             )
         })
+        simpleErrorLogManager.save(errorLog)
     }
 
     override fun get(id: String): ErrorLog? =
