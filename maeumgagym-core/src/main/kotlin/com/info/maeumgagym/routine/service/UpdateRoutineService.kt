@@ -1,11 +1,10 @@
 package com.info.maeumgagym.routine.service
 
 import com.info.common.UseCase
-import com.info.maeumgagym.auth.exception.PermissionDeniedException
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
+import com.info.maeumgagym.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.routine.dto.request.UpdateRoutineRequest
-import com.info.maeumgagym.routine.exception.OtherRoutineAlreadyUsingAtDayOfWeekException
-import com.info.maeumgagym.routine.exception.RoutineNotFoundException
 import com.info.maeumgagym.routine.model.Routine
 import com.info.maeumgagym.routine.model.RoutineStatusModel
 import com.info.maeumgagym.routine.port.`in`.UpdateRoutineUseCase
@@ -23,14 +22,15 @@ internal class UpdateRoutineService(
         val user = readCurrentUserPort.readCurrentUser()
 
         // (routine.id = routineId)인 루틴 찾기, 없다면 -> 예외처리
-        val routine = readRoutinePort.readById(routineId) ?: throw RoutineNotFoundException
+        val routine = readRoutinePort.readById(routineId) ?: throw BusinessLogicException.ROUTINE_NOT_FOUND
+
 
         // 루틴을 만든 이가 토큰의 유저가 맞는지 검증, 아닐시 -> 예외처리
-        if (user.id != routine.userId) throw PermissionDeniedException
+        if (user.id != routine.userId) throw SecurityException.PERMISSION_DENIED
 
         req.dayOfWeeks?.forEach {
             if (readRoutinePort.readByUserIdAndDayOfWeekAndIsArchivedFalse(user.id!!, it) != null) {
-                throw OtherRoutineAlreadyUsingAtDayOfWeekException
+                throw BusinessLogicException.OTHER_ROUTINE_ALREADY_USING_AT_DAY_OF_WEEK
             }
         }
 

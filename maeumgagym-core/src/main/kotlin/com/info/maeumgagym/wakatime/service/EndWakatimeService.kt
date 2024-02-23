@@ -2,9 +2,9 @@ package com.info.maeumgagym.wakatime.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.SaveUserPort
-import com.info.maeumgagym.wakatime.exception.WakaStartedNotYetException
 import com.info.maeumgagym.wakatime.model.WakaTime
 import com.info.maeumgagym.wakatime.port.`in`.EndWakatimeUseCase
 import com.info.maeumgagym.wakatime.port.out.ReadWakaTimePort
@@ -25,7 +25,7 @@ internal class EndWakatimeService(
         val user = readCurrentUserPort.readCurrentUser()
 
         // 와카타임 시작 시간 불러오기
-        val wakaStarted = user.wakaStartedAt ?: throw WakaStartedNotYetException
+        val wakaStarted = user.wakaStartedAt ?: throw BusinessLogicException(400, "Waka Time Not Started Yet.")
 
         val now = LocalDateTime.now()
 

@@ -1,11 +1,10 @@
 package com.info.maeumgagym.purpose.service
 
 import com.info.common.UseCase
-import com.info.maeumgagym.auth.exception.PermissionDeniedException
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
+import com.info.maeumgagym.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.purpose.dto.request.UpdatePurposeRequest
-import com.info.maeumgagym.purpose.exception.PurposeNotFoundException
-import com.info.maeumgagym.purpose.exception.StartDateCannotAfterThanEndDateException
 import com.info.maeumgagym.purpose.model.Purpose
 import com.info.maeumgagym.purpose.port.`in`.UpdatePurposeUseCase
 import com.info.maeumgagym.purpose.port.out.ReadPurposePort
@@ -21,14 +20,14 @@ internal class UpdatePurposeService(
     override fun updatePurpose(id: Long, req: UpdatePurposeRequest) {
         val user = readCurrentUserPort.readCurrentUser()
 
-        val purpose = readPurposePort.readById(id) ?: throw PurposeNotFoundException
+        val purpose = readPurposePort.readById(id) ?: throw BusinessLogicException.PURPOSE_NOT_FOUND
 
         if (purpose.user.id!! != user.id!!) {
-            throw PermissionDeniedException
+            throw SecurityException.PERMISSION_DENIED
         }
 
         if (req.startDate.isAfter(req.endDate)) {
-            throw StartDateCannotAfterThanEndDateException
+            throw BusinessLogicException.START_DATE_MUST_BE_BEFORE_THAN_END_DATE
         }
 
         req.run {

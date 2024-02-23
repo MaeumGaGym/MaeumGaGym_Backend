@@ -1,8 +1,13 @@
 package com.info.maeumgagym.common.convertor
 
-import java.time.DateTimeException
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import java.time.LocalDate
 
+/**
+ * [LocalDate]와 [String]간의 변환을 위한 object
+ *
+ * @throws BusinessLogicException [String]을 [LocalDate]로 변환하는 과정에서 발생하는 오류는 모두 400 Bad Request의 상태 코드를 갖습니다.
+ */
 object LocalDateConvertor {
 
     fun localDateToString(localDate: LocalDate): String =
@@ -51,14 +56,16 @@ object LocalDateConvertor {
     }
 
     private fun throwYearRangeException(): Nothing {
-        throw DateTimeException("The Range of Year MUST BE BETWEEN 1000 and 2000")
+        throw BusinessLogicException(400, "The Range of Year MUST BE BETWEEN 1000 and 2000")
     }
 
     private fun throwMonthRangeException(): Nothing {
-        throw DateTimeException("The Range of Month MUST BE BETWEEN 1 and 12")
+        throw BusinessLogicException(400, "The Range of Month MUST BE BETWEEN 1 and 12")
     }
 
     private fun throwDayRangeException(max: Int): Nothing {
-        throw DateTimeException("The Range of Month MUST BE BETWEEN 1 and $max")
+        throw BusinessLogicException(400, "The Range of Month MUST BE BETWEEN 1 and $max")
     }
+
+
 }

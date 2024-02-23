@@ -154,8 +154,8 @@ class BusinessLogicException(
         val CANNNOT_REPORT_ONESELF = BusinessLogicException(400, "Cannot Report Oneself")
         val NOT_UPLOADED_TO_VIDEO_SERVER = BusinessLogicException(400, "Does Not Uploaded In Video Server")
         val TAG_TOO_LONG = BusinessLogicException(400, "Tag Too Long, Tag Cannot Longer than 10")
-        val START_DATE_CANNOT_AFTER_THAN_END_TIME =
-            BusinessLogicException(400, "Start Date Cannot After than End Time.")
+        val START_DATE_MUST_BE_BEFORE_THAN_END_DATE =
+            BusinessLogicException(400, "Start date Must Be Before Than End Date")
 
         // Not Found
         val USER_NOT_FOUND = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.USER)
@@ -167,6 +167,7 @@ class BusinessLogicException(
         val PICKLE_REPLY_NOT_FOUND =
             BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PICKLE_REPLY)
         val STEP_NOT_FOUND = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.STEP)
+        val PURPOSE_NOT_FOUND = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PURPOSE)
 
         // Conflict
         val DUPLICATED_NICKNAME = BusinessLogicException(409, "Duplicated Nickname")
@@ -174,8 +175,6 @@ class BusinessLogicException(
             BusinessLogicException(ErrorCodePrefixSuffix.ALREADY_EXISTS_XXX, DomainNames.USER)
         val ALREADY_EXIST_PICKLE =
             BusinessLogicException(ErrorCodePrefixSuffix.ALREADY_EXISTS_XXX, DomainNames.PICKLE)
-        val ALREADY_EXIST_STEP =
-            BusinessLogicException(ErrorCodePrefixSuffix.ALREADY_EXISTS_XXX, DomainNames.STEP)
         val ALREADY_STARTED_WAKA = BusinessLogicException(409, "Already Started Waka Time")
         val OTHER_ROUTINE_ALREADY_USING_AT_DAY_OF_WEEK =
             BusinessLogicException(409, "Other Routine Already Using At Day of week")

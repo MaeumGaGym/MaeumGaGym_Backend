@@ -3,7 +3,7 @@ package com.info.maeumgagym.global.jwt
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.auth.port.out.AppleJwtParsePort
-import com.info.maeumgagym.global.exception.InvalidTokenException
+import com.info.maeumgagym.common.exception.AuthenticationException
 import org.springframework.stereotype.Component
 import org.springframework.util.Base64Utils
 
@@ -26,8 +26,8 @@ class AppleJwtParser(private val objectMapper: ObjectMapper) : AppleJwtParsePort
         // json데이터를 Map<String?, String?>형태로 cast
         objectMapper.readValue(decodedHeader, MutableMap::class.java) as MutableMap<String?, String?>
     } catch (e: JsonProcessingException) { // json형식의 데이터가 아닐 때
-        throw InvalidTokenException
-    } catch (e: ArrayIndexOutOfBoundsException) { // Index가 size를 벋어 났을 때
-        throw InvalidTokenException
+        throw AuthenticationException.INVALID_TOKEN
+    } catch (e: ArrayIndexOutOfBoundsException) { // Index가 size를 벗어났을 때
+        throw AuthenticationException.INVALID_TOKEN
     }
 }

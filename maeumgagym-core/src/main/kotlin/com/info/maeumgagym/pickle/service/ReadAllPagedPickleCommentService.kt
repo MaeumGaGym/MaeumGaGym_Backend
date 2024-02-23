@@ -1,8 +1,8 @@
 package com.info.maeumgagym.pickle.service
 
 import com.info.common.ReadOnlyUseCase
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.pickle.dto.response.PickleCommentListResponse
-import com.info.maeumgagym.pickle.exception.PickleNotFoundException
 import com.info.maeumgagym.pickle.port.`in`.ReadAllPagedPickleCommentUseCase
 import com.info.maeumgagym.pickle.port.out.ExistsPicklePort
 import com.info.maeumgagym.pickle.port.out.ReadPickleCommentsPort
@@ -14,7 +14,7 @@ internal class ReadAllPagedPickleCommentService(
 ) : ReadAllPagedPickleCommentUseCase {
     override fun readAllPagedPickleCommentByVideoId(videoId: String, page: Int, size: Int): PickleCommentListResponse {
         if (!existsPicklePort.existsById(videoId)) {
-            throw PickleNotFoundException
+            throw BusinessLogicException.PICKLE_NOT_FOUND
         }
 
         val comments = readPickleCommentsPort.readAllPagedFromViedoIdAndIndexAndSize(videoId, page, size)

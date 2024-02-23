@@ -2,7 +2,9 @@ package com.info.maeumgagym.step.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.step.exception.AlreadyExistStepException
+import com.info.maeumgagym.common.enum.DomainNames
+import com.info.maeumgagym.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.ErrorCodePrefixSuffix
 import com.info.maeumgagym.step.model.Step
 import com.info.maeumgagym.step.port.`in`.CreateStepUseCase
 import com.info.maeumgagym.step.port.out.ReadStepPort
@@ -19,7 +21,7 @@ internal class CreateStepService(
     override fun createStep() {
         val user = readCurrentUserPort.readCurrentUser()
         if (readStepPort.readByUserOauthId(user.oauthId) != null) {
-            throw AlreadyExistStepException
+            throw BusinessLogicException(409, "Today Already Started Step Counting")
         }
 
         saveStepPort.save(

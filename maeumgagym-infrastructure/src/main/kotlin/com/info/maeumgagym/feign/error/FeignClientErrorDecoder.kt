@@ -1,5 +1,6 @@
 package com.info.maeumgagym.feign.error
 
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.feign.exception.FeignBadRequestException
 import com.info.maeumgagym.feign.exception.FeignDefaultException
 import com.info.maeumgagym.feign.exception.FeignForbbidenException
@@ -21,7 +22,7 @@ class FeignClientErrorDecoder : ErrorDecoder {
 
         if (response.status() >= 400) {
             when (response.status()) {
-                400 -> throw FeignBadRequestException
+                400 -> throw BusinessLogicException.(400, "")
                 401 -> throw FeignUnAuthorizationException
                 403 -> throw FeignForbbidenException
                 419 -> throw ExpiredTokenException

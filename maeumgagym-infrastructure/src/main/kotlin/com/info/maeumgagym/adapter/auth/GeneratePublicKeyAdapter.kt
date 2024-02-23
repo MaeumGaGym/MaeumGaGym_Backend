@@ -3,6 +3,7 @@ package com.info.maeumgagym.adapter.auth
 import com.info.maeumgagym.auth.dto.response.ApplePublicKeyResponse
 import com.info.maeumgagym.auth.dto.response.ApplePublicKeysResponse
 import com.info.maeumgagym.auth.port.out.GeneratePublicKeyPort
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.global.exception.InvalidTokenException
 import org.springframework.stereotype.Component
 import java.security.KeyFactory
@@ -31,9 +32,9 @@ internal class GeneratePublicKeyAdapter : GeneratePublicKeyPort {
         return try {
             KeyFactory.getInstance(publicKey.kty).generatePublic(publicKey.publicKeySpec()) // 공개키 발급
         } catch (e: NoSuchAlgorithmException) {
-            throw IllegalStateException("Apple OAuth 로그인 중 public key 생성에 문제가 발생했습니다.")
+            throw BusinessLogicException(500, "Apple OAuth 로그인 중 public key 생성에 문제가 발생했습니다.")
         } catch (e: InvalidKeySpecException) {
-            throw IllegalStateException("Apple OAuth 로그인 중 public key 생성에 문제가 발생했습니다.")
+            throw BusinessLogicException(500, "Apple OAuth 로그인 중 public key 생성에 문제가 발생했습니다.")
         }
     }
 }

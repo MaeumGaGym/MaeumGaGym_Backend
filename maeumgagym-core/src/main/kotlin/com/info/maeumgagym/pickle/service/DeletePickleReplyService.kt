@@ -1,9 +1,9 @@
 package com.info.maeumgagym.pickle.service
 
 import com.info.common.UseCase
-import com.info.maeumgagym.auth.exception.PermissionDeniedException
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.pickle.exception.PickleReplyNotFoundException
+import com.info.maeumgagym.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.pickle.port.`in`.DeletePickleReplyUseCase
 import com.info.maeumgagym.pickle.port.out.DeletePickleReplyPort
 import com.info.maeumgagym.pickle.port.out.ReadPickleReplyPort
@@ -16,10 +16,11 @@ internal class DeletePickleReplyService(
 ) : DeletePickleReplyUseCase {
     override fun deleteFromId(pickleReplyId: Long) {
         val user = readCurrentUserPort.readCurrentUser()
-        val pickleReply = readPickleReplyPort.readById(pickleReplyId) ?: throw PickleReplyNotFoundException
+        val pickleReply = readPickleReplyPort.readById(pickleReplyId)
+            ?: throw BusinessLogicException.PICKLE_REPLY_NOT_FOUND
 
         if (user.oauthId != pickleReply.writer.oauthId) {
-            throw PermissionDeniedException
+            SecurityException.PERMISSION_DENIED
         }
 
         pickleReplyPort.delete(pickleReply)

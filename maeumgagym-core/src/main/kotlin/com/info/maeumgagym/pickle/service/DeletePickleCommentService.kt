@@ -1,9 +1,9 @@
 package com.info.maeumgagym.pickle.service
 
 import com.info.common.UseCase
-import com.info.maeumgagym.auth.exception.PermissionDeniedException
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.pickle.exception.PickleCommentNotFoundException
+import com.info.maeumgagym.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.pickle.port.`in`.DeletePickleCommentUseCase
 import com.info.maeumgagym.pickle.port.out.DeletePickleCommentPort
 import com.info.maeumgagym.pickle.port.out.ReadPickleCommentPort
@@ -17,10 +17,10 @@ internal class DeletePickleCommentService(
     override fun deleteFromId(pickleCommentId: Long) {
         val user = currentUserPort.readCurrentUser()
         val pickleComment = readPickleCommentPort.readById(pickleCommentId)
-            ?: throw PickleCommentNotFoundException
+            ?: throw BusinessLogicException.PICKLE_COMMENT_NOT_FOUND
 
         if (pickleComment.writer.oauthId != user.oauthId) {
-            throw PermissionDeniedException
+            throw SecurityException.PERMISSION_DENIED
         }
 
         deletePickleCommentPort.delete(pickleComment)

@@ -4,9 +4,8 @@ import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.GetJwtBodyPort
 import com.info.maeumgagym.auth.port.out.ReissuePort
 import com.info.maeumgagym.auth.port.out.RevokeTokensPort
+import com.info.maeumgagym.common.exception.AuthenticationException
 import com.info.maeumgagym.global.env.jwt.JwtProperties
-import com.info.maeumgagym.global.exception.ExpiredTokenException
-import com.info.maeumgagym.global.exception.InvalidTokenException
 import com.info.maeumgagym.global.jwt.entity.AccessTokenRedisEntity
 import com.info.maeumgagym.global.jwt.entity.RefreshTokenRedisEntity
 import com.info.maeumgagym.global.jwt.repository.AccessTokenRepository
@@ -98,7 +97,8 @@ class JwtAdapter(
     // 토큰 재발급
     override fun reissue(refreshToken: String): Pair<String, String> {
         // refresh_token을 redis에서 불러오기
-        val rfToken = refreshTokenRepository.findByRfToken(refreshToken) ?: throw InvalidTokenException
+        val rfToken = refreshTokenRepository.findByRfToken(refreshToken)
+            ?: throw AuthenticationException.INVALID_TOKEN
 
         // 토큰 재발급 및 반환
         return generateTokens(rfToken.subject)
@@ -120,8 +120,8 @@ class JwtAdapter(
             Jwts.parser().setSigningKey(publicKey).parseClaimsJws(token).body
         } catch (e: Exception) {
             when (e) {
-                is ExpiredJwtException -> throw ExpiredTokenException
-                else -> throw InvalidTokenException
+                is ExpiredJwtException -> throw AuthenticationException.EXPIRED_TOKEN
+                else -> throw AuthenticationException.INVALID_TOKEN
             }
         }
 }
