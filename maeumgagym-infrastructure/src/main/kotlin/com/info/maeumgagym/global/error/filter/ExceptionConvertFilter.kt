@@ -2,7 +2,7 @@ package com.info.maeumgagym.global.error.filter
 
 import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.common.exception.PresentationValidationException
-import com.info.maeumgagym.global.error.filter.ErrorLogResponseFilter.ErrorResponse
+import com.info.maeumgagym.global.error.filter.ErrorLogResponseFilter.ErrorLogResponse
 import com.info.maeumgagym.global.error.log.ErrorLog
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
@@ -22,7 +22,7 @@ import javax.validation.ConstraintViolationException
  * [DispatcherServlet] 이후에 발생한 예외는 [NestedServletException.cause]로 감싸져 전달됨.
  * 이 예외의 타입을 확인하고 해당 타입에 맞는 다른 예외로 변환해 *throw*
  *
- * 이것의 [ErrorLog]와 [ErrorResponse]는 [ErrorLogResponseFilter]에서 처리함
+ * 이것의 [ErrorLog]와 [ErrorLogResponse]는 [ErrorLogResponseFilter]에서 처리함
  *
  * ```
  * catch (e: [NestedServletException]) { ... }

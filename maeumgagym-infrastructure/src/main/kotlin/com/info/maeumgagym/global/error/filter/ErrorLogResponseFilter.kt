@@ -19,10 +19,10 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 /**
- * [Exception]이 발생했을 때, [ErrorLog]를 저장하고, [ErrorResponse]를 작성
+ * [Exception]이 발생했을 때, [ErrorLog]를 저장하고, [ErrorLogResponse]를 작성
  *
  * [doFilter], 정확히는 [doFilterInternal]를 *try*문으로 감싸 실행.
- * 이후 발생한 모든 예외를 *catch*해 각 예외에 따라 [ErrorLog] 저장 및 [ErrorResponse]를 작성.
+ * 이후 발생한 모든 예외를 *catch*해 각 예외에 따라 [ErrorLog] 저장 및 [ErrorLogResponse]를 작성.
  *
  * 원래 [DispatcherServlet] 통과 이후 발생한 예외는 [NestedServletException.cause]로 감싸져 *throw*되지만, [ExceptionConvertFilter]에서 이를 [MaeumGaGymException]의 하위 타입으로 변환함. 자세한 것은 [ExceptionConvertFilter] 참조.
  *
@@ -92,7 +92,7 @@ class ErrorLogResponseFilter(
     }
 
     /**
-     * 일반적인 예외에 대한 [ErrorResponse]를 작성
+     * 일반적인 예외에 대한 [ErrorLogResponse]를 작성
      *
      * 해당하는 예외들
      * - [BusinessLogicException]
@@ -105,13 +105,13 @@ class ErrorLogResponseFilter(
     @Throws(IOException::class)
     private fun writeCommonErrorResponse(response: HttpServletResponse, errorLog: ErrorLog) {
         response.errorResponseDefaultSetting(errorLog)
-        response.writeErrorResponse(errorLog.run {
-            ErrorResponse(status, message, id, timestamp)
+        response.writeErrorLogResponse(errorLog.run {
+            ErrorLogResponse(status, message, id, timestamp)
         })
     }
 
     /**
-     * Presentation에서 Validation이 실패했을 떄의 예외에 대한 [ErrorResponse]를 작성
+     * Presentation에서 Validation이 실패했을 떄의 예외에 대한 [ErrorLogResponse]를 작성
      *
      * 해당하는 예외
      * - [PresentationValidationException]
@@ -123,13 +123,13 @@ class ErrorLogResponseFilter(
         e: PresentationValidationException
     ) {
         response.errorResponseDefaultSetting(errorLog)
-        response.writeErrorResponse(errorLog.run {
-            ErrorResponse(status, message, id, timestamp, e.fields)
+        response.writeErrorLogResponse(errorLog.run {
+            ErrorLogResponse(status, message, id, timestamp, e.fields)
         })
     }
 
     /**
-     * [ErrorResponse]를 작성할 때의 기본 정보들에 대한 설정
+     * [ErrorLogResponse]를 작성할 때의 기본 정보들에 대한 설정
      */
     private fun HttpServletResponse.errorResponseDefaultSetting(errorLog: ErrorLog) {
         status = errorLog.status
@@ -138,30 +138,31 @@ class ErrorLogResponseFilter(
     }
 
     /**
-     * [ErrorResponse]의 실제 작성 부분
+     * [ErrorLogResponse]의 실제 작성 부분
      */
-    private fun HttpServletResponse.writeErrorResponse(errorResponse: ErrorResponse) {
+    private fun HttpServletResponse.writeErrorLogResponse(errorLogResponse: ErrorLogResponse) {
         writer.write(
-            objectMapper.writeValueAsString(errorResponse)
+            objectMapper.writeValueAsString(errorLogResponse)
         )
         writer.flush()
     }
 
-    /**
-     * Error의 정보를 담고 있는 Response
-     *
-     * @param status 상태 코드.
-     * @param message 예외 메세지.
-     * @param errorLogId 저장된 에러 로그의 Key.
-     * @param timestamp timestamp
-     * @param map Field Error 등 경우에 따라 Key-Value의 정보가 추가적으로 필요할 경우 사용
-     *  @see writeErrorResponse
-     */
-    data class ErrorResponse(
-        val status: Int,
-        val message: String?,
-        val errorLogId: String,
-        val timestamp: LocalDateTime = LocalDateTime.now(),
-        val map: Map<String, String> = mapOf()
-    )
 }
+
+/**
+ * Error의 정보를 담고 있는 Response
+ *
+ * @param status 상태 코드.
+ * @param message 예외 메세지.
+ * @param errorLogId 저장된 에러 로그의 Key.
+ * @param timestamp timestamp
+ * @param map Field Error 등 경우에 따라 Key-Value의 정보가 추가적으로 필요할 경우 사용
+ *  @see writeErrorLogResponse
+ */
+data class ErrorLogResponse(
+    val status: Int,
+    val message: String?,
+    val errorLogId: String,
+    val timestamp: LocalDateTime = LocalDateTime.now(),
+    val map: Map<String, String> = mapOf()
+)
