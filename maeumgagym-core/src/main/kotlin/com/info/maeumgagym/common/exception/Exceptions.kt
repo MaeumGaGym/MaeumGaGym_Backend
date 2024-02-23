@@ -56,6 +56,15 @@ open class MaeumGaGymException(
 
     companion object {
 
+        // Default
+        val BAD_REQUEST = MaeumGaGymException(400, "Bad Request")
+        val UNAUTHORIZED = MaeumGaGymException(401, "Unauthorized")
+        val FORBIDDEN = MaeumGaGymException(403, "Forbidden")
+        val NOT_FOUND = MaeumGaGymException(404, "Not Found")
+        val CONFLICT = MaeumGaGymException(409, "Conflict")
+        protected val I_M_A_TEAPOT = MaeumGaGymException(418, "I'm a Teapot")
+        val INTERNAL_SERVER_ERROR = MaeumGaGymException(500, "Internal Server Error")
+
         // Feign
         val FEIGN_BAD_REQUEST = BusinessLogicException(400, "Feign Bad Request")
         val FEIGN_UNAUTHORIZED = BusinessLogicException(401, "Feign UnAuthorized")
@@ -65,18 +74,8 @@ open class MaeumGaGymException(
         // No Content
         val THERE_NO_PICKLES = BusinessLogicException(204, "업로드된 피클이 존재하지 않습니다.")
 
-        // Internal Server Error
-        val INTERNAL_SERVER_ERROR = MaeumGaGymException(500, "Internal Server Error")
-        val ROLE_CONVERTER_ERROR = CriticalException(500, "Role Converter Error")
-
-        // UnAuthorized
-        val INVALID_TOKEN = AuthenticationException(401, "Invalid Token")
-        val EXPIRED_TOKEN = AuthenticationException(401, "Expired Token")
-        val UNAUTHORIZED = AuthenticationException(401, "Un Authorized")
-
         // Forbidden
         val PERMISSION_DENIED = BusinessLogicException(403, "Permission Denied")
-        val VIDEO_AND_UPLOADER_MISMATCHED = BusinessLogicException(403, "Video And Uploader Mismatched")
 
         // Not Found
         val USER_NOT_FOUND = BusinessLogicException(404, "User Not Found")
@@ -95,7 +94,8 @@ open class MaeumGaGymException(
         val CANNNOT_REPORT_ONESELF = BusinessLogicException(400, "Cannot Report Oneself")
         val NOT_UPLOADED_TO_VIDEO_SERVER = BusinessLogicException(400, "Does Not Uploaded In Video Server")
         val TAG_TOO_LONG = BusinessLogicException(400, "Tag Too Long, Tag Cannot Longer than 10")
-        val START_DATE_CANNOT_AFTER_THAN_END_TIME = BusinessLogicException(400, "Start Date Cannot After than End Time.")
+        val START_DATE_CANNOT_AFTER_THAN_END_TIME =
+            BusinessLogicException(400, "Start Date Cannot After than End Time.")
 
         // Conflict
         val DUPLICATED_NICKNAME = BusinessLogicException(409, "Duplicated Nickname")
@@ -143,6 +143,67 @@ class BusinessLogicException(
             message = if (errorCodePrefixSuffix.isPrefix) errorCodePrefixSuffix.message + domainName.value
             else domainName.value + errorCodePrefixSuffix.message
         )
+
+    companion object {
+
+        // Bad Request
+        val FILE_TYPE_MISMATCHED = BusinessLogicException(400, "File Type Mismatched")
+        val EXERCISE_LIST_CANNOT_EMPTY = BusinessLogicException(400, "Exercise list cannot empty")
+        val PICKLE_MISMATCHED = BusinessLogicException(400, "Pickle Mismatched")
+        val WAKA_STARTED_NOT_YET = BusinessLogicException(400, "Wakatime Started Not Yet")
+        val CANNNOT_REPORT_ONESELF = BusinessLogicException(400, "Cannot Report Oneself")
+        val NOT_UPLOADED_TO_VIDEO_SERVER = BusinessLogicException(400, "Does Not Uploaded In Video Server")
+        val TAG_TOO_LONG = BusinessLogicException(400, "Tag Too Long, Tag Cannot Longer than 10")
+        val START_DATE_CANNOT_AFTER_THAN_END_TIME =
+            BusinessLogicException(400, "Start Date Cannot After than End Time.")
+
+        // Not Found
+        val USER_NOT_FOUND = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.USER)
+        val POSE_NOT_FOUND = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.POSE)
+        val ROUTINE_NOT_FOUND = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.ROUTINE)
+        val PICKLE_NOT_FOUND = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PICKLE)
+        val PICKLE_COMMENT_NOT_FOUND =
+            BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PICKLE_COMMENT)
+        val PICKLE_REPLY_NOT_FOUND =
+            BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PICKLE_REPLY)
+        val STEP_NOT_FOUND = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.STEP)
+
+        // Conflict
+        val DUPLICATED_NICKNAME = BusinessLogicException(409, "Duplicated Nickname")
+        val ALREADY_EXIST_USER =
+            BusinessLogicException(ErrorCodePrefixSuffix.ALREADY_EXISTS_XXX, DomainNames.USER)
+        val ALREADY_EXIST_PICKLE =
+            BusinessLogicException(ErrorCodePrefixSuffix.ALREADY_EXISTS_XXX, DomainNames.PICKLE)
+        val ALREADY_EXIST_STEP =
+            BusinessLogicException(ErrorCodePrefixSuffix.ALREADY_EXISTS_XXX, DomainNames.STEP)
+        val ALREADY_STARTED_WAKA = BusinessLogicException(409, "Already Started Waka Time")
+        val OTHER_ROUTINE_ALREADY_USING_AT_DAY_OF_WEEK =
+            BusinessLogicException(409, "Other Routine Already Using At Day of week")
+    }
+}
+
+/**
+ * 비즈니스 로직 실행 중에 권한 부족 등으로 인해 발생한 예외
+ *
+ * @see MaeumGaGymException
+ */
+class SecurityException(
+    status: Int,
+    message: String
+) : MaeumGaGymException(status, message) {
+
+    constructor(errorCodePrefixSuffix: ErrorCodePrefixSuffix, domainName: DomainNames) :
+        this(
+            status = errorCodePrefixSuffix.status,
+            message = if (errorCodePrefixSuffix.isPrefix) errorCodePrefixSuffix.message + domainName.value
+            else domainName.value + errorCodePrefixSuffix.message
+        )
+
+    companion object {
+
+        val PERMISSION_DENIED = SecurityException(403, "Permission Denied")
+        val VIDEO_AND_UPLOADER_MISMATCHED = SecurityException(403, "Video And Uploader Mismatched")
+    }
 }
 
 /**
@@ -161,9 +222,9 @@ enum class ErrorCodePrefixSuffix(
     val message: String,
     val isPrefix: Boolean
 ) {
-    NOT_FOUND(404, " Not Found", false),
-    PERMISSION_DENIED(403, " Permission Denied", false),
-    ALREADY_EXISTS(409, "Already Exists ", true)
+    XXX_NOT_FOUND(404, " Not Found", false),
+    XXX_PERMISSION_DENIED(403, " Permission Denied", false),
+    ALREADY_EXISTS_XXX(409, "Already Exists ", true)
 }
 
 /**
@@ -207,17 +268,16 @@ class PresentationValidationException(
 class AuthenticationException(
     status: Int,
     message: String
-) : MaeumGaGymException(status, message)
+) : MaeumGaGymException(status, message) {
 
-/**
- * 비즈니스 로직 실행 중에 권한 부족 등으로 인해 발생한 예외
- *
- * @see MaeumGaGymException
- */
-class SecurityException(
-    status: Int,
-    message: String
-) : MaeumGaGymException(status, message)
+    companion object {
+
+        // UnAuthorized
+        val INVALID_TOKEN = AuthenticationException(401, "Invalid Token")
+        val EXPIRED_TOKEN = AuthenticationException(401, "Expired Token")
+        val UNAUTHORIZED = AuthenticationException(401, "Unauthorized")
+    }
+}
 
 /**
  * 서버에 타격을 줄 수 있는 예외
