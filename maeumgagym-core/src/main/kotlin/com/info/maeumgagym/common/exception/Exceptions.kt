@@ -64,47 +64,6 @@ open class MaeumGaGymException(
         val CONFLICT = MaeumGaGymException(409, "Conflict")
         protected val I_M_A_TEAPOT = MaeumGaGymException(418, "I'm a Teapot")
         val INTERNAL_SERVER_ERROR = MaeumGaGymException(500, "Internal Server Error")
-
-        // Feign
-        val FEIGN_BAD_REQUEST = BusinessLogicException(400, "Feign Bad Request")
-        val FEIGN_UNAUTHORIZED = BusinessLogicException(401, "Feign UnAuthorized")
-        val FEIGN_FORBIDDEN = BusinessLogicException(403, "Feign Forbidden")
-        val FEIGN_SERVER_ERROR = BusinessLogicException(500, "Feign Server Error")
-
-        // No Content
-        val THERE_NO_PICKLES = BusinessLogicException(204, "업로드된 피클이 존재하지 않습니다.")
-
-        // Forbidden
-        val PERMISSION_DENIED = BusinessLogicException(403, "Permission Denied")
-
-        // Not Found
-        val USER_NOT_FOUND = BusinessLogicException(404, "User Not Found")
-        val POSE_NOT_FOUND = BusinessLogicException(404, "Pose Not Found")
-        val ROUTINE_NOT_FOUND = BusinessLogicException(404, "Routine Not Found")
-        val PICKLE_NOT_FOUND = BusinessLogicException(404, "Pickle Not Found")
-        val PICKLE_COMMENT_NOT_FOUND = BusinessLogicException(404, "Pickle Comment Not Found")
-        val PICKLE_REPLY_NOT_FOUND = BusinessLogicException(404, "Pickle Reply Not Found")
-        val STEP_NOT_FOUND = BusinessLogicException(404, "Step Not Found")
-
-        // Bad Request
-        val FILE_TYPE_MISMATCHED = BusinessLogicException(400, "File Type Mismatched")
-        val EXERCISE_LIST_CANNOT_EMPTY = BusinessLogicException(400, "Exercise list cannot empty")
-        val PICKLE_MISMATCHED = BusinessLogicException(400, "Pickle Mismatched")
-        val WAKA_STARTED_NOT_YET = BusinessLogicException(400, "Wakatime Started Not Yet")
-        val CANNNOT_REPORT_ONESELF = BusinessLogicException(400, "Cannot Report Oneself")
-        val NOT_UPLOADED_TO_VIDEO_SERVER = BusinessLogicException(400, "Does Not Uploaded In Video Server")
-        val TAG_TOO_LONG = BusinessLogicException(400, "Tag Too Long, Tag Cannot Longer than 10")
-        val START_DATE_CANNOT_AFTER_THAN_END_TIME =
-            BusinessLogicException(400, "Start Date Cannot After than End Time.")
-
-        // Conflict
-        val DUPLICATED_NICKNAME = BusinessLogicException(409, "Duplicated Nickname")
-        val ALREADY_EXIST_USER = BusinessLogicException(409, "Already Exists User")
-        val ALREADY_EXIST_PICKLE = BusinessLogicException(409, "Already Exists Pickle")
-        val ALREADY_EXIST_STEP = BusinessLogicException(409, "Alreay Exists Step")
-        val ALREADY_STARTED_WAKA = BusinessLogicException(409, "Already Started Wakatime")
-        val OTHER_ROUTINE_ALREADY_USING_AT_DAY_OF_WEEK =
-            BusinessLogicException(409, "Other Routine Already Using At Day of week")
     }
 }
 
@@ -147,12 +106,7 @@ class BusinessLogicException(
     companion object {
 
         // Bad Request
-        val FILE_TYPE_MISMATCHED = BusinessLogicException(400, "File Type Mismatched")
-        val EXERCISE_LIST_CANNOT_EMPTY = BusinessLogicException(400, "Exercise list cannot empty")
-        val PICKLE_MISMATCHED = BusinessLogicException(400, "Pickle Mismatched")
-        val WAKA_STARTED_NOT_YET = BusinessLogicException(400, "Wakatime Started Not Yet")
         val CANNNOT_REPORT_ONESELF = BusinessLogicException(400, "Cannot Report Oneself")
-        val NOT_UPLOADED_TO_VIDEO_SERVER = BusinessLogicException(400, "Does Not Uploaded In Video Server")
         val TAG_TOO_LONG = BusinessLogicException(400, "Tag Too Long, Tag Cannot Longer than 10")
         val START_DATE_MUST_BE_BEFORE_THAN_END_DATE =
             BusinessLogicException(400, "Start date Must Be Before Than End Date")
@@ -175,7 +129,6 @@ class BusinessLogicException(
             BusinessLogicException(ErrorCodePrefixSuffix.ALREADY_EXISTS_XXX, DomainNames.USER)
         val ALREADY_EXIST_PICKLE =
             BusinessLogicException(ErrorCodePrefixSuffix.ALREADY_EXISTS_XXX, DomainNames.PICKLE)
-        val ALREADY_STARTED_WAKA = BusinessLogicException(409, "Already Started Waka Time")
         val OTHER_ROUTINE_ALREADY_USING_AT_DAY_OF_WEEK =
             BusinessLogicException(409, "Other Routine Already Using At Day of week")
     }
@@ -200,8 +153,9 @@ class SecurityException(
 
     companion object {
 
+        val INVALID_TOKEN = SecurityException(401, "Invalid Token")
+
         val PERMISSION_DENIED = SecurityException(403, "Permission Denied")
-        val VIDEO_AND_UPLOADER_MISMATCHED = SecurityException(403, "Video And Uploader Mismatched")
     }
 }
 
@@ -275,6 +229,21 @@ class AuthenticationException(
         val INVALID_TOKEN = AuthenticationException(401, "Invalid Token")
         val EXPIRED_TOKEN = AuthenticationException(401, "Expired Token")
         val UNAUTHORIZED = AuthenticationException(401, "Unauthorized")
+    }
+}
+
+class FeignException(
+    status: Int,
+    message: String
+) : MaeumGaGymException(status, message) {
+
+    companion object {
+
+        val FEIGN_BAD_REQUEST = FeignException(400, "Feign Bad Request")
+        val FEIGN_UNAUTHORIZED = FeignException(401, "Feign UnAuthorized")
+        val FEIGN_FORBIDDEN = FeignException(403, "Feign Forbidden")
+        val FEIGN_SERVER_ERROR = FeignException(500, "Feign Server Error")
+        val FEIGN_UNKNOWN_CLIENT_ERROR = FeignException(500, "Feign Unknown Error")
     }
 }
 

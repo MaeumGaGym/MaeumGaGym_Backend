@@ -1,12 +1,7 @@
 package com.info.maeumgagym.feign.error
 
-import com.info.maeumgagym.common.exception.BusinessLogicException
-import com.info.maeumgagym.feign.exception.FeignBadRequestException
-import com.info.maeumgagym.feign.exception.FeignDefaultException
-import com.info.maeumgagym.feign.exception.FeignForbbidenException
-import com.info.maeumgagym.feign.exception.FeignUnAuthorizationException
-import com.info.maeumgagym.global.exception.ExpiredTokenException
-import feign.FeignException
+import com.info.maeumgagym.common.exception.FeignException
+import com.info.maeumgagym.common.exception.MaeumGaGymException
 import feign.Response
 import feign.codec.ErrorDecoder
 import mu.KotlinLogging
@@ -22,14 +17,14 @@ class FeignClientErrorDecoder : ErrorDecoder {
 
         if (response.status() >= 400) {
             when (response.status()) {
-                400 -> throw BusinessLogicException.(400, "")
-                401 -> throw FeignUnAuthorizationException
-                403 -> throw FeignForbbidenException
-                419 -> throw ExpiredTokenException
-                else -> throw FeignDefaultException
+                400 -> throw FeignException.FEIGN_BAD_REQUEST
+                401 -> throw FeignException.FEIGN_UNAUTHORIZED
+                403 -> throw FeignException.FEIGN_FORBIDDEN
+                419 -> throw FeignException(419, "Page Expired")
+                else -> throw FeignException.FEIGN_UNKNOWN_CLIENT_ERROR
             }
         }
 
-        return FeignException.errorStatus(methodKey, response)
+        return feign.FeignException.errorStatus(methodKey, response)
     }
 }
