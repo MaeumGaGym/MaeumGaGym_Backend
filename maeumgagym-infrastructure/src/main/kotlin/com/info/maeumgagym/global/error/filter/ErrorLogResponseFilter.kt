@@ -43,7 +43,7 @@ class ErrorLogResponseFilter(
         try {
             filterChain.doFilter(request, response)
         } catch (e: MaeumGaGymException) {
-            val errorLog = saveErrorLogAndReturn(e, ErrorLogLayer.Companion.of(e))
+            val errorLog = saveErrorLogAndReturn(e, ErrorLogLayer.of(e))
 
             if (errorLog.layer == ErrorLogLayer.UNKNOWN) {
                 e.printStackTrace()
@@ -67,7 +67,7 @@ class ErrorLogResponseFilter(
                 ErrorLog(
                     status = e.status,
                     message = e.message + e.fields,
-                    log = e.stackTrace.toString(),
+                    log = e.stackTrace.contentToString(),
                     layer = layer
                 )
 
@@ -75,14 +75,14 @@ class ErrorLogResponseFilter(
                 ErrorLog(
                     status = e.status,
                     message = e.message,
-                    log = e.stackTrace.toString(),
+                    log = e.stackTrace.contentToString(),
                     layer = layer
                 )
 
             else ->
                 ErrorLog(
                     message = e.message,
-                    log = e.stackTrace.toString(),
+                    log = e.stackTrace.contentToString(),
                     layer = layer
                 )
         }.run {
