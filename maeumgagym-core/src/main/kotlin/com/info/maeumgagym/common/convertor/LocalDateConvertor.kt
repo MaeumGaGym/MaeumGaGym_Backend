@@ -66,6 +66,4 @@ object LocalDateConvertor {
     private fun throwDayRangeException(max: Int): Nothing {
         throw BusinessLogicException(400, "The Range of Month MUST BE BETWEEN 1 and $max")
     }
-
-
 }

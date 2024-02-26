@@ -6,9 +6,7 @@ import com.info.maeumgagym.global.config.filter.FilterChainConfig
 import com.info.maeumgagym.global.error.log.ErrorLog
 import com.info.maeumgagym.global.error.log.ErrorLogLayer
 import com.info.maeumgagym.global.error.log.manager.ErrorLogManager
-import org.springframework.core.annotation.Order
 import org.springframework.http.MediaType
-import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import org.springframework.web.servlet.DispatcherServlet
 import org.springframework.web.util.NestedServletException
@@ -106,9 +104,11 @@ class ErrorLogResponseFilter(
     @Throws(IOException::class)
     private fun writeCommonErrorResponse(response: HttpServletResponse, errorLog: ErrorLog) {
         response.errorResponseDefaultSetting(errorLog)
-        response.writeErrorLogResponse(errorLog.run {
-            ErrorLogResponse(status, message, id, timestamp)
-        })
+        response.writeErrorLogResponse(
+            errorLog.run {
+                ErrorLogResponse(status, message, id, timestamp)
+            }
+        )
     }
 
     /**
@@ -124,9 +124,11 @@ class ErrorLogResponseFilter(
         e: PresentationValidationException
     ) {
         response.errorResponseDefaultSetting(errorLog)
-        response.writeErrorLogResponse(errorLog.run {
-            ErrorLogResponse(status, message, id, timestamp, e.fields)
-        })
+        response.writeErrorLogResponse(
+            errorLog.run {
+                ErrorLogResponse(status, message, id, timestamp, e.fields)
+            }
+        )
     }
 
     /**
@@ -147,7 +149,6 @@ class ErrorLogResponseFilter(
         )
         writer.flush()
     }
-
 }
 
 /**

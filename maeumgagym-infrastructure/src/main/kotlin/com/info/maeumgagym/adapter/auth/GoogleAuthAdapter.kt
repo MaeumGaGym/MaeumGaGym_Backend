@@ -26,8 +26,11 @@ internal class GoogleAuthAdapter(
             accessToken
         ).toResponse()
     } catch (e: FeignException) {
-        throw if (e == FeignException.FEIGN_UNAUTHORIZED) SecurityException.INVALID_TOKEN
-        else MaeumGaGymException.INTERNAL_SERVER_ERROR
+        throw if (e == FeignException.FEIGN_UNAUTHORIZED) {
+            SecurityException.INVALID_TOKEN
+        } else {
+            MaeumGaGymException.INTERNAL_SERVER_ERROR
+        }
     }
 
     override fun revoke(token: String) {

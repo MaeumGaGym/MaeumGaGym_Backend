@@ -15,5 +15,5 @@ enum class DomainNames(
     WAKA_TIME("Waka Time", "waka time"),
     REPORT("Report", "report"),
     PURPOSE("Purpose", "purpose"),
-    STEP("Step", "step"),
+    STEP("Step", "step")
 }

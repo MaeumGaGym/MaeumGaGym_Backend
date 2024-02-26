@@ -1,7 +1,6 @@
 package com.info.maeumgagym.feign.error
 
 import com.info.maeumgagym.common.exception.FeignException
-import com.info.maeumgagym.common.exception.MaeumGaGymException
 import feign.Response
 import feign.codec.ErrorDecoder
 import mu.KotlinLogging

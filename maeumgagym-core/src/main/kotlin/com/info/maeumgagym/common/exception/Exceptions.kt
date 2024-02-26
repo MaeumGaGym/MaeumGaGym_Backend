@@ -99,8 +99,11 @@ class BusinessLogicException(
     constructor(errorCodePrefixSuffix: ErrorCodePrefixSuffix, domainName: DomainNames) :
         this(
             status = errorCodePrefixSuffix.status,
-            message = if (errorCodePrefixSuffix.isPrefix) errorCodePrefixSuffix.message + domainName.value
-            else domainName.value + errorCodePrefixSuffix.message
+            message = if (errorCodePrefixSuffix.isPrefix) {
+                errorCodePrefixSuffix.message + domainName.value
+            } else {
+                domainName.value + errorCodePrefixSuffix.message
+            }
         )
 
     companion object {
@@ -147,8 +150,11 @@ class SecurityException(
     constructor(errorCodePrefixSuffix: ErrorCodePrefixSuffix, domainName: DomainNames) :
         this(
             status = errorCodePrefixSuffix.status,
-            message = if (errorCodePrefixSuffix.isPrefix) errorCodePrefixSuffix.message + domainName.value
-            else domainName.value + errorCodePrefixSuffix.message
+            message = if (errorCodePrefixSuffix.isPrefix) {
+                errorCodePrefixSuffix.message + domainName.value
+            } else {
+                domainName.value + errorCodePrefixSuffix.message
+            }
         )
 
     companion object {
