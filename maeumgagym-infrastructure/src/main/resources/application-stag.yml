@@ -2,6 +2,8 @@ spring:
     config:
         activate:
             on-profile: stag
+    websecurity:
+        debug: true
 
 management:
     endpoint:
@@ -19,3 +21,9 @@ csrf:
     header: ${CSRF_HEADER:X-XSRF-TOKEN}
     cookie: ${CSRF_COOKIE:XSRF-TOKEN}
     parameter: ${CSRF_PARAMETER:_csrf}
+
+logging:
+    level:
+      org:
+          springframework:
+              security: DEBUG

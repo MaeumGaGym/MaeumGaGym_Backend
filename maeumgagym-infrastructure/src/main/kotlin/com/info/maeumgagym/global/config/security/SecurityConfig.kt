@@ -42,7 +42,8 @@ class SecurityConfig(
             .and()
 //
             .apply(securityFilterChainConfig) // SecurityFilterChain에 대한 설정
-            .and().build()
+            .and()
+            .build()
 
     private fun getCsrfTokenRepository(): CookieCsrfTokenRepository =
         CookieCsrfTokenRepository().apply {
