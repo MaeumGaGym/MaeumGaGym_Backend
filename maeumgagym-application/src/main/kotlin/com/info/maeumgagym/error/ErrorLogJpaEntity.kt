@@ -23,7 +23,7 @@ class ErrorLogJpaEntity(
     var message: String? = message
         protected set
 
-    @Column(name = "log", updatable = false, nullable = false)
+    @Column(name = "log", length = 3000, updatable = false, nullable = false)
     var log: String = log
         protected set
 

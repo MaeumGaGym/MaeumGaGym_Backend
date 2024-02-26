@@ -67,7 +67,7 @@ class ErrorLogResponseFilter(
                 ErrorLog(
                     status = e.status,
                     message = e.message + e.fields,
-                    log = e.stackTrace.contentToString(),
+                    log = e.stackTrace[0].toString(),
                     layer = layer
                 )
 
@@ -75,14 +75,14 @@ class ErrorLogResponseFilter(
                 ErrorLog(
                     status = e.status,
                     message = e.message,
-                    log = e.stackTrace.contentToString(),
+                    log = e.stackTrace[0].toString(),
                     layer = layer
                 )
 
             else ->
                 ErrorLog(
                     message = e.message,
-                    log = e.stackTrace.contentToString(),
+                    log = e.stackTrace[0].toString(),
                     layer = layer
                 )
         }.run {
