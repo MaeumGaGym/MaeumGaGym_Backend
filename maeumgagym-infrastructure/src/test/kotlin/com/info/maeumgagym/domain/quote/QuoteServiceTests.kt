@@ -1,6 +1,6 @@
 package com.info.maeumgagym.domain.quote
 
-import com.info.maeumgagym.domain.quote.exception.MismatchQuoteAndQuoterException
+import com.info.maeumgagym.error.TestException
 import com.info.maeumgagym.quote.port.`in`.ReadRandomQuoteUseCase
 import com.info.maeumgagym.quote.vo.QuoteValueObject
 import com.info.maeumgagym.quote.vo.Quotes
@@ -24,7 +24,7 @@ internal class QuoteServiceTests @Autowired constructor(
                     QuoteValueObject(quoteResponse.quote, quoteResponse.quoter)
                 )
             ) {
-                throw MismatchQuoteAndQuoterException
+                throw TestException.MISMATCH_QUOTE_AND_QUOTER
             }
         }
     }

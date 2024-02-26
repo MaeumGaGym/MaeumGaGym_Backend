@@ -1,6 +1,7 @@
 package com.info.maeumgagym.domain.pickle
 
-import com.info.maeumgagym.auth.exception.PermissionDeniedException
+import com.info.maeumgagym.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.pickle.PickleTestModule.saveInRepository
 import com.info.maeumgagym.domain.pickle.entity.PickleJpaEntity
@@ -10,7 +11,7 @@ import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserRepository
-import com.info.maeumgagym.pickle.exception.PickleNotFoundException
+import com.info.maeumgagym.error.TestException
 import com.info.maeumgagym.pickle.port.`in`.UpdatePickleUseCase
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -53,7 +54,7 @@ class UpdatePickleServiceTests @Autowired constructor(
 
     @Test
     fun updateNonExistsPickle() {
-        Assertions.assertThrows(PickleNotFoundException::class.java) {
+        TestException.assertThrowsMaeumGaGymExceptionInstance(BusinessLogicException.PICKLE_NOT_FOUND) {
             updatePickleUseCase.updatePickle(
                 pickle.videoId,
                 PickleTestModule.getUpdatePickleRequest()
@@ -69,7 +70,7 @@ class UpdatePickleServiceTests @Autowired constructor(
         val otherUser = UserTestModule.createOtherUser().saveInRepository(userRepository)
         pickle = PickleTestModule.createPickle(otherUser).saveInRepository(pickleRepository)
 
-        Assertions.assertThrows(PermissionDeniedException::class.java) {
+        TestException.assertThrowsMaeumGaGymExceptionInstance(SecurityException.PERMISSION_DENIED) {
             updatePickleUseCase.updatePickle(
                 pickle.videoId,
                 PickleTestModule.getUpdatePickleRequest()

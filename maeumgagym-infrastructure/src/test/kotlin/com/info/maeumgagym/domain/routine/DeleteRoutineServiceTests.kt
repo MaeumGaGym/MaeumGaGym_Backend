@@ -1,16 +1,17 @@
 package com.info.maeumgagym.domain.routine
 
-import com.info.maeumgagym.auth.exception.PermissionDeniedException
+import com.info.maeumgagym.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
-import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
 import com.info.maeumgagym.domain.routine.RoutineTestModule.saveInRepository
+import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
 import com.info.maeumgagym.domain.routine.repository.RoutineRepository
-import com.info.maeumgagym.domain.user.entity.UserJpaEntity
-import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.UserTestModule
 import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
+import com.info.maeumgagym.domain.user.entity.UserJpaEntity
+import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserRepository
-import com.info.maeumgagym.routine.exception.RoutineNotFoundException
+import com.info.maeumgagym.error.TestException
 import com.info.maeumgagym.routine.port.`in`.DeleteRoutineUseCase
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -49,7 +50,7 @@ internal class DeleteRoutineServiceTests @Autowired constructor(
     @Test
     fun deleteOtherRoutine() {
         otherUser.saveInContext(userMapper)
-        Assertions.assertThrows(PermissionDeniedException::class.java) {
+        TestException.assertThrowsMaeumGaGymExceptionInstance(SecurityException.PERMISSION_DENIED) {
             deleteRoutineUseCase.deleteRoutine(routine.id!!)
         }
         Assertions.assertNotNull(routineRepository.findById(routine.id!!))
@@ -58,7 +59,7 @@ internal class DeleteRoutineServiceTests @Autowired constructor(
     @Test
     fun deleteNonExistentRoutine() {
         routineRepository.delete(routine)
-        Assertions.assertThrows(RoutineNotFoundException::class.java) {
+        TestException.assertThrowsMaeumGaGymExceptionInstance(BusinessLogicException.ROUTINE_NOT_FOUND) {
             deleteRoutineUseCase.deleteRoutine(routine.id!!)
         }
     }

@@ -1,5 +1,6 @@
 package com.info.maeumgagym.domain.pickle
 
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.pickle.PickleTestModule.saveInRepository
 import com.info.maeumgagym.domain.pickle.entity.PickleJpaEntity
@@ -10,9 +11,8 @@ import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserRepository
+import com.info.maeumgagym.error.TestException
 import com.info.maeumgagym.pickle.dto.response.PickleResponse
-import com.info.maeumgagym.pickle.exception.PickleNotFoundException
-import com.info.maeumgagym.pickle.exception.ThereNoPicklesException
 import com.info.maeumgagym.pickle.model.Pickle.Companion.toResponse
 import com.info.maeumgagym.pickle.port.`in`.LoadPickleFromIdUseCase
 import com.info.maeumgagym.pickle.port.`in`.LoadPickleFromPoseUseCase
@@ -65,7 +65,7 @@ class LoadPickleServiceTests @Autowired constructor(
 
     @Test
     fun loadRecommendationPickleWithTooBigIndex() {
-        Assertions.assertThrows(ThereNoPicklesException::class.java) {
+        Assertions.assertThrows(BusinessLogicException::class.java) {
             loadRecommendationPicklesUseCase.loadRecommendationPickles(Int.MAX_VALUE)
         }
     }
@@ -81,7 +81,7 @@ class LoadPickleServiceTests @Autowired constructor(
 
     @Test
     fun loadPickleFromNonExistsId() {
-        Assertions.assertThrows(PickleNotFoundException::class.java) {
+        TestException.assertThrowsMaeumGaGymExceptionInstance(BusinessLogicException.PICKLE_NOT_FOUND) {
             loadPickleFromIdUseCase.loadPickleFromId("a")
         }
     }
