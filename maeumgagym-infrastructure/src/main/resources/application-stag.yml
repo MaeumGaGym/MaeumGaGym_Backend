@@ -2,7 +2,8 @@ spring:
     config:
         activate:
             on-profile: stag
-    websecu
+    websecurity:
+        debug: true
 
 management:
     endpoint:
