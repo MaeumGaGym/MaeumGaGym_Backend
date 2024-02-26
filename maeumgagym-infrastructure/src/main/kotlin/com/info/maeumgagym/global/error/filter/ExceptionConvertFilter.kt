@@ -2,10 +2,8 @@ package com.info.maeumgagym.global.error.filter
 
 import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.common.exception.PresentationValidationException
-import com.info.maeumgagym.global.error.filter.ErrorLogResponseFilter.ErrorLogResponse
+import com.info.maeumgagym.global.config.filter.FilterChainConfig
 import com.info.maeumgagym.global.error.log.ErrorLog
-import org.springframework.core.annotation.Order
-import org.springframework.stereotype.Component
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.MissingServletRequestParameterException
 import org.springframework.web.filter.GenericFilterBean
@@ -30,9 +28,11 @@ import javax.validation.ConstraintViolationException
  * - [MaeumGaGymException] 및 그 하위 타입일 경우 [MaeumGaGymException]으로 변환.
  * - Presentation 계층에서 Validation이 실패했을 경우 발생하는 예외 중 하나일 경우 [PresentationValidationException]으로 변환; 변환되는 타입 : [MethodArgumentNotValidException], [ConstraintViolationException], [MissingServletRequestParameterException]
  * - 그 외에는 그대로 변환
+ *
+ * 해당 *Filter*의 순서 설정 정보는 [FilterChainConfig]에 존재
+ *
+ * @see ErrorLogResponseFilter
  */
-@Order(1)
-@Component
 class ExceptionConvertFilter : GenericFilterBean() {
 
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
