@@ -11,7 +11,6 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 
-@EnableWebSecurity(debug = true)
 @Configuration
 class SecurityConfig(
     private val csrfProperties: CSRFProperties,
@@ -44,7 +43,8 @@ class SecurityConfig(
             .and()
 //
             .apply(securityFilterChainConfig) // SecurityFilterChain에 대한 설정
-            .and().build()
+            .and()
+            .build()
 
     private fun getCsrfTokenRepository(): CookieCsrfTokenRepository =
         CookieCsrfTokenRepository().apply {
