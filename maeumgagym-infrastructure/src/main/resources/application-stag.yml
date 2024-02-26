@@ -2,6 +2,7 @@ spring:
     config:
         activate:
             on-profile: stag
+    websecu
 
 management:
     endpoint:
