@@ -32,6 +32,10 @@ internal class EndWakatimeService(
         // 와카타임 구하기
         val seconds = Duration.between(wakaStarted, now).seconds
 
+        saveUserPort.save(
+            user.copy(totalWakaTime = user.totalWakaTime.plus(seconds))
+        )
+
         // 와카타임 시작시간 초기화
         user.run {
             saveUserPort.save(
