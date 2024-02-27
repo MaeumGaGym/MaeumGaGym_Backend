@@ -7,11 +7,8 @@ import com.info.maeumgagym.purpose.model.Purpose
 import com.info.maeumgagym.purpose.port.`in`.DeletePurposeUseCase
 import com.info.maeumgagym.purpose.port.out.DeletePurposePort
 import com.info.maeumgagym.purpose.port.out.ReadPurposePort
-import org.springframework.transaction.annotation.Isolation
-import org.springframework.transaction.annotation.Transactional
 
 @UseCase
-@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 internal class DeletePurposeService(
     private val readPurposePort: ReadPurposePort,
     private val readCurrentUserPort: ReadCurrentUserPort,

@@ -7,11 +7,9 @@ import com.info.maeumgagym.purpose.model.Purpose
 import com.info.maeumgagym.purpose.port.out.DeletePurposePort
 import com.info.maeumgagym.purpose.port.out.ReadPurposePort
 import com.info.maeumgagym.purpose.port.out.SavePurposePort
-import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 
-@Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = [Exception::class])
 @PersistenceAdapter
 internal class PurposePersistenceAdapter(
     private val purposeRepository: PurposeRepository,
