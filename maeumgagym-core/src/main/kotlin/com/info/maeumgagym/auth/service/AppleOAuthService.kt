@@ -9,6 +9,8 @@ import com.info.maeumgagym.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.auth.port.out.ParseAppleTokenPort
 import com.info.maeumgagym.user.exception.DuplicatedNicknameException
 import com.info.maeumgagym.user.exception.UserNotFoundException
+import com.info.maeumgagym.user.model.GenderModel
+import com.info.maeumgagym.user.model.PhysicalInfoModel
 import com.info.maeumgagym.user.model.Role
 import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.ExistUserPort
@@ -51,7 +53,8 @@ internal class AppleOAuthService(
                 nickname = nickname,
                 roles = mutableListOf(Role.USER),
                 oauthId = sub,
-                profileImage = null // 나중에 추가
+                profileImage = null, // 나중에 추가
+                physicalInfoModel = PhysicalInfoModel(weight = 0f, height = 0f, genderModel = GenderModel.NONE)
             )
         )
     }

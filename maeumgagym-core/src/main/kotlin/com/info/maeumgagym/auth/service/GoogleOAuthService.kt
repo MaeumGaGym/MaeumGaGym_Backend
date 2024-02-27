@@ -10,6 +10,8 @@ import com.info.maeumgagym.auth.port.out.GetGoogleInfoPort
 import com.info.maeumgagym.auth.port.out.RevokeGoogleTokenPort
 import com.info.maeumgagym.user.exception.DuplicatedNicknameException
 import com.info.maeumgagym.user.exception.UserNotFoundException
+import com.info.maeumgagym.user.model.GenderModel
+import com.info.maeumgagym.user.model.PhysicalInfoModel
 import com.info.maeumgagym.user.model.Role
 import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.ExistUserPort
@@ -56,7 +58,8 @@ internal class GoogleOAuthService(
                 nickname = nickname,
                 roles = mutableListOf(Role.USER),
                 oauthId = profile.sub,
-                profileImage = profile.picture
+                profileImage = profile.picture,
+                physicalInfoModel = PhysicalInfoModel(weight = 0f, height = 0f, genderModel = GenderModel.NONE)
             )
         )
     }
