@@ -9,4 +9,6 @@ interface PurposeRepository : Repository<PurposeJpaEntity, Long?> {
     fun save(purposeJpaEntity: PurposeJpaEntity): PurposeJpaEntity
 
     fun findById(id: Long): PurposeJpaEntity?
+
+    fun deleteById(id: Long)
 }
