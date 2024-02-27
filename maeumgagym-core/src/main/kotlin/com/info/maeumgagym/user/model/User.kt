@@ -10,5 +10,6 @@ data class User(
     val oauthId: String,
     val profileImage: String? = null,
     val wakaStartedAt: LocalDateTime? = null,
-    val isDeletedAt: LocalDateTime? = null
+    val isDeletedAt: LocalDateTime? = null,
+    val totalWakaTime: Long = 0
 )

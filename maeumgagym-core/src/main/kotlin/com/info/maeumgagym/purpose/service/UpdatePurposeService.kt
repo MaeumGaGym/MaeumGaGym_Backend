@@ -17,7 +17,7 @@ internal class UpdatePurposeService(
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : UpdatePurposeUseCase {
 
-    override fun updatePurpose(id: Long, req: UpdatePurposeRequest) {
+    override fun updatePurposeFromId(id: Long, req: UpdatePurposeRequest) {
         val user = readCurrentUserPort.readCurrentUser()
 
         val purpose = readPurposePort.readById(id) ?: throw BusinessLogicException.PURPOSE_NOT_FOUND
