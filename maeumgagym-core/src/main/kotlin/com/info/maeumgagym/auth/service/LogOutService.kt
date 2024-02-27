@@ -9,7 +9,7 @@ import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 internal class LogOutService(
     private val deleteRefreshTokenPort: DeleteRefreshTokenPort,
     private val readCurrentUserPort: ReadCurrentUserPort
-): LogOutUseCase {
+) : LogOutUseCase {
     override fun logout() {
         val user = readCurrentUserPort.readCurrentUser()
         deleteRefreshTokenPort.deleteByOAuthId(user.oauthId)
