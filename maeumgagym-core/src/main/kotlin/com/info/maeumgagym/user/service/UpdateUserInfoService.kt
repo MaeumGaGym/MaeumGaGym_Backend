@@ -14,9 +14,9 @@ internal class UpdateUserInfoService(
     private val saveUserPort: SaveUserPort,
     private val duplicatedCheckService: DuplicatedCheckService,
     private val readCurrentUserPort: ReadCurrentUserPort
-): UpdateUserInfoUseCase {
+) : UpdateUserInfoUseCase {
     override fun update(req: UpdateUserInfoRequest) {
-        if(duplicatedCheckService.existByNickname(req.nickname)) {
+        if (duplicatedCheckService.existByNickname(req.nickname)) {
             throw AlreadyExistUserException
         }
         val user = readCurrentUserPort.readCurrentUser()
