@@ -56,6 +56,6 @@ class AuthController(
         }
 
     @Operation(summary = "로그아웃 API")
-    @PostMapping("/logout")
+    @DeleteMapping("/logout")
     fun logout() = logOutUseCase.logout()
 }
