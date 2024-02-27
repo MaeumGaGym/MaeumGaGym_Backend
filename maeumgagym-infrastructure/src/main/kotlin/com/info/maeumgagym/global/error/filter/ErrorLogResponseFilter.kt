@@ -64,7 +64,6 @@ class ErrorLogResponseFilter(
     }
 
     private fun printErrorLogAndReturn(e: Exception): ErrorLog {
-
         when (e) {
             is PresentationValidationException -> e.run {
                 ErrorLog(
