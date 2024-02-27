@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.common.exception.*
 import com.info.maeumgagym.global.config.filter.FilterChainConfig
 import com.info.maeumgagym.global.error.log.ErrorLog
-import com.info.maeumgagym.global.error.log.ErrorLogLayer
-import com.info.maeumgagym.global.error.log.manager.ErrorLogManager
 import org.springframework.http.MediaType
 import org.springframework.web.filter.OncePerRequestFilter
 import org.springframework.web.servlet.DispatcherServlet
@@ -18,10 +16,10 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 /**
- * [Exception]이 발생했을 때, [ErrorLog]를 저장하고, [ErrorLogResponse]를 작성
+ * [Exception]이 발생했을 때, [ErrorLog] 및 [ErrorLogResponse]를 작성
  *
  * [doFilter], 정확히는 [doFilterInternal]를 *try*문으로 감싸 실행.
- * 이후 발생한 모든 예외를 *catch*해 각 예외에 따라 [ErrorLog] 저장 및 [ErrorLogResponse]를 작성.
+ * 이후 발생한 모든 예외를 *catch*해 각 예외에 따라 [ErrorLog]및 [ErrorLogResponse]를 작성.
  *
  * 원래 [DispatcherServlet] 통과 이후 발생한 예외는 [NestedServletException.cause]로 감싸져 *throw*되지만, [ExceptionConvertFilter]에서 이를 [MaeumGaGymException]의 하위 타입으로 변환함. 자세한 것은 [ExceptionConvertFilter] 참조.
  *
@@ -30,8 +28,7 @@ import javax.servlet.http.HttpServletResponse
  * @see ExceptionConvertFilter
  */
 class ErrorLogResponseFilter(
-    private val objectMapper: ObjectMapper,
-    private val errorLogManager: ErrorLogManager
+    private val objectMapper: ObjectMapper
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
@@ -42,50 +39,62 @@ class ErrorLogResponseFilter(
         try {
             filterChain.doFilter(request, response)
         } catch (e: MaeumGaGymException) {
-            val errorLog = saveErrorLogAndReturn(e, ErrorLogLayer.of(e))
+            val errorLog = printErrorLogAndReturn(e)
 
-            if (errorLog.layer == ErrorLogLayer.UNKNOWN) {
+            if (e !is BusinessLogicException &&
+                e !is SecurityException &&
+                e !is FilterException &&
+                e !is InterceptorException &&
+                e !is AuthenticationException &&
+                e !is PresentationValidationException
+            ) {
                 e.printStackTrace()
             }
 
-            if (errorLog.layer == ErrorLogLayer.PRESENTATION) {
+            if (errorLog.exceptionClassName == PresentationValidationException::javaClass.name) {
                 writeFieldErrorResponse(response, errorLog, e as PresentationValidationException)
             } else {
                 writeCommonErrorResponse(response, errorLog)
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            val errorLog = saveErrorLogAndReturn(e)
+            val errorLog = printErrorLogAndReturn(e)
             writeCommonErrorResponse(response, errorLog)
         }
     }
 
-    private fun saveErrorLogAndReturn(e: Exception, layer: ErrorLogLayer = ErrorLogLayer.UNKNOWN): ErrorLog {
+    private fun printErrorLogAndReturn(e: Exception): ErrorLog {
+
         when (e) {
-            is PresentationValidationException ->
+            is PresentationValidationException -> e.run {
                 ErrorLog(
-                    status = e.status,
-                    message = e.message + e.fields,
-                    log = e.stackTrace.contentToString(),
-                    layer = layer
+                    exceptionClassName = javaClass.name,
+                    errorOccurredClassName = stackTrace[2].className + " or " + stackTrace[1].className,
+                    status = status,
+                    message = message + fields
                 )
+            }
 
-            is MaeumGaGymException ->
+            is MaeumGaGymException -> e.run {
                 ErrorLog(
-                    status = e.status,
-                    message = e.message,
-                    log = e.stackTrace.contentToString(),
-                    layer = layer
+                    exceptionClassName = javaClass.name,
+                    errorOccurredClassName = stackTrace[2].className + " or " + stackTrace[1].className,
+                    status = status,
+                    message = message
                 )
+            }
 
-            else ->
+            else -> e.run {
                 ErrorLog(
-                    message = e.message,
-                    log = e.stackTrace.contentToString(),
-                    layer = layer
+                    exceptionClassName = javaClass.name,
+                    errorOccurredClassName = stackTrace[2].className + " or " + stackTrace[1].className,
+                    message = message
                 )
+            }
         }.run {
-            errorLogManager.save(this)
+            logger.info(
+                "[$id] $status : \"$message\" in $errorOccurredClassName cause $exceptionClassName"
+            )
             return this
         }
     }

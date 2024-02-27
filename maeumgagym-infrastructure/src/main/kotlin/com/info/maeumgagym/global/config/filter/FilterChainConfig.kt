@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.global.error.filter.ErrorLogResponseFilter
 import com.info.maeumgagym.global.error.filter.ExceptionConvertFilter
-import com.info.maeumgagym.global.error.log.manager.ErrorLogManager
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -14,8 +13,7 @@ import javax.servlet.Filter
 
 @Configuration
 class FilterChainConfig(
-    private val objectMapper: ObjectMapper,
-    private val errorLogManager: ErrorLogManager
+    private val objectMapper: ObjectMapper
 ) {
 
     /**
@@ -34,7 +32,7 @@ class FilterChainConfig(
     @Bean
     fun errorLogResponseFilterConfig(): FilterRegistrationBean<ErrorLogResponseFilter> {
         val bean = FilterRegistrationBean(
-            ErrorLogResponseFilter(objectMapper, errorLogManager)
+            ErrorLogResponseFilter(objectMapper)
         )
 
         bean.addUrlPatterns("/*")

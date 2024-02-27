@@ -35,7 +35,7 @@ import com.info.maeumgagym.common.enum.DomainNames
  * 그래서 저는,
  * 1. 예외를 발생시키는 자리에서 입력 가능한 [message]로 보다 편하게 예외를 발생시킬 수 있게 하고,
  * 2. 최상위 타입 [MaeumGaGymException]의 *static field*로 이전의 싱글톤 예외 방식의 이점을 확보했으며,
- * 3. 다형성을 이용한 Exception 발생 위치 기록의 편리성을 챙겼습니다.
+ * 3. 다형성을 이용한 Exception 형태 기록의 편리성을 챙겼습니다.
  *
  * | Daybreak312
  *
@@ -47,6 +47,7 @@ import com.info.maeumgagym.common.enum.DomainNames
  * @see InterceptorException
  * @see AuthenticationException
  * @see SecurityException
+ * @see FeignException
  * @see CriticalException
  */
 open class MaeumGaGymException(
