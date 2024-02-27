@@ -25,7 +25,7 @@ class JwtAdapter(
     private val customUserDetailService: CustomUserDetailService,
     private val refreshTokenRepository: RefreshTokenRepository,
     private val accessTokenRepository: AccessTokenRepository
-) : GenerateJwtPort, ReissuePort, GetJwtBodyPort, RevokeTokensPort, DeleteRefreshTokenPort {
+) : GenerateJwtPort, ReissuePort, GetJwtBodyPort, RevokeTokensPort {
 
     // 모든 토큰 발급
     override fun generateTokens(subject: String): Pair<String, String> {
@@ -121,8 +121,4 @@ class JwtAdapter(
                 else -> throw InvalidTokenException
             }
         }
-
-    override fun deleteByOAuthId(oauthId: String) {
-        refreshTokenRepository.deleteById(oauthId)
-    }
 }
