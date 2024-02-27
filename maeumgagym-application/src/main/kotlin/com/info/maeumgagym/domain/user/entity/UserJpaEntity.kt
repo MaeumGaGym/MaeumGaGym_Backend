@@ -27,7 +27,8 @@ class UserJpaEntity(
     profileImage: String?,
     wakaStartedAt: LocalDateTime? = null,
     isDeletedAt: LocalDateTime? = null,
-    id: UUID? = null
+    id: UUID? = null,
+    totalWakaTime: Long = 0,
 ) : BaseUUIDEntity(id) {
 
     @Column(name = "nickname", nullable = false, length = 10, unique = true)
@@ -56,5 +57,9 @@ class UserJpaEntity(
 
     @Column(name = "waka_started_at")
     var wakaStartedAt: LocalDateTime? = wakaStartedAt
+        protected set
+
+    @Column(name = "total_wakatime", nullable = false)
+    var totalWakaTime: Long = totalWakaTime
         protected set
 }

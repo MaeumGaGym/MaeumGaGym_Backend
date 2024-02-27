@@ -16,7 +16,8 @@ class UserMapper {
                 roles = roles,
                 profileImage = profileImage,
                 wakaStartedAt = wakaStartedAt,
-                isDeletedAt = isDeletedAt
+                isDeletedAt = isDeletedAt,
+                totalWakaTime = totalWakaTime
             )
         }
 
@@ -29,7 +30,8 @@ class UserMapper {
                 roles = roles,
                 profileImage = profileImage,
                 wakaStartedAt = wakaStartedAt,
-                isDeletedAt = isDeletedAt
+                isDeletedAt = isDeletedAt,
+                totalWakaTime = totalWakaTime
             )
         }
 }
