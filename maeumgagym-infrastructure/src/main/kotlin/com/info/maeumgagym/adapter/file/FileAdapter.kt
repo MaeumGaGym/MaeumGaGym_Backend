@@ -23,7 +23,7 @@ internal class FileAdapter(
             PreSignedUploadURLFeignRequest(fileType)
         ).run {
             PreSignedUploadURLDto(uploadURL, videoId)
-        } 
+        }
     } catch (e: FeignException) {
         throw MaeumGaGymException.INTERNAL_SERVER_ERROR
     }

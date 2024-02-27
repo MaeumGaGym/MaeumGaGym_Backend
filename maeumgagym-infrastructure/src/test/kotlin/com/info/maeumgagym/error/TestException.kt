@@ -1,7 +1,6 @@
 package com.info.maeumgagym.error
 
 import com.info.maeumgagym.common.exception.MaeumGaGymException
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.function.Executable
 import org.opentest4j.AssertionFailedError
 
