@@ -1,9 +1,6 @@
 package com.info.maeumgagym.global.jwt
 
-import com.info.maeumgagym.auth.port.out.GenerateJwtPort
-import com.info.maeumgagym.auth.port.out.GetJwtBodyPort
-import com.info.maeumgagym.auth.port.out.ReissuePort
-import com.info.maeumgagym.auth.port.out.RevokeTokensPort
+import com.info.maeumgagym.auth.port.out.*
 import com.info.maeumgagym.global.env.jwt.JwtProperties
 import com.info.maeumgagym.global.exception.ExpiredTokenException
 import com.info.maeumgagym.global.exception.InvalidTokenException
@@ -28,7 +25,7 @@ class JwtAdapter(
     private val customUserDetailService: CustomUserDetailService,
     private val refreshTokenRepository: RefreshTokenRepository,
     private val accessTokenRepository: AccessTokenRepository
-) : GenerateJwtPort, ReissuePort, GetJwtBodyPort, RevokeTokensPort {
+) : GenerateJwtPort, ReissuePort, GetJwtBodyPort, RevokeTokensPort, DeleteRefreshTokenPort {
 
     // 모든 토큰 발급
     override fun generateTokens(subject: String): Pair<String, String> {
@@ -124,4 +121,8 @@ class JwtAdapter(
                 else -> throw InvalidTokenException
             }
         }
+
+    override fun deleteByOAuthId(oauthId: String) {
+        refreshTokenRepository.deleteById(oauthId)
+    }
 }

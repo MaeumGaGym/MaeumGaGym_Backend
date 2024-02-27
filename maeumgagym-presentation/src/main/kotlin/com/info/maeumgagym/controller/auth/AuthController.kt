@@ -3,6 +3,7 @@ package com.info.maeumgagym.controller.auth
 import com.info.common.WebAdapter
 import com.info.maeumgagym.controller.auth.dto.ReissueWebRequest
 import com.info.maeumgagym.auth.port.`in`.DuplicatedNicknameCheckUseCase
+import com.info.maeumgagym.auth.port.`in`.LogOutUseCase
 import com.info.maeumgagym.auth.port.`in`.ReissueUseCase
 import com.info.maeumgagym.auth.port.`in`.WithdrawalUserUseCase
 import io.swagger.v3.oas.annotations.Operation
@@ -21,7 +22,8 @@ import javax.validation.constraints.NotBlank
 class AuthController(
     private val withdrawalUserUseCase: WithdrawalUserUseCase,
     private val duplicatedNicknameCheckUseCase: DuplicatedNicknameCheckUseCase,
-    private val reissueUseCase: ReissueUseCase
+    private val reissueUseCase: ReissueUseCase,
+    private val logOutUseCase: LogOutUseCase
 ) {
     @Operation(summary = "회원탈퇴 API")
     @DeleteMapping
@@ -52,4 +54,9 @@ class AuthController(
 
             ResponseEntity.ok().headers(responseHeaders).build()
         }
+
+    @Operation(summary = "로그아웃 API")
+    @PostMapping("/logout")
+    fun logout() = logOutUseCase.logout()
+
 }
