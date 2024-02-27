@@ -1,4 +1,4 @@
-package com.info.maeumgagym.controller.public
+package com.info.maeumgagym.controller.statistics
 
 import com.info.common.WebAdapter
 import io.swagger.v3.oas.annotations.Operation
