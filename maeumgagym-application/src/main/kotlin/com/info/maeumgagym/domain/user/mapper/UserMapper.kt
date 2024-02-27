@@ -54,7 +54,7 @@ class UserMapper {
         }
 
     private fun toDomainGender(gender: Gender): GenderModel {
-        return when(gender) {
+        return when (gender) {
             Gender.MAN -> GenderModel.MAN
             Gender.WOMAN -> GenderModel.WOMAN
             Gender.NONE -> GenderModel.NONE
@@ -62,7 +62,7 @@ class UserMapper {
     }
 
     private fun toEntityGender(gender: GenderModel): Gender {
-        return when(gender) {
+        return when (gender) {
             GenderModel.MAN -> Gender.MAN
             GenderModel.WOMAN -> Gender.WOMAN
             GenderModel.NONE -> Gender.NONE
