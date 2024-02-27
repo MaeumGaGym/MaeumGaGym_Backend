@@ -28,7 +28,7 @@ class UserJpaEntity(
     wakaStartedAt: LocalDateTime? = null,
     isDeletedAt: LocalDateTime? = null,
     id: UUID? = null,
-    totalWakaTime: Long = 0,
+    totalWakaTime: Long = 0
 ) : BaseUUIDEntity(id) {
 
     @Column(name = "nickname", nullable = false, length = 10, unique = true)
