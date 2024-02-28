@@ -29,7 +29,8 @@ internal object UserTestModule {
             oauthId = TEST_USER_OAUTH_ID,
             profileImage = TEST_PROFILE_IMAGE,
             roles = TEST_USER_ROLES.toMutableList(),
-            wakaStartedAt = TEST_USER_WAKA
+            wakaStartedAt = TEST_USER_WAKA,
+            physicalInfo = null
         )
 
     fun createOtherUser(): UserJpaEntity =
@@ -38,7 +39,8 @@ internal object UserTestModule {
             oauthId = OTHER_USER_OAUTH_ID,
             profileImage = OTHER_PROFILE_IMAGE,
             roles = OTHER_USER_ROLES.toMutableList(),
-            wakaStartedAt = OTHER_USER_WAKA
+            wakaStartedAt = OTHER_USER_WAKA,
+            physicalInfo = null
         )
 
     fun UserJpaEntity.saveInRepository(userRepository: UserRepository): UserJpaEntity =
