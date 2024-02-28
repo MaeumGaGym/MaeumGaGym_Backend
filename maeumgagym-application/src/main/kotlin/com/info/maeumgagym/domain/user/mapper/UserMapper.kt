@@ -22,7 +22,7 @@ class UserMapper {
                 wakaStartedAt = wakaStartedAt,
                 isDeletedAt = isDeletedAt,
                 totalWakaTime = totalWakaTime,
-                physicalInfo = physicalInfoModel.run {
+                physicalInfo = physicalInfoModel?.run {
                     PhysicalInfo(
                         weight = weight,
                         height = height,
@@ -43,7 +43,7 @@ class UserMapper {
                 wakaStartedAt = wakaStartedAt,
                 isDeletedAt = isDeletedAt,
                 totalWakaTime = totalWakaTime,
-                physicalInfoModel = physicalInfo.run {
+                physicalInfoModel = physicalInfo?.run {
                     PhysicalInfoModel(
                         weight = weight,
                         height = height,
