@@ -1,7 +1,5 @@
 package com.info.maeumgagym.scheduler
 
-import com.info.maeumgagym.domain.user.entity.PhysicalInfo
-import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserNativeRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
