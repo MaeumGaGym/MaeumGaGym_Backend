@@ -2,7 +2,7 @@ package com.info.maeumgagym.pose.port.`in`
 
 import com.info.maeumgagym.pose.dto.response.PoseDetailResponse
 
-interface ReadByIdUseCase {
+interface ReadPoseUseCase {
 
-    fun poseDetailResponseById(id: Long): PoseDetailResponse
+    fun detailResponseById(id: Long): PoseDetailResponse
 }
