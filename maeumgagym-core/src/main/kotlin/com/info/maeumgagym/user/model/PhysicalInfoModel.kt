@@ -1,7 +1,7 @@
 package com.info.maeumgagym.user.model
 
 data class PhysicalInfoModel(
-    var weight: Float,
-    var height: Float,
+    var weight: Double,
+    var height: Double,
     var genderModel: GenderModel
 )

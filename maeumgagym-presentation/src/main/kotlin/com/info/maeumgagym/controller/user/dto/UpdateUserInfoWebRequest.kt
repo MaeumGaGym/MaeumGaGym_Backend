@@ -13,11 +13,11 @@ data class UpdateUserInfoWebRequest(
     val nickname: String,
     @field:DecimalMin(value = "0.0", message = "체중은 0 이상이어야 합니다.")
     @field:DecimalMax(value = "300.0", message = "체중은 300.0 이하여야 합니다.")
-    val weight: Float,
+    val weight: Double,
 
     @field:DecimalMin(value = "0.0", message = "신장은 0 이상이어야 합니다.")
     @field:DecimalMax(value = "300.0", message = "신장은 300.0 이하여야 합니다.")
-    val height: Float,
+    val height: Double,
 
     val genderModel: GenderModel
 ) {

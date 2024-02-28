@@ -4,7 +4,7 @@ import com.info.maeumgagym.user.model.GenderModel
 
 data class UpdateUserInfoRequest(
     val nickname: String,
-    val weight: Float,
-    val height: Float,
+    val weight: Double,
+    val height: Double,
     val genderModel: GenderModel
 )

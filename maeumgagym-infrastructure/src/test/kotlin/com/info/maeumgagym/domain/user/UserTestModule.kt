@@ -14,7 +14,7 @@ internal object UserTestModule {
     private val TEST_USER_ROLES = listOf(Role.USER)
         get() = field.toMutableList()
     private val TEST_USER_WAKA = null
-
+    private val TEST_PHYSICAL_INFO = null
     private const val OTHER_USER_NICKNAME = "다른 유저 닉네임"
     private const val OTHER_USER_OAUTH_ID = "otherUserOAuthId"
     private const val OTHER_PROFILE_IMAGE =
@@ -30,7 +30,7 @@ internal object UserTestModule {
             profileImage = TEST_PROFILE_IMAGE,
             roles = TEST_USER_ROLES.toMutableList(),
             wakaStartedAt = TEST_USER_WAKA,
-            physicalInfo = null
+            physicalInfo = TEST_PHYSICAL_INFO
         )
 
     fun createOtherUser(): UserJpaEntity =
@@ -40,7 +40,7 @@ internal object UserTestModule {
             profileImage = OTHER_PROFILE_IMAGE,
             roles = OTHER_USER_ROLES.toMutableList(),
             wakaStartedAt = OTHER_USER_WAKA,
-            physicalInfo = null
+            physicalInfo = TEST_PHYSICAL_INFO
         )
 
     fun UserJpaEntity.saveInRepository(userRepository: UserRepository): UserJpaEntity =
