@@ -12,5 +12,5 @@ data class User(
     val wakaStartedAt: LocalDateTime? = null,
     val isDeletedAt: LocalDateTime? = null,
     val totalWakaTime: Long = 0,
-    val physicalInfoModel: PhysicalInfoModel
+    val physicalInfoModel: PhysicalInfoModel?
 )

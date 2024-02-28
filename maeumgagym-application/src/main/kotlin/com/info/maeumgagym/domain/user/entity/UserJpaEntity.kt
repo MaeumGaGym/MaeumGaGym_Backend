@@ -29,7 +29,7 @@ class UserJpaEntity(
     isDeletedAt: LocalDateTime? = null,
     id: UUID? = null,
     totalWakaTime: Long = 0,
-    physicalInfo: PhysicalInfo
+    physicalInfo: PhysicalInfo?
 ) : BaseUUIDEntity(id) {
 
     @Column(name = "nickname", nullable = false, length = 10, unique = true)
@@ -65,7 +65,7 @@ class UserJpaEntity(
         protected set
 
     @Embedded
-    @Column(name = "physical_info", nullable = false)
-    var physicalInfo: PhysicalInfo = physicalInfo
+    @Column(name = "physical_info", nullable = true)
+    var physicalInfo: PhysicalInfo? = physicalInfo
         protected set
 }
