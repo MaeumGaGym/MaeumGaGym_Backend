@@ -7,7 +7,10 @@ object WakatimeUtils {
     private fun findSeconds(level: Double): Double {
         val levelPlusFour = level.plus(4)
 
-        return ((level.pow(3) * levelPlusFour) + ((level + levelPlusFour) * (level.pow(2) + levelPlusFour))) * 10 + 45000
+        return (
+            (level.pow(3) * levelPlusFour) +
+                ((level + levelPlusFour) * (level.pow(2) + levelPlusFour))
+            ) * 10 + 45000
     }
 
     fun findLevel(seconds: Long): Int {
