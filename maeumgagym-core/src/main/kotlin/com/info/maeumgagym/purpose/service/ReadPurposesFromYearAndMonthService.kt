@@ -8,7 +8,7 @@ import com.info.maeumgagym.purpose.port.out.ReadPurposePort
 import java.time.LocalDate
 
 @ReadOnlyUseCase
-class ReadPurposeFromYearAndMonthService(
+class ReadPurposesFromYearAndMonthService(
     private val readPurposePort: ReadPurposePort,
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : ReadPurposesFromYearAndMonthUseCase {
