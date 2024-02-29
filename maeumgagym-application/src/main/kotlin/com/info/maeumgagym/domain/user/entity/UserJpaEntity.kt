@@ -28,7 +28,8 @@ class UserJpaEntity(
     wakaStartedAt: LocalDateTime? = null,
     isDeletedAt: LocalDateTime? = null,
     id: UUID? = null,
-    totalWakaTime: Long = 0
+    totalWakaTime: Long = 0,
+    physicalInfo: PhysicalInfo?
 ) : BaseUUIDEntity(id) {
 
     @Column(name = "nickname", nullable = false, length = 10, unique = true)
@@ -61,5 +62,10 @@ class UserJpaEntity(
 
     @Column(name = "total_wakatime", nullable = false)
     var totalWakaTime: Long = totalWakaTime
+        protected set
+
+    @Embedded
+    @Column(name = "physical_info", nullable = true)
+    var physicalInfo: PhysicalInfo? = physicalInfo
         protected set
 }

@@ -46,7 +46,8 @@ internal class EndWakatimeService(
                     oauthId = oauthId,
                     profileImage = profileImage,
                     wakaStartedAt = null,
-                    isDeletedAt = isDeletedAt
+                    isDeletedAt = isDeletedAt,
+                    physicalInfoModel = null
                 )
             )
         }

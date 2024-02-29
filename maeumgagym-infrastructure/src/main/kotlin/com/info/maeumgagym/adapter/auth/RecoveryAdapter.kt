@@ -26,7 +26,8 @@ internal class RecoveryAdapter(
                     roles = roles,
                     oauthId = oauthId,
                     profileImage = profileImage,
-                    isDeletedAt = null
+                    isDeletedAt = null,
+                    physicalInfoModel = physicalInfoModel
                 )
             )
         }
