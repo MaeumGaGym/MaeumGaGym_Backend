@@ -56,7 +56,8 @@ internal class GoogleOAuthService(
                 nickname = nickname,
                 roles = mutableListOf(Role.USER),
                 oauthId = profile.sub,
-                profileImage = profile.picture
+                profileImage = profile.picture,
+                physicalInfoModel = null
             )
         )
     }

@@ -11,5 +11,6 @@ data class User(
     val profileImage: String? = null,
     val wakaStartedAt: LocalDateTime? = null,
     val isDeletedAt: LocalDateTime? = null,
-    val totalWakaTime: Long = 0
+    val totalWakaTime: Long = 0,
+    val physicalInfoModel: PhysicalInfoModel?
 )

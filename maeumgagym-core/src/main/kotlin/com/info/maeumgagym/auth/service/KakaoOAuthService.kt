@@ -50,7 +50,8 @@ internal class KakaoOAuthService(
             User(
                 nickname = nickname,
                 roles = mutableListOf(Role.USER),
-                oauthId = userInfo.id
+                oauthId = userInfo.id,
+                physicalInfoModel = null
             )
         )
     }

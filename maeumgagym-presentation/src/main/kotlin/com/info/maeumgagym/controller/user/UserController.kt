@@ -1,14 +1,15 @@
 package com.info.maeumgagym.controller.user
 
 import com.info.common.WebAdapter
+import com.info.maeumgagym.controller.user.dto.UpdateUserInfoWebRequest
 import com.info.maeumgagym.user.dto.response.UserProfileResponse
 import com.info.maeumgagym.user.port.`in`.ReadUserUseCase
+import com.info.maeumgagym.user.port.`in`.UpdateUserInfoUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 import javax.validation.constraints.NotBlank
 
 @Tag(name = "User API")
@@ -16,7 +17,8 @@ import javax.validation.constraints.NotBlank
 @WebAdapter
 @RequestMapping("/user")
 class UserController(
-    private val readUserUseCase: ReadUserUseCase
+    private val readUserUseCase: ReadUserUseCase,
+    private val updateUserInfoUseCase: UpdateUserInfoUseCase
 ) {
 
     @Operation(summary = "프로필 보기 API")
@@ -26,4 +28,13 @@ class UserController(
         @NotBlank(message = "null일 수 없습니다.")
         nickname: String?
     ): UserProfileResponse = readUserUseCase.profileFromNickname(nickname!!)
+
+    @Operation(summary = "유저 정보 수정 API")
+    @PutMapping
+    fun updateUserInfo(
+        @RequestBody @Valid
+        updateUserInfoWebRequest: UpdateUserInfoWebRequest
+    ) {
+        updateUserInfoUseCase.update(updateUserInfoWebRequest.toRequest())
+    }
 }

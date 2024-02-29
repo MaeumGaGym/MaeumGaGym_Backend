@@ -1,6 +1,5 @@
 package com.info.maeumgagym.scheduler
 
-import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserNativeRepository
 import com.info.maeumgagym.domain.user.repository.UserRepository
@@ -63,19 +62,8 @@ class WakaTimeScheduler(
                 )
 
                 // 와카타임 재시작
-                userRepository.save(
-                    user.run {
-                        UserJpaEntity(
-                            nickname = nickname,
-                            oauthId = oauthId,
-                            roles = roles,
-                            profileImage = profileImage,
-                            wakaStartedAt = now,
-                            isDeletedAt = isDeletedAt,
-                            id = id
-                        )
-                    }
-                )
+                val wakaTimeInitUser = user.copy(wakaStartedAt = now)
+                userRepository.save(userMapper.toEntity(wakaTimeInitUser))
             } catch (e: Exception) {
                 return@forEach
             }

@@ -31,7 +31,8 @@ internal class StartWakatimeService(
                     oauthId = oauthId,
                     profileImage = profileImage,
                     wakaStartedAt = LocalDateTime.now(),
-                    isDeletedAt = isDeletedAt
+                    isDeletedAt = isDeletedAt,
+                    physicalInfoModel = null
                 )
             )
         }
