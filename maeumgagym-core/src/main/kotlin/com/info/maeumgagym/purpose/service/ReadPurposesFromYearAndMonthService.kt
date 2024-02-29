@@ -14,7 +14,6 @@ class ReadPurposesFromYearAndMonthService(
 ) : ReadPurposesFromYearAndMonthUseCase {
 
     override fun readPurposesFromYearAndMonth(year: Int, month: Int): PurposeListResponse {
-
         val user = readCurrentUserPort.readCurrentUser()
 
         // 입력된 값을 통해 LocalDate 객체 생성 (YYYY-MM-01)

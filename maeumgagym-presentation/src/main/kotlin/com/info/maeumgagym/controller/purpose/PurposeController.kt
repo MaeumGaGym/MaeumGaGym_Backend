@@ -42,11 +42,13 @@ class PurposeController(
     fun purposeReadFromYearAndMonth(
         @Min(value = 1000, message = "1000 이상이어야 합니다.")
         @Max(value = 3000, message = "3000 이하여야 합니다.")
-        @RequestParam("year") year: Int,
+        @RequestParam("year")
+        year: Int,
 
         @Positive(message = "1 이상이어야 합니다.")
         @Max(value = 12, message = "12 이하여야 합니다.")
-        @RequestParam("month") month: Int
+        @RequestParam("month")
+        month: Int
     ): PurposeListResponse =
         readPurposesFromYearAndMonthUseCase.readPurposesFromYearAndMonth(year, month)
 
