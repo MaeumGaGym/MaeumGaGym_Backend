@@ -29,6 +29,6 @@ object TableNames {
     const val REDIS_STEP_TABLE = "${TABLE_PREFIX}step"
 
     const val PURPOSE_TABLE = "${TABLE_PREFIX}purpose"
-    const val PURPOSE_START_DATE_INDEX ="${INDEX_PREFIX}purpose_start"
-    const val PURPOSE_END_DATE_INDEX ="${INDEX_PREFIX}purpose_end"
+    const val PURPOSE_START_DATE_INDEX = "${INDEX_PREFIX}purpose_start"
+    const val PURPOSE_END_DATE_INDEX = "${INDEX_PREFIX}purpose_end"
 }
