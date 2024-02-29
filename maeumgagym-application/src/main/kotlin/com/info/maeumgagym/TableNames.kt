@@ -12,28 +12,23 @@ object TableNames {
     const val ROUTINE_TABLE = "${TABLE_PREFIX}routine"
 
     const val PICKLE_TABLE = "${TABLE_PREFIX}pickle"
-
-    const val PICKLE_LIKE_TABLE = "${TABLE_PREFIX}pickle_like"
-
     const val PICKLE_MAP_TABLE = "${TABLE_PREFIX}pickle_comments"
-
     const val PICKLE_COMMENT_TABLE = "${TABLE_PREFIX}pickle_comment"
-
     const val PICKLE_REPLY_TABLE = "${TABLE_PREFIX}pickle_reply"
-
-    const val WAKA_TIME_TABLE = "${TABLE_PREFIX}waka_time"
+    const val PICKLE_TAG_INDEX = "${INDEX_PREFIX}pickle_tag"
+    const val PICKLE_LIKE_TABLE = "${TABLE_PREFIX}pickle_like"
+    const val PICKLE_LIKE_INDEX = "${INDEX_PREFIX}pickle_like"
 
     const val REPORT_TABLE = "${TABLE_PREFIX}report"
 
+    const val WAKA_TIME_TABLE = "${TABLE_PREFIX}waka_time"
+
     const val ACCESS_TOKEN_TABLE = "${TABLE_PREFIX}access"
-
     const val REFRESH_TOKEN_TABLE = "${TABLE_PREFIX}refresh"
-
-    const val PICKLE_TAG_INDEX = "${INDEX_PREFIX}pickle_tag"
-
-    const val PICKLE_LIKE_INDEX = "${INDEX_PREFIX}pickle_like"
 
     const val REDIS_STEP_TABLE = "${TABLE_PREFIX}step"
 
     const val PURPOSE_TABLE = "${TABLE_PREFIX}purpose"
+    const val PURPOSE_START_DATE_INDEX ="${INDEX_PREFIX}purpose_start"
+    const val PURPOSE_END_DATE_INDEX ="${INDEX_PREFIX}purpose_end"
 }
