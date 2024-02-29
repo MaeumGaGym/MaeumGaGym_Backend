@@ -3,19 +3,18 @@ package com.info.maeumgagym.controller.purpose
 import com.info.common.WebAdapter
 import com.info.maeumgagym.controller.purpose.dto.CreatePurposeWebRequest
 import com.info.maeumgagym.controller.purpose.dto.UpdatePurposeWebRequest
+import com.info.maeumgagym.purpose.dto.response.PurposeListResponse
 import com.info.maeumgagym.purpose.port.`in`.CreatePurposeUseCase
 import com.info.maeumgagym.purpose.port.`in`.DeletePurposeUseCase
+import com.info.maeumgagym.purpose.port.`in`.ReadPurposesFromYearAndMonthUseCase
 import com.info.maeumgagym.purpose.port.`in`.UpdatePurposeUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
+import javax.validation.constraints.Max
+import javax.validation.constraints.Min
 import javax.validation.constraints.Positive
 
 @Tag(name = "Purpose APIs")
@@ -24,6 +23,7 @@ import javax.validation.constraints.Positive
 @WebAdapter
 class PurposeController(
     private val createPurposeUseCase: CreatePurposeUseCase,
+    private val readPurposesFromYearAndMonthUseCase: ReadPurposesFromYearAndMonthUseCase,
     private val updatePurposeUseCase: UpdatePurposeUseCase,
     private val deletePurposeUseCase: DeletePurposeUseCase
 ) {
@@ -37,6 +37,19 @@ class PurposeController(
     ) {
         createPurposeUseCase.createPurpose(req.toRequest())
     }
+
+    @Operation(summary = "저번 달부터 다음 달 안에 속한 목표 조회 API")
+    @GetMapping
+    fun purposeReadFromYearAndMonth(
+        @Min(value = 1000, message = "1000 이상이어야 합니다.")
+        @Max(value = 3000, message = "3000 이하여야 합니다.")
+        @RequestParam("year") year: Int,
+
+        @Positive(message = "1 이상이어야 합니다.")
+        @Max(value = 12, message = "12 이하여야 합니다.")
+        @RequestParam("month") month: Int
+    ): PurposeListResponse =
+        readPurposesFromYearAndMonthUseCase.readPurposesFromYearAndMonth(year, month)
 
     @Operation(summary = "목표 수정 API")
     @PutMapping("/{id}")
