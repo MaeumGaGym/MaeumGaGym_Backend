@@ -7,6 +7,13 @@ import java.time.LocalDate
 import javax.persistence.*
 
 @Entity(name = TableNames.PURPOSE_TABLE)
+@Table(
+    name = TableNames.PURPOSE_TABLE,
+    indexes = [
+        Index(name = TableNames.PURPOSE_START_DATE_INDEX, columnList = "start_date"),
+        Index(name = TableNames.PURPOSE_END_DATE_INDEX, columnList = "end_date")
+    ]
+)
 class PurposeJpaEntity(
     title: String,
     content: String,
