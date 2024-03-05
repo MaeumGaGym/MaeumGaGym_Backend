@@ -1,0 +1,9 @@
+spring:
+    config:
+        activate:
+            on-profile: minio
+minio:
+    end-point: ${MINIO_END_POINT}
+    access-key: ${MINIO_ACCESS}
+    secret-key: ${MINIO_SECRET}
+    bucket-name: ${MINIO_BUCKET_NAME}
