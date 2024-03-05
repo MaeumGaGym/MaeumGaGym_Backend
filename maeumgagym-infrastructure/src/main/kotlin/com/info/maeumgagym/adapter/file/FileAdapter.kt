@@ -16,7 +16,7 @@ internal class FileAdapter(
 ) : DeleteOriginalVideoPort, GenerateM3u8URLPort, GetPreSignedVideoUploadURLPort {
 
     override fun getPreSignedURL(fileType: String): PreSignedUploadURLDto =
-        fileClient.preSignedUploadURL(
+        fileClient.preSignedUploadURLForVideo(
             fileProperty.secretKey,
             PreSignedUploadURLFeignRequest(fileType)
         ).run {

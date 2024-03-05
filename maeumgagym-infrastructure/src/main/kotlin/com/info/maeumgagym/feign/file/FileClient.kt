@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*
 interface FileClient {
 
     @PostMapping("/generate", produces = ["application/json"])
-    fun preSignedUploadURL(
+    fun preSignedUploadURLForVideo(
         @RequestHeader(name = "MaeumgaGym-Token")
         secretToken: String,
         @RequestBody

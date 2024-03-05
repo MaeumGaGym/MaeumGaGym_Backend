@@ -31,7 +31,7 @@ class PickleController(
     private val createPickleUseCase: CreatePickleUseCase,
     private val deletePickleUseCase: DeletePickleUseCase,
     private val updatePickleUseCase: UpdatePickleUseCase,
-    private val getPreSignedUploadURLUseCase: GetPreSignedUploadURLUseCase,
+    private val getPicklePreSignedURLUseCase: GetPicklePreSignedURLUseCase,
     private val likePickleUseCase: LikePickleUseCase
 ) {
 
@@ -80,7 +80,7 @@ class PickleController(
     fun getPreSignedUploadURL(
         @RequestBody @Valid
         req: PreSignedUploadURLWebRequest
-    ): PreSignedUploadURLResponse = getPreSignedUploadURLUseCase.getPreSignedUploadURL(req.fileType!!)
+    ): PreSignedUploadURLResponse = getPicklePreSignedURLUseCase.getUploadURL(req.fileType!!)
 
     @Operation(summary = "피클 생성 API")
     @PostMapping
