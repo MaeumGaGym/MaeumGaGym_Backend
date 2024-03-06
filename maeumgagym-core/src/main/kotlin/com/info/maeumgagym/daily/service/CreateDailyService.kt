@@ -21,11 +21,11 @@ internal class CreateDailyService(
         val now = LocalDateTime.now()
 
         val daily = Daily(
-            readDailyPort.readByUploaderAndDate(user, now.toLocalDate())?.id,
-            title,
-            user,
-            now.toLocalDate(),
-            now.toLocalTime()
+            id = readDailyPort.readByUploaderAndDate(user, now.toLocalDate())?.id,
+            title = title,
+            uploader = user,
+            date = now.toLocalDate(),
+            time = now.toLocalTime()
         )
 
         saveDailyPort.save(daily)
