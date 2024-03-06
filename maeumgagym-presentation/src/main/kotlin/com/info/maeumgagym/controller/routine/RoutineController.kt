@@ -24,7 +24,8 @@ class RoutineController(
     private val readAllMyRoutineUseCase: ReadAllMyRoutineUseCase,
     private val createRoutineUseCase: CreateRoutineUseCase,
     private val deleteRoutineUseCase: DeleteRoutineUseCase,
-    private val updateRoutineUseCase: UpdateRoutineUseCase
+    private val updateRoutineUseCase: UpdateRoutineUseCase,
+    private val readRoutineUseCase: ReadRoutineUseCase
 ) {
     @Operation(summary = "루틴 생성 API")
     @PostMapping
@@ -70,4 +71,13 @@ class RoutineController(
     ) {
         updateRoutineUseCase.updateRoutine(req.toRequest(), id)
     }
+
+    @Operation(summary = "단일 루틴 조회 API")
+    @GetMapping("/{id}")
+    fun readDetailRoutine(
+        @PathVariable("id")
+        @Valid
+        @Positive(message = "0보다 커야 합니다.")
+        id: Long
+    ): RoutineResponse = readRoutineUseCase.readFromId(id)
 }
