@@ -27,7 +27,7 @@ class DailyController(
     private val deleteDailyUseCase: DeleteDailyUseCase,
     private val getDailyPreSignedURLUseCase: GetDailyPreSignedURLUseCase
 ) {
-    @Operation(description = "미리 서명된 URL 얻기 API")
+    @Operation(description = "오운완 업로드 URL 얻기 API")
     @GetMapping("/daily/pre-signed")
     fun preSignedUrl(
         @Valid
