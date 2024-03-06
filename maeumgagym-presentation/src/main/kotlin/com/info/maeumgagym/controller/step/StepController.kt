@@ -23,11 +23,11 @@ class StepController(
     private val readTodayStepCountUseCase: ReadTodayStepCountUseCase
 ) {
 
-    @Operation(summary = "걸음수 생성 API")
+    @Operation(summary = "걸음 수 카운트 시작 API")
     @PostMapping
     fun createStep() = createStepUseCase.createStep()
 
-    @Operation(summary = "걸음수 수정 API")
+    @Operation(summary = "걸음 수 카운트 추가 API")
     @PutMapping
     fun updateStep(
         @RequestParam(name = "number_of_steps")
