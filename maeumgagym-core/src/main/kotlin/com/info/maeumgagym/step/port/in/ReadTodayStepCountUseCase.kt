@@ -11,6 +11,11 @@ import com.info.maeumgagym.step.model.Step
  * 카운팅을 시작하지 않았을 경우 걸음 수를 0으로 응답
  *
  * 현재 [Step]은 금일의 것만 저장
+ *
+ * @see CreateStepUseCase
+ * @see UpdateStepUseCase
+ *
+ * @author HyunSu1768
  */
 interface ReadTodayStepCountUseCase {
 
