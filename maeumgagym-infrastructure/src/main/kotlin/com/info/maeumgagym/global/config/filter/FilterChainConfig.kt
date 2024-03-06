@@ -4,14 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.global.error.filter.ErrorLogResponseFilter
 import com.info.maeumgagym.global.error.filter.ExceptionConvertFilter
+import org.apache.catalina.core.ApplicationFilterChain
 import org.springframework.boot.web.servlet.FilterRegistrationBean
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.web.filter.DelegatingFilterProxy
 import javax.servlet.Filter
 
-@Configuration
+/**
+ * > 현재 해당 설정 관련 사항이 기술적 문제로 잠시 반려되었습니다. [ErrorLogResponseFilter]와 [ExceptionConvertFilter]는 [ApplicationFilterChain]이 아닌 [SecurityFilterChain]에 등록되어 있습니다.
+ */
 class FilterChainConfig(
     private val objectMapper: ObjectMapper
 ) {
@@ -29,7 +30,7 @@ class FilterChainConfig(
         DelegatingFilterProxy::class.java
     )
 
-    @Bean
+    // @Bean
     fun errorLogResponseFilterConfig(): FilterRegistrationBean<ErrorLogResponseFilter> {
         val bean = FilterRegistrationBean(
             ErrorLogResponseFilter(objectMapper)
@@ -41,7 +42,7 @@ class FilterChainConfig(
         return bean
     }
 
-    @Bean
+    // @Bean
     fun exceptionConvertFilterConfig(): FilterRegistrationBean<ExceptionConvertFilter> {
         val bean = FilterRegistrationBean(
             ExceptionConvertFilter()
@@ -58,7 +59,7 @@ class FilterChainConfig(
      *
      * 보다 정확히는, [SecurityFilterChain]을 감싼 [DelegatingFilterProxy]의 설정.
      */
-    @Bean
+    // @Bean
     fun springSecurityFilterChainOrderConfig(): FilterRegistrationBean<DelegatingFilterProxy> {
         val bean = FilterRegistrationBean(
             DelegatingFilterProxy("springSecurityFilterChain")

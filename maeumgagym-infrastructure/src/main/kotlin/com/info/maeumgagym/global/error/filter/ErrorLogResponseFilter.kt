@@ -4,7 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.common.exception.*
 import com.info.maeumgagym.global.config.filter.FilterChainConfig
 import com.info.maeumgagym.global.error.log.ErrorLog
+import org.apache.catalina.core.ApplicationFilterChain
 import org.springframework.http.MediaType
+import org.springframework.security.web.SecurityFilterChain
+import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import org.springframework.web.servlet.DispatcherServlet
 import org.springframework.web.util.NestedServletException
@@ -24,6 +27,8 @@ import javax.servlet.http.HttpServletResponse
  * 원래 [DispatcherServlet] 통과 이후 발생한 예외는 [NestedServletException.cause]로 감싸져 *throw*되지만, [ExceptionConvertFilter]에서 이를 [MaeumGaGymException]의 하위 타입으로 변환함. 자세한 것은 [ExceptionConvertFilter] 참조.
  *
  * 해당 *Filter*의 순서 설정 정보는 [FilterChainConfig]에 존재
+ *
+ * > 위의 사항이 기술적 문제로 잠시 반려되었습니다. 현재 [ApplicationFilterChain]이 아닌 [SecurityFilterChain]에 등록되어 있습니다.
  *
  * @see ExceptionConvertFilter
  */
