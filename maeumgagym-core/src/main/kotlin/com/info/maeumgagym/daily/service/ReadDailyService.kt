@@ -26,9 +26,9 @@ internal class ReadDailyService(
                 it.isNotEmpty()
             }?.map {
                 DailyResponse(
-                    it.title,
-                    it.date.atTime(it.time),
-                    URL_FORMAT.format(
+                    title = it.title,
+                    createAt = it.date.atTime(it.time),
+                    url = URL_FORMAT.format(
                         System.getenv("MINIO_END_POINT"),
                         System.getenv("MINIO_BUCKET_NAME"),
                         user.oauthId,

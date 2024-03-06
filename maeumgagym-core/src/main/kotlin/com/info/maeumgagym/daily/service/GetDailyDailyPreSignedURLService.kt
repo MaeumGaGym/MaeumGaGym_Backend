@@ -16,10 +16,7 @@ internal class GetDailyDailyPreSignedURLService(
     override fun getUploadUrl(title: String): PreSignedURLResponse {
         val user = readCurrentUserPort.readCurrentUser()
 
-        val url = getPreSignedImageUploadURL.getPreSignedUrl(
-            "daily_exercise_complete/${user.oauthId}/${LocalDate.now()}/",
-            title
-        )
+        val url = getPreSignedImageUploadURL.getPreSignedUrl(user.oauthId, title)
 
         return PreSignedURLResponse(url)
     }

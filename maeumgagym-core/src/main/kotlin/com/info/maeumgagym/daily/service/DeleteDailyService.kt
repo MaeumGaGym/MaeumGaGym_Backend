@@ -18,10 +18,6 @@ internal class DeleteDailyService(
     private val deleteDailyPort: DeleteDailyPort
 ) : DeleteDailyUseCase {
 
-    private companion object {
-        const val DEFAULT_FOLDER = "daily_exercise_complete"
-    }
-
     override fun delete(date: LocalDate) {
         val user = readCurrentUserPort.readCurrentUser()
 
@@ -29,7 +25,7 @@ internal class DeleteDailyService(
 
         if (daily.uploader != user) throw PermissionDeniedException
 
-        deleteImageObjectPort.deleteObjects("$DEFAULT_FOLDER/${user.oauthId}/$date")
+        deleteImageObjectPort.deleteObjects(user.oauthId, date, daily.title)
 
         deleteDailyPort.delete(daily)
     }
