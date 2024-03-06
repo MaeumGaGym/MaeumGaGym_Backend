@@ -18,10 +18,9 @@ internal class MinIOAdapter(
     private val minioClient: MinioClient
 ) : GetPreSignedImageUploadURL, DeleteImageObjectPort {
 
-    private companion object{
+    private companion object {
         const val FILE_PATH_FORMAT = "daily_exercise_complete/%s/%s/%s"
     }
-
 
     override fun getPreSignedUrl(oauthId: String, objectName: String): String =
         minioClient.getPresignedObjectUrl(
