@@ -1,12 +1,12 @@
 package com.info.maeumgagym.routine.service
 
-import com.info.common.UseCase
+import com.info.common.ReadOnlyUseCase
 import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.routine.dto.response.RoutineResponse
 import com.info.maeumgagym.routine.port.`in`.ReadRoutineUseCase
 import com.info.maeumgagym.routine.port.out.ReadRoutinePort
 
-@UseCase
+@ReadOnlyUseCase
 internal class ReadRoutineService(
     private val readRoutinePort: ReadRoutinePort
 ) : ReadRoutineUseCase {
