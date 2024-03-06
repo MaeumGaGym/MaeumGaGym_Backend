@@ -126,6 +126,7 @@ class BusinessLogicException(
             BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PICKLE_REPLY)
         val STEP_NOT_FOUND = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.STEP)
         val PURPOSE_NOT_FOUND = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PURPOSE)
+        val DAILY_NOT_FOUND = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PURPOSE)
 
         // Conflict
         val DUPLICATED_NICKNAME = BusinessLogicException(409, "Duplicated Nickname")

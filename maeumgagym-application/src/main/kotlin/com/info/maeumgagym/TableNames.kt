@@ -4,6 +4,7 @@ object TableNames {
 
     private const val TABLE_PREFIX = "tbl_"
     private const val INDEX_PREFIX = "idx_"
+    private const val UNIQUE_PREFIX = "unique_"
 
     const val USER_TABLE = "${TABLE_PREFIX}user"
 
@@ -31,4 +32,8 @@ object TableNames {
     const val PURPOSE_TABLE = "${TABLE_PREFIX}purpose"
     const val PURPOSE_START_DATE_INDEX = "${INDEX_PREFIX}purpose_start"
     const val PURPOSE_END_DATE_INDEX = "${INDEX_PREFIX}purpose_end"
+
+    const val DAILY = TABLE_PREFIX + "daily_exercise_complete"
+    const val DAILY_DATE_INDEX = INDEX_PREFIX + "date"
+    const val DAILY_DATE_UPLOADER_UNIQUE = UNIQUE_PREFIX + "date_uploader"
 }
