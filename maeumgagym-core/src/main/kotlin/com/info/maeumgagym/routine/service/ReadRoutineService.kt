@@ -9,7 +9,7 @@ import com.info.maeumgagym.routine.port.out.ReadRoutinePort
 @UseCase
 internal class ReadRoutineService(
     private val readRoutinePort: ReadRoutinePort
-): ReadRoutineUseCase {
+) : ReadRoutineUseCase {
     override fun readFromId(routineId: Long): RoutineDetailResponse {
         val routine = readRoutinePort.readById(routineId) ?: throw BusinessLogicException.ROUTINE_NOT_FOUND
         val routineResponse = routine.toResponse()
