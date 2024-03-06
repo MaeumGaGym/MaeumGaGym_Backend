@@ -8,7 +8,7 @@ import com.info.maeumgagym.daily.port.out.GetPreSignedImageUploadURL
 import java.time.LocalDate
 
 @ReadOnlyUseCase
-class GetDailyDailyPreSignedURLService(
+internal class GetDailyDailyPreSignedURLService(
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val getPreSignedImageUploadURL: GetPreSignedImageUploadURL
 ) : GetDailyPreSignedURLUseCase {
