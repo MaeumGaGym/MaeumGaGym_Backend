@@ -1,5 +1,6 @@
 package com.info.maeumgagym.domain.routine
 
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.routine.RoutineTestModule.saveInRepository
 import com.info.maeumgagym.domain.routine.RoutineTestModule.setArchived
@@ -10,7 +11,7 @@ import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserRepository
-import com.info.maeumgagym.routine.exception.OtherRoutineAlreadyUsingAtDayOfWeekException
+import com.info.maeumgagym.error.TestException
 import com.info.maeumgagym.routine.port.`in`.CreateRoutineUseCase
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -69,7 +70,9 @@ internal class CreateRoutineServiceTests @Autowired constructor(
     fun createRoutineWithDayOfWeeksAlreadyOtherRoutineUsingAt() {
         RoutineTestModule.createTestRoutine(user.id!!).saveInRepository(routineRepository)
 
-        Assertions.assertThrows(OtherRoutineAlreadyUsingAtDayOfWeekException::class.java) {
+        TestException.assertThrowsMaeumGaGymExceptionInstance(
+            BusinessLogicException.OTHER_ROUTINE_ALREADY_USING_AT_DAY_OF_WEEK
+        ) {
             createRoutineUseCase.createRoutine(
                 RoutineTestModule.getCreateRoutineRequest()
             )

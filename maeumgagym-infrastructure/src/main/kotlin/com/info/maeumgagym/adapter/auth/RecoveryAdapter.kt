@@ -1,6 +1,6 @@
 package com.info.maeumgagym.adapter.auth
 
-import com.info.maeumgagym.user.exception.UserNotFoundException
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.ReadUserPort
 import com.info.maeumgagym.user.port.out.RecoveryUserPort
@@ -15,7 +15,7 @@ internal class RecoveryAdapter(
 
     override fun recovery(oauthId: String) {
         // 해딩 유저를 삭제된 유저들 중에서 확인
-        val deletedUser = readUserPort.readDeletedByOauthId(oauthId) ?: throw UserNotFoundException
+        val deletedUser = readUserPort.readDeletedByOauthId(oauthId) ?: throw BusinessLogicException.USER_NOT_FOUND
 
         // 유저의 소프트 딜리트 변경
         deletedUser.apply {

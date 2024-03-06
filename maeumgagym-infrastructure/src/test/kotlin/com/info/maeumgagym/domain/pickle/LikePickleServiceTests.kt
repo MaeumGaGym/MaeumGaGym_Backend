@@ -1,5 +1,6 @@
 package com.info.maeumgagym.domain.pickle
 
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.pickle.PickleTestModule.createPickle
 import com.info.maeumgagym.domain.pickle.PickleTestModule.saveInRepository
@@ -11,7 +12,7 @@ import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserRepository
-import com.info.maeumgagym.pickle.exception.PickleNotFoundException
+import com.info.maeumgagym.error.TestException
 import com.info.maeumgagym.pickle.port.`in`.LikePickleUseCase
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -102,7 +103,7 @@ class LikePickleServiceTests @Autowired constructor(
     fun likeNonExistsPickle() {
         pickle = createPickle(user)
 
-        Assertions.assertThrows(PickleNotFoundException::class.java) {
+        TestException.assertThrowsMaeumGaGymExceptionInstance(BusinessLogicException.PICKLE_NOT_FOUND) {
             likePickleUseCase.likePickle(pickle.videoId)
         }
         Assertions.assertNull(

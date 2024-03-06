@@ -2,9 +2,9 @@ package com.info.maeumgagym.daily.service
 
 import com.info.common.ReadOnlyUseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.daily.dto.response.DailyListResponse
 import com.info.maeumgagym.daily.dto.response.DailyResponse
-import com.info.maeumgagym.daily.exception.ThereNoDailiesException
 import com.info.maeumgagym.daily.port.`in`.ReadDailyUseCase
 import com.info.maeumgagym.daily.port.out.ReadDailyPort
 
@@ -36,7 +36,7 @@ internal class ReadDailyService(
                         it.title
                     )
                 )
-            } ?: throw ThereNoDailiesException
+            } ?: throw BusinessLogicException(204, "There's No Dailies Left.")
 
         return DailyListResponse(dailies)
     }

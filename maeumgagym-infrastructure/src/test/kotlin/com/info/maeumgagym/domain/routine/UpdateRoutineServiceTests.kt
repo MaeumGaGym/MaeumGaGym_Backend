@@ -1,6 +1,7 @@
 package com.info.maeumgagym.domain.routine
 
-import com.info.maeumgagym.auth.exception.PermissionDeniedException
+import com.info.maeumgagym.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.routine.RoutineTestModule.saveInRepository
 import com.info.maeumgagym.domain.routine.RoutineTestModule.setArchived
@@ -12,8 +13,7 @@ import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserRepository
-import com.info.maeumgagym.routine.exception.OtherRoutineAlreadyUsingAtDayOfWeekException
-import com.info.maeumgagym.routine.exception.RoutineNotFoundException
+import com.info.maeumgagym.error.TestException
 import com.info.maeumgagym.routine.port.`in`.UpdateRoutineUseCase
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -53,7 +53,7 @@ internal class UpdateRoutineServiceTests @Autowired constructor(
     @Test
     fun updateOtherRoutine() {
         UserTestModule.createOtherUser().saveInRepository(userRepository).saveInContext(userMapper)
-        Assertions.assertThrows(PermissionDeniedException::class.java) {
+        TestException.assertThrowsMaeumGaGymExceptionInstance(SecurityException.PERMISSION_DENIED) {
             updateRoutineUseCase.updateRoutine(
                 RoutineTestModule.getUpdateRoutineRequest(routine),
                 routine.id!!
@@ -64,7 +64,7 @@ internal class UpdateRoutineServiceTests @Autowired constructor(
     @Test
     fun updateNonExistentRoutine() {
         routineRepository.delete(routine)
-        Assertions.assertThrows(RoutineNotFoundException::class.java) {
+        TestException.assertThrowsMaeumGaGymExceptionInstance(BusinessLogicException.ROUTINE_NOT_FOUND) {
             updateRoutineUseCase.updateRoutine(
                 RoutineTestModule.getUpdateRoutineRequest(routine),
                 routine.id!!
@@ -91,7 +91,9 @@ internal class UpdateRoutineServiceTests @Autowired constructor(
         val otherRoutine = RoutineTestModule.createTestRoutine(user.id!!).saveInRepository(routineRepository)
 
         // 새로운 루틴을 기본 루틴의 요일과 똑같이 변경 -> 예외 발생해야 함
-        Assertions.assertThrows(OtherRoutineAlreadyUsingAtDayOfWeekException::class.java) {
+        TestException.assertThrowsMaeumGaGymExceptionInstance(
+            BusinessLogicException.OTHER_ROUTINE_ALREADY_USING_AT_DAY_OF_WEEK
+        ) {
             updateRoutineUseCase.updateRoutine(
                 RoutineTestModule.getUpdateRoutineRequest(otherRoutine),
                 otherRoutine.id!!

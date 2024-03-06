@@ -2,8 +2,8 @@ package com.info.maeumgagym.domain.wakatime
 
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.wakatime.entity.WakaTimeJpaEntity
-import com.info.maeumgagym.domain.wakatime.exception.ErrorTooBigException
 import com.info.maeumgagym.domain.wakatime.repository.WakaTimeRepository
+import com.info.maeumgagym.error.TestException
 import java.time.LocalDate
 
 internal object WakatimeTestModule {
@@ -40,7 +40,7 @@ internal object WakatimeTestModule {
 
     fun isSimilarWithAllowableErrorSize(a: Long, b: Long, allowableErrorSize: Long) {
         if (a - allowableErrorSize > b || a + allowableErrorSize < b) {
-            throw ErrorTooBigException
+            throw TestException.ERROR_TOO_BIG
         }
     }
 }

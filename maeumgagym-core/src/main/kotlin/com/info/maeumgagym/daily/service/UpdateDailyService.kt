@@ -2,7 +2,7 @@ package com.info.maeumgagym.daily.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.daily.exception.DailyNotFoundException
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.daily.model.Daily
 import com.info.maeumgagym.daily.port.`in`.UpdateDailyUseCase
 import com.info.maeumgagym.daily.port.out.ReadDailyPort
@@ -27,7 +27,7 @@ internal class UpdateDailyService(
                 date = this.date,
                 time = time
             )
-        } ?: throw DailyNotFoundException
+        } ?: throw BusinessLogicException.DAILY_NOT_FOUND
 
         saveDailyPort.save(daily)
     }

@@ -1,8 +1,8 @@
 package com.info.maeumgagym.user.service
 
 import com.info.common.ReadOnlyUseCase
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.user.dto.response.UserProfileResponse
-import com.info.maeumgagym.user.exception.UserNotFoundException
 import com.info.maeumgagym.user.port.`in`.ReadUserUseCase
 import com.info.maeumgagym.user.port.out.ReadUserPort
 import com.info.maeumgagym.wakatime.util.WakatimeUtils
@@ -20,5 +20,5 @@ internal class ReadUserService(
                 WakatimeUtils.findLevel(totalWakaTime),
                 totalWakaTime
             )
-        } ?: throw UserNotFoundException
+        } ?: throw BusinessLogicException.USER_NOT_FOUND
 }

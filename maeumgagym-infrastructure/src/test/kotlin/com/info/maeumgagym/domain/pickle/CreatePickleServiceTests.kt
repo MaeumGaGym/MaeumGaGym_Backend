@@ -1,5 +1,6 @@
 package com.info.maeumgagym.domain.pickle
 
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.pickle.PickleTestModule.saveInRepository
 import com.info.maeumgagym.domain.pickle.entity.PickleJpaEntity
@@ -9,9 +10,9 @@ import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserRepository
+import com.info.maeumgagym.error.TestException
 import com.info.maeumgagym.global.file.VideoIdAndUploaderIdRepository
 import com.info.maeumgagym.global.file.entity.VideoIdAndUploaderIdRedisEntity
-import com.info.maeumgagym.pickle.exception.AlreadyExistPickleException
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleUseCase
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -55,7 +56,7 @@ class CreatePickleServiceTests @Autowired constructor(
     @Test
     fun uploadPickleWithExistsVideoId() {
         pickle = pickle.saveInRepository(pickleRepository)
-        Assertions.assertThrows(AlreadyExistPickleException::class.java) {
+        TestException.assertThrowsMaeumGaGymExceptionInstance(BusinessLogicException.ALREADY_EXIST_PICKLE) {
             createPickleUseCase.createPickle(
                 PickleTestModule.getUploadPickleRequest(pickle.videoId)
             )

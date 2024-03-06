@@ -2,9 +2,9 @@ package com.info.maeumgagym.wakatime.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.user.model.User
 import com.info.maeumgagym.user.port.out.SaveUserPort
-import com.info.maeumgagym.wakatime.exception.AlreadyWakaStartedException
 import com.info.maeumgagym.wakatime.port.`in`.StartWakatimeUseCase
 import java.time.LocalDateTime
 
@@ -19,7 +19,7 @@ internal class StartWakatimeService(
         val user = readCurrentUserPort.readCurrentUser()
 
         // 이미 와카타임을 시작했는지 확인, 이미 시작했다면 -> Exception
-        user.wakaStartedAt?.let { throw AlreadyWakaStartedException }
+        user.wakaStartedAt?.let { throw BusinessLogicException(409, "Waka Time Alreay Started.") }
 
         // 와카타임 시작
         user.run {

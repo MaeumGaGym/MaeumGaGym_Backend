@@ -1,10 +1,11 @@
 package com.info.maeumgagym.domain.auth
 
-import com.info.maeumgagym.domain.user.entity.UserJpaEntity
+import com.info.maeumgagym.common.exception.AuthenticationException
 import com.info.maeumgagym.domain.user.UserTestModule
 import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
+import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.repository.UserRepository
-import com.info.maeumgagym.global.exception.InvalidTokenException
+import com.info.maeumgagym.error.TestException
 import com.info.maeumgagym.global.jwt.JwtAdapter
 import com.info.maeumgagym.global.jwt.JwtFilter
 import com.info.maeumgagym.global.jwt.JwtResolver
@@ -77,7 +78,7 @@ internal class JwtTests @Autowired constructor(
     @Test
     fun reissueWithAccessToken() {
         val tokenResponse = jwtAdapter.generateTokens(user.oauthId)
-        Assertions.assertThrows(InvalidTokenException::class.java) {
+        TestException.assertThrowsMaeumGaGymExceptionInstance(AuthenticationException.INVALID_TOKEN) {
             jwtAdapter.reissue(tokenResponse.first)
         }
     }
@@ -92,7 +93,7 @@ internal class JwtTests @Autowired constructor(
     fun reissueWithExpiredToken() {
         val tokenResponse = jwtAdapter.generateTokens(user.oauthId)
         refreshTokenRepository.deleteById(user.oauthId)
-        Assertions.assertThrows(InvalidTokenException::class.java) {
+        TestException.assertThrowsMaeumGaGymExceptionInstance(AuthenticationException.INVALID_TOKEN) {
             jwtAdapter.reissue(tokenResponse.first)
         }
     }
@@ -105,7 +106,7 @@ internal class JwtTests @Autowired constructor(
      */
     @Test
     fun reissueWithUnknownToken() {
-        Assertions.assertThrows(InvalidTokenException::class.java) {
+        TestException.assertThrowsMaeumGaGymExceptionInstance(AuthenticationException.INVALID_TOKEN) {
             jwtAdapter.reissue("")
         }
     }
@@ -143,11 +144,11 @@ internal class JwtTests @Autowired constructor(
             accessToken = this.first
             refreshToken = this.second
         }
-        Assertions.assertThrows(InvalidTokenException::class.java) {
+        TestException.assertThrowsMaeumGaGymExceptionInstance(AuthenticationException.INVALID_TOKEN) {
             request.addHeader(AuthTestModule.TOKEN_HEADER, accessToken)
             jwtResolver.resolveToken(request)
         }
-        Assertions.assertThrows(InvalidTokenException::class.java) {
+        TestException.assertThrowsMaeumGaGymExceptionInstance(AuthenticationException.INVALID_TOKEN) {
             request.addHeader(AuthTestModule.TOKEN_HEADER, refreshToken)
             jwtResolver.resolveToken(request)
         }
@@ -164,7 +165,7 @@ internal class JwtTests @Autowired constructor(
         val request = MockHttpServletRequest()
         val refreshToken = jwtAdapter.generateTokens(user.oauthId).second
         request.addHeader(AuthTestModule.TOKEN_HEADER, AuthTestModule.TOKEN_HEADER + refreshToken)
-        Assertions.assertThrows(InvalidTokenException::class.java) {
+        TestException.assertThrowsMaeumGaGymExceptionInstance(AuthenticationException.INVALID_TOKEN) {
             jwtResolver.resolveToken(request)
         }
     }

@@ -1,17 +1,16 @@
 package com.info.maeumgagym.domain.wakatime
 
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
-import com.info.maeumgagym.domain.user.entity.UserJpaEntity
-import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.UserTestModule
 import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
+import com.info.maeumgagym.domain.user.entity.UserJpaEntity
+import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserRepository
-import com.info.maeumgagym.domain.wakatime.exception.WakatimeDoesNotSavedException
 import com.info.maeumgagym.domain.wakatime.WakatimeTestModule.setWakaStartedAtToBefore10Seconds
 import com.info.maeumgagym.domain.wakatime.repository.WakaTimeRepository
+import com.info.maeumgagym.error.TestException
 import com.info.maeumgagym.scheduler.WakaTimeScheduler
-import com.info.maeumgagym.wakatime.exception.AlreadyWakaStartedException
-import com.info.maeumgagym.wakatime.exception.WakaStartedNotYetException
 import com.info.maeumgagym.wakatime.port.`in`.EndWakatimeUseCase
 import com.info.maeumgagym.wakatime.port.`in`.StartWakatimeUseCase
 import org.junit.jupiter.api.Assertions
@@ -76,7 +75,7 @@ internal class WakatimeTests @Autowired constructor(
     fun startWhenAlreadyStarted() {
         startWakatimeUseCase.startWakatime()
         user.saveInContext(userMapper)
-        Assertions.assertThrows(AlreadyWakaStartedException::class.java) {
+        Assertions.assertThrows(BusinessLogicException::class.java) {
             startWakatimeUseCase.startWakatime()
         }
     }
@@ -100,7 +99,7 @@ internal class WakatimeTests @Autowired constructor(
             WakatimeTestModule.isSimilarWithAllowableErrorSize(
                 a = 10,
                 b = wakaTimeRepository.findByUserIdAndDate(user.id!!, LocalDate.now())?.waka
-                    ?: throw WakatimeDoesNotSavedException,
+                    ?: throw TestException.WAKATIME_DOES_NOT_SAVED,
                 allowableErrorSize = 2
             )
         }
@@ -133,7 +132,7 @@ internal class WakatimeTests @Autowired constructor(
             WakatimeTestModule.isSimilarWithAllowableErrorSize(
                 a = 20,
                 b = wakaTimeRepository.findByUserIdAndDate(user.id!!, LocalDate.now())?.waka
-                    ?: throw WakatimeDoesNotSavedException,
+                    ?: throw TestException.WAKATIME_DOES_NOT_SAVED,
                 allowableErrorSize = 3
             )
         }
@@ -148,7 +147,7 @@ internal class WakatimeTests @Autowired constructor(
      */
     @Test
     fun endWhenNotStarted() {
-        Assertions.assertThrows(WakaStartedNotYetException::class.java) {
+        Assertions.assertThrows(BusinessLogicException::class.java) {
             endWakatimeUseCase.endWakatime()
         }
     }
@@ -172,7 +171,7 @@ internal class WakatimeTests @Autowired constructor(
             WakatimeTestModule.isSimilarWithAllowableErrorSize(
                 a = 10,
                 b = wakaTimeRepository.findByUserIdAndDate(user.id!!, LocalDate.now().minusDays(1))?.waka
-                    ?: throw WakatimeDoesNotSavedException,
+                    ?: throw TestException.WAKATIME_DOES_NOT_SAVED,
                 allowableErrorSize = 2
             )
         }
@@ -205,7 +204,7 @@ internal class WakatimeTests @Autowired constructor(
             WakatimeTestModule.isSimilarWithAllowableErrorSize(
                 a = 10,
                 b = wakaTimeRepository.findByUserIdAndDate(user.id!!, LocalDate.now())?.waka
-                    ?: throw WakatimeDoesNotSavedException,
+                    ?: throw TestException.WAKATIME_DOES_NOT_SAVED,
                 allowableErrorSize = 2
             )
         }
@@ -231,7 +230,7 @@ internal class WakatimeTests @Autowired constructor(
         startWakatimeUseCase.startWakatime()
         wakaTimeScheduler.restartAllWakaTime()
         user.saveInContext(userMapper)
-        Assertions.assertThrows(AlreadyWakaStartedException::class.java) {
+        Assertions.assertThrows(BusinessLogicException::class.java) {
             startWakatimeUseCase.startWakatime()
         }
     }
@@ -259,7 +258,7 @@ internal class WakatimeTests @Autowired constructor(
             WakatimeTestModule.isSimilarWithAllowableErrorSize(
                 a = 10,
                 b = wakaTimeRepository.findByUserIdAndDate(user.id!!, LocalDate.now())?.waka
-                    ?: throw WakatimeDoesNotSavedException,
+                    ?: throw TestException.WAKATIME_DOES_NOT_SAVED,
                 allowableErrorSize = 2
             )
         }

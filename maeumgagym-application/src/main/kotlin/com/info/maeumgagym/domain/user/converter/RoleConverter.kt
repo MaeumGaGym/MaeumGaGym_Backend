@@ -1,6 +1,6 @@
 package com.info.maeumgagym.domain.user.converter
 
-import com.info.maeumgagym.user.exception.RoleConverterException
+import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.user.model.Role
 import javax.persistence.AttributeConverter
 import javax.persistence.Converter
@@ -22,7 +22,7 @@ internal class RoleConverter : AttributeConverter<MutableList<Role>, String> {
                 Role.USER.name -> Role.USER
                 Role.ADMIN.name -> Role.ADMIN
                 Role.SELLER.name -> Role.SELLER
-                else -> throw RoleConverterException
+                else -> throw CriticalException(500, "Role Convert Error")
             }
         }.toMutableList()
 }

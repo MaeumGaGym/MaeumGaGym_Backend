@@ -1,8 +1,8 @@
 package com.info.maeumgagym.global.jwt
 
-import com.info.maeumgagym.global.jwt.repository.AccessTokenRepository
+import com.info.maeumgagym.common.exception.AuthenticationException
 import com.info.maeumgagym.global.env.jwt.JwtProperties
-import com.info.maeumgagym.global.exception.InvalidTokenException
+import com.info.maeumgagym.global.jwt.repository.AccessTokenRepository
 import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletRequest
 
@@ -20,9 +20,10 @@ class JwtResolver(
                 val token = it.substring(jwtProperties.prefix.length).trimStart()
 
                 // 만료된 access_token인지 확인 및 반환, 예외처리
-                accessTokenRepository.findByAccessToken(token)?.subject ?: throw InvalidTokenException
+                accessTokenRepository.findByAccessToken(token)?.subject
+                    ?: throw AuthenticationException.INVALID_TOKEN
             } else {
-                throw InvalidTokenException // 정해진 prefix로 시작하지 않을 경우 Error반환
+                throw AuthenticationException.INVALID_TOKEN // 정해진 prefix로 시작하지 않을 경우 Error반환
             }
         }
 }

@@ -1,11 +1,10 @@
 package com.info.maeumgagym.pickle.service
 
 import com.info.common.UseCase
-import com.info.maeumgagym.auth.exception.PermissionDeniedException
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
+import com.info.maeumgagym.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.pickle.dto.request.UpdatePickleRequest
-import com.info.maeumgagym.pickle.exception.PickleNotFoundException
-import com.info.maeumgagym.pickle.exception.TagTooLongException
 import com.info.maeumgagym.pickle.model.Pickle
 import com.info.maeumgagym.pickle.port.`in`.UpdatePickleUseCase
 import com.info.maeumgagym.pickle.port.out.ReadPicklePort
@@ -25,14 +24,14 @@ internal class UpdatePickleService(
         // WHEN : 태그 중에서
         req.tags.forEach {
             // WHEN : 10자보다 큰 태그가 있다면 -> Exception 처리
-            if (it.length > 10) throw TagTooLongException
+            if (it.length > 10) throw BusinessLogicException.TAG_TOO_LONG
         }
 
         // WHEN : id로 pickle을 찾을 수 없는 경우 -> Exception 처리
-        val pickle = readPicklePort.readById(id) ?: throw PickleNotFoundException
+        val pickle = readPicklePort.readById(id) ?: throw BusinessLogicException.PICKLE_NOT_FOUND
 
         // WHEN : 영상을 올린 사람의 요청이 아닌 경우 -> Exception 처리
-        if (pickle.uploader != user) throw PermissionDeniedException
+        if (pickle.uploader != user) throw SecurityException.PERMISSION_DENIED
 
         pickle.run {
             savePicklePort.save( // WHAT : 객체 변경 후 반환

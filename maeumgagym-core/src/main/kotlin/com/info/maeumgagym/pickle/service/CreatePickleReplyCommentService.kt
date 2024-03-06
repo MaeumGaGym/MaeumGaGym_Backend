@@ -2,10 +2,8 @@ package com.info.maeumgagym.pickle.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.pickle.dto.request.PickleCommentRequest
-import com.info.maeumgagym.pickle.exception.PickleCommentNotFoundException
-import com.info.maeumgagym.pickle.exception.PickleMismatchedException
-import com.info.maeumgagym.pickle.exception.PickleNotFoundException
 import com.info.maeumgagym.pickle.model.PickleReply
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleReplyCommentUseCase
 import com.info.maeumgagym.pickle.port.out.ExistsPicklePort
@@ -26,14 +24,14 @@ internal class CreatePickleReplyCommentService(
     ) {
         val user = readCurrentUserPort.readCurrentUser()
         val parentComment = readPickleCommentPort.readById(parentId)
-            ?: throw PickleCommentNotFoundException
+            ?: throw BusinessLogicException.PICKLE_COMMENT_NOT_FOUND
 
         if (!existsPicklePort.existsById(videoId)) {
-            throw PickleNotFoundException
+            throw BusinessLogicException.PICKLE_NOT_FOUND
         }
 
         if (parentComment.videoId != videoId) {
-            throw PickleMismatchedException
+            throw BusinessLogicException(400, "Pickle Mismatched with Parent Comment")
         }
 
         pickleCommentRequest.run {

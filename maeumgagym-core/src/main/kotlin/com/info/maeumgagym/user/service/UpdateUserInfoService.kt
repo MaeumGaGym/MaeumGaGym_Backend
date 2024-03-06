@@ -1,9 +1,9 @@
 package com.info.maeumgagym.user.service
 
 import com.info.common.UseCase
-import com.info.maeumgagym.auth.exception.AlreadyExistUserException
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.auth.service.DuplicatedCheckService
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.user.dto.request.UpdateUserInfoRequest
 import com.info.maeumgagym.user.model.PhysicalInfoModel
 import com.info.maeumgagym.user.port.`in`.UpdateUserInfoUseCase
@@ -17,7 +17,7 @@ internal class UpdateUserInfoService(
 ) : UpdateUserInfoUseCase {
     override fun update(req: UpdateUserInfoRequest) {
         if (duplicatedCheckService.existByNickname(req.nickname)) {
-            throw AlreadyExistUserException
+            throw BusinessLogicException.ALREADY_EXIST_USER
         }
         val user = readCurrentUserPort.readCurrentUser()
 

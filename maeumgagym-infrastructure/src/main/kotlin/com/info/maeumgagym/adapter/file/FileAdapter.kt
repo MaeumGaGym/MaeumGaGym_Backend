@@ -1,5 +1,7 @@
 package com.info.maeumgagym.adapter.file
 
+import com.info.maeumgagym.common.exception.FeignException
+import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.feign.file.FileClient
 import com.info.maeumgagym.feign.file.dto.request.PreSignedUploadURLFeignRequest
 import com.info.maeumgagym.global.env.file.FileProperties
@@ -15,13 +17,16 @@ internal class FileAdapter(
     private val fileProperty: FileProperties
 ) : DeleteOriginalVideoPort, GenerateM3u8URLPort, GetPreSignedVideoUploadURLPort {
 
-    override fun getPreSignedURL(fileType: String): PreSignedUploadURLDto =
+    override fun getPreSignedURL(fileType: String): PreSignedUploadURLDto = try {
         fileClient.preSignedUploadURLForVideo(
             fileProperty.secretKey,
             PreSignedUploadURLFeignRequest(fileType)
         ).run {
             PreSignedUploadURLDto(uploadURL, videoId)
         }
+    } catch (e: FeignException) {
+        throw MaeumGaGymException.INTERNAL_SERVER_ERROR
+    }
 
     override fun generateURL(videoId: String): String =
         fileProperty.serverURL + videoId + fileProperty.suffixPath

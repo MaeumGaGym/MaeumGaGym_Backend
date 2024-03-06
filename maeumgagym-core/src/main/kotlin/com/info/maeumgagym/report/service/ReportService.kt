@@ -2,14 +2,11 @@ package com.info.maeumgagym.report.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.pickle.exception.PickleCommentNotFoundException
-import com.info.maeumgagym.pickle.exception.PickleNotFoundException
-import com.info.maeumgagym.pickle.exception.PickleReplyNotFoundException
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.pickle.port.out.ReadPickleCommentPort
 import com.info.maeumgagym.pickle.port.out.ReadPicklePort
 import com.info.maeumgagym.pickle.port.out.ReadPickleReplyPort
 import com.info.maeumgagym.report.dto.request.ReportRequest
-import com.info.maeumgagym.report.exception.CannotReportOneselfException
 import com.info.maeumgagym.report.model.Report
 import com.info.maeumgagym.report.model.ReportType
 import com.info.maeumgagym.report.port.`in`.ReportPickleCommentUseCase
@@ -17,7 +14,6 @@ import com.info.maeumgagym.report.port.`in`.ReportPickleReplyUseCase
 import com.info.maeumgagym.report.port.`in`.ReportPickleUseCase
 import com.info.maeumgagym.report.port.`in`.ReportUserUseCase
 import com.info.maeumgagym.report.port.out.SaveReportPort
-import com.info.maeumgagym.user.exception.UserNotFoundException
 import com.info.maeumgagym.user.port.out.ReadUserPort
 
 @UseCase
@@ -34,10 +30,10 @@ internal class ReportService(
         val user = readCurrentUserPort.readCurrentUser()
 
         if (user.nickname == nickname) {
-            throw CannotReportOneselfException
+            throw BusinessLogicException.CANNNOT_REPORT_ONESELF
         }
 
-        val reportedUser = readUserPort.readByNickname(nickname) ?: throw UserNotFoundException
+        val reportedUser = readUserPort.readByNickname(nickname) ?: throw BusinessLogicException.USER_NOT_FOUND
 
         saveReportPort.save(
             Report(
@@ -52,10 +48,10 @@ internal class ReportService(
     override fun reportPickle(request: ReportRequest, videoId: String) {
         val user = readCurrentUserPort.readCurrentUser()
 
-        val pickle = readPicklePort.readById(videoId) ?: throw PickleNotFoundException
+        val pickle = readPicklePort.readById(videoId) ?: throw BusinessLogicException.PICKLE_NOT_FOUND
 
         if (user == pickle.uploader) {
-            throw CannotReportOneselfException
+            throw BusinessLogicException.CANNNOT_REPORT_ONESELF
         }
 
         saveReportPort.save(
@@ -71,10 +67,11 @@ internal class ReportService(
     override fun reportPickleComment(request: ReportRequest, id: Long) {
         val user = readCurrentUserPort.readCurrentUser()
 
-        val pickleComment = readPickleCommentPort.readById(id) ?: throw PickleCommentNotFoundException
+        val pickleComment = readPickleCommentPort.readById(id)
+            ?: throw BusinessLogicException.PICKLE_COMMENT_NOT_FOUND
 
         if (user == pickleComment.writer) {
-            throw CannotReportOneselfException
+            throw BusinessLogicException.CANNNOT_REPORT_ONESELF
         }
 
         saveReportPort.save(
@@ -90,10 +87,10 @@ internal class ReportService(
     override fun reportPickleReply(request: ReportRequest, id: Long) {
         val user = readCurrentUserPort.readCurrentUser()
 
-        val pickleReply = readPickleReplyPort.readById(id) ?: throw PickleReplyNotFoundException
+        val pickleReply = readPickleReplyPort.readById(id) ?: throw BusinessLogicException.PICKLE_REPLY_NOT_FOUND
 
         if (user == pickleReply.writer) {
-            throw CannotReportOneselfException
+            throw BusinessLogicException.CANNNOT_REPORT_ONESELF
         }
 
         saveReportPort.save(

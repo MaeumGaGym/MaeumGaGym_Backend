@@ -2,7 +2,7 @@ package com.info.maeumgagym.pickle.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.pickle.exception.PickleNotFoundException
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.pickle.model.Pickle
 import com.info.maeumgagym.pickle.model.PickleLike
 import com.info.maeumgagym.pickle.port.`in`.LikePickleUseCase
@@ -23,7 +23,7 @@ internal class LikePickleService(
         val user = readCurrentUserPort.readCurrentUser()
 
         // 피클 불러오기 : null이라면 -> 예외
-        val pickle = readPicklePort.readById(id) ?: throw PickleNotFoundException
+        val pickle = readPicklePort.readById(id) ?: throw BusinessLogicException.PICKLE_NOT_FOUND
 
         // 좋아요 객체 nullable로 불러오기
         readPickleLikePort.readByPickleAndUser(pickle, user)?.apply { // 좋아요를 눌렀다면
