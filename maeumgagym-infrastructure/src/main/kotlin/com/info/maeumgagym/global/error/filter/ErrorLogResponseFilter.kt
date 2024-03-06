@@ -7,7 +7,6 @@ import com.info.maeumgagym.global.error.log.ErrorLog
 import org.apache.catalina.core.ApplicationFilterChain
 import org.springframework.http.MediaType
 import org.springframework.security.web.SecurityFilterChain
-import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import org.springframework.web.servlet.DispatcherServlet
 import org.springframework.web.util.NestedServletException

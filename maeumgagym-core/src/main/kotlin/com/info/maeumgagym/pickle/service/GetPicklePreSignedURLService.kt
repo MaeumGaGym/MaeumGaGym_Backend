@@ -22,7 +22,6 @@ internal class GetPicklePreSignedURLService(
     }
 
     override fun getUploadURL(fileType: String): PreSignedUploadURLResponse {
-
         if (fileType != QUICKTIME && fileType != MP4) throw BusinessLogicException(400, "File Type Mismatched")
 
         // WHAT : Feign으로 PreSignedURL 불러오기
