@@ -80,5 +80,5 @@ class RoutineController(
         @Valid
         @Positive(message = "0보다 커야 합니다.")
         id: Long
-    ): RoutineDetailResponse = readRoutineUseCase.readFromId(id)
+    ): RoutineResponse = readRoutineUseCase.readFromId(id)
 }
