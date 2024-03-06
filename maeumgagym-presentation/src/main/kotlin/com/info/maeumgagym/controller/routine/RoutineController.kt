@@ -3,7 +3,6 @@ package com.info.maeumgagym.controller.routine
 import com.info.common.WebAdapter
 import com.info.maeumgagym.controller.routine.dto.CreateRoutineWebRequest
 import com.info.maeumgagym.controller.routine.dto.UpdateRoutineWebRequest
-import com.info.maeumgagym.routine.dto.response.RoutineDetailResponse
 import com.info.maeumgagym.routine.dto.response.RoutineListResponse
 import com.info.maeumgagym.routine.dto.response.RoutineResponse
 import com.info.maeumgagym.routine.port.`in`.*
