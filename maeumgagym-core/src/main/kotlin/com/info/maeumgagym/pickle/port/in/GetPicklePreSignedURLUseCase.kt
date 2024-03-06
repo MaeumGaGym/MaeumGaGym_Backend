@@ -2,7 +2,7 @@ package com.info.maeumgagym.pickle.port.`in`
 
 import com.info.maeumgagym.pickle.dto.response.PreSignedUploadURLResponse
 
-interface GetPreSignedUploadURLUseCase {
+interface GetPicklePreSignedURLUseCase {
 
-    fun getPreSignedUploadURL(fileType: String): PreSignedUploadURLResponse
+    fun getUploadURL(fileType: String): PreSignedUploadURLResponse
 }

@@ -12,6 +12,7 @@ enum class ErrorCode(
 
     // No Content
     THERE_NO_PICKLES(204, "업로드된 피클이 존재하지 않습니다."),
+    THERE_NO_DAILIES(204, "업로드된 오운완이 존재하지 않습니다."),
 
     // Internal Server Error
     INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
@@ -35,6 +36,7 @@ enum class ErrorCode(
     PICKLE_REPLY_NOT_FOUND(404, "Pickle Reply Not Found"),
     STEP_NOT_FOUND(404, "Step Not Found"),
     PURPOSE_NOT_FOUND(404, "Purpose Not Found"),
+    DAILY_NOT_FOUND(404, "Daily Exercise Complete Not Found"),
 
     // Bad Request
     FILE_TYPE_MISMATCHED(400, "File Type Mismatched"),
