@@ -2,12 +2,11 @@ package com.info.maeumgagym.controller.daily
 
 import com.info.common.WebAdapter
 import com.info.maeumgagym.controller.daily.dto.CreateDailyRequest
+import com.info.maeumgagym.controller.daily.dto.DailyTitleUpdateRequest
 import com.info.maeumgagym.daily.dto.response.DailyListResponse
 import com.info.maeumgagym.daily.dto.response.PreSignedURLResponse
-import com.info.maeumgagym.daily.port.`in`.CreateDailyUseCase
-import com.info.maeumgagym.daily.port.`in`.DeleteDailyUseCase
-import com.info.maeumgagym.daily.port.`in`.GetDailyPreSignedURLUseCase
-import com.info.maeumgagym.daily.port.`in`.ReadDailyUseCase
+import com.info.maeumgagym.daily.port.`in`.*
+import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
@@ -23,10 +22,12 @@ import javax.validation.constraints.PositiveOrZero
 @WebAdapter
 class DailyController(
     private val createDailyUseCase: CreateDailyUseCase,
+    private val updateDailyUseCase: UpdateDailyUseCase,
     private val readDailyUseCase: ReadDailyUseCase,
     private val deleteDailyUseCase: DeleteDailyUseCase,
     private val getDailyPreSignedURLUseCase: GetDailyPreSignedURLUseCase
 ) {
+    @Operation(description = "미리 서명된 URL 얻기 API")
     @GetMapping("/daily/pre-signed")
     fun preSignedUrl(
         @Valid
@@ -34,6 +35,7 @@ class DailyController(
         req: CreateDailyRequest
     ): PreSignedURLResponse = getDailyPreSignedURLUseCase.getUploadUrl(req.title!!)
 
+    @Operation(description = "오운완 셍성 API")
     @PostMapping("/daily")
     @ResponseStatus(HttpStatus.CREATED)
     fun dailyUpload(
@@ -44,6 +46,21 @@ class DailyController(
         createDailyUseCase.create(req.title!!)
     }
 
+    @Operation(description = "오운완 제목 수정 API")
+    @PatchMapping("/daily/{date}")
+    fun dailyUpdate(
+        @Valid
+        @NotNull(message = "null일 수 없습니다.")
+        @PathVariable("date", required = false)
+        date: LocalDate?,
+        @Valid
+        @RequestBody
+        req: DailyTitleUpdateRequest
+    ) {
+        updateDailyUseCase.updateTitle(req.title!!, date!!)
+    }
+
+    @Operation(description = "오운완 리스트 보기 API")
     @GetMapping("/dailies")
     fun dailiesRead(
         @Valid
@@ -56,6 +73,7 @@ class DailyController(
         size: Int
     ): DailyListResponse = readDailyUseCase.readDailies(page, size)
 
+    @Operation(description = "오운완 삭제 API")
     @DeleteMapping("/daily/{date}")
     fun dailyDelete(
         @Valid
