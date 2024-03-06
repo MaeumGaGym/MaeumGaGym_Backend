@@ -7,7 +7,7 @@ import com.info.maeumgagym.step.port.`in`.ReadTodayStepCountUseCase
 import com.info.maeumgagym.step.port.out.ReadStepPort
 
 @ReadOnlyUseCase
-class ReadTodayStepCountService(
+internal class ReadTodayStepCountService(
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val readStepPort: ReadStepPort
 ) : ReadTodayStepCountUseCase {
