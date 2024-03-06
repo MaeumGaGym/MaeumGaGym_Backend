@@ -13,7 +13,6 @@ internal class ReadTodayStepCountService(
 ) : ReadTodayStepCountUseCase {
 
     override fun readTodayStepCount(): StepCountResponse {
-
         val user = readCurrentUserPort.readCurrentUser()
 
         return StepCountResponse(
