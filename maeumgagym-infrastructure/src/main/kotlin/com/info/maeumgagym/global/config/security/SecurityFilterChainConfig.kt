@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.SecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.DefaultSecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.security.web.context.SecurityContextHolderFilter
 import org.springframework.stereotype.Component
 
 @Component
@@ -19,7 +20,7 @@ class SecurityFilterChainConfig(
     override fun configure(builder: HttpSecurity) {
         builder.run {
             addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
-            addFilterBefore(ExceptionConvertFilter(), JwtFilter::class.java)
+            addFilterBefore(ExceptionConvertFilter(), SecurityContextHolderFilter::class.java)
             addFilterBefore(ErrorLogResponseFilter(objectMapper), ExceptionConvertFilter::class.java)
         }
     }
