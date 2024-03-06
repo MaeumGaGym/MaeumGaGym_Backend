@@ -21,7 +21,7 @@ internal class DeleteDailyService(
     override fun delete(date: LocalDate) {
         val user = readCurrentUserPort.readCurrentUser()
 
-        val daily = readDailyPort.readByUploaderAndDate(user, LocalDate.now()) ?: throw DailyNotFoundException
+        val daily = readDailyPort.readByUploaderAndDate(user, date) ?: throw DailyNotFoundException
 
         if (daily.uploader != user) throw PermissionDeniedException
 
