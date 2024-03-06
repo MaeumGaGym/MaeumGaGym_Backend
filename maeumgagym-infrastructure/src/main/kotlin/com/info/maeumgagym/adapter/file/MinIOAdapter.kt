@@ -28,7 +28,7 @@ internal class MinIOAdapter(
                 .build()
         )
 
-    fun upload(folderName: String, objectName: String, fileContent: ByteArray)  {
+    fun upload(folderName: String, objectName: String, fileContent: ByteArray) {
         minioClient.putObject(
             PutObjectArgs.builder()
                 .bucket(property.bucketName)

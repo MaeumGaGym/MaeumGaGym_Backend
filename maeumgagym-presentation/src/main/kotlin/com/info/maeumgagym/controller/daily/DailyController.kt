@@ -58,7 +58,8 @@ class DailyController(
 
     @DeleteMapping("/daily/{date}")
     fun dailyDelete(
-        @Valid @NotNull(message = "null일 수 없습니다.")
+        @Valid
+        @NotNull(message = "null일 수 없습니다.")
         @PathVariable("date", required = false)
         date: LocalDate?
     ) {
