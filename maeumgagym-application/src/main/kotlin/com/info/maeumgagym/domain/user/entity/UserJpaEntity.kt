@@ -60,12 +60,11 @@ class UserJpaEntity(
     var wakaStartedAt: LocalDateTime? = wakaStartedAt
         protected set
 
-    @Column(name = "total_wakatime", nullable = false)
+    @Column(name = "total_wakatime", columnDefinition = "BIGINT default 0", nullable = false)
     var totalWakaTime: Long = totalWakaTime
         protected set
 
     @Embedded
-    @Column(name = "physical_info", nullable = true)
     var physicalInfo: PhysicalInfo? = physicalInfo
         protected set
 }
