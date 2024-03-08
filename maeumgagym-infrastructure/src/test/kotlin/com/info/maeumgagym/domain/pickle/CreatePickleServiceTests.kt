@@ -11,8 +11,8 @@ import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.error.TestException
-import com.info.maeumgagym.global.file.VideoIdAndUploaderIdRepository
-import com.info.maeumgagym.global.file.entity.VideoIdAndUploaderIdRedisEntity
+import com.info.maeumgagym.fileserver.VideoIdAndUploaderIdRepository
+import com.info.maeumgagym.fileserver.entity.VideoIdAndUploaderIdRedisEntity
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleUseCase
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
