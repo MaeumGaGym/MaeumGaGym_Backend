@@ -2,6 +2,7 @@ package com.info.maeumgagym.daily.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
+import com.info.maeumgagym.common.dto.LocationSubjectDto
 import com.info.maeumgagym.daily.model.Daily
 import com.info.maeumgagym.daily.port.`in`.CreateDailyUseCase
 import com.info.maeumgagym.daily.port.out.ReadDailyPort
@@ -15,7 +16,7 @@ internal class CreateDailyService(
     private val readDailyPort: ReadDailyPort
 ) : CreateDailyUseCase {
 
-    override fun create(title: String) {
+    override fun create(title: String): LocationSubjectDto {
         val user = readCurrentUserPort.readCurrentUser()
 
         val now = LocalDateTime.now()
@@ -29,5 +30,7 @@ internal class CreateDailyService(
         )
 
         saveDailyPort.save(daily)
+
+        return LocationSubjectDto(daily.id!!)
     }
 }

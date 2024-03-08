@@ -2,6 +2,7 @@ package com.info.maeumgagym.pickle.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
+import com.info.maeumgagym.common.dto.LocationSubjectDto
 import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.pickle.dto.request.PickleCommentRequest
 import com.info.maeumgagym.pickle.model.PickleComment
@@ -15,14 +16,15 @@ internal class CreatePickleCommentService(
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val existsPicklePort: ExistsPicklePort
 ) : CreatePickleCommentUseCase {
-    override fun createPickleComment(pickleCommentRequest: PickleCommentRequest, videoId: String) {
+
+    override fun createPickleComment(pickleCommentRequest: PickleCommentRequest, videoId: String): LocationSubjectDto {
         val user = readCurrentUserPort.readCurrentUser()
 
         if (!existsPicklePort.existsById(videoId)) {
             throw BusinessLogicException.ALREADY_EXIST_PICKLE
         }
 
-        pickleCommentRequest.run {
+        val pickleComment = pickleCommentRequest.run {
             savePickleCommentPort.save(
                 PickleComment(
                     content = content,
@@ -31,5 +33,7 @@ internal class CreatePickleCommentService(
                 )
             )
         }
+
+        return LocationSubjectDto(pickleComment.id!!)
     }
 }

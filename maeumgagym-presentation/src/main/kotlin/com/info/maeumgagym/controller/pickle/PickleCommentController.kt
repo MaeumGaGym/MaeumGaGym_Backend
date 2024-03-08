@@ -1,6 +1,7 @@
 package com.info.maeumgagym.controller.pickle
 
 import com.info.common.WebAdapter
+import com.info.maeumgagym.controller.common.locationheader.LocationHeaderSubjectDefiner
 import com.info.maeumgagym.controller.pickle.dto.PickleCommentWebRequest
 import com.info.maeumgagym.pickle.dto.response.PickleCommentListResponse
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleCommentUseCase
@@ -10,20 +11,9 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.ResponseStatus
+import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
-import javax.validation.constraints.NotBlank
-import javax.validation.constraints.NotNull
-import javax.validation.constraints.Pattern
-import javax.validation.constraints.Positive
-import javax.validation.constraints.PositiveOrZero
+import javax.validation.constraints.*
 
 @Tag(name = "Pickle Comment API")
 @Validated
@@ -32,7 +22,8 @@ import javax.validation.constraints.PositiveOrZero
 class PickleCommentController(
     private val createPickleCommentUseCase: CreatePickleCommentUseCase,
     private val readAllPagedPickleCommentUseCase: ReadAllPagedPickleCommentUseCase,
-    private val deletePickleCommentUseCase: DeletePickleCommentUseCase
+    private val deletePickleCommentUseCase: DeletePickleCommentUseCase,
+    private val locationHeaderSubjectDefiner: LocationHeaderSubjectDefiner
 ) {
     @Operation(summary = "피클 댓글 추가 API")
     @PostMapping("/{videoId}")
@@ -46,7 +37,9 @@ class PickleCommentController(
         @Valid
         videoId: String?
     ) {
-        createPickleCommentUseCase.createPickleComment(req.toRequest(), videoId!!)
+        createPickleCommentUseCase.createPickleComment(req.toRequest(), videoId!!).run {
+            locationHeaderSubjectDefiner.setSubject(subject)
+        }
     }
 
     @Operation(summary = "피클 댓글 전체조회 API")

@@ -1,6 +1,7 @@
 package com.info.maeumgagym.controller.pickle
 
 import com.info.common.WebAdapter
+import com.info.maeumgagym.controller.common.locationheader.LocationHeaderSubjectDefiner
 import com.info.maeumgagym.controller.pickle.dto.PickleCommentWebRequest
 import com.info.maeumgagym.pickle.dto.response.PickleReplyListResponse
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleReplyCommentUseCase
@@ -12,11 +13,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
-import javax.validation.constraints.NotBlank
-import javax.validation.constraints.NotNull
-import javax.validation.constraints.Pattern
-import javax.validation.constraints.Positive
-import javax.validation.constraints.PositiveOrZero
+import javax.validation.constraints.*
 
 @Tag(name = "Pickle Reply API")
 @Validated
@@ -25,7 +22,8 @@ import javax.validation.constraints.PositiveOrZero
 class PickleReplyController(
     private val createPickleReplyCommentUseCase: CreatePickleReplyCommentUseCase,
     private val readAllPickleReplyUseCase: LoadAllPickleReplyUseCase,
-    private val deletePickleReplyUseCase: DeletePickleReplyUseCase
+    private val deletePickleReplyUseCase: DeletePickleReplyUseCase,
+    private val locationHeaderSubjectDefiner: LocationHeaderSubjectDefiner
 ) {
     @Operation(summary = "피클 대댓글 추가 API")
     @PostMapping("/{videoId}/{parentId}")
@@ -43,7 +41,10 @@ class PickleReplyController(
         @Positive(message = "0보다 커야 합니다")
         parentId: Long
     ) {
-        createPickleReplyCommentUseCase.createPickleReplyComment(req.toRequest(), videoId!!, parentId)
+        createPickleReplyCommentUseCase
+            .createPickleReplyComment(req.toRequest(), videoId!!, parentId).run {
+                locationHeaderSubjectDefiner.setSubject(subject)
+            }
     }
 
     @Operation(summary = "피클 대댓글 전체조회 API")

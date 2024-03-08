@@ -1,6 +1,7 @@
 package com.info.maeumgagym.controller.routine
 
 import com.info.common.WebAdapter
+import com.info.maeumgagym.controller.common.locationheader.LocationHeaderSubjectDefiner
 import com.info.maeumgagym.controller.routine.dto.CreateRoutineWebRequest
 import com.info.maeumgagym.controller.routine.dto.UpdateRoutineWebRequest
 import com.info.maeumgagym.routine.dto.response.RoutineListResponse
@@ -25,7 +26,8 @@ class RoutineController(
     private val createRoutineUseCase: CreateRoutineUseCase,
     private val deleteRoutineUseCase: DeleteRoutineUseCase,
     private val updateRoutineUseCase: UpdateRoutineUseCase,
-    private val readRoutineUseCase: ReadRoutineUseCase
+    private val readRoutineUseCase: ReadRoutineUseCase,
+    private val locationHeaderSubjectDefiner: LocationHeaderSubjectDefiner
 ) {
     @Operation(summary = "루틴 생성 API")
     @PostMapping
@@ -34,7 +36,9 @@ class RoutineController(
         @RequestBody @Valid
         req: CreateRoutineWebRequest
     ) {
-        createRoutineUseCase.createRoutine(req.toRequest())
+        createRoutineUseCase.createRoutine(req.toRequest()).run {
+            locationHeaderSubjectDefiner.setSubject(subject)
+        }
     }
 
     @Operation(summary = "오늘의 루틴 조회 API")

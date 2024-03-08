@@ -15,6 +15,7 @@ internal class UpdateUserInfoService(
     private val duplicatedCheckService: DuplicatedCheckService,
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : UpdateUserInfoUseCase {
+
     override fun update(req: UpdateUserInfoRequest) {
         if (duplicatedCheckService.existByNickname(req.nickname)) {
             throw BusinessLogicException.ALREADY_EXIST_USER
