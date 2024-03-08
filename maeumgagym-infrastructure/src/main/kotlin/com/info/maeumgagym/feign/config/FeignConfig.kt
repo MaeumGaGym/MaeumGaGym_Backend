@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 
-@EnableFeignClients(basePackages = ["com.info.maeumgagym.feign"])
+@EnableFeignClients(basePackages = ["com.info.maeumgagym"])
 @Configuration
 @Import(FeignClientErrorDecoder::class)
 class FeignConfig {
