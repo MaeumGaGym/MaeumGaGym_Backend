@@ -88,9 +88,7 @@ class LocationHeaderInterceptor(
     /**
      * Location Header를 작성하기로 예약된 Method([HttpMethod])인지 확인
      */
-    private
-
-    fun isCheckedMethodRequest(request: HttpServletRequest): Boolean =
+    private fun isCheckedMethodRequest(request: HttpServletRequest): Boolean =
         checkedMethods.contains(HttpMethod.valueOf(request.method))
 
     /**
