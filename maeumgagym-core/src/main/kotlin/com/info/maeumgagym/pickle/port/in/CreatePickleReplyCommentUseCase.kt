@@ -4,5 +4,9 @@ import com.info.maeumgagym.common.dto.LocationSubjectDto
 import com.info.maeumgagym.pickle.dto.request.PickleCommentRequest
 
 interface CreatePickleReplyCommentUseCase {
-    fun createPickleReplyComment(pickleCommentRequest: PickleCommentRequest, videoId: String, parentId: Long): LocationSubjectDto
+    fun createPickleReplyComment(
+        pickleCommentRequest: PickleCommentRequest,
+        videoId: String,
+        parentId: Long
+    ): LocationSubjectDto
 }
