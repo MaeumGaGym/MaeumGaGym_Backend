@@ -6,11 +6,11 @@ import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.error.TestException
-import com.info.maeumgagym.global.jwt.JwtAdapter
-import com.info.maeumgagym.global.jwt.JwtFilter
-import com.info.maeumgagym.global.jwt.JwtResolver
-import com.info.maeumgagym.global.jwt.repository.AccessTokenRepository
-import com.info.maeumgagym.global.jwt.repository.RefreshTokenRepository
+import com.info.maeumgagym.security.jwt.JwtAdapter
+import com.info.maeumgagym.security.jwt.JwtFilter
+import com.info.maeumgagym.security.jwt.JwtResolver
+import com.info.maeumgagym.security.jwt.repository.AccessTokenRepository
+import com.info.maeumgagym.security.jwt.repository.RefreshTokenRepository
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

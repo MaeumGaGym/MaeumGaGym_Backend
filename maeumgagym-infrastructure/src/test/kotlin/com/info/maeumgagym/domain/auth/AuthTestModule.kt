@@ -2,7 +2,7 @@ package com.info.maeumgagym.domain.auth
 
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
-import com.info.maeumgagym.global.security.principle.CustomUserDetails
+import com.info.maeumgagym.security.principle.CustomUserDetails
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 
