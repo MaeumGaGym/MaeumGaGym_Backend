@@ -1,6 +1,6 @@
 package com.info.maeumgagym.domain.user
 
-import com.info.maeumgagym.adapter.auth.ReadCurrentUserAdapter
+import com.info.maeumgagym.auth.ReadCurrentUserAdapter
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.domain.auth.AuthTestModule
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext

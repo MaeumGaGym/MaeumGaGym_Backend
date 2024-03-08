@@ -2,8 +2,8 @@ package com.info.maeumgagym.global.config.filter
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.common.exception.CriticalException
-import com.info.maeumgagym.global.error.filter.ErrorLogResponseFilter
-import com.info.maeumgagym.global.error.filter.ExceptionConvertFilter
+import com.info.maeumgagym.error.filter.ErrorLogResponseFilter
+import com.info.maeumgagym.error.filter.ExceptionConvertFilter
 import org.apache.catalina.core.ApplicationFilterChain
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.security.web.SecurityFilterChain
