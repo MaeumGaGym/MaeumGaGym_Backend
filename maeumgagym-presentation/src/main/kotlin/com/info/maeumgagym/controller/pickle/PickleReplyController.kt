@@ -1,7 +1,7 @@
 package com.info.maeumgagym.controller.pickle
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.controller.common.locationheader.LocationHeaderSubjectDefiner
+import com.info.maeumgagym.controller.common.locationheader.LocationHeaderSubjectManager
 import com.info.maeumgagym.controller.pickle.dto.PickleCommentWebRequest
 import com.info.maeumgagym.pickle.dto.response.PickleReplyListResponse
 import com.info.maeumgagym.pickle.port.`in`.CreatePickleReplyCommentUseCase
@@ -23,7 +23,7 @@ class PickleReplyController(
     private val createPickleReplyCommentUseCase: CreatePickleReplyCommentUseCase,
     private val readAllPickleReplyUseCase: LoadAllPickleReplyUseCase,
     private val deletePickleReplyUseCase: DeletePickleReplyUseCase,
-    private val locationHeaderSubjectDefiner: LocationHeaderSubjectDefiner
+    private val locationHeaderSubjectManager: LocationHeaderSubjectManager
 ) {
     @Operation(summary = "피클 대댓글 추가 API")
     @PostMapping("/{videoId}/{parentId}")
@@ -43,7 +43,7 @@ class PickleReplyController(
     ) {
         createPickleReplyCommentUseCase
             .createPickleReplyComment(req.toRequest(), videoId!!, parentId).run {
-                locationHeaderSubjectDefiner.setSubject(subject)
+                locationHeaderSubjectManager.setSubject(subject)
             }
     }
 

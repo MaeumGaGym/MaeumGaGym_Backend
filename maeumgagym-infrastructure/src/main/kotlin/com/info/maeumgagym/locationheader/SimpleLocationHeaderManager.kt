@@ -1,10 +1,10 @@
 package com.info.maeumgagym.locationheader
 
-import com.info.maeumgagym.controller.common.locationheader.LocationHeaderSubjectDefiner
+import com.info.maeumgagym.controller.common.locationheader.LocationHeaderSubjectManager
 import org.springframework.stereotype.Component
 
 @Component
-class SimpleLocationHeaderDefiner : LocationHeaderSubjectDefiner {
+class SimpleLocationHeaderManager : LocationHeaderSubjectManager {
 
     private var id: ThreadLocal<String> = ThreadLocal()
     override fun setSubject(subject: Any) {

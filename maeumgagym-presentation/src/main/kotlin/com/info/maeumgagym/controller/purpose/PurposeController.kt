@@ -1,7 +1,7 @@
 package com.info.maeumgagym.controller.purpose
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.controller.common.locationheader.LocationHeaderSubjectDefiner
+import com.info.maeumgagym.controller.common.locationheader.LocationHeaderSubjectManager
 import com.info.maeumgagym.controller.purpose.dto.CreatePurposeWebRequest
 import com.info.maeumgagym.controller.purpose.dto.UpdatePurposeWebRequest
 import com.info.maeumgagym.purpose.dto.response.PurposeInfoResponse
@@ -26,7 +26,7 @@ class PurposeController(
     private val readPurposesFromYearAndMonthUseCase: ReadPurposesFromYearAndMonthUseCase,
     private val updatePurposeUseCase: UpdatePurposeUseCase,
     private val deletePurposeUseCase: DeletePurposeUseCase,
-    private val locationHeaderSubjectDefiner: LocationHeaderSubjectDefiner
+    private val locationHeaderSubjectManager: LocationHeaderSubjectManager
 ) {
 
     @Operation(summary = "목표 생성 API")
@@ -37,7 +37,7 @@ class PurposeController(
         req: CreatePurposeWebRequest
     ) {
         createPurposeUseCase.createPurpose(req.toRequest()).run {
-            locationHeaderSubjectDefiner.setSubject(subject)
+            locationHeaderSubjectManager.setSubject(subject)
         }
     }
 
