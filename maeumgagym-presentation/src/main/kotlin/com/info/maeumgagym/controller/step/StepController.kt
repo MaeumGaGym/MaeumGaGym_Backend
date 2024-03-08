@@ -1,14 +1,12 @@
 package com.info.maeumgagym.controller.step
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.step.port.`in`.CreateStepUseCase
 import com.info.maeumgagym.step.port.`in`.ReadTodayStepCountUseCase
 import com.info.maeumgagym.step.port.`in`.UpdateStepUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -18,16 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam
 @WebAdapter
 @RequestMapping("/step")
 class StepController(
-    private val createStepUseCase: CreateStepUseCase,
     private val updateStepUseCase: UpdateStepUseCase,
     private val readTodayStepCountUseCase: ReadTodayStepCountUseCase
 ) {
-
-    @Operation(summary = "걸음 수 카운트 시작 API")
-    @PostMapping
-    fun createStep() = createStepUseCase.createStep()
-
-    @Operation(summary = "걸음 수 카운트 추가 API")
+    @Operation(summary = "걸음 수 카운트 업데이트 API")
     @PutMapping
     fun updateStep(
         @RequestParam(name = "number_of_steps")
