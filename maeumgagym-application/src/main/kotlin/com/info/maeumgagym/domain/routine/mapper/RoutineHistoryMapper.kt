@@ -2,14 +2,9 @@ package com.info.maeumgagym.domain.routine.mapper
 
 import com.info.maeumgagym.domain.routine.entity.ExerciseInfo
 import com.info.maeumgagym.domain.routine.entity.RoutineHistoryJpaEntity
-import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
-import com.info.maeumgagym.domain.routine.entity.RoutineStatus
 import com.info.maeumgagym.routine.model.ExerciseInfoModel
-import com.info.maeumgagym.routine.model.Routine
 import com.info.maeumgagym.routine.model.RoutineHistory
-import com.info.maeumgagym.routine.model.RoutineStatusModel
 import org.springframework.stereotype.Component
-import javax.persistence.EntityManager
 
 @Component
 class RoutineHistoryMapper {

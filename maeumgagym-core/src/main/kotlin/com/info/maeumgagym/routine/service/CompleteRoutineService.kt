@@ -16,7 +16,7 @@ class CompleteRoutineService(
     private val readRoutinePort: ReadRoutinePort,
     private val readRoutineHistoryPort: ReadRoutineHistoryPort,
     private val saveRoutineHistoryPort: SaveRoutineHistoryPort
-): CompleteTodayRoutineUseCase {
+) : CompleteTodayRoutineUseCase {
     override fun complete() {
         val user = readCurrentUserPort.readCurrentUser()
 

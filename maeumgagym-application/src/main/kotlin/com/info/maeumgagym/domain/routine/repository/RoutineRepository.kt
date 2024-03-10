@@ -2,7 +2,6 @@ package com.info.maeumgagym.domain.routine.repository
 
 import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
 import org.springframework.data.repository.Repository
-import java.time.DayOfWeek
 import java.util.*
 
 @org.springframework.stereotype.Repository

@@ -8,9 +8,11 @@ import javax.persistence.*
 
 @Entity(name = TableNames.ROUTINE_HISTORY_TABLE)
 @Table(
-    uniqueConstraints = [UniqueConstraint(
-        name = TableNames.ROUTINE_HISTORY_DATE_USER_UNIQUE,
-        columnNames = ["user_id", "date"])
+    uniqueConstraints = [
+        UniqueConstraint(
+            name = TableNames.ROUTINE_HISTORY_DATE_USER_UNIQUE,
+            columnNames = ["user_id", "date"]
+        )
     ]
 )
 class RoutineHistoryJpaEntity(
@@ -18,7 +20,7 @@ class RoutineHistoryJpaEntity(
     userId: UUID,
     date: LocalDate,
     exerciseInfoList: MutableList<ExerciseInfo>
-): BaseLongIdEntity(id) {
+) : BaseLongIdEntity(id) {
 
     @ElementCollection(fetch = FetchType.EAGER)
     var exerciseInfoList: MutableList<ExerciseInfo> = exerciseInfoList

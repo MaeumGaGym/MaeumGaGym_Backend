@@ -14,7 +14,7 @@ import java.util.*
 internal class RoutineHistoryPersistenceAdapter(
     private val mapper: RoutineHistoryMapper,
     private val routineHistoryRepository: RoutineHistoryRepository
-): SaveRoutineHistoryPort, ReadRoutineHistoryPort, ExistsRoutineHistoryPort {
+) : SaveRoutineHistoryPort, ReadRoutineHistoryPort, ExistsRoutineHistoryPort {
 
     @Transactional(propagation = Propagation.MANDATORY)
     override fun save(routineHistory: RoutineHistory): RoutineHistory =
