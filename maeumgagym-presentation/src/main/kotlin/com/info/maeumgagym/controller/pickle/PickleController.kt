@@ -1,12 +1,13 @@
 package com.info.maeumgagym.controller.pickle
 
 import com.info.common.WebAdapter
+import com.info.maeumgagym.controller.common.locationheader.LocationHeaderSubjectManager
 import com.info.maeumgagym.controller.pickle.dto.CreatePickleWebRequest
 import com.info.maeumgagym.controller.pickle.dto.PreSignedUploadURLWebRequest
 import com.info.maeumgagym.controller.pickle.dto.UpdatePickleWebRequest
-import com.info.maeumgagym.pickle.dto.response.PreSignedUploadURLResponse
 import com.info.maeumgagym.pickle.dto.response.PickleListResponse
 import com.info.maeumgagym.pickle.dto.response.PickleResponse
+import com.info.maeumgagym.pickle.dto.response.PreSignedUploadURLResponse
 import com.info.maeumgagym.pickle.port.`in`.*
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -14,11 +15,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
-import javax.validation.constraints.NotBlank
-import javax.validation.constraints.NotNull
-import javax.validation.constraints.Pattern
-import javax.validation.constraints.Positive
-import javax.validation.constraints.PositiveOrZero
+import javax.validation.constraints.*
 
 @Tag(name = "Pickle API")
 @Validated
@@ -32,7 +29,8 @@ class PickleController(
     private val deletePickleUseCase: DeletePickleUseCase,
     private val updatePickleUseCase: UpdatePickleUseCase,
     private val getPicklePreSignedURLUseCase: GetPicklePreSignedURLUseCase,
-    private val likePickleUseCase: LikePickleUseCase
+    private val likePickleUseCase: LikePickleUseCase,
+    private val locationHeaderSubjectManager: LocationHeaderSubjectManager
 ) {
 
     @Operation(summary = "추천 피클 전체 조회 API")
@@ -89,7 +87,9 @@ class PickleController(
         @RequestBody @Valid
         req: CreatePickleWebRequest
     ) {
-        createPickleUseCase.createPickle(req.toRequest())
+        createPickleUseCase.createPickle(req.toRequest()).run {
+            locationHeaderSubjectManager.setSubject(subject)
+        }
     }
 
     @Operation(summary = "피클 삭제 API")
@@ -114,7 +114,9 @@ class PickleController(
         id: String?,
         @RequestBody @Valid
         req: UpdatePickleWebRequest
-    ) { updatePickleUseCase.updatePickle(id!!, req.toRequest()) }
+    ) {
+        updatePickleUseCase.updatePickle(id!!, req.toRequest())
+    }
 
     @Operation(summary = "피클 좋아요 API")
     @PostMapping("{id}")

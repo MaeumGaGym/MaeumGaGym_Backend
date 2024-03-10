@@ -2,6 +2,7 @@ package com.info.maeumgagym.pickle.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
+import com.info.maeumgagym.common.dto.LocationSubjectDto
 import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.pickle.dto.request.CreatePickleRequest
@@ -19,7 +20,7 @@ internal class CreatePickleService(
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : CreatePickleUseCase {
 
-    override fun createPickle(req: CreatePickleRequest) {
+    override fun createPickle(req: CreatePickleRequest): LocationSubjectDto {
         // 토큰으로 유저 찾기
         val user = readCurrentUserPort.readCurrentUser()
 
@@ -42,7 +43,7 @@ internal class CreatePickleService(
         }
 
         // 피클 저장
-        savePicklePort.save(
+        val pickle = savePicklePort.save(
             Pickle(
                 videoId = req.videoId,
                 title = req.title,
@@ -51,5 +52,7 @@ internal class CreatePickleService(
                 tags = req.tags
             )
         )
+
+        return LocationSubjectDto(pickle.videoId)
     }
 }
