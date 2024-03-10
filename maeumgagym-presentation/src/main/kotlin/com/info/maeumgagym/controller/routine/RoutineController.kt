@@ -27,7 +27,8 @@ class RoutineController(
     private val deleteRoutineUseCase: DeleteRoutineUseCase,
     private val updateRoutineUseCase: UpdateRoutineUseCase,
     private val readRoutineUseCase: ReadRoutineUseCase,
-    private val locationHeaderSubjectManager: LocationHeaderSubjectManager
+    private val locationHeaderSubjectManager: LocationHeaderSubjectManager,
+    private val completeTodayRoutineUseCase: CompleteTodayRoutineUseCase
 ) {
     @Operation(summary = "루틴 생성 API")
     @PostMapping
@@ -84,4 +85,10 @@ class RoutineController(
         @Positive(message = "0보다 커야 합니다.")
         id: Long
     ): RoutineResponse = readRoutineUseCase.readFromId(id)
+
+    @Operation(summary = "오늘의 루틴 완료 API")
+    @PutMapping("/today/complete")
+    fun completeTodayRoutine() {
+        completeTodayRoutineUseCase.complete()
+    }
 }
