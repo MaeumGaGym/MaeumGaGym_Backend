@@ -10,6 +10,7 @@ import javax.persistence.Entity
 
 @Entity(name = TableNames.POSE_TABLE)
 class PoseJpaEntity(
+    needMachine: Boolean,
     simpleName: String,
     exactName: String,
     thumbnail: String,
@@ -22,6 +23,10 @@ class PoseJpaEntity(
     caution: MutableSet<String>?,
     id: Long? = null
 ) : BaseLongIdEntity(id) {
+
+    @Column(name = "need_machine", updatable = true, nullable = false)
+    var needMachine: Boolean = needMachine // 기구 운동인지 여부
+        protected set
 
     @Column(name = "simple_name", length = 30, updatable = true, nullable = false)
     var simpleName: String = simpleName // 간단한 이름

@@ -7,7 +7,6 @@ import com.info.maeumgagym.daily.port.out.ReadDailyPort
 import com.info.maeumgagym.daily.port.out.SaveDailyPort
 import com.info.maeumgagym.domain.daily.mapper.DailyMapper
 import com.info.maeumgagym.domain.daily.repository.DailyRepository
-import com.info.maeumgagym.domain.user.mapper.UserMapper
 import com.info.maeumgagym.user.model.User
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
@@ -18,8 +17,7 @@ import java.time.LocalDate
 @PersistenceAdapter
 internal class DailyPersistenceAdapter(
     private val dailyRepository: DailyRepository,
-    private val dailyMapper: DailyMapper,
-    private val userMapper: UserMapper
+    private val dailyMapper: DailyMapper
 ) : SaveDailyPort, DeleteDailyPort, ReadDailyPort {
 
     @Transactional(propagation = Propagation.MANDATORY)

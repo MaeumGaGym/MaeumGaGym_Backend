@@ -2,6 +2,8 @@ package com.info.maeumgagym.pose.dto.response
 
 data class PoseDetailResponse(
 
+    val needMachine: Boolean,
+
     val simpleName: String,
 
     val exactName: String,

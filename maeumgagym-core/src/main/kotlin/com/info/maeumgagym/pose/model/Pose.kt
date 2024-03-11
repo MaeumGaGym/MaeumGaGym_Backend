@@ -4,6 +4,8 @@ import com.info.maeumgagym.pose.dto.response.PoseDetailResponse
 
 data class Pose(
 
+    val needMachine: Boolean,
+
     val simpleName: String,
 
     val exactName: String,
@@ -27,6 +29,7 @@ data class Pose(
     val id: Long?
 ) {
     fun toDetailResponse() = PoseDetailResponse(
+        needMachine,
         simpleName,
         exactName,
         thumbnail,

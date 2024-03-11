@@ -39,4 +39,30 @@ data class Routine(
                 )
             }
         )
+
+    fun toResponse(isCompleted: Boolean): RoutineResponse =
+        RoutineResponse(
+            id = id!!,
+            routineName = routineName,
+            exerciseInfoList = exerciseInfoModelList.map {
+                ExerciseInfoDto(
+                    exerciseName = it.exerciseName,
+                    repetitions = it.repetitions,
+                    sets = it.sets
+                )
+            },
+            dayOfWeeks = dayOfWeeks?.map {
+                it.getDisplayName(
+                    TextStyle.FULL,
+                    Locale.KOREA
+                )
+            },
+            routineStatus = routineStatusModel.run {
+                RoutineStatusDto(
+                    isArchived = isArchived,
+                    isShared = isShared
+                )
+            },
+            isCompleted = isCompleted
+        )
 }
