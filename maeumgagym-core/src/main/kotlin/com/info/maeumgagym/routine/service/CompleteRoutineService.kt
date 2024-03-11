@@ -6,7 +6,6 @@ import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.routine.model.RoutineHistory
 import com.info.maeumgagym.routine.port.`in`.CompleteTodayRoutineUseCase
 import com.info.maeumgagym.routine.port.out.ExistsRoutineHistoryPort
-import com.info.maeumgagym.routine.port.out.ReadRoutineHistoryPort
 import com.info.maeumgagym.routine.port.out.ReadRoutinePort
 import com.info.maeumgagym.routine.port.out.SaveRoutineHistoryPort
 import java.time.LocalDate
@@ -28,13 +27,15 @@ class CompleteRoutineService(
 
         if (existsRoutineHistoryPort.exsitsByUserIdAndDate(user.id, now)) {
             throw BusinessLogicException(409, "Already Completed Routine")
-        } else saveRoutineHistoryPort.save(
-            RoutineHistory(
-                id = null,
-                date = now,
-                exerciseInfoList = routine.exerciseInfoModelList,
-                userId = user.id
+        } else {
+            saveRoutineHistoryPort.save(
+                RoutineHistory(
+                    id = null,
+                    date = now,
+                    exerciseInfoList = routine.exerciseInfoModelList,
+                    userId = user.id
+                )
             )
-        )
+        }
     }
 }
