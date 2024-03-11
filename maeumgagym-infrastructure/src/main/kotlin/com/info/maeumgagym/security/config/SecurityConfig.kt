@@ -1,8 +1,8 @@
 package com.info.maeumgagym.security.config
 
-import com.info.maeumgagym.security.env.CSRFProperties
 import com.info.maeumgagym.error.CustomAccessDeniedHandler
 import com.info.maeumgagym.error.CustomAuthenticationEntryPoint
+import com.info.maeumgagym.security.env.CSRFProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -16,11 +16,13 @@ class SecurityConfig(
     private val requestPermitConfig: RequestPermitConfig,
     private val securityFilterChainConfig: SecurityFilterChainConfig,
     private val accessDeniedHandler: CustomAccessDeniedHandler,
-    private val authenticationEntryPoint: CustomAuthenticationEntryPoint
+    private val authenticationEntryPoint: CustomAuthenticationEntryPoint,
+    private val logoutHandlerConfig: LogoutHandlerConfig
 ) {
     @Bean
     protected fun filterChain(http: HttpSecurity): SecurityFilterChain =
         http
+            .apply(logoutHandlerConfig::configure)
             .formLogin().disable() // Html Form 로그인 비활성화
 //            .csrf().csrfTokenRepository(getCsrfTokenRepository()).and() // CSRF 설정 (temporary disuse)
             .csrf().disable()
@@ -42,8 +44,7 @@ class SecurityConfig(
             .headers().frameOptions().sameOrigin()
             .and()
 //
-            .apply(securityFilterChainConfig) // SecurityFilterChain에 대한 설정
-            .and()
+            .apply(securityFilterChainConfig).and() // SecurityFilterChain에 대한 설정
             .build()
 
     private fun getCsrfTokenRepository(): CookieCsrfTokenRepository =
