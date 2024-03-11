@@ -11,7 +11,7 @@ import com.info.maeumgagym.routine.port.out.SaveRoutineHistoryPort
 import java.time.LocalDate
 
 @UseCase
-class CompleteRoutineService(
+class CompleteTodayRoutineService(
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val readRoutinePort: ReadRoutinePort,
     private val saveRoutineHistoryPort: SaveRoutineHistoryPort,

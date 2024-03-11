@@ -22,15 +22,15 @@ class RoutineHistoryJpaEntity(
     exerciseInfoList: MutableList<ExerciseInfo>
 ) : BaseLongIdEntity(id) {
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     var exerciseInfoList: MutableList<ExerciseInfo> = exerciseInfoList
         protected set
 
-    @Column(name = "user_id", columnDefinition = "BINARY(16)", nullable = false)
+    @Column(name = "user_id", updatable = false, columnDefinition = "BINARY(16)", nullable = false)
     var userId: UUID = userId
         protected set
 
-    @Column(name = "date", nullable = false)
+    @Column(name = "date", updatable = false, nullable = false)
     var date: LocalDate = date
         protected set
 }

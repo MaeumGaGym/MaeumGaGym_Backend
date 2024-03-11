@@ -58,7 +58,7 @@ open class MaeumGaGymException(
     companion object {
 
         // Default
-        val NO_CONTENT = MaeumGaGymException(204, "There is no Content")
+        val NO_CONTENT = MaeumGaGymException(204, "There's No Content Left")
         val BAD_REQUEST = MaeumGaGymException(400, "Bad Request")
         val UNAUTHORIZED = MaeumGaGymException(401, "Unauthorized")
         val FORBIDDEN = MaeumGaGymException(403, "Forbidden")
