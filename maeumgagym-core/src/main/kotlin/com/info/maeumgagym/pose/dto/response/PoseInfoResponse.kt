@@ -6,5 +6,5 @@ data class PoseInfoResponse(
     val name: String,
     val simplePart: List<String>,
     val exactPart: List<String>,
-    val thumbnail: String,
+    val thumbnail: String
 )

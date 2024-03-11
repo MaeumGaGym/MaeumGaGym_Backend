@@ -21,6 +21,7 @@ class ReadPoseFromTagService(
         return PoseListResponse(
             poses.map {
                 it.toInfoResponse()
-            })
+            }
+        )
     }
 }
