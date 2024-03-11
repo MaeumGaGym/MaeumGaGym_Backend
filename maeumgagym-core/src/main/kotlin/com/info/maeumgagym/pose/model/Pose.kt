@@ -1,6 +1,7 @@
 package com.info.maeumgagym.pose.model
 
 import com.info.maeumgagym.pose.dto.response.PoseDetailResponse
+import com.info.maeumgagym.pose.dto.response.PoseInfoResponse
 
 data class Pose(
 
@@ -40,5 +41,14 @@ data class Pose(
         exerciseWay,
         breatheWay,
         caution
+    )
+
+    fun toInfoResponse() = PoseInfoResponse(
+        id = id!!,
+        needMachine = needMachine,
+        name = exactName,
+        simplePart = simplePart.toList(),
+        exactPart = exactPart.toList(),
+        thumbnail = thumbnail
     )
 }

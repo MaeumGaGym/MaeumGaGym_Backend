@@ -5,4 +5,6 @@ import com.info.maeumgagym.pose.model.Pose
 interface ReadPosePort {
 
     fun readById(id: Long): Pose?
+
+    fun readByTag(tag: String): List<Pose>
 }
