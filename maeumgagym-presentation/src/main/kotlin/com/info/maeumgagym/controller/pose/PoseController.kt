@@ -20,9 +20,9 @@ class PoseController(
     private val readPoseFromIdUseCase: ReadPoseFromIdUseCase
 ) {
 
-    @Operation(summary = "포즈 조회 API")
+    @Operation(summary = "자세 id 조회 API")
     @GetMapping("/{id}")
-    fun readById(
+    fun readFromId(
         @PathVariable("id")
         @Valid
         @Positive(message = "0보다 커야 합니다.")
