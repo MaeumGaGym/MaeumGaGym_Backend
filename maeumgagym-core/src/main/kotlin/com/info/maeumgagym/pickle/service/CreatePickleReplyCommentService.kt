@@ -2,6 +2,7 @@ package com.info.maeumgagym.pickle.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
+import com.info.maeumgagym.common.dto.LocationSubjectDto
 import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.pickle.dto.request.PickleCommentRequest
 import com.info.maeumgagym.pickle.model.PickleReply
@@ -21,7 +22,7 @@ internal class CreatePickleReplyCommentService(
         pickleCommentRequest: PickleCommentRequest,
         videoId: String,
         parentId: Long
-    ) {
+    ): LocationSubjectDto {
         val user = readCurrentUserPort.readCurrentUser()
         val parentComment = readPickleCommentPort.readById(parentId)
             ?: throw BusinessLogicException.PICKLE_COMMENT_NOT_FOUND
@@ -34,7 +35,7 @@ internal class CreatePickleReplyCommentService(
             throw BusinessLogicException(400, "Pickle Mismatched with Parent Comment")
         }
 
-        pickleCommentRequest.run {
+        val pickleComment = pickleCommentRequest.run {
             savePickleReplyPort.save(
                 PickleReply(
                     content = content,
@@ -44,5 +45,7 @@ internal class CreatePickleReplyCommentService(
                 )
             )
         }
+
+        return LocationSubjectDto(pickleComment.id!!)
     }
 }

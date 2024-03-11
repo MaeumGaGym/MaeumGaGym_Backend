@@ -1,4 +1,5 @@
 object DependencyVersions {
+    const val MINIO_VERSION = "8.3.2"
     const val JACKSON_VERSION = "2.10.3"
     const val MYSQL_VERSION = "8.0.28"
     const val SENTRY_VERSION = "6.2.1"

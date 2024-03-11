@@ -2,6 +2,7 @@ package com.info.maeumgagym.purpose.service
 
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
+import com.info.maeumgagym.common.dto.LocationSubjectDto
 import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.purpose.dto.request.CreatePurposeRequest
 import com.info.maeumgagym.purpose.model.Purpose
@@ -14,14 +15,14 @@ internal class CreatePurposeService(
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : CreatePurposeUseCase {
 
-    override fun createPurpose(req: CreatePurposeRequest) {
+    override fun createPurpose(req: CreatePurposeRequest): LocationSubjectDto {
         val user = readCurrentUserPort.readCurrentUser()
 
         if (req.startDate.isAfter(req.endDate)) {
             throw BusinessLogicException.START_DATE_MUST_BE_BEFORE_THAN_END_DATE
         }
 
-        req.run {
+        val purpose = req.run {
             savePurposePort.save(
                 Purpose(
                     title = title,
@@ -32,5 +33,7 @@ internal class CreatePurposeService(
                 )
             )
         }
+
+        return LocationSubjectDto(purpose.id!!)
     }
 }

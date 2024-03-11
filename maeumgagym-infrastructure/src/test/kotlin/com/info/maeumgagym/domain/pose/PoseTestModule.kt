@@ -5,23 +5,25 @@ import com.info.maeumgagym.domain.pose.repository.PoseRepository
 
 object PoseTestModule {
 
+    private const val NEED_MACHINE = false
     private const val SIMPLE_NAME = "테스트 포즈"
     private const val EXACT_NAME = "자세한 테스트 포즈"
     private const val THUMBNAIL = "null"
-    private val IMAGES = listOf("", "")
-    private const val EASY_PART = "허벅지"
-    private const val EXACT_PART = "대퇴근"
-    private const val START_POSE = "시작 자세"
-    private const val EXERCiSE_WAY = "운동 방법"
-    private const val BREATH_WAY = "호흡법"
-    private const val CAUTION = "주의"
+    private val IMAGES = mutableSetOf("", "")
+    private val EASY_PART = mutableSetOf("허벅지")
+    private val EXACT_PART = mutableSetOf("대퇴근")
+    private val START_POSE = mutableSetOf("시작 자세")
+    private val EXERCiSE_WAY = mutableSetOf("운동 방법")
+    private val BREATH_WAY = mutableSetOf("호흡법")
+    private val CAUTION = mutableSetOf("주의")
 
     fun createPose(): PoseJpaEntity =
         PoseJpaEntity(
+            needMachine = NEED_MACHINE,
             simpleName = SIMPLE_NAME,
             exactName = EXACT_NAME,
             thumbnail = THUMBNAIL,
-            poseImages = IMAGES.toMutableList(),
+            poseImages = IMAGES,
             easyPart = EASY_PART,
             exactPart = EXACT_PART,
             startPose = START_POSE,

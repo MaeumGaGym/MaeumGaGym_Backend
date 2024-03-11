@@ -1,6 +1,7 @@
 package com.info.maeumgagym.controller.routine
 
 import com.info.common.WebAdapter
+import com.info.maeumgagym.controller.common.locationheader.LocationHeaderSubjectManager
 import com.info.maeumgagym.controller.routine.dto.CreateRoutineWebRequest
 import com.info.maeumgagym.controller.routine.dto.UpdateRoutineWebRequest
 import com.info.maeumgagym.routine.dto.response.RoutineListResponse
@@ -25,7 +26,9 @@ class RoutineController(
     private val createRoutineUseCase: CreateRoutineUseCase,
     private val deleteRoutineUseCase: DeleteRoutineUseCase,
     private val updateRoutineUseCase: UpdateRoutineUseCase,
-    private val readRoutineUseCase: ReadRoutineUseCase
+    private val readRoutineUseCase: ReadRoutineUseCase,
+    private val locationHeaderSubjectManager: LocationHeaderSubjectManager,
+    private val completeTodayRoutineUseCase: CompleteTodayRoutineUseCase
 ) {
     @Operation(summary = "루틴 생성 API")
     @PostMapping
@@ -34,15 +37,15 @@ class RoutineController(
         @RequestBody @Valid
         req: CreateRoutineWebRequest
     ) {
-        createRoutineUseCase.createRoutine(req.toRequest())
+        createRoutineUseCase.createRoutine(req.toRequest()).run {
+            locationHeaderSubjectManager.setSubject(subject)
+        }
     }
 
     @Operation(summary = "오늘의 루틴 조회 API")
     @GetMapping("/today")
     fun readTodayRoutine(httpServletResponse: HttpServletResponse): RoutineResponse? =
-        readTodayRoutineUseCase.readTodayRoutine().apply {
-            if (this == null) httpServletResponse.status = 204
-        }
+        readTodayRoutineUseCase.readTodayRoutine()
 
     @Operation(summary = "내 루틴 전체 조회 API")
     @GetMapping("/me/all")
@@ -80,4 +83,10 @@ class RoutineController(
         @Positive(message = "0보다 커야 합니다.")
         id: Long
     ): RoutineResponse = readRoutineUseCase.readFromId(id)
+
+    @Operation(summary = "오늘의 루틴 완료 API")
+    @PutMapping("/today/complete")
+    fun completeTodayRoutine() {
+        completeTodayRoutineUseCase.complete()
+    }
 }

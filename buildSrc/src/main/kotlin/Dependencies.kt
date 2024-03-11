@@ -57,6 +57,9 @@ object Dependencies {
     const val QUERY_DSL_JPA = "com.querydsl:querydsl-jpa:${DependencyVersions.QUERY_DSL_VERSION}"
     const val QUERY_DSL_KAPT = "com.querydsl:querydsl-apt:${DependencyVersions.QUERY_DSL_VERSION}"
 
+    // minIO
+    const val MINIO = "io.minio:minio:${DependencyVersions.MINIO_VERSION}"
+
     const val ANNOTATION_PROCESSOR = "org.springframework.boot:spring-boot-configuration-processor"
 
     const val SPRING_DOC = "org.springdoc:springdoc-openapi-ui:${DependencyVersions.OPEN_API_VERSION}"

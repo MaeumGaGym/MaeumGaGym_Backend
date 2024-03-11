@@ -2,23 +2,25 @@ package com.info.maeumgagym.pose.dto.response
 
 data class PoseDetailResponse(
 
+    val needMachine: Boolean,
+
     val simpleName: String,
 
     val exactName: String,
 
     val thumbnail: String,
 
-    val poseImages: MutableList<String>,
+    val poseImages: MutableSet<String>,
 
-    val simplePart: String,
+    val simplePart: MutableSet<String>,
 
-    val exactPart: String,
+    val exactPart: MutableSet<String>,
 
-    val startPose: String,
+    val startPose: MutableSet<String>,
 
-    val exerciseWay: String,
+    val exerciseWay: MutableSet<String>,
 
-    val breatheWay: String?,
+    val breatheWay: MutableSet<String>?,
 
-    val caution: String?
+    val caution: MutableSet<String>?
 )

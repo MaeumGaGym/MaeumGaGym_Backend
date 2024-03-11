@@ -11,4 +11,6 @@ interface ReadRoutinePort {
     fun readAllByUserId(userId: UUID): List<Routine>
 
     fun readByUserIdAndDayOfWeekAndIsArchivedFalse(userId: UUID, dayOfWeek: DayOfWeek): Routine?
+
+    fun readByUserIdAndDayOfWeek(userId: UUID, dayOfWeek: DayOfWeek): Routine?
 }

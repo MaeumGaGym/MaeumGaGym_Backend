@@ -1,8 +1,11 @@
 package com.info.maeumgagym.pose.model
 
 import com.info.maeumgagym.pose.dto.response.PoseDetailResponse
+import com.info.maeumgagym.pose.dto.response.PoseInfoResponse
 
 data class Pose(
+
+    val needMachine: Boolean,
 
     val simpleName: String,
 
@@ -10,23 +13,24 @@ data class Pose(
 
     val thumbnail: String,
 
-    val poseImages: MutableList<String>,
+    val poseImages: MutableSet<String>,
 
-    val simplePart: String,
+    val simplePart: MutableSet<String>,
 
-    val exactPart: String,
+    val exactPart: MutableSet<String>,
 
-    val startPose: String,
+    val startPose: MutableSet<String>,
 
-    val exerciseWay: String,
+    val exerciseWay: MutableSet<String>,
 
-    val breatheWay: String?,
+    val breatheWay: MutableSet<String>?,
 
-    val caution: String?,
+    val caution: MutableSet<String>?,
 
     val id: Long?
 ) {
     fun toDetailResponse() = PoseDetailResponse(
+        needMachine,
         simpleName,
         exactName,
         thumbnail,
@@ -37,5 +41,14 @@ data class Pose(
         exerciseWay,
         breatheWay,
         caution
+    )
+
+    fun toInfoResponse() = PoseInfoResponse(
+        id = id!!,
+        needMachine = needMachine,
+        name = exactName,
+        simplePart = simplePart.toList(),
+        exactPart = exactPart.toList(),
+        thumbnail = thumbnail
     )
 }

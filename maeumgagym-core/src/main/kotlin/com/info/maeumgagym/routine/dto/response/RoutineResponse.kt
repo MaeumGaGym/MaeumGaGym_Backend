@@ -9,5 +9,6 @@ data class RoutineResponse(
     val routineName: String,
     val exerciseInfoList: List<ExerciseInfoDto>,
     val dayOfWeeks: List<String>?,
-    val routineStatus: RoutineStatusDto
+    val routineStatus: RoutineStatusDto,
+    val isCompleted: Boolean? = null
 )
