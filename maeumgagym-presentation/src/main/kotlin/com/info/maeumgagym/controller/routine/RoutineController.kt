@@ -45,9 +45,7 @@ class RoutineController(
     @Operation(summary = "오늘의 루틴 조회 API")
     @GetMapping("/today")
     fun readTodayRoutine(httpServletResponse: HttpServletResponse): RoutineResponse? =
-        readTodayRoutineUseCase.readTodayRoutine().apply {
-            if (this == null) httpServletResponse.status = 204
-        }
+        readTodayRoutineUseCase.readTodayRoutine()
 
     @Operation(summary = "내 루틴 전체 조회 API")
     @GetMapping("/me/all")

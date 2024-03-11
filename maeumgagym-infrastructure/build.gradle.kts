@@ -34,7 +34,7 @@ dependencies {
     implementation(Dependencies.LOGGER)
     implementation(Dependencies.SPRING_VALIDATION)
 
-    implementation("io.minio:minio:8.3.2")
+    implementation(Dependencies.MINIO)
 
     implementation(Dependencies.SPRING_DATA_JPA)
     implementation("com.querydsl:querydsl-jpa:${PluginVersions.QUERY_DSL}")

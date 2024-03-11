@@ -2,7 +2,7 @@ package com.info.maeumgagym.routine.service
 
 import com.info.common.ReadOnlyUseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.common.exception.MaeumGaGymException
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.routine.dto.response.RoutineResponse
 import com.info.maeumgagym.routine.port.`in`.ReadTodayRoutineUseCase
 import com.info.maeumgagym.routine.port.out.ExistsRoutineHistoryPort
@@ -26,6 +26,6 @@ class ReadTodayRoutineService(
             now.dayOfWeek
         )?.run {
             toResponse(existsRoutineHistoryPort.exsitsByUserIdAndDate(userId, now))
-        } ?: throw MaeumGaGymException.NO_CONTENT
+        } ?: throw BusinessLogicException(204, "There's No Content Left")
     }
 }
