@@ -5,6 +5,7 @@ import com.info.maeumgagym.domain.pose.repository.PoseRepository
 
 object PoseTestModule {
 
+    private const val NEED_MACHINE = false
     private const val SIMPLE_NAME = "테스트 포즈"
     private const val EXACT_NAME = "자세한 테스트 포즈"
     private const val THUMBNAIL = "null"
@@ -18,6 +19,7 @@ object PoseTestModule {
 
     fun createPose(): PoseJpaEntity =
         PoseJpaEntity(
+            needMachine = NEED_MACHINE,
             simpleName = SIMPLE_NAME,
             exactName = EXACT_NAME,
             thumbnail = THUMBNAIL,
