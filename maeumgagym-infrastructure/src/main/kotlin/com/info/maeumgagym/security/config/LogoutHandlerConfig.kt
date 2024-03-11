@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component
 class LogoutHandlerConfig(
     private val customLogoutHandler: CustomLogoutHandler,
     private val customSuccessLogoutHandler: CustomSuccessLogoutHandler
-) : SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>(){
+) : SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
+
     override fun configure(builder: HttpSecurity) {
         builder
             .logout()

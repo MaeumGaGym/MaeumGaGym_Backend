@@ -12,8 +12,12 @@ import javax.servlet.http.HttpServletResponse
 class CustomLogoutHandler(
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val revokeTokensPort: RevokeTokensPort
-): LogoutHandler {
-    override fun logout(request: HttpServletRequest?, response: HttpServletResponse?, authentication: Authentication?) {
+) : LogoutHandler {
+    override fun logout(
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        authentication: Authentication
+    ) {
         val user = readCurrentUserPort.readCurrentUser()
         revokeTokensPort.revoke(user.oauthId)
     }

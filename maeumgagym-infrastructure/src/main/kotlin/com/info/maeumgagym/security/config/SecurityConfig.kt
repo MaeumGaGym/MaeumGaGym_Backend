@@ -1,10 +1,8 @@
 package com.info.maeumgagym.security.config
 
-import com.info.maeumgagym.auth.handler.CustomLogoutHandler
-import com.info.maeumgagym.auth.handler.CustomSuccessLogoutHandler
-import com.info.maeumgagym.security.env.CSRFProperties
 import com.info.maeumgagym.error.CustomAccessDeniedHandler
 import com.info.maeumgagym.error.CustomAuthenticationEntryPoint
+import com.info.maeumgagym.security.env.CSRFProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -19,13 +17,12 @@ class SecurityConfig(
     private val securityFilterChainConfig: SecurityFilterChainConfig,
     private val accessDeniedHandler: CustomAccessDeniedHandler,
     private val authenticationEntryPoint: CustomAuthenticationEntryPoint,
-    private val customLogoutHandler: CustomLogoutHandler,
-    private val customSuccessLogoutHandler: CustomSuccessLogoutHandler,
     private val logoutHandlerConfig: LogoutHandlerConfig
 ) {
     @Bean
     protected fun filterChain(http: HttpSecurity): SecurityFilterChain =
         http
+            .apply(logoutHandlerConfig::configure)
             .formLogin().disable() // Html Form 로그인 비활성화
 //            .csrf().csrfTokenRepository(getCsrfTokenRepository()).and() // CSRF 설정 (temporary disuse)
             .csrf().disable()
@@ -49,7 +46,6 @@ class SecurityConfig(
             .and()
 //
             .apply(securityFilterChainConfig).and() // SecurityFilterChain에 대한 설정
-            .apply(logoutHandlerConfig).and()
             .build()
 
     private fun getCsrfTokenRepository(): CookieCsrfTokenRepository =

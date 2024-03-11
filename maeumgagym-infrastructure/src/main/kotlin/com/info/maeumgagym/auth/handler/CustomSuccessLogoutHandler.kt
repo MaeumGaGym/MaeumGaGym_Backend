@@ -7,13 +7,13 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Component
-class CustomSuccessLogoutHandler: LogoutSuccessHandler {
+class CustomSuccessLogoutHandler : LogoutSuccessHandler {
     override fun onLogoutSuccess(
-        request: HttpServletRequest?,
-        response: HttpServletResponse?,
-        authentication: Authentication?
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        authentication: Authentication
     ) {
-        response?.let {
+        response.let {
             it.status = HttpServletResponse.SC_NO_CONTENT
             it.writer.flush()
         }
