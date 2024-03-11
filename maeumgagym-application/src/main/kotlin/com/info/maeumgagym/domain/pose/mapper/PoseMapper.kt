@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component
 class PoseMapper {
     fun toEntity(pose: Pose): PoseJpaEntity = pose.run {
         PoseJpaEntity(
+            needMachine,
             simpleName,
             exactName,
             thumbnail,
@@ -24,6 +25,7 @@ class PoseMapper {
 
     fun toDomain(poseJpaEntity: PoseJpaEntity): Pose = poseJpaEntity.run {
         Pose(
+            needMachine,
             simpleName,
             exactName,
             thumbnail,
