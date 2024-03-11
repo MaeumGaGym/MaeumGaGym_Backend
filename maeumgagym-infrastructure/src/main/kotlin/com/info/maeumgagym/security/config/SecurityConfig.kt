@@ -1,5 +1,7 @@
 package com.info.maeumgagym.security.config
 
+import com.info.maeumgagym.auth.handler.CustomLogoutHandler
+import com.info.maeumgagym.auth.handler.CustomSuccessLogoutHandler
 import com.info.maeumgagym.security.env.CSRFProperties
 import com.info.maeumgagym.error.CustomAccessDeniedHandler
 import com.info.maeumgagym.error.CustomAuthenticationEntryPoint
@@ -16,7 +18,10 @@ class SecurityConfig(
     private val requestPermitConfig: RequestPermitConfig,
     private val securityFilterChainConfig: SecurityFilterChainConfig,
     private val accessDeniedHandler: CustomAccessDeniedHandler,
-    private val authenticationEntryPoint: CustomAuthenticationEntryPoint
+    private val authenticationEntryPoint: CustomAuthenticationEntryPoint,
+    private val customLogoutHandler: CustomLogoutHandler,
+    private val customSuccessLogoutHandler: CustomSuccessLogoutHandler,
+    private val logoutHandlerConfig: LogoutHandlerConfig
 ) {
     @Bean
     protected fun filterChain(http: HttpSecurity): SecurityFilterChain =
@@ -25,7 +30,7 @@ class SecurityConfig(
 //            .csrf().csrfTokenRepository(getCsrfTokenRepository()).and() // CSRF 설정 (temporary disuse)
             .csrf().disable()
             .cors().and() // CORS 활성화
-            .requiresChannel().anyRequest().requiresSecure().and() // XSS Attack (HTTPS 요청 요구) local test시 주석 처리할 것
+//            .requiresChannel().anyRequest().requiresSecure().and() // XSS Attack (HTTPS 요청 요구) local test시 주석 처리할 것
 //
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
@@ -36,14 +41,15 @@ class SecurityConfig(
             .and()
 //
             .apply(requestPermitConfig).and() // 매핑에 따른 인증이 필요한지에 대한 설정
+
             .authorizeRequests()
             .antMatchers("/swagger-ui/**", "/docs/**").permitAll().and()
 //
             .headers().frameOptions().sameOrigin()
             .and()
 //
-            .apply(securityFilterChainConfig) // SecurityFilterChain에 대한 설정
-            .and()
+            .apply(securityFilterChainConfig).and() // SecurityFilterChain에 대한 설정
+            .apply(logoutHandlerConfig).and()
             .build()
 
     private fun getCsrfTokenRepository(): CookieCsrfTokenRepository =
