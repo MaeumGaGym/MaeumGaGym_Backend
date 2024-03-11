@@ -20,7 +20,7 @@ internal class PosePersistenceAdapter(
         }
 
     override fun readByTag(tag: String): List<Pose> =
-        poseNativeRepository.readByTag(tag).map {
+        poseNativeRepository.findAllByTag(tag).map {
             poseMapper.toDomain(it)
         }
 }

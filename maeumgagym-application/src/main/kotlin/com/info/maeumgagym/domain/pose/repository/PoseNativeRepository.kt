@@ -15,5 +15,5 @@ interface PoseNativeRepository : Repository<PoseJpaEntity, Long?> {
             "p.simple_name LIKE %:tag% OR p.exact_name LIKE %:tag%",
         nativeQuery = true
     )
-    fun readByTag(@Param("tag") tag: String): List<PoseJpaEntity>
+    fun findAllByTag(@Param("tag") tag: String): List<PoseJpaEntity>
 }
