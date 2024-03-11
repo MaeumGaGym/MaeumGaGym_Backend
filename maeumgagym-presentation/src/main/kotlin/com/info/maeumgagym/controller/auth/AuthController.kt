@@ -21,7 +21,7 @@ import javax.validation.constraints.NotBlank
 class AuthController(
     private val withdrawalUserUseCase: WithdrawalUserUseCase,
     private val duplicatedNicknameCheckUseCase: DuplicatedNicknameCheckUseCase,
-    private val reissueUseCase: ReissueUseCase,
+    private val reissueUseCase: ReissueUseCase
 ) {
     @Operation(summary = "회원탈퇴 API")
     @DeleteMapping
