@@ -1,9 +1,10 @@
 package com.info.maeumgagym.global.config.filter
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.error.filter.ErrorLogResponseFilter
 import com.info.maeumgagym.error.filter.ExceptionConvertFilter
+import com.info.maeumgagym.response.writer.DefaultResponseWriter
+import com.info.maeumgagym.response.writer.ErrorLogResponseWriter
 import org.apache.catalina.core.ApplicationFilterChain
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.security.web.SecurityFilterChain
@@ -14,7 +15,8 @@ import javax.servlet.Filter
  * > 현재 해당 설정 관련 사항이 기술적 문제로 잠시 반려되었습니다. [ErrorLogResponseFilter]와 [ExceptionConvertFilter]는 [ApplicationFilterChain]이 아닌 [SecurityFilterChain]에 등록되어 있습니다.
  */
 class FilterChainConfig(
-    private val objectMapper: ObjectMapper
+    private val defaultResponseWriter: DefaultResponseWriter,
+    private val errorLogResponseWriter: ErrorLogResponseWriter
 ) {
 
     /**
@@ -33,7 +35,7 @@ class FilterChainConfig(
     // @Bean
     fun errorLogResponseFilterConfig(): FilterRegistrationBean<ErrorLogResponseFilter> {
         val bean = FilterRegistrationBean(
-            ErrorLogResponseFilter(objectMapper)
+            ErrorLogResponseFilter(defaultResponseWriter, errorLogResponseWriter)
         )
 
         bean.addUrlPatterns("/*")
