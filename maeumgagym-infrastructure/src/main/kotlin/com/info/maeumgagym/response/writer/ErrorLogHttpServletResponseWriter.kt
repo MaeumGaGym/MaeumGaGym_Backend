@@ -30,7 +30,10 @@ abstract class ErrorLogHttpServletResponseWriter : HttpServletResponseWriter {
      * @author Daybreak312
      * @since 12-03-2024
      */
-    abstract override fun doDefaultSettingWithStatusCode(response: HttpServletResponse, status: Int): HttpServletResponse
+    abstract override fun doDefaultSettingWithStatusCode(
+        response: HttpServletResponse,
+        status: Int
+    ): HttpServletResponse
 
     /**
      * 인자로 받은 [ErrorLog]와 [Exception]의 정보를 기반으로 [HttpServletResponse]를 작성.

@@ -22,7 +22,10 @@ private class ErrorLogHttpServletResponseWriterImpl(
     override fun setBody(response: HttpServletResponse, `object`: Any): HttpServletResponse =
         defaultHttpServletResponseWriter.setBody(response, `object`)
 
-    override fun doDefaultSettingWithStatusCode(response: HttpServletResponse, status: Int): HttpServletResponse =
+    override fun doDefaultSettingWithStatusCode(
+        response: HttpServletResponse,
+        status: Int
+    ): HttpServletResponse =
         defaultHttpServletResponseWriter.doDefaultSettingWithStatusCode(response, status)
 
     override fun writeResponseWithErrorLogAndException(
