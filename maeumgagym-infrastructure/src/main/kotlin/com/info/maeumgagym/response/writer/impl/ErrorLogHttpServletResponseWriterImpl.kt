@@ -2,9 +2,9 @@ package com.info.maeumgagym.response.writer.impl
 
 import com.info.maeumgagym.common.exception.PresentationValidationException
 import com.info.maeumgagym.error.log.ErrorLog
-import com.info.maeumgagym.response.writer.DefaultResponseWriter
+import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
+import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
 import com.info.maeumgagym.response.writer.ErrorLogResponse
-import com.info.maeumgagym.response.writer.ErrorLogResponseWriter
 import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletResponse
 
@@ -15,15 +15,15 @@ import javax.servlet.http.HttpServletResponse
  * @since 12-03-2024
  */
 @Component
-private class ErrorLogResponseWriterImpl(
-    private val defaultResponseWriter: DefaultResponseWriter
-) : ErrorLogResponseWriter() {
+private class ErrorLogHttpServletResponseWriterImpl(
+    private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter
+) : ErrorLogHttpServletResponseWriter() {
 
     override fun setBody(response: HttpServletResponse, `object`: Any): HttpServletResponse =
-        defaultResponseWriter.setBody(response, `object`)
+        defaultHttpServletResponseWriter.setBody(response, `object`)
 
     override fun setDefaultSetting(response: HttpServletResponse, status: Int): HttpServletResponse =
-        defaultResponseWriter.setDefaultSetting(response, status)
+        defaultHttpServletResponseWriter.setDefaultSetting(response, status)
 
     override fun writeResponseWithErrorLogAndException(
         response: HttpServletResponse,

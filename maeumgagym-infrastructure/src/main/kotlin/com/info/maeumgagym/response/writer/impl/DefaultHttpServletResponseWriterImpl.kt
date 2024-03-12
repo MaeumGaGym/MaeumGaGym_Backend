@@ -1,7 +1,7 @@
 package com.info.maeumgagym.response.writer.impl
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.info.maeumgagym.response.writer.DefaultResponseWriter
+import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
 import java.nio.charset.StandardCharsets
@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse
  * @since 12-03-2024
  */
 @Component
-private class DefaultResponseWriterImpl(
+private class DefaultHttpServletResponseWriterImpl(
     private val objectMapper: ObjectMapper
-) : DefaultResponseWriter() {
+) : DefaultHttpServletResponseWriter() {
 
     override fun setBody(response: HttpServletResponse, `object`: Any): HttpServletResponse =
         response.apply {

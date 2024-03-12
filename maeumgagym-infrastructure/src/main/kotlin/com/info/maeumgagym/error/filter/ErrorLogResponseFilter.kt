@@ -3,8 +3,8 @@ package com.info.maeumgagym.error.filter
 import com.info.maeumgagym.common.exception.*
 import com.info.maeumgagym.error.log.ErrorLog
 import com.info.maeumgagym.global.config.filter.FilterChainConfig
-import com.info.maeumgagym.response.writer.DefaultResponseWriter
-import com.info.maeumgagym.response.writer.ErrorLogResponseWriter
+import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
+import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
 import org.apache.catalina.core.ApplicationFilterChain
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.web.filter.OncePerRequestFilter
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse
  *
  * [doFilter], 정확히는 [doFilterInternal]를 *try*문으로 감싸 실행.
  * 이후 발생한 모든 예외를 *catch*해 각 예외에 따라 [ErrorLog]및 그에 대한 Response를 작성.
- * @see [ErrorLogResponseWriter]
+ * @see [ErrorLogHttpServletResponseWriter]
  *
  * 원래 [DispatcherServlet] 통과 이후 발생한 예외는 [NestedServletException.cause]로 감싸져 *throw*되지만, [ExceptionConvertFilter]에서 이를 [MaeumGaGymException]의 하위 타입으로 변환함. 자세한 것은 [ExceptionConvertFilter] 참조.
  *
@@ -30,8 +30,8 @@ import javax.servlet.http.HttpServletResponse
  * @see ExceptionConvertFilter
  */
 class ErrorLogResponseFilter(
-    private val defaultResponseWriter: DefaultResponseWriter,
-    private val errorLogResponseWriter: ErrorLogResponseWriter
+    private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
+    private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
@@ -43,7 +43,7 @@ class ErrorLogResponseFilter(
             filterChain.doFilter(request, response)
         } catch (e: MaeumGaGymException) {
             if (isOkStatus(e.status)) {
-                defaultResponseWriter.setDefaultSetting(response, e.status)
+                defaultHttpServletResponseWriter.setDefaultSetting(response, e.status)
                 return
             }
 
@@ -53,11 +53,11 @@ class ErrorLogResponseFilter(
                 e.printStackTrace()
             }
 
-            errorLogResponseWriter.writeResponseWithErrorLogAndException(response, errorLog, e)
+            errorLogHttpServletResponseWriter.writeResponseWithErrorLogAndException(response, errorLog, e)
         } catch (e: Exception) {
             e.printStackTrace()
             val errorLog = printErrorLogAndReturn(e)
-            errorLogResponseWriter.writeResponseWithErrorLogAndException(response, errorLog, e)
+            errorLogHttpServletResponseWriter.writeResponseWithErrorLogAndException(response, errorLog, e)
         }
     }
 

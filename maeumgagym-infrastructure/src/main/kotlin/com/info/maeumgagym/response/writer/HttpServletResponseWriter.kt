@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletResponse
 /**
  * [HttpServletResponse]를 가공하는 저수준 구현부를 추상화 및 모듈화한 인터페이스.
  *
- * [DefaultResponseWriter]가 기본 타입.
- * [ErrorLogResponseWriter] 등의 부가 기능을 추가한 하위 타입이 존재.
+ * [DefaultHttpServletResponseWriter]가 기본 타입.
+ * [ErrorLogHttpServletResponseWriter] 등의 부가 기능을 추가한 하위 타입이 존재.
  *
  * 하위 abstract class는 private 접근 제어자를 가진 구현체가 따로 존재.
  * 자세한 것은 해당 클래스의 Docs 참고.
@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletResponse
  *
  * 이 인터페이스는 하위 Bean이 많아 사용하지 않을 것을 권고.
  *
- * @see DefaultResponseWriter
- * @see ErrorLogResponseWriter
+ * @see DefaultHttpServletResponseWriter
+ * @see ErrorLogHttpServletResponseWriter
  *
  * @author Daybreak312
  * @since 12-03-2024
  */
-interface ResponseWriter {
+interface HttpServletResponseWriter {
 
     fun setBody(response: HttpServletResponse, `object`: Any): HttpServletResponse
 

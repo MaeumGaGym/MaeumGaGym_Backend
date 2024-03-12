@@ -2,8 +2,8 @@ package com.info.maeumgagym.security.config
 
 import com.info.maeumgagym.error.filter.ErrorLogResponseFilter
 import com.info.maeumgagym.error.filter.ExceptionConvertFilter
-import com.info.maeumgagym.response.writer.DefaultResponseWriter
-import com.info.maeumgagym.response.writer.ErrorLogResponseWriter
+import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
+import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
 import com.info.maeumgagym.security.jwt.JwtFilter
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component
 @Component
 class SecurityFilterChainConfig(
     private val jwtFilter: JwtFilter,
-    private val defaultResponseWriter: DefaultResponseWriter,
-    private val errorLogResponseWriter: ErrorLogResponseWriter
+    private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
+    private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter
 ) : SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
 
     /**
@@ -30,7 +30,7 @@ class SecurityFilterChainConfig(
             addFilterBefore(jwtFilter, LogoutFilter::class.java)
             addFilterBefore(ExceptionConvertFilter(), SecurityContextHolderFilter::class.java)
             addFilterBefore(
-                ErrorLogResponseFilter(defaultResponseWriter, errorLogResponseWriter),
+                ErrorLogResponseFilter(defaultHttpServletResponseWriter, errorLogHttpServletResponseWriter),
                 ExceptionConvertFilter::class.java
             )
         }
