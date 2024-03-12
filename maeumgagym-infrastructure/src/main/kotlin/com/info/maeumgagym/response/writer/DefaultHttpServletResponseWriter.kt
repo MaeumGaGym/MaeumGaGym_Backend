@@ -30,5 +30,5 @@ abstract class DefaultHttpServletResponseWriter : HttpServletResponseWriter {
      * @author Daybreak312
      * @since 12-03-2024
      */
-    abstract override fun setDefaultSetting(response: HttpServletResponse, status: Int): HttpServletResponse
+    abstract override fun doDefaultSettingWithStatusCode(response: HttpServletResponse, status: Int): HttpServletResponse
 }

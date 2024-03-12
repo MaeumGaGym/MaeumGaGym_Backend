@@ -43,7 +43,7 @@ class ErrorLogResponseFilter(
             filterChain.doFilter(request, response)
         } catch (e: MaeumGaGymException) {
             if (isOkStatus(e.status)) {
-                defaultHttpServletResponseWriter.setDefaultSetting(response, e.status)
+                defaultHttpServletResponseWriter.doDefaultSettingWithStatusCode(response, e.status)
                 return
             }
 

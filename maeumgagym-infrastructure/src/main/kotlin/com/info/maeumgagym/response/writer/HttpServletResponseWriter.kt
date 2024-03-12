@@ -35,5 +35,5 @@ interface HttpServletResponseWriter {
 
     fun setBody(response: HttpServletResponse, `object`: Any): HttpServletResponse
 
-    fun setDefaultSetting(response: HttpServletResponse, status: Int): HttpServletResponse
+    fun doDefaultSettingWithStatusCode(response: HttpServletResponse, status: Int): HttpServletResponse
 }

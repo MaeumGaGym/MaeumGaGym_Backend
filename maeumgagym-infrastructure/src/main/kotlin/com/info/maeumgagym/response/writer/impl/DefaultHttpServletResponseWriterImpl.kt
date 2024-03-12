@@ -28,7 +28,7 @@ private class DefaultHttpServletResponseWriterImpl(
             }
         }
 
-    override fun setDefaultSetting(response: HttpServletResponse, status: Int): HttpServletResponse =
+    override fun doDefaultSettingWithStatusCode(response: HttpServletResponse, status: Int): HttpServletResponse =
         response.apply {
             this.status = status
             this.characterEncoding = StandardCharsets.UTF_8.name()

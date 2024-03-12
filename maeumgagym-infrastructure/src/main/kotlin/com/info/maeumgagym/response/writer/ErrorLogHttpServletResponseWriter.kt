@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse
 /**
  * [ErrorLog] 및 [Exception]을 [HttpServletResponse]로 작성하기 위한 [HttpServletResponseWriter].
  *
- * [DefaultHttpServletResponseWriter]를 내부 변수로 갖고 있어, [setBody]와 [setDefaultSetting]는 [DefaultHttpServletResponseWriter]를 통해 Proxy 형태로 구현됨.
+ * [DefaultHttpServletResponseWriter]를 내부 변수로 갖고 있어, [setBody]와 [doDefaultSettingWithStatusCode]는 [DefaultHttpServletResponseWriter]를 통해 Proxy 형태로 구현됨.
  *
  * @see DefaultHttpServletResponseWriter
  *
@@ -25,12 +25,12 @@ abstract class ErrorLogHttpServletResponseWriter : HttpServletResponseWriter {
     abstract override fun setBody(response: HttpServletResponse, `object`: Any): HttpServletResponse
 
     /**
-     * [DefaultHttpServletResponseWriter.setDefaultSetting]와 같은 동작을 하지만, 사용하지 않을 것을 권고.
+     * [DefaultHttpServletResponseWriter.doDefaultSettingWithStatusCode]와 같은 동작을 하지만, 사용하지 않을 것을 권고.
      *
      * @author Daybreak312
      * @since 12-03-2024
      */
-    abstract override fun setDefaultSetting(response: HttpServletResponse, status: Int): HttpServletResponse
+    abstract override fun doDefaultSettingWithStatusCode(response: HttpServletResponse, status: Int): HttpServletResponse
 
     /**
      * 인자로 받은 [ErrorLog]와 [Exception]의 정보를 기반으로 [HttpServletResponse]를 작성.

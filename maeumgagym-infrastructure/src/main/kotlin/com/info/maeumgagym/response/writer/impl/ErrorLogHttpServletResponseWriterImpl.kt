@@ -22,15 +22,15 @@ private class ErrorLogHttpServletResponseWriterImpl(
     override fun setBody(response: HttpServletResponse, `object`: Any): HttpServletResponse =
         defaultHttpServletResponseWriter.setBody(response, `object`)
 
-    override fun setDefaultSetting(response: HttpServletResponse, status: Int): HttpServletResponse =
-        defaultHttpServletResponseWriter.setDefaultSetting(response, status)
+    override fun doDefaultSettingWithStatusCode(response: HttpServletResponse, status: Int): HttpServletResponse =
+        defaultHttpServletResponseWriter.doDefaultSettingWithStatusCode(response, status)
 
     override fun writeResponseWithErrorLogAndException(
         response: HttpServletResponse,
         errorLog: ErrorLog,
         e: Exception
     ): HttpServletResponse = response.apply {
-        setDefaultSetting(response, errorLog.status)
+        doDefaultSettingWithStatusCode(response, errorLog.status)
         setBody(
             response = response,
             `object` = errorLog.let {

@@ -40,7 +40,7 @@ class CustomAccessDeniedHandler(
                 ErrorResponse(403, "Invalid CSRF Token")
             }
 
-            defaultHttpServletResponseWriter.setDefaultSetting(response, HttpStatus.FORBIDDEN.value())
+            defaultHttpServletResponseWriter.doDefaultSettingWithStatusCode(response, HttpStatus.FORBIDDEN.value())
             defaultHttpServletResponseWriter.setBody(response, errorResponse)
         } else {
             request.setAttribute("SPRING_SECURITY_403_EXCEPTION", accessDeniedException)

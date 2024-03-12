@@ -27,7 +27,7 @@ class CustomAuthenticationEntryPoint(
         logger.debug { "Pre-authenticated entry point called. Rejecting access" }
         //response!!.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied")
 
-        defaultHttpServletResponseWriter.setDefaultSetting(response, HttpStatus.UNAUTHORIZED.value())
+        defaultHttpServletResponseWriter.doDefaultSettingWithStatusCode(response, HttpStatus.UNAUTHORIZED.value())
         defaultHttpServletResponseWriter.setBody(
             response = response,
             `object` = ErrorResponse(401, "Access Token Not in Possession")
