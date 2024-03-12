@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets
 import javax.servlet.http.HttpServletResponse
 
 @Component
-class DefaultResponseWriterImpl(
+private class DefaultResponseWriterImpl(
     private val objectMapper: ObjectMapper
 ) : DefaultResponseWriter() {
 

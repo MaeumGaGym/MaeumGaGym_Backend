@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 import javax.servlet.http.HttpServletResponse
 
 @Component
-class ErrorLogResponseWriterImpl(
+private class ErrorLogResponseWriterImpl(
     private val defaultResponseWriter: DefaultResponseWriter
 ) : ErrorLogResponseWriter() {
 
