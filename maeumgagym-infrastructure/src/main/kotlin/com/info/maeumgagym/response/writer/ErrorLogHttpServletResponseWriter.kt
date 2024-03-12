@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServletResponse
 /**
  * [ErrorLog] 및 [Exception]을 [HttpServletResponse]로 작성하기 위한 [HttpServletResponseWriter].
  *
- * [DefaultHttpServletResponseWriter]를 내부 변수로 갖고 있어, [setBody]와 [setDefaultSetting]는 [DefaultHttpServletResponseWriter]를 통해 Proxt 형태로 구현됨.
+ * [DefaultHttpServletResponseWriter]를 내부 변수로 갖고 있어, [setBody]와 [setDefaultSetting]는 [DefaultHttpServletResponseWriter]를 통해 Proxy 형태로 구현됨.
  *
  * @see DefaultHttpServletResponseWriter
- * 
+ *
  * @author Daybreak312
  * @since 12-03-2024
  */
