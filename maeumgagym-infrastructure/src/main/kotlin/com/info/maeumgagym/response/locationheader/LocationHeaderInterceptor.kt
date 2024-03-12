@@ -1,4 +1,4 @@
-package com.info.maeumgagym.locationheader
+package com.info.maeumgagym.response.locationheader
 
 import com.info.maeumgagym.common.dto.LocationSubjectDto
 import com.info.maeumgagym.controller.common.locationheader.LocationHeaderSubjectManager
