@@ -15,6 +15,16 @@ import javax.servlet.http.HttpServletResponse
  *
  * 이 인터페이스는 하위 Bean이 많아 사용하지 않을 것을 권고.
  *
+ * | Daybreak312
+ *
+ * HttpServletResponse에 직접 접근해 정보를 수정할 때에는 EncodingType, ContentType 등 기본적인 설정이 많았습니다.
+ *
+ * 이러한 설정들을 한 곳에 모은 모듈이 존재하지 않아 동일한 코드가 애플리케이션 전체에 걸쳐 몇몇 존재합니다.
+ *
+ * 이러한 코드를 통합하기 위해 해당 모듈을 작성했으며, 지속적으로 기능을 추가하고 보완할 예정입니다.
+ *
+ * | Daybreak312
+ *
  * @see DefaultHttpServletResponseWriter
  * @see ErrorLogHttpServletResponseWriter
  *
