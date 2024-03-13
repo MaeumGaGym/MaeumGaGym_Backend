@@ -1,6 +1,6 @@
 package com.info.maeumgagym.error
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.security.env.CSRFProperties
 import mu.KLogger
 import mu.KotlinLogging
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse
 
 @Component
 class CustomAccessDeniedHandler(
-    private val objectMapper: ObjectMapper,
+    private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
     private val csrfProperties: CSRFProperties
 ) : AccessDeniedHandler {
 
@@ -33,25 +33,15 @@ class CustomAccessDeniedHandler(
             logger.trace { "Did not write to response since already committed" }
         } else if (this.errorPage == null) {
             logger.debug { "Responding with 403 status code" }
-            //response.sendError(HttpStatus.FORBIDDEN.value(), "csrf token missing")
 
-            val responseBody = objectMapper.writeValueAsString(
-                request.getHeader(csrfProperties.header)?.run {
-                    ErrorResponse(
-                        403,
-                        "Invalid CSRF Token"
-                    )
-                } ?: ErrorResponse(
-                    403,
-                    "CSRF Token Not in Possession"
-                )
-            )
-            response.apply {
-                contentType = "application/json"
-                status = HttpStatus.FORBIDDEN.value()
-                writer.write(responseBody)
-                writer.flush()
+            val errorResponse = if (request.getHeader(csrfProperties.header) == null) {
+                ErrorResponse(403, "CSRF Token Not in Possession")
+            } else {
+                ErrorResponse(403, "Invalid CSRF Token")
             }
+
+            defaultHttpServletResponseWriter.doDefaultSettingWithStatusCode(response, HttpStatus.FORBIDDEN.value())
+            defaultHttpServletResponseWriter.setBody(response, errorResponse)
         } else {
             request.setAttribute("SPRING_SECURITY_403_EXCEPTION", accessDeniedException)
             response.status = HttpStatus.FORBIDDEN.value()

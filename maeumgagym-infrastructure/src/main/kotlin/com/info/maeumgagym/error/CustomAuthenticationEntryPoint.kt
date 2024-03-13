@@ -1,6 +1,6 @@
 package com.info.maeumgagym.error
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
 import mu.KLogger
 import mu.KotlinLogging
 import org.springframework.http.HttpStatus
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse
 
 @Component
 class CustomAuthenticationEntryPoint(
-    private val objectMapper: ObjectMapper
+    private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter
 ) : AuthenticationEntryPoint {
 
     private companion object {
@@ -27,18 +27,10 @@ class CustomAuthenticationEntryPoint(
         logger.debug { "Pre-authenticated entry point called. Rejecting access" }
         //response!!.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied")
 
-        val responseBody = objectMapper.writeValueAsString(
-            ErrorResponse(
-                401,
-                "Access Token Not in Possession"
-            )
+        defaultHttpServletResponseWriter.doDefaultSettingWithStatusCode(response, HttpStatus.UNAUTHORIZED.value())
+        defaultHttpServletResponseWriter.setBody(
+            response = response,
+            `object` = ErrorResponse(401, "Access Token Not in Possession")
         )
-
-        response.apply {
-            contentType = "application/json"
-            status = HttpStatus.UNAUTHORIZED.value()
-            writer.write(responseBody)
-            writer.flush()
-        }
     }
 }
