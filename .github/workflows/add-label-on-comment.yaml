@@ -1,0 +1,26 @@
+name: Add Label
+
+on:
+    issue_comment:
+        types: [created]
+
+jobs:
+    add-label:
+        if: github.event.issue.pull_request && contains(github.event.comment.body, '/lgtm')
+        runs-on: ubuntu-latest
+        steps:
+            - name: Add LGTM label
+              uses: actions/github-script@v5
+              with:
+                  github-token: ${{secrets.CI_GITHUB_TOKEN}}
+                  script: |
+                      const issue_number = context.issue.number;
+                      const github_token = process.env.GITHUB_TOKEN;
+                      const octokit = github.getOctokit(github_token);
+                      
+                      await octokit.rest.issues.addLabels({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        issue_number: issue_number,
+                        labels: ['lgtm']
+                      });
