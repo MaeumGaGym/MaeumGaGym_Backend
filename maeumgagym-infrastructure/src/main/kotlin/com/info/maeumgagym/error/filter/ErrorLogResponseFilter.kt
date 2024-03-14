@@ -2,7 +2,6 @@ package com.info.maeumgagym.error.filter
 
 import com.info.maeumgagym.common.exception.*
 import com.info.maeumgagym.error.log.ErrorLog
-import com.info.maeumgagym.global.config.filter.FilterChainConfig
 import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
 import org.apache.catalina.core.ApplicationFilterChain

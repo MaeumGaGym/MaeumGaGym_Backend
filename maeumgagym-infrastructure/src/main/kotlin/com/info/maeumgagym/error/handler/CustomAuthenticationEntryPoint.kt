@@ -1,5 +1,6 @@
 package com.info.maeumgagym.error.handler
 
+import com.info.maeumgagym.error.ErrorResponse
 import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
 import mu.KLogger
 import mu.KotlinLogging

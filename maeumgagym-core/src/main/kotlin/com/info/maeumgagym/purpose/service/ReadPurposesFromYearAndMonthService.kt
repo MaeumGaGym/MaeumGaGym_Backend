@@ -2,7 +2,6 @@ package com.info.maeumgagym.purpose.service
 
 import com.info.common.ReadOnlyUseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.common.util.DateUtils
 import com.info.maeumgagym.purpose.dto.response.PurposeListResponse
 import com.info.maeumgagym.purpose.port.`in`.ReadPurposesFromYearAndMonthUseCase
 import com.info.maeumgagym.purpose.port.out.ReadPurposePort

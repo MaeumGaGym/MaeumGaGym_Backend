@@ -1,7 +1,8 @@
 package com.info.maeumgagym.error.handler
 
+import com.info.maeumgagym.env.security.CSRFProperties
+import com.info.maeumgagym.error.ErrorResponse
 import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
-import com.info.maeumgagym.security.env.CSRFProperties
 import mu.KLogger
 import mu.KotlinLogging
 import org.springframework.core.log.LogMessage
