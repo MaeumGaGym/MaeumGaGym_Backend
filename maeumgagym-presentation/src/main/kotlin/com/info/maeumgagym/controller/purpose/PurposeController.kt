@@ -9,11 +9,12 @@ import com.info.maeumgagym.purpose.dto.response.PurposeListResponse
 import com.info.maeumgagym.purpose.port.`in`.*
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import java.time.LocalDate
 import javax.validation.Valid
-import javax.validation.constraints.Max
-import javax.validation.constraints.Min
+import javax.validation.constraints.NotNull
 import javax.validation.constraints.Positive
 
 @Tag(name = "Purpose APIs")
@@ -41,33 +42,30 @@ class PurposeController(
         }
     }
 
-    @Operation(summary = "월별 목표(저번 달 ~ 다음 달) 조회 API")
-    @GetMapping
+    @Operation(summary = "월별 목표 조회 API")
+    @GetMapping("/month/{date}")
     fun purposeReadFromYearAndMonth(
-        @Min(value = 1000, message = "1000 이상이어야 합니다.")
-        @Max(value = 3000, message = "3000 이하여야 합니다.")
-        @RequestParam("year")
-        year: Int,
-
-        @Positive(message = "1 이상이어야 합니다.")
-        @Max(value = 12, message = "12 이하여야 합니다.")
-        @RequestParam("month")
-        month: Int
+        @Valid
+        @NotNull(message = "null일 수 없습니다.")
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        @PathVariable("date", required = false)
+        date: LocalDate?
     ): PurposeListResponse =
-        readPurposesFromYearAndMonthUseCase.readPurposesFromYearAndMonth(year, month)
+        readPurposesFromYearAndMonthUseCase.readPurposesFromYearAndMonth(date!!)
 
     @Operation(summary = "목표 id 기반 조회 API")
     @GetMapping("/{id}")
     fun purposeReadFromId(
+        @Valid
         @Positive(message = "1 이상이어야 합니다.")
         @PathVariable
         id: Long
-    ): PurposeInfoResponse =
-        readPurposeFromIdUseCase.readPurposeFromId(id)
+    ): PurposeInfoResponse = readPurposeFromIdUseCase.readPurposeFromId(id)
 
     @Operation(summary = "목표 수정 API")
     @PutMapping("/{id}")
     fun purposeUpdate(
+        @Valid
         @Positive(message = "1 이상이여야 합니다.")
         @PathVariable
         id: Long,
@@ -81,6 +79,7 @@ class PurposeController(
     @Operation(summary = "목표 삭제 API")
     @DeleteMapping("/{id}")
     fun purposeDelete(
+        @Valid
         @Positive(message = "1 이상이여야 합니다.")
         @PathVariable
         id: Long

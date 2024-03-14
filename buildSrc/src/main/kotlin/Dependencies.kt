@@ -39,7 +39,7 @@ object Dependencies {
     // Jwt
     const val JWT = "io.jsonwebtoken:jjwt:${DependencyVersions.JWT_VERSION}"
 
-    // feign
+    // kakao
     const val OPEN_FEIGN = "org.springframework.cloud:spring-cloud-starter-openfeign"
     const val FEIGN_HTTP = "io.github.openfeign:feign-httpclient"
 

@@ -2,7 +2,6 @@ package com.info.maeumgagym.error.filter
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.common.exception.*
-import com.info.maeumgagym.global.config.filter.FilterChainConfig
 import com.info.maeumgagym.error.log.ErrorLog
 import org.apache.catalina.core.ApplicationFilterChain
 import org.springframework.http.MediaType
@@ -74,7 +73,9 @@ class ErrorLogResponseFilter(
                     exceptionClassName = javaClass.name,
                     errorOccurredClassName = stackTrace[2].className + " or " + stackTrace[1].className,
                     status = status,
-                    message = message + fields
+                    message = fields.map {
+                        "${it.key}: ${it.value}"
+                    }.toString()
                 )
             }
 

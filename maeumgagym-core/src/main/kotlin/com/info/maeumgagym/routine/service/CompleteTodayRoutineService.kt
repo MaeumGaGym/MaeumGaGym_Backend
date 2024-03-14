@@ -33,7 +33,8 @@ class CompleteTodayRoutineService(
                     id = null,
                     date = now,
                     exerciseInfoList = routine.exerciseInfoModelList,
-                    userId = user.id
+                    userId = user.id,
+                    routineName = routine.routineName
                 )
             )
         }

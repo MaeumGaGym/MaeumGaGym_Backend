@@ -18,9 +18,14 @@ import javax.persistence.*
 class RoutineHistoryJpaEntity(
     id: Long?,
     userId: UUID,
+    routineName: String,
     date: LocalDate,
     exerciseInfoList: MutableList<ExerciseInfo>
 ) : BaseLongIdEntity(id) {
+
+    @Column(name = "routine_name", nullable = false)
+    var routineName: String = routineName
+        protected set
 
     @ElementCollection(fetch = FetchType.LAZY)
     var exerciseInfoList: MutableList<ExerciseInfo> = exerciseInfoList

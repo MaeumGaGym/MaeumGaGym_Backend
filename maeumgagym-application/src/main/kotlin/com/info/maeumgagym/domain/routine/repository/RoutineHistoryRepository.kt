@@ -6,7 +6,7 @@ import java.time.LocalDate
 import java.util.*
 
 @org.springframework.stereotype.Repository
-interface RoutineHistoryRepository : Repository<RoutineHistoryJpaEntity, Long> {
+interface RoutineHistoryRepository : Repository<RoutineHistoryJpaEntity, Long?> {
 
     fun save(entity: RoutineHistoryJpaEntity): RoutineHistoryJpaEntity
 

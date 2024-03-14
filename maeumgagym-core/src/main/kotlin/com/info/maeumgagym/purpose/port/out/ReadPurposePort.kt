@@ -8,5 +8,5 @@ interface ReadPurposePort {
 
     fun readById(id: Long): Purpose?
 
-    fun readByUserIdAndDateBetween(userId: UUID, startDate: LocalDate, endDate: LocalDate): List<Purpose>
+    fun readByUserIdAndDateBetweenOrderByDate(userId: UUID, startDate: LocalDate, endDate: LocalDate): List<Purpose>
 }

@@ -9,14 +9,13 @@ import com.info.maeumgagym.daily.dto.response.PreSignedURLResponse
 import com.info.maeumgagym.daily.port.`in`.*
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
 import javax.validation.Valid
-import javax.validation.constraints.NotNull
-import javax.validation.constraints.Positive
-import javax.validation.constraints.PositiveOrZero
+import javax.validation.constraints.*
 
 @Tag(name = "Daily Exercise Complete API")
 @Validated
@@ -55,6 +54,7 @@ class DailyController(
     fun dailyUpdate(
         @Valid
         @NotNull(message = "null일 수 없습니다.")
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         @PathVariable("date", required = false)
         date: LocalDate?,
         @Valid
@@ -82,6 +82,7 @@ class DailyController(
     fun dailyDelete(
         @Valid
         @NotNull(message = "null일 수 없습니다.")
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         @PathVariable("date", required = false)
         date: LocalDate?
     ) {

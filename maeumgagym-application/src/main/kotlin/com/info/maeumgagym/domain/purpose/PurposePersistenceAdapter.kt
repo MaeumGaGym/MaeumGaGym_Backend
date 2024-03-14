@@ -31,8 +31,12 @@ internal class PurposePersistenceAdapter(
             purposeMapper.toDomain(it)
         }
 
-    override fun readByUserIdAndDateBetween(userId: UUID, startDate: LocalDate, endDate: LocalDate): List<Purpose> =
-        purposeNativeRepository.findAllByUserIdAndDateBetween(userId, startDate, endDate).map {
+    override fun readByUserIdAndDateBetweenOrderByDate(
+        userId: UUID,
+        startDate: LocalDate,
+        endDate: LocalDate
+    ): List<Purpose> =
+        purposeNativeRepository.findAllByUserIdAndDateBetweenOrderByDates(userId, startDate, endDate).map {
             purposeMapper.toDomain(it)
         }
 

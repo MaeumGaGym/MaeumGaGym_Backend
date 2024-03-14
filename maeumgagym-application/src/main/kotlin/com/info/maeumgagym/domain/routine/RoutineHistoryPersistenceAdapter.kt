@@ -2,6 +2,7 @@ package com.info.maeumgagym.domain.routine
 
 import com.info.common.PersistenceAdapter
 import com.info.maeumgagym.domain.routine.mapper.RoutineHistoryMapper
+import com.info.maeumgagym.domain.routine.repository.RoutineHistoryNativeRepository
 import com.info.maeumgagym.domain.routine.repository.RoutineHistoryRepository
 import com.info.maeumgagym.routine.model.RoutineHistory
 import com.info.maeumgagym.routine.port.out.*
@@ -13,7 +14,8 @@ import java.util.*
 @PersistenceAdapter
 internal class RoutineHistoryPersistenceAdapter(
     private val mapper: RoutineHistoryMapper,
-    private val routineHistoryRepository: RoutineHistoryRepository
+    private val routineHistoryRepository: RoutineHistoryRepository,
+    private val routineHistoryNativeRepository: RoutineHistoryNativeRepository
 ) : SaveRoutineHistoryPort, ReadRoutineHistoryPort, ExistsRoutineHistoryPort {
 
     @Transactional(propagation = Propagation.MANDATORY)
@@ -25,6 +27,15 @@ internal class RoutineHistoryPersistenceAdapter(
     override fun readByUserIdAndDate(userId: UUID, date: LocalDate): RoutineHistory? =
         routineHistoryRepository.findByUserIdAndDate(userId, date)?.run {
             mapper.toDomain(this)
+        }
+
+    override fun readByUserIdAndDateBetweenOrderByDate(
+        userId: UUID,
+        startDate: LocalDate,
+        endDate: LocalDate
+    ): List<RoutineHistory> =
+        routineHistoryNativeRepository.findAllByUserIdAndDateBetweenOrderByDateAsc(userId, startDate, endDate).map {
+            mapper.toDomain(it)
         }
 
     override fun exsitsByUserIdAndDate(userId: UUID, date: LocalDate): Boolean =
