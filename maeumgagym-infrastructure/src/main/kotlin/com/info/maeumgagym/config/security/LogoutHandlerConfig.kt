@@ -1,7 +1,7 @@
 package com.info.maeumgagym.config.security
 
-import com.info.maeumgagym.auth.handler.CustomLogoutHandler
-import com.info.maeumgagym.auth.handler.CustomSuccessLogoutHandler
+import com.info.maeumgagym.security.handler.CustomLogoutHandler
+import com.info.maeumgagym.security.handler.CustomSuccessLogoutHandler
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.DefaultSecurityFilterChain

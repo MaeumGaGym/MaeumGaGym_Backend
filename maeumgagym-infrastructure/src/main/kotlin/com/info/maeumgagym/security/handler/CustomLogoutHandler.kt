@@ -1,4 +1,4 @@
-package com.info.maeumgagym.auth.handler
+package com.info.maeumgagym.security.handler
 
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.auth.port.out.RevokeTokensPort
