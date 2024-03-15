@@ -6,3 +6,5 @@ reviewers:
   - HyunSu1768
   - gurdl0525
   - Daybreak312
+labels:
+  - area/backend
