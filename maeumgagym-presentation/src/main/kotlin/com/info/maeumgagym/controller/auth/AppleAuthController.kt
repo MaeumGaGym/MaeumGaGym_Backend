@@ -51,8 +51,8 @@ class AppleAuthController(
         }
 
     @Operation(summary = "애플 OAuth 회원가입 API")
-    @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/signup")
     fun signup(
         @RequestParam("access_token")
         token: String,
@@ -62,6 +62,7 @@ class AppleAuthController(
     ) { appleSignUpUseCase.signUp(token, req.nickname!!) }
 
     @Operation(summary = "애플 OAuth 회원복구 API")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/recovery")
     fun recovery(@RequestParam("access_token") token: String) {
         appleRecoveryUseCase.recovery(token)

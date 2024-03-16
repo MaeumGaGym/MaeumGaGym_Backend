@@ -81,8 +81,8 @@ class PickleController(
     ): PreSignedUploadURLResponse = getPicklePreSignedURLUseCase.getUploadURL(req.fileType!!)
 
     @Operation(summary = "피클 생성 API")
-    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
     fun createPickle(
         @RequestBody @Valid
         req: CreatePickleWebRequest

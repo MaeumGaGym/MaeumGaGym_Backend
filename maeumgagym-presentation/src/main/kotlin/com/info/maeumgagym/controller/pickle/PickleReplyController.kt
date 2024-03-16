@@ -26,8 +26,8 @@ class PickleReplyController(
     private val locationHeaderSubjectManager: LocationHeaderSubjectManager
 ) {
     @Operation(summary = "피클 대댓글 추가 API")
-    @PostMapping("/{videoId}/{parentId}")
     @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/{videoId}/{parentId}")
     fun createPickleReplyComment(
         @RequestBody @Valid
         req: PickleCommentWebRequest,
@@ -67,6 +67,7 @@ class PickleReplyController(
         readAllPickleReplyUseCase.loadAllPickleReply(parentId!!, page, size)
 
     @Operation(summary = "피클 대댓글 삭제 API")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{replyId}")
     fun deletePickleComment(
         @PathVariable(value = "replyId", required = false)

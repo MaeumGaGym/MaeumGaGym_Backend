@@ -7,6 +7,7 @@ import com.info.maeumgagym.user.port.`in`.ReadUserUseCase
 import com.info.maeumgagym.user.port.`in`.UpdateUserInfoUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -30,6 +31,7 @@ class UserController(
     ): UserProfileResponse = readUserUseCase.profileFromNickname(nickname!!)
 
     @Operation(summary = "유저 정보 수정 API")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping
     fun updateUserInfo(
         @RequestBody @Valid
