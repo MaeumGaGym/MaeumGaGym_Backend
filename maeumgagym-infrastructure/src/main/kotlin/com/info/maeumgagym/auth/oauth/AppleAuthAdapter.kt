@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component
 
 @Component
 internal class AppleAuthAdapter(
-    private val appleClient: com.info.maeumgagym.external.feign.apple.AppleClient,
+    private val appleClient: AppleClient,
     private val appleJwtParsePort: AppleJwtParsePort,
     private val generatePublicKeyPort: GeneratePublicKeyPort,
     private val getJwtBodyPort: GetJwtBodyPort

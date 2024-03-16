@@ -2,6 +2,7 @@ package com.info.maeumgagym.error.filter
 
 import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.common.exception.PresentationValidationException
+import com.info.maeumgagym.config.filter.FilterChainConfig
 import com.info.maeumgagym.error.log.ErrorLog
 import org.apache.catalina.core.ApplicationFilterChain
 import org.springframework.security.web.SecurityFilterChain
@@ -36,7 +37,7 @@ import javax.validation.ConstraintViolationException
  *
  * @see ErrorLogResponseFilter
  */
-class ExceptionConvertFilter : GenericFilterBean() {
+class ExceptionConvertFilter() : GenericFilterBean() {
 
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
         try {

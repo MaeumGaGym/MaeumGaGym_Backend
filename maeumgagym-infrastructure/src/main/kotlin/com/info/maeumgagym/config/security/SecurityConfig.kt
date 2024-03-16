@@ -1,8 +1,9 @@
 package com.info.maeumgagym.config.security
 
+import com.info.maeumgagym.config.filter.SecurityFilterChainConfig
+import com.info.maeumgagym.env.security.CSRFProperties
 import com.info.maeumgagym.error.handler.CustomAccessDeniedHandler
 import com.info.maeumgagym.error.handler.CustomAuthenticationEntryPoint
-import com.info.maeumgagym.env.security.CSRFProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -14,7 +15,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 class SecurityConfig(
     private val csrfProperties: CSRFProperties,
     private val requestPermitConfig: RequestPermitConfig,
-    private val securityFilterChainConfig: com.info.maeumgagym.config.filter.SecurityFilterChainConfig,
+    private val securityFilterChainConfig: SecurityFilterChainConfig,
     private val accessDeniedHandler: CustomAccessDeniedHandler,
     private val authenticationEntryPoint: CustomAuthenticationEntryPoint,
     private val logoutHandlerConfig: LogoutHandlerConfig
@@ -27,7 +28,7 @@ class SecurityConfig(
 //            .csrf().csrfTokenRepository(getCsrfTokenRepository()).and() // CSRF 설정 (temporary disuse)
             .csrf().disable()
             .cors().and() // CORS 활성화
-            //.requiresChannel().anyRequest().requiresSecure().and() // XSS Attack (HTTPS 요청 요구) local test시 주석 처리할 것
+            .requiresChannel().anyRequest().requiresSecure().and() // XSS Attack (HTTPS 요청 요구) local test시 주석 처리할 것
 //
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
