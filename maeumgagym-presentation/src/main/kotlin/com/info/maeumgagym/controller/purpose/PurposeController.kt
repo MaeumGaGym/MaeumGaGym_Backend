@@ -24,7 +24,7 @@ import javax.validation.constraints.Positive
 class PurposeController(
     private val createPurposeUseCase: CreatePurposeUseCase,
     private val readPurposeFromIdUseCase: ReadPurposeFromIdUseCase,
-    private val readPurposesFromYearAndMonthUseCase: ReadPurposesFromYearAndMonthUseCase,
+    private val readPurposesFromDateForRangeUseCase: ReadPurposesFromDateForRangeUseCase,
     private val updatePurposeUseCase: UpdatePurposeUseCase,
     private val deletePurposeUseCase: DeletePurposeUseCase,
     private val locationHeaderSubjectManager: LocationHeaderSubjectManager
@@ -51,7 +51,7 @@ class PurposeController(
         @PathVariable("date", required = false)
         date: LocalDate?
     ): PurposeListResponse =
-        readPurposesFromYearAndMonthUseCase.readPurposesFromYearAndMonth(date!!)
+        readPurposesFromDateForRangeUseCase.readPurposesFromDateForRange(date!!)
 
     @Operation(summary = "목표 id 기반 조회 API")
     @GetMapping("/{id}")
