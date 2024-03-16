@@ -37,8 +37,8 @@ class DailyController(
     ): PreSignedURLResponse = getDailyPreSignedURLUseCase.getUploadUrl(req.title!!)
 
     @Operation(description = "오운완 셍성 API")
-    @PostMapping("/daily")
     @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/daily")
     fun dailyUpload(
         @Valid
         @RequestBody
@@ -78,6 +78,7 @@ class DailyController(
     ): DailyListResponse = readDailyUseCase.readDailies(page, size)
 
     @Operation(description = "오운완 삭제 API")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/daily/{date}")
     fun dailyDelete(
         @Valid

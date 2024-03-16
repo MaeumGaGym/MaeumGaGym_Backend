@@ -10,6 +10,7 @@ import com.info.maeumgagym.purpose.port.`in`.*
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.format.annotation.DateTimeFormat
+import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
@@ -77,6 +78,7 @@ class PurposeController(
     }
 
     @Operation(summary = "목표 삭제 API")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     fun purposeDelete(
         @Valid

@@ -71,6 +71,7 @@ class LocationHeaderInterceptor(
             response.setLocationHeader(request.requestURL.toString())
         } else {
             if (locationHeaderSubjectManager.getSubject() == null) {
+                response.status = HttpStatus.NO_CONTENT.value()
                 return
             }
             response.setLocationHeader("${request.requestURL}/${locationHeaderSubjectManager.getSubject()}")

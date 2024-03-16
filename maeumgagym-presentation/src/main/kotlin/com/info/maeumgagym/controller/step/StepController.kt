@@ -5,11 +5,9 @@ import com.info.maeumgagym.step.port.`in`.ReadTodayStepCountUseCase
 import com.info.maeumgagym.step.port.`in`.UpdateStepUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.*
 
 @Tag(name = "Step API")
 @Validated
@@ -20,6 +18,7 @@ class StepController(
     private val readTodayStepCountUseCase: ReadTodayStepCountUseCase
 ) {
     @Operation(summary = "걸음 수 카운트 업데이트 API")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping
     fun updateStep(
         @RequestParam(name = "number_of_steps")

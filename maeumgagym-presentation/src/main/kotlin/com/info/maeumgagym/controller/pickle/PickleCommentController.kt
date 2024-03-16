@@ -26,8 +26,8 @@ class PickleCommentController(
     private val locationHeaderSubjectManager: LocationHeaderSubjectManager
 ) {
     @Operation(summary = "피클 댓글 추가 API")
-    @PostMapping("/{videoId}")
     @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/{videoId}")
     fun createPickleComment(
         @RequestBody @Valid
         req: PickleCommentWebRequest,

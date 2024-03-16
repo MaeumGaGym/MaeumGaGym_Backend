@@ -36,8 +36,8 @@ class RoutineController(
     private val readRoutineHistoryUseCase: ReadRoutineHistoryUseCase
 ) {
     @Operation(summary = "루틴 생성 API")
-    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
     fun createRoutine(
         @RequestBody @Valid
         req: CreateRoutineWebRequest
@@ -57,6 +57,7 @@ class RoutineController(
     fun readAllMyRoutine(): RoutineListResponse = readAllMyRoutineUseCase.readAllMyRoutine()
 
     @Operation(summary = "루틴 삭제 API")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     fun deleteRoutine(
         @PathVariable("id")
@@ -90,6 +91,7 @@ class RoutineController(
     ): RoutineResponse = readRoutineUseCase.readFromId(id)
 
     @Operation(summary = "오늘의 루틴 완료 API")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/today/complete")
     fun completeTodayRoutine() {
         completeTodayRoutineUseCase.complete()

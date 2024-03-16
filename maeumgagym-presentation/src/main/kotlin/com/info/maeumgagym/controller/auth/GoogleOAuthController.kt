@@ -28,6 +28,7 @@ class GoogleOAuthController(
     private val googleRecoveryUseCase: GoogleRecoveryUseCase
 ) {
     @Operation(summary = "구글 OAuth 회원복구 API")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/recovery")
     fun recovery(@RequestParam("access_token") accessToken: String) {
         googleRecoveryUseCase.recovery(accessToken)
