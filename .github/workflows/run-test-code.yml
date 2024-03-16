@@ -1,8 +1,9 @@
 name: Run Test Code
 
 on:
-  pull_request:
-    branches: [ 'main', 'develop' ]
+    repository_dispatch:
+        types:
+            - gradle-test
 
 jobs:
   build:
