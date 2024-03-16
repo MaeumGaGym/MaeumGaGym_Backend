@@ -69,3 +69,5 @@ jobs:
           MINIO_BUCKET_NAME: ${{ secrets.MINIO_BUCKET_NAME }}
           MINIO_END_POINT: ${{ secrets.MINIO_END_POINT }}
           MINIO_SECRET: ${{ secrets.MINIO_SECRET }}
+
+
