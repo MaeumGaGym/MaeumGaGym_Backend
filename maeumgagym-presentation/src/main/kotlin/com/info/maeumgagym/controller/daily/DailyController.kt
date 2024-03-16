@@ -36,7 +36,7 @@ class DailyController(
         req: CreateDailyRequest
     ): PreSignedURLResponse = getDailyPreSignedURLUseCase.getUploadUrl(req.title!!)
 
-    @Operation(description = "오운완 셍성 API")
+    @Operation(description = "오운완 생성 API")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/daily")
     fun dailyUpload(
