@@ -11,3 +11,7 @@ Add one of the following kinds:
 #### 이 PR이 무슨 일을 하나요? / 필요한 이유가 뭔가요?
 
 #### 리뷰어를 위한 참고사항:
+
+```docs
+
+```
