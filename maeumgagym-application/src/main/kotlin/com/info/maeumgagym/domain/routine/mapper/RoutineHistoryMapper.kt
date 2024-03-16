@@ -13,6 +13,7 @@ class RoutineHistoryMapper {
             id = id,
             exerciseInfoList = toExerciseInfoList(exerciseInfoList),
             userId = userId,
+            routineName = routineName,
             date = date
         )
     }
@@ -22,6 +23,7 @@ class RoutineHistoryMapper {
             id = id,
             exerciseInfoList = toExerciseInfoModelList(exerciseInfoList),
             userId = userId,
+            routineName = routineName,
             date = date
         )
     }

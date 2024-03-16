@@ -17,10 +17,11 @@ interface PurposeNativeRepository : Repository<PurposeJpaEntity, Long?> {
             "WHERE (p.user_id = :userId) AND " +
             "((p.start_date BETWEEN :startDate AND :endDate) OR " +
             "(p.end_date BETWEEN :startDate AND :endDate) OR " +
-            "(p.start_date < :startDate AND p.end_date > :endDate))",
+            "(p.start_date < :startDate AND p.end_date > :endDate))" +
+            "ORDER BY start_date, end_date ",
         nativeQuery = true
     )
-    fun findAllByUserIdAndDateBetween(
+    fun findAllByUserIdAndDateBetweenOrderByDates(
         @Param("userId") userId: UUID,
         @Param("startDate") startDate: LocalDate,
         @Param("endDate") endDate: LocalDate

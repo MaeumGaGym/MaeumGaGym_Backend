@@ -2,7 +2,7 @@ package com.info.maeumgagym.security.jwt
 
 import com.info.maeumgagym.auth.port.out.*
 import com.info.maeumgagym.common.exception.AuthenticationException
-import com.info.maeumgagym.security.jwt.env.JwtProperties
+import com.info.maeumgagym.env.jwt.JwtProperties
 import com.info.maeumgagym.security.jwt.entity.AccessTokenRedisEntity
 import com.info.maeumgagym.security.jwt.entity.RefreshTokenRedisEntity
 import com.info.maeumgagym.security.jwt.repository.AccessTokenRepository

@@ -21,15 +21,15 @@ internal class CreateDailyService(
 
         val now = LocalDateTime.now()
 
-        val daily = Daily(
-            id = readDailyPort.readByUploaderAndDate(user, now.toLocalDate())?.id,
-            title = title,
-            uploader = user,
-            date = now.toLocalDate(),
-            time = now.toLocalTime()
+        val daily = saveDailyPort.save(
+            Daily(
+                id = readDailyPort.readByUploaderAndDate(user, now.toLocalDate())?.id,
+                title = title,
+                uploader = user,
+                date = now.toLocalDate(),
+                time = now.toLocalTime()
+            )
         )
-
-        saveDailyPort.save(daily)
 
         return LocationSubjectDto(daily.id!!)
     }

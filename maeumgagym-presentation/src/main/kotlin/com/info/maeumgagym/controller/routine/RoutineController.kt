@@ -4,16 +4,20 @@ import com.info.common.WebAdapter
 import com.info.maeumgagym.controller.common.locationheader.LocationHeaderSubjectManager
 import com.info.maeumgagym.controller.routine.dto.CreateRoutineWebRequest
 import com.info.maeumgagym.controller.routine.dto.UpdateRoutineWebRequest
+import com.info.maeumgagym.routine.dto.response.RoutineHistoryListResponse
 import com.info.maeumgagym.routine.dto.response.RoutineListResponse
 import com.info.maeumgagym.routine.dto.response.RoutineResponse
 import com.info.maeumgagym.routine.port.`in`.*
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import java.time.LocalDate
 import javax.servlet.http.HttpServletResponse
 import javax.validation.Valid
+import javax.validation.constraints.NotNull
 import javax.validation.constraints.Positive
 
 @Tag(name = "Routine API")
@@ -28,7 +32,8 @@ class RoutineController(
     private val updateRoutineUseCase: UpdateRoutineUseCase,
     private val readRoutineUseCase: ReadRoutineUseCase,
     private val locationHeaderSubjectManager: LocationHeaderSubjectManager,
-    private val completeTodayRoutineUseCase: CompleteTodayRoutineUseCase
+    private val completeTodayRoutineUseCase: CompleteTodayRoutineUseCase,
+    private val readRoutineHistoryUseCase: ReadRoutineHistoryUseCase
 ) {
     @Operation(summary = "루틴 생성 API")
     @PostMapping
@@ -89,4 +94,14 @@ class RoutineController(
     fun completeTodayRoutine() {
         completeTodayRoutineUseCase.complete()
     }
+
+    @Operation(summary = "루틴 기록 조회 API")
+    @GetMapping("/histories/{date}")
+    fun readHistories(
+        @Valid
+        @NotNull(message = "null일 수 없습니다.")
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        @PathVariable("date", required = false)
+        date: LocalDate?
+    ): RoutineHistoryListResponse = readRoutineHistoryUseCase.readFromDate(date!!)
 }
