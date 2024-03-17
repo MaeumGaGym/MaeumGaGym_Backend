@@ -1,7 +1,7 @@
-package com.info.maeumgagym.external.feign.google
+package com.info.maeumgagym.external.feign.oauth.google
 
 import com.info.maeumgagym.config.feign.FeignConfig
-import com.info.maeumgagym.external.feign.google.dto.GoogleInfoFeignResponse
+import com.info.maeumgagym.external.feign.oauth.google.dto.GoogleInfoFeignResponse
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam

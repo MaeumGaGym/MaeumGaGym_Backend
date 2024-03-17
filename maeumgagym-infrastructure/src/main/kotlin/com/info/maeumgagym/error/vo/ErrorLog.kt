@@ -1,4 +1,4 @@
-package com.info.maeumgagym.error.log
+package com.info.maeumgagym.error.vo
 
 import java.time.LocalDateTime
 import java.util.*

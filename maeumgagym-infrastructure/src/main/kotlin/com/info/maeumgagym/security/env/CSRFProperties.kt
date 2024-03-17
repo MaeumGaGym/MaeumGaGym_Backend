@@ -1,4 +1,4 @@
-package com.info.maeumgagym.env.security
+package com.info.maeumgagym.security.env
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding

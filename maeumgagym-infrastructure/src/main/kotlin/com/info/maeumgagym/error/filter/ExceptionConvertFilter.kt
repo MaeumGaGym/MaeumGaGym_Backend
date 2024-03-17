@@ -3,7 +3,7 @@ package com.info.maeumgagym.error.filter
 import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.common.exception.PresentationValidationException
 import com.info.maeumgagym.config.filter.FilterChainConfig
-import com.info.maeumgagym.error.log.ErrorLog
+import com.info.maeumgagym.error.vo.ErrorLog
 import org.apache.catalina.core.ApplicationFilterChain
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.web.bind.MethodArgumentNotValidException

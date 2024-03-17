@@ -1,6 +1,6 @@
 package com.info.maeumgagym.response.writer
 
-import com.info.maeumgagym.error.log.ErrorLog
+import com.info.maeumgagym.error.vo.ErrorLog
 import java.time.LocalDateTime
 import javax.servlet.http.HttpServletResponse
 

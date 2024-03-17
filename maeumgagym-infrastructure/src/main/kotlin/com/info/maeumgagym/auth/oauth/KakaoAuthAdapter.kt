@@ -5,7 +5,7 @@ import com.info.maeumgagym.auth.port.out.GetKakaoInfoPort
 import com.info.maeumgagym.common.exception.FeignException
 import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.common.exception.SecurityException
-import com.info.maeumgagym.external.feign.kakao.KakaoInfoClient
+import com.info.maeumgagym.external.feign.oauth.kakao.KakaoInfoClient
 import org.springframework.stereotype.Component
 
 @Component

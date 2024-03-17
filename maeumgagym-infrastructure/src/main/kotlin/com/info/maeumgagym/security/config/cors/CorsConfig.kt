@@ -1,6 +1,6 @@
 package com.info.maeumgagym.config.security.cors
 
-import com.info.maeumgagym.env.security.SecurityProperties
+import com.info.maeumgagym.security.env.SecurityProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.cors.CorsConfiguration

@@ -1,4 +1,4 @@
-package com.info.maeumgagym.external.feign.google
+package com.info.maeumgagym.external.feign.oauth.google
 
 import com.info.maeumgagym.config.feign.FeignConfig
 import org.springframework.cloud.openfeign.FeignClient

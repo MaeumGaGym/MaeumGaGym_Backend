@@ -1,4 +1,4 @@
-package com.info.maeumgagym.config.scheduler
+package com.info.maeumgagym.scheduler.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

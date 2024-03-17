@@ -1,7 +1,7 @@
 package com.info.maeumgagym.security.jwt
 
 import com.info.maeumgagym.common.exception.AuthenticationException
-import com.info.maeumgagym.env.jwt.JwtProperties
+import com.info.maeumgagym.security.jwt.env.JwtProperties
 import com.info.maeumgagym.security.jwt.repository.AccessTokenRepository
 import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletRequest
