@@ -16,14 +16,14 @@ internal class UpdateUserInfoService(
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : UpdateUserInfoUseCase {
 
-    override fun update(req: UpdateUserInfoRequest) {
-        if (duplicatedCheckService.existByNickname(req.nickname)) {
+    override fun update(updateUserInfoRequest: UpdateUserInfoRequest) {
+        if (duplicatedCheckService.existByNickname(updateUserInfoRequest.nickname)) {
             throw BusinessLogicException.ALREADY_EXIST_USER
         }
         val user = readCurrentUserPort.readCurrentUser()
 
         saveUserPort.save(
-            req.run {
+            updateUserInfoRequest.run {
                 user.copy(
                     nickname = nickname,
                     physicalInfoModel = PhysicalInfoModel(
