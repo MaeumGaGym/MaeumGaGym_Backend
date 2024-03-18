@@ -6,7 +6,7 @@ import com.info.maeumgagym.auth.port.out.GetJwtBodyPort
 import com.info.maeumgagym.auth.port.out.ParseAppleTokenPort
 import com.info.maeumgagym.common.exception.FeignException
 import com.info.maeumgagym.common.exception.MaeumGaGymException
-import com.info.maeumgagym.external.feign.apple.AppleClient
+import com.info.maeumgagym.external.feign.oauth.apple.AppleClient
 import io.jsonwebtoken.Claims
 import org.springframework.stereotype.Component
 

@@ -1,4 +1,4 @@
-package com.info.maeumgagym.external.feign.google.dto
+package com.info.maeumgagym.external.feign.oauth.google.dto
 
 import com.info.maeumgagym.auth.dto.response.GoogleInfoResponse
 

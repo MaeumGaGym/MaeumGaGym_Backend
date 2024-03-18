@@ -1,7 +1,7 @@
 package com.info.maeumgagym.error.handler
 
-import com.info.maeumgagym.env.security.CSRFProperties
-import com.info.maeumgagym.error.ErrorResponse
+import com.info.maeumgagym.security.env.CSRFProperties
+import com.info.maeumgagym.error.vo.ErrorResponse
 import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
 import mu.KLogger
 import mu.KotlinLogging

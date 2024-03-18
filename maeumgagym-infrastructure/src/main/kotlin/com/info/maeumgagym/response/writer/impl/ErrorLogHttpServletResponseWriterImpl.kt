@@ -1,7 +1,7 @@
 package com.info.maeumgagym.response.writer.impl
 
 import com.info.maeumgagym.common.exception.PresentationValidationException
-import com.info.maeumgagym.error.log.ErrorLog
+import com.info.maeumgagym.error.vo.ErrorLog
 import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
 import com.info.maeumgagym.response.writer.ErrorLogResponse
