@@ -58,14 +58,14 @@ open class MaeumGaGymException(
     companion object {
 
         // Default
-        val NO_CONTENT = MaeumGaGymException(204, "There's No Content Left")
-        val BAD_REQUEST = MaeumGaGymException(400, "Bad Request")
-        val UNAUTHORIZED = MaeumGaGymException(401, "Unauthorized")
-        val FORBIDDEN = MaeumGaGymException(403, "Forbidden")
-        val NOT_FOUND = MaeumGaGymException(404, "Not Found")
-        val CONFLICT = MaeumGaGymException(409, "Conflict")
-        protected val I_M_A_TEAPOT = MaeumGaGymException(418, "I'm a Teapot")
-        val INTERNAL_SERVER_ERROR = MaeumGaGymException(500, "Internal Server Error")
+        val NO_CONTENT get() = MaeumGaGymException(204, "There's No Content Left")
+        val BAD_REQUEST get() = MaeumGaGymException(400, "Bad Request")
+        val UNAUTHORIZED get() = MaeumGaGymException(401, "Unauthorized")
+        val FORBIDDEN get() = MaeumGaGymException(403, "Forbidden")
+        val NOT_FOUND get() = MaeumGaGymException(404, "Not Found")
+        val CONFLICT get() = MaeumGaGymException(409, "Conflict")
+        protected val I_M_A_TEAPOT get() = MaeumGaGymException(418, "I'm a Teapot")
+        val INTERNAL_SERVER_ERROR get() = MaeumGaGymException(500, "Internal Server Error")
     }
 }
 
@@ -111,31 +111,32 @@ class BusinessLogicException(
     companion object {
 
         // Bad Request
-        val CANNNOT_REPORT_ONESELF = BusinessLogicException(400, "Cannot Report Oneself")
-        val TAG_TOO_LONG = BusinessLogicException(400, "Tag Too Long, Tag Cannot Longer than 10")
-        val START_DATE_MUST_BE_BEFORE_THAN_END_DATE =
-            BusinessLogicException(400, "Start date Must Be Before Than End Date")
+        val CANNNOT_REPORT_ONESELF get() = BusinessLogicException(400, "Cannot Report Oneself")
+        val TAG_TOO_LONG get() = BusinessLogicException(400, "Tag Too Long, Tag Cannot Longer than 10")
+        val START_DATE_MUST_BE_BEFORE_THAN_END_DATE
+            get() = BusinessLogicException(400, "Start date Must Be Before Than End Date")
 
         // Not Found
-        val USER_NOT_FOUND = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.USER)
-        val POSE_NOT_FOUND = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.POSE)
-        val ROUTINE_NOT_FOUND = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.ROUTINE)
-        val PICKLE_NOT_FOUND = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PICKLE)
-        val PICKLE_COMMENT_NOT_FOUND =
-            BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PICKLE_COMMENT)
-        val PICKLE_REPLY_NOT_FOUND =
-            BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PICKLE_REPLY)
-        val PURPOSE_NOT_FOUND = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PURPOSE)
-        val DAILY_NOT_FOUND = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PURPOSE)
+        val USER_NOT_FOUND get() = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.USER)
+        val POSE_NOT_FOUND get() = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.POSE)
+        val ROUTINE_NOT_FOUND get() = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.ROUTINE)
+        val PICKLE_NOT_FOUND get() = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PICKLE)
+        val PICKLE_COMMENT_NOT_FOUND
+            get() = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PICKLE_COMMENT)
+        val PICKLE_REPLY_NOT_FOUND
+            get() = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PICKLE_REPLY)
+        val PURPOSE_NOT_FOUND
+            get() = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PURPOSE)
+        val DAILY_NOT_FOUND get() = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PURPOSE)
 
         // Conflict
-        val DUPLICATED_NICKNAME = BusinessLogicException(409, "Duplicated Nickname")
-        val ALREADY_EXIST_USER =
-            BusinessLogicException(ErrorCodePrefixSuffix.ALREADY_EXISTS_XXX, DomainNames.USER)
-        val ALREADY_EXIST_PICKLE =
-            BusinessLogicException(ErrorCodePrefixSuffix.ALREADY_EXISTS_XXX, DomainNames.PICKLE)
-        val OTHER_ROUTINE_ALREADY_USING_AT_DAY_OF_WEEK =
-            BusinessLogicException(409, "Other Routine Already Using At Day of week")
+        val DUPLICATED_NICKNAME get() = BusinessLogicException(409, "Duplicated Nickname")
+        val ALREADY_EXIST_USER
+            get() = BusinessLogicException(ErrorCodePrefixSuffix.ALREADY_EXISTS_XXX, DomainNames.USER)
+        val ALREADY_EXIST_PICKLE
+            get() = BusinessLogicException(ErrorCodePrefixSuffix.ALREADY_EXISTS_XXX, DomainNames.PICKLE)
+        val OTHER_ROUTINE_ALREADY_USING_AT_DAY_OF_WEEK
+            get() = BusinessLogicException(409, "Other Routine Already Using At Day of week")
     }
 }
 
@@ -161,9 +162,9 @@ class SecurityException(
 
     companion object {
 
-        val INVALID_TOKEN = SecurityException(401, "Invalid Token")
+        val INVALID_TOKEN get() = SecurityException(401, "Invalid Token")
 
-        val PERMISSION_DENIED = SecurityException(403, "Permission Denied")
+        val PERMISSION_DENIED get() = SecurityException(403, "Permission Denied")
     }
 }
 
@@ -234,9 +235,9 @@ class AuthenticationException(
     companion object {
 
         // UnAuthorized
-        val INVALID_TOKEN = AuthenticationException(401, "Invalid Token")
-        val EXPIRED_TOKEN = AuthenticationException(401, "Expired Token")
-        val UNAUTHORIZED = AuthenticationException(401, "Unauthorized")
+        val INVALID_TOKEN get() = AuthenticationException(401, "Invalid Token")
+        val EXPIRED_TOKEN get() = AuthenticationException(401, "Expired Token")
+        val UNAUTHORIZED get() = AuthenticationException(401, "Unauthorized")
     }
 }
 
@@ -247,11 +248,11 @@ class FeignException(
 
     companion object {
 
-        val FEIGN_BAD_REQUEST = FeignException(400, "Feign Bad Request")
-        val FEIGN_UNAUTHORIZED = FeignException(401, "Feign UnAuthorized")
-        val FEIGN_FORBIDDEN = FeignException(403, "Feign Forbidden")
-        val FEIGN_SERVER_ERROR = FeignException(500, "Feign Server Error")
-        val FEIGN_UNKNOWN_CLIENT_ERROR = FeignException(500, "Feign Unknown Error")
+        val FEIGN_BAD_REQUEST get() = FeignException(400, "Feign Bad Request")
+        val FEIGN_UNAUTHORIZED get() = FeignException(401, "Feign UnAuthorized")
+        val FEIGN_FORBIDDEN get() = FeignException(403, "Feign Forbidden")
+        val FEIGN_SERVER_ERROR get() = FeignException(500, "Feign Server Error")
+        val FEIGN_UNKNOWN_CLIENT_ERROR get() = FeignException(500, "Feign Unknown Error")
     }
 }
 
