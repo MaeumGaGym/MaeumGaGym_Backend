@@ -16,9 +16,12 @@ jobs:
             [`냥뇽녕냥`, `https://hedwig-cf.netmarble.com/forum-common/skrv/skr/0d36bc9f09dd4f46b5432f0065a77cb4_1664534062576.gif`], 
             [`냥뇽녕냥`, `https://hedwig-cf.netmarble.com/forum-common/sknightsmmo/sk2/6f483725827e4e6cbf16aeee0e8c8e3c_1617941581098.gif`], 
             [`냥뇽녕냥`, `https://upload3.inven.co.kr/upload/2022/04/21/bbs/i013997846192.gif`],
+            [`냥뇽녕냥`, `https://c.tenor.com/-6rblTCZCdoAAAAC/tenor.gif`],
             [`쵸단`, `https://media1.tenor.com/m/a1bfjuJj-j4AAAAd/chodan-qwer.gif`],
             [`카리나`, `https://media1.tenor.com/m/JWGYQ2D9JfkAAAAC/karina-aespa.gif`],
-            [`투슬리스`, `https://media1.tenor.com/m/UTmEHkq-OJcAAAAC/dance-cas-van-de-pol.gif`],
+            [`김채원`, `https://c.tenor.com/d4-dPFZSiM8AAAAC/tenor.gif`],
+            [`김채원`, `https://c.tenor.com/lFhqOYOdHSwAAAAd/tenor.gif`],
+            [`김채원`, `https://c.tenor.com/FVdK1ED9f9gAAAAd/tenor.gif`],
             [`봇치`, `https://media1.tenor.com/m/9wllMjsxqaAAAAAd/bocchi-the-rock-bocchi-the-rock-gif.gif`]
           ];
           let output = urlList[Math.floor(Math.random() * urlList.length)]
