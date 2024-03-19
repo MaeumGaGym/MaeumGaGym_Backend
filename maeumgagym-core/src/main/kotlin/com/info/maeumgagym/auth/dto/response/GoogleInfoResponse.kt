@@ -7,6 +7,5 @@ data class GoogleInfoResponse(
     val familyName: String?,
     val picture: String,
     val email: String,
-    val emailVerified: Boolean,
-    val locale: String
+    val emailVerified: Boolean
 )
