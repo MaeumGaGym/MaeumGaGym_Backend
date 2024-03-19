@@ -1,9 +1,9 @@
-package com.info.maeumgagym.config.security
+package com.info.maeumgagym.security.config
 
 import com.info.maeumgagym.config.filter.SecurityFilterChainConfig
-import com.info.maeumgagym.security.env.CSRFProperties
 import com.info.maeumgagym.error.handler.CustomAccessDeniedHandler
 import com.info.maeumgagym.error.handler.CustomAuthenticationEntryPoint
+import com.info.maeumgagym.security.env.CSRFProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity

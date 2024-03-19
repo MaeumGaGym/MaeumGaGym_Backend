@@ -1,4 +1,4 @@
-package com.info.maeumgagym.config.security.cors
+package com.info.maeumgagym.security.config.cors
 
 import com.info.maeumgagym.security.env.SecurityProperties
 import org.springframework.context.annotation.Bean

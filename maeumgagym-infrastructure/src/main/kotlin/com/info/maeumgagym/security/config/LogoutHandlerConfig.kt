@@ -1,4 +1,4 @@
-package com.info.maeumgagym.config.security
+package com.info.maeumgagym.security.config
 
 import com.info.maeumgagym.security.handler.CustomLogoutHandler
 import com.info.maeumgagym.security.handler.CustomSuccessLogoutHandler
