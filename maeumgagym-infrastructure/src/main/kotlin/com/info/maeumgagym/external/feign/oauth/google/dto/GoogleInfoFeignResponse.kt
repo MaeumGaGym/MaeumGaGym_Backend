@@ -9,8 +9,7 @@ data class GoogleInfoFeignResponse(
     val familyName: String?,
     val picture: String,
     val email: String,
-    val emailVerified: Boolean,
-    val locale: String
+    val emailVerified: Boolean
 ) {
 
     fun toResponse() = GoogleInfoResponse(
@@ -20,7 +19,6 @@ data class GoogleInfoFeignResponse(
         familyName,
         picture,
         email,
-        emailVerified,
-        locale
+        emailVerified
     )
 }
