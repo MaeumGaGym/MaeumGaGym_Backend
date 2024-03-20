@@ -14,7 +14,7 @@ internal object AuthTestModule {
     fun UserJpaEntity.saveInContext(userMapper: UserMapper): UserJpaEntity =
         apply {
             SecurityContextHolder.getContext().authentication =
-                CustomUserDetails(userMapper.toDomain(this)).run {
+                CustomUserDetails(userMapper.toDomain(this), this.oauthId).run {
                     UsernamePasswordAuthenticationToken(this, null, this.authorities)
                 }
         }
