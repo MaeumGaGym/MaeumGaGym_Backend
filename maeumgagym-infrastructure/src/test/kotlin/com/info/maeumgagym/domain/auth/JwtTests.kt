@@ -115,7 +115,6 @@ internal class JwtTests @Autowired constructor(
      * @see JwtResolverImpl.invoke
      * @when 성공 상황
      * @fail 환경 변수로 주입된 jwtPrefix가 잘못되었는지 확인
-     * @fail header의 이름이 잘못되었는지 확인
      * @fail AccessTokenRepository에 정상적으로 토큰이 저장되는지 확인
      * */
     @Test
@@ -130,7 +129,7 @@ internal class JwtTests @Autowired constructor(
     /**
      * @see JwtResolverImpl.invoke
      * @when 실패 상황
-     * @success "Bearer " 접두사가 존재하지 않아 InvalidTokenException 발생
+     * @success "Bearer " 접두사가 존재하지 않아 AuthenticationException.INVALID_TOKEN 발생
      * @fail jwtPrefix 환경 변수가 주입되었는지 확인
      */
     @Test
@@ -152,7 +151,7 @@ internal class JwtTests @Autowired constructor(
     /**
      * @see JwtResolverImpl.invoke
      * @when 실패 상황
-     * @success 인증 헤더에 AccessToken 대신 RefreshToken이 담겨있으므로 InvalidException 발생
+     * @success AccessToken 대신 RefreshToken을 넘겼으므로 AuthenticationException.INVALID_TOKEN 발생
      * @fail AccessTokenRepository에 정상적으로 토큰이 저장되는지 확인
      */
     @Test
@@ -166,14 +165,14 @@ internal class JwtTests @Autowired constructor(
     /**
      * @see JwtResolverImpl.invoke
      * @when 실패 상황
-     * @success 인증 관련 헤더가 비어있으므로 유저 정보 대신 null 반환
+     * @success Blank 값을 token으로 넘겼으므로 AuthenticationException.INVALID_TOKEN 예외 발생
      * @fail
      */
     @Test
     fun resolveWithNothing() {
-        Assertions.assertNull(
+        TestException.assertThrowsMaeumGaGymExceptionInstance(AuthenticationException.INVALID_TOKEN) {
             jwtResolver("")
-        )
+        }
     }
 
     /**
