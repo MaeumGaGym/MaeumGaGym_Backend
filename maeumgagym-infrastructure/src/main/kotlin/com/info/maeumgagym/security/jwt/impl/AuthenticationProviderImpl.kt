@@ -2,10 +2,9 @@ package com.info.maeumgagym.security.jwt.impl
 
 import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.security.jwt.AuthenticationProvider
-import com.info.maeumgagym.security.principle.CustomUserDetails
+import com.info.maeumgagym.security.jwt.JwtFilter
 import com.info.maeumgagym.user.port.out.ReadUserPort
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Component
 
 /**
@@ -16,27 +15,22 @@ import org.springframework.stereotype.Component
  */
 @Component
 class AuthenticationProviderImpl(
-    private val userDetailsService: UserDetailsService,
     private val readUserPort: ReadUserPort
 ) : AuthenticationProvider {
 
     override fun getAuthentication(subject: String): UsernamePasswordAuthenticationToken {
-        // UserDetails 생성
-        val authDetails = userDetailsService.loadUserByUsername(subject) as CustomUserDetails
+        // User가 필요한 경우 불러와 전역적으로 저장
+        JwtFilter.authenticatedUser = ThreadLocal.withInitial {
+            readUserPort.readByOAuthId(subject)
+                ?: throw CriticalException(500, "User Not Found In AuthenticationProvider")
+        }
 
-        val user = readUserPort.readByOAuthId(subject)
-            ?: throw CriticalException(500, "User Not Found In AuthenticationProvider")
-
-        authDetails.fillUser(user)
-
-        // Authentication발급
-        return UsernamePasswordAuthenticationToken(authDetails, null, authDetails.authorities)
+        // Authentication에 subject를 넣어 반환
+        return UsernamePasswordAuthenticationToken(subject, null)
     }
 
     override fun getEmptyAuthentication(subject: String): UsernamePasswordAuthenticationToken {
-        // UserDetails 생성
-        val authDetails = userDetailsService.loadUserByUsername(subject) as CustomUserDetails
-
-        return UsernamePasswordAuthenticationToken(authDetails, null, null)
+        // Authentication에 subject를 넣어 반환
+        return UsernamePasswordAuthenticationToken(subject, null)
     }
 }
