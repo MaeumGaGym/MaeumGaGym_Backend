@@ -1,6 +1,5 @@
 package com.info.maeumgagym.security.jwt
 
-import com.info.maeumgagym.common.exception.AuthenticationException
 import com.info.maeumgagym.security.config.RequestPermitConfig
 import com.info.maeumgagym.security.jwt.env.JwtProperties
 import org.springframework.security.core.context.SecurityContextHolder
@@ -32,19 +31,20 @@ class JwtFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        // 헤더에 토큰이 존재하는지 확인, 아닐 경우 Exception 반환
+        // 헤더에 토큰이 존재하는지 확인
         val header = request.getHeader(jwtProperties.header)
-            ?: throw AuthenticationException.UNAUTHORIZED
 
-        // 토큰이 유효한지 확인, 유효하다면 ->
-        jwtResolver(header)?.let {
-            // security context holder에 Authentication 저장
-            SecurityContextHolder.getContext().authentication =
-                if (needRole(request)) { // Role 인증이 필요하다면 User Eager Loading
-                    authenticationProvider.getAuthentication(it)
-                } else { // 필요하지 않다면 User Lazy Loading
-                    authenticationProvider.getEmptyAuthentication(it)
-                }
+        if (header != null) {
+            // 토큰이 유효한지 확인, 유효하다면 ->
+            jwtResolver(header)?.let {
+                // security context holder에 Authentication 저장
+                SecurityContextHolder.getContext().authentication =
+                    if (needRole(request)) { // Role 인증이 필요하다면 User Eager Loading
+                        authenticationProvider.getAuthentication(it)
+                    } else { // 필요하지 않다면 User Lazy Loading
+                        authenticationProvider.getEmptyAuthentication(it)
+                    }
+            }
         }
 
         // 다음 필터로 넘기기
