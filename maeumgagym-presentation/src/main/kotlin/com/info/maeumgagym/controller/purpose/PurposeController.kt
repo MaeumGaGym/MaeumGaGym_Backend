@@ -32,6 +32,7 @@ class PurposeController(
 ) {
 
     @Operation(summary = "목표 생성 API")
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     fun purposeCreate(
         @Valid

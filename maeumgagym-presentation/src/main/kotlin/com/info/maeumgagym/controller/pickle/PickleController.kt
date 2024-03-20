@@ -119,6 +119,7 @@ class PickleController(
     }
 
     @Operation(summary = "피클 좋아요 API")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping("{id}")
     fun likePickle(
         @PathVariable(name = "id")

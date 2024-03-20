@@ -50,6 +50,7 @@ class DailyController(
     }
 
     @Operation(description = "오운완 제목 수정 API")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/daily/{date}")
     fun dailyUpdate(
         @Valid
