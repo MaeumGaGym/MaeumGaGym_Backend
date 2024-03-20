@@ -36,13 +36,15 @@ class RequestPermitConfig : SecurityConfigurerAdapter<DefaultSecurityFilterChain
         }
     }
 
-    private fun ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry.permittedURIConfigure() {
+    private fun ExpressionUrlAuthorizationConfigurer<HttpSecurity>
+    .ExpressionInterceptUrlRegistry.permittedURIConfigure() {
         permittedURI.forEach {
             antMatchers(it.key, it.value).permitAll()
         }
     }
 
-    private fun ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry.needAdminRoleURIConfigure() {
+    private fun ExpressionUrlAuthorizationConfigurer<HttpSecurity>
+    .ExpressionInterceptUrlRegistry.needAdminRoleURIConfigure() {
         permittedURI.forEach {
             antMatchers(it.key, it.value).permitAll()
         }

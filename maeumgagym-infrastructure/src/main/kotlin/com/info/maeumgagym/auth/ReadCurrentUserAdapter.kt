@@ -24,7 +24,7 @@ internal class ReadCurrentUserAdapter(
         if (authDetails.getUser() == null) {
             authDetails.fillUser(
                 readUserPort.readByOAuthId(authDetails.username)
-                // authDetails에 담긴 username = oauthId는 로직상 무조건 유저가 존재해야하므로 AuthenticationException throw
+                    // authDetails에 담긴 username = oauthId는 로직상 무조건 유저가 존재해야하므로 AuthenticationException throw
                     ?: throw AuthenticationException(401, "User Not Found In ReadCurrentUserPort")
             )
         }

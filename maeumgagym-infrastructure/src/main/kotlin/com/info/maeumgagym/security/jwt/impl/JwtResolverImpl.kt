@@ -20,7 +20,6 @@ class JwtResolverImpl(
     override fun invoke(token: String): String? =
         // 토큰이 JWT 토큰일 경우 = 특정 Prefix로 시작하는 토큰일 경우
         if (token.startsWith(jwtProperties.prefix)) {
-
             // Prefix 제거
             val slicedToken = token.substring(jwtProperties.prefix.length).trimStart()
 
