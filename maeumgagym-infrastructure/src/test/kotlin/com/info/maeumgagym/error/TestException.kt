@@ -20,9 +20,7 @@ internal class TestException(
             try {
                 executable.execute()
             } catch (caughtException: MaeumGaGymException) {
-                if (caughtException != e &&
-                    caughtException.message != e.message
-                ) {
+                if (caughtException.message != e.message) {
                     throw AssertionFailedError("")
                 }
                 thrown = true
