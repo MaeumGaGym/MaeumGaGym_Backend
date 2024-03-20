@@ -6,17 +6,26 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 class CustomUserDetails(
-    val user: User
+    private var user: User?,
+    private val oauthId: String
 ) : UserDetails {
 
+    fun getUser(): User? = user
+
+    fun fillUser(user: User) {
+        if (this.user == null) {
+            this.user = user
+        }
+    }
+
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
-        user.roles.map {
+        user?.roles?.map {
             SimpleGrantedAuthority(it.name)
-        }.toMutableList()
+        }?.toMutableList() ?: mutableListOf()
 
     override fun getPassword(): String? = null
 
-    override fun getUsername(): String = user.oauthId
+    override fun getUsername(): String = oauthId
 
     override fun isAccountNonExpired(): Boolean = true
 
