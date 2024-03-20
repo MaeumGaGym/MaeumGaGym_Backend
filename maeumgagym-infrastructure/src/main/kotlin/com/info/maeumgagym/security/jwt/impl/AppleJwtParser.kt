@@ -1,4 +1,4 @@
-package com.info.maeumgagym.security.jwt
+package com.info.maeumgagym.security.jwt.impl
 
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component
 import org.springframework.util.Base64Utils
 
 @Component
-class AppleJwtParser(private val objectMapper: ObjectMapper) : AppleJwtParsePort {
+class AppleJwtParser(
+    private val objectMapper: ObjectMapper
+) : AppleJwtParsePort {
 
     companion object {
         private const val IDENTITY_TOKEN_VALUE_DELIMITER = "\\."

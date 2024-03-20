@@ -20,9 +20,15 @@ class SecurityConfig(
     private val authenticationEntryPoint: CustomAuthenticationEntryPoint,
     private val logoutHandlerConfig: LogoutHandlerConfig
 ) {
+
+    internal companion object {
+        lateinit var securityFilterChain: SecurityFilterChain
+            protected set
+    }
+
     @Bean
-    protected fun filterChain(http: HttpSecurity): SecurityFilterChain =
-        http
+    protected fun filterChain(http: HttpSecurity): SecurityFilterChain {
+        securityFilterChain = http
             .apply(logoutHandlerConfig::configure)
             .formLogin().disable() // Html Form 로그인 비활성화
 //            .csrf().csrfTokenRepository(getCsrfTokenRepository()).and() // CSRF 설정 (temporary disuse)
@@ -47,6 +53,9 @@ class SecurityConfig(
 //
             .apply(securityFilterChainConfig).and() // SecurityFilterChain에 대한 설정
             .build()
+
+        return securityFilterChain
+    }
 
     private fun getCsrfTokenRepository(): CookieCsrfTokenRepository =
         CookieCsrfTokenRepository().apply {

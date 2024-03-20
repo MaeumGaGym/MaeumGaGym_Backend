@@ -1,29 +1,18 @@
 package com.info.maeumgagym.security.jwt
 
-import com.info.maeumgagym.common.exception.AuthenticationException
-import com.info.maeumgagym.security.jwt.env.JwtProperties
-import com.info.maeumgagym.security.jwt.repository.AccessTokenRepository
-import org.springframework.stereotype.Component
-import javax.servlet.http.HttpServletRequest
+/**
+ * 주어진 토큰의 유효성을 확인하고, 그 여부에 따라 토큰과 연결된 OAuthId를 반환
+ *
+ * 유효성 : AccessToken인지, JWT 토큰인지, 해당 서버에서 발급했으며 저장이 되어 있는지(유효 기간이 지나지 않았는지)
+ *
+ * @author Daybreak312
+ * @since 20-03-2024
+ */
+interface JwtResolver {
 
-@Component
-class JwtResolver(
-    private val jwtProperties: JwtProperties,
-    private val accessTokenRepository: AccessTokenRepository
-) {
-    fun resolveToken(request: HttpServletRequest): String? =
-        // header에서 토큰을 찾을 수 없다면 null반환
-        request.getHeader(jwtProperties.header)?.let {
-            // WHEN : 정해진 prefix로 시작한다면
-            if (it.startsWith(jwtProperties.prefix)) {
-                // prefix slicing
-                val token = it.substring(jwtProperties.prefix.length).trimStart()
-
-                // 만료된 access_token인지 확인 및 반환, 예외처리
-                accessTokenRepository.findByAccessToken(token)?.subject
-                    ?: throw AuthenticationException.INVALID_TOKEN
-            } else {
-                throw AuthenticationException.INVALID_TOKEN // 정해진 prefix로 시작하지 않을 경우 Error반환
-            }
-        }
+    /**
+     * @param token 유효성을 확인할 토큰
+     * @return OAuthId, 토큰이 유효하지 않을 경우 null
+     */
+    operator fun invoke(token: String): String?
 }

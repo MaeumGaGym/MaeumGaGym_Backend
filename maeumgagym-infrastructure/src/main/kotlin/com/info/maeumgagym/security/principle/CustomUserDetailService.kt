@@ -1,21 +1,14 @@
 package com.info.maeumgagym.security.principle
 
-import com.info.maeumgagym.common.exception.BusinessLogicException
-import com.info.maeumgagym.user.port.out.ReadUserPort
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Component
 
 @Component
-class CustomUserDetailService(
-    private val readUserPort: ReadUserPort
-) : UserDetailsService {
+class CustomUserDetailService : UserDetailsService {
 
     // 유저를 DB에서 불러와 UserDetails를 반환하는 함수
-    override fun loadUserByUsername(username: String?): CustomUserDetails {
-        // user를 전달 받은 UK값으로 불러오기
-        val user = readUserPort.readByOAuthId(username!!) ?: throw BusinessLogicException.USER_NOT_FOUND
-
-        // CustomUserDetails로 형변환 후 반환
-        return CustomUserDetails(user)
+    override fun loadUserByUsername(username: String): CustomUserDetails {
+        // CustomUserDetails에 User를 null로 삽입해 반환
+        return CustomUserDetails(null, username)
     }
 }

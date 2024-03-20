@@ -6,9 +6,9 @@ import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.error.TestException
-import com.info.maeumgagym.security.jwt.JwtAdapter
 import com.info.maeumgagym.security.jwt.JwtFilter
-import com.info.maeumgagym.security.jwt.JwtResolver
+import com.info.maeumgagym.security.jwt.impl.JwtAdapter
+import com.info.maeumgagym.security.jwt.impl.JwtResolverImpl
 import com.info.maeumgagym.security.jwt.repository.AccessTokenRepository
 import com.info.maeumgagym.security.jwt.repository.RefreshTokenRepository
 import org.junit.jupiter.api.Assertions
@@ -24,14 +24,14 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 @SpringBootTest
 internal class JwtTests @Autowired constructor(
+    private val jwtFilter: JwtFilter,
     private val jwtAdapter: JwtAdapter,
-    private val jwtResolver: JwtResolver,
+    private val jwtResolver: JwtResolverImpl,
     private val accessTokenRepository: AccessTokenRepository,
     private val userRepository: UserRepository,
     private val refreshTokenRepository: RefreshTokenRepository
 ) {
 
-    private val jwtFilter = JwtFilter(jwtResolver, jwtAdapter)
     private lateinit var user: UserJpaEntity
 
     @BeforeEach
@@ -112,32 +112,28 @@ internal class JwtTests @Autowired constructor(
     }
 
     /**
-     * @see JwtResolver.resolveToken
+     * @see JwtResolverImpl.invoke
      * @when 성공 상황
      * @fail 환경 변수로 주입된 jwtPrefix가 잘못되었는지 확인
-     * @fail header의 이름이 잘못되었는지 확인
      * @fail AccessTokenRepository에 정상적으로 토큰이 저장되는지 확인
      * */
     @Test
     fun resolve() {
-        val request = MockHttpServletRequest()
         val accessToken = jwtAdapter.generateTokens(user.oauthId).first
-        request.addHeader(AuthTestModule.TOKEN_HEADER, AuthTestModule.TOKEN_PREFIX + accessToken)
         Assertions.assertEquals(
-            jwtResolver.resolveToken(request),
+            jwtResolver(AuthTestModule.TOKEN_PREFIX + accessToken),
             user.oauthId
         )
     }
 
     /**
-     * @see JwtResolver.resolveToken
+     * @see JwtResolverImpl.invoke
      * @when 실패 상황
-     * @success "Bearer " 접두사가 존재하지 않아 InvalidTokenException 발생
+     * @success "Bearer " 접두사가 존재하지 않아 AuthenticationException.INVALID_TOKEN 발생
      * @fail jwtPrefix 환경 변수가 주입되었는지 확인
      */
     @Test
     fun resolveWithJwtAnyToken() {
-        val request = MockHttpServletRequest()
         lateinit var accessToken: String
         lateinit var refreshToken: String
         jwtAdapter.generateTokens(user.oauthId).run {
@@ -145,42 +141,38 @@ internal class JwtTests @Autowired constructor(
             refreshToken = this.second
         }
         TestException.assertThrowsMaeumGaGymExceptionInstance(AuthenticationException.INVALID_TOKEN) {
-            request.addHeader(AuthTestModule.TOKEN_HEADER, accessToken)
-            jwtResolver.resolveToken(request)
+            jwtResolver(accessToken)
         }
         TestException.assertThrowsMaeumGaGymExceptionInstance(AuthenticationException.INVALID_TOKEN) {
-            request.addHeader(AuthTestModule.TOKEN_HEADER, refreshToken)
-            jwtResolver.resolveToken(request)
+            jwtResolver(refreshToken)
         }
     }
 
     /**
-     * @see JwtResolver.resolveToken
+     * @see JwtResolverImpl.invoke
      * @when 실패 상황
-     * @success 인증 헤더에 AccessToken 대신 RefreshToken이 담겨있으므로 InvalidException 발생
+     * @success AccessToken 대신 RefreshToken을 넘겼으므로 AuthenticationException.INVALID_TOKEN 발생
      * @fail AccessTokenRepository에 정상적으로 토큰이 저장되는지 확인
      */
     @Test
     fun resolveWithBearerRefreshToken() {
-        val request = MockHttpServletRequest()
         val refreshToken = jwtAdapter.generateTokens(user.oauthId).second
-        request.addHeader(AuthTestModule.TOKEN_HEADER, AuthTestModule.TOKEN_HEADER + refreshToken)
         TestException.assertThrowsMaeumGaGymExceptionInstance(AuthenticationException.INVALID_TOKEN) {
-            jwtResolver.resolveToken(request)
+            jwtResolver(AuthTestModule.TOKEN_HEADER + refreshToken)
         }
     }
 
     /**
-     * @see JwtResolver.resolveToken
+     * @see JwtResolverImpl.invoke
      * @when 실패 상황
-     * @success 인증 관련 헤더가 비어있으므로 유저 정보 대신 null 반환
+     * @success Blank 값을 token으로 넘겼으므로 AuthenticationException.INVALID_TOKEN 예외 발생
      * @fail
      */
     @Test
     fun resolveWithNothing() {
-        Assertions.assertNull(
-            jwtResolver.resolveToken(MockHttpServletRequest())
-        )
+        TestException.assertThrowsMaeumGaGymExceptionInstance(AuthenticationException.INVALID_TOKEN) {
+            jwtResolver("")
+        }
     }
 
     /**
