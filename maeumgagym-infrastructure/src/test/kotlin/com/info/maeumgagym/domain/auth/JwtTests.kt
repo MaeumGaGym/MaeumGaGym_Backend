@@ -6,9 +6,9 @@ import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.error.TestException
-import com.info.maeumgagym.security.jwt.JwtAdapter
+import com.info.maeumgagym.security.jwt.impl.JwtAdapter
 import com.info.maeumgagym.security.jwt.JwtFilter
-import com.info.maeumgagym.security.jwt.JwtResolver
+import com.info.maeumgagym.security.jwt.impl.JwtResolverImpl
 import com.info.maeumgagym.security.jwt.repository.AccessTokenRepository
 import com.info.maeumgagym.security.jwt.repository.RefreshTokenRepository
 import org.junit.jupiter.api.Assertions
@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional
 @SpringBootTest
 internal class JwtTests @Autowired constructor(
     private val jwtAdapter: JwtAdapter,
-    private val jwtResolver: JwtResolver,
+    private val jwtResolver: JwtResolverImpl,
     private val accessTokenRepository: AccessTokenRepository,
     private val userRepository: UserRepository,
     private val refreshTokenRepository: RefreshTokenRepository
@@ -112,7 +112,7 @@ internal class JwtTests @Autowired constructor(
     }
 
     /**
-     * @see JwtResolver.resolveToken
+     * @see JwtResolverImpl.resolveToken
      * @when 성공 상황
      * @fail 환경 변수로 주입된 jwtPrefix가 잘못되었는지 확인
      * @fail header의 이름이 잘못되었는지 확인
@@ -130,7 +130,7 @@ internal class JwtTests @Autowired constructor(
     }
 
     /**
-     * @see JwtResolver.resolveToken
+     * @see JwtResolverImpl.resolveToken
      * @when 실패 상황
      * @success "Bearer " 접두사가 존재하지 않아 InvalidTokenException 발생
      * @fail jwtPrefix 환경 변수가 주입되었는지 확인
@@ -155,7 +155,7 @@ internal class JwtTests @Autowired constructor(
     }
 
     /**
-     * @see JwtResolver.resolveToken
+     * @see JwtResolverImpl.resolveToken
      * @when 실패 상황
      * @success 인증 헤더에 AccessToken 대신 RefreshToken이 담겨있으므로 InvalidException 발생
      * @fail AccessTokenRepository에 정상적으로 토큰이 저장되는지 확인
@@ -171,7 +171,7 @@ internal class JwtTests @Autowired constructor(
     }
 
     /**
-     * @see JwtResolver.resolveToken
+     * @see JwtResolverImpl.resolveToken
      * @when 실패 상황
      * @success 인증 관련 헤더가 비어있으므로 유저 정보 대신 null 반환
      * @fail
