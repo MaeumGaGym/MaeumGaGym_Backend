@@ -22,8 +22,8 @@ internal class ReadCurrentUserAdapter(
             if (this.authenticatedUser == null) {
                 // null인 경우 User를 Load 및 입력
                 this.authenticatedUser = ThreadLocal.withInitial {
-                    readUserPort.readByOAuthId(authentication.principal.toString())
-                        // authDetails에 담긴 username = oauthId는 로직상 무조건 유저가 존재해야하므로 AuthenticationException throw
+                    readUserPort.readByOAuthId(authentication.principal as String)
+                    // authDetails에 담긴 username = oauthId는 로직상 무조건 유저가 존재해야하므로 AuthenticationException throw
                         ?: throw AuthenticationException(401, "User Not Found In ReadCurrentUserPort")
                 }
             }
