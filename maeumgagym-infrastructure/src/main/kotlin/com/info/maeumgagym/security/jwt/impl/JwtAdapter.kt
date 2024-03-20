@@ -1,19 +1,19 @@
-package com.info.maeumgagym.security.jwt
+package com.info.maeumgagym.security.jwt.impl
 
-import com.info.maeumgagym.auth.port.out.*
+import com.info.maeumgagym.auth.port.out.GenerateJwtPort
+import com.info.maeumgagym.auth.port.out.GetJwtBodyPort
+import com.info.maeumgagym.auth.port.out.ReissuePort
+import com.info.maeumgagym.auth.port.out.RevokeTokensPort
 import com.info.maeumgagym.common.exception.AuthenticationException
-import com.info.maeumgagym.security.jwt.env.JwtProperties
 import com.info.maeumgagym.security.jwt.entity.AccessTokenRedisEntity
 import com.info.maeumgagym.security.jwt.entity.RefreshTokenRedisEntity
+import com.info.maeumgagym.security.jwt.env.JwtProperties
 import com.info.maeumgagym.security.jwt.repository.AccessTokenRepository
 import com.info.maeumgagym.security.jwt.repository.RefreshTokenRepository
-import com.info.maeumgagym.security.principle.CustomUserDetailService
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
 import java.security.PublicKey
 import java.util.*
@@ -21,7 +21,6 @@ import java.util.*
 @Component
 class JwtAdapter(
     private val jwtProperties: JwtProperties,
-    private val customUserDetailService: CustomUserDetailService,
     private val refreshTokenRepository: RefreshTokenRepository,
     private val accessTokenRepository: AccessTokenRepository
 ) : GenerateJwtPort, ReissuePort, GetJwtBodyPort, RevokeTokensPort {
@@ -99,15 +98,6 @@ class JwtAdapter(
 
         // 토큰 재발급 및 반환
         return generateTokens(rfToken.subject)
-    }
-
-    // 토큰의 subject값으로 Authentication얻는 함수
-    fun getAuthentication(subject: String): Authentication {
-        // CustomUserDetails로 갑싼 user 불러오기
-        val authDetails = customUserDetailService.loadUserByUsername(subject)
-
-        // Authentication발급
-        return UsernamePasswordAuthenticationToken(authDetails, null, authDetails.authorities)
     }
 
     // Apple id_token parsing 함수
