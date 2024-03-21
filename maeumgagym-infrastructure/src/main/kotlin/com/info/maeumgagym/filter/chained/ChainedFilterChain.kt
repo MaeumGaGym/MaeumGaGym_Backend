@@ -2,6 +2,7 @@ package com.info.maeumgagym.filter.chained
 
 import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.filter.global.GlobalFilterChain
+import javax.servlet.Filter
 import javax.servlet.FilterChain
 import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
@@ -58,12 +59,18 @@ abstract class ChainedFilterChain : GlobalFilterChain {
     /**
      * FilterChain이 끝난 후, 다시 초기 상태로 되돌리는 메소드
      */
-    protected abstract fun removeCalledFilterChain()
+    protected abstract fun resetFilterChain()
 
     /**
      * FilterChain의 다음 Filter로 넘어가기 위해, 실행한 Filter의 Index를 담은 변수에 1 추가
      */
     protected abstract fun plusCurrentFilterIndex(): Int
+
+    /**
+     * @return [getCurrentFilterIndex]를 기반으로 현재 실행한 Filter를 반환
+     */
+    protected fun getCurrentFilter(): Filter =
+        this.getFilters()[this.getFilters().keys.toList()[this.getCurrentFilterIndex()]]!!
 
     /**
      * FilterChain 내부의 Filter들이 호출하는 메소드
@@ -75,13 +82,12 @@ abstract class ChainedFilterChain : GlobalFilterChain {
 
         val filters = this.getFilters()
 
-        filters.forEach {
-            if (this.getCurrentFilterIndex() == filters.size - 1) {
-                it.value.doFilter(request, response, this.getCalledFilterChain())
-            } else {
-                it.value.doFilter(request, response, this)
-            }
+        if (this.getCurrentFilterIndex() == filters.size - 2) {
             this.plusCurrentFilterIndex()
+            this.getCurrentFilter().doFilter(request, response, this.getCalledFilterChain())
+        } else {
+            this.plusCurrentFilterIndex()
+            this.getCurrentFilter().doFilter(request, response, this)
         }
     }
 
@@ -93,5 +99,6 @@ abstract class ChainedFilterChain : GlobalFilterChain {
     fun doFilterChained(request: ServletRequest, response: ServletResponse, calledFilterChain: FilterChain) {
         this.setCalledFilterChain(calledFilterChain)
         this.doFilter(request, response)
+        this.resetFilterChain()
     }
 }

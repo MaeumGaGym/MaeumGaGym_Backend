@@ -2,10 +2,8 @@ package com.info.maeumgagym.error.filter
 
 import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.common.exception.PresentationValidationException
-import com.info.maeumgagym.config.filter.FilterChainConfig
+import com.info.maeumgagym.config.filter.ApplicationFilterChainConfig
 import com.info.maeumgagym.error.vo.ErrorLog
-import org.apache.catalina.core.ApplicationFilterChain
-import org.springframework.security.web.SecurityFilterChain
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.MissingServletRequestParameterException
 import org.springframework.web.filter.GenericFilterBean
@@ -31,9 +29,7 @@ import javax.validation.ConstraintViolationException
  * - Presentation 계층에서 Validation이 실패했을 경우 발생하는 예외 중 하나일 경우 [PresentationValidationException]으로 변환; 변환되는 타입 : [MethodArgumentNotValidException], [ConstraintViolationException], [MissingServletRequestParameterException]
  * - 그 외에는 그대로 변환
  *
- * 해당 *Filter*의 순서 설정 정보는 [FilterChainConfig]에 존재
- *
- * > 위의 사항이 기술적 문제로 잠시 반려되었습니다. 현재 [ApplicationFilterChain]이 아닌 [SecurityFilterChain]에 등록되어 있습니다.
+ * 해당 *Filter*의 순서 설정 정보는 [ApplicationFilterChainConfig]에 존재
  *
  * @see ErrorLogResponseFilter
  */

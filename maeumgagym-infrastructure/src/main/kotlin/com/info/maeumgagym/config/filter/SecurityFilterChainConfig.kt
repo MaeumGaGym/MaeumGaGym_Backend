@@ -4,7 +4,10 @@ import com.info.maeumgagym.error.filter.ErrorLogResponseFilter
 import com.info.maeumgagym.error.filter.ExceptionConvertFilter
 import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
+import com.info.maeumgagym.security.jwt.AuthenticationProvider
 import com.info.maeumgagym.security.jwt.JwtFilter
+import com.info.maeumgagym.security.jwt.JwtResolver
+import com.info.maeumgagym.security.jwt.env.JwtProperties
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.DefaultSecurityFilterChain
@@ -14,7 +17,9 @@ import org.springframework.stereotype.Component
 
 @Component
 class SecurityFilterChainConfig(
-    private val jwtFilter: JwtFilter,
+    private val jwtResolver: JwtResolver,
+    private val jwtProperties: JwtProperties,
+    private val authenticationProvider: AuthenticationProvider,
     private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
     private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter
 ) : SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
@@ -27,11 +32,9 @@ class SecurityFilterChainConfig(
      */
     override fun configure(builder: HttpSecurity) {
         builder.run {
-            addFilterBefore(jwtFilter, LogoutFilter::class.java)
-            addFilterBefore(ExceptionConvertFilter(), SecurityContextHolderFilter::class.java)
             addFilterBefore(
-                ErrorLogResponseFilter(defaultHttpServletResponseWriter, errorLogHttpServletResponseWriter),
-                ExceptionConvertFilter::class.java
+                JwtFilter(jwtResolver, authenticationProvider, jwtProperties),
+                LogoutFilter::class.java
             )
         }
     }

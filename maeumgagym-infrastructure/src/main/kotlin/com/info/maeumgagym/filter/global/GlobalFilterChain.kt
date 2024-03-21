@@ -23,7 +23,7 @@ interface GlobalFilterChain : FilterChain {
     fun getFilters(): Map<String, Filter>
 
     /**
-     * @return 현재 실행중인 Filter의 Index 반환
+     * @return 호출 시점에, 가장 마지막으로 실행한 Filter의 Index 반환
      */
     fun getCurrentFilterIndex(): Int
 
