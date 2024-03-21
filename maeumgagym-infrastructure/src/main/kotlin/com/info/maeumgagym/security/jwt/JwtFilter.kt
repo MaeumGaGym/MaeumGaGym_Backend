@@ -63,9 +63,9 @@ class JwtFilter(
     }
 
     private fun needRole(request: HttpServletRequest): Boolean {
-        RequestPermitConfig.needAdminRoleURI.forEach {
-            if (request.method == it.key.name &&
-                antPathMatcher.match(it.value, request.requestURI)
+        RequestPermitConfig.needAdminRoleURIs.forEach {
+            if (request.method == it.value.name &&
+                antPathMatcher.match(it.key, request.requestURI)
             ) {
                 return true
             }
