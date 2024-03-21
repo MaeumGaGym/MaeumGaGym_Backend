@@ -5,6 +5,7 @@ import com.info.maeumgagym.security.jwt.AuthenticationProvider
 import com.info.maeumgagym.security.jwt.JwtFilter
 import com.info.maeumgagym.user.port.out.ReadUserPort
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Component
 
 /**
@@ -26,11 +27,15 @@ class AuthenticationProviderImpl(
         }
 
         // Authentication에 subject를 넣어 반환
-        return UsernamePasswordAuthenticationToken(subject, null)
+        return UsernamePasswordAuthenticationToken(
+            subject, null,
+            JwtFilter.authenticatedUser?.get()?.roles?.map {
+                SimpleGrantedAuthority(it.name)
+            })
     }
 
     override fun getEmptyAuthentication(subject: String): UsernamePasswordAuthenticationToken {
         // Authentication에 subject를 넣어 반환
-        return UsernamePasswordAuthenticationToken(subject, null)
+        return UsernamePasswordAuthenticationToken(subject, null, null)
     }
 }
