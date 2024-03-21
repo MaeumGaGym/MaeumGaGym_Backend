@@ -1,5 +1,6 @@
 package com.info.maeumgagym.security.config
 
+import com.info.maeumgagym.user.model.Role
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -12,41 +13,42 @@ import org.springframework.web.cors.CorsUtils
 class RequestPermitConfig : SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
 
     internal companion object {
-        val permittedURI = mapOf<HttpMethod, String>(
-            Pair(HttpMethod.POST, "/**/signup"),
-            Pair(HttpMethod.GET, "/**/login"),
-            Pair(HttpMethod.PUT, "/**/recovery"),
-            Pair(HttpMethod.GET, "/auth/nickname/*"),
-            Pair(HttpMethod.GET, "/auth/re-issue"),
-            Pair(HttpMethod.GET, "/public/csrf"),
-            Pair(HttpMethod.GET, "/actuator/health")
+        val permittedURIs: Map<String, HttpMethod> = mapOf(
+            Pair("/**/signup", HttpMethod.POST),
+            Pair("/**/login", HttpMethod.GET),
+            Pair("/**/recovery", HttpMethod.PUT),
+            Pair("/auth/nickname/*", HttpMethod.GET),
+            Pair("/auth/re-issue", HttpMethod.GET),
+            Pair("/public/csrf", HttpMethod.GET),
+            Pair("/actuator/health", HttpMethod.GET)
         )
 
-        val needAdminRoleURI = mapOf<HttpMethod, String>(
-            Pair(HttpMethod.GET, "/report")
+        val needAdminRoleURIs: Map<String, HttpMethod> = mapOf(
+            Pair("/report", HttpMethod.GET)
         )
     }
 
     override fun configure(builder: HttpSecurity) {
-        builder.authorizeRequests().run {
-            requestMatchers(CorsUtils::isCorsRequest).permitAll()
-            permittedURIConfigure()
-            needAdminRoleURIConfigure()
-            anyRequest().authenticated()
-        }
+        builder.authorizeRequests()
+            .requestMatchers(CorsUtils::isCorsRequest).permitAll()
+            .permittedURIConfigure()
+            .needAdminRoleURIConfigure()
+            .anyRequest().authenticated()
     }
 
     private fun ExpressionUrlAuthorizationConfigurer<HttpSecurity>
-    .ExpressionInterceptUrlRegistry.permittedURIConfigure() {
-        permittedURI.forEach {
-            antMatchers(it.key, it.value).permitAll()
+    .ExpressionInterceptUrlRegistry.permittedURIConfigure() =
+        this.apply {
+            permittedURIs.forEach {
+                antMatchers(it.value, it.key).permitAll()
+            }
         }
-    }
 
     private fun ExpressionUrlAuthorizationConfigurer<HttpSecurity>
-    .ExpressionInterceptUrlRegistry.needAdminRoleURIConfigure() {
-        permittedURI.forEach {
-            antMatchers(it.key, it.value).permitAll()
+    .ExpressionInterceptUrlRegistry.needAdminRoleURIConfigure() =
+        this.apply {
+            needAdminRoleURIs.forEach {
+                antMatchers(it.value, it.key).hasRole(Role.ADMIN.name)
+            }
         }
-    }
 }
