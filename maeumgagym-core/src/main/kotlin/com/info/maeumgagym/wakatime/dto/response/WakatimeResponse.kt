@@ -1,5 +1,5 @@
 package com.info.maeumgagym.wakatime.dto.response
 
-data class TotalWakatimeResponse(
+data class WakatimeResponse(
     val totalSeconds: Long
 )

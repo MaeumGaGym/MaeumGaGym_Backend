@@ -1,7 +1,7 @@
 package com.info.maeumgagym.controller.wakatime
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.wakatime.dto.response.TotalWakatimeResponse
+import com.info.maeumgagym.wakatime.dto.response.WakatimeResponse
 import com.info.maeumgagym.wakatime.port.`in`.EndWakatimeUseCase
 import com.info.maeumgagym.wakatime.port.`in`.ReadWakaTimeUseCase
 import com.info.maeumgagym.wakatime.port.`in`.StartWakatimeUseCase
@@ -40,6 +40,9 @@ class WakatimeController(
 
     @Operation(summary = "와카타임 총시간 보기 API")
     @GetMapping("/total")
-    fun readTotalWakatime(): TotalWakatimeResponse =
-        readWakatimeUseCase.readTotalSeconds()
+    fun readTotalWakatime(): WakatimeResponse = readWakatimeUseCase.readTotalSeconds()
+
+    @Operation(summary = "와카타임 오늘 운동시간 보기 API")
+    @GetMapping("/daily")
+    fun readDailyWakatime(): WakatimeResponse = readWakatimeUseCase.readDailySeconds()
 }

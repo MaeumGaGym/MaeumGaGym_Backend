@@ -1,8 +1,10 @@
 package com.info.maeumgagym.wakatime.port.`in`
 
-import com.info.maeumgagym.wakatime.dto.response.TotalWakatimeResponse
+import com.info.maeumgagym.wakatime.dto.response.WakatimeResponse
 
 interface ReadWakaTimeUseCase {
 
-    fun readTotalSeconds(): TotalWakatimeResponse
+    fun readTotalSeconds(): WakatimeResponse
+
+    fun readDailySeconds(): WakatimeResponse
 }
