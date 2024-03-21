@@ -25,7 +25,7 @@ internal class ReadCurrentUserAdapter(
                 // null인 경우 User를 Load 및 입력
                 this.authenticatedUser = ThreadLocal.withInitial {
                     readUserPort.readByOAuthId(authentication.principal as String)
-                    // authDetails에 담긴 username = oauthId는 로직상 무조건 유저가 존재해야하므로 CriticalException throw
+                        // authDetails에 담긴 username = oauthId는 로직상 무조건 유저가 존재해야하므로 CriticalException throw
                         ?: throw CriticalException(401, "User not found in Authentication data At ReadCurrentUserPort")
                 }
             }

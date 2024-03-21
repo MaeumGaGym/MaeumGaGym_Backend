@@ -28,10 +28,12 @@ class AuthenticationProviderImpl(
 
         // Authentication에 subject를 넣어 반환
         return UsernamePasswordAuthenticationToken(
-            subject, null,
+            subject,
+            null,
             JwtFilter.authenticatedUser?.get()?.roles?.map {
                 SimpleGrantedAuthority(it.name)
-            })
+            }
+        )
     }
 
     override fun getEmptyAuthentication(subject: String): UsernamePasswordAuthenticationToken {
