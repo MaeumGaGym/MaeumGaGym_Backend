@@ -39,8 +39,7 @@ class WakatimeController(
     }
 
     @Operation(summary = "와카타임 총시간 보기 API")
-    @GetMapping
-    @PostMapping("/total")
+    @GetMapping("/total")
     fun readTotalWakatime(): TotalWakatimeResponse =
         readWakatimeUseCase.readTotalSeconds()
 }
