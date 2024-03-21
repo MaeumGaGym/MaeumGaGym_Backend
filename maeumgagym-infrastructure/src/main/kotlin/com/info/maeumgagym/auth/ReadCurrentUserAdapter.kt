@@ -20,8 +20,8 @@ internal class ReadCurrentUserAdapter(
 
         JwtFilter.run {
             // Lazy Loading으로 Nullable인 User를 확인
-            if (this.authenticatedUser?.get() == null
-                || this.authenticatedUser?.get()?.oauthId != authentication!!.principal
+            if (this.authenticatedUser?.get() == null ||
+                this.authenticatedUser?.get()?.oauthId != authentication!!.principal
             ) {
                 // null인 경우 User를 Load 및 SecurityContext, authenticatedUser에 입력
                 SecurityContextHolder.getContext().authentication =
