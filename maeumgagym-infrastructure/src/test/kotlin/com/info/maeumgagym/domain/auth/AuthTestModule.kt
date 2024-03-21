@@ -3,6 +3,7 @@ package com.info.maeumgagym.domain.auth
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.mapper.UserMapper
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
 
 internal object AuthTestModule {
@@ -13,7 +14,13 @@ internal object AuthTestModule {
     fun UserJpaEntity.saveInContext(userMapper: UserMapper): UserJpaEntity =
         apply {
             SecurityContextHolder.getContext().authentication =
-                UsernamePasswordAuthenticationToken(this.oauthId, null)
+                UsernamePasswordAuthenticationToken(
+                    this.oauthId,
+                    null,
+                    this.roles.map {
+                        SimpleGrantedAuthority(it.name)
+                    }
+                )
         }
 
     /**
