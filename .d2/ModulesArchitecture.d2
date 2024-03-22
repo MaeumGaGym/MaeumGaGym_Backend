@@ -1,3 +1,4 @@
+direction: right
 vars: {
   implementsConnectionLabel: implements
   dependencyConnectionLabel: dependency
@@ -21,7 +22,7 @@ presentation: Presentation {
     stroke: "#F5E162"
   }
 
-  controller: Controller
+  controller: "<<Kotlin Class>>\nController"
 }
 
 presentation.controller -> core.useCase: {class: DependencyConnection}
@@ -35,8 +36,14 @@ core: Core {
   useCase: "<<Interface>>\nIn port\nUseCase"
   infraPort: "<<Interface>>\nOut port\nInfra Port"
   persistencePort: "<<Interface>>\nOut port\nPersistence Port"
+  model: "<<Data Class>>\nModel"
 
-  service: "UseCase Implements\nService"
+  service: "[internal]\n<<Kotlin Class>>\nUseCase Implements\nService" {
+    style: {
+      stroke-width: 5
+    }
+  }
+
   service -> useCase: {class: ImplementsConnection}
   service -> persistencePort: {class: DependencyConnection}
   service -> infraPort: {class: DependencyConnection}
@@ -53,13 +60,25 @@ application: Application {
       stroke-width: 5
     }
   }
-  mapper: Mapper
+  mapper: "[internal]\nMapper" {
+    style: {
+      stroke-width: 5
+    }
+  }
+  mapper -> entity: {class: DependencyConnection}
 
-  persistenceAdapter: PersistenceAdapter
+  entity: "<<Kotlin Class>>\nEntity"
+
+  persistenceAdapter: "[Internal]\n<<Kotlin Class>>\nPersistenceAdapter" {
+    style: {
+      stroke-width: 5
+    }
+  }
   persistenceAdapter -> repository: {class: DependencyConnection}
   persistenceAdapter -> mapper: {class: DependencyConnection}
 }
 application.persistenceAdapter -> core.persistencePort: {class: ImplementsConnection}
+application.mapper -> core.model: {class: DependencyConnection}
 
 infrastructure: Infrastructure {
   style: {
