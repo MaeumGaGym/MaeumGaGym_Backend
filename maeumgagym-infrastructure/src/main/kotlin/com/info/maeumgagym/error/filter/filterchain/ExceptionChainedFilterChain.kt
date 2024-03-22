@@ -10,9 +10,7 @@ class ExceptionChainedFilterChain(
 
     private var calledFilterChain: ThreadLocal<FilterChain>? = null
 
-    private var currentFilterIndex: ThreadLocal<Int> = ThreadLocal.withInitial {
-        -1
-    }
+    private var currentFilterIndex: ThreadLocal<Int> = ThreadLocal.withInitial { -1 }
 
     override fun getFilters(): Map<String, Filter> = filters
 
