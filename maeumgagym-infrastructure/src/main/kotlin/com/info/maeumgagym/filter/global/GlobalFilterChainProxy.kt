@@ -10,14 +10,16 @@ import javax.servlet.ServletResponse
  *
  * @see GlobalFilterChain
  *
+ * @param T 해당 Proxy 클래스가 대리하고 있는 FilterChain
+ *
  * @author Daybreak312
  * @since 21-03-2024
  */
-abstract class GlobalFilterChainProxy : GenericFilterBean() {
+abstract class GlobalFilterChainProxy<out T : GlobalFilterChain> : GenericFilterBean() {
 
-    protected abstract val filterChain: GlobalFilterChain
+    protected abstract val filterChain: T
 
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
-        filterChain.doFilter(request, response)
+        this.filterChain.doFilter(request, response)
     }
 }
