@@ -1,6 +1,6 @@
 package com.info.maeumgagym.security.config
 
-import com.info.maeumgagym.config.filter.SecurityFilterChainConfig
+import com.info.maeumgagym.filter.config.SecurityFilterChainConfig
 import com.info.maeumgagym.error.handler.CustomAccessDeniedHandler
 import com.info.maeumgagym.error.handler.CustomAuthenticationEntryPoint
 import com.info.maeumgagym.security.env.CSRFProperties

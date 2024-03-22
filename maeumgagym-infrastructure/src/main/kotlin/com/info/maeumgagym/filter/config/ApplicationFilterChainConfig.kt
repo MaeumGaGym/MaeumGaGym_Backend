@@ -1,4 +1,4 @@
-package com.info.maeumgagym.config.filter
+package com.info.maeumgagym.filter.config
 
 import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.error.filter.ErrorLogResponseFilter

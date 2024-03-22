@@ -1,9 +1,7 @@
-package com.info.maeumgagym.config.filter
+package com.info.maeumgagym.filter.config
 
 import com.info.maeumgagym.error.filter.ErrorLogResponseFilter
 import com.info.maeumgagym.error.filter.ExceptionConvertFilter
-import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
-import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
 import com.info.maeumgagym.security.jwt.AuthenticationProvider
 import com.info.maeumgagym.security.jwt.JwtFilter
 import com.info.maeumgagym.security.jwt.JwtResolver
@@ -19,9 +17,7 @@ import org.springframework.stereotype.Component
 class SecurityFilterChainConfig(
     private val jwtResolver: JwtResolver,
     private val jwtProperties: JwtProperties,
-    private val authenticationProvider: AuthenticationProvider,
-    private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
-    private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter
+    private val authenticationProvider: AuthenticationProvider
 ) : SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
 
     /**
