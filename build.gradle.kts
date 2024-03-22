@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version PluginVersions.JVM_VERSION
     id("org.jlleitschuh.gradle.ktlint") version PluginVersions.KLINT_VERSION
+    id("org.jetbrains.dokka") version "1.9.20"
 }
 
 subprojects {
@@ -13,6 +14,8 @@ subprojects {
         plugin("org.jetbrains.kotlin.kapt")
         version = PluginVersions.KAPT_VERSION
     }
+
+    apply(plugin = "org.jetbrains.dokka")
 
     dependencies {
 
