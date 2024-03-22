@@ -5,7 +5,7 @@ import javax.servlet.Filter
 import javax.servlet.FilterChain
 
 class ExceptionChainedFilterChain(
-    private val filters: Map<String, Filter>,
+    private val filters: Map<String, Filter>
 ) : ChainedFilterChain() {
 
     private var calledFilterChain: FilterChain? = null
