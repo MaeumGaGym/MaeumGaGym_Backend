@@ -4,29 +4,27 @@ import com.info.maeumgagym.common.exception.*
 import com.info.maeumgagym.error.vo.ErrorLog
 import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
-import org.apache.catalina.core.ApplicationFilterChain
-import org.springframework.security.web.SecurityFilterChain
 import org.springframework.web.filter.OncePerRequestFilter
-import org.springframework.web.servlet.DispatcherServlet
 import org.springframework.web.util.NestedServletException
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 /**
- * [Exception]이 발생했을 때, [ErrorLog] 및 [ErrorLogResponse]를 작성
+ * [Exception]이 발생했을 때, 응답 및 로그를 작성
  *
  * [doFilter], 정확히는 [doFilterInternal]를 *try*문으로 감싸 실행.
  * 이후 발생한 모든 예외를 *catch*해 각 예외에 따라 [ErrorLog]및 그에 대한 Response를 작성.
  * @see [ErrorLogHttpServletResponseWriter]
  *
- * 원래 [DispatcherServlet] 통과 이후 발생한 예외는 [NestedServletException.cause]로 감싸져 *throw*되지만, [ExceptionConvertFilter]에서 이를 [MaeumGaGymException]의 하위 타입으로 변환함. 자세한 것은 [ExceptionConvertFilter] 참조.
+ * 원래 [org.springframework.web.servlet.DispatcherServlet] 통과 이후 발생한 예외는 [NestedServletException.cause]로 감싸져 *throw*되지만, [ExceptionConvertFilter]에서 이를 [MaeumGaGymException]의 하위 타입으로 변환함. 자세한 것은 [ExceptionConvertFilter] 참조.
  *
- * 해당 *Filter*의 순서 설정 정보는 [FilterChainConfig]에 존재
- *
- * > 위의 사항이 기술적 문제로 잠시 반려되었습니다. 현재 [ApplicationFilterChain]이 아닌 [SecurityFilterChain]에 등록되어 있습니다.
+ * 해당 *Filter*의 순서 설정 정보는 [com.info.maeumgagym.config.config.ApplicationFilterChainConfig]에 존재
  *
  * @see ExceptionConvertFilter
+ *
+ * @author Daybreak312
+ * @since 22.02.2024
  */
 class ErrorLogResponseFilter(
     private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,

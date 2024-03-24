@@ -2,14 +2,9 @@ package com.info.maeumgagym.error.filter
 
 import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.common.exception.PresentationValidationException
-import com.info.maeumgagym.config.filter.FilterChainConfig
-import com.info.maeumgagym.error.vo.ErrorLog
-import org.apache.catalina.core.ApplicationFilterChain
-import org.springframework.security.web.SecurityFilterChain
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.MissingServletRequestParameterException
 import org.springframework.web.filter.GenericFilterBean
-import org.springframework.web.servlet.DispatcherServlet
 import org.springframework.web.util.NestedServletException
 import javax.servlet.FilterChain
 import javax.servlet.ServletRequest
@@ -19,10 +14,10 @@ import javax.validation.ConstraintViolationException
 /**
  * [doFilter]를 *try~catch*문으로 감싼 형태로 실행해 예외를 [MaeumGaGymException]으로 변환하는 작업을 실행
  *
- * [DispatcherServlet] 이후에 발생한 예외는 [NestedServletException.cause]로 감싸져 전달됨.
+ * [org.springframework.web.servlet.DispatcherServlet] 이후에 발생한 예외는 [NestedServletException.cause]로 감싸져 전달됨.
  * 이 예외의 타입을 확인하고 해당 타입에 맞는 다른 예외로 변환해 *throw*
  *
- * 이것의 [ErrorLog]와 [ErrorLogResponse]는 [ErrorLogResponseFilter]에서 처리함
+ * 이것에 대한 응답 및 로그 작성의 책임은 [ErrorLogResponseFilter]에서 담당
  *
  * ```
  * catch (e: [NestedServletException]) { ... }
@@ -31,13 +26,14 @@ import javax.validation.ConstraintViolationException
  * - Presentation 계층에서 Validation이 실패했을 경우 발생하는 예외 중 하나일 경우 [PresentationValidationException]으로 변환; 변환되는 타입 : [MethodArgumentNotValidException], [ConstraintViolationException], [MissingServletRequestParameterException]
  * - 그 외에는 그대로 변환
  *
- * 해당 *Filter*의 순서 설정 정보는 [FilterChainConfig]에 존재
- *
- * > 위의 사항이 기술적 문제로 잠시 반려되었습니다. 현재 [ApplicationFilterChain]이 아닌 [SecurityFilterChain]에 등록되어 있습니다.
+ * 해당 *Filter*의 순서 설정 정보는 [com.info.maeumgagym.config.config.ApplicationFilterChainConfig]에 존재
  *
  * @see ErrorLogResponseFilter
+ *
+ * @author Daybreak312
+ * @since 22.02.2024
  */
-class ExceptionConvertFilter() : GenericFilterBean() {
+class ExceptionConvertFilter : GenericFilterBean() {
 
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
         try {

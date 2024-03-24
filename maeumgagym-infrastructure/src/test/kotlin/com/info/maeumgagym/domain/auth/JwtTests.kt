@@ -7,6 +7,8 @@ import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.error.TestException
 import com.info.maeumgagym.security.jwt.JwtFilter
+import com.info.maeumgagym.security.jwt.env.JwtProperties
+import com.info.maeumgagym.security.jwt.impl.AuthenticationProviderImpl
 import com.info.maeumgagym.security.jwt.impl.JwtAdapter
 import com.info.maeumgagym.security.jwt.impl.JwtResolverImpl
 import com.info.maeumgagym.security.jwt.repository.AccessTokenRepository
@@ -24,13 +26,16 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 @SpringBootTest
 internal class JwtTests @Autowired constructor(
-    private val jwtFilter: JwtFilter,
     private val jwtAdapter: JwtAdapter,
     private val jwtResolver: JwtResolverImpl,
+    private val jwtProperties: JwtProperties,
+    private val authenticationProviderImpl: AuthenticationProviderImpl,
     private val accessTokenRepository: AccessTokenRepository,
     private val userRepository: UserRepository,
     private val refreshTokenRepository: RefreshTokenRepository
 ) {
+
+    private val jwtFilter: JwtFilter = JwtFilter(jwtResolver, authenticationProviderImpl, jwtProperties)
 
     private lateinit var user: UserJpaEntity
 

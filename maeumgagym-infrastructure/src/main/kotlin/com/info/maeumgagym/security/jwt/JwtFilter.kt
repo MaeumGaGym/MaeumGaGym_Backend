@@ -4,7 +4,6 @@ import com.info.maeumgagym.security.config.RequestPermitConfig
 import com.info.maeumgagym.security.jwt.env.JwtProperties
 import com.info.maeumgagym.user.model.User
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.stereotype.Component
 import org.springframework.util.AntPathMatcher
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletResponse
  *
  * @author Daybreak312, kanghyuk
  */
-@Component
 class JwtFilter(
     private val jwtResolver: JwtResolver,
     private val authenticationProvider: AuthenticationProvider,
