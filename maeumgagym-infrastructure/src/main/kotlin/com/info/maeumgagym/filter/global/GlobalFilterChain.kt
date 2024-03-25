@@ -16,19 +16,14 @@ import javax.servlet.ServletResponse
 interface GlobalFilterChain : FilterChain {
 
     /**
+     * FilterChain 내부의 Filter들을 순회 작동
+     */
+    override fun doFilter(request: ServletRequest, response: ServletResponse)
+
+    /**
      * FilterChain에 포함된 Filter들을 반환
      *
      * @return Filter의 BeanName 혹은 ClassName과 Filter 객체의 Map 컬렉션
      */
     fun getFilters(): Map<String, Filter>
-
-    /**
-     * @return 호출 시점에, 가장 마지막으로 실행한 Filter의 Index 반환
-     */
-    fun getCurrentFilterIndex(): Int
-
-    /**
-     * FilterChain 내부의 Filter들을 순회 작동
-     */
-    override fun doFilter(request: ServletRequest, response: ServletResponse)
 }

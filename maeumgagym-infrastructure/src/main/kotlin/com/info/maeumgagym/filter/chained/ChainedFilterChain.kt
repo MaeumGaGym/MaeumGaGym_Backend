@@ -46,50 +46,11 @@ import javax.servlet.ServletResponse
  */
 abstract class ChainedFilterChain : GlobalFilterChain {
 
-    /**
-     * @return 이 FilterChain을 호출한 FilterChain을 반환
-     */
-    protected abstract fun getCalledFilterChain(): FilterChain?
+    protected var calledFilterChain: ThreadLocal<FilterChain?> = ThreadLocal()
 
-    /**
-     * FilterChain을 시작하기 전에, 이 FilterChain을 호출한 FilterChain 정보를 설정하는 메소드
-     */
-    protected abstract fun setCalledFilterChain(filterChain: FilterChain)
+    protected var currentFilterIndex: ThreadLocal<Int> = ThreadLocal.withInitial { -1 }
 
-    /**
-     * FilterChain이 끝난 후, 다시 초기 상태로 되돌리는 메소드
-     */
-    protected abstract fun resetFilterChain()
-
-    /**
-     * FilterChain의 다음 Filter로 넘어가기 위해, 실행한 Filter의 Index를 담은 변수에 1 추가
-     */
-    protected abstract fun plusCurrentFilterIndex(): Int
-
-    /**
-     * @return [getCurrentFilterIndex]를 기반으로 현재 실행한 Filter를 반환
-     */
-    protected fun getCurrentFilter(): Filter =
-        this.getFilters()[this.getFilters().keys.toList()[this.getCurrentFilterIndex()]]!!
-
-    /**
-     * FilterChain 내부의 Filter들이 호출하는 메소드
-     */
-    override fun doFilter(request: ServletRequest, response: ServletResponse) {
-        if (this.getCalledFilterChain() == null) {
-            throw CriticalException(500, "ChainedFilterChain called with doesn't init CalledFilterChain")
-        }
-
-        val filters = this.getFilters()
-
-        if (this.getCurrentFilterIndex() == filters.size - 2) {
-            this.plusCurrentFilterIndex()
-            this.getCurrentFilter().doFilter(request, response, this.getCalledFilterChain())
-        } else {
-            this.plusCurrentFilterIndex()
-            this.getCurrentFilter().doFilter(request, response, this)
-        }
-    }
+    protected abstract val filters: Map<String, Filter>
 
     /**
      * 외부에서 이 FilterChain을 동작시킬 때 사용하는 메소드
@@ -97,8 +58,49 @@ abstract class ChainedFilterChain : GlobalFilterChain {
      * @param calledFilterChain 이 FilterChain을 호출한 FilterChain
      */
     fun doFilterChained(request: ServletRequest, response: ServletResponse, calledFilterChain: FilterChain) {
-        this.setCalledFilterChain(calledFilterChain)
-        this.doFilter(request, response)
-        this.resetFilterChain()
+        this.calledFilterChain.set(calledFilterChain)
+
+        doFilter(request, response)
+
+        resetFilterChain()
     }
+
+    /**
+     * FilterChain 내부의 Filter들이 호출하는 메소드
+     */
+    final override fun doFilter(request: ServletRequest, response: ServletResponse) {
+        if (calledFilterChain.get() == null) {
+            throw CriticalException(500, "ChainedFilterChain called with doesn't init CalledFilterChain")
+        }
+
+        plusCurrentFilterIndex()
+
+        if (currentFilterIndex.get() == filters.size - 2) {
+            getCurrentFilter().doFilter(request, response, calledFilterChain.get())
+        } else {
+            getCurrentFilter().doFilter(request, response, this)
+        }
+    }
+
+    /**
+     * FilterChain이 끝난 후, 다시 초기 상태로 되돌리는 메소드
+     */
+    private fun resetFilterChain() {
+        calledFilterChain.remove()
+        currentFilterIndex.set(-1)
+    }
+
+    /**
+     * FilterChain의 다음 Filter로 넘어가기 위해, 실행한 Filter의 Index를 담은 변수에 1 추가
+     */
+    private fun plusCurrentFilterIndex(): Int {
+        currentFilterIndex.set(this.currentFilterIndex.get() + 1)
+        return currentFilterIndex.get()
+    }
+
+    /**
+     * @return [getCurrentFilterIndex]를 기반으로 현재 실행한 Filter를 반환
+     */
+    private fun getCurrentFilter(): Filter =
+        filters[filters.keys.toList()[currentFilterIndex.get()]]!!
 }
