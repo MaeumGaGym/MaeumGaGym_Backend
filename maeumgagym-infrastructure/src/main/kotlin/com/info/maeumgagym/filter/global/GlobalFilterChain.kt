@@ -25,5 +25,5 @@ interface GlobalFilterChain : FilterChain {
      *
      * @return Filter의 BeanName 혹은 ClassName과 Filter 객체의 Map 컬렉션
      */
-    fun getFilters(): Map<String, Filter>
+    fun getFilterList(): Map<String, Filter>
 }

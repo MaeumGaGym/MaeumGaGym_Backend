@@ -7,5 +7,5 @@ class ExceptionChainedFilterChain(
     override val filters: Map<String, Filter>
 ) : ChainedFilterChain() {
 
-    override fun getFilters(): Map<String, Filter> = filters
+    override fun getFilterList(): Map<String, Filter> = filters
 }
