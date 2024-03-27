@@ -62,11 +62,6 @@ class ApplicationFilterChainConfig(
         return bean
     }
 
-    @Bean
-    fun asddf() {
-        println(servletContext.filterRegistrations.toString())
-    }
-
     /**
      * [filtersOrderList]에 등록된 [Filter] 순서의 정수형 정보 반환.
      *
