@@ -75,7 +75,7 @@ abstract class ChainedFilterChain : GlobalFilterChain {
 
         plusCurrentFilterIndex()
 
-        if (currentFilterIndex.get() == filters.size - 2) {
+        if (currentFilterIndex.get() == filters.size - 1) {
             getCurrentFilter().doFilter(request, response, calledFilterChain.get())
         } else {
             getCurrentFilter().doFilter(request, response, this)
