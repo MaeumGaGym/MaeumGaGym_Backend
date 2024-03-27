@@ -73,7 +73,7 @@ class ErrorLogResponseFilter(
                     exceptionClassName = javaClass.name,
                     errorOccurredClassName = stackTrace[2].className + " or " + stackTrace[1].className,
                     status = status,
-                    message = fields.map {
+                    message = "$message, " + fields.map {
                         "${it.key}: ${it.value}"
                     }.toString()
                 )

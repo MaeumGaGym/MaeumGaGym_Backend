@@ -81,7 +81,7 @@ class ExceptionConvertFilter(
         } catch (e: DateTimeException) {
             throw PresentationValidationException(
                 status = 400,
-                message = e.message ?: "DateTime Format Wrong",
+                message = "DateTime Format Wrong",
                 fields = mapOf()
             )
         }
