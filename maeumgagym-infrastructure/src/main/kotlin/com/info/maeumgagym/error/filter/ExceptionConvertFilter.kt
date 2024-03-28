@@ -42,7 +42,7 @@ class ExceptionConvertFilter(
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
         try {
             chain.doFilter(request, response)
-            exceptionRepository.throwIt()
+            exceptionRepository.get()
         } catch (e: NestedServletException) {
             throw when (e.cause) {
                 is MaeumGaGymException -> e.cause as MaeumGaGymException

@@ -11,5 +11,5 @@ interface ExceptionRepository {
     fun save(e: Exception)
 
     @Throws(Exception::class)
-    fun throwIt()
+    fun get()
 }
