@@ -11,6 +11,7 @@ data class ErrorLog(
     val errorOccurredClassName: String,
     val status: Int = 500,
     val message: String? = null,
+    val map: Map<String, String> = mapOf(),
     val timestamp: LocalDateTime = LocalDateTime.now()
 ) {
     companion object {
@@ -21,9 +22,8 @@ data class ErrorLog(
                         exceptionClassName = javaClass.name,
                         errorOccurredClassName = stackTrace[2].className + " or " + stackTrace[1].className,
                         status = status,
-                        message = "$message, " + fields.map {
-                            "${it.key}: ${it.value}"
-                        }.toString()
+                        message = message,
+                        map = fields
                     )
                 }
 

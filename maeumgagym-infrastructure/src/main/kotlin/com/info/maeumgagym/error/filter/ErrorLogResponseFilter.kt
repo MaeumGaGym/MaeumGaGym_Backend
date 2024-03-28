@@ -57,13 +57,13 @@ class ErrorLogResponseFilter(
             e.printStackTrace()
         }
 
-        errorLogHttpServletResponseWriter.writeResponseWithErrorLogAndException(response, errorLog, e)
+        errorLogHttpServletResponseWriter.writeResponseWithErrorLog(response, errorLog)
     }
 
     private fun resolveUnknownException(e: Exception, response: HttpServletResponse) {
         e.printStackTrace()
         val errorLog = printErrorLogAndReturn(e)
-        errorLogHttpServletResponseWriter.writeResponseWithErrorLogAndException(response, errorLog, e)
+        errorLogHttpServletResponseWriter.writeResponseWithErrorLog(response, errorLog)
     }
 
     private fun isOkStatus(status: Int): Boolean =
