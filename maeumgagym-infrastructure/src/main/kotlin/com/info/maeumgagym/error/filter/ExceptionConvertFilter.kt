@@ -2,7 +2,6 @@ package com.info.maeumgagym.error.filter
 
 import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.common.exception.PresentationValidationException
-import com.info.maeumgagym.error.repository.ExceptionRepository
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.MissingServletRequestParameterException
 import org.springframework.web.filter.GenericFilterBean
@@ -35,14 +34,11 @@ import javax.validation.ConstraintViolationException
  * @author Daybreak312
  * @since 22.02.2024
  */
-class ExceptionConvertFilter(
-    private val exceptionRepository: ExceptionRepository
-) : GenericFilterBean() {
+class ExceptionConvertFilter : GenericFilterBean() {
 
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
         try {
             chain.doFilter(request, response)
-            exceptionRepository.get()
         } catch (e: NestedServletException) {
             throw when (e.cause) {
                 is MaeumGaGymException -> e.cause as MaeumGaGymException
