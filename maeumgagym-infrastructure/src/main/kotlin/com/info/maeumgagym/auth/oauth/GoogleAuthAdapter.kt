@@ -26,7 +26,9 @@ internal class GoogleAuthAdapter(
             accessToken
         ).toResponse()
     } catch (e: FeignException) {
-        throw if (e == FeignException.FEIGN_UNAUTHORIZED) {
+        throw if (e.message == FeignException.FEIGN_UNAUTHORIZED.message ||
+            e.message == FeignException.FEIGN_FORBIDDEN.message
+        ) {
             SecurityException.INVALID_TOKEN
         } else {
             MaeumGaGymException.INTERNAL_SERVER_ERROR

@@ -1,10 +1,10 @@
 package com.info.maeumgagym.controller.auth
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.controller.auth.dto.ReissueWebRequest
 import com.info.maeumgagym.auth.port.`in`.DuplicatedNicknameCheckUseCase
 import com.info.maeumgagym.auth.port.`in`.ReissueUseCase
 import com.info.maeumgagym.auth.port.`in`.WithdrawalUserUseCase
+import com.info.maeumgagym.controller.auth.dto.ReissueWebRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpHeaders
