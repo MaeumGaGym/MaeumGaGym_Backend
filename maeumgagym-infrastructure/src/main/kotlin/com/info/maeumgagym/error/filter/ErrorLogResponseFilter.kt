@@ -39,23 +39,31 @@ class ErrorLogResponseFilter(
         try {
             filterChain.doFilter(request, response)
         } catch (e: MaeumGaGymException) {
-            if (isOkStatus(e.status)) {
-                defaultHttpServletResponseWriter.doDefaultSettingWithStatusCode(response, e.status)
-                return
-            }
-
-            val errorLog = printErrorLogAndReturn(e)
-
-            if (isUnknownMaeumGaGymException(e)) {
-                e.printStackTrace()
-            }
-
-            errorLogHttpServletResponseWriter.writeResponseWithErrorLogAndException(response, errorLog, e)
+            resolveMaeumGaGymException(e, response)
         } catch (e: Exception) {
-            e.printStackTrace()
-            val errorLog = printErrorLogAndReturn(e)
-            errorLogHttpServletResponseWriter.writeResponseWithErrorLogAndException(response, errorLog, e)
+            resolveUnknownException(e, response)
         }
+    }
+
+    private fun resolveMaeumGaGymException(e: MaeumGaGymException, response: HttpServletResponse) {
+        if (isOkStatus(e.status)) {
+            defaultHttpServletResponseWriter.doDefaultSettingWithStatusCode(response, e.status)
+            return
+        }
+
+        val errorLog = printErrorLogAndReturn(e)
+
+        if (isUnknownMaeumGaGymException(e)) {
+            e.printStackTrace()
+        }
+
+        errorLogHttpServletResponseWriter.writeResponseWithErrorLogAndException(response, errorLog, e)
+    }
+
+    private fun resolveUnknownException(e: Exception, response: HttpServletResponse) {
+        e.printStackTrace()
+        val errorLog = printErrorLogAndReturn(e)
+        errorLogHttpServletResponseWriter.writeResponseWithErrorLogAndException(response, errorLog, e)
     }
 
     private fun isOkStatus(status: Int): Boolean =
@@ -67,38 +75,8 @@ class ErrorLogResponseFilter(
             e !is AuthenticationException && e !is PresentationValidationException
 
     private fun printErrorLogAndReturn(e: Exception): ErrorLog {
-        when (e) {
-            is PresentationValidationException -> e.run {
-                ErrorLog(
-                    exceptionClassName = javaClass.name,
-                    errorOccurredClassName = stackTrace[2].className + " or " + stackTrace[1].className,
-                    status = status,
-                    message = "$message, " + fields.map {
-                        "${it.key}: ${it.value}"
-                    }.toString()
-                )
-            }
-
-            is MaeumGaGymException -> e.run {
-                ErrorLog(
-                    exceptionClassName = javaClass.name,
-                    errorOccurredClassName = stackTrace[2].className + " or " + stackTrace[1].className,
-                    status = status,
-                    message = message
-                )
-            }
-
-            else -> e.run {
-                ErrorLog(
-                    exceptionClassName = javaClass.name,
-                    errorOccurredClassName = stackTrace[2].className + " or " + stackTrace[1].className,
-                    message = message
-                )
-            }
-        }.run {
-            logger.info(
-                "[$id] $status : \"$message\" in $errorOccurredClassName cause $exceptionClassName"
-            )
+        ErrorLog.of(e).run {
+            logger.info(this.toString())
             return this
         }
     }
