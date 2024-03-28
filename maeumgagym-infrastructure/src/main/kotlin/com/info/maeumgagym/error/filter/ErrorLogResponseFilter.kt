@@ -61,8 +61,10 @@ class ErrorLogResponseFilter(
     }
 
     private fun resolveUnknownException(e: Exception, response: HttpServletResponse) {
-        e.printStackTrace()
         val errorLog = printErrorLogAndReturn(e)
+
+        e.printStackTrace()
+
         errorLogHttpServletResponseWriter.writeResponseWithErrorLog(response, errorLog)
     }
 
