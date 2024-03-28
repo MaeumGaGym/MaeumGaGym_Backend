@@ -9,7 +9,6 @@ import com.info.maeumgagym.error.repository.ExceptionRepository
 import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
 import org.springframework.boot.web.servlet.FilterRegistrationBean
-import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import javax.servlet.Filter
 import javax.servlet.ServletContext
@@ -39,7 +38,7 @@ class ApplicationFilterChainConfig(
         ExceptionChainedFilterChainProxy::class.java
     )
 
-    @Bean
+    //@Bean
     fun exceptionChainedFilterChainProxyConfig(): FilterRegistrationBean<ExceptionChainedFilterChainProxy> {
         val filterChain = ExceptionChainedFilterChain(
             mapOf(
