@@ -45,11 +45,15 @@ class ApplicationFilterChainConfig(
             mapOf(
                 Pair(
                     ErrorLogResponseFilter::class.simpleName!!,
-                    ErrorLogResponseFilter(defaultHttpServletResponseWriter, errorLogHttpServletResponseWriter)
+                    ErrorLogResponseFilter(
+                        defaultHttpServletResponseWriter,
+                        errorLogHttpServletResponseWriter,
+                        exceptionRepository
+                    )
                 ),
                 Pair(
                     ExceptionConvertFilter::class.simpleName!!,
-                    ExceptionConvertFilter(exceptionRepository)
+                    ExceptionConvertFilter()
                 )
             )
         )
