@@ -44,9 +44,9 @@ class ErrorLogResponseFilter(
             resolveMaeumGaGymException(e, response)
         } catch (e: Exception) {
             resolveUnknownException(e, response)
+        } finally {
+            resolveExceptionRepositoryException(response)
         }
-        
-        resolveExceptionRepositoryException(response)
     }
 
     private fun resolveExceptionRepositoryException(response: HttpServletResponse) {
