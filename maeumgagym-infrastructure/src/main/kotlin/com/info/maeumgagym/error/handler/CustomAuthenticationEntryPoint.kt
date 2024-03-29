@@ -27,6 +27,5 @@ class CustomAuthenticationEntryPoint(
         } catch (e: AuthenticationException) {
             exceptionRepository.save(e)
         }
-
     }
 }
