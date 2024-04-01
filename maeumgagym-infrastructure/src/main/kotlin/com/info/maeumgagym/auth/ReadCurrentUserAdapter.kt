@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component
 
 @Component
 internal class ReadCurrentUserAdapter(
-    private val readUserPort: ReadUserPort,
     private val authenticationProvider: AuthenticationProvider
 ) : ReadCurrentUserPort {
 
