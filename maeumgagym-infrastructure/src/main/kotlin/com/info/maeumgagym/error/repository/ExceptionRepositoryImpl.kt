@@ -17,9 +17,11 @@ private class ExceptionRepositoryImpl : ExceptionRepository {
         this.throwable.set(e)
     }
 
-    override fun get(): Exception? {
-        return this.throwable.get()?.apply {
+    @Throws(Exception::class)
+    override fun throwIt() {
+        this.throwable.get()?.apply {
             this@ExceptionRepositoryImpl.throwable.remove()
+            throw this
         }
     }
 }
