@@ -51,7 +51,9 @@ class SecurityFilterChainConfig(
                             ),
                             Pair(
                                 ExceptionConvertFilter::class.simpleName!!,
-                                ExceptionConvertFilter()
+                                ExceptionConvertFilter(
+                                    exceptionRepository
+                                )
                             )
                         )
                     )

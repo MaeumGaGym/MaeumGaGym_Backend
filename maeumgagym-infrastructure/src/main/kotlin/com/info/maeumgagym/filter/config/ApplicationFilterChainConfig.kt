@@ -5,6 +5,7 @@ import com.info.maeumgagym.error.filter.ErrorLogResponseFilter
 import com.info.maeumgagym.error.filter.ExceptionConvertFilter
 import com.info.maeumgagym.error.filter.filterchain.ExceptionChainedFilterChain
 import com.info.maeumgagym.error.filter.filterchain.ExceptionChainedFilterChainProxy
+import com.info.maeumgagym.error.repository.ExceptionRepository
 import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
 import org.springframework.boot.web.servlet.FilterRegistrationBean
@@ -22,7 +23,8 @@ import javax.servlet.ServletContext
 class ApplicationFilterChainConfig(
     private val servletContext: ServletContext,
     private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
-    private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter
+    private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter,
+    private val exceptionRepository: ExceptionRepository
 ) {
 
     /**
@@ -42,11 +44,16 @@ class ApplicationFilterChainConfig(
             mapOf(
                 Pair(
                     ErrorLogResponseFilter::class.simpleName!!,
-                    ErrorLogResponseFilter(defaultHttpServletResponseWriter, errorLogHttpServletResponseWriter)
+                    ErrorLogResponseFilter(
+                        defaultHttpServletResponseWriter,
+                        errorLogHttpServletResponseWriter
+                    )
                 ),
                 Pair(
                     ExceptionConvertFilter::class.simpleName!!,
-                    ExceptionConvertFilter()
+                    ExceptionConvertFilter(
+                        exceptionRepository
+                    )
                 )
             )
         )
