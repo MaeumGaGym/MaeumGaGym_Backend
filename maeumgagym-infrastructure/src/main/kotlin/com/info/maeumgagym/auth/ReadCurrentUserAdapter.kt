@@ -4,13 +4,11 @@ import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.security.jwt.AuthenticationProvider
 import com.info.maeumgagym.security.jwt.JwtFilter
 import com.info.maeumgagym.user.model.User
-import com.info.maeumgagym.user.port.out.ReadUserPort
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 
 @Component
 internal class ReadCurrentUserAdapter(
-    private val readUserPort: ReadUserPort,
     private val authenticationProvider: AuthenticationProvider
 ) : ReadCurrentUserPort {
 
