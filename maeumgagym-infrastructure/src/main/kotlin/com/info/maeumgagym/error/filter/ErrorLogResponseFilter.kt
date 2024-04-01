@@ -1,7 +1,6 @@
 package com.info.maeumgagym.error.filter
 
 import com.info.maeumgagym.common.exception.*
-import com.info.maeumgagym.error.repository.ExceptionRepository
 import com.info.maeumgagym.error.vo.ErrorLog
 import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
@@ -29,8 +28,7 @@ import javax.servlet.http.HttpServletResponse
  */
 class ErrorLogResponseFilter(
     private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
-    private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter,
-    private val exceptionRepository: ExceptionRepository
+    private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
@@ -44,17 +42,6 @@ class ErrorLogResponseFilter(
             resolveMaeumGaGymException(e, response)
         } catch (e: Exception) {
             resolveUnknownException(e, response)
-        } finally {
-            resolveExceptionRepositoryException(response)
-        }
-    }
-
-    private fun resolveExceptionRepositoryException(response: HttpServletResponse) {
-        val e = exceptionRepository.get() ?: return
-
-        when (e) {
-            is MaeumGaGymException -> resolveMaeumGaGymException(e, response)
-            else -> resolveUnknownException(e, response)
         }
     }
 

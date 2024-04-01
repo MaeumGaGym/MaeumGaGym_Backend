@@ -46,13 +46,14 @@ class ApplicationFilterChainConfig(
                     ErrorLogResponseFilter::class.simpleName!!,
                     ErrorLogResponseFilter(
                         defaultHttpServletResponseWriter,
-                        errorLogHttpServletResponseWriter,
-                        exceptionRepository
+                        errorLogHttpServletResponseWriter
                     )
                 ),
                 Pair(
                     ExceptionConvertFilter::class.simpleName!!,
-                    ExceptionConvertFilter()
+                    ExceptionConvertFilter(
+                        exceptionRepository
+                    )
                 )
             )
         )

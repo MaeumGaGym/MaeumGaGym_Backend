@@ -2,6 +2,7 @@ package com.info.maeumgagym.error.filter
 
 import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.common.exception.PresentationValidationException
+import com.info.maeumgagym.error.repository.ExceptionRepository
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.MissingServletRequestParameterException
 import org.springframework.web.filter.GenericFilterBean
@@ -27,18 +28,21 @@ import javax.validation.ConstraintViolationException
  * - Presentation 계층에서 Validation이 실패했을 경우 발생하는 예외 중 하나일 경우 [PresentationValidationException]으로 변환; 변환되는 타입 : [MethodArgumentNotValidException], [ConstraintViolationException], [MissingServletRequestParameterException]
  * - 그 외에는 그대로 변환
  *
- * 해당 *Filter*의 순서 설정 정보는 [com.info.maeumgagym.config.config.ApplicationFilterChainConfig]에 존재
+ * 해당 *Filter*의 순서 설정 정보는 [com.info.maeumgagym.filter.config.ApplicationFilterChainConfig]에 존재
  *
  * @see ErrorLogResponseFilter
  *
  * @author Daybreak312
  * @since 22.02.2024
  */
-class ExceptionConvertFilter : GenericFilterBean() {
+class ExceptionConvertFilter(
+    private val exceptionRepository: ExceptionRepository
+) : GenericFilterBean() {
 
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
         try {
             chain.doFilter(request, response)
+            exceptionRepository.throwIt()
         } catch (e: NestedServletException) {
             throw when (e.cause) {
                 is MaeumGaGymException -> e.cause as MaeumGaGymException
