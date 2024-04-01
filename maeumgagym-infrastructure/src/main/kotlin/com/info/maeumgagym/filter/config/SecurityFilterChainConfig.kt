@@ -4,7 +4,6 @@ import com.info.maeumgagym.error.filter.ErrorLogResponseFilter
 import com.info.maeumgagym.error.filter.ExceptionConvertFilter
 import com.info.maeumgagym.error.filter.filterchain.ExceptionChainedFilterChain
 import com.info.maeumgagym.error.filter.filterchain.ExceptionChainedFilterChainProxy
-import com.info.maeumgagym.error.repository.ExceptionRepository
 import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
 import com.info.maeumgagym.security.jwt.AuthenticationProvider
@@ -24,8 +23,7 @@ class SecurityFilterChainConfig(
     private val jwtProperties: JwtProperties,
     private val authenticationProvider: AuthenticationProvider,
     private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
-    private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter,
-    private val exceptionRepository: ExceptionRepository
+    private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter
 ) : SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
 
     /**
@@ -48,8 +46,7 @@ class SecurityFilterChainConfig(
                                 ErrorLogResponseFilter::class.simpleName!!,
                                 ErrorLogResponseFilter(
                                     defaultHttpServletResponseWriter,
-                                    errorLogHttpServletResponseWriter,
-                                    exceptionRepository
+                                    errorLogHttpServletResponseWriter
                                 )
                             ),
                             Pair(
