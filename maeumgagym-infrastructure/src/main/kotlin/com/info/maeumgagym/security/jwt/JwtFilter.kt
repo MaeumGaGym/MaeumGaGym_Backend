@@ -1,5 +1,6 @@
 package com.info.maeumgagym.security.jwt
 
+import com.info.maeumgagym.security.authentication.AuthenticationProvider
 import com.info.maeumgagym.security.config.RequestPermitConfig
 import com.info.maeumgagym.security.jwt.env.JwtProperties
 import com.info.maeumgagym.user.model.User

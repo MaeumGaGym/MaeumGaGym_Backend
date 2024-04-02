@@ -8,7 +8,7 @@ import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.error.TestException
 import com.info.maeumgagym.security.jwt.JwtFilter
 import com.info.maeumgagym.security.jwt.env.JwtProperties
-import com.info.maeumgagym.security.jwt.impl.AuthenticationProviderImpl
+import com.info.maeumgagym.security.authentication.impl.AuthenticationProviderImpl
 import com.info.maeumgagym.security.jwt.impl.JwtAdapter
 import com.info.maeumgagym.security.jwt.impl.JwtResolverImpl
 import com.info.maeumgagym.security.jwt.repository.AccessTokenRepository

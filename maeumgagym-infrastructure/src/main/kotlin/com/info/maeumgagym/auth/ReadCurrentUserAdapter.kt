@@ -1,7 +1,7 @@
 package com.info.maeumgagym.auth
 
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.security.jwt.AuthenticationProvider
+import com.info.maeumgagym.security.authentication.AuthenticationProvider
 import com.info.maeumgagym.security.jwt.JwtFilter
 import com.info.maeumgagym.user.model.User
 import org.springframework.security.core.context.SecurityContextHolder
