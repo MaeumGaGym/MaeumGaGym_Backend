@@ -5,6 +5,7 @@ import com.info.maeumgagym.pose.dto.response.PoseDetailResponse
 import com.info.maeumgagym.pose.dto.response.PoseListResponse
 import com.info.maeumgagym.pose.port.`in`.ReadPoseFromIdUseCase
 import com.info.maeumgagym.pose.port.`in`.ReadPoseFromTagUseCase
+import com.info.maeumgagym.pose.port.`in`.ReadPosesRecommendationUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.validation.annotation.Validated
@@ -23,7 +24,8 @@ import javax.validation.constraints.Size
 @Validated
 class PoseController(
     private val readPoseFromIdUseCase: ReadPoseFromIdUseCase,
-    private val readPoseFromTagUseCase: ReadPoseFromTagUseCase
+    private val readPoseFromTagUseCase: ReadPoseFromTagUseCase,
+    private val readPosesRecommendationUseCase: ReadPosesRecommendationUseCase
 ) {
 
     @Operation(summary = "자세 id 조회 API")
@@ -36,7 +38,7 @@ class PoseController(
     ): PoseDetailResponse = readPoseFromIdUseCase.detailResponseById(id)
 
     @Operation(summary = "자세 태그 조회 API")
-    @GetMapping
+    @GetMapping("/tag")
     fun readFromTag(
         @RequestParam
         @Size(min = 1, max = 20)
@@ -45,4 +47,9 @@ class PoseController(
         tag: String
     ): PoseListResponse =
         readPoseFromTagUseCase.readFromTag(tag)
+
+    @Operation(summary = "자세 추천 조회 API")
+    @GetMapping
+    fun readRecommendation(): PoseListResponse =
+        readPosesRecommendationUseCase.readRecommendation()
 }
