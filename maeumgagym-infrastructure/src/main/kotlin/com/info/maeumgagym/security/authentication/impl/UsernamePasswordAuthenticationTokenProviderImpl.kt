@@ -1,7 +1,7 @@
 package com.info.maeumgagym.security.authentication.impl
 
 import com.info.maeumgagym.common.exception.CriticalException
-import com.info.maeumgagym.security.authentication.UsernamePasswordAuthenticationProvider
+import com.info.maeumgagym.security.authentication.UsernamePasswordAuthenticationTokenProvider
 import com.info.maeumgagym.security.jwt.JwtFilter
 import com.info.maeumgagym.user.port.out.ReadUserPort
 import org.springframework.context.annotation.Primary
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component
 @Component
 class UsernamePasswordAuthenticationTokenProviderImpl(
     private val readUserPort: ReadUserPort
-) : UsernamePasswordAuthenticationProvider {
+) : UsernamePasswordAuthenticationTokenProvider {
 
     override fun getAuthentication(subject: String): UsernamePasswordAuthenticationToken {
         // User가 필요한 경우 불러와 전역적으로 저장

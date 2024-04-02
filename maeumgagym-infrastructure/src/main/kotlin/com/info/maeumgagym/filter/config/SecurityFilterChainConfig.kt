@@ -7,7 +7,7 @@ import com.info.maeumgagym.error.filter.filterchain.ExceptionChainedFilterChainP
 import com.info.maeumgagym.error.repository.ExceptionRepository
 import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
-import com.info.maeumgagym.security.authentication.AuthenticationProvider
+import com.info.maeumgagym.security.authentication.UsernamePasswordAuthenticationTokenProvider
 import com.info.maeumgagym.security.jwt.JwtFilter
 import com.info.maeumgagym.security.jwt.JwtResolver
 import com.info.maeumgagym.security.jwt.env.JwtProperties
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component
 class SecurityFilterChainConfig(
     private val jwtResolver: JwtResolver,
     private val jwtProperties: JwtProperties,
-    private val authenticationProvider: AuthenticationProvider,
+    private val authenticationProvider: UsernamePasswordAuthenticationTokenProvider,
     private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
     private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter,
     private val exceptionRepository: ExceptionRepository

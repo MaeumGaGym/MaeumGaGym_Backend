@@ -1,6 +1,6 @@
 package com.info.maeumgagym.security.jwt
 
-import com.info.maeumgagym.security.authentication.AuthenticationProvider
+import com.info.maeumgagym.security.authentication.UsernamePasswordAuthenticationTokenProvider
 import com.info.maeumgagym.security.config.RequestPermitConfig
 import com.info.maeumgagym.security.jwt.env.JwtProperties
 import com.info.maeumgagym.user.model.User
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse
  */
 class JwtFilter(
     private val jwtResolver: JwtResolver,
-    private val authenticationProvider: AuthenticationProvider,
+    private val authenticationProvider: UsernamePasswordAuthenticationTokenProvider,
     private val jwtProperties: JwtProperties
 ) : OncePerRequestFilter() {
 
