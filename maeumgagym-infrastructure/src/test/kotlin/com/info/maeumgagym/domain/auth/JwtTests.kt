@@ -6,9 +6,9 @@ import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
 import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.error.TestException
+import com.info.maeumgagym.security.authentication.impl.UsernamePasswordAuthenticationTokenProviderImpl
 import com.info.maeumgagym.security.jwt.JwtFilter
 import com.info.maeumgagym.security.jwt.env.JwtProperties
-import com.info.maeumgagym.security.authentication.impl.AuthenticationProviderImpl
 import com.info.maeumgagym.security.jwt.impl.JwtAdapter
 import com.info.maeumgagym.security.jwt.impl.JwtResolverImpl
 import com.info.maeumgagym.security.jwt.repository.AccessTokenRepository
@@ -29,13 +29,13 @@ internal class JwtTests @Autowired constructor(
     private val jwtAdapter: JwtAdapter,
     private val jwtResolver: JwtResolverImpl,
     private val jwtProperties: JwtProperties,
-    private val authenticationProviderImpl: AuthenticationProviderImpl,
+    private val usernamePasswordAuthenticationTokenProviderImpl: UsernamePasswordAuthenticationTokenProviderImpl,
     private val accessTokenRepository: AccessTokenRepository,
     private val userRepository: UserRepository,
     private val refreshTokenRepository: RefreshTokenRepository
 ) {
 
-    private val jwtFilter: JwtFilter = JwtFilter(jwtResolver, authenticationProviderImpl, jwtProperties)
+    private val jwtFilter: JwtFilter = JwtFilter(jwtResolver, usernamePasswordAuthenticationTokenProviderImpl, jwtProperties)
 
     private lateinit var user: UserJpaEntity
 
