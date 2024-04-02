@@ -11,7 +11,7 @@ class ReadPosesRecommendationService(
 ) : ReadPosesRecommendationUseCase {
 
     override fun readRecommendation(): PoseListResponse {
-        val poses = readPosePort.readAllLimit10()
+        val poses = readPosePort.readAllRandomLimit10()
 
         return PoseListResponse(
             poses.map {

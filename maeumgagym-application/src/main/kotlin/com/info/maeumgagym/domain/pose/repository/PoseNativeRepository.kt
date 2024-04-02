@@ -23,5 +23,5 @@ interface PoseNativeRepository : Repository<PoseJpaEntity, Long?> {
             "LIMIT 10",
         nativeQuery = true
     )
-    fun findAllLimit10(): List<PoseJpaEntity>
+    fun readAllRandomLimit10(): List<PoseJpaEntity>
 }
