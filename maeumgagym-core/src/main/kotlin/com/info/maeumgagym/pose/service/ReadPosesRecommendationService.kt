@@ -36,7 +36,7 @@ class ReadPosesRecommendationService(
 
         return PoseRecommendationListResponse(
             recommendationPoses.map {
-                Pair(it.key, it.value.map { it.toInfoResponse() })
+                Pair(it.key, it.value.map { pose -> pose.toInfoResponse() })
             }.associate {
                 Pair(it.first, PoseListResponse(it.second))
             }
