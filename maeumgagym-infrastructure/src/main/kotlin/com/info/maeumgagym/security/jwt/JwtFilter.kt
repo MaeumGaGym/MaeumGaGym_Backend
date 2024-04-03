@@ -26,7 +26,7 @@ class JwtFilter(
 
     companion object {
         // 현재 요청에서 인증한 User를 전역적으로 저장, 필요 여부에 따라 Nullable
-        internal var authenticatedUser: ThreadLocal<User>? = null
+        internal var authenticatedUser: ThreadLocal<User> = ThreadLocal()
     }
 
     private var antPathMatcher: AntPathMatcher = AntPathMatcher()
@@ -57,7 +57,7 @@ class JwtFilter(
             filterChain.doFilter(request, response)
         } finally {
             // Filter가 종료되면 User 정보를 초기화
-            authenticatedUser = null
+            authenticatedUser.remove()
         }
     }
 

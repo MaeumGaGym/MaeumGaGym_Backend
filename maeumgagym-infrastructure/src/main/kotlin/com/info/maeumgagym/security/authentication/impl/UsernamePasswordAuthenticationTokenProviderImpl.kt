@@ -23,16 +23,16 @@ class UsernamePasswordAuthenticationTokenProviderImpl(
 
     override fun getAuthentication(subject: String): UsernamePasswordAuthenticationToken {
         // User가 필요한 경우 불러와 전역적으로 저장
-        JwtFilter.authenticatedUser = ThreadLocal.withInitial {
+        JwtFilter.authenticatedUser.set(
             readUserPort.readByOAuthId(subject)
-                ?: throw CriticalException(500, "User Not Found In UsernamePasswordAuthenticationTokenProvider")
-        }
+                ?: throw CriticalException(500, "User Not Found In ${this::class.simpleName}")
+        )
 
         // Authentication에 subject를 넣어 반환
         return UsernamePasswordAuthenticationToken(
             subject,
             null,
-            JwtFilter.authenticatedUser?.get()?.roles?.map {
+            JwtFilter.authenticatedUser.get()?.roles?.map {
                 SimpleGrantedAuthority(it.name)
             }
         )
