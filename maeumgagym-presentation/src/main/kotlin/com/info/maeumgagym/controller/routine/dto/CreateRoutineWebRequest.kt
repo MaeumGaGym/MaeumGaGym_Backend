@@ -1,7 +1,7 @@
 package com.info.maeumgagym.controller.routine.dto
 
+import com.info.maeumgagym.routine.dto.ExerciseInfoDto
 import com.info.maeumgagym.routine.dto.request.CreateRoutineRequest
-import com.info.maeumgagym.routine.model.ExerciseInfoModel
 import java.time.DayOfWeek
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotEmpty
@@ -20,7 +20,7 @@ class CreateRoutineWebRequest(
 
     @field:NotNull(message = "null일 수 없습니다")
     @field:NotEmpty(message = "비어있을 수 없습니다")
-    val exerciseInfoModelList: MutableList<ExerciseInfoModel>?,
+    val exerciseInfoDtoList: MutableList<ExerciseInfoDto>?,
 
     val dayOfWeeks: MutableSet<DayOfWeek>?
 ) {
@@ -29,7 +29,7 @@ class CreateRoutineWebRequest(
         routineName!!,
         isArchived!!,
         isShared!!,
-        exerciseInfoModelList!!,
+        exerciseInfoDtoList!!,
         dayOfWeeks
     )
 }

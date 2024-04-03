@@ -40,7 +40,7 @@ internal class UpdateRoutineService(
                     id = id,
                     dayOfWeeks = req.dayOfWeeks,
                     routineStatusModel = RoutineStatusModel(isArchived = req.isArchived, isShared = req.isShared),
-                    exerciseInfoModelList = req.exerciseInfoModelList,
+                    exerciseInfoModelList = req.exerciseInfoDtoList.map { it.toModel() }.toMutableList(),
                     routineName = req.routineName,
                     userId = userId
                 )

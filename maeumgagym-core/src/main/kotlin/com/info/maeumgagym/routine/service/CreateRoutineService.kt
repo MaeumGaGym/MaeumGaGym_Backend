@@ -32,7 +32,7 @@ internal class CreateRoutineService(
             saveRoutinePort.save(
                 Routine(
                     routineName = routineName,
-                    exerciseInfoModelList = exerciseInfoModelList,
+                    exerciseInfoModelList = exerciseInfoDtoList.map { it.toModel() }.toMutableList(),
                     dayOfWeeks = dayOfWeeks,
                     routineStatusModel = RoutineStatusModel(
                         isArchived = isArchived,

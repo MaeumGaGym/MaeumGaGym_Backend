@@ -16,7 +16,7 @@ data class RoutineHistory(
         RoutineHistoryResponse(
             id = id!!,
             routineName = routineName,
-            exerciseInfoList = exerciseInfoList.map {
+            exerciseInfoDtoList = exerciseInfoList.map {
                 ExerciseInfoDto(
                     exerciseName = it.exerciseName,
                     repetitions = it.repetitions,
