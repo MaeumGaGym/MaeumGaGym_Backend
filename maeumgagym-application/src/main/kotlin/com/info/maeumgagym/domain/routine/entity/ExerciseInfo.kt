@@ -4,7 +4,7 @@ import javax.persistence.Embeddable
 
 @Embeddable
 data class ExerciseInfo(
-    var exerciseName: String,
+    var id: Long,
     var repetitions: Int,
     var sets: Int
 )
