@@ -11,6 +11,7 @@ import com.info.maeumgagym.security.authentication.UsernamePasswordAuthenticatio
 import com.info.maeumgagym.security.jwt.JwtFilter
 import com.info.maeumgagym.security.jwt.JwtResolver
 import com.info.maeumgagym.security.jwt.env.JwtProperties
+import com.info.maeumgagym.user.port.out.ReadUserPort
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.DefaultSecurityFilterChain
@@ -25,7 +26,8 @@ class SecurityFilterChainConfig(
     private val authenticationProvider: UsernamePasswordAuthenticationTokenProvider,
     private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
     private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter,
-    private val exceptionRepository: ExceptionRepository
+    private val exceptionRepository: ExceptionRepository,
+    private val readUserPort: ReadUserPort
 ) : SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
 
     /**
@@ -37,7 +39,7 @@ class SecurityFilterChainConfig(
     override fun configure(builder: HttpSecurity) {
         builder.run {
             addFilterBefore(
-                JwtFilter(jwtResolver, authenticationProvider, jwtProperties),
+                JwtFilter(jwtResolver, authenticationProvider, readUserPort, jwtProperties),
                 LogoutFilter::class.java
             )
             addFilterBefore(
