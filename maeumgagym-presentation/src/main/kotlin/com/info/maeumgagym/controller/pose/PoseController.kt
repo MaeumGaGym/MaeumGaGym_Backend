@@ -3,6 +3,7 @@ package com.info.maeumgagym.controller.pose
 import com.info.common.WebAdapter
 import com.info.maeumgagym.pose.dto.response.PoseDetailResponse
 import com.info.maeumgagym.pose.dto.response.PoseListResponse
+import com.info.maeumgagym.pose.dto.response.PoseRecommendationListResponse
 import com.info.maeumgagym.pose.port.`in`.ReadPoseFromIdUseCase
 import com.info.maeumgagym.pose.port.`in`.ReadPoseFromTagUseCase
 import com.info.maeumgagym.pose.port.`in`.ReadPosesRecommendationUseCase
@@ -50,6 +51,6 @@ class PoseController(
 
     @Operation(summary = "자세 추천 조회 API")
     @GetMapping
-    fun readRecommendation(): PoseListResponse =
+    fun readRecommendation(): PoseRecommendationListResponse =
         readPosesRecommendationUseCase.readRecommendation()
 }
