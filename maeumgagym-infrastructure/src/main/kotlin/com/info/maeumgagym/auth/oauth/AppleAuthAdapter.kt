@@ -6,6 +6,7 @@ import com.info.maeumgagym.auth.port.out.GetJwtBodyPort
 import com.info.maeumgagym.auth.port.out.ParseAppleTokenPort
 import com.info.maeumgagym.common.exception.FeignException
 import com.info.maeumgagym.common.exception.MaeumGaGymException
+import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.external.feign.oauth.apple.AppleClient
 import io.jsonwebtoken.Claims
 import org.springframework.stereotype.Component
@@ -26,7 +27,13 @@ internal class AppleAuthAdapter(
                 try {
                     appleClient.applePublicKeys().toResponse() // 인코딩 된 애플 공개키 가져오기
                 } catch (e: FeignException) {
-                    throw MaeumGaGymException.INTERNAL_SERVER_ERROR
+                    throw if (e.message == FeignException.FEIGN_UNAUTHORIZED.message ||
+                        e.message == FeignException.FEIGN_FORBIDDEN.message
+                    ) {
+                        SecurityException.INVALID_TOKEN
+                    } else {
+                        MaeumGaGymException.INTERNAL_SERVER_ERROR
+                    }
                 }
             )
         )
