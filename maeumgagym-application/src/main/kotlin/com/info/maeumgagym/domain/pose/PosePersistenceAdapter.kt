@@ -24,8 +24,8 @@ internal class PosePersistenceAdapter(
             poseMapper.toDomain(it)
         }
 
-    override fun readAllRandomLimit10(): List<Pose> =
-        poseNativeRepository.readAllRandomLimit10().map {
+    override fun readAllRandomLimit30(): List<Pose> =
+        poseNativeRepository.readAllRandomLimit30().map {
             poseMapper.toDomain(it)
         }
 }

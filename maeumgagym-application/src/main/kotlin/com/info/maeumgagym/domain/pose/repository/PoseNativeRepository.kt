@@ -20,8 +20,8 @@ interface PoseNativeRepository : Repository<PoseJpaEntity, Long?> {
     @Query(
         value = "SELECT * FROM ${TableNames.POSE_TABLE} p " +
             "ORDER BY RAND() " +
-            "LIMIT 10",
+            "LIMIT 30",
         nativeQuery = true
     )
-    fun readAllRandomLimit10(): List<PoseJpaEntity>
+    fun readAllRandomLimit30(): List<PoseJpaEntity>
 }

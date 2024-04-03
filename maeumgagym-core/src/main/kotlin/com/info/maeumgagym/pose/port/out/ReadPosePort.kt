@@ -8,5 +8,5 @@ interface ReadPosePort {
 
     fun readByTag(tag: String): List<Pose>
 
-    fun readAllRandomLimit10(): List<Pose>
+    fun readAllRandomLimit30(): List<Pose>
 }
