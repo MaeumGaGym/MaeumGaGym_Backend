@@ -1,9 +1,7 @@
 package com.info.maeumgagym.security.authentication.impl
 
-import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.security.authentication.UsernamePasswordAuthenticationTokenProvider
 import com.info.maeumgagym.security.jwt.JwtFilter
-import com.info.maeumgagym.user.port.out.ReadUserPort
 import org.springframework.context.annotation.Primary
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -17,17 +15,9 @@ import org.springframework.stereotype.Component
  */
 @Primary
 @Component
-class UsernamePasswordAuthenticationTokenProviderImpl(
-    private val readUserPort: ReadUserPort
-) : UsernamePasswordAuthenticationTokenProvider {
+class UsernamePasswordAuthenticationTokenProviderImpl : UsernamePasswordAuthenticationTokenProvider {
 
     override fun getAuthentication(subject: String): UsernamePasswordAuthenticationToken {
-        // User가 필요한 경우 불러와 전역적으로 저장
-        JwtFilter.authenticatedUser.set(
-            readUserPort.readByOAuthId(subject)
-                ?: throw CriticalException(500, "User Not Found In ${this::class.simpleName}")
-        )
-
         // Authentication에 subject를 넣어 반환
         return UsernamePasswordAuthenticationToken(
             subject,

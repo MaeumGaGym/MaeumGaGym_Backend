@@ -2,6 +2,12 @@ package com.info.maeumgagym.security.authentication
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 
+/**
+ * [UsernamePasswordAuthenticationToken] 객체를 생성해주는 클래스
+ *
+ * @author Daybreak312
+ * @since 02-04-2024
+ */
 interface UsernamePasswordAuthenticationTokenProvider : AuthenticationProvider {
 
     /**

@@ -3,7 +3,7 @@ package com.info.maeumgagym.security.authentication
 import org.springframework.security.core.Authentication
 
 /**
- * [org.springframework.security.core.Authentication] 객체를 생성해주는 클래스
+ * [Authentication] 객체를 생성해주는 클래스
  *
  * 기본 구현체 : [UsernamePasswordAuthenticationTokenProvider]
  *
