@@ -1,6 +1,5 @@
 package com.info.maeumgagym.routine.model
 
-import com.info.maeumgagym.routine.dto.ExerciseInfoDto
 import com.info.maeumgagym.routine.dto.RoutineStatusDto
 import com.info.maeumgagym.routine.dto.response.RoutineResponse
 import java.time.DayOfWeek
@@ -19,12 +18,8 @@ data class Routine(
         RoutineResponse(
             id = id!!,
             routineName = routineName,
-            exerciseInfoList = exerciseInfoModelList.map {
-                ExerciseInfoDto(
-                    exerciseName = it.exerciseName,
-                    repetitions = it.repetitions,
-                    sets = it.sets
-                )
+            exerciseInfoResponseList = exerciseInfoModelList.map {
+                it.toResponse()
             },
             dayOfWeeks = dayOfWeeks?.map {
                 it.getDisplayName(
@@ -44,12 +39,8 @@ data class Routine(
         RoutineResponse(
             id = id!!,
             routineName = routineName,
-            exerciseInfoList = exerciseInfoModelList.map {
-                ExerciseInfoDto(
-                    exerciseName = it.exerciseName,
-                    repetitions = it.repetitions,
-                    sets = it.sets
-                )
+            exerciseInfoResponseList = exerciseInfoModelList.map {
+                it.toResponse()
             },
             dayOfWeeks = dayOfWeeks?.map {
                 it.getDisplayName(
