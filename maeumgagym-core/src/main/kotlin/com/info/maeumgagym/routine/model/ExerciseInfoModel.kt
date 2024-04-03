@@ -1,14 +1,15 @@
 package com.info.maeumgagym.routine.model
 
-import com.info.maeumgagym.routine.dto.ExerciseInfoDto
+import com.info.maeumgagym.pose.model.Pose
+import com.info.maeumgagym.routine.dto.response.ExerciseInfoResponse
 
 data class ExerciseInfoModel(
-    var id: Long,
+    var pose: Pose,
     var repetitions: Int,
     var sets: Int
 ) {
-    fun toDto(): ExerciseInfoDto = ExerciseInfoDto(
-        id = id,
+    fun toResponse(): ExerciseInfoResponse = ExerciseInfoResponse(
+        pose = pose.toInfoResponse(),
         repetitions = repetitions,
         sets = sets
     )

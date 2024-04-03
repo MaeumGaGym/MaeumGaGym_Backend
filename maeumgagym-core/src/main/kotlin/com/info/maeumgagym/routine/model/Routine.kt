@@ -18,8 +18,8 @@ data class Routine(
         RoutineResponse(
             id = id!!,
             routineName = routineName,
-            exerciseInfoList = exerciseInfoModelList.map {
-                it.toDto()
+            exerciseInfoResponseList = exerciseInfoModelList.map {
+                it.toResponse()
             },
             dayOfWeeks = dayOfWeeks?.map {
                 it.getDisplayName(
@@ -39,8 +39,8 @@ data class Routine(
         RoutineResponse(
             id = id!!,
             routineName = routineName,
-            exerciseInfoList = exerciseInfoModelList.map {
-                it.toDto()
+            exerciseInfoResponseList = exerciseInfoModelList.map {
+                it.toResponse()
             },
             dayOfWeeks = dayOfWeeks?.map {
                 it.getDisplayName(

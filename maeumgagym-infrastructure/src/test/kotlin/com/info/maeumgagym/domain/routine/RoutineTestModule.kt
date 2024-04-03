@@ -38,7 +38,7 @@ internal object RoutineTestModule {
             routineName = TEST_ROUTINE_NAME,
             isArchived = TEST_ROUTINE_STATUS.isArchived,
             isShared = TEST_ROUTINE_STATUS.isShared,
-            exerciseInfoDtoList = TEST_ROUTINE_EXERCISE_LIST.map {
+            exerciseInfoResponseList = TEST_ROUTINE_EXERCISE_LIST.map {
                 ExerciseInfoModel(
                     it.exerciseName,
                     it.repetitions,
@@ -53,7 +53,7 @@ internal object RoutineTestModule {
             routineName = originRoutineEntity.routineName,
             isArchived = originRoutineEntity.routineStatus.isArchived,
             isShared = originRoutineEntity.routineStatus.isShared,
-            exerciseInfoDtoList = originRoutineEntity.exerciseInfoList.map {
+            exerciseInfoResponseList = originRoutineEntity.exerciseInfoList.map {
                 ExerciseInfoModel(
                     it.exerciseName,
                     it.repetitions,
