@@ -6,7 +6,6 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
-import org.springframework.web.servlet.DispatcherServlet
 import org.springframework.web.servlet.HandlerInterceptor
 import org.springframework.web.servlet.ModelAndView
 import javax.servlet.http.HttpServletRequest
@@ -56,11 +55,8 @@ class LocationHeaderInterceptor(
         handler: Any,
         modelAndView: ModelAndView?
     ) {
-        if (!isCheckedStatusCodeResponse(response)) {
-            return
-        }
-
-        if (!isCheckedMethodRequest(request) ||
+        if (!isCheckedStatusCodeResponse(response) ||
+            !isCheckedMethodRequest(request) ||
             isUncheckedURIRequest(request)
         ) {
             return
@@ -68,13 +64,17 @@ class LocationHeaderInterceptor(
 
         if (isPutRequest(request)) {
             response.setLocationHeader(request.requestURL.toString())
-        } else {
-            if (locationHeaderSubjectManager.getSubject() == null) {
-                response.status = HttpStatus.NO_CONTENT.value()
-                return
-            }
-            response.setLocationHeader("${request.requestURL}/${locationHeaderSubjectManager.getSubject()}")
+            return
         }
+
+        if (locationHeaderSubjectManager.getSubject() == null &&
+            locationHeaderSubjectManager.getURI() == null
+        ) {
+            response.status = HttpStatus.NO_CONTENT.value()
+            return
+        }
+
+        response.setLocationHeader(getLocationHeaderContent(request))
 
         locationHeaderSubjectManager.clear()
     }
@@ -103,6 +103,14 @@ class LocationHeaderInterceptor(
 
     private fun isPutRequest(request: HttpServletRequest): Boolean =
         request.method.uppercase() == HttpMethod.PUT.name
+
+    private fun getLocationHeaderContent(request: HttpServletRequest): String =
+        if (locationHeaderSubjectManager.getSubject() == null)
+            request.requestURL.substring(
+                0, request.requestURL.length - request.requestURI.length
+            ) + "/maeumgagym/" + locationHeaderSubjectManager.getURI()
+        else
+            "${request.requestURL}/${locationHeaderSubjectManager.getSubject()!!}"
 
     private fun HttpServletResponse.setLocationHeader(content: String) {
         this.setHeader(HttpHeaders.LOCATION, content)
