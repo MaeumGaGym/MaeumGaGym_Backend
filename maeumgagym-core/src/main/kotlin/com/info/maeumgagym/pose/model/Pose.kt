@@ -30,17 +30,17 @@ data class Pose(
     val id: Long?
 ) {
     fun toDetailResponse() = PoseDetailResponse(
-        needMachine,
-        simpleName,
-        exactName,
-        thumbnail,
-        poseImages,
-        simplePart,
-        exactPart,
-        startPose,
-        exerciseWay,
-        breatheWay,
-        caution
+        needMachine = needMachine,
+        simpleName = simpleName,
+        exactName = exactName,
+        thumbnail = thumbnail,
+        poseImages = poseImages,
+        simplePart = simplePart,
+        exactPart = exactPart,
+        startPose = startPose,
+        exerciseWay = exerciseWay,
+        breatheWay = breatheWay,
+        caution = caution
     )
 
     fun toInfoResponse() = PoseInfoResponse(

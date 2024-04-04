@@ -16,4 +16,12 @@ interface PoseNativeRepository : Repository<PoseJpaEntity, Long?> {
         nativeQuery = true
     )
     fun findAllByTag(@Param("tag") tag: String): List<PoseJpaEntity>
+
+    @Query(
+        value = "SELECT * FROM ${TableNames.POSE_TABLE} p " +
+            "ORDER BY RAND() " +
+            "LIMIT 30",
+        nativeQuery = true
+    )
+    fun readAllRandomLimit30(): List<PoseJpaEntity>
 }

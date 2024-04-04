@@ -1,7 +1,7 @@
 package com.info.maeumgagym.controller.pickle
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.controller.common.locationheader.LocationHeaderSubjectManager
+import com.info.maeumgagym.controller.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.controller.pickle.dto.CreatePickleWebRequest
 import com.info.maeumgagym.controller.pickle.dto.PreSignedUploadURLWebRequest
 import com.info.maeumgagym.controller.pickle.dto.UpdatePickleWebRequest
@@ -30,7 +30,7 @@ class PickleController(
     private val updatePickleUseCase: UpdatePickleUseCase,
     private val getPicklePreSignedURLUseCase: GetPicklePreSignedURLUseCase,
     private val likePickleUseCase: LikePickleUseCase,
-    private val locationHeaderSubjectManager: LocationHeaderSubjectManager
+    private val locationHeaderManager: LocationHeaderManager
 ) {
 
     @Operation(summary = "추천 피클 전체 조회 API")
@@ -88,7 +88,7 @@ class PickleController(
         req: CreatePickleWebRequest
     ) {
         createPickleUseCase.createPickle(req.toRequest()).run {
-            locationHeaderSubjectManager.setSubject(subject)
+            locationHeaderManager.setSubject(subject)
         }
     }
 

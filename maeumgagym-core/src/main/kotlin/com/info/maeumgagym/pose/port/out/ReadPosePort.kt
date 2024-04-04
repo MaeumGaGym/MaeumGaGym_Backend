@@ -7,4 +7,6 @@ interface ReadPosePort {
     fun readById(id: Long): Pose?
 
     fun readByTag(tag: String): List<Pose>
+
+    fun readAllRandomLimit30(): List<Pose>
 }

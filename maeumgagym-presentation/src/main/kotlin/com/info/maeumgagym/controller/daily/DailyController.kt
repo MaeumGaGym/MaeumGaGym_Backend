@@ -1,7 +1,7 @@
 package com.info.maeumgagym.controller.daily
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.controller.common.locationheader.LocationHeaderSubjectManager
+import com.info.maeumgagym.controller.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.controller.daily.dto.CreateDailyRequest
 import com.info.maeumgagym.controller.daily.dto.DailyTitleUpdateRequest
 import com.info.maeumgagym.daily.dto.response.DailyListResponse
@@ -26,7 +26,7 @@ class DailyController(
     private val readDailyUseCase: ReadDailyUseCase,
     private val deleteDailyUseCase: DeleteDailyUseCase,
     private val getDailyPreSignedURLUseCase: GetDailyPreSignedURLUseCase,
-    private val locationHeaderSubjectManager: LocationHeaderSubjectManager
+    private val locationHeaderManager: LocationHeaderManager
 ) {
     @Operation(description = "오운완 업로드 URL 얻기 API")
     @GetMapping("/daily/pre-signed")
@@ -45,7 +45,7 @@ class DailyController(
         req: CreateDailyRequest
     ) {
         createDailyUseCase.create(req.title!!).run {
-            locationHeaderSubjectManager.setSubject(subject)
+            locationHeaderManager.setSubject(subject)
         }
     }
 

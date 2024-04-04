@@ -32,9 +32,9 @@ internal class GeneratePublicKeyAdapter : GeneratePublicKeyPort {
         return try {
             KeyFactory.getInstance(publicKey.kty).generatePublic(publicKey.publicKeySpec()) // 공개키 발급
         } catch (e: NoSuchAlgorithmException) {
-            throw BusinessLogicException(500, "Apple OAuth 로그인 중 public key 생성에 문제가 발생했습니다.")
+            throw BusinessLogicException(500, "Apple OAuth 로그인 중 public key 생성에 문제가 발생했습니다. : " + e.message)
         } catch (e: InvalidKeySpecException) {
-            throw BusinessLogicException(500, "Apple OAuth 로그인 중 public key 생성에 문제가 발생했습니다.")
+            throw BusinessLogicException(500, "Apple OAuth 로그인 중 public key 생성에 문제가 발생했습니다. : " + e.message)
         }
     }
 }

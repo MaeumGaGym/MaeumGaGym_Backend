@@ -3,13 +3,16 @@ package com.info.maeumgagym.domain.routine.mapper
 import com.info.maeumgagym.domain.routine.entity.ExerciseInfo
 import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
 import com.info.maeumgagym.domain.routine.entity.RoutineStatus
+import com.info.maeumgagym.pose.port.out.ReadPosePort
 import com.info.maeumgagym.routine.model.ExerciseInfoModel
 import com.info.maeumgagym.routine.model.Routine
 import com.info.maeumgagym.routine.model.RoutineStatusModel
 import org.springframework.stereotype.Component
 
 @Component
-class RoutineMapper {
+class RoutineMapper(
+    private val readPosePort: ReadPosePort
+) {
     fun toEntity(routine: Routine): RoutineJpaEntity = routine.run {
         RoutineJpaEntity(
             id = id,
@@ -41,7 +44,7 @@ class RoutineMapper {
     private fun toExerciseInfoList(exerciseInfoList: MutableList<ExerciseInfoModel>) =
         exerciseInfoList.map {
             ExerciseInfo(
-                exerciseName = it.exerciseName,
+                id = it.pose.id!!,
                 repetitions = it.repetitions,
                 sets = it.sets
             )
@@ -50,7 +53,7 @@ class RoutineMapper {
     private fun toExerciseInfoModelList(exerciseInfoList: MutableList<ExerciseInfo>) =
         exerciseInfoList.map {
             ExerciseInfoModel(
-                exerciseName = it.exerciseName,
+                pose = readPosePort.readById(it.id)!!,
                 repetitions = it.repetitions,
                 sets = it.sets
             )

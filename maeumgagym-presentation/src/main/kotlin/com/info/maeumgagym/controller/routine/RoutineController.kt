@@ -1,7 +1,7 @@
 package com.info.maeumgagym.controller.routine
 
 import com.info.common.WebAdapter
-import com.info.maeumgagym.controller.common.locationheader.LocationHeaderSubjectManager
+import com.info.maeumgagym.controller.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.controller.routine.dto.CreateRoutineWebRequest
 import com.info.maeumgagym.controller.routine.dto.UpdateRoutineWebRequest
 import com.info.maeumgagym.routine.dto.response.RoutineHistoryListResponse
@@ -31,7 +31,7 @@ class RoutineController(
     private val deleteRoutineUseCase: DeleteRoutineUseCase,
     private val updateRoutineUseCase: UpdateRoutineUseCase,
     private val readRoutineUseCase: ReadRoutineUseCase,
-    private val locationHeaderSubjectManager: LocationHeaderSubjectManager,
+    private val locationHeaderManager: LocationHeaderManager,
     private val completeTodayRoutineUseCase: CompleteTodayRoutineUseCase,
     private val readRoutineHistoryUseCase: ReadRoutineHistoryUseCase
 ) {
@@ -43,7 +43,7 @@ class RoutineController(
         req: CreateRoutineWebRequest
     ) {
         createRoutineUseCase.createRoutine(req.toRequest()).run {
-            locationHeaderSubjectManager.setSubject(subject)
+            locationHeaderManager.setSubject(subject)
         }
     }
 
