@@ -38,5 +38,6 @@ class SimpleLocationHeaderManager : LocationHeaderSubjectManager {
 
     override fun clear() {
         this.subject.remove()
+        this.URI.remove()
     }
 }
