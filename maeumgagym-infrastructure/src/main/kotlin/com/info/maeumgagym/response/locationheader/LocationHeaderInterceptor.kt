@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletResponse
  */
 @Component
 class LocationHeaderInterceptor(
-    private val dispatcherServlet: DispatcherServlet,
     private val locationHeaderSubjectManager: LocationHeaderSubjectManager
 ) : HandlerInterceptor {
 
