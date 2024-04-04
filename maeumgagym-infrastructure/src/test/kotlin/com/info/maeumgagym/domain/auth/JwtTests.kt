@@ -35,7 +35,11 @@ internal class JwtTests @Autowired constructor(
     private val refreshTokenRepository: RefreshTokenRepository
 ) {
 
-    private val jwtFilter: JwtFilter = JwtFilter(jwtResolver, usernamePasswordAuthenticationTokenProviderImpl, jwtProperties)
+    private val jwtFilter: JwtFilter = JwtFilter(
+        jwtResolver,
+        usernamePasswordAuthenticationTokenProviderImpl,
+        jwtProperties
+    )
 
     private lateinit var user: UserJpaEntity
 

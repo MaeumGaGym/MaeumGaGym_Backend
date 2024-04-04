@@ -46,7 +46,6 @@ class UserModelAuthentication(
      */
     override fun getCredentials(): Any? = null
 
-
     /**
      * 사용되지 않는 기능
      */
@@ -67,5 +66,4 @@ class UserModelAuthentication(
             throw CriticalException(500, "UserModelAuthentication MUSE BE Authenticated.")
         }
     }
-
 }

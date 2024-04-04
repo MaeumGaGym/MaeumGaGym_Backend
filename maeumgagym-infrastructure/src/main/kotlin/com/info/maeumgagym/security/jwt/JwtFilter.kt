@@ -47,7 +47,6 @@ class JwtFilter(
             if (header != null) {
                 // 토큰이 유효한지 확인, 유효하다면 ->
                 jwtResolver(header)?.let {
-
                     // security context holder에 Authentication 저장
                     SecurityContextHolder.getContext().authentication =
                         if (needRole(request)) { // Role 인증이 필요하다면
