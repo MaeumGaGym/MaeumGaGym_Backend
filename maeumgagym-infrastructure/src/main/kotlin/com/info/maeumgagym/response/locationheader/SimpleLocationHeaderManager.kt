@@ -16,17 +16,27 @@ import org.springframework.stereotype.Component
 @Component
 class SimpleLocationHeaderManager : LocationHeaderSubjectManager {
 
-    private var subject: ThreadLocal<String> = ThreadLocal()
+    private val subject: ThreadLocal<String> = ThreadLocal()
 
-    override fun setSubject(subject: Any) {
-        this.subject.set(subject.toString())
-    }
+    private val URI: ThreadLocal<String> = ThreadLocal()
 
     override fun getSubject(): String? {
         return this.subject.get()
     }
 
-    override fun removeSubject() {
+    override fun setSubject(subject: Any) {
+        this.subject.set(subject.toString())
+    }
+
+    override fun getURI(): String? {
+        return this.URI.get()
+    }
+
+    override fun setURI(uri: String) {
+        this.URI.set(uri)
+    }
+
+    override fun clear() {
         this.subject.remove()
     }
 }

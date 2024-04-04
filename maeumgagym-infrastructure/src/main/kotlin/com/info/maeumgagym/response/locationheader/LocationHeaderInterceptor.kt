@@ -77,7 +77,7 @@ class LocationHeaderInterceptor(
             response.setLocationHeader("${request.requestURL}/${locationHeaderSubjectManager.getSubject()}")
         }
 
-        locationHeaderSubjectManager.removeSubject()
+        locationHeaderSubjectManager.clear()
     }
 
     /**
