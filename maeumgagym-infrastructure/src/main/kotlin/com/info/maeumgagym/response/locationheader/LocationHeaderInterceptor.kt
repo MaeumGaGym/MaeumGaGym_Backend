@@ -1,7 +1,7 @@
 package com.info.maeumgagym.response.locationheader
 
 import com.info.maeumgagym.common.dto.LocationSubjectDto
-import com.info.maeumgagym.controller.common.locationheader.LocationHeaderSubjectManager
+import com.info.maeumgagym.controller.common.locationheader.LocationHeaderManager
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
@@ -18,14 +18,14 @@ import javax.servlet.http.HttpServletResponse
  *
  * *[HttpMethod.POST]의 경우 필요한 추가적인 처리*
  * 1. Service에서 [LocationSubjectDto]를 반환
- * 2. Controller에서 [LocationHeaderSubjectManager]의 [LocationHeaderSubjectManager.setSubject]를 통해 LocationHeader에서 사용할 id 혹은 key값을 지정
+ * 2. Controller에서 [LocationHeaderManager]의 [LocationHeaderManager.setSubject]를 통해 LocationHeader에서 사용할 id 혹은 key값을 지정
  *
  * @author Daybreak312
  * @since 08-03-2024
  */
 @Component
 class LocationHeaderInterceptor(
-    private val locationHeaderSubjectManager: LocationHeaderSubjectManager
+    private val locationHeaderManager: LocationHeaderManager
 ) : HandlerInterceptor {
 
     private val checkedStatusCodes = listOf(HttpStatus.OK, HttpStatus.CREATED)
@@ -67,8 +67,8 @@ class LocationHeaderInterceptor(
             return
         }
 
-        if (locationHeaderSubjectManager.getSubject() == null &&
-            locationHeaderSubjectManager.getURI() == null
+        if (locationHeaderManager.getSubject() == null &&
+            locationHeaderManager.getURI() == null
         ) {
             response.status = HttpStatus.NO_CONTENT.value()
             return
@@ -76,7 +76,7 @@ class LocationHeaderInterceptor(
 
         response.setLocationHeader(getLocationHeaderContent(request))
 
-        locationHeaderSubjectManager.clear()
+        locationHeaderManager.clear()
     }
 
     /**
@@ -105,12 +105,12 @@ class LocationHeaderInterceptor(
         request.method.uppercase() == HttpMethod.PUT.name
 
     private fun getLocationHeaderContent(request: HttpServletRequest): String =
-        if (locationHeaderSubjectManager.getSubject() == null)
+        if (locationHeaderManager.getSubject() == null)
             request.requestURL.substring(
                 0, request.requestURL.length - request.requestURI.length
-            ) + "/maeumgagym/" + locationHeaderSubjectManager.getURI()
+            ) + "/maeumgagym/" + locationHeaderManager.getURI()
         else
-            "${request.requestURL}/${locationHeaderSubjectManager.getSubject()!!}"
+            "${request.requestURL}/${locationHeaderManager.getSubject()!!}"
 
     private fun HttpServletResponse.setLocationHeader(content: String) {
         this.setHeader(HttpHeaders.LOCATION, content)

@@ -1,12 +1,12 @@
 package com.info.maeumgagym.response.locationheader
 
-import com.info.maeumgagym.controller.common.locationheader.LocationHeaderSubjectManager
+import com.info.maeumgagym.controller.common.locationheader.LocationHeaderManager
 import org.springframework.stereotype.Component
 
 /**
- * @see LocationHeaderSubjectManager
+ * @see LocationHeaderManager
  *
- * [LocationHeaderSubjectManager]를 구현해, [subject]를 [ThreadLocal]로 갖고 있는 클래스
+ * [LocationHeaderManager]를 구현해, [subject]를 [ThreadLocal]로 갖고 있는 클래스
  *
  * 각 스레드별로 Location Header를 위한 subject를 갖고 있음
  *
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component
  * @since 08-03-2024
  */
 @Component
-class SimpleLocationHeaderManager : LocationHeaderSubjectManager {
+class SimpleLocationHeaderManager : LocationHeaderManager {
 
     private val subject: ThreadLocal<String> = ThreadLocal()
 

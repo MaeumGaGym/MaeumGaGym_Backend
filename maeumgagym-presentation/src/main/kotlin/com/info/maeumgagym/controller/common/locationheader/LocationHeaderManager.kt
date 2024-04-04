@@ -8,7 +8,7 @@ import org.springframework.http.HttpMethod
  * @author Daybreak312
  * @since 08-03-2024
  */
-interface LocationHeaderSubjectManager {
+interface LocationHeaderManager {
 
     fun getSubject(): String?
 
