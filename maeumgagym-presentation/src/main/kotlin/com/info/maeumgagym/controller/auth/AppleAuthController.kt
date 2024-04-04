@@ -5,6 +5,7 @@ import com.info.maeumgagym.auth.port.`in`.AppleLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.AppleRecoveryUseCase
 import com.info.maeumgagym.auth.port.`in`.AppleSignUpUseCase
 import com.info.maeumgagym.controller.auth.dto.SignupWebRequest
+import com.info.maeumgagym.controller.common.locationheader.LocationHeaderManager
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.headers.Header
 import io.swagger.v3.oas.annotations.media.Schema
@@ -22,7 +23,8 @@ import javax.validation.Valid
 class AppleAuthController(
     private val appleLoginUseCase: AppleLoginUseCase,
     private val appleRecoveryUseCase: AppleRecoveryUseCase,
-    private val appleSignUpUseCase: AppleSignUpUseCase
+    private val appleSignUpUseCase: AppleSignUpUseCase,
+    private val locationHeaderManager: LocationHeaderManager
 ) {
 
     @Operation(summary = "애플 OAuth 로그인 API")
@@ -59,7 +61,11 @@ class AppleAuthController(
         @RequestBody
         @Valid
         req: SignupWebRequest
-    ) { appleSignUpUseCase.signUp(token, req.nickname!!) }
+    ) {
+        appleSignUpUseCase.signUp(token, req.nickname!!)
+
+        locationHeaderManager.setURI("/apple/login")
+    }
 
     @Operation(summary = "애플 OAuth 회원복구 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)

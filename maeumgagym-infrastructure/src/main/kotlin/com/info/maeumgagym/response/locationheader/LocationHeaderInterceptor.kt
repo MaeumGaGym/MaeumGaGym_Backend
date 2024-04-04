@@ -37,9 +37,6 @@ class LocationHeaderInterceptor(
 
     private val uncheckedURIs = listOf(
         "/auth",
-        "/apple",
-        "/kakao",
-        "/google",
         "/report",
         "/step",
         "/public",
@@ -108,7 +105,7 @@ class LocationHeaderInterceptor(
         if (locationHeaderManager.getSubject() == null)
             request.requestURL.substring(
                 0, request.requestURL.length - request.requestURI.length
-            ) + "/maeumgagym/" + locationHeaderManager.getURI()
+            ) + "/maeumgagym" + locationHeaderManager.getURI()
         else
             "${request.requestURL}/${locationHeaderManager.getSubject()!!}"
 
