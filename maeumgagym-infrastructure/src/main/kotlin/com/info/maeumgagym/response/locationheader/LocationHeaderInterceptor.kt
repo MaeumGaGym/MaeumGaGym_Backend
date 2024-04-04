@@ -102,12 +102,14 @@ class LocationHeaderInterceptor(
         request.method.uppercase() == HttpMethod.PUT.name
 
     private fun getLocationHeaderContent(request: HttpServletRequest): String =
-        if (locationHeaderManager.getSubject() == null)
+        if (locationHeaderManager.getSubject() == null) {
             request.requestURL.substring(
-                0, request.requestURL.length - request.requestURI.length
+                0,
+                request.requestURL.length - request.requestURI.length
             ) + "/maeumgagym" + locationHeaderManager.getURI()
-        else
+        } else {
             "${request.requestURL}/${locationHeaderManager.getSubject()!!}"
+        }
 
     private fun HttpServletResponse.setLocationHeader(content: String) {
         this.setHeader(HttpHeaders.LOCATION, content)
