@@ -14,7 +14,7 @@ internal object AuthTestModule {
 
     fun UserJpaEntity.saveInContext(userMapper: UserMapper): UserJpaEntity =
         apply {
-            JwtFilter.authenticatedUser = null
+            JwtFilter.authenticatedUser.remove()
             SecurityContextHolder.getContext().authentication =
                 UsernamePasswordAuthenticationToken(
                     this.oauthId,
