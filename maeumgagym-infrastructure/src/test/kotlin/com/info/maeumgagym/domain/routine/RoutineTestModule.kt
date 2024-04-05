@@ -1,10 +1,12 @@
 package com.info.maeumgagym.domain.routine
 
 import com.info.maeumgagym.domain.pose.PoseTestModule
+import com.info.maeumgagym.domain.pose.PoseTestModule.saveInRepository
 import com.info.maeumgagym.domain.routine.entity.ExerciseInfo
 import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
 import com.info.maeumgagym.domain.routine.entity.RoutineStatus
 import com.info.maeumgagym.domain.routine.repository.RoutineRepository
+import com.info.maeumgagym.global.vo.TestRepositories
 import com.info.maeumgagym.routine.dto.request.CreateRoutineRequest
 import com.info.maeumgagym.routine.dto.request.ExerciseInfoRequest
 import com.info.maeumgagym.routine.dto.request.UpdateRoutineRequest
@@ -17,12 +19,16 @@ internal object RoutineTestModule {
     private val TEST_ROUTINE_STATUS = RoutineStatus(isArchived = false, isShared = false)
         get() = field.copy()
 
-    private val TEST_ROUTINE_FIRST_EXERCISE = ExerciseInfo(PoseTestModule.createPose().id!!, 15, 3)
-        get() = field.copy()
-    private val TEST_ROUTINE_SECOND_EXERCISE = ExerciseInfo(PoseTestModule.createPose().id!!, 10, 5)
-        get() = field.copy()
-    private val TEST_ROUTINE_EXERCISE_LIST = listOf(TEST_ROUTINE_FIRST_EXERCISE, TEST_ROUTINE_SECOND_EXERCISE)
-        get() = field.toMutableList()
+    private val TEST_ROUTINE_FIRST_EXERCISE
+        get() = ExerciseInfo(
+            PoseTestModule.createPose().saveInRepository(TestRepositories.poseRepository).id!!, 15, 3
+        )
+    private val TEST_ROUTINE_SECOND_EXERCISE
+        get() = ExerciseInfo(
+            PoseTestModule.createPose().saveInRepository(TestRepositories.poseRepository).id!!, 10, 5
+        )
+    private val TEST_ROUTINE_EXERCISE_LIST get() = listOf(TEST_ROUTINE_FIRST_EXERCISE, TEST_ROUTINE_SECOND_EXERCISE)
+
     private val TEST_ROUTINE_DAY_OF_WEEKS = setOf(DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY)
         get() = field.toMutableSet()
 
