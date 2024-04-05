@@ -21,7 +21,6 @@ import javax.servlet.ServletContext
  */
 @Configuration
 class ApplicationFilterChainConfig(
-    private val servletContext: ServletContext,
     private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
     private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter,
     private val exceptionRepository: ExceptionRepository
