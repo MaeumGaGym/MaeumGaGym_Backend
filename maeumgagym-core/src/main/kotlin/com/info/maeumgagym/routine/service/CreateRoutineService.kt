@@ -30,7 +30,7 @@ internal class CreateRoutineService(
             }
         }
 
-        val poses = req.exerciseInfoResponseList.associate {
+        val poses = req.exerciseInfoRequestList.associate {
             Pair(it.id, readPosePort.readById(it.id))
         }
 
@@ -39,7 +39,7 @@ internal class CreateRoutineService(
             saveRoutinePort.save(
                 Routine(
                     routineName = routineName,
-                    exerciseInfoModelList = exerciseInfoResponseList.map {
+                    exerciseInfoModelList = exerciseInfoRequestList.map {
                         ExerciseInfoModel(
                             pose = poses[it.id]!!,
                             repetitions = it.repetitions,

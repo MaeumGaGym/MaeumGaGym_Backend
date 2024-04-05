@@ -1,12 +1,13 @@
 package com.info.maeumgagym.domain.routine
 
+import com.info.maeumgagym.domain.pose.PoseTestModule
 import com.info.maeumgagym.domain.routine.entity.ExerciseInfo
 import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
 import com.info.maeumgagym.domain.routine.entity.RoutineStatus
 import com.info.maeumgagym.domain.routine.repository.RoutineRepository
 import com.info.maeumgagym.routine.dto.request.CreateRoutineRequest
+import com.info.maeumgagym.routine.dto.request.ExerciseInfoRequest
 import com.info.maeumgagym.routine.dto.request.UpdateRoutineRequest
-import com.info.maeumgagym.routine.model.ExerciseInfoModel
 import java.time.DayOfWeek
 import java.util.*
 
@@ -15,9 +16,10 @@ internal object RoutineTestModule {
     private const val TEST_ROUTINE_NAME = "테스트 루틴 이름"
     private val TEST_ROUTINE_STATUS = RoutineStatus(isArchived = false, isShared = false)
         get() = field.copy()
-    private val TEST_ROUTINE_FIRST_EXERCISE = ExerciseInfo("첫번째 운동", 15, 3)
+
+    private val TEST_ROUTINE_FIRST_EXERCISE = ExerciseInfo(PoseTestModule.createPose().id!!, 15, 3)
         get() = field.copy()
-    private val TEST_ROUTINE_SECOND_EXERCISE = ExerciseInfo("두번째 운동", 10, 5)
+    private val TEST_ROUTINE_SECOND_EXERCISE = ExerciseInfo(PoseTestModule.createPose().id!!, 10, 5)
         get() = field.copy()
     private val TEST_ROUTINE_EXERCISE_LIST = listOf(TEST_ROUTINE_FIRST_EXERCISE, TEST_ROUTINE_SECOND_EXERCISE)
         get() = field.toMutableList()
@@ -38,9 +40,9 @@ internal object RoutineTestModule {
             routineName = TEST_ROUTINE_NAME,
             isArchived = TEST_ROUTINE_STATUS.isArchived,
             isShared = TEST_ROUTINE_STATUS.isShared,
-            exerciseInfoResponseList = TEST_ROUTINE_EXERCISE_LIST.map {
-                ExerciseInfoModel(
-                    it.exerciseName,
+            exerciseInfoRequestList = TEST_ROUTINE_EXERCISE_LIST.map {
+                ExerciseInfoRequest(
+                    it.id,
                     it.repetitions,
                     it.sets
                 )
@@ -54,8 +56,8 @@ internal object RoutineTestModule {
             isArchived = originRoutineEntity.routineStatus.isArchived,
             isShared = originRoutineEntity.routineStatus.isShared,
             exerciseInfoResponseList = originRoutineEntity.exerciseInfoList.map {
-                ExerciseInfoModel(
-                    it.exerciseName,
+                ExerciseInfoRequest(
+                    it.id,
                     it.repetitions,
                     it.sets
                 )

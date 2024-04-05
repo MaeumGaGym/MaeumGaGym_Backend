@@ -13,6 +13,7 @@ import com.info.maeumgagym.security.jwt.impl.JwtAdapter
 import com.info.maeumgagym.security.jwt.impl.JwtResolverImpl
 import com.info.maeumgagym.security.jwt.repository.AccessTokenRepository
 import com.info.maeumgagym.security.jwt.repository.RefreshTokenRepository
+import com.info.maeumgagym.user.port.out.ReadUserPort
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -32,12 +33,14 @@ internal class JwtTests @Autowired constructor(
     private val usernamePasswordAuthenticationTokenProviderImpl: UsernamePasswordAuthenticationTokenProviderImpl,
     private val accessTokenRepository: AccessTokenRepository,
     private val userRepository: UserRepository,
-    private val refreshTokenRepository: RefreshTokenRepository
+    private val refreshTokenRepository: RefreshTokenRepository,
+    private val readUserPort: ReadUserPort
 ) {
 
     private val jwtFilter: JwtFilter = JwtFilter(
         jwtResolver,
         usernamePasswordAuthenticationTokenProviderImpl,
+        readUserPort,
         jwtProperties
     )
 
