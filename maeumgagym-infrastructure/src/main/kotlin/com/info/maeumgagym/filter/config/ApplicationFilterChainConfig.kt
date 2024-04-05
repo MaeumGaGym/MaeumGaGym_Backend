@@ -11,7 +11,6 @@ import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Configuration
 import javax.servlet.Filter
-import javax.servlet.ServletContext
 
 /**
  * [org.apache.catalina.core.ApplicationFilterChain] 속 Filter들의 삽입과 순서를 설정
