@@ -1,15 +1,17 @@
 package com.info.maeumgagym.auth
 
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.security.jwt.AuthenticationProvider
+import com.info.maeumgagym.security.authentication.AuthenticationProvider
 import com.info.maeumgagym.security.jwt.JwtFilter
 import com.info.maeumgagym.user.model.User
+import com.info.maeumgagym.user.port.out.ReadUserPort
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 
 @Component
 internal class ReadCurrentUserAdapter(
-    private val authenticationProvider: AuthenticationProvider
+    private val authenticationProvider: AuthenticationProvider,
+    private val readUserPort: ReadUserPort
 ) : ReadCurrentUserPort {
 
     override fun readCurrentUser(): User {
@@ -18,18 +20,21 @@ internal class ReadCurrentUserAdapter(
 
         JwtFilter.run {
             // Lazy Loading으로 Nullable인 User를 확인
-            if (this.authenticatedUser?.get() == null ||
-                this.authenticatedUser?.get()?.oauthId != authentication!!.principal
+            if (this.authenticatedUser.get() == null ||
+                this.authenticatedUser.get().oauthId != authentication.principal
             ) {
                 // null인 경우 User를 Load 및 SecurityContext, authenticatedUser에 입력
                 SecurityContextHolder.getContext().authentication =
                     authenticationProvider.getAuthentication(
                         authentication.principal as String
                     )
+                JwtFilter.authenticatedUser.set(
+                    readUserPort.readByOAuthId(authentication.principal as String)
+                )
             }
         }
 
         // User 반환
-        return JwtFilter.authenticatedUser!!.get()
+        return JwtFilter.authenticatedUser.get()
     }
 }
