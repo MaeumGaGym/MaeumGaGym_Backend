@@ -2,7 +2,6 @@ package com.info.maeumgagym.security.authentication.impl
 
 import com.info.maeumgagym.security.authentication.UsernamePasswordAuthenticationTokenProvider
 import com.info.maeumgagym.security.jwt.JwtFilter
-import org.springframework.context.annotation.Primary
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Component
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Component
  * @author Daybreak312
  * @since 20-03-2024
  */
-@Primary
 @Component
 class UsernamePasswordAuthenticationTokenProviderImpl : UsernamePasswordAuthenticationTokenProvider {
 

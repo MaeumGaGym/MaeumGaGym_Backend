@@ -4,8 +4,10 @@ import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.security.authentication.UserModelAuthenticationProvider
 import com.info.maeumgagym.security.authentication.vo.UserModelAuthentication
 import com.info.maeumgagym.security.jwt.JwtFilter
+import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Component
 
+@Primary
 @Component
 class UserModelAuthenticationProviderImpl : UserModelAuthenticationProvider {
 
