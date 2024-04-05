@@ -13,7 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
  */
 class UserModelAuthentication(
     private val userSubject: String,
-    private val user: User? = null
+    val user: User? = null
 ) : Authentication {
 
     /**
