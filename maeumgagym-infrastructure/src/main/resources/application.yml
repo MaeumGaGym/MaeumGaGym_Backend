@@ -1,14 +1,13 @@
 spring:
     profiles:
         group:
-            "local": "local, jwt, file, swagger, minio"
-            "prod": "prod, prod-datasource, jwt, log, redis, file, swagger, minio"
-            "stag": "stag, stag-datasource, jwt, log, redis, file, swagger, minio"
+            local: "local, jwt, file, swagger, minio"
+            prod: "prod, prod-datasource, jwt, log, redis, file, swagger, minio"
+            stag: "stag, stag-datasource, jwt, log, redis, file, swagger, minio"
 
     # format
     jackson:
         property-naming-strategy: SNAKE_CASE
-
 # server
 server:
     tomcat:
@@ -24,3 +23,5 @@ management:
         web:
             exposure:
                 include: "health, heapdump, threaddump"
+            cors:
+                exposed-headers: "Authorization"
