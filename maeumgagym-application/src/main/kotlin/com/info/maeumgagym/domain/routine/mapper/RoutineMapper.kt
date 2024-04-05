@@ -44,7 +44,7 @@ class RoutineMapper(
     private fun toExerciseInfoList(exerciseInfoList: MutableList<ExerciseInfoModel>) =
         exerciseInfoList.map {
             ExerciseInfo(
-                id = it.pose.id!!,
+                poseId = it.pose.id!!,
                 repetitions = it.repetitions,
                 sets = it.sets
             )
@@ -53,7 +53,7 @@ class RoutineMapper(
     private fun toExerciseInfoModelList(exerciseInfoList: MutableList<ExerciseInfo>) =
         exerciseInfoList.map {
             ExerciseInfoModel(
-                pose = readPosePort.readById(it.id)!!,
+                pose = readPosePort.readById(it.poseId)!!,
                 repetitions = it.repetitions,
                 sets = it.sets
             )

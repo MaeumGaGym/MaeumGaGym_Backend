@@ -52,7 +52,7 @@ internal object RoutineTestModule {
             isShared = TEST_ROUTINE_STATUS.isShared,
             exerciseInfoRequestList = TEST_ROUTINE_EXERCISE_LIST.map {
                 ExerciseInfoRequest(
-                    it.id,
+                    it.poseId,
                     it.repetitions,
                     it.sets
                 )
@@ -67,7 +67,7 @@ internal object RoutineTestModule {
             isShared = originRoutineEntity.routineStatus.isShared,
             exerciseInfoResponseList = originRoutineEntity.exerciseInfoList.map {
                 ExerciseInfoRequest(
-                    it.id,
+                    it.poseId,
                     it.repetitions,
                     it.sets
                 )
