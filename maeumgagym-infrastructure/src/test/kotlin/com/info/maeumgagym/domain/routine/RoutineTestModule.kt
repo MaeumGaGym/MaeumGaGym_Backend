@@ -21,11 +21,15 @@ internal object RoutineTestModule {
 
     private val TEST_ROUTINE_FIRST_EXERCISE
         get() = ExerciseInfo(
-            PoseTestModule.createPose().saveInRepository(TestRepositories.poseRepository).id!!, 15, 3
+            PoseTestModule.createPose().saveInRepository(TestRepositories.poseRepository).id!!,
+            15,
+            3
         )
     private val TEST_ROUTINE_SECOND_EXERCISE
         get() = ExerciseInfo(
-            PoseTestModule.createPose().saveInRepository(TestRepositories.poseRepository).id!!, 10, 5
+            PoseTestModule.createPose().saveInRepository(TestRepositories.poseRepository).id!!,
+            10,
+            5
         )
     private val TEST_ROUTINE_EXERCISE_LIST get() = listOf(TEST_ROUTINE_FIRST_EXERCISE, TEST_ROUTINE_SECOND_EXERCISE)
 
