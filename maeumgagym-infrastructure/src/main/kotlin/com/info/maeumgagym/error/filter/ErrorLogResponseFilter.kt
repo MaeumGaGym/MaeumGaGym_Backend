@@ -78,7 +78,7 @@ class ErrorLogResponseFilter(
 
     private fun printErrorLogAndReturn(e: Exception): ErrorLog {
         ErrorLog.of(e).run {
-            logger.trace(this.toString())
+            logger.info(this.toString())
             return this
         }
     }
