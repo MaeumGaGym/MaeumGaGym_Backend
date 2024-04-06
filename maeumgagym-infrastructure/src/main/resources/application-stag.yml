@@ -24,6 +24,6 @@ csrf:
 
 logging:
     level:
-      org:
-          springframework:
-              security: DEBUG
+        org:
+            springframework:
+                security: DEBUG
