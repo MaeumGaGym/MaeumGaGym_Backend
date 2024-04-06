@@ -6,7 +6,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer
 import org.springframework.stereotype.Component
 
-@Component
+//@Component
 class SecurityLogConfig {
     @Value("\${spring.websecurity.debug:false}")
     var webSecurityDebug: Boolean = false
