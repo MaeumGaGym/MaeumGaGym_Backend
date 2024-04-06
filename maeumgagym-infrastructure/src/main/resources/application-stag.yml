@@ -24,7 +24,6 @@ csrf:
 
 logging:
     level:
-        root: debug
         org:
             springframework:
                 security: DEBUG
