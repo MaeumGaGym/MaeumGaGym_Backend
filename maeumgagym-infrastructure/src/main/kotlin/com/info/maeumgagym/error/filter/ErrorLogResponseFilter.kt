@@ -4,6 +4,7 @@ import com.info.maeumgagym.common.exception.*
 import com.info.maeumgagym.error.vo.ErrorLog
 import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
+import org.apache.commons.logging.LogFactory
 import org.springframework.web.filter.OncePerRequestFilter
 import org.springframework.web.util.NestedServletException
 import javax.servlet.FilterChain
@@ -30,6 +31,8 @@ class ErrorLogResponseFilter(
     private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
     private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter
 ) : OncePerRequestFilter() {
+
+    private val filterLogger = LogFactory.getLog(javaClass)
 
     override fun doFilterInternal(
         request: HttpServletRequest,
@@ -78,7 +81,7 @@ class ErrorLogResponseFilter(
 
     private fun printErrorLogAndReturn(e: Exception): ErrorLog {
         ErrorLog.of(e).run {
-            logger.info(this.toString())
+            filterLogger.info(this.toString())
             return this
         }
     }
