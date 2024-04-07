@@ -4,6 +4,7 @@ import com.info.common.WebAdapter
 import com.info.maeumgagym.auth.port.`in`.KakaoLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.KakaoRecoveryUseCase
 import com.info.maeumgagym.auth.port.`in`.KakaoSignupUseCase
+import com.info.maeumgagym.auth.port.out.KakaoGenerateTokenUseCase
 import com.info.maeumgagym.controller.auth.dto.KakaoSignupWebRequest
 import com.info.maeumgagym.controller.common.locationheader.LocationHeaderManager
 import io.swagger.v3.oas.annotations.Operation
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
+import javax.validation.constraints.NotBlank
 
 @Tag(name = "Kakao OAuth API")
 @Validated
@@ -26,7 +28,8 @@ class KakaoAuthController(
     private val kakaoLoginUseCase: KakaoLoginUseCase,
     private val kakaoSignupUseCase: KakaoSignupUseCase,
     private val kakaoRecoveryUseCase: KakaoRecoveryUseCase,
-    private val locationHeaderManager: LocationHeaderManager
+    private val locationHeaderManager: LocationHeaderManager,
+    private val kakaoGenerateTokenUseCase: KakaoGenerateTokenUseCase
 ) {
     @Operation(summary = "카카오 OAuth 로그인 API")
     @ApiResponse(
@@ -73,4 +76,28 @@ class KakaoAuthController(
     fun recovery(@RequestParam("access_token") accessToken: String) {
         kakaoRecoveryUseCase.recovery(accessToken)
     }
+
+    @Operation(summary = "카카오 토큰 발급 API")
+    @ApiResponse(
+        responseCode = "200",
+        headers = [
+            Header(
+                name = "Set-Cookie",
+                schema = Schema(type = "string", example = "KO-TOKEN=...; Secure; HttpOnly; SameSite=strict")
+            )
+        ]
+    )
+    @GetMapping("/token/{code}")
+    fun generateToken(
+        @Valid
+        @NotBlank(message = "null일 수 없습니다.")
+        @PathVariable("code", required = false) code: String?
+    ): ResponseEntity<Any> = ResponseEntity.ok().headers(
+        HttpHeaders().apply {
+
+            val token = kakaoGenerateTokenUseCase.generate(code!!)
+
+            add(HttpHeaders.SET_COOKIE, "KO-TOKEN=${token}; Secure; HttpOnly; SameSite=strict")
+        }
+    ).build()
 }
