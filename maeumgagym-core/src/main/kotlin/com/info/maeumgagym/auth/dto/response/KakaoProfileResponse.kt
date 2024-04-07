@@ -1,6 +1,6 @@
 package com.info.maeumgagym.auth.dto.response
 
-data class KakaoInfoResponse(
+data class KakaoProfileResponse(
     val id: String,
     val properties: PropertiesResponse
 )
