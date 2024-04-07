@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestHeader
 )
 interface KakaoApiClient {
     @PostMapping("/v2/user/me")
-    fun kakaoInfo(@RequestHeader("Authorization") accessToken: String): KakaoProfileFeignResponse
+    fun kakaoProfile(@RequestHeader("Authorization") accessToken: String): KakaoProfileFeignResponse
 
     @PostMapping("/v1/user/logout")
     fun revoke(@RequestHeader("Authorization") accessToken: String)
