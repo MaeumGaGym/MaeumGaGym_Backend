@@ -91,13 +91,13 @@ class KakaoAuthController(
     fun generateToken(
         @Valid
         @NotBlank(message = "null일 수 없습니다.")
-        @PathVariable("code", required = false) code: String?
+        @PathVariable("code", required = false)
+        code: String?
     ): ResponseEntity<Any> = ResponseEntity.ok().headers(
         HttpHeaders().apply {
-
             val token = kakaoGenerateTokenUseCase.generate(code!!)
 
-            add(HttpHeaders.SET_COOKIE, "KO-TOKEN=${token}; Secure; HttpOnly; SameSite=strict")
+            add(HttpHeaders.SET_COOKIE, "KO-TOKEN=$token; Secure; HttpOnly; SameSite=strict")
         }
     ).build()
 }

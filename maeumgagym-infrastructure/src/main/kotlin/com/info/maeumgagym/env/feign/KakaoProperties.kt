@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConstructorBinding
 
 @ConstructorBinding
 @ConfigurationProperties("kakao")
-data class KakaoProperties (
+data class KakaoProperties(
     val clientId: String,
     val secretKey: String,
     val redirectionUri: String

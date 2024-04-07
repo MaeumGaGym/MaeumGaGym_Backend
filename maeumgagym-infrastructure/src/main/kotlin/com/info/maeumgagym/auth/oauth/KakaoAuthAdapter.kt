@@ -38,11 +38,11 @@ internal class KakaoAuthAdapter(
     }
 
     override fun getToken(code: String): String = kakaoAuthClient.kakaoAuth(
-            code = code,
-            clientId = kakaoProperties.clientId,
-            clientSecret = kakaoProperties.secretKey,
-            redirectUri = kakaoProperties.redirectionUri
-        ).accessToken
+        code = code,
+        clientId = kakaoProperties.clientId,
+        clientSecret = kakaoProperties.secretKey,
+        redirectUri = kakaoProperties.redirectionUri
+    ).accessToken
 
     override fun revoke(accessToken: String) {
         kakaoApiClient.revoke(accessToken)
