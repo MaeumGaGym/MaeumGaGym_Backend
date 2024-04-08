@@ -1,6 +1,6 @@
-package com.info.maeumgagym.domain.routine.repository
+package com.info.maeumgagym.domain.routine.repository.history
 
-import com.info.maeumgagym.domain.routine.entity.RoutineHistoryJpaEntity
+import com.info.maeumgagym.domain.routine.entity.history.RoutineHistoryJpaEntity
 import org.springframework.data.repository.Repository
 import java.time.LocalDate
 import java.util.*

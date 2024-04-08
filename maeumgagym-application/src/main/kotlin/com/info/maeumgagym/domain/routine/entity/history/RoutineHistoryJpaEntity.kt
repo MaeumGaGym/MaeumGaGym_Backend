@@ -1,10 +1,13 @@
-package com.info.maeumgagym.domain.routine.entity
+package com.info.maeumgagym.domain.routine.entity.history
 
 import com.info.maeumgagym.TableNames
 import com.info.maeumgagym.domain.base.BaseLongIdEntity
 import java.time.LocalDate
 import java.util.*
-import javax.persistence.*
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.Table
+import javax.persistence.UniqueConstraint
 
 @Entity(name = TableNames.ROUTINE_HISTORY_TABLE)
 @Table(
@@ -20,15 +23,10 @@ class RoutineHistoryJpaEntity(
     userId: UUID,
     routineName: String,
     date: LocalDate,
-    exerciseInfoList: MutableList<ExerciseInfo>
 ) : BaseLongIdEntity(id) {
 
     @Column(name = "routine_name", nullable = false)
     var routineName: String = routineName
-        protected set
-
-    @ElementCollection(fetch = FetchType.LAZY)
-    var exerciseInfoList: MutableList<ExerciseInfo> = exerciseInfoList
         protected set
 
     @Column(name = "user_id", updatable = false, columnDefinition = "BINARY(16)", nullable = false)

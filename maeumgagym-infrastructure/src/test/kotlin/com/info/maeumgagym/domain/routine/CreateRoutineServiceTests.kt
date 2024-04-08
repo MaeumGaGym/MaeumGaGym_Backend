@@ -4,7 +4,7 @@ import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.routine.RoutineTestModule.saveInRepository
 import com.info.maeumgagym.domain.routine.RoutineTestModule.setArchived
-import com.info.maeumgagym.domain.routine.repository.RoutineNativeRepository
+import com.info.maeumgagym.domain.routine.repository.current.RoutineNativeRepository
 import com.info.maeumgagym.domain.routine.repository.RoutineRepository
 import com.info.maeumgagym.domain.user.UserTestModule
 import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository

@@ -2,7 +2,7 @@ package com.info.maeumgagym.domain.routine
 
 import com.info.maeumgagym.domain.pose.PoseTestModule
 import com.info.maeumgagym.domain.pose.PoseTestModule.saveInRepository
-import com.info.maeumgagym.domain.routine.entity.ExerciseInfo
+import com.info.maeumgagym.domain.routine.entity.current.ExerciseInfoJpaEntity
 import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
 import com.info.maeumgagym.domain.routine.entity.RoutineStatus
 import com.info.maeumgagym.domain.routine.repository.RoutineRepository
@@ -20,13 +20,13 @@ internal object RoutineTestModule {
         get() = field.copy()
 
     private val TEST_ROUTINE_FIRST_EXERCISE
-        get() = ExerciseInfo(
+        get() = ExerciseInfoJpaEntity(
             PoseTestModule.createPose().saveInRepository(TestRepositories.poseRepository).id!!,
             15,
             3
         )
     private val TEST_ROUTINE_SECOND_EXERCISE
-        get() = ExerciseInfo(
+        get() = ExerciseInfoJpaEntity(
             PoseTestModule.createPose().saveInRepository(TestRepositories.poseRepository).id!!,
             10,
             5

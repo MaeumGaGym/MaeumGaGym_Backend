@@ -1,11 +1,15 @@
 package com.info.maeumgagym.domain.routine
 
 import com.info.common.PersistenceAdapter
+import com.info.maeumgagym.domain.routine.mapper.ExerciseInfoHistoryListMapper
 import com.info.maeumgagym.domain.routine.mapper.RoutineHistoryMapper
-import com.info.maeumgagym.domain.routine.repository.RoutineHistoryNativeRepository
-import com.info.maeumgagym.domain.routine.repository.RoutineHistoryRepository
+import com.info.maeumgagym.domain.routine.repository.history.ExerciseInfoHistoryRepository
+import com.info.maeumgagym.domain.routine.repository.history.RoutineHistoryNativeRepository
+import com.info.maeumgagym.domain.routine.repository.history.RoutineHistoryRepository
 import com.info.maeumgagym.routine.model.RoutineHistory
-import com.info.maeumgagym.routine.port.out.*
+import com.info.maeumgagym.routine.port.out.ExistsRoutineHistoryPort
+import com.info.maeumgagym.routine.port.out.ReadRoutineHistoryPort
+import com.info.maeumgagym.routine.port.out.SaveRoutineHistoryPort
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
@@ -14,19 +18,32 @@ import java.util.*
 @PersistenceAdapter
 internal class RoutineHistoryPersistenceAdapter(
     private val mapper: RoutineHistoryMapper,
+    private val exerciseInfoHistoryListMapper: ExerciseInfoHistoryListMapper,
     private val routineHistoryRepository: RoutineHistoryRepository,
-    private val routineHistoryNativeRepository: RoutineHistoryNativeRepository
+    private val routineHistoryNativeRepository: RoutineHistoryNativeRepository,
+    private val exerciseInfoHistoryRepository: ExerciseInfoHistoryRepository
 ) : SaveRoutineHistoryPort, ReadRoutineHistoryPort, ExistsRoutineHistoryPort {
 
     @Transactional(propagation = Propagation.MANDATORY)
-    override fun save(routineHistory: RoutineHistory): RoutineHistory =
-        routineHistory.run {
-            mapper.toDomain(routineHistoryRepository.save(mapper.toEntity(this)))
+    override fun save(routineHistory: RoutineHistory): RoutineHistory {
+        val saved = routineHistoryRepository.save(mapper.toEntity(routineHistory))
+
+
+        exerciseInfoHistoryListMapper.toEntityList(routineHistory.exerciseInfoHistoryList, saved.id!!).map {
+            exerciseInfoHistoryRepository.save(it)
         }
+
+        val savedExerciseInfoHistories = exerciseInfoHistoryRepository.findAllByRoutineHistoryId(routineHistory.id!!)
+
+        return mapper.toDomain(saved, savedExerciseInfoHistories)
+    }
 
     override fun readByUserIdAndDate(userId: UUID, date: LocalDate): RoutineHistory? =
         routineHistoryRepository.findByUserIdAndDate(userId, date)?.run {
-            mapper.toDomain(this)
+            mapper.toDomain(
+                this,
+                exerciseInfoHistoryRepository.findAllByRoutineHistoryId(this.id!!)
+            )
         }
 
     override fun readByUserIdAndDateBetweenOrderByDate(
@@ -34,9 +51,13 @@ internal class RoutineHistoryPersistenceAdapter(
         startDate: LocalDate,
         endDate: LocalDate
     ): List<RoutineHistory> =
-        routineHistoryNativeRepository.findAllByUserIdAndDateBetweenOrderByDateAsc(userId, startDate, endDate).map {
-            mapper.toDomain(it)
-        }
+        routineHistoryNativeRepository
+            .findAllByUserIdAndDateBetweenOrderByDateAsc(userId, startDate, endDate).map {
+                mapper.toDomain(
+                    it,
+                    exerciseInfoHistoryRepository.findAllByRoutineHistoryId(it.id!!)
+                )
+            }
 
     override fun exsitsByUserIdAndDate(userId: UUID, date: LocalDate): Boolean =
         routineHistoryRepository.findByUserIdAndDate(userId, date) != null

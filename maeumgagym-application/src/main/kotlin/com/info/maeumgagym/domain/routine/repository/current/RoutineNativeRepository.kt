@@ -1,7 +1,7 @@
-package com.info.maeumgagym.domain.routine.repository
+package com.info.maeumgagym.domain.routine.repository.current
 
 import com.info.maeumgagym.TableNames
-import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
+import com.info.maeumgagym.domain.routine.entity.current.RoutineJpaEntity
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.Repository
 import org.springframework.data.repository.query.Param
