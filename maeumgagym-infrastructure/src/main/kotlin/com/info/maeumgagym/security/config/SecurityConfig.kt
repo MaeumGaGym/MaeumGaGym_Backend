@@ -45,8 +45,6 @@ class SecurityConfig(
             .and()
 //
             .apply(requestPermitConfig).and() // 매핑에 따른 인증이 필요한지에 대한 설정
-            .authorizeRequests()
-            .antMatchers("/swagger-ui/**", "/docs/**").permitAll().and()
 //
             .headers().frameOptions().sameOrigin()
             .and()
