@@ -1,23 +1,20 @@
 package com.info.maeumgagym.domain.routine.mapper
 
-import com.info.maeumgagym.domain.routine.entity.ExerciseInfo
-import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
 import com.info.maeumgagym.domain.routine.entity.RoutineStatus
-import com.info.maeumgagym.pose.port.out.ReadPosePort
-import com.info.maeumgagym.routine.model.ExerciseInfoModel
+import com.info.maeumgagym.domain.routine.entity.current.ExerciseInfoJpaEntity
+import com.info.maeumgagym.domain.routine.entity.current.RoutineJpaEntity
 import com.info.maeumgagym.routine.model.Routine
 import com.info.maeumgagym.routine.model.RoutineStatusModel
 import org.springframework.stereotype.Component
 
 @Component
 class RoutineMapper(
-    private val readPosePort: ReadPosePort
+    private val exerciseInfoListMapper: ExerciseInfoListMapper
 ) {
     fun toEntity(routine: Routine): RoutineJpaEntity = routine.run {
         RoutineJpaEntity(
             id = id,
             routineName = routineName,
-            exerciseInfoList = toExerciseInfoList(exerciseInfoModelList),
             dayOfWeeks = dayOfWeeks,
             routineStatus = RoutineStatus(
                 isArchived = routineStatusModel.isArchived,
@@ -27,11 +24,15 @@ class RoutineMapper(
         )
     }
 
-    fun toDomain(routineJpaEntity: RoutineJpaEntity): Routine = routineJpaEntity.run {
+    fun toDomain(
+        routineJpaEntity: RoutineJpaEntity,
+        exerciseInfoJpaEntityList: List<ExerciseInfoJpaEntity>
+    ): Routine = routineJpaEntity.run {
         Routine(
             id = id,
             routineName = routineName,
-            exerciseInfoModelList = toExerciseInfoModelList(exerciseInfoList),
+            exerciseInfoModelList = exerciseInfoListMapper.toModelList(exerciseInfoJpaEntityList)
+                .toMutableList(),
             dayOfWeeks = dayOfWeeks,
             routineStatusModel = RoutineStatusModel(
                 isArchived = routineStatus.isArchived,
@@ -40,22 +41,4 @@ class RoutineMapper(
             userId = userId
         )
     }
-
-    private fun toExerciseInfoList(exerciseInfoList: MutableList<ExerciseInfoModel>) =
-        exerciseInfoList.map {
-            ExerciseInfo(
-                poseId = it.pose.id!!,
-                repetitions = it.repetitions,
-                sets = it.sets
-            )
-        }.toMutableList()
-
-    private fun toExerciseInfoModelList(exerciseInfoList: MutableList<ExerciseInfo>) =
-        exerciseInfoList.map {
-            ExerciseInfoModel(
-                pose = readPosePort.readById(it.poseId)!!,
-                repetitions = it.repetitions,
-                sets = it.sets
-            )
-        }.toMutableList()
 }
