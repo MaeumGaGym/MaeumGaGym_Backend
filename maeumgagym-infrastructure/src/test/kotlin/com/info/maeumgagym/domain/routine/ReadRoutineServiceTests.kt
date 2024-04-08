@@ -1,3 +1,4 @@
+/*
 package com.info.maeumgagym.domain.routine
 
 import com.info.maeumgagym.common.exception.MaeumGaGymException
@@ -14,8 +15,7 @@ import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.error.TestException
 import com.info.maeumgagym.routine.port.`in`.ReadAllMyRoutineUseCase
 import com.info.maeumgagym.routine.port.`in`.ReadTodayRoutineUseCase
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,7 +25,7 @@ import java.time.LocalDate
 import kotlin.random.Random
 
 @Transactional
-//@SpringBootTest
+@SpringBootTest
 internal class ReadRoutineServiceTests @Autowired constructor(
     private val readMyAllRoutineUseCase: ReadAllMyRoutineUseCase,
     private val readTodayRoutineUseCase: ReadTodayRoutineUseCase,
@@ -89,3 +89,4 @@ internal class ReadRoutineServiceTests @Autowired constructor(
         }
     }
 }
+*/

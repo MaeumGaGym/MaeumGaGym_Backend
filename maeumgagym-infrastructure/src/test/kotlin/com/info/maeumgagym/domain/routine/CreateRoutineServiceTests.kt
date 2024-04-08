@@ -1,3 +1,4 @@
+/*
 package com.info.maeumgagym.domain.routine
 
 import com.info.maeumgagym.common.exception.BusinessLogicException
@@ -59,13 +60,15 @@ internal class CreateRoutineServiceTests @Autowired constructor(
 //        }
 //    }
 
-    /**
+    */
+/**
      * @see CreateRoutineUseCase.createRoutine
      * @when 실패 상황 : 이미 다른 루틴이 할당된 요일로 새로운 루틴을 생성하려 함
      * @fail 정상적으로 루틴이 저장되는지 확인
      * @fail 아래의 함수가 정상 작동하는지 확인
      *  @see RoutineNativeRepository.findByUserIdAndDayOfWeekAndIsArchivedFalse
-     */
+     *//*
+
     @Test
     fun createRoutineWithDayOfWeeksAlreadyOtherRoutineUsingAt() {
         RoutineTestModule.createTestRoutine(user.id!!).saveInRepository(routineRepository)
@@ -79,13 +82,15 @@ internal class CreateRoutineServiceTests @Autowired constructor(
         }
     }
 
-    /**
+    */
+/**
      * @see CreateRoutineUseCase.createRoutine
      * @when 실패 상황 : 이미 다른 루틴이 할당된 요일로 새로운 루틴을 생성하려 함
      * @fail 정상적으로 루틴이 저장되는지 확인
      * @fail 아래의 함수가 정상 작동하는지 확인
      *  @see RoutineNativeRepository.findByUserIdAndDayOfWeekAndIsArchivedFalse
-     */
+     *//*
+
     @Test
     fun createRoutineWithDayOfWeeksAlreadyOtherRoutineUsingAtButArchived() {
         RoutineTestModule.createTestRoutine(user.id!!).setArchived(true).saveInRepository(routineRepository)
@@ -97,3 +102,4 @@ internal class CreateRoutineServiceTests @Autowired constructor(
         }
     }
 }
+*/

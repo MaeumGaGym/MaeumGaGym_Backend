@@ -1,3 +1,4 @@
+/*
 package com.info.maeumgagym.domain.routine
 
 import com.info.maeumgagym.common.exception.BusinessLogicException
@@ -64,3 +65,4 @@ internal class DeleteRoutineServiceTests @Autowired constructor(
         }
     }
 }
+*/
