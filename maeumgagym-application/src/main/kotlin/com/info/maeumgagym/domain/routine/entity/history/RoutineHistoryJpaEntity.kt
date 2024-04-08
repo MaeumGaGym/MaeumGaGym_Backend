@@ -22,7 +22,7 @@ class RoutineHistoryJpaEntity(
     id: Long?,
     userId: UUID,
     routineName: String,
-    date: LocalDate,
+    date: LocalDate
 ) : BaseLongIdEntity(id) {
 
     @Column(name = "routine_name", nullable = false)

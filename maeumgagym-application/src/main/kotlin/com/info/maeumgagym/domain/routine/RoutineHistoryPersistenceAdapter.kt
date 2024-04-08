@@ -28,7 +28,6 @@ internal class RoutineHistoryPersistenceAdapter(
     override fun save(routineHistory: RoutineHistory): RoutineHistory {
         val saved = routineHistoryRepository.save(mapper.toEntity(routineHistory))
 
-
         exerciseInfoHistoryListMapper.toEntityList(routineHistory.exerciseInfoHistoryList, saved.id!!).map {
             exerciseInfoHistoryRepository.save(it)
         }

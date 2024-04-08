@@ -75,13 +75,13 @@ internal class UpdateRoutineServiceTests @Autowired constructor(
 
     */
 /**
-     * @see UpdateRoutineUseCase.updateRoutine
-     * @when 실패 상황 : 이미 다른 루틴이 할당된 요일로 루틴의 정보를 수정하려함
-     * @fail 정상적으로 수정한 루틴이 저장되는지 확인
-     * @fail 정상적으로 루틴이 저장되는지 확인
-     * @fail 아래의 함수가 정상 작동하는지 확인
-     *  @see RoutineNativeRepository.findByUserIdAndDayOfWeekAndIsArchivedFalse
-     *//*
+ * @see UpdateRoutineUseCase.updateRoutine
+ * @when 실패 상황 : 이미 다른 루틴이 할당된 요일로 루틴의 정보를 수정하려함
+ * @fail 정상적으로 수정한 루틴이 저장되는지 확인
+ * @fail 정상적으로 루틴이 저장되는지 확인
+ * @fail 아래의 함수가 정상 작동하는지 확인
+ *  @see RoutineNativeRepository.findByUserIdAndDayOfWeekAndIsArchivedFalse
+ *//*
 
     @Test
     fun updateRoutineWithDayOfWeeksAlreadyOtherRoutineUsingAt() {
@@ -106,13 +106,13 @@ internal class UpdateRoutineServiceTests @Autowired constructor(
 
     */
 /**
-     * @see UpdateRoutineUseCase.updateRoutine
-     * @when 성공 상황 : 이미 다른 루틴이 할당된 요일로 루틴의 정보를 수정하려 했으나, 그 루틴은 보관 상태
-     * @fail 정상적으로 수정한 루틴이 저장되는지 확인
-     * @fail 정상적으로 루틴이 저장되는지 확인
-     * @fail 아래의 함수가 정상 작동하는지 확인
-     *  @see RoutineNativeRepository.findByUserIdAndDayOfWeekAndIsArchivedFalse
-     *//*
+ * @see UpdateRoutineUseCase.updateRoutine
+ * @when 성공 상황 : 이미 다른 루틴이 할당된 요일로 루틴의 정보를 수정하려 했으나, 그 루틴은 보관 상태
+ * @fail 정상적으로 수정한 루틴이 저장되는지 확인
+ * @fail 정상적으로 루틴이 저장되는지 확인
+ * @fail 아래의 함수가 정상 작동하는지 확인
+ *  @see RoutineNativeRepository.findByUserIdAndDayOfWeekAndIsArchivedFalse
+ *//*
 
     @Test
     fun updateRoutineWithDayOfWeeksAlreadyOtherRoutineUsingAtButArchived() {
