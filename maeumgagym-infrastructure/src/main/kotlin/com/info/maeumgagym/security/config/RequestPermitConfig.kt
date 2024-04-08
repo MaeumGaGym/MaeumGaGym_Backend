@@ -21,6 +21,7 @@ class RequestPermitConfig : SecurityConfigurerAdapter<DefaultSecurityFilterChain
             Pair("/auth/re-issue", HttpMethod.GET),
             Pair("/public/csrf", HttpMethod.GET),
             Pair("/actuator/health", HttpMethod.GET),
+            Pair("/kakao/token/**", HttpMethod.GET),
             Pair("/swagger-ui/**", HttpMethod.GET),
             Pair("/docs/**", HttpMethod.GET)
         )
