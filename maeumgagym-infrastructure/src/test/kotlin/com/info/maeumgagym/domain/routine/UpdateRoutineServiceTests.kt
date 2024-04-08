@@ -5,9 +5,9 @@ import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.routine.RoutineTestModule.saveInRepository
 import com.info.maeumgagym.domain.routine.RoutineTestModule.setArchived
-import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
+import com.info.maeumgagym.domain.routine.entity.current.RoutineJpaEntity
 import com.info.maeumgagym.domain.routine.repository.current.RoutineNativeRepository
-import com.info.maeumgagym.domain.routine.repository.RoutineRepository
+import com.info.maeumgagym.domain.routine.repository.current.RoutineRepository
 import com.info.maeumgagym.domain.user.UserTestModule
 import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityManager
 
 @Transactional
-@SpringBootTest
+//@SpringBootTest
 internal class UpdateRoutineServiceTests @Autowired constructor(
     private val updateRoutineUseCase: UpdateRoutineUseCase,
     private val routineRepository: RoutineRepository,

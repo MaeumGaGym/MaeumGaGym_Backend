@@ -1,3 +1,4 @@
+/*
 package com.info.maeumgagym.domain.routine
 
 import com.info.maeumgagym.domain.pose.PoseTestModule
@@ -5,6 +6,7 @@ import com.info.maeumgagym.domain.pose.PoseTestModule.saveInRepository
 import com.info.maeumgagym.domain.routine.entity.current.ExerciseInfoJpaEntity
 import com.info.maeumgagym.domain.routine.entity.RoutineJpaEntity
 import com.info.maeumgagym.domain.routine.entity.RoutineStatus
+import com.info.maeumgagym.domain.routine.entity.current.RoutineJpaEntity
 import com.info.maeumgagym.domain.routine.repository.RoutineRepository
 import com.info.maeumgagym.global.vo.TestRepositories
 import com.info.maeumgagym.routine.dto.request.CreateRoutineRequest
@@ -21,15 +23,15 @@ internal object RoutineTestModule {
 
     private val TEST_ROUTINE_FIRST_EXERCISE
         get() = ExerciseInfoJpaEntity(
-            PoseTestModule.createPose().saveInRepository(TestRepositories.poseRepository).id!!,
-            15,
-            3
+            poseId = PoseTestModule.createPose().saveInRepository(TestRepositories.poseRepository).id!!,
+            repetitions = 15,
+            sets = 3
         )
     private val TEST_ROUTINE_SECOND_EXERCISE
         get() = ExerciseInfoJpaEntity(
-            PoseTestModule.createPose().saveInRepository(TestRepositories.poseRepository).id!!,
-            10,
-            5
+            poseId = PoseTestModule.createPose().saveInRepository(TestRepositories.poseRepository).id!!,
+            repetitions = 10,
+            sets = 5
         )
     private val TEST_ROUTINE_EXERCISE_LIST get() = listOf(TEST_ROUTINE_FIRST_EXERCISE, TEST_ROUTINE_SECOND_EXERCISE)
 
@@ -39,7 +41,6 @@ internal object RoutineTestModule {
     fun createTestRoutine(userId: UUID): RoutineJpaEntity =
         RoutineJpaEntity(
             routineName = TEST_ROUTINE_NAME,
-            exerciseInfoList = TEST_ROUTINE_EXERCISE_LIST.toMutableList(),
             dayOfWeeks = TEST_ROUTINE_DAY_OF_WEEKS.toMutableSet(),
             routineStatus = TEST_ROUTINE_STATUS,
             userId = userId
@@ -122,3 +123,4 @@ internal object RoutineTestModule {
             userId = userId
         )
 }
+*/

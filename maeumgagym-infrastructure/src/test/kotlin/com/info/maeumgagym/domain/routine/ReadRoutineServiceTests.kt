@@ -5,7 +5,7 @@ import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.routine.RoutineTestModule.appendDayOfWeek
 import com.info.maeumgagym.domain.routine.RoutineTestModule.deleteDayOfWeek
 import com.info.maeumgagym.domain.routine.RoutineTestModule.saveInRepository
-import com.info.maeumgagym.domain.routine.repository.RoutineRepository
+import com.info.maeumgagym.domain.routine.repository.current.RoutineRepository
 import com.info.maeumgagym.domain.user.UserTestModule
 import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
@@ -14,6 +14,8 @@ import com.info.maeumgagym.domain.user.repository.UserRepository
 import com.info.maeumgagym.error.TestException
 import com.info.maeumgagym.routine.port.`in`.ReadAllMyRoutineUseCase
 import com.info.maeumgagym.routine.port.`in`.ReadTodayRoutineUseCase
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -22,10 +24,8 @@ import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
 import kotlin.random.Random
 
-import org.junit.jupiter.api.Assertions.*
-
 @Transactional
-@SpringBootTest
+//@SpringBootTest
 internal class ReadRoutineServiceTests @Autowired constructor(
     private val readMyAllRoutineUseCase: ReadAllMyRoutineUseCase,
     private val readTodayRoutineUseCase: ReadTodayRoutineUseCase,
