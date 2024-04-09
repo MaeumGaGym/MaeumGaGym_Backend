@@ -7,11 +7,10 @@ import com.info.maeumgagym.error.filter.filterchain.ExceptionChainedFilterChainP
 import com.info.maeumgagym.error.repository.ExceptionRepository
 import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
-import com.info.maeumgagym.security.authentication.UsernamePasswordAuthenticationTokenProvider
+import com.info.maeumgagym.security.authentication.UserModelAuthenticationProvider
 import com.info.maeumgagym.security.jwt.JwtFilter
 import com.info.maeumgagym.security.jwt.JwtResolver
 import com.info.maeumgagym.security.jwt.env.JwtProperties
-import com.info.maeumgagym.user.port.out.ReadUserPort
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.DefaultSecurityFilterChain
@@ -23,11 +22,10 @@ import org.springframework.stereotype.Component
 class SecurityFilterChainConfig(
     private val jwtResolver: JwtResolver,
     private val jwtProperties: JwtProperties,
-    private val authenticationProvider: UsernamePasswordAuthenticationTokenProvider,
+    private val authenticationProvider: UserModelAuthenticationProvider,
     private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
     private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter,
-    private val exceptionRepository: ExceptionRepository,
-    private val readUserPort: ReadUserPort
+    private val exceptionRepository: ExceptionRepository
 ) : SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
 
     /**
@@ -39,7 +37,7 @@ class SecurityFilterChainConfig(
     override fun configure(builder: HttpSecurity) {
         builder.run {
             addFilterBefore(
-                JwtFilter(jwtResolver, authenticationProvider, readUserPort, jwtProperties),
+                JwtFilter(jwtResolver, authenticationProvider, jwtProperties),
                 LogoutFilter::class.java
             )
             addFilterBefore(

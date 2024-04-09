@@ -2,39 +2,31 @@ package com.info.maeumgagym.auth
 
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.security.authentication.AuthenticationProvider
-import com.info.maeumgagym.security.jwt.JwtFilter
+import com.info.maeumgagym.security.authentication.vo.UserModelAuthentication
 import com.info.maeumgagym.user.model.User
-import com.info.maeumgagym.user.port.out.ReadUserPort
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 
 @Component
 internal class ReadCurrentUserAdapter(
-    private val authenticationProvider: AuthenticationProvider,
-    private val readUserPort: ReadUserPort
+    private val authenticationProvider: AuthenticationProvider
 ) : ReadCurrentUserPort {
 
     override fun readCurrentUser(): User {
         // User를 찾기 위한 정보가 담겨 있는 Authentication 로드
-        val authentication = SecurityContextHolder.getContext().authentication
+        var authentication = SecurityContextHolder.getContext().authentication as UserModelAuthentication
 
-        JwtFilter.run {
-            // Lazy Loading으로 Nullable인 User를 확인
-            if (this.authenticatedUser.get() == null ||
-                this.authenticatedUser.get().oauthId != authentication.principal
-            ) {
-                // null인 경우 User를 Load 및 SecurityContext, authenticatedUser에 입력
-                SecurityContextHolder.getContext().authentication =
-                    authenticationProvider.getAuthentication(
-                        authentication.principal as String
-                    )
-                JwtFilter.authenticatedUser.set(
-                    readUserPort.readByOAuthId(authentication.principal as String)
-                )
-            }
+        // Lazy Loading이 가능하여 Nullable인 User가 null이거나, 유효하지 경우 => 유저가 이미 로딩되어 있지 않은 경우
+        if (authentication.user == null ||
+            authentication.user!!.oauthId != authentication.principal
+        ) {
+            // User를 Load 및 SecurityContext에 삽입
+            authentication = authenticationProvider.getAuthentication(
+                authentication.principal as String
+            ) as UserModelAuthentication
         }
 
         // User 반환
-        return JwtFilter.authenticatedUser.get()
+        return authentication.user!!
     }
 }
