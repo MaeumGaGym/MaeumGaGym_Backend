@@ -86,11 +86,11 @@ data class ErrorLogResponse(
     }
 }
 
-private fun isServerError(status: Int): Boolean = status in 500..599
-
 private fun ErrorLog.getErrorResponseMessage(): String =
-    if (isServerError(this.status)) {
+    if (isServerErrorStatus(this.status)) {
         MaeumGaGymException.INTERNAL_SERVER_ERROR.message!!
     } else {
         this.message ?: ""
     }
+
+private fun isServerErrorStatus(status: Int): Boolean = status in 500..599
