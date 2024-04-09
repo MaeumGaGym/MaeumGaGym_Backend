@@ -20,7 +20,7 @@ data class ErrorLog(
                 is PresentationValidationException -> e.run {
                     ErrorLog(
                         exceptionClassName = javaClass.name,
-                        errorOccurredClassName = stackTrace[2].className + " or " + stackTrace[1].className,
+                        errorOccurredClassName = getErrorOccurredClassName(stackTrace.toList()),
                         status = status,
                         message = message,
                         map = fields
@@ -30,7 +30,7 @@ data class ErrorLog(
                 is MaeumGaGymException -> e.run {
                     ErrorLog(
                         exceptionClassName = javaClass.name,
-                        errorOccurredClassName = stackTrace[2].className + " or " + stackTrace[1].className,
+                        errorOccurredClassName = getErrorOccurredClassName(stackTrace.toList()),
                         status = status,
                         message = message
                     )
@@ -39,7 +39,7 @@ data class ErrorLog(
                 else -> e.run {
                     ErrorLog(
                         exceptionClassName = javaClass.name,
-                        errorOccurredClassName = stackTrace[2].className + " or " + stackTrace[1].className,
+                        errorOccurredClassName = getErrorOccurredClassName(stackTrace.toList()),
                         message = message
                     )
                 }
@@ -47,5 +47,8 @@ data class ErrorLog(
     }
 
     override fun toString() =
-        "[$id] $status : \"$message\" in $errorOccurredClassName cause $exceptionClassName"
+        "[$id] $status : \"$message\" in > $errorOccurredClassName < cause \"$exceptionClassName\""
 }
+
+private fun getErrorOccurredClassName(stackTrace: List<StackTraceElement>): String =
+    "\"${stackTrace[3].className}\" or \"${stackTrace[2].className}\" or \"${stackTrace[1].className}\""
