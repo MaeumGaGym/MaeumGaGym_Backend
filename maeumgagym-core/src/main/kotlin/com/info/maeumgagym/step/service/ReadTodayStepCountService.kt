@@ -1,6 +1,6 @@
 package com.info.maeumgagym.step.service
 
-import com.info.common.ReadOnlyUseCase
+import com.info.common.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.step.dto.response.StepCountResponse
 import com.info.maeumgagym.step.port.`in`.ReadTodayStepCountUseCase

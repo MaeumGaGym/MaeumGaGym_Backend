@@ -1,6 +1,6 @@
 package com.info.maeumgagym.controller.routine
 
-import com.info.common.WebAdapter
+import com.info.common.responsibility.WebAdapter
 import com.info.maeumgagym.controller.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.controller.routine.dto.CreateRoutineWebRequest
 import com.info.maeumgagym.controller.routine.dto.UpdateRoutineWebRequest

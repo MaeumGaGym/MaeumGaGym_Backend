@@ -1,6 +1,6 @@
 package com.info.maeumgagym.routine.service
 
-import com.info.common.ReadOnlyUseCase
+import com.info.common.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.routine.dto.response.RoutineListResponse
 import com.info.maeumgagym.routine.port.`in`.ReadAllMyRoutineUseCase

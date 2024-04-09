@@ -1,6 +1,6 @@
 package com.info.maeumgagym.domain.routine
 
-import com.info.common.PersistenceAdapter
+import com.info.common.responsibility.PersistenceAdapter
 import com.info.maeumgagym.domain.routine.mapper.ExerciseInfoHistoryListMapper
 import com.info.maeumgagym.domain.routine.mapper.RoutineHistoryMapper
 import com.info.maeumgagym.domain.routine.repository.history.ExerciseInfoHistoryRepository

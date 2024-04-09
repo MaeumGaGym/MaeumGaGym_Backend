@@ -1,6 +1,6 @@
 package com.info.maeumgagym.wakatime.service
 
-import com.info.common.ReadOnlyUseCase
+import com.info.common.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.wakatime.dto.response.WakatimeResponse
 import com.info.maeumgagym.wakatime.port.`in`.ReadWakaTimeUseCase

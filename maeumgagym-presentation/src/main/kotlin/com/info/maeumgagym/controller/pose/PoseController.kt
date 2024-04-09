@@ -1,6 +1,6 @@
 package com.info.maeumgagym.controller.pose
 
-import com.info.common.WebAdapter
+import com.info.common.responsibility.WebAdapter
 import com.info.maeumgagym.pose.dto.response.PoseDetailResponse
 import com.info.maeumgagym.pose.dto.response.PoseListResponse
 import com.info.maeumgagym.pose.dto.response.PoseRecommendationListResponse

@@ -1,6 +1,6 @@
 package com.info.maeumgagym.controller.daily
 
-import com.info.common.WebAdapter
+import com.info.common.responsibility.WebAdapter
 import com.info.maeumgagym.controller.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.controller.daily.dto.CreateDailyRequest
 import com.info.maeumgagym.controller.daily.dto.DailyTitleUpdateRequest

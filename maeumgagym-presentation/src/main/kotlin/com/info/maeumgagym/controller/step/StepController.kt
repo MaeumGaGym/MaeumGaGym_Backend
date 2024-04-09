@@ -1,6 +1,6 @@
 package com.info.maeumgagym.controller.step
 
-import com.info.common.WebAdapter
+import com.info.common.responsibility.WebAdapter
 import com.info.maeumgagym.step.port.`in`.ReadTodayStepCountUseCase
 import com.info.maeumgagym.step.port.`in`.UpdateStepUseCase
 import io.swagger.v3.oas.annotations.Operation
