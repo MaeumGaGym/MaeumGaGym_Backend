@@ -1,6 +1,6 @@
 package com.info.maeumgagym.controller.user
 
-import com.info.common.WebAdapter
+import com.info.common.responsibility.WebAdapter
 import com.info.maeumgagym.controller.user.dto.UpdateUserInfoWebRequest
 import com.info.maeumgagym.user.dto.response.UserProfileResponse
 import com.info.maeumgagym.user.port.`in`.ReadUserUseCase

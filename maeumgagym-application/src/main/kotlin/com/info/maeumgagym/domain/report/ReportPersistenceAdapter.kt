@@ -1,6 +1,6 @@
 package com.info.maeumgagym.domain.report
 
-import com.info.common.PersistenceAdapter
+import com.info.common.responsibility.PersistenceAdapter
 import com.info.maeumgagym.domain.report.mapper.ReportMapper
 import com.info.maeumgagym.domain.report.repository.ReportRepository
 import com.info.maeumgagym.report.model.Report

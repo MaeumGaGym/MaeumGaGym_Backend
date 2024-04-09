@@ -1,6 +1,6 @@
 package com.info.maeumgagym.purpose.service
 
-import com.info.common.UseCase
+import com.info.common.responsibility.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.purpose.model.Purpose

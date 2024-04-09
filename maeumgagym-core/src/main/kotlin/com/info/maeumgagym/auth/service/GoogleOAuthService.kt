@@ -1,6 +1,6 @@
 package com.info.maeumgagym.auth.service
 
-import com.info.common.UseCase
+import com.info.common.responsibility.UseCase
 import com.info.maeumgagym.auth.port.`in`.GoogleLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.GoogleRecoveryUseCase
 import com.info.maeumgagym.auth.port.`in`.GoogleSignupUseCase

@@ -1,6 +1,6 @@
 package com.info.maeumgagym.pickle.service
 
-import com.info.common.ReadOnlyUseCase
+import com.info.common.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.pickle.dto.response.PickleListResponse
 import com.info.maeumgagym.pickle.dto.response.PickleResponse

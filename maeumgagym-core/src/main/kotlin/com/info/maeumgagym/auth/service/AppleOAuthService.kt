@@ -1,6 +1,6 @@
 package com.info.maeumgagym.auth.service
 
-import com.info.common.UseCase
+import com.info.common.responsibility.UseCase
 import com.info.maeumgagym.auth.port.`in`.AppleLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.AppleRecoveryUseCase
 import com.info.maeumgagym.auth.port.`in`.AppleSignUpUseCase

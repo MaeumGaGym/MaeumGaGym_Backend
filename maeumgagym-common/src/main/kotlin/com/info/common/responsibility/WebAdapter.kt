@@ -1,4 +1,4 @@
-package com.info.common
+package com.info.common.responsibility
 
 import org.springframework.web.bind.annotation.RestController
 

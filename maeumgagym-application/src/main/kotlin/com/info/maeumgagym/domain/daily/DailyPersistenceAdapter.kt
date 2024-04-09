@@ -1,6 +1,6 @@
 package com.info.maeumgagym.domain.daily
 
-import com.info.common.PersistenceAdapter
+import com.info.common.responsibility.PersistenceAdapter
 import com.info.maeumgagym.daily.model.Daily
 import com.info.maeumgagym.daily.port.out.DeleteDailyPort
 import com.info.maeumgagym.daily.port.out.ReadDailyPort

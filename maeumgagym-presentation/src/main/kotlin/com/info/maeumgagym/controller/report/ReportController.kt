@@ -1,6 +1,6 @@
 package com.info.maeumgagym.controller.report
 
-import com.info.common.WebAdapter
+import com.info.common.responsibility.WebAdapter
 import com.info.maeumgagym.controller.report.dto.ReportWebRequest
 import com.info.maeumgagym.report.port.`in`.ReportPickleCommentUseCase
 import com.info.maeumgagym.report.port.`in`.ReportPickleReplyUseCase
