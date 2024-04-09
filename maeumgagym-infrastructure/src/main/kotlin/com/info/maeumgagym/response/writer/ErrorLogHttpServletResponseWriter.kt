@@ -1,5 +1,6 @@
 package com.info.maeumgagym.response.writer
 
+import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.error.vo.ErrorLog
 import java.time.LocalDateTime
 import javax.servlet.http.HttpServletResponse
@@ -76,7 +77,7 @@ data class ErrorLogResponse(
             errorLog.run {
                 ErrorLogResponse(
                     status = status,
-                    message = message,
+                    message = errorLog.getErrorResponseMessage(),
                     errorLogId = id,
                     timestamp = timestamp,
                     map = map
@@ -84,3 +85,12 @@ data class ErrorLogResponse(
             }
     }
 }
+
+private fun isServerError(status: Int): Boolean = status in 500..599
+
+private fun ErrorLog.getErrorResponseMessage(): String =
+    if (isServerError(this.status)) {
+        MaeumGaGymException.INTERNAL_SERVER_ERROR.message!!
+    } else {
+        this.message ?: ""
+    }
