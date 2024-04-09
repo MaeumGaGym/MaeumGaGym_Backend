@@ -10,13 +10,13 @@ data class RoutineHistory(
     val userId: UUID,
     val routineName: String,
     val date: LocalDate,
-    val exerciseInfoList: MutableList<ExerciseInfoModel>
+    val exerciseInfoHistoryList: List<ExerciseInfoHistoryModel>
 ) {
     fun toResponse(): RoutineHistoryResponse =
         RoutineHistoryResponse(
             id = id!!,
             routineName = routineName,
-            exerciseInfoResponseList = exerciseInfoList.map {
+            exerciseInfoResponseList = exerciseInfoHistoryList.map {
                 ExerciseInfoResponse(
                     pose = it.pose.toInfoResponse(),
                     repetitions = it.repetitions,

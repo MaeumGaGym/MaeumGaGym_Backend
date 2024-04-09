@@ -1,7 +1,8 @@
-package com.info.maeumgagym.domain.routine.entity
+package com.info.maeumgagym.domain.routine.entity.current
 
 import com.info.maeumgagym.TableNames
 import com.info.maeumgagym.domain.base.BaseLongIdTimeEntity
+import com.info.maeumgagym.domain.routine.entity.RoutineStatus
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 import java.util.*
@@ -10,7 +11,6 @@ import javax.persistence.*
 @Entity(name = TableNames.ROUTINE_TABLE)
 class RoutineJpaEntity(
     routineName: String,
-    exerciseInfoList: MutableList<ExerciseInfo>,
     dayOfWeeks: MutableSet<DayOfWeek>?,
     routineStatus: RoutineStatus,
     createdAt: LocalDateTime? = null,
@@ -19,10 +19,6 @@ class RoutineJpaEntity(
 ) : BaseLongIdTimeEntity(id, createdAt) {
     @Column(name = "routine_name", nullable = false)
     var routineName: String = routineName
-        protected set
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    var exerciseInfoList: MutableList<ExerciseInfo> = exerciseInfoList
         protected set
 
     @ElementCollection

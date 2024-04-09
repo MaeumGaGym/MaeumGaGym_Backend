@@ -34,7 +34,7 @@ data class Pose(
         simpleName = simpleName,
         exactName = exactName,
         thumbnail = thumbnail,
-        poseImages = poseImages,
+        poseImages = poseImages.toList(),
         simplePart = simplePart,
         exactPart = exactPart,
         startPose = startPose,

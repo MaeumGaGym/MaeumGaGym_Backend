@@ -37,7 +37,7 @@ internal class UpdateRoutineService(
         }
 
         val poses = req.exerciseInfoResponseList.associate {
-            Pair(it.id, readPosePort.readById(it.id))
+            Pair(it.id, readPosePort.readById(it.id) ?: throw BusinessLogicException.POSE_NOT_FOUND)
         }
 
         routine.run {
@@ -49,6 +49,7 @@ internal class UpdateRoutineService(
                     routineStatusModel = RoutineStatusModel(isArchived = req.isArchived, isShared = req.isShared),
                     exerciseInfoModelList = req.exerciseInfoResponseList.map {
                         ExerciseInfoModel(
+                            routineId = routine.id,
                             pose = poses[it.id]!!,
                             repetitions = it.repetitions,
                             sets = it.sets

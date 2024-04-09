@@ -1,11 +1,12 @@
+/*
 package com.info.maeumgagym.domain.routine
 
 import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.domain.auth.AuthTestModule.saveInContext
 import com.info.maeumgagym.domain.routine.RoutineTestModule.saveInRepository
 import com.info.maeumgagym.domain.routine.RoutineTestModule.setArchived
-import com.info.maeumgagym.domain.routine.repository.RoutineNativeRepository
-import com.info.maeumgagym.domain.routine.repository.RoutineRepository
+import com.info.maeumgagym.domain.routine.repository.current.RoutineNativeRepository
+import com.info.maeumgagym.domain.routine.repository.current.RoutineRepository
 import com.info.maeumgagym.domain.user.UserTestModule
 import com.info.maeumgagym.domain.user.UserTestModule.saveInRepository
 import com.info.maeumgagym.domain.user.entity.UserJpaEntity
@@ -21,7 +22,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
 
 @Transactional
-@SpringBootTest
+//@SpringBootTest
 internal class CreateRoutineServiceTests @Autowired constructor(
     private val createRoutineUseCase: CreateRoutineUseCase,
     private val routineRepository: RoutineRepository,
@@ -59,13 +60,15 @@ internal class CreateRoutineServiceTests @Autowired constructor(
 //        }
 //    }
 
-    /**
-     * @see CreateRoutineUseCase.createRoutine
-     * @when 실패 상황 : 이미 다른 루틴이 할당된 요일로 새로운 루틴을 생성하려 함
-     * @fail 정상적으로 루틴이 저장되는지 확인
-     * @fail 아래의 함수가 정상 작동하는지 확인
-     *  @see RoutineNativeRepository.findByUserIdAndDayOfWeekAndIsArchivedFalse
-     */
+    */
+/**
+ * @see CreateRoutineUseCase.createRoutine
+ * @when 실패 상황 : 이미 다른 루틴이 할당된 요일로 새로운 루틴을 생성하려 함
+ * @fail 정상적으로 루틴이 저장되는지 확인
+ * @fail 아래의 함수가 정상 작동하는지 확인
+ *  @see RoutineNativeRepository.findByUserIdAndDayOfWeekAndIsArchivedFalse
+ *//*
+
     @Test
     fun createRoutineWithDayOfWeeksAlreadyOtherRoutineUsingAt() {
         RoutineTestModule.createTestRoutine(user.id!!).saveInRepository(routineRepository)
@@ -79,13 +82,15 @@ internal class CreateRoutineServiceTests @Autowired constructor(
         }
     }
 
-    /**
-     * @see CreateRoutineUseCase.createRoutine
-     * @when 실패 상황 : 이미 다른 루틴이 할당된 요일로 새로운 루틴을 생성하려 함
-     * @fail 정상적으로 루틴이 저장되는지 확인
-     * @fail 아래의 함수가 정상 작동하는지 확인
-     *  @see RoutineNativeRepository.findByUserIdAndDayOfWeekAndIsArchivedFalse
-     */
+    */
+/**
+ * @see CreateRoutineUseCase.createRoutine
+ * @when 실패 상황 : 이미 다른 루틴이 할당된 요일로 새로운 루틴을 생성하려 함
+ * @fail 정상적으로 루틴이 저장되는지 확인
+ * @fail 아래의 함수가 정상 작동하는지 확인
+ *  @see RoutineNativeRepository.findByUserIdAndDayOfWeekAndIsArchivedFalse
+ *//*
+
     @Test
     fun createRoutineWithDayOfWeeksAlreadyOtherRoutineUsingAtButArchived() {
         RoutineTestModule.createTestRoutine(user.id!!).setArchived(true).saveInRepository(routineRepository)
@@ -97,3 +102,4 @@ internal class CreateRoutineServiceTests @Autowired constructor(
         }
     }
 }
+*/

@@ -3,6 +3,7 @@ package com.info.maeumgagym.routine.service
 import com.info.common.UseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.common.exception.BusinessLogicException
+import com.info.maeumgagym.routine.model.ExerciseInfoHistoryModel.Companion.toHistory
 import com.info.maeumgagym.routine.model.RoutineHistory
 import com.info.maeumgagym.routine.port.`in`.CompleteTodayRoutineUseCase
 import com.info.maeumgagym.routine.port.out.ExistsRoutineHistoryPort
@@ -32,7 +33,7 @@ class CompleteTodayRoutineService(
                 RoutineHistory(
                     id = null,
                     date = now,
-                    exerciseInfoList = routine.exerciseInfoModelList,
+                    exerciseInfoHistoryList = routine.exerciseInfoModelList.map { it.toHistory() },
                     userId = user.id,
                     routineName = routine.routineName
                 )
