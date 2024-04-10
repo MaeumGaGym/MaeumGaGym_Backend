@@ -7,6 +7,7 @@ import com.info.maeumgagym.common.exception.AuthenticationException
 import com.info.maeumgagym.user.model.Role
 import org.springframework.web.method.HandlerMethod
 import org.springframework.web.servlet.HandlerInterceptor
+import java.lang.reflect.Method
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import kotlin.reflect.KClass
@@ -41,40 +42,56 @@ class RoleAuthenticationInterceptor(
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
         if (!initialed) initialize()
 
-        val webAdapter = castHandlerToWebAdapterOrNull(handler)
+        val handlerMethod = castHandlerToHandlerMethodOrNull(handler) ?: return true
 
-        if (needRoleAuthentication(webAdapter)) {
-            val currentUser = readCurrentUserPort.readCurrentUser()
+        val roleNeed = getRequiredRoleIfNeed(handlerMethod) ?: return true
 
-            val roleNeed = getRoleNeed(webAdapter!!)
-                ?: throw NullPointerException("Role authentication required BUT \"need role\" was null")
+        val currentUser = readCurrentUserPort.readCurrentUser()
 
-            if (!currentUser.roles.contains(roleNeed)) {
-                throw AuthenticationException.ROLE_REQUIRED
-            }
+        if (!currentUser.roles.contains(roleNeed)) {
+            throw AuthenticationException.ROLE_REQUIRED
         }
 
         return true
     }
 
-    private fun castHandlerToWebAdapterOrNull(handler: Any): Any? {
+    private fun castHandlerToHandlerMethodOrNull(handler: Any): HandlerMethod? {
         if (handler !is HandlerMethod) {
             return null
         }
 
-        return handler.bean
+        return handler
     }
 
-    private fun needRoleAuthentication(handler: Any?): Boolean {
-        if (handler == null) {
-            return false
+    private fun getRequiredRoleIfNeed(handlerMethod: HandlerMethod): Role? =
+        if (isClassHaveNeedRoleAnnotation(handlerMethod.bean)) {
+            getRequiredRoleInNeedRoleAnnotation(handlerMethod.bean)
+                ?: throw NullPointerException("Role authentication required BUT \"need role\" was null")
+        } else if (isMethodHaveNeedRoleAnnotation(handlerMethod.method)) {
+            getRequiredRoleInNeedRoleAnnotation(handlerMethod.method)
+                ?: throw NullPointerException("Role authentication required BUT \"need role\" was null")
+        } else {
+            null
         }
 
-        return haveNeedRoleAnnotation(handler)
+    private fun isClassHaveNeedRoleAnnotation(handler: Any): Boolean {
+        needRoleControllers.forEach {
+            if (it.value == handler) return true
+        }
+
+        return false
     }
 
-    private fun getRoleNeed(handler: Any): Role? {
-        handler::class.annotations.forEach {
+    private fun isMethodHaveNeedRoleAnnotation(handlerMethod: Method): Boolean {
+        handlerMethod.annotations.forEach {
+            if (it.annotationClass == NeedRole::class) return true
+        }
+
+        return false
+    }
+
+    private fun getRequiredRoleInNeedRoleAnnotation(`object`: Any): Role? {
+        `object`::class.annotations.forEach {
             if (it.annotationClass == NeedRole::class) {
                 return Role.valueOf((it as NeedRole).role)
             }
@@ -82,12 +99,4 @@ class RoleAuthenticationInterceptor(
 
         return null
     }
-
-    private fun haveNeedRoleAnnotation(handler: Any): Boolean {
-        needRoleControllers.forEach {
-            if (it.value == handler) return true
-        }
-        return false
-    }
-    /* `object`::class.annotations.map { it.annotationClass }.contains(NeedRole::class)*/
 }
