@@ -14,8 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 class InterceptorChainConfig(
     private val locationHeaderManager: LocationHeaderManager,
     private val annotationBeanCollection: AnnotationBeanCollection,
-    private val readCurrentUserPort: ReadCurrentUserPort,
-    private val dispatcherServlet: DispatcherServlet
+    private val readCurrentUserPort: ReadCurrentUserPort
 ) : WebMvcConfigurer {
 
     override fun addInterceptors(registry: InterceptorRegistry) {
@@ -28,8 +27,7 @@ class InterceptorChainConfig(
         registry.addInterceptor(
             RoleAuthenticationInterceptor(
                 annotationBeanCollection,
-                readCurrentUserPort,
-                dispatcherServlet
+                readCurrentUserPort
             )
         ).addPathPatterns("/**")
     }

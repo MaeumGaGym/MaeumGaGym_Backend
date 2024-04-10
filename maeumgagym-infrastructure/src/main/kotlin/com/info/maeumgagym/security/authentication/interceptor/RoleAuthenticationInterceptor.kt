@@ -6,9 +6,7 @@ import com.info.maeumgagym.collection.AnnotationBeanCollection
 import com.info.maeumgagym.common.exception.AuthenticationException
 import com.info.maeumgagym.user.model.Role
 import org.springframework.web.method.HandlerMethod
-import org.springframework.web.servlet.DispatcherServlet
 import org.springframework.web.servlet.HandlerInterceptor
-import org.springframework.web.servlet.HandlerMapping
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import kotlin.reflect.KClass
@@ -23,18 +21,20 @@ import kotlin.reflect.KClass
  */
 class RoleAuthenticationInterceptor(
     private val annotationBeanCollection: AnnotationBeanCollection,
-    private val readCurrentUserPort: ReadCurrentUserPort,
-    private val dispatcherServlet: DispatcherServlet
+    private val readCurrentUserPort: ReadCurrentUserPort
 ) : HandlerInterceptor {
 
     private lateinit var needRoleControllers: Map<String, Any>
 
-    private lateinit var handlerMappings: List<HandlerMapping>
 
     private var initialed: Boolean = false
 
+    /**
+     * 객체 초기화.
+     *
+     * 객체 생성 순서의 비 연관성으로 인해, 모든 객체가 생성된 이후 Bean 탐색을 위한 lateinit
+     */
     private fun initialize() {
-        handlerMappings = dispatcherServlet.handlerMappings!!.toList()
         needRoleControllers = annotationBeanCollection.getBeans(NeedRole::class as KClass<Annotation>)
         initialed = true
     }
