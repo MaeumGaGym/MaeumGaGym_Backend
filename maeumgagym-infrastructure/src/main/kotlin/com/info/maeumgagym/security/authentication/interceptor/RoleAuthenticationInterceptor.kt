@@ -1,6 +1,6 @@
 package com.info.maeumgagym.security.authentication.interceptor
 
-import com.info.common.security.NeedRole
+import com.info.common.security.RequireRole
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.collection.AnnotationBeanCollection
 import com.info.maeumgagym.common.exception.AuthenticationException
@@ -35,7 +35,7 @@ class RoleAuthenticationInterceptor(
      * 객체 생성 순서의 비 연관성으로 인해, 모든 객체가 생성된 이후 Bean 탐색을 위한 lateinit
      */
     private fun initialize() {
-        needRoleControllers = annotationBeanCollection.getBeans(NeedRole::class as KClass<Annotation>)
+        needRoleControllers = annotationBeanCollection.getBeans(RequireRole::class as KClass<Annotation>)
         initialed = true
     }
 
@@ -84,7 +84,7 @@ class RoleAuthenticationInterceptor(
 
     private fun isMethodHaveNeedRoleAnnotation(handlerMethod: Method): Boolean {
         handlerMethod.annotations.forEach {
-            if (it.annotationClass == NeedRole::class) return true
+            if (it.annotationClass == RequireRole::class) return true
         }
 
         return false
@@ -92,8 +92,8 @@ class RoleAuthenticationInterceptor(
 
     private fun getRequiredRoleInNeedRoleAnnotation(`object`: Any): Role? {
         `object`::class.annotations.forEach {
-            if (it.annotationClass == NeedRole::class) {
-                return Role.valueOf((it as NeedRole).role)
+            if (it.annotationClass == RequireRole::class) {
+                return Role.valueOf((it as RequireRole).role)
             }
         }
 

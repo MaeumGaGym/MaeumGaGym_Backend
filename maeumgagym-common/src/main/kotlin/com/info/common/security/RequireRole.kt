@@ -10,6 +10,6 @@ package com.info.common.security
  */
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class NeedRole(
+annotation class RequireRole(
     val role: String = "ADMIN"
 )
