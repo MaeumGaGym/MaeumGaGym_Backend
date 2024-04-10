@@ -6,7 +6,6 @@ import com.info.maeumgagym.controller.common.locationheader.LocationHeaderManage
 import com.info.maeumgagym.response.locationheader.LocationHeaderInterceptor
 import com.info.maeumgagym.security.authentication.interceptor.RoleAuthenticationInterceptor
 import org.springframework.context.annotation.Configuration
-import org.springframework.web.servlet.DispatcherServlet
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 

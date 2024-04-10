@@ -26,7 +26,6 @@ class RoleAuthenticationInterceptor(
 
     private lateinit var needRoleControllers: Map<String, Any>
 
-
     private var initialed: Boolean = false
 
     /**
