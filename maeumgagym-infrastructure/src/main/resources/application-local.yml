@@ -31,6 +31,11 @@ management:
     endpoint:
         health:
             show-details: always
+            enabled: true
+        heapdump:
+            enabled: true
+        shutdown:
+            enabled: false
 
 redis:
     host: ${REDIS_HOST:localhost}

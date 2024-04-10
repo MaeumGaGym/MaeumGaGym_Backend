@@ -7,6 +7,11 @@ management:
     endpoint:
         health:
             show-details: when_authorized
+            enabled: true
+        heapdump:
+            enabled: false
+        shutdown:
+            enabled: false
 
 server:
     domain:
