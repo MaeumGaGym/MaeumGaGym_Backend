@@ -8,7 +8,7 @@ package com.info.common.security
  * @author Daybreak312
  * @since 10-04-2024
  */
-@Target(AnnotationTarget.CLASS)
+@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class NeedRole(
     val role: String = "ADMIN"
