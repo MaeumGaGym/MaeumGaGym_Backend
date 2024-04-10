@@ -5,7 +5,6 @@ import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.collection.AnnotationBeanCollection
 import com.info.maeumgagym.common.exception.AuthenticationException
 import com.info.maeumgagym.user.model.Role
-import org.springframework.stereotype.Component
 import org.springframework.web.method.HandlerMethod
 import org.springframework.web.servlet.DispatcherServlet
 import org.springframework.web.servlet.HandlerInterceptor
@@ -22,7 +21,6 @@ import kotlin.reflect.KClass
  * @author Daybreak312
  * @since 09-04-2024
  */
-@Component
 class RoleAuthenticationInterceptor(
     private val annotationBeanCollection: AnnotationBeanCollection,
     private val readCurrentUserPort: ReadCurrentUserPort,
