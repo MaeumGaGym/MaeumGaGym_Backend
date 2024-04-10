@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletResponse
 import kotlin.reflect.KClass
 
 /**
- * 서버의 커스텀 인증 Filter.
+ * 서버의 커스텀 인증 Interceptor.
  *
- * [JwtFilter][com.info.maeumgagym.security.jwt.JwtFilter]에서 인가되어 온 [Authentication][com.info.maeumgagym.security.authentication.vo.UserModelAuthentication.user]에 존재하는 [User][com.info.maeumgagym.user.model.User]가 소유하고 있는 [Role][com.info.maeumgagym.user.model.Role]이 클라이언트가 요구하는 리소스에 적합한지 확인하기 위한 Filter.
+ * [JwtFilter][com.info.maeumgagym.security.jwt.JwtFilter]에서 인가되어 온 [Authentication][com.info.maeumgagym.security.authentication.vo.UserModelAuthentication.user]에 존재하는 [User][com.info.maeumgagym.user.model.User]가 소유하고 있는 [Role][com.info.maeumgagym.user.model.Role]이 클라이언트가 요구하는 리소스에 적합한지 확인하기 위한 Interceptor.
  *
  * @author Daybreak312
  * @since 09-04-2024
