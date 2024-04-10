@@ -238,6 +238,7 @@ class AuthenticationException(
         val INVALID_TOKEN get() = AuthenticationException(401, "Invalid Token")
         val EXPIRED_TOKEN get() = AuthenticationException(401, "Expired Token")
         val UNAUTHORIZED get() = AuthenticationException(401, "Unauthorized")
+        val ROLE_REQUIRED get() = AuthenticationException(403, "Role Required")
     }
 }
 
