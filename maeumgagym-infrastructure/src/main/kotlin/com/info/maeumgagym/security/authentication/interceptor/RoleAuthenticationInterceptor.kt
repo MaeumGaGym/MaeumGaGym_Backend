@@ -64,17 +64,15 @@ class RoleAuthenticationInterceptor(
     }
 
     private fun getRequiredRoleIfNeed(handlerMethod: HandlerMethod): Role? =
-        if (isClassHaveNeedRoleAnnotation(handlerMethod.bean)) {
-            getRequiredRoleInNeedRoleAnnotation(handlerMethod.bean)
-                ?: throw NullPointerException("Role authentication required BUT \"need role\" was null")
-        } else if (isMethodHaveNeedRoleAnnotation(handlerMethod.method)) {
-            getRequiredRoleInNeedRoleAnnotation(handlerMethod.method)
-                ?: throw NullPointerException("Role authentication required BUT \"need role\" was null")
+        if (isClassHaveRoleAnnotation(handlerMethod.bean)) {
+            getRequiredRoleInRoleAnnotation(handlerMethod.bean)
+        } else if (isMethodHaveRoleAnnotation(handlerMethod.method)) {
+            getRequiredRoleInRoleAnnotation(handlerMethod.method)
         } else {
             null
         }
 
-    private fun isClassHaveNeedRoleAnnotation(handler: Any): Boolean {
+    private fun isClassHaveRoleAnnotation(handler: Any): Boolean {
         needRoleControllers.forEach {
             if (it.value == handler) return true
         }
@@ -82,15 +80,15 @@ class RoleAuthenticationInterceptor(
         return false
     }
 
-    private fun isMethodHaveNeedRoleAnnotation(handlerMethod: Method): Boolean {
-        handlerMethod.annotations.forEach {
+    private fun isMethodHaveRoleAnnotation(method: Method): Boolean {
+        method.annotations.forEach {
             if (it.annotationClass == RequireRole::class) return true
         }
 
         return false
     }
 
-    private fun getRequiredRoleInNeedRoleAnnotation(`object`: Any): Role? {
+    private fun getRequiredRoleInRoleAnnotation(`object`: Any): Role? {
         `object`::class.annotations.forEach {
             if (it.annotationClass == RequireRole::class) {
                 return Role.valueOf((it as RequireRole).role)
