@@ -4,7 +4,7 @@ import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.collection.AnnotationBeanCollection
 import com.info.maeumgagym.controller.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.response.locationheader.LocationHeaderInterceptor
-import com.info.maeumgagym.security.filter.RoleAuthenticationInterceptor
+import com.info.maeumgagym.security.authentication.interceptor.RoleAuthenticationInterceptor
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.DispatcherServlet
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry

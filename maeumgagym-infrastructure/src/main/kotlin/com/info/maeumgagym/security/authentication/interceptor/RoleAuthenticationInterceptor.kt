@@ -1,4 +1,4 @@
-package com.info.maeumgagym.security.filter
+package com.info.maeumgagym.security.authentication.interceptor
 
 import com.info.common.security.NeedRole
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
