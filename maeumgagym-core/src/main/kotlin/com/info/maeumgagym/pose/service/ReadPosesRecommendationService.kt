@@ -1,6 +1,6 @@
 package com.info.maeumgagym.pose.service
 
-import com.info.common.ReadOnlyUseCase
+import com.info.common.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.pose.dto.response.PoseListResponse
 import com.info.maeumgagym.pose.dto.response.PoseRecommendationListResponse
 import com.info.maeumgagym.pose.model.Pose

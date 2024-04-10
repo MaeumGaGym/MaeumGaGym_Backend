@@ -1,6 +1,6 @@
 package com.info.maeumgagym.controller.auth
 
-import com.info.common.WebAdapter
+import com.info.common.responsibility.WebAdapter
 import com.info.maeumgagym.auth.port.`in`.AppleLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.AppleRecoveryUseCase
 import com.info.maeumgagym.auth.port.`in`.AppleSignUpUseCase

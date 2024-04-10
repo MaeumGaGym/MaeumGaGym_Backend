@@ -1,6 +1,6 @@
 package com.info.maeumgagym.controller.pickle
 
-import com.info.common.WebAdapter
+import com.info.common.responsibility.WebAdapter
 import com.info.maeumgagym.controller.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.controller.pickle.dto.PickleCommentWebRequest
 import com.info.maeumgagym.pickle.dto.response.PickleCommentListResponse

@@ -1,6 +1,6 @@
 package com.info.maeumgagym.controller.wakatime
 
-import com.info.common.WebAdapter
+import com.info.common.responsibility.WebAdapter
 import com.info.maeumgagym.wakatime.dto.response.WakatimeResponse
 import com.info.maeumgagym.wakatime.port.`in`.EndWakatimeUseCase
 import com.info.maeumgagym.wakatime.port.`in`.ReadWakaTimeUseCase

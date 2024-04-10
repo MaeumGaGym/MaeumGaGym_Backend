@@ -1,6 +1,6 @@
 package com.info.maeumgagym.controller.auth
 
-import com.info.common.WebAdapter
+import com.info.common.responsibility.WebAdapter
 import com.info.maeumgagym.auth.port.`in`.KakaoLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.KakaoRecoveryUseCase
 import com.info.maeumgagym.auth.port.`in`.KakaoSignupUseCase

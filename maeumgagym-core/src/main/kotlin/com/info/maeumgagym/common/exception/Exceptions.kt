@@ -1,6 +1,6 @@
 package com.info.maeumgagym.common.exception
 
-import com.info.common.UseCase
+import com.info.common.responsibility.UseCase
 import com.info.maeumgagym.common.enum.DomainNames
 
 /**

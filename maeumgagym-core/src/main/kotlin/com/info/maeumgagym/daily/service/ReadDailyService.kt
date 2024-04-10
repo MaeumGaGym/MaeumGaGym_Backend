@@ -1,6 +1,6 @@
 package com.info.maeumgagym.daily.service
 
-import com.info.common.ReadOnlyUseCase
+import com.info.common.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.daily.dto.response.DailyListResponse
