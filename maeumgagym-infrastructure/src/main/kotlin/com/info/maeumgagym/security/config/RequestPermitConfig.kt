@@ -35,7 +35,7 @@ class RequestPermitConfig : SecurityConfigurerAdapter<DefaultSecurityFilterChain
         builder.authorizeRequests()
             .requestMatchers(CorsUtils::isCorsRequest).permitAll()
             .permittedURIConfigure()
-            .needAdminRoleURIConfigure()
+            //.needAdminRoleURIConfigure()
             .anyRequest().authenticated()
     }
 
