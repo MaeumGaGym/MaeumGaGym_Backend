@@ -91,5 +91,4 @@ class RoleAuthenticationInterceptor(
         return false
     }
     /* `object`::class.annotations.map { it.annotationClass }.contains(NeedRole::class)*/
-
 }

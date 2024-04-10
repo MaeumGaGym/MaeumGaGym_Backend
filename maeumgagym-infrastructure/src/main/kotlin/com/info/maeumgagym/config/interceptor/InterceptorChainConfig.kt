@@ -27,7 +27,9 @@ class InterceptorChainConfig(
 
         registry.addInterceptor(
             RoleAuthenticationInterceptor(
-                annotationBeanCollection, readCurrentUserPort, dispatcherServlet
+                annotationBeanCollection,
+                readCurrentUserPort,
+                dispatcherServlet
             )
         ).addPathPatterns("/**")
     }
