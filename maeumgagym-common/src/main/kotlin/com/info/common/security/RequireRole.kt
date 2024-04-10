@@ -5,6 +5,34 @@ package com.info.common.security
  *
  * @param role [Role][com.info.maeumgagym.user.model.Role]의 문자열 이름
  *
+ *
+ * ```
+ * // Use like this:
+ *
+ * @RequireRole
+ * @RequestMapping("/report")
+ * @WebAdapter
+ * class ReportController { ... }
+ *
+ * // OR
+ *
+ * @RequireRole
+ * @GetMapping
+ * fun report() { ... }
+ *
+ * // And, Use annotation like this:
+ *
+ * @RequireRole // == @RequireRole("ADMIN")
+ *
+ * // OR
+ *
+ * @RequireRole("ADMIN")
+ *
+ * // OR
+ *
+ * @RequireRole("USER")
+ * ```
+ *
  * @author Daybreak312
  * @since 10-04-2024
  */
