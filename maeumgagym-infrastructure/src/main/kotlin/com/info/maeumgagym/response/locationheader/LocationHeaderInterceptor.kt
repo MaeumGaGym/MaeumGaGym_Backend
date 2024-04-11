@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse
  *
  * *[HttpMethod.POST]의 경우 필요한 추가적인 처리*
  * 1. Service에서 [LocationSubjectDto]를 반환
- * 2. Controller에서 [LocationHeaderManager]의 [LocationHeaderManager.setSubject]를 통해 LocationHeader에서 사용할 id 혹은 key값을 지정
+ * 2. Controller에서 [LocationHeaderManager]의 [setSubject][LocationHeaderManager.setSubject]를 통해 LocationHeader에서 사용할 id 혹은 key값을 지정
  *
  * @author Daybreak312
  * @since 08-03-2024
