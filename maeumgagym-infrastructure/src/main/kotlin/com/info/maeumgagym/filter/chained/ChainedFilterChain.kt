@@ -10,7 +10,7 @@ import javax.servlet.ServletResponse
 /**
  * 필터 안에서 다음 필터를 호출해야하는 FilerChain을 위한 클래스
  *
- * [org.apache.catalina.core.ApplicationFilterChain] 안에서 다른 FilterChain이 호출 되는 경우, 해당 FilterChain의 Filter들은 다음 필터(FilterChain 밖)를 자신의 안에서 호출하는 것이 아닌, FilterChain 바깥의 임의의 객체가 호출하게 됨
+ * [ApplicationFilterChain][org.apache.catalina.core.ApplicationFilterChain] 안에서 다른 FilterChain이 호출 되는 경우, 해당 FilterChain의 Filter들은 다음 필터(FilterChain 밖)를 자신의 안에서 호출하는 것이 아닌, FilterChain 바깥의 임의의 객체가 호출하게 됨
  *
  * 예를 들어, FilterA -> FilterChain -> FilterB 의 구조를 가지고 있다고 할 때, 논리적으로 아래의 코드를 실행한 것과 같이 작동
  * ```

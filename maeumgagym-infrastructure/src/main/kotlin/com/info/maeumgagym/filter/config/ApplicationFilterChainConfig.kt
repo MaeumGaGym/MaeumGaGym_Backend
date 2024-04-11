@@ -13,7 +13,9 @@ import org.springframework.context.annotation.Configuration
 import javax.servlet.Filter
 
 /**
- * [org.apache.catalina.core.ApplicationFilterChain] 속 Filter들의 삽입과 순서를 설정
+ * [ApplicationFilterChain][org.apache.catalina.core.ApplicationFilterChain] 속 Filter들의 삽입과 순서 설정
+ *
+ * @see SecurityFilterChainConfig
  *
  * @author Daybreak312
  * @since 27-02-2024

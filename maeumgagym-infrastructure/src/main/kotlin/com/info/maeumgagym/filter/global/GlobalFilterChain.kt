@@ -6,7 +6,7 @@ import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
 
 /**
- * 특정한 역할이 없는, 해당 애플리케이션에서 사용되는 기본 FilterChain
+ * 특정한 역할이 없는, 해당 애플리케이션에서 사용되는 기본 [FilterChain]
  *
  * @see GlobalFilterChainProxy
  *
