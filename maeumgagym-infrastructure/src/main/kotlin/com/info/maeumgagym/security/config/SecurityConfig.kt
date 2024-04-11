@@ -11,6 +11,18 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 
+/**
+ * SpringSecurity와 관련된 설정들의 최상위 설정
+ *
+ * @see LogoutHandlerConfig
+ * @see RequestPermitConfig
+ * @see SecurityFilterChainConfig
+ * @see SecurityLogConfig
+ * @see com.info.maeumgagym.security.config.cors.CorsConfig
+ *
+ * @author Daybreak312, gurdl0525, HyunSu1768
+ * @since 20-11-2023
+ */
 @Configuration
 class SecurityConfig(
     private val csrfProperties: CSRFProperties,

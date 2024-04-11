@@ -7,6 +7,12 @@ import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
+/**
+ * CORS 관련 설정
+ *
+ * @author gurdl0525
+ * @since 16-02-2024
+ */
 @Configuration
 class CorsConfig(private val securityProperty: SecurityProperties) {
 
