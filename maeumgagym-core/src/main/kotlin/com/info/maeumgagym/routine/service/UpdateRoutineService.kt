@@ -31,7 +31,9 @@ internal class UpdateRoutineService(
         if (user.id != routine.userId) throw SecurityException.PERMISSION_DENIED
 
         req.dayOfWeeks?.forEach {
-            if (readRoutinePort.readByUserIdAndDayOfWeekAndIsArchivedFalse(user.id, it) != null) {
+            val found = readRoutinePort.readByUserIdAndDayOfWeekAndIsArchivedFalse(user.id, it)
+
+            if (found != null && found.id != routine.id) {
                 throw BusinessLogicException.OTHER_ROUTINE_ALREADY_USING_AT_DAY_OF_WEEK
             }
         }
