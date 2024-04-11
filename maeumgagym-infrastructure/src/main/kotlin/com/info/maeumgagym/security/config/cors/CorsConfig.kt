@@ -31,6 +31,7 @@ class CorsConfig(private val securityProperty: SecurityProperties) {
             allowCredentials = true
             addAllowedHeader("*")
             exposedHeaders = mutableListOf("Authorization", "authorization")
+            maxAge = 1800L
         }
 
         return UrlBasedCorsConfigurationSource().apply {
