@@ -21,9 +21,10 @@ class CorsConfig(private val securityProperty: SecurityProperties) {
                 "https://maeumgagym-admin-stag.xquare.app",
                 "http://localhost:3000"
             )
-            allowedMethods = listOf("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD")
+            allowedMethods = listOf("*")
             allowCredentials = true
             addAllowedHeader("*")
+            exposedHeaders = mutableListOf("Authorization", "authorization")
         }
 
         return UrlBasedCorsConfigurationSource().apply {
