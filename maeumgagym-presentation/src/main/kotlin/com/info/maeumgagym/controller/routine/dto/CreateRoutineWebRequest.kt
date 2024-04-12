@@ -1,8 +1,8 @@
 package com.info.maeumgagym.controller.routine.dto
 
+import com.info.maeumgagym.common.convertor.DayOfWeekKoreanConvertor
 import com.info.maeumgagym.routine.dto.request.CreateRoutineRequest
 import com.info.maeumgagym.routine.dto.request.ExerciseInfoRequest
-import java.time.DayOfWeek
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
@@ -22,7 +22,8 @@ class CreateRoutineWebRequest(
     @field:NotEmpty(message = "비어있을 수 없습니다")
     val exerciseInfoRequestList: MutableList<ExerciseInfoRequest>?,
 
-    val dayOfWeeks: MutableSet<DayOfWeek>?
+    @field:NotNull(message = "null일 수 없습니다")
+    val dayOfWeeks: MutableSet<String>?
 ) {
 
     fun toRequest() = CreateRoutineRequest(
@@ -30,6 +31,8 @@ class CreateRoutineWebRequest(
         isArchived!!,
         isShared!!,
         exerciseInfoRequestList!!,
-        dayOfWeeks
+        dayOfWeeks!!.map {
+            DayOfWeekKoreanConvertor.koreanToDayOfWeek(it)
+        }.toMutableSet()
     )
 }
