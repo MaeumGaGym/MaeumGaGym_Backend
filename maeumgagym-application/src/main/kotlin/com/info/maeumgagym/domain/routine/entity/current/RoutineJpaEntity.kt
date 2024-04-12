@@ -17,7 +17,7 @@ class RoutineJpaEntity(
     id: Long? = null,
     userId: UUID
 ) : BaseLongIdTimeEntity(id, createdAt) {
-    @Column(name = "routine_name", nullable = false)
+    @Column(name = "routine_name", length = 12, updatable = true, nullable = false)
     var routineName: String = routineName
         protected set
 
