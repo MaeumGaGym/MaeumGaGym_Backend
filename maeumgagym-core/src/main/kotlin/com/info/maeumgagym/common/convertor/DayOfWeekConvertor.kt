@@ -1,5 +1,6 @@
 package com.info.maeumgagym.common.convertor
 
+import com.info.maeumgagym.common.exception.PresentationValidationException
 import java.time.DayOfWeek
 import java.time.format.TextStyle
 import java.util.*
@@ -20,13 +21,22 @@ object DayOfWeekConvertor {
         try {
             koreanKeys[string] ?: DayOfWeek.valueOf(string.uppercase())
         } catch (e: Exception) {
-            throw IllegalArgumentException("DayOfWeek input wrong")
+            throwDayOfWeekWrongException()
         }
 
     fun dayOfWeekToKorean(dayOfWeek: DayOfWeek): String =
         dayOfWeek.getDisplayName(
             TextStyle.FULL,
             Locale.KOREAN
+        )
+
+    private fun throwDayOfWeekWrongException(): Nothing =
+        throw PresentationValidationException(
+            400,
+            "DayOfWeek input wrong",
+            mapOf(
+                Pair("day_of_weeks", "DayOfWeek input wrong")
+            )
         )
 }
 
