@@ -1,6 +1,6 @@
 package com.info.maeumgagym.controller.routine.dto
 
-import com.info.maeumgagym.common.convertor.DayOfWeekKoreanConvertor
+import com.info.maeumgagym.common.convertor.DayOfWeekConvertor
 import com.info.maeumgagym.routine.dto.request.CreateRoutineRequest
 import com.info.maeumgagym.routine.dto.request.ExerciseInfoRequest
 import javax.validation.constraints.NotBlank
@@ -32,7 +32,7 @@ class CreateRoutineWebRequest(
         isShared!!,
         exerciseInfoRequestList!!,
         dayOfWeeks!!.map {
-            DayOfWeekKoreanConvertor.koreanToDayOfWeek(it)
+            DayOfWeekConvertor.stringToDayOfWeek(it)
         }.toMutableSet()
     )
 }
