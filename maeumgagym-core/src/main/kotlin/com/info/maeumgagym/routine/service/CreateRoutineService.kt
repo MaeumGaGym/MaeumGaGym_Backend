@@ -24,9 +24,12 @@ internal class CreateRoutineService(
     override fun createRoutine(req: CreateRoutineRequest): LocationSubjectDto {
         val user = readCurrentUserPort.readCurrentUser()
 
-        req.dayOfWeeks?.forEach {
-            if (readRoutinePort.readByUserIdAndDayOfWeekAndIsArchivedFalse(user.id!!, it) != null) {
-                throw BusinessLogicException.OTHER_ROUTINE_ALREADY_USING_AT_DAY_OF_WEEK
+        // 이미 사용 중인 루틴들과 겹치는 요일이 있는지 확인하는 과정
+        if (!req.isArchived) { // 추가하려는 루틴이 사용되지 않을 예정이라면 이 과정에서 제외
+            req.dayOfWeeks?.forEach {
+                if (readRoutinePort.readByUserIdAndDayOfWeekAndIsArchivedFalse(user.id!!, it) != null) {
+                    throw BusinessLogicException.OTHER_ROUTINE_ALREADY_USING_AT_DAY_OF_WEEK
+                }
             }
         }
 
