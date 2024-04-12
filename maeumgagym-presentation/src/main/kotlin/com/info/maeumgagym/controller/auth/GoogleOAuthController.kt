@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
+import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
 @Tag(name = "Google OAuth API")
@@ -32,8 +33,13 @@ class GoogleOAuthController(
     @Operation(summary = "구글 OAuth 회원복구 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/recovery")
-    fun recovery(@RequestParam("access_token") accessToken: String) {
-        googleRecoveryUseCase.recovery(accessToken)
+    fun recovery(
+        @Valid
+        @NotBlank(message = "null일 수 없습니다.")
+        @RequestHeader("OAUTH-TOKEN", required = false)
+        token: String?
+    ) {
+        googleRecoveryUseCase.recovery(token!!)
     }
 
     @Operation(summary = "구글 OAuth 로그인 API")
@@ -46,15 +52,20 @@ class GoogleOAuthController(
             ),
             Header(
                 name = "Set-Cookie",
-                schema = Schema(type = "string", example = "RF-TOKEN=...; Secure; HttpOnly; SameSite=lax")
+                schema = Schema(type = "string", example = "RF-TOKEN=...; Secure; HttpOnly; SameSite=strict")
             )
         ]
     )
     @GetMapping("/login")
-    fun login(@RequestParam("access_token") token: String): ResponseEntity<Any> =
-        googleLoginUseCase.login(token).run {
+    fun login(
+        @Valid
+        @NotBlank(message = "null일 수 없습니다.")
+        @RequestHeader("OAUTH-TOKEN", required = false)
+        token: String?
+    ): ResponseEntity<Any> =
+        googleLoginUseCase.login(token!!).run {
             val responseHeaders = HttpHeaders().apply {
-                add(HttpHeaders.SET_COOKIE, "RF-TOKEN=$second; Secure; HttpOnly; SameSite=lax")
+                add(HttpHeaders.SET_COOKIE, "RF-TOKEN=$second; Secure; HttpOnly; SameSite=strict")
                 setBearerAuth(first)
             }
 
@@ -65,14 +76,16 @@ class GoogleOAuthController(
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     fun signup(
-        @RequestParam("access_token")
-        accessToken: String,
+        @Valid
+        @NotBlank(message = "null일 수 없습니다.")
+        @RequestHeader("OAUTH-TOKEN", required = false)
+        token: String?,
         @RequestBody
         @Valid
         @NotNull
         req: SignupWebRequest?
     ) {
-        googleSignupUseCase.signup(accessToken, req!!.nickname!!)
+        googleSignupUseCase.signup(token!!, req!!.nickname!!)
 
         locationHeaderManager.setURI("/google/login")
     }
