@@ -8,7 +8,9 @@ import java.time.LocalDateTime
 @RedisHash
 class PoseLastModifiedAtEntity {
     @Id
-    val id: String = GetPoseLastModifiedAtImpl.POSE_LAST_MODIFIED_ENTITY_KEY
+    var id: String = GetPoseLastModifiedAtImpl.POSE_LAST_MODIFIED_ENTITY_KEY
+        protected set
 
-    val lastModified: LocalDateTime = LocalDateTime.now()
+    var lastModified: LocalDateTime = LocalDateTime.now()
+        protected set
 }
