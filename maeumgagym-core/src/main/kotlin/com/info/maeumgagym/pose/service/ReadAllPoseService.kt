@@ -14,7 +14,7 @@ internal class ReadAllPoseService(
 
     override fun readAll(req: ReadAllPoseRequest): PoseListResponse {
 
-        if (req.lastUpdated.isBefore(readPosePort.getLastModifiedAt())) {
+        if (!req.lastUpdated.isBefore(readPosePort.getLastModifiedAt())) {
             throw MaeumGaGymException.NO_CONTENT
         }
 
