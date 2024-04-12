@@ -6,13 +6,22 @@ import com.info.maeumgagym.domain.pose.repository.PoseNativeRepository
 import com.info.maeumgagym.domain.pose.repository.PoseRepository
 import com.info.maeumgagym.pose.model.Pose
 import com.info.maeumgagym.pose.port.out.ReadPosePort
+import java.time.LocalDateTime
 
 @PersistenceAdapter
 internal class PosePersistenceAdapter(
     private val poseRepository: PoseRepository,
     private val poseNativeRepository: PoseNativeRepository,
-    private val poseMapper: PoseMapper
+    private val poseMapper: PoseMapper,
+    private val getPoseLastModifiedAt: GetPoseLastModifiedAt
 ) : ReadPosePort {
+
+    override fun readAll(): List<Pose> = poseRepository.findAll().map {
+        poseMapper.toDomain(it)
+    }
+
+    override fun getLastModifiedAt(): LocalDateTime =
+        getPoseLastModifiedAt()
 
     override fun readById(id: Long): Pose? =
         poseRepository.findById(id)?.let {
