@@ -6,7 +6,7 @@ import com.info.maeumgagym.domain.pose.repository.PoseNativeRepository
 import com.info.maeumgagym.domain.pose.repository.PoseRepository
 import com.info.maeumgagym.pose.model.Pose
 import com.info.maeumgagym.pose.port.out.ReadPosePort
-  import com.info.maeumgagym.pose.port.out.SavePosePort
+import com.info.maeumgagym.pose.port.out.SavePosePort
 import java.time.LocalDateTime
 
 @PersistenceAdapter

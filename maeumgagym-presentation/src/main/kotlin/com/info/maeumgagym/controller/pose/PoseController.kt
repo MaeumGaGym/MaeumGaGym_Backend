@@ -43,7 +43,6 @@ class PoseController(
     ) {
         val subject = createPoseUseCase.createPose(req.toRequest())
 
-
         locationHeaderManager.setSubject(subject.subject)
     }
 
