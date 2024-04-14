@@ -46,7 +46,7 @@ class AppleAuthController(
     fun login(
         @Valid
         @NotBlank(message = "null일 수 없습니다.")
-        @RequestHeader("OAUTH-TOKEN", required = false)
+        @RequestHeader("oauth-token", required = false)
         token: String?
     ): ResponseEntity<Any> =
         appleLoginUseCase.login(token!!).run {
@@ -64,7 +64,7 @@ class AppleAuthController(
     fun signup(
         @Valid
         @NotBlank(message = "null일 수 없습니다.")
-        @RequestHeader("OAUTH-TOKEN", required = false)
+        @RequestHeader("oauth-token", required = false)
         token: String?,
         @RequestBody
         @Valid
@@ -81,7 +81,7 @@ class AppleAuthController(
     fun recovery(
         @Valid
         @NotBlank(message = "null일 수 없습니다.")
-        @RequestHeader("OAUTH-TOKEN", required = false)
+        @RequestHeader("oauth-token", required = false)
         token: String?
     ) {
         appleRecoveryUseCase.recovery(token!!)

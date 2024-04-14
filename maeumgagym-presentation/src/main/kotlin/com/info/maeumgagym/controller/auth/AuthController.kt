@@ -40,9 +40,10 @@ class AuthController(
     @Operation(summary = "JWT 재발급 API")
     @GetMapping("/re-issue")
     fun reissue(
-        @Valid @NotBlank(message = "null일 수 없습니다.")
+        @Valid
+        @NotBlank(message = "null일 수 없습니다.")
         @RequestHeader("RF-TOKEN")
-        token: String?,
+        token: String?
     ): ResponseEntity<Any> =
         reissueUseCase.reissue(token!!).run {
             val responseHeaders = HttpHeaders().apply {

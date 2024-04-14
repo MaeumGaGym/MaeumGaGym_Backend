@@ -49,7 +49,7 @@ class KakaoAuthController(
     fun login(
         @Valid
         @NotBlank(message = "null일 수 없습니다.")
-        @RequestHeader("OAUTH-TOKEN", required = false)
+        @RequestHeader("oauth-token", required = false)
         token: String?
     ): ResponseEntity<Any> =
         kakaoLoginUseCase.login(token!!).run {
@@ -67,7 +67,7 @@ class KakaoAuthController(
     fun signup(
         @Valid
         @NotBlank(message = "null일 수 없습니다.")
-        @RequestHeader("OAUTH-TOKEN", required = false)
+        @RequestHeader("oauth-token", required = false)
         token: String?,
         @RequestBody
         @Valid
@@ -83,7 +83,7 @@ class KakaoAuthController(
     fun recovery(
         @Valid
         @NotBlank(message = "null일 수 없습니다.")
-        @RequestHeader("OAUTH-TOKEN", required = false)
+        @RequestHeader("oauth-token", required = false)
         token: String?
     ) {
         kakaoRecoveryUseCase.recovery(token!!)

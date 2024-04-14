@@ -36,7 +36,7 @@ class GoogleOAuthController(
     fun recovery(
         @Valid
         @NotBlank(message = "null일 수 없습니다.")
-        @RequestHeader("OAUTH-TOKEN", required = false)
+        @RequestHeader("oauth-token", required = false)
         token: String?
     ) {
         googleRecoveryUseCase.recovery(token!!)
@@ -60,7 +60,7 @@ class GoogleOAuthController(
     fun login(
         @Valid
         @NotBlank(message = "null일 수 없습니다.")
-        @RequestHeader("OAUTH-TOKEN", required = false)
+        @RequestHeader("oauth-token", required = false)
         token: String?
     ): ResponseEntity<Any> =
         googleLoginUseCase.login(token!!).run {
@@ -78,7 +78,7 @@ class GoogleOAuthController(
     fun signup(
         @Valid
         @NotBlank(message = "null일 수 없습니다.")
-        @RequestHeader("OAUTH-TOKEN", required = false)
+        @RequestHeader("oauth-token", required = false)
         token: String?,
         @RequestBody
         @Valid
