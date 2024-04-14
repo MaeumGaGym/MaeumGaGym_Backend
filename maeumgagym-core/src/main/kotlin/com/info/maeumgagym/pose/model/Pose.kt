@@ -27,7 +27,7 @@ data class Pose(
 
     val caution: MutableSet<String>?,
 
-    val id: Long?
+    val id: Long? = null
 ) {
     fun toDetailResponse() = PoseDetailResponse(
         needMachine = needMachine,
