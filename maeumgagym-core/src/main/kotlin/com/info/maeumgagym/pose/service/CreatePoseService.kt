@@ -20,7 +20,7 @@ internal class CreatePoseService(
                     simpleName = simpleName,
                     exactName = exactName,
                     thumbnail = thumbnail,
-                    poseImages = poseImages.toMutableSet(),
+                    video = video,
                     simplePart = simplePart.toMutableSet(),
                     exactPart = exactPart.toMutableSet(),
                     startPose = startPose.toMutableSet(),

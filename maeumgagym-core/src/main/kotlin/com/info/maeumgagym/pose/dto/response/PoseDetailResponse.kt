@@ -10,7 +10,7 @@ data class PoseDetailResponse(
 
     val thumbnail: String,
 
-    val poseImages: List<String>,
+    val video: String,
 
     val simplePart: MutableSet<String>,
 

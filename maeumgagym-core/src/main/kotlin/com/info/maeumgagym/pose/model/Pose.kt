@@ -13,7 +13,7 @@ data class Pose(
 
     val thumbnail: String,
 
-    val poseImages: MutableSet<String>,
+    val video: String,
 
     val simplePart: MutableSet<String>,
 
@@ -34,7 +34,7 @@ data class Pose(
         simpleName = simpleName,
         exactName = exactName,
         thumbnail = thumbnail,
-        poseImages = poseImages.toList(),
+        video = video,
         simplePart = simplePart,
         exactPart = exactPart,
         startPose = startPose,

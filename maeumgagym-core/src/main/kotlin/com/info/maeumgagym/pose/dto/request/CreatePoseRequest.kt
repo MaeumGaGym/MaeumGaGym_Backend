@@ -10,7 +10,7 @@ data class CreatePoseRequest(
 
     val thumbnail: String,
 
-    val poseImages: List<String>,
+    val video: String,
 
     val simplePart: List<String>,
 

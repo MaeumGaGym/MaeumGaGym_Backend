@@ -19,7 +19,7 @@ data class CreatePoseWebRequest(
     val thumbnail: String?,
 
     @field:NotNull(message = "null일 수 없습니다")
-    val poseImages: List<String>?,
+    val video: String?,
 
     @field:NotNull(message = "null일 수 없습니다")
     val simplePart: List<String>?,
@@ -44,7 +44,7 @@ data class CreatePoseWebRequest(
         simpleName = simpleName!!,
         exactName = exactName!!,
         thumbnail = thumbnail!!,
-        poseImages = poseImages!!,
+        video = video!!,
         simplePart = simplePart!!,
         exactPart = exactPart!!,
         startPose = startPose!!,

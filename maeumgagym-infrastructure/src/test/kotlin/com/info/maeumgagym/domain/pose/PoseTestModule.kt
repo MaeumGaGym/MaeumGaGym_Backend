@@ -9,7 +9,7 @@ object PoseTestModule {
     private const val SIMPLE_NAME = "테스트 포즈"
     private const val EXACT_NAME = "자세한 테스트 포즈"
     private const val THUMBNAIL = "null"
-    private val IMAGES = mutableSetOf("", "")
+    private const val VIDEO = ""
     private val EASY_PART = mutableSetOf("허벅지")
     private val EXACT_PART = mutableSetOf("대퇴근")
     private val START_POSE = mutableSetOf("시작 자세")
@@ -23,7 +23,7 @@ object PoseTestModule {
             simpleName = SIMPLE_NAME,
             exactName = EXACT_NAME,
             thumbnail = THUMBNAIL,
-            poseImages = IMAGES,
+            video = VIDEO,
             easyPart = EASY_PART,
             exactPart = EXACT_PART,
             startPose = START_POSE,

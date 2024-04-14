@@ -5,7 +5,6 @@ import com.info.maeumgagym.converter.StringAttributeConverter
 import com.info.maeumgagym.domain.base.BaseLongIdEntity
 import javax.persistence.Column
 import javax.persistence.Convert
-import javax.persistence.ElementCollection
 import javax.persistence.Entity
 
 @Entity(name = TableNames.POSE_TABLE)
@@ -14,7 +13,7 @@ class PoseJpaEntity(
     simpleName: String,
     exactName: String,
     thumbnail: String,
-    poseImages: MutableSet<String>,
+    video: String,
     easyPart: MutableSet<String>,
     exactPart: MutableSet<String>,
     startPose: MutableSet<String>,
@@ -40,22 +39,22 @@ class PoseJpaEntity(
     var thumbnail: String = thumbnail // 썸네일
         protected set
 
-    @ElementCollection
-    var poseImages: MutableSet<String> = poseImages // 자세 이미지
+    @Column(name = "video_url", updatable = true, nullable = true)
+    var video: String = video // 자세 영상
         protected set
 
     @Convert(converter = StringAttributeConverter::class)
-    @Column(name = "simple_part", length = 30, updatable = true, nullable = false)
+    @Column(name = "simple_part", length = 100, updatable = true, nullable = false)
     var simplePart: MutableSet<String> = easyPart // 간단한 자극 부위 이름
         protected set
 
     @Convert(converter = StringAttributeConverter::class)
-    @Column(name = "exact_part", length = 60, updatable = true, nullable = false)
+    @Column(name = "exact_part", length = 100, updatable = true, nullable = false)
     var exactPart: MutableSet<String> = exactPart // 정확한 자극 부위 이름
         protected set
 
     @Convert(converter = StringAttributeConverter::class)
-    @Column(name = "start_pose", length = 100, updatable = true, nullable = false)
+    @Column(name = "start_pose", length = 1000, updatable = true, nullable = false)
     var startPose: MutableSet<String> = startPose // 시작 자세
         protected set
 
@@ -65,7 +64,7 @@ class PoseJpaEntity(
         protected set
 
     @Convert(converter = StringAttributeConverter::class)
-    @Column(name = "breathe_way", length = 30, updatable = true, nullable = false)
+    @Column(name = "breathe_way", length = 100, updatable = true, nullable = false)
     var breatheWay: MutableSet<String>? = breatheWay // 호흡법
         protected set
 
