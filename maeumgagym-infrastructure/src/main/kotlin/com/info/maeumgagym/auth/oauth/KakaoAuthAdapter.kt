@@ -46,6 +46,6 @@ internal class KakaoAuthAdapter(
     ).accessToken
 
     override fun revoke(accessToken: String) {
-        kakaoApiClient.revoke(accessToken)
+        kakaoApiClient.revoke(PREFIX + accessToken)
     }
 }
