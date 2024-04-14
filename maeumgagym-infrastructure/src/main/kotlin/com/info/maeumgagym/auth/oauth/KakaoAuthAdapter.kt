@@ -8,8 +8,8 @@ import com.info.maeumgagym.common.exception.FeignException
 import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.env.feign.KakaoProperties
-import com.info.maeumgagym.external.feign.oauth.kakao.KakaoAuthClient
 import com.info.maeumgagym.external.feign.oauth.kakao.KakaoApiClient
+import com.info.maeumgagym.external.feign.oauth.kakao.KakaoAuthClient
 import org.springframework.stereotype.Component
 
 @Component
@@ -29,7 +29,8 @@ internal class KakaoAuthAdapter(
         ).toResponse()
     } catch (e: FeignException) {
         throw if (e.message == FeignException.FEIGN_UNAUTHORIZED.message ||
-            e.message == FeignException.FEIGN_FORBIDDEN.message
+            e.message == FeignException.FEIGN_FORBIDDEN.message ||
+            e.message == FeignException.FEIGN_BAD_REQUEST.message
         ) {
             SecurityException.INVALID_TOKEN
         } else {
