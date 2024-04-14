@@ -1,6 +1,7 @@
 package com.info.maeumgagym.pose.service
 
 import com.info.common.responsibility.UseCase
+import com.info.maeumgagym.common.dto.LocationSubjectDto
 import com.info.maeumgagym.pose.dto.request.CreatePoseRequest
 import com.info.maeumgagym.pose.model.Pose
 import com.info.maeumgagym.pose.port.`in`.CreatePoseUseCase
@@ -11,8 +12,8 @@ internal class CreatePoseService(
     private val savePosePort: SavePosePort
 ) : CreatePoseUseCase {
 
-    override fun createPose(req: CreatePoseRequest) {
-        req.run {
+    override fun createPose(req: CreatePoseRequest): LocationSubjectDto {
+        val pose = req.run {
             savePosePort.save(
                 Pose(
                     needMachine = needMachine,
@@ -29,5 +30,7 @@ internal class CreatePoseService(
                 )
             )
         }
+
+        return LocationSubjectDto(pose.id!!)
     }
 }
