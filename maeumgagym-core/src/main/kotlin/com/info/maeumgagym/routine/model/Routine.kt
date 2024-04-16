@@ -21,9 +21,9 @@ data class Routine(
             exerciseInfoResponseList = exerciseInfoModelList.map {
                 it.toResponse()
             },
-            dayOfWeeks = dayOfWeeks?.map {
+            dayOfWeeks = dayOfWeeks?.sorted()?.map {
                 it.getDisplayName(
-                    TextStyle.FULL,
+                    TextStyle.SHORT,
                     Locale.KOREA
                 )
             },
@@ -42,9 +42,9 @@ data class Routine(
             exerciseInfoResponseList = exerciseInfoModelList.map {
                 it.toResponse()
             },
-            dayOfWeeks = dayOfWeeks?.map {
+            dayOfWeeks = dayOfWeeks?.sorted()?.map {
                 it.getDisplayName(
-                    TextStyle.FULL,
+                    TextStyle.SHORT,
                     Locale.KOREA
                 )
             },
