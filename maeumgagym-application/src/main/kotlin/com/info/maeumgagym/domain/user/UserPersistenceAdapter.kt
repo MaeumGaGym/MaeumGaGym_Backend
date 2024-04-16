@@ -52,3 +52,6 @@ internal class UserPersistenceAdapter(
     override fun existByOAuthIdOnWithdrawalSafe(oauthId: String): Boolean =
         userNativeRepository.findByOauthIdOnWithdrawalSafe(oauthId)?.let { true } ?: false
 }
+
+
+
