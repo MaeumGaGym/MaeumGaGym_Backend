@@ -7,6 +7,16 @@ import java.util.*
 
 object DayOfWeekConvertor {
 
+    private val koreanCharKeys = mapOf(
+        "일" to DayOfWeek.SUNDAY,
+        "월" to DayOfWeek.MONDAY,
+        "화" to DayOfWeek.TUESDAY,
+        "수" to DayOfWeek.WEDNESDAY,
+        "목" to DayOfWeek.THURSDAY,
+        "금" to DayOfWeek.FRIDAY,
+        "토" to DayOfWeek.SATURDAY
+    )
+
     private val koreanKeys = mapOf(
         "일요일" to DayOfWeek.SUNDAY,
         "월요일" to DayOfWeek.MONDAY,
@@ -19,7 +29,11 @@ object DayOfWeekConvertor {
 
     fun stringToDayOfWeek(string: String): DayOfWeek =
         try {
-            koreanKeys[string] ?: DayOfWeek.valueOf(string.uppercase())
+            if (string.length == 1) {
+                koreanCharKeys[string]
+            } else {
+                koreanKeys[string]
+            } ?: DayOfWeek.valueOf(string.uppercase())
         } catch (e: Exception) {
             throwDayOfWeekWrongException()
         }
