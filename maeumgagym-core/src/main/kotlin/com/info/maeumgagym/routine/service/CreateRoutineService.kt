@@ -34,7 +34,7 @@ internal class CreateRoutineService(
         }
 
         val poses = req.exerciseInfoRequestList.associate {
-            Pair(it.id, readPosePort.readById(it.id))
+            Pair(it.id, readPosePort.readById(it.id) ?: throw BusinessLogicException.POSE_NOT_FOUND)
         }
 
         val routine = req.run {

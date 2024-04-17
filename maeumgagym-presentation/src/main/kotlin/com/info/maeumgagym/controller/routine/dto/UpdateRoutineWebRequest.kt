@@ -31,8 +31,6 @@ data class UpdateRoutineWebRequest(
         isArchived!!,
         isShared!!,
         exerciseInfoRequestList!!,
-        dayOfWeeks!!.map {
-            DayOfWeekConvertor.stringToDayOfWeek(it)
-        }.toMutableSet()
+        DayOfWeekConvertor.stringToDayOfWeek(dayOfWeeks!!).toMutableSet()
     )
 }
