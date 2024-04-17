@@ -27,6 +27,11 @@ object DayOfWeekConvertor {
         "토요일" to DayOfWeek.SATURDAY
     )
 
+    fun stringToDayOfWeek(strings: Collection<String>): List<DayOfWeek> =
+        strings.map {
+            stringToDayOfWeek(it)
+        }.sorted()
+
     fun stringToDayOfWeek(string: String): DayOfWeek =
         try {
             if (string.length == 1) {
@@ -36,6 +41,11 @@ object DayOfWeekConvertor {
             } ?: DayOfWeek.valueOf(string.uppercase())
         } catch (e: Exception) {
             throwDayOfWeekWrongException()
+        }
+
+    fun dayOfWeekToKorean(dayOfWeeks: Collection<DayOfWeek>): List<String> =
+        dayOfWeeks.sorted().map {
+            dayOfWeekToKorean(it)
         }
 
     fun dayOfWeekToKorean(dayOfWeek: DayOfWeek): String =
