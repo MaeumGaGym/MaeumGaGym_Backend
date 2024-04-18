@@ -41,15 +41,20 @@ class KakaoAuthController(
             ),
             Header(
                 name = "Set-Cookie",
-                schema = Schema(type = "string", example = "RF-TOKEN=...; Secure; HttpOnly; SameSite=lax")
+                schema = Schema(type = "string", example = "RF-TOKEN=...; Secure; HttpOnly; SameSite=strict")
             )
         ]
     )
     @GetMapping("/login")
-    fun login(@RequestParam("access_token") token: String): ResponseEntity<Any> =
-        kakaoLoginUseCase.login(token).run {
+    fun login(
+        @Valid
+        @NotBlank(message = "null일 수 없습니다.")
+        @RequestHeader("oauth-token", required = false)
+        token: String?
+    ): ResponseEntity<Any> =
+        kakaoLoginUseCase.login(token!!).run {
             val responseHeaders = HttpHeaders().apply {
-                add(HttpHeaders.SET_COOKIE, "RF-TOKEN=$second; Secure; HttpOnly; SameSite=lax")
+                add(HttpHeaders.SET_COOKIE, "RF-TOKEN=$second; Secure; HttpOnly; SameSite=strict")
                 setBearerAuth(first)
             }
 
@@ -60,21 +65,28 @@ class KakaoAuthController(
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/signup")
     fun signup(
-        @RequestParam("access_token")
-        accessToken: String,
+        @Valid
+        @NotBlank(message = "null일 수 없습니다.")
+        @RequestHeader("oauth-token", required = false)
+        token: String?,
         @RequestBody
         @Valid
         req: KakaoSignupWebRequest
     ) {
-        kakaoSignupUseCase.signup(accessToken, req.nickname!!)
+        kakaoSignupUseCase.signup(token!!, req.nickname!!)
 
         locationHeaderManager.setURI("/kakao/login")
     }
 
     @Operation(summary = "카카오 OAuth 회원복구 API")
     @PutMapping("/recovery")
-    fun recovery(@RequestParam("access_token") accessToken: String) {
-        kakaoRecoveryUseCase.recovery(accessToken)
+    fun recovery(
+        @Valid
+        @NotBlank(message = "null일 수 없습니다.")
+        @RequestHeader("oauth-token", required = false)
+        token: String?
+    ) {
+        kakaoRecoveryUseCase.recovery(token!!)
     }
 
     @Operation(summary = "카카오 토큰 발급 API")
@@ -83,7 +95,7 @@ class KakaoAuthController(
         headers = [
             Header(
                 name = "Set-Cookie",
-                schema = Schema(type = "string", example = "KO-TOKEN=...; Secure; HttpOnly; SameSite=strict")
+                schema = Schema(type = "string", example = "OAUTH-TOKEN=...; Secure; HttpOnly; SameSite=strict")
             )
         ]
     )
@@ -97,7 +109,7 @@ class KakaoAuthController(
         HttpHeaders().apply {
             val token = kakaoGenerateTokenUseCase.generate(code!!)
 
-            add(HttpHeaders.SET_COOKIE, "KO-TOKEN=$token; Secure; HttpOnly; SameSite=strict")
+            add(HttpHeaders.SET_COOKIE, "OAUTH-TOKEN=$token; Secure; HttpOnly; SameSite=strict")
         }
     ).build()
 }

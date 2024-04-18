@@ -9,4 +9,6 @@ interface PoseRepository : Repository<PoseJpaEntity, Long?> {
     fun save(poseJpaEntity: PoseJpaEntity): PoseJpaEntity
 
     fun findById(id: Long): PoseJpaEntity?
+
+    fun findAll(): List<PoseJpaEntity>
 }

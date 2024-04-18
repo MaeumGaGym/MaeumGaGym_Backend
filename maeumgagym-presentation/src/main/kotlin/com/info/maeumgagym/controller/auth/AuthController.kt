@@ -4,7 +4,6 @@ import com.info.common.responsibility.WebAdapter
 import com.info.maeumgagym.auth.port.`in`.DuplicatedNicknameCheckUseCase
 import com.info.maeumgagym.auth.port.`in`.ReissueUseCase
 import com.info.maeumgagym.auth.port.`in`.WithdrawalUserUseCase
-import com.info.maeumgagym.controller.auth.dto.ReissueWebRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpHeaders
@@ -41,12 +40,14 @@ class AuthController(
     @Operation(summary = "JWT 재발급 API")
     @GetMapping("/re-issue")
     fun reissue(
-        @RequestBody @Valid
-        req: ReissueWebRequest
+        @Valid
+        @NotBlank(message = "null일 수 없습니다.")
+        @RequestHeader("RF-TOKEN")
+        token: String?
     ): ResponseEntity<Any> =
-        reissueUseCase.reissue(req.refreshToken!!).run {
+        reissueUseCase.reissue(token!!).run {
             val responseHeaders = HttpHeaders().apply {
-                add(HttpHeaders.SET_COOKIE, "RF-TOKEN=$second; Secure; HttpOnly; SameSite=lax")
+                add(HttpHeaders.SET_COOKIE, "RF-TOKEN=$second; Secure; HttpOnly; SameSite=strict")
                 setBearerAuth(first)
             }
 
