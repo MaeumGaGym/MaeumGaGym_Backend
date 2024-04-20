@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Positive
+import javax.validation.constraints.PositiveOrZero
 
 @Tag(name = "Routine API")
 @RequestMapping("/routines")
@@ -53,8 +54,12 @@ class RoutineController(
         readTodayRoutineUseCase.readTodayRoutine()
 
     @Operation(summary = "내 루틴 전체 조회 API")
-    @GetMapping("/me/all")
-    fun readAllMyRoutine(): RoutineListResponse = readAllMyRoutineUseCase.readAllMyRoutine()
+    @GetMapping("/my")
+    fun readAllMyRoutine(
+        @RequestParam
+        @PositiveOrZero(message = "0 이상이어야 합니다.")
+        index: Int
+    ): RoutineListResponse = readAllMyRoutineUseCase.readAllMyRoutine(index)
 
     @Operation(summary = "루틴 삭제 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)

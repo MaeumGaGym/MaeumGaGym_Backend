@@ -10,6 +10,7 @@ import com.info.maeumgagym.routine.model.Routine
 import com.info.maeumgagym.routine.port.out.DeleteRoutinePort
 import com.info.maeumgagym.routine.port.out.ReadRoutinePort
 import com.info.maeumgagym.routine.port.out.SaveRoutinePort
+import org.springframework.data.domain.PageRequest
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import java.time.DayOfWeek
@@ -23,6 +24,10 @@ internal class RoutinePersistenceAdapter(
     private val routineNativeRepository: RoutineNativeRepository,
     private val exerciseInfoRepository: ExerciseInfoRepository
 ) : SaveRoutinePort, ReadRoutinePort, DeleteRoutinePort {
+
+    private companion object {
+        private const val DEFAULT_PAGE_SIZE = 10
+    }
 
     @Transactional(propagation = Propagation.MANDATORY)
     override fun save(routine: Routine): Routine {
@@ -51,8 +56,8 @@ internal class RoutinePersistenceAdapter(
         return routineMapper.toDomain(routine, exerciseInfoEntities)
     }
 
-    override fun readAllByUserId(userId: UUID): List<Routine> {
-        val routineEntityList = routineRepository.findAllByUserId(userId)
+    override fun readAllByUserIdPaged(userId: UUID, index: Int): List<Routine> {
+        val routineEntityList = routineRepository.findAllByUserId(userId, PageRequest.of(index, DEFAULT_PAGE_SIZE))
         return routineEntityList.map {
             routineMapper.toDomain(
                 it,
