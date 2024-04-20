@@ -25,6 +25,7 @@ class ReadAllMyPurposeService(
         return PurposeListResponse(
             purposes.map {
                 it.toResponse()
-            })
+            }
+        )
     }
 }
