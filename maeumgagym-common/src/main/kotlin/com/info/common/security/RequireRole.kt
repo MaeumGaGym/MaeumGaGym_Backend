@@ -1,7 +1,7 @@
 package com.info.common.security
 
 /**
- * [@WebAdapter][com.info.common.responsibility.WebAdapter] 어노테이션이 부착된 컨트롤러 단위로, [Role][com.info.maeumgagym.user.model.Role] 인증이 필요함을 명시하기 위한 어노테이션
+ * [Role][com.info.maeumgagym.user.model.Role] 인증이 필요한 API임을 명시하기 위한 어노테이션
  *
  * ```
  * // Use like this:
