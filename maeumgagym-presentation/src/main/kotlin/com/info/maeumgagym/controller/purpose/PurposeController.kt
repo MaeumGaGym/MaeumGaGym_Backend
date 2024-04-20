@@ -17,6 +17,7 @@ import java.time.LocalDate
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Positive
+import javax.validation.constraints.PositiveOrZero
 
 @Tag(name = "Purpose APIs")
 @Validated
@@ -69,7 +70,7 @@ class PurposeController(
     @GetMapping("/me/all")
     fun purposeReadAllMine(
         @RequestParam
-        @Positive(message = "1 이상이어야 합니다.")
+        @PositiveOrZero(message = "0 이상이어야 합니다.")
         index: Int
     ): PurposeListResponse = readAllMyPurposeUseCase.readAllMyPurpose(index)
 

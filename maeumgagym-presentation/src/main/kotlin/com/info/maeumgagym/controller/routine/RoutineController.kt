@@ -57,7 +57,7 @@ class RoutineController(
     @GetMapping("/me/all")
     fun readAllMyRoutine(
         @RequestParam
-        @PositiveOrZero(message = "1 이상이어야 합니다.")
+        @PositiveOrZero(message = "0 이상이어야 합니다.")
         index: Int
     ): RoutineListResponse = readAllMyRoutineUseCase.readAllMyRoutine(index)
 
