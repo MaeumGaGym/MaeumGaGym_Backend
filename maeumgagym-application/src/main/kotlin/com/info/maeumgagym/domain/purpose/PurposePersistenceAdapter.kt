@@ -8,6 +8,7 @@ import com.info.maeumgagym.purpose.model.Purpose
 import com.info.maeumgagym.purpose.port.out.DeletePurposePort
 import com.info.maeumgagym.purpose.port.out.ReadPurposePort
 import com.info.maeumgagym.purpose.port.out.SavePurposePort
+import org.springframework.data.domain.PageRequest
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
@@ -19,6 +20,10 @@ internal class PurposePersistenceAdapter(
     private val purposeNativeRepository: PurposeNativeRepository,
     private val purposeMapper: PurposeMapper
 ) : SavePurposePort, ReadPurposePort, DeletePurposePort {
+
+    private companion object {
+        const val DEFAULT_PAGE_SIZE = 10
+    }
 
     @Transactional(propagation = Propagation.MANDATORY)
     override fun save(purpose: Purpose): Purpose =
@@ -37,6 +42,11 @@ internal class PurposePersistenceAdapter(
         endDate: LocalDate
     ): List<Purpose> =
         purposeNativeRepository.findAllByUserIdAndDateBetweenOrderByDates(userId, startDate, endDate).map {
+            purposeMapper.toDomain(it)
+        }
+
+    override fun readByUserIdPaged(userId: UUID, index: Int): List<Purpose> =
+        purposeRepository.findAllByUserId(userId, PageRequest.of(index, DEFAULT_PAGE_SIZE)).map {
             purposeMapper.toDomain(it)
         }
 

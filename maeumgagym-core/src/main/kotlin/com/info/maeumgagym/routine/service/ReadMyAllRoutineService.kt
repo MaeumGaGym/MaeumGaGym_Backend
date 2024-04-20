@@ -12,12 +12,12 @@ internal class ReadMyAllRoutineService(
     private val readRoutinePort: ReadRoutinePort,
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : ReadAllMyRoutineUseCase {
-    override fun readAllMyRoutine(): RoutineListResponse {
+    override fun readAllMyRoutine(index: Int): RoutineListResponse {
         // 토큰으로 유저 찾기
         val user = readCurrentUserPort.readCurrentUser()
 
         // 내 루틴 리스트 불러오기
-        val routineList = readRoutinePort.readAllByUserId(user.id!!)
+        val routineList = readRoutinePort.readAllByUserIdPaged(user.id!!, index)
 
         // 반환
         return RoutineListResponse(

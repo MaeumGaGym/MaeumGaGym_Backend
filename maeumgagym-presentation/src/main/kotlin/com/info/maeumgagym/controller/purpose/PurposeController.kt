@@ -17,6 +17,7 @@ import java.time.LocalDate
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Positive
+import javax.validation.constraints.PositiveOrZero
 
 @Tag(name = "Purpose APIs")
 @Validated
@@ -26,6 +27,7 @@ class PurposeController(
     private val createPurposeUseCase: CreatePurposeUseCase,
     private val readPurposeFromIdUseCase: ReadPurposeFromIdUseCase,
     private val readPurposesFromDateForRangeUseCase: ReadPurposesFromDateForRangeUseCase,
+    private val readAllMyPurposeUseCase: ReadAllMyPurposeUseCase,
     private val updatePurposeUseCase: UpdatePurposeUseCase,
     private val deletePurposeUseCase: DeletePurposeUseCase,
     private val locationHeaderManager: LocationHeaderManager
@@ -63,6 +65,14 @@ class PurposeController(
         @PathVariable
         id: Long
     ): PurposeInfoResponse = readPurposeFromIdUseCase.readPurposeFromId(id)
+
+    @Operation(summary = "내 목표 전체 조회")
+    @GetMapping("/my")
+    fun purposeReadAllMine(
+        @RequestParam
+        @PositiveOrZero(message = "0 이상이어야 합니다.")
+        index: Int
+    ): PurposeListResponse = readAllMyPurposeUseCase.readAllMyPurpose(index)
 
     @Operation(summary = "목표 수정 API")
     @PutMapping("/{id}")
