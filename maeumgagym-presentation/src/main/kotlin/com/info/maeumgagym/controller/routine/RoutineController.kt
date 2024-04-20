@@ -54,7 +54,7 @@ class RoutineController(
         readTodayRoutineUseCase.readTodayRoutine()
 
     @Operation(summary = "내 루틴 전체 조회 API")
-    @GetMapping("/me/all")
+    @GetMapping("/my")
     fun readAllMyRoutine(
         @RequestParam
         @PositiveOrZero(message = "0 이상이어야 합니다.")

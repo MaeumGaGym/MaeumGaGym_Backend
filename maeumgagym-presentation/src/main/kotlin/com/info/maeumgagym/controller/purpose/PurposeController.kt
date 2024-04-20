@@ -67,7 +67,7 @@ class PurposeController(
     ): PurposeInfoResponse = readPurposeFromIdUseCase.readPurposeFromId(id)
 
     @Operation(summary = "내 목표 전체 조회")
-    @GetMapping("/me/all")
+    @GetMapping("/my")
     fun purposeReadAllMine(
         @RequestParam
         @PositiveOrZero(message = "0 이상이어야 합니다.")
