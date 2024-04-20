@@ -21,7 +21,8 @@ abstract class AbstractAccessAllowedChecker : AccessAllowedChecker {
 
     protected fun checkInvalidAuthentication() {
         if (SecurityContextHolder.getContext().authentication == null ||
-            SecurityContextHolder.getContext().authentication is AnonymousAuthenticationToken) {
+            SecurityContextHolder.getContext().authentication is AnonymousAuthenticationToken
+        ) {
             throw AuthenticationException.UNAUTHORIZED
         }
     }

@@ -19,7 +19,6 @@ class AccessManagerDelegateInterceptor(
     private val accessManager: AccessManager
 ) : HandlerInterceptor {
 
-
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
         accessManager.checkAccessAllowed(request, handler)
 
