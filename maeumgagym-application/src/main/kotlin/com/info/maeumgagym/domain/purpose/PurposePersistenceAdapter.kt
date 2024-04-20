@@ -46,7 +46,7 @@ internal class PurposePersistenceAdapter(
         }
 
     override fun readByUserIdPaged(userId: UUID, index: Int): List<Purpose> =
-        purposeRepository.findAllByUserId(userId, PageRequest.of(DEFAULT_PAGE_SIZE, index)).map {
+        purposeRepository.findAllByUserId(userId, PageRequest.of(index, DEFAULT_PAGE_SIZE)).map {
             purposeMapper.toDomain(it)
         }
 
