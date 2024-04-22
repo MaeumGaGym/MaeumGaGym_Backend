@@ -15,5 +15,8 @@ package com.info.maeumgagym.security.access.checker
  */
 interface AnnotationBasedUserAuthenticationChecker {
 
+    /**
+     * @throws [SecurityException][com.info.maeumgagym.common.exception.SecurityException] 유효하지 않은 사용자
+     */
     fun check(`object`: Any)
 }

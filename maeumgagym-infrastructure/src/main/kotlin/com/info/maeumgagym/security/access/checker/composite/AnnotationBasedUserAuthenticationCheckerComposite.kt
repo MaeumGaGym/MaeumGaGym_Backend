@@ -5,6 +5,12 @@ import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Component
 
+/**
+ * 여러 특정 [AnnotationBasedUserAuthenticationChecker]들을 갖고 순회하는 Composite.
+ *
+ * @author Daybreak312
+ * @since 22-04-2024
+ */
 @Primary
 @Component
 class AnnotationBasedUserAuthenticationCheckerComposite(
