@@ -20,6 +20,6 @@ package com.info.common.security
  * @author Daybreak312
  * @since 20-04-2024
  */
-@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
+@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION, AnnotationTarget.VALUE_PARAMETER)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class RequireAuthentication
