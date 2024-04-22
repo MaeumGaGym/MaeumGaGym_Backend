@@ -23,7 +23,11 @@ class AnnotationBasedUserAuthenticationCheckerComposite(
 
     private fun init() {
         annotationBasedUserAuthenticationCheckers =
-            applicationContext.getBeansOfType(AnnotationBasedUserAuthenticationChecker::class.java).values.toList()
+            applicationContext.getBeansOfType(
+                AnnotationBasedUserAuthenticationChecker::class.java
+            ).values.apply {
+                remove(this@AnnotationBasedUserAuthenticationCheckerComposite)
+            }.toList()
         initialized = true
     }
 
