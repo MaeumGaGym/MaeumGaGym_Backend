@@ -1,35 +1,19 @@
 package com.info.maeumgagym.security.access.manager
 
-import com.info.maeumgagym.security.access.checker.AccessAllowedChecker
-import org.springframework.context.ApplicationContext
+import com.info.maeumgagym.security.access.checker.AnnotationBasedUserAuthenticationChecker
 import org.springframework.stereotype.Component
 import org.springframework.web.method.HandlerMethod
-import javax.servlet.http.HttpServletRequest
 
 @Component
 class AccessManagerImpl(
-    private val applicationContext: ApplicationContext
+    private val annotationBasedUserAuthenticationChecker: AnnotationBasedUserAuthenticationChecker
 ) : AccessManager {
 
-    private lateinit var accessAllowedCheckers: List<AccessAllowedChecker>
-
-    private var initilized: Boolean = false
-
-    private fun init() {
-        accessAllowedCheckers = applicationContext.getBeansOfType(AccessAllowedChecker::class.java).values.toList()
-        initilized = true
-    }
-
-    override fun checkAccessAllowed(request: HttpServletRequest, handler: Any) {
-        if (!initilized) {
-            init()
-        }
-
+    override fun checkAccessAllowed(handler: Any) {
         val handlerMethod = castHandlerToHandlerMethodOrNull(handler) ?: return
 
-        accessAllowedCheckers.forEach {
-            it.check(request, handlerMethod)
-        }
+        annotationBasedUserAuthenticationChecker.check(handlerMethod.bean)
+        annotationBasedUserAuthenticationChecker.check(handlerMethod.method)
     }
 
     private fun castHandlerToHandlerMethodOrNull(handler: Any): HandlerMethod? {

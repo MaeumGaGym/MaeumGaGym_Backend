@@ -20,7 +20,7 @@ class AccessManagerDelegateInterceptor(
 ) : HandlerInterceptor {
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
-        accessManager.checkAccessAllowed(request, handler)
+        accessManager.checkAccessAllowed(handler)
 
         return true
     }
