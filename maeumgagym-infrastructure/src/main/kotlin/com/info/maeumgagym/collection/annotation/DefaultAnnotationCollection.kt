@@ -18,4 +18,3 @@ class DefaultAnnotationCollection : AnnotationCollection {
     override fun <A : Annotation> getAnnotationOrNull(`object`: Any, annotation: KClass<A>): A? =
         `object`::class.findAnnotations(annotation).firstOrNull()
 }
-
