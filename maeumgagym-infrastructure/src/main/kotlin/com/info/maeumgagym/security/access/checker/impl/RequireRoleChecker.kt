@@ -1,14 +1,13 @@
-package com.info.maeumgagym.security.access.checker
+package com.info.maeumgagym.security.access.checker.impl
 
 import com.info.common.security.RequireRole
 import com.info.maeumgagym.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.common.exception.AuthenticationException
+import com.info.maeumgagym.security.access.checker.AbstractAnnotationBasedUserAuthenticationChecker
 import org.springframework.stereotype.Component
-import org.springframework.web.method.HandlerMethod
-import javax.servlet.http.HttpServletRequest
 
 /**
- * [@RequireRole][RequireRole]이 부착된 Handler에 대한 접근 허가 확인자
+ * [@RequireRole][RequireRole]에 대한 인증 확인자
  *
  * @author Daybreak312
  * @since 21-04-2024
@@ -16,10 +15,10 @@ import javax.servlet.http.HttpServletRequest
 @Component
 class RequireRoleChecker(
     private val readCurrentUserPort: ReadCurrentUserPort
-) : AbstractAccessAllowedChecker() {
+) : AbstractAnnotationBasedUserAuthenticationChecker() {
 
-    override fun check(request: HttpServletRequest, handler: HandlerMethod) {
-        val annotation = handler.getAnnotationOrNull(RequireRole::class) ?: return
+    override fun check(`object`: Any) {
+        val annotation = `object`.getAnnotationOrNull(RequireRole::class) ?: return
 
         checkInvalidAuthentication()
 
