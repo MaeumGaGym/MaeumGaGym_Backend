@@ -4,6 +4,14 @@ import org.springframework.stereotype.Component
 import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotations
 
+/**
+ * 가장 기본적인 [AnnotationCollection]
+ *
+ * 클래스의 리플렉션으로부터 어노테이션 추출
+ *
+ * @author Daybreak312
+ * @since 22-04-2024
+ */
 @Component
 class DefaultAnnotationCollection : AnnotationCollection {
 

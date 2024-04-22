@@ -7,6 +7,14 @@ import java.lang.reflect.Method
 import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotations
 
+/**
+ * Handler(Controller)에 대한 [AnnotationCollection]
+ *
+ * [HandlerMethod], [Method], [MethodParameter]에 대해 작동
+ *
+ * @author Daybreak312
+ * @since 22-04-2024
+ */
 @Component
 class HandlerAnnotationCollection : AnnotationCollection {
 

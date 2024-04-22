@@ -5,6 +5,12 @@ import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Component
 import kotlin.reflect.KClass
 
+/**
+ * 모든 [AnnotationCollection]들을 순회하는 [AnnotationCollection]
+ *
+ * @author Daybreak312
+ * @since 22-04-2024
+ */
 @Primary
 @Component
 class AnnotationCollectionComposite(
