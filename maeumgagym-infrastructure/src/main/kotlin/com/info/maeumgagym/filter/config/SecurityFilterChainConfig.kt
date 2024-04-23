@@ -18,6 +18,14 @@ import org.springframework.security.web.authentication.logout.LogoutFilter
 import org.springframework.security.web.context.SecurityContextHolderFilter
 import org.springframework.stereotype.Component
 
+/**
+ * [SecurityFilterChain][org.springframework.security.web.SecurityFilterChain] 속 Filter들의 삽입과 순서 설정
+ *
+ * @see ApplicationFilterChainConfig
+ *
+ * @author Daybreak312
+ * @since 15-02-2024
+ */
 @Component
 class SecurityFilterChainConfig(
     private val jwtResolver: JwtResolver,

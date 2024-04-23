@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 import javax.servlet.http.HttpServletResponse
 
 /**
- * [ErrorLog]의 정보로 [HttpServletResponse]를 작성하기 위한 [HttpServletResponseWriter].
+ * [ErrorLog]의 정보로 [HttpServletResponse]를 작성하기 위한 [HttpServletResponseWriter]
  *
  * [DefaultHttpServletResponseWriter]를 내부 변수로 갖고 있어, [setBody]와 [doDefaultSettingWithStatusCode]는 [DefaultHttpServletResponseWriter]를 통해 Proxy 형태로 구현됨.
  *

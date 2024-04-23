@@ -9,6 +9,12 @@ import org.springframework.security.web.DefaultSecurityFilterChain
 import org.springframework.stereotype.Component
 import org.springframework.web.cors.CorsUtils
 
+/**
+ * SpringSecurity 자체의 인증 로직에서, 로그인이 필요하지 않은 API를 명시해주기 위한 설정
+ *
+ * @author Daybreak312
+ * @since 15-02-2024
+ */
 @Component
 class RequestPermitConfig : SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
 

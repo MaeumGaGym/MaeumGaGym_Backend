@@ -6,7 +6,7 @@ import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
 
 /**
- * [GlobalFilterChain]을 [org.apache.catalina.core.ApplicationFilterChain]에 삽입하기 위한 프록시
+ * [GlobalFilterChain]을 [ApplicationFilterChain][org.apache.catalina.core.ApplicationFilterChain]에 삽입하기 위한 프록시
  *
  * @see GlobalFilterChain
  *

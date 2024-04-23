@@ -18,6 +18,17 @@ import org.springframework.stereotype.Component
 import java.security.PublicKey
 import java.util.*
 
+/**
+ * Jwt Token에 관련된 Port들의 통합 구현체.
+ *
+ * @see GenerateJwtPort
+ * @see ReissuePort
+ * @see RevokeTokensPort
+ *
+ * @author Daybreak312, gurdl0525
+ * @since 20-11-2023
+ * @since 추상화 : 28-12-2023
+ */
 @Component
 class JwtAdapter(
     private val jwtProperties: JwtProperties,
