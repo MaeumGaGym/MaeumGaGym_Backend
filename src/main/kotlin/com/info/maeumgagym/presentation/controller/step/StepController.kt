@@ -1,6 +1,8 @@
-package com.info.maeumgagym.controller.step
+package com.info.maeumgagym.presentation.controller.step
 
 import com.info.maeumgagym.common.responsibility.WebAdapter
+import com.info.maeumgagym.core.step.port.`in`.ReadTodayStepCountUseCase
+import com.info.maeumgagym.core.step.port.`in`.UpdateStepUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
@@ -11,9 +13,9 @@ import org.springframework.web.bind.annotation.*
 @Validated
 @WebAdapter
 @RequestMapping("/step")
-class StepController(
-    private val updateStepUseCase: com.info.maeumgagym.core.step.port.`in`.UpdateStepUseCase,
-    private val readTodayStepCountUseCase: com.info.maeumgagym.core.step.port.`in`.ReadTodayStepCountUseCase
+private class StepController(
+    private val updateStepUseCase: UpdateStepUseCase,
+    private val readTodayStepCountUseCase: ReadTodayStepCountUseCase
 ) {
     @Operation(summary = "걸음 수 카운트 업데이트 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)

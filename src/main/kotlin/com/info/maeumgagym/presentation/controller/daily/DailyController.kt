@@ -1,6 +1,12 @@
-package com.info.maeumgagym.controller.daily
+package com.info.maeumgagym.presentation.controller.daily
 
 import com.info.maeumgagym.common.responsibility.WebAdapter
+import com.info.maeumgagym.core.daily.dto.response.DailyListResponse
+import com.info.maeumgagym.core.daily.dto.response.PreSignedURLResponse
+import com.info.maeumgagym.core.daily.port.`in`.*
+import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+import com.info.maeumgagym.presentation.controller.daily.dto.CreateDailyRequest
+import com.info.maeumgagym.presentation.controller.daily.dto.DailyTitleUpdateRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.format.annotation.DateTimeFormat
@@ -14,21 +20,21 @@ import javax.validation.constraints.*
 @Tag(name = "Daily Exercise Complete API")
 @Validated
 @WebAdapter
-class DailyController(
-    private val createDailyUseCase: com.info.maeumgagym.core.daily.port.`in`.CreateDailyUseCase,
-    private val updateDailyUseCase: com.info.maeumgagym.core.daily.port.`in`.UpdateDailyUseCase,
-    private val readDailyUseCase: com.info.maeumgagym.core.daily.port.`in`.ReadDailyUseCase,
-    private val deleteDailyUseCase: com.info.maeumgagym.core.daily.port.`in`.DeleteDailyUseCase,
-    private val getDailyPreSignedURLUseCase: com.info.maeumgagym.core.daily.port.`in`.GetDailyPreSignedURLUseCase,
-    private val locationHeaderManager: com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+private class DailyController(
+    private val createDailyUseCase: CreateDailyUseCase,
+    private val updateDailyUseCase: UpdateDailyUseCase,
+    private val readDailyUseCase: ReadDailyUseCase,
+    private val deleteDailyUseCase: DeleteDailyUseCase,
+    private val getDailyPreSignedURLUseCase: GetDailyPreSignedURLUseCase,
+    private val locationHeaderManager: LocationHeaderManager
 ) {
     @Operation(description = "오운완 업로드 URL 얻기 API")
     @GetMapping("/daily/pre-signed")
     fun preSignedUrl(
         @Valid
         @RequestBody
-        req: com.info.maeumgagym.presentation.controller.daily.dto.CreateDailyRequest
-    ): com.info.maeumgagym.core.daily.dto.response.PreSignedURLResponse = getDailyPreSignedURLUseCase.getUploadUrl(req.title!!)
+        req: CreateDailyRequest
+    ): PreSignedURLResponse = getDailyPreSignedURLUseCase.getUploadUrl(req.title!!)
 
     @Operation(description = "오운완 생성 API")
     @ResponseStatus(HttpStatus.CREATED)
@@ -36,7 +42,7 @@ class DailyController(
     fun dailyUpload(
         @Valid
         @RequestBody
-        req: com.info.maeumgagym.presentation.controller.daily.dto.CreateDailyRequest
+        req: CreateDailyRequest
     ) {
         createDailyUseCase.create(req.title!!).run {
             locationHeaderManager.setSubject(subject)
@@ -54,7 +60,7 @@ class DailyController(
         date: LocalDate?,
         @Valid
         @RequestBody
-        req: com.info.maeumgagym.presentation.controller.daily.dto.DailyTitleUpdateRequest
+        req: DailyTitleUpdateRequest
     ) {
         updateDailyUseCase.updateTitle(req.title!!, date!!)
     }
@@ -70,7 +76,7 @@ class DailyController(
         @Positive(message = "0보다 커야 합니다.")
         @RequestParam("size", required = false, defaultValue = "15")
         size: Int
-    ): com.info.maeumgagym.core.daily.dto.response.DailyListResponse = readDailyUseCase.readDailies(page, size)
+    ): DailyListResponse = readDailyUseCase.readDailies(page, size)
 
     @Operation(description = "오운완 삭제 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)

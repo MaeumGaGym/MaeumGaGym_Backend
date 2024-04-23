@@ -1,10 +1,11 @@
-package com.info.maeumgagym.controller.report
+package com.info.maeumgagym.presentation.controller.report
 
 import com.info.maeumgagym.common.responsibility.WebAdapter
-import com.info.maeumgagym.report.port.`in`.ReportPickleCommentUseCase
-import com.info.maeumgagym.report.port.`in`.ReportPickleReplyUseCase
-import com.info.maeumgagym.report.port.`in`.ReportPickleUseCase
-import com.info.maeumgagym.report.port.`in`.ReportUserUseCase
+import com.info.maeumgagym.core.report.port.`in`.ReportPickleCommentUseCase
+import com.info.maeumgagym.core.report.port.`in`.ReportPickleReplyUseCase
+import com.info.maeumgagym.core.report.port.`in`.ReportPickleUseCase
+import com.info.maeumgagym.core.report.port.`in`.ReportUserUseCase
+import com.info.maeumgagym.presentation.controller.report.dto.ReportWebRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
@@ -21,7 +22,7 @@ import javax.validation.constraints.Pattern
 @Validated
 @RequestMapping("/report")
 @WebAdapter
-class ReportController(
+private class ReportController(
     private val reportUserUseCase: ReportUserUseCase,
     private val reportPickleUseCase: ReportPickleUseCase,
     private val reportPickleCommentUseCase: ReportPickleCommentUseCase,
@@ -34,7 +35,7 @@ class ReportController(
     fun userReport(
         @Valid
         @RequestBody
-        request: com.info.maeumgagym.presentation.controller.report.dto.ReportWebRequest,
+        request: ReportWebRequest,
         @PathVariable
         nickname: String
     ) {
@@ -47,7 +48,7 @@ class ReportController(
     fun pickleReport(
         @Valid
         @RequestBody
-        request: com.info.maeumgagym.presentation.controller.report.dto.ReportWebRequest,
+        request: ReportWebRequest,
         @Pattern(regexp = "^[0-9a-f]{8}\$", message = "잘못된 id입니다.")
         @PathVariable
         videoId: String
@@ -61,7 +62,7 @@ class ReportController(
     fun pickleCommentReport(
         @Valid
         @RequestBody
-        request: com.info.maeumgagym.presentation.controller.report.dto.ReportWebRequest,
+        request: ReportWebRequest,
         @PathVariable
         id: Long
     ) {
@@ -74,7 +75,7 @@ class ReportController(
     fun pickleReplyReport(
         @Valid
         @RequestBody
-        request: com.info.maeumgagym.presentation.controller.report.dto.ReportWebRequest,
+        request: ReportWebRequest,
         @PathVariable
         id: Long
     ) {

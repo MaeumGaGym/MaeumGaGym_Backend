@@ -1,6 +1,12 @@
-package com.info.maeumgagym.controller.purpose
+package com.info.maeumgagym.presentation.controller.purpose
 
 import com.info.maeumgagym.common.responsibility.WebAdapter
+import com.info.maeumgagym.core.purpose.dto.response.PurposeInfoResponse
+import com.info.maeumgagym.core.purpose.dto.response.PurposeListResponse
+import com.info.maeumgagym.core.purpose.port.`in`.*
+import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+import com.info.maeumgagym.presentation.controller.purpose.dto.CreatePurposeWebRequest
+import com.info.maeumgagym.presentation.controller.purpose.dto.UpdatePurposeWebRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.format.annotation.DateTimeFormat
@@ -17,14 +23,14 @@ import javax.validation.constraints.PositiveOrZero
 @Validated
 @RequestMapping("/purposes")
 @WebAdapter
-class PurposeController(
-    private val createPurposeUseCase: com.info.maeumgagym.core.purpose.port.`in`.CreatePurposeUseCase,
-    private val readPurposeFromIdUseCase: com.info.maeumgagym.core.purpose.port.`in`.ReadPurposeFromIdUseCase,
-    private val readPurposesFromDateForRangeUseCase: com.info.maeumgagym.core.purpose.port.`in`.ReadPurposesFromDateForRangeUseCase,
-    private val readAllMyPurposeUseCase: com.info.maeumgagym.core.purpose.port.`in`.ReadAllMyPurposeUseCase,
-    private val updatePurposeUseCase: com.info.maeumgagym.core.purpose.port.`in`.UpdatePurposeUseCase,
-    private val deletePurposeUseCase: com.info.maeumgagym.core.purpose.port.`in`.DeletePurposeUseCase,
-    private val locationHeaderManager: com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+private class PurposeController(
+    private val createPurposeUseCase: CreatePurposeUseCase,
+    private val readPurposeFromIdUseCase: ReadPurposeFromIdUseCase,
+    private val readPurposesFromDateForRangeUseCase: ReadPurposesFromDateForRangeUseCase,
+    private val readAllMyPurposeUseCase: ReadAllMyPurposeUseCase,
+    private val updatePurposeUseCase: UpdatePurposeUseCase,
+    private val deletePurposeUseCase: DeletePurposeUseCase,
+    private val locationHeaderManager: LocationHeaderManager
 ) {
 
     @Operation(summary = "목표 생성 API")
@@ -33,7 +39,7 @@ class PurposeController(
     fun purposeCreate(
         @Valid
         @RequestBody
-        req: com.info.maeumgagym.presentation.controller.purpose.dto.CreatePurposeWebRequest
+        req: CreatePurposeWebRequest
     ) {
         createPurposeUseCase.createPurpose(req.toRequest()).run {
             locationHeaderManager.setSubject(subject)
@@ -48,7 +54,7 @@ class PurposeController(
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         @PathVariable("date", required = false)
         date: LocalDate?
-    ): com.info.maeumgagym.core.purpose.dto.response.PurposeListResponse =
+    ): PurposeListResponse =
         readPurposesFromDateForRangeUseCase.readPurposesFromDateForRange(date!!)
 
     @Operation(summary = "목표 id 기반 조회 API")
@@ -58,7 +64,7 @@ class PurposeController(
         @Positive(message = "1 이상이어야 합니다.")
         @PathVariable
         id: Long
-    ): com.info.maeumgagym.core.purpose.dto.response.PurposeInfoResponse = readPurposeFromIdUseCase.readPurposeFromId(id)
+    ): PurposeInfoResponse = readPurposeFromIdUseCase.readPurposeFromId(id)
 
     @Operation(summary = "내 목표 전체 조회")
     @GetMapping("/my")
@@ -66,7 +72,7 @@ class PurposeController(
         @RequestParam
         @PositiveOrZero(message = "0 이상이어야 합니다.")
         index: Int
-    ): com.info.maeumgagym.core.purpose.dto.response.PurposeListResponse = readAllMyPurposeUseCase.readAllMyPurpose(index)
+    ): PurposeListResponse = readAllMyPurposeUseCase.readAllMyPurpose(index)
 
     @Operation(summary = "목표 수정 API")
     @PutMapping("/{id}")
@@ -77,7 +83,7 @@ class PurposeController(
         id: Long,
         @Valid
         @RequestBody
-        req: com.info.maeumgagym.presentation.controller.purpose.dto.UpdatePurposeWebRequest
+        req: UpdatePurposeWebRequest
     ) {
         updatePurposeUseCase.updatePurposeFromId(id, req.toRequest())
     }

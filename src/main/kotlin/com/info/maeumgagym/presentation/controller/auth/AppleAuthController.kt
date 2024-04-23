@@ -1,9 +1,11 @@
-package com.info.maeumgagym.controller.auth
+package com.info.maeumgagym.presentation.controller.auth
 
 import com.info.maeumgagym.common.responsibility.WebAdapter
-import com.info.maeumgagym.auth.port.`in`.AppleLoginUseCase
-import com.info.maeumgagym.auth.port.`in`.AppleRecoveryUseCase
-import com.info.maeumgagym.auth.port.`in`.AppleSignUpUseCase
+import com.info.maeumgagym.core.auth.port.`in`.AppleLoginUseCase
+import com.info.maeumgagym.core.auth.port.`in`.AppleRecoveryUseCase
+import com.info.maeumgagym.core.auth.port.`in`.AppleSignUpUseCase
+import com.info.maeumgagym.presentation.controller.auth.dto.SignupWebRequest
+import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.headers.Header
 import io.swagger.v3.oas.annotations.media.Schema
@@ -19,11 +21,11 @@ import javax.validation.constraints.NotBlank
 @Tag(name = "Apple OAuth API")
 @RequestMapping("/apple")
 @WebAdapter
-class AppleAuthController(
+private class AppleAuthController(
     private val appleLoginUseCase: AppleLoginUseCase,
     private val appleRecoveryUseCase: AppleRecoveryUseCase,
     private val appleSignUpUseCase: AppleSignUpUseCase,
-    private val locationHeaderManager: com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+    private val locationHeaderManager: LocationHeaderManager
 ) {
 
     @Operation(summary = "애플 OAuth 로그인 API")
@@ -66,7 +68,7 @@ class AppleAuthController(
         token: String?,
         @RequestBody
         @Valid
-        req: com.info.maeumgagym.presentation.controller.auth.dto.SignupWebRequest
+        req: SignupWebRequest
     ) {
         appleSignUpUseCase.signUp(token!!, req.nickname!!)
 

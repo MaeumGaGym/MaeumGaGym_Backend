@@ -1,8 +1,13 @@
-package com.info.maeumgagym.controller.routine
+package com.info.maeumgagym.presentation.controller.routine
 
 import com.info.maeumgagym.common.responsibility.WebAdapter
-import com.info.maeumgagym.controller.routine.dto.UpdateRoutineWebRequest
-import com.info.maeumgagym.routine.port.`in`.*
+import com.info.maeumgagym.core.routine.dto.response.RoutineHistoryListResponse
+import com.info.maeumgagym.core.routine.dto.response.RoutineListResponse
+import com.info.maeumgagym.core.routine.dto.response.RoutineResponse
+import com.info.maeumgagym.core.routine.port.`in`.*
+import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+import com.info.maeumgagym.presentation.controller.routine.dto.CreateRoutineWebRequest
+import com.info.maeumgagym.presentation.controller.routine.dto.UpdateRoutineWebRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.format.annotation.DateTimeFormat
@@ -20,14 +25,14 @@ import javax.validation.constraints.PositiveOrZero
 @RequestMapping("/routines")
 @WebAdapter
 @Validated
-class RoutineController(
+private class RoutineController(
     private val readTodayRoutineUseCase: ReadTodayRoutineUseCase,
     private val readAllMyRoutineUseCase: ReadAllMyRoutineUseCase,
     private val createRoutineUseCase: CreateRoutineUseCase,
     private val deleteRoutineUseCase: DeleteRoutineUseCase,
     private val updateRoutineUseCase: UpdateRoutineUseCase,
     private val readRoutineUseCase: ReadRoutineUseCase,
-    private val locationHeaderManager: com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager,
+    private val locationHeaderManager: LocationHeaderManager,
     private val completeTodayRoutineUseCase: CompleteTodayRoutineUseCase,
     private val readRoutineHistoryUseCase: ReadRoutineHistoryUseCase
 ) {
@@ -36,7 +41,7 @@ class RoutineController(
     @PostMapping
     fun createRoutine(
         @RequestBody @Valid
-        req: com.info.maeumgagym.presentation.controller.routine.dto.CreateRoutineWebRequest
+        req: CreateRoutineWebRequest
     ) {
         createRoutineUseCase.createRoutine(req.toRequest()).run {
             locationHeaderManager.setSubject(subject)
@@ -45,7 +50,7 @@ class RoutineController(
 
     @Operation(summary = "오늘의 루틴 조회 API")
     @GetMapping("/today")
-    fun readTodayRoutine(httpServletResponse: HttpServletResponse): com.info.maeumgagym.core.routine.dto.response.RoutineResponse? =
+    fun readTodayRoutine(httpServletResponse: HttpServletResponse): RoutineResponse? =
         readTodayRoutineUseCase.readTodayRoutine()
 
     @Operation(summary = "내 루틴 전체 조회 API")
@@ -54,7 +59,7 @@ class RoutineController(
         @RequestParam
         @PositiveOrZero(message = "0 이상이어야 합니다.")
         index: Int
-    ): com.info.maeumgagym.core.routine.dto.response.RoutineListResponse = readAllMyRoutineUseCase.readAllMyRoutine(index)
+    ): RoutineListResponse = readAllMyRoutineUseCase.readAllMyRoutine(index)
 
     @Operation(summary = "루틴 삭제 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -88,7 +93,7 @@ class RoutineController(
         @Valid
         @Positive(message = "0보다 커야 합니다.")
         id: Long
-    ): com.info.maeumgagym.core.routine.dto.response.RoutineResponse = readRoutineUseCase.readFromId(id)
+    ): RoutineResponse = readRoutineUseCase.readFromId(id)
 
     @Operation(summary = "오늘의 루틴 완료 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -105,5 +110,5 @@ class RoutineController(
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         @PathVariable("date", required = false)
         date: LocalDate?
-    ): com.info.maeumgagym.core.routine.dto.response.RoutineHistoryListResponse = readRoutineHistoryUseCase.readFromDate(date!!)
+    ): RoutineHistoryListResponse = readRoutineHistoryUseCase.readFromDate(date!!)
 }

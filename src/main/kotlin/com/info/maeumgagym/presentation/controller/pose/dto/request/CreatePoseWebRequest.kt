@@ -1,6 +1,6 @@
 package com.info.maeumgagym.presentation.controller.pose.dto.request
 
-import com.info.maeumgagym.pose.dto.request.CreatePoseRequest
+import com.info.maeumgagym.core.pose.dto.request.CreatePoseRequest
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 

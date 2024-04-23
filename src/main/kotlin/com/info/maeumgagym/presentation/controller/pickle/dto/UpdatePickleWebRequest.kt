@@ -17,7 +17,7 @@ data class UpdatePickleWebRequest(
     val tags: MutableSet<String> = mutableSetOf()
 ) {
 
-    fun toRequest() = com.info.maeumgagym.core.pickle.dto.request.UpdatePickleRequest(
+    fun toRequest() = UpdatePickleRequest(
         title!!,
         description,
         tags

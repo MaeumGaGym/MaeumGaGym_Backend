@@ -1,10 +1,12 @@
-package com.info.maeumgagym.controller.auth
+package com.info.maeumgagym.presentation.controller.auth
 
 import com.info.maeumgagym.common.responsibility.WebAdapter
-import com.info.maeumgagym.auth.port.`in`.KakaoLoginUseCase
-import com.info.maeumgagym.auth.port.`in`.KakaoRecoveryUseCase
-import com.info.maeumgagym.auth.port.`in`.KakaoSignupUseCase
-import com.info.maeumgagym.auth.port.out.KakaoGenerateTokenUseCase
+import com.info.maeumgagym.core.auth.port.`in`.KakaoLoginUseCase
+import com.info.maeumgagym.core.auth.port.`in`.KakaoRecoveryUseCase
+import com.info.maeumgagym.core.auth.port.`in`.KakaoSignupUseCase
+import com.info.maeumgagym.core.auth.port.out.KakaoGenerateTokenUseCase
+import com.info.maeumgagym.presentation.controller.auth.dto.KakaoSignupWebRequest
+import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.headers.Header
 import io.swagger.v3.oas.annotations.media.Schema
@@ -22,11 +24,11 @@ import javax.validation.constraints.NotBlank
 @Validated
 @RequestMapping("/kakao")
 @WebAdapter
-class KakaoAuthController(
+private class KakaoAuthController(
     private val kakaoLoginUseCase: KakaoLoginUseCase,
     private val kakaoSignupUseCase: KakaoSignupUseCase,
     private val kakaoRecoveryUseCase: KakaoRecoveryUseCase,
-    private val locationHeaderManager: com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager,
+    private val locationHeaderManager: LocationHeaderManager,
     private val kakaoGenerateTokenUseCase: KakaoGenerateTokenUseCase
 ) {
     @Operation(summary = "카카오 OAuth 로그인 API")
@@ -69,7 +71,7 @@ class KakaoAuthController(
         token: String?,
         @RequestBody
         @Valid
-        req: com.info.maeumgagym.presentation.controller.auth.dto.KakaoSignupWebRequest
+        req: KakaoSignupWebRequest
     ) {
         kakaoSignupUseCase.signup(token!!, req.nickname!!)
 
