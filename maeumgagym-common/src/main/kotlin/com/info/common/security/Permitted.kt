@@ -7,13 +7,6 @@ package com.info.common.security
  * // Use like this:
  *
  * @Permitted
- * @RequestMapping("/google")
- * @WebAdapter
- * class GoogleOAuthController { ... }
- *
- * // OR
- *
- * @Permitted
  * @GetMapping
  * fun login() { ... }
  * ```
@@ -21,6 +14,8 @@ package com.info.common.security
  * @author Daybreak312
  * @since 20-04-2024
  */
-@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
-@Retention(AnnotationRetention.RUNTIME)
+@[
+    Target(AnnotationTarget.FUNCTION)
+    Retention(AnnotationRetention.RUNTIME)
+]
 annotation class Permitted

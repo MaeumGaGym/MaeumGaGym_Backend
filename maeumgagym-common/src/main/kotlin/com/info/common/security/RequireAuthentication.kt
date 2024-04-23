@@ -7,19 +7,12 @@ package com.info.common.security
  * // Use like this:
  *
  * @RequireAuthentication
- * @RequestMapping("/purpose")
- * @WebAdapter
- * class PurposeController { ... }
- *
- * // OR
- *
- * @RequireAuthentication
  * @GetMapping
  * fun createPurpose(...) { ... }
  * ```
  * @author Daybreak312
  * @since 20-04-2024
  */
-@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION, AnnotationTarget.VALUE_PARAMETER)
+@Target(AnnotationTarget.FUNCTION, AnnotationTarget.VALUE_PARAMETER)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class RequireAuthentication
