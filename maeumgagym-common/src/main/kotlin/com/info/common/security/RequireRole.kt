@@ -1,17 +1,10 @@
 package com.info.common.security
 
 /**
- * [@WebAdapter][com.info.common.responsibility.WebAdapter] 어노테이션이 부착된 컨트롤러 단위로, [Role][com.info.maeumgagym.user.model.Role] 인증이 필요함을 명시하기 위한 어노테이션
+ * [Role][com.info.maeumgagym.user.model.Role] 인증이 필요한 API임을 명시하기 위한 어노테이션
  *
  * ```
  * // Use like this:
- *
- * @RequireRole
- * @RequestMapping("/report")
- * @WebAdapter
- * class ReportController { ... }
- *
- * // OR
  *
  * @RequireRole
  * @GetMapping
@@ -35,7 +28,7 @@ package com.info.common.security
  * @author Daybreak312
  * @since 10-04-2024
  */
-@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
+@Target(AnnotationTarget.FUNCTION, AnnotationTarget.VALUE_PARAMETER)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class RequireRole(
     val role: String = "ADMIN"
