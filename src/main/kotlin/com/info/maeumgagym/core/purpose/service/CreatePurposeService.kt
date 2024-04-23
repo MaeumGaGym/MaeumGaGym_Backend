@@ -4,14 +4,18 @@ import com.info.common.responsibility.UseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.common.dto.LocationSubjectDto
 import com.info.maeumgagym.core.common.exception.BusinessLogicException
+import com.info.maeumgagym.core.purpose.dto.request.CreatePurposeRequest
+import com.info.maeumgagym.core.purpose.model.Purpose
+import com.info.maeumgagym.core.purpose.port.`in`.CreatePurposeUseCase
+import com.info.maeumgagym.core.purpose.port.out.SavePurposePort
 
 @UseCase
 internal class CreatePurposeService(
-    private val savePurposePort: com.info.maeumgagym.core.purpose.port.out.SavePurposePort,
+    private val savePurposePort: SavePurposePort,
     private val readCurrentUserPort: ReadCurrentUserPort
-) : com.info.maeumgagym.core.purpose.port.`in`.CreatePurposeUseCase {
+) : CreatePurposeUseCase {
 
-    override fun createPurpose(req: com.info.maeumgagym.core.purpose.dto.request.CreatePurposeRequest): LocationSubjectDto {
+    override fun createPurpose(req: CreatePurposeRequest): LocationSubjectDto {
         val user = readCurrentUserPort.readCurrentUser()
 
         if (req.startDate.isAfter(req.endDate)) {
@@ -20,7 +24,7 @@ internal class CreatePurposeService(
 
         val purpose = req.run {
             savePurposePort.save(
-                com.info.maeumgagym.core.purpose.model.Purpose(
+                Purpose(
                     title = title,
                     content = content,
                     startDate = startDate,

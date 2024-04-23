@@ -4,15 +4,20 @@ import com.info.common.responsibility.UseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.common.exception.SecurityException
+import com.info.maeumgagym.core.purpose.dto.request.UpdatePurposeRequest
+import com.info.maeumgagym.core.purpose.model.Purpose
+import com.info.maeumgagym.core.purpose.port.`in`.UpdatePurposeUseCase
+import com.info.maeumgagym.core.purpose.port.out.ReadPurposePort
+import com.info.maeumgagym.core.purpose.port.out.SavePurposePort
 
 @UseCase
 internal class UpdatePurposeService(
-    private val savePurposePort: com.info.maeumgagym.core.purpose.port.out.SavePurposePort,
-    private val readPurposePort: com.info.maeumgagym.core.purpose.port.out.ReadPurposePort,
+    private val savePurposePort: SavePurposePort,
+    private val readPurposePort: ReadPurposePort,
     private val readCurrentUserPort: ReadCurrentUserPort
-) : com.info.maeumgagym.core.purpose.port.`in`.UpdatePurposeUseCase {
+) : UpdatePurposeUseCase {
 
-    override fun updatePurposeFromId(id: Long, req: com.info.maeumgagym.core.purpose.dto.request.UpdatePurposeRequest) {
+    override fun updatePurposeFromId(id: Long, req: UpdatePurposeRequest) {
         val user = readCurrentUserPort.readCurrentUser()
 
         val purpose = readPurposePort.readById(id) ?: throw BusinessLogicException.PURPOSE_NOT_FOUND
@@ -27,7 +32,7 @@ internal class UpdatePurposeService(
 
         req.run {
             savePurposePort.save(
-                com.info.maeumgagym.core.purpose.model.Purpose(
+                Purpose(
                     title = title,
                     content = content,
                     startDate = startDate,

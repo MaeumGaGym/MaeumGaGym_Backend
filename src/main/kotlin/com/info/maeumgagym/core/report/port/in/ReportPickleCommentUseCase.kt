@@ -1,6 +1,6 @@
 package com.info.maeumgagym.core.report.port.`in`
 
-import com.info.maeumgagym.report.dto.request.ReportRequest
+import com.info.maeumgagym.core.report.dto.request.ReportRequest
 
 interface ReportPickleCommentUseCase {
 

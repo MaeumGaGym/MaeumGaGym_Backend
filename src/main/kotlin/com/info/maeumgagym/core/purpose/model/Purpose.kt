@@ -9,11 +9,11 @@ data class Purpose(
     val content: String,
     val startDate: LocalDate,
     val endDate: LocalDate,
-    val user: com.info.maeumgagym.core.user.model.User,
+    val user: User,
     val id: Long? = null
 ) {
-    fun toResponse(): com.info.maeumgagym.core.purpose.dto.response.PurposeInfoResponse =
-        com.info.maeumgagym.core.purpose.dto.response.PurposeInfoResponse(
+    fun toResponse(): PurposeInfoResponse =
+        PurposeInfoResponse(
             title = title,
             content = content,
             startDate = startDate,

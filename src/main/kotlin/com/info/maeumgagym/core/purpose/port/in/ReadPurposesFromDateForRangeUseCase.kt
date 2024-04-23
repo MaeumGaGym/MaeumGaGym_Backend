@@ -5,5 +5,5 @@ import java.time.LocalDate
 
 interface ReadPurposesFromDateForRangeUseCase {
 
-    fun readPurposesFromDateForRange(startDate: LocalDate): com.info.maeumgagym.core.purpose.dto.response.PurposeListResponse
+    fun readPurposesFromDateForRange(startDate: LocalDate): PurposeListResponse
 }
