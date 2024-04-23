@@ -1,11 +1,14 @@
-package com.info.maeumgagym.controller.pose
+package com.info.maeumgagym.presentation.controller.pose
 
 import com.info.maeumgagym.common.responsibility.WebAdapter
 import com.info.maeumgagym.common.security.RequireRole
-import com.info.maeumgagym.pose.dto.response.PoseDetailResponse
-import com.info.maeumgagym.pose.dto.response.PoseListResponse
-import com.info.maeumgagym.pose.dto.response.PoseRecommendationListResponse
-import com.info.maeumgagym.pose.port.`in`.*
+import com.info.maeumgagym.core.pose.dto.response.PoseDetailResponse
+import com.info.maeumgagym.core.pose.dto.response.PoseListResponse
+import com.info.maeumgagym.core.pose.dto.response.PoseRecommendationListResponse
+import com.info.maeumgagym.core.pose.port.`in`.*
+import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+import com.info.maeumgagym.presentation.controller.pose.dto.request.CreatePoseWebRequest
+import com.info.maeumgagym.presentation.controller.pose.dto.request.ReadAllPoseWebRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
@@ -20,13 +23,13 @@ import javax.validation.constraints.Size
 @RequestMapping("/poses")
 @WebAdapter
 @Validated
-class PoseController(
+private class PoseController(
     private val createPoseUseCase: CreatePoseUseCase,
     private val readAllPoseUseCase: ReadAllPoseUseCase,
     private val readPoseFromIdUseCase: ReadPoseFromIdUseCase,
     private val readPoseFromTagUseCase: ReadPoseFromTagUseCase,
     private val readPosesRecommendationUseCase: ReadPosesRecommendationUseCase,
-    private val locationHeaderManager: com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+    private val locationHeaderManager: LocationHeaderManager
 ) {
 
     @Operation(summary = "자세 추가 API")
@@ -36,7 +39,7 @@ class PoseController(
     fun create(
         @Valid
         @RequestBody
-        req: com.info.maeumgagym.presentation.controller.pose.dto.request.CreatePoseWebRequest
+        req: CreatePoseWebRequest
     ) {
         val subject = createPoseUseCase.createPose(req.toRequest())
 
@@ -48,7 +51,7 @@ class PoseController(
     fun readAll(
         @RequestBody
         @Valid
-        readAllPoseWebRequest: com.info.maeumgagym.presentation.controller.pose.dto.request.ReadAllPoseWebRequest
+        readAllPoseWebRequest: ReadAllPoseWebRequest
     ): PoseListResponse = readAllPoseUseCase.readAll(readAllPoseWebRequest.toRequest())
 
     @Operation(summary = "자세 id 조회 API")

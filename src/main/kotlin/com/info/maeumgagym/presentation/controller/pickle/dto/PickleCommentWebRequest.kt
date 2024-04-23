@@ -10,7 +10,7 @@ data class PickleCommentWebRequest(
     val content: String?
 ) {
 
-    fun toRequest() = com.info.maeumgagym.core.pickle.dto.request.PickleCommentRequest(
+    fun toRequest() = PickleCommentRequest(
         content = content!!
     )
 }

@@ -1,10 +1,10 @@
-package com.info.maeumgagym.controller.wakatime
+package com.info.maeumgagym.presentation.controller.wakatime
 
 import com.info.maeumgagym.common.responsibility.WebAdapter
-import com.info.maeumgagym.wakatime.dto.response.WakatimeResponse
-import com.info.maeumgagym.wakatime.port.`in`.EndWakatimeUseCase
-import com.info.maeumgagym.wakatime.port.`in`.ReadWakaTimeUseCase
-import com.info.maeumgagym.wakatime.port.`in`.StartWakatimeUseCase
+import com.info.maeumgagym.core.wakatime.dto.response.WakatimeResponse
+import com.info.maeumgagym.core.wakatime.port.`in`.EndWakatimeUseCase
+import com.info.maeumgagym.core.wakatime.port.`in`.ReadWakaTimeUseCase
+import com.info.maeumgagym.core.wakatime.port.`in`.StartWakatimeUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
 @Validated
 @WebAdapter
 @RequestMapping("/waka")
-class WakatimeController(
+private class WakatimeController(
     private val startWakatimeUseCase: StartWakatimeUseCase,
     private val endWakatimeUseCase: EndWakatimeUseCase,
     private val readWakatimeUseCase: ReadWakaTimeUseCase

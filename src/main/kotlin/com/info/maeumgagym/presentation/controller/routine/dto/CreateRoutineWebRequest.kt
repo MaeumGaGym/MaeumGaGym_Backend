@@ -22,13 +22,13 @@ class CreateRoutineWebRequest(
 
     @field:NotNull(message = "null일 수 없습니다")
     @field:NotEmpty(message = "비어있을 수 없습니다")
-    val exerciseInfoRequestList: MutableList<com.info.maeumgagym.core.routine.dto.request.ExerciseInfoRequest>?,
+    val exerciseInfoRequestList: MutableList<ExerciseInfoRequest>?,
 
     @field:NotNull(message = "null일 수 없습니다")
     val dayOfWeeks: MutableSet<String>?
 ) {
 
-    fun toRequest() = com.info.maeumgagym.core.routine.dto.request.CreateRoutineRequest(
+    fun toRequest() = CreateRoutineRequest(
         routineName!!,
         isArchived!!,
         isShared!!,

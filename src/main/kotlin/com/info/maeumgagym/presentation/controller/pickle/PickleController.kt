@@ -1,7 +1,14 @@
-package com.info.maeumgagym.controller.pickle
+package com.info.maeumgagym.presentation.controller.pickle
 
 import com.info.maeumgagym.common.responsibility.WebAdapter
-import com.info.maeumgagym.pickle.port.`in`.*
+import com.info.maeumgagym.core.pickle.dto.response.PickleListResponse
+import com.info.maeumgagym.core.pickle.dto.response.PickleResponse
+import com.info.maeumgagym.core.pickle.dto.response.PreSignedUploadURLResponse
+import com.info.maeumgagym.core.pickle.port.`in`.*
+import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+import com.info.maeumgagym.presentation.controller.pickle.dto.CreatePickleWebRequest
+import com.info.maeumgagym.presentation.controller.pickle.dto.PreSignedUploadURLWebRequest
+import com.info.maeumgagym.presentation.controller.pickle.dto.UpdatePickleWebRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
@@ -14,7 +21,7 @@ import javax.validation.constraints.*
 @Validated
 @WebAdapter
 @RequestMapping("/pickles")
-class PickleController(
+private class PickleController(
     private val loadRecommendationPicklesUseCase: LoadRecommendationPicklesUseCase,
     private val loadPickleFromIdUseCase: LoadPickleFromIdUseCase,
     private val loadPickleFromPoseUseCase: LoadPickleFromPoseUseCase,
@@ -23,7 +30,7 @@ class PickleController(
     private val updatePickleUseCase: UpdatePickleUseCase,
     private val getPicklePreSignedURLUseCase: GetPicklePreSignedURLUseCase,
     private val likePickleUseCase: LikePickleUseCase,
-    private val locationHeaderManager: com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+    private val locationHeaderManager: LocationHeaderManager
 ) {
 
     @Operation(summary = "추천 피클 전체 조회 API")
@@ -34,7 +41,7 @@ class PickleController(
         @NotNull(message = "null일 수 없습니다.")
         @PositiveOrZero(message = "0보다 크거나 같아야 합니다.")
         idx: Int?
-    ): com.info.maeumgagym.core.pickle.dto.response.PickleListResponse =
+    ): PickleListResponse =
         loadRecommendationPicklesUseCase.loadRecommendationPickles(idx!!)
 
     @Operation(summary = "피클 조회 API")
@@ -45,7 +52,7 @@ class PickleController(
         @NotBlank(message = "null일 수 없습니다")
         @Pattern(regexp = "^[0-9a-f]{8}$", message = "잘못된 id입니다.")
         id: String?
-    ): com.info.maeumgagym.core.pickle.dto.response.PickleResponse = loadPickleFromIdUseCase.loadPickleFromId(id!!)
+    ): PickleResponse = loadPickleFromIdUseCase.loadPickleFromId(id!!)
 
     @Operation(summary = "자세 관련 피클 조회 API")
     @GetMapping("/pose/{poseId}")
@@ -64,21 +71,21 @@ class PickleController(
         @Valid
         @Positive(message = "0보다 크거나 같아야 합니다.")
         size: Int
-    ): com.info.maeumgagym.core.pickle.dto.response.PickleListResponse = loadPickleFromPoseUseCase.loadAllPagedFromPose(poseId!!, idx!!, size)
+    ): PickleListResponse = loadPickleFromPoseUseCase.loadAllPagedFromPose(poseId!!, idx!!, size)
 
     @Operation(summary = "PreSignedUploadURL 조회 API")
     @GetMapping("/url")
     fun getPreSignedUploadURL(
         @RequestBody @Valid
-        req: com.info.maeumgagym.presentation.controller.pickle.dto.PreSignedUploadURLWebRequest
-    ): com.info.maeumgagym.core.pickle.dto.response.PreSignedUploadURLResponse = getPicklePreSignedURLUseCase.getUploadURL(req.fileType!!)
+        req: PreSignedUploadURLWebRequest
+    ): PreSignedUploadURLResponse = getPicklePreSignedURLUseCase.getUploadURL(req.fileType!!)
 
     @Operation(summary = "피클 생성 API")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     fun createPickle(
         @RequestBody @Valid
-        req: com.info.maeumgagym.presentation.controller.pickle.dto.CreatePickleWebRequest
+        req: CreatePickleWebRequest
     ) {
         createPickleUseCase.createPickle(req.toRequest()).run {
             locationHeaderManager.setSubject(subject)
@@ -106,7 +113,7 @@ class PickleController(
         @Pattern(regexp = "^[0-9a-fA-F]{8}$", message = "잘못된 id입니다.")
         id: String?,
         @RequestBody @Valid
-        req: com.info.maeumgagym.presentation.controller.pickle.dto.UpdatePickleWebRequest
+        req: UpdatePickleWebRequest
     ) {
         updatePickleUseCase.updatePickle(id!!, req.toRequest())
     }

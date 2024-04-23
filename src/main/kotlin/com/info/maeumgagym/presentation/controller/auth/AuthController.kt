@@ -1,9 +1,9 @@
-package com.info.maeumgagym.controller.auth
+package com.info.maeumgagym.presentation.controller.auth
 
 import com.info.maeumgagym.common.responsibility.WebAdapter
-import com.info.maeumgagym.auth.port.`in`.DuplicatedNicknameCheckUseCase
-import com.info.maeumgagym.auth.port.`in`.ReissueUseCase
-import com.info.maeumgagym.auth.port.`in`.WithdrawalUserUseCase
+import com.info.maeumgagym.core.auth.port.`in`.DuplicatedNicknameCheckUseCase
+import com.info.maeumgagym.core.auth.port.`in`.ReissueUseCase
+import com.info.maeumgagym.core.auth.port.`in`.WithdrawalUserUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpHeaders
@@ -17,7 +17,7 @@ import javax.validation.constraints.NotBlank
 @RequestMapping("/auth")
 @WebAdapter
 @Validated
-class AuthController(
+private class AuthController(
     private val withdrawalUserUseCase: WithdrawalUserUseCase,
     private val duplicatedNicknameCheckUseCase: DuplicatedNicknameCheckUseCase,
     private val reissueUseCase: ReissueUseCase

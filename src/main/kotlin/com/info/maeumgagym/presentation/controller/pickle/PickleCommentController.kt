@@ -1,9 +1,12 @@
-package com.info.maeumgagym.controller.pickle
+package com.info.maeumgagym.presentation.controller.pickle
 
 import com.info.maeumgagym.common.responsibility.WebAdapter
-import com.info.maeumgagym.pickle.port.`in`.CreatePickleCommentUseCase
-import com.info.maeumgagym.pickle.port.`in`.DeletePickleCommentUseCase
-import com.info.maeumgagym.pickle.port.`in`.ReadAllPagedPickleCommentUseCase
+import com.info.maeumgagym.core.pickle.dto.response.PickleCommentListResponse
+import com.info.maeumgagym.core.pickle.port.`in`.CreatePickleCommentUseCase
+import com.info.maeumgagym.core.pickle.port.`in`.DeletePickleCommentUseCase
+import com.info.maeumgagym.core.pickle.port.`in`.ReadAllPagedPickleCommentUseCase
+import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+import com.info.maeumgagym.presentation.controller.pickle.dto.PickleCommentWebRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
@@ -16,18 +19,18 @@ import javax.validation.constraints.*
 @Validated
 @WebAdapter
 @RequestMapping("/pickle/comments")
-class PickleCommentController(
+private class PickleCommentController(
     private val createPickleCommentUseCase: CreatePickleCommentUseCase,
     private val readAllPagedPickleCommentUseCase: ReadAllPagedPickleCommentUseCase,
     private val deletePickleCommentUseCase: DeletePickleCommentUseCase,
-    private val locationHeaderManager: com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+    private val locationHeaderManager: LocationHeaderManager
 ) {
     @Operation(summary = "피클 댓글 추가 API")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{videoId}")
     fun createPickleComment(
         @RequestBody @Valid
-        req: com.info.maeumgagym.presentation.controller.pickle.dto.PickleCommentWebRequest,
+        req: PickleCommentWebRequest,
         @PathVariable
         @NotBlank(message = "videoId는 null일 수 없습니다.")
         @Pattern(regexp = "^[0-9a-f]{8}$")
@@ -55,7 +58,7 @@ class PickleCommentController(
         @Valid
         @Positive(message = "0보다 커야 합니다.")
         size: Int
-    ): com.info.maeumgagym.core.pickle.dto.response.PickleCommentListResponse =
+    ): PickleCommentListResponse =
         readAllPagedPickleCommentUseCase.readAllPagedPickleCommentByVideoId(videoId!!, page, size)
 
     @Operation(summary = "피클 댓글 삭제 API")

@@ -1,6 +1,6 @@
 package com.info.maeumgagym.presentation.controller.report.dto
 
-import com.info.maeumgagym.report.dto.request.ReportRequest
+import com.info.maeumgagym.core.report.dto.request.ReportRequest
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
 

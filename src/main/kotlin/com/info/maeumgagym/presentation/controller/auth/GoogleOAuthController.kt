@@ -1,9 +1,11 @@
-package com.info.maeumgagym.controller.auth
+package com.info.maeumgagym.presentation.controller.auth
 
 import com.info.maeumgagym.common.responsibility.WebAdapter
-import com.info.maeumgagym.auth.port.`in`.GoogleLoginUseCase
-import com.info.maeumgagym.auth.port.`in`.GoogleRecoveryUseCase
-import com.info.maeumgagym.auth.port.`in`.GoogleSignupUseCase
+import com.info.maeumgagym.core.auth.port.`in`.GoogleLoginUseCase
+import com.info.maeumgagym.core.auth.port.`in`.GoogleRecoveryUseCase
+import com.info.maeumgagym.core.auth.port.`in`.GoogleSignupUseCase
+import com.info.maeumgagym.presentation.controller.auth.dto.SignupWebRequest
+import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.headers.Header
 import io.swagger.v3.oas.annotations.media.Schema
@@ -22,11 +24,11 @@ import javax.validation.constraints.NotNull
 @Validated
 @WebAdapter
 @RequestMapping("/google")
-class GoogleOAuthController(
+private class GoogleOAuthController(
     private val googleLoginUseCase: GoogleLoginUseCase,
     private val googleSignupUseCase: GoogleSignupUseCase,
     private val googleRecoveryUseCase: GoogleRecoveryUseCase,
-    private val locationHeaderManager: com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+    private val locationHeaderManager: LocationHeaderManager
 ) {
     @Operation(summary = "구글 OAuth 회원복구 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -81,7 +83,7 @@ class GoogleOAuthController(
         @RequestBody
         @Valid
         @NotNull
-        req: com.info.maeumgagym.presentation.controller.auth.dto.SignupWebRequest?
+        req: SignupWebRequest?
     ) {
         googleSignupUseCase.signup(token!!, req!!.nickname!!)
 

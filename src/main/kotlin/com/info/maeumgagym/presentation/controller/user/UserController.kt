@@ -1,7 +1,10 @@
-package com.info.maeumgagym.controller.user
+package com.info.maeumgagym.presentation.controller.user
 
 import com.info.maeumgagym.common.responsibility.WebAdapter
-import com.info.maeumgagym.controller.user.dto.UpdateUserInfoWebRequest
+import com.info.maeumgagym.core.user.dto.response.UserProfileResponse
+import com.info.maeumgagym.core.user.port.`in`.ReadUserUseCase
+import com.info.maeumgagym.core.user.port.`in`.UpdateUserInfoUseCase
+import com.info.maeumgagym.presentation.controller.user.dto.UpdateUserInfoWebRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
@@ -14,9 +17,9 @@ import javax.validation.constraints.NotBlank
 @Validated
 @WebAdapter
 @RequestMapping("/user")
-class UserController(
-    private val readUserUseCase: com.info.maeumgagym.core.user.port.`in`.ReadUserUseCase,
-    private val updateUserInfoUseCase: com.info.maeumgagym.core.user.port.`in`.UpdateUserInfoUseCase
+private class UserController(
+    private val readUserUseCase: ReadUserUseCase,
+    private val updateUserInfoUseCase: UpdateUserInfoUseCase
 ) {
 
     @Operation(summary = "프로필 보기 API")
@@ -25,7 +28,7 @@ class UserController(
         @PathVariable(name = "nickname")
         @NotBlank(message = "null일 수 없습니다.")
         nickname: String?
-    ): com.info.maeumgagym.core.user.dto.response.UserProfileResponse = readUserUseCase.profileFromNickname(nickname!!)
+    ): UserProfileResponse = readUserUseCase.profileFromNickname(nickname!!)
 
     @Operation(summary = "유저 정보 수정 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)

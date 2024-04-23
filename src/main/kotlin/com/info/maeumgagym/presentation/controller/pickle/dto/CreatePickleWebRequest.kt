@@ -22,7 +22,7 @@ data class CreatePickleWebRequest(
     val tags: MutableSet<String> = mutableSetOf()
 ) {
 
-    fun toRequest() = com.info.maeumgagym.core.pickle.dto.request.CreatePickleRequest(
+    fun toRequest() = CreatePickleRequest(
         videoId = videoId!!,
         title = title!!,
         description = description,

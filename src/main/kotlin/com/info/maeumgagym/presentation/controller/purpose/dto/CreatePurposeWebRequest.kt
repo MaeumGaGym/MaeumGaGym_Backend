@@ -21,8 +21,8 @@ data class CreatePurposeWebRequest(
     @field:Pattern(regexp = "^[1-2][0-9]{3}-[0-1][0-9]-[0-3][0-9]$")
     val endDate: String
 ) {
-    fun toRequest(): com.info.maeumgagym.core.purpose.dto.request.CreatePurposeRequest =
-        com.info.maeumgagym.core.purpose.dto.request.CreatePurposeRequest(
+    fun toRequest(): CreatePurposeRequest =
+        CreatePurposeRequest(
             title = title,
             content = content,
             startDate = LocalDateConvertor.stringToLocalDate(startDate),
