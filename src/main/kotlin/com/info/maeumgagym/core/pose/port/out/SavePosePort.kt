@@ -1,6 +1,6 @@
 package com.info.maeumgagym.core.pose.port.out
 
-import com.info.maeumgagym.pose.model.Pose
+import com.info.maeumgagym.core.pose.model.Pose
 
 interface SavePosePort {
 

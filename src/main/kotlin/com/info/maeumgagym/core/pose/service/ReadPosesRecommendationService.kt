@@ -1,11 +1,11 @@
 package com.info.maeumgagym.core.pose.service
 
 import com.info.common.responsibility.ReadOnlyUseCase
-import com.info.maeumgagym.pose.dto.response.PoseListResponse
-import com.info.maeumgagym.pose.dto.response.PoseRecommendationListResponse
-import com.info.maeumgagym.pose.model.Pose
-import com.info.maeumgagym.pose.port.`in`.ReadPosesRecommendationUseCase
-import com.info.maeumgagym.pose.port.out.ReadPosePort
+import com.info.maeumgagym.core.pose.dto.response.PoseListResponse
+import com.info.maeumgagym.core.pose.dto.response.PoseRecommendationListResponse
+import com.info.maeumgagym.core.pose.model.Pose
+import com.info.maeumgagym.core.pose.port.`in`.ReadPosesRecommendationUseCase
+import com.info.maeumgagym.core.pose.port.out.ReadPosePort
 
 @ReadOnlyUseCase
 class ReadPosesRecommendationService(

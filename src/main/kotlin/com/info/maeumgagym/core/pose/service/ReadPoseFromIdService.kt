@@ -2,9 +2,9 @@ package com.info.maeumgagym.core.pose.service
 
 import com.info.common.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.core.common.exception.BusinessLogicException
-import com.info.maeumgagym.pose.dto.response.PoseDetailResponse
-import com.info.maeumgagym.pose.port.`in`.ReadPoseFromIdUseCase
-import com.info.maeumgagym.pose.port.out.ReadPosePort
+import com.info.maeumgagym.core.pose.dto.response.PoseDetailResponse
+import com.info.maeumgagym.core.pose.port.`in`.ReadPoseFromIdUseCase
+import com.info.maeumgagym.core.pose.port.out.ReadPosePort
 
 @ReadOnlyUseCase
 internal class ReadPoseFromIdService(

@@ -2,9 +2,9 @@ package com.info.maeumgagym.core.pose.service
 
 import com.info.common.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.core.common.exception.MaeumGaGymException
-import com.info.maeumgagym.pose.dto.response.PoseListResponse
-import com.info.maeumgagym.pose.port.`in`.ReadPoseFromTagUseCase
-import com.info.maeumgagym.pose.port.out.ReadPosePort
+import com.info.maeumgagym.core.pose.dto.response.PoseListResponse
+import com.info.maeumgagym.core.pose.port.`in`.ReadPoseFromTagUseCase
+import com.info.maeumgagym.core.pose.port.out.ReadPosePort
 
 @ReadOnlyUseCase
 class ReadPoseFromTagService(
