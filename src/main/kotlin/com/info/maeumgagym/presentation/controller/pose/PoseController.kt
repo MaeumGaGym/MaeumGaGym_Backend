@@ -6,7 +6,7 @@ import com.info.maeumgagym.core.pose.dto.response.PoseDetailResponse
 import com.info.maeumgagym.core.pose.dto.response.PoseListResponse
 import com.info.maeumgagym.core.pose.dto.response.PoseRecommendationListResponse
 import com.info.maeumgagym.core.pose.port.`in`.*
-import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+import com.info.maeumgagym.presentation.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.presentation.controller.pose.dto.request.CreatePoseWebRequest
 import com.info.maeumgagym.presentation.controller.pose.dto.request.ReadAllPoseWebRequest
 import io.swagger.v3.oas.annotations.Operation

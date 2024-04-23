@@ -5,8 +5,8 @@ import com.info.maeumgagym.core.auth.port.`in`.KakaoLoginUseCase
 import com.info.maeumgagym.core.auth.port.`in`.KakaoRecoveryUseCase
 import com.info.maeumgagym.core.auth.port.`in`.KakaoSignupUseCase
 import com.info.maeumgagym.core.auth.port.out.KakaoGenerateTokenUseCase
+import com.info.maeumgagym.presentation.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.presentation.controller.auth.dto.KakaoSignupWebRequest
-import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.headers.Header
 import io.swagger.v3.oas.annotations.media.Schema

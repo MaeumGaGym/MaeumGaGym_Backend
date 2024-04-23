@@ -5,7 +5,7 @@ import com.info.maeumgagym.core.auth.port.`in`.GoogleLoginUseCase
 import com.info.maeumgagym.core.auth.port.`in`.GoogleRecoveryUseCase
 import com.info.maeumgagym.core.auth.port.`in`.GoogleSignupUseCase
 import com.info.maeumgagym.presentation.controller.auth.dto.SignupWebRequest
-import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+import com.info.maeumgagym.presentation.common.locationheader.LocationHeaderManager
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.headers.Header
 import io.swagger.v3.oas.annotations.media.Schema

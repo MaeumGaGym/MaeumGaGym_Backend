@@ -4,7 +4,7 @@ import com.info.maeumgagym.common.responsibility.WebAdapter
 import com.info.maeumgagym.core.daily.dto.response.DailyListResponse
 import com.info.maeumgagym.core.daily.dto.response.PreSignedURLResponse
 import com.info.maeumgagym.core.daily.port.`in`.*
-import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+import com.info.maeumgagym.presentation.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.presentation.controller.daily.dto.CreateDailyRequest
 import com.info.maeumgagym.presentation.controller.daily.dto.DailyTitleUpdateRequest
 import io.swagger.v3.oas.annotations.Operation

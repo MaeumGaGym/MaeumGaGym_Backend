@@ -4,7 +4,7 @@ import com.info.maeumgagym.common.responsibility.WebAdapter
 import com.info.maeumgagym.core.purpose.dto.response.PurposeInfoResponse
 import com.info.maeumgagym.core.purpose.dto.response.PurposeListResponse
 import com.info.maeumgagym.core.purpose.port.`in`.*
-import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+import com.info.maeumgagym.presentation.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.presentation.controller.purpose.dto.CreatePurposeWebRequest
 import com.info.maeumgagym.presentation.controller.purpose.dto.UpdatePurposeWebRequest
 import io.swagger.v3.oas.annotations.Operation

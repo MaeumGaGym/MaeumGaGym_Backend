@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.response.locationheader
 
-import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+import com.info.maeumgagym.presentation.common.locationheader.LocationHeaderManager
 import org.springframework.stereotype.Component
 
 /**

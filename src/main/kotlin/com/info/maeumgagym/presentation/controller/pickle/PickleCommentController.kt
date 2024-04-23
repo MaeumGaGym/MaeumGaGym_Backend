@@ -5,7 +5,7 @@ import com.info.maeumgagym.core.pickle.dto.response.PickleCommentListResponse
 import com.info.maeumgagym.core.pickle.port.`in`.CreatePickleCommentUseCase
 import com.info.maeumgagym.core.pickle.port.`in`.DeletePickleCommentUseCase
 import com.info.maeumgagym.core.pickle.port.`in`.ReadAllPagedPickleCommentUseCase
-import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+import com.info.maeumgagym.presentation.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.presentation.controller.pickle.dto.PickleCommentWebRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag

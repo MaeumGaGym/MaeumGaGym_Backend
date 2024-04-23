@@ -5,7 +5,7 @@ import com.info.maeumgagym.core.pickle.dto.response.PickleListResponse
 import com.info.maeumgagym.core.pickle.dto.response.PickleResponse
 import com.info.maeumgagym.core.pickle.dto.response.PreSignedUploadURLResponse
 import com.info.maeumgagym.core.pickle.port.`in`.*
-import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+import com.info.maeumgagym.presentation.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.presentation.controller.pickle.dto.CreatePickleWebRequest
 import com.info.maeumgagym.presentation.controller.pickle.dto.PreSignedUploadURLWebRequest
 import com.info.maeumgagym.presentation.controller.pickle.dto.UpdatePickleWebRequest

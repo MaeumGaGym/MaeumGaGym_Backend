@@ -1,4 +1,4 @@
-package com.info.maeumgagym.presentation.controller.common.locationheader
+package com.info.maeumgagym.presentation.common.locationheader
 
 import org.springframework.http.HttpMethod
 

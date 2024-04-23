@@ -5,7 +5,7 @@ import com.info.maeumgagym.core.routine.dto.response.RoutineHistoryListResponse
 import com.info.maeumgagym.core.routine.dto.response.RoutineListResponse
 import com.info.maeumgagym.core.routine.dto.response.RoutineResponse
 import com.info.maeumgagym.core.routine.port.`in`.*
-import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+import com.info.maeumgagym.presentation.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.presentation.controller.routine.dto.CreateRoutineWebRequest
 import com.info.maeumgagym.presentation.controller.routine.dto.UpdateRoutineWebRequest
 import io.swagger.v3.oas.annotations.Operation
