@@ -1,4 +1,4 @@
-package com.info.maeumgagym.security.config
+package com.info.maeumgagym.infrastructure.security.config
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean

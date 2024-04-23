@@ -1,15 +1,15 @@
-package com.info.maeumgagym.security.jwt.impl
+package com.info.maeumgagym.infrastructure.security.jwt.impl
 
-import com.info.maeumgagym.auth.port.out.GenerateJwtPort
-import com.info.maeumgagym.auth.port.out.GetJwtBodyPort
-import com.info.maeumgagym.auth.port.out.ReissuePort
-import com.info.maeumgagym.auth.port.out.RevokeTokensPort
+import com.info.maeumgagym.core.auth.port.out.GenerateJwtPort
+import com.info.maeumgagym.core.auth.port.out.GetJwtBodyPort
+import com.info.maeumgagym.core.auth.port.out.ReissuePort
+import com.info.maeumgagym.core.auth.port.out.RevokeTokensPort
 import com.info.maeumgagym.core.common.exception.AuthenticationException
-import com.info.maeumgagym.security.jwt.entity.AccessTokenRedisEntity
-import com.info.maeumgagym.security.jwt.entity.RefreshTokenRedisEntity
-import com.info.maeumgagym.security.jwt.env.JwtProperties
-import com.info.maeumgagym.security.jwt.repository.AccessTokenRepository
-import com.info.maeumgagym.security.jwt.repository.RefreshTokenRepository
+import com.info.maeumgagym.infrastructure.security.jwt.entity.AccessTokenRedisEntity
+import com.info.maeumgagym.infrastructure.security.jwt.entity.RefreshTokenRedisEntity
+import com.info.maeumgagym.infrastructure.security.jwt.repository.AccessTokenRepository
+import com.info.maeumgagym.infrastructure.security.jwt.repository.RefreshTokenRepository
+import com.info.maeumgagym.infrastructure.security.jwt.env.JwtProperties
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts

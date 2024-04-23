@@ -1,6 +1,5 @@
-package com.info.maeumgagym.security.config
+package com.info.maeumgagym.infrastructure.security.config
 
-import com.info.maeumgagym.core.user.model.Role
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity

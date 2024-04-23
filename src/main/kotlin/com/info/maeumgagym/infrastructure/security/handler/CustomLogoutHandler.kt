@@ -1,7 +1,7 @@
-package com.info.maeumgagym.security.handler
+package com.info.maeumgagym.infrastructure.security.handler
 
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.auth.port.out.RevokeTokensPort
+import com.info.maeumgagym.core.auth.port.out.RevokeTokensPort
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.logout.LogoutHandler
 import org.springframework.stereotype.Component

@@ -1,8 +1,8 @@
 package com.info.maeumgagym.infrastructure.security.jwt
 
-import com.info.maeumgagym.security.authentication.UserModelAuthenticationProvider
-import com.info.maeumgagym.security.config.RequestPermitConfig
-import com.info.maeumgagym.security.jwt.env.JwtProperties
+import com.info.maeumgagym.infrastructure.security.authentication.provider.UserModelAuthenticationProvider
+import com.info.maeumgagym.infrastructure.security.config.RequestPermitConfig
+import com.info.maeumgagym.infrastructure.security.jwt.env.JwtProperties
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse
  *
  * 헤더를 통해 전해진 AccessToken의 유효성을 검증하고, 이에 따른 인가 작업을 진행
  *
- * Request의 [Role][com.info.maeumgagym.user.model.Role] 인증 필요 여부에 따라 [User][com.info.maeumgagym.user.model.User]를 이 곳에서 미리 불러오거나, 이후 비즈니스 로직 실행 도중 [User][com.info.maeumgagym.user.model.User] 정보가 필요하다면 [ReadCurrentUserPort][com.info.maeumgagym.auth.port.out.ReadCurrentUserPort]에서 Lazy Loading
+ * Request의 [Role][com.info.maeumgagym.core.user.model.Role] 인증 필요 여부에 따라 [User][com.info.maeumgagym.core.user.model.User]를 이 곳에서 미리 불러오거나, 이후 비즈니스 로직 실행 도중 [User][com.info.maeumgagym.core.user.model.User] 정보가 필요하다면 [ReadCurrentUserPort][com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort]에서 Lazy Loading
  *
  * @author Daybreak312, kanghyuk
  */

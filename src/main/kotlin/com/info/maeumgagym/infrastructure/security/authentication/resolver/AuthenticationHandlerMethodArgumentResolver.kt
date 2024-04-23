@@ -1,9 +1,10 @@
-package com.info.maeumgagym.security.authentication.resolver
+package com.info.maeumgagym.infrastructure.security.authentication.resolver
 
 import com.info.maeumgagym.common.security.RequireAuthentication
 import com.info.maeumgagym.common.security.RequireRole
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.security.access.checker.AnnotationBasedUserAuthenticationChecker
+import com.info.maeumgagym.core.user.model.User
+import com.info.maeumgagym.infrastructure.security.access.checker.AnnotationBasedUserAuthenticationChecker
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Component
 import org.springframework.web.bind.support.WebDataBinderFactory
@@ -18,7 +19,7 @@ class AuthenticationHandlerMethodArgumentResolver(
 ) : HandlerMethodArgumentResolver {
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
-        if (parameter.parameterType != com.info.maeumgagym.core.user.model.User::class.java) {
+        if (parameter.parameterType != User::class.java) {
             return false
         }
 
@@ -33,7 +34,7 @@ class AuthenticationHandlerMethodArgumentResolver(
         mavContainer: ModelAndViewContainer?,
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?
-    ): com.info.maeumgagym.core.user.model.User {
+    ): User {
         annotationBasedUserAuthenticationChecker.check(parameter)
 
         return readCurrentUserPort.readCurrentUser()

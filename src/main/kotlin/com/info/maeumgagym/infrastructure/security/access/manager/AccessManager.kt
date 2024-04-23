@@ -13,7 +13,7 @@ interface AccessManager {
     /**
      * 요청에 대한 접근이 허가되었는지 확인
      *
-     * 여러 [AnnotationBasedUserAuthenticationChecker][com.info.maeumgagym.security.access.checker.AnnotationBasedUserAuthenticationChecker]들을 순회하며 접근 허가 여부를 확인
+     * 여러 [AnnotationBasedUserAuthenticationChecker][com.info.maeumgagym.infrastructure.security.access.checker.AnnotationBasedUserAuthenticationChecker]들을 순회하며 접근 허가 여부를 확인
      *
      * @throws SecurityException 접근 거부
      */

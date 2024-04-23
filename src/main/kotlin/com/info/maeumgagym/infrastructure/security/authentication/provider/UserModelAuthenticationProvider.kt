@@ -1,6 +1,6 @@
-package com.info.maeumgagym.infrastructure.security.authentication
+package com.info.maeumgagym.infrastructure.security.authentication.provider
 
-import com.info.maeumgagym.security.authentication.vo.UserModelAuthentication
+import com.info.maeumgagym.infrastructure.security.authentication.vo.UserModelAuthentication
 
 /**
  * [UserModelAuthentication] 객체를 생성해주는 클래스

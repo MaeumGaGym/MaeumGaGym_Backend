@@ -1,6 +1,6 @@
-package com.info.maeumgagym.security.jwt.repository
+package com.info.maeumgagym.infrastructure.security.jwt.repository
 
-import com.info.maeumgagym.security.jwt.entity.RefreshTokenRedisEntity
+import com.info.maeumgagym.infrastructure.security.jwt.entity.RefreshTokenRedisEntity
 import org.springframework.data.repository.Repository
 
 /**

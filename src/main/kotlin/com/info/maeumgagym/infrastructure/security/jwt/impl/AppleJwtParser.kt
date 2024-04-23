@@ -1,8 +1,8 @@
-package com.info.maeumgagym.security.jwt.impl
+package com.info.maeumgagym.infrastructure.security.jwt.impl
 
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.info.maeumgagym.auth.port.out.AppleJwtParsePort
+import com.info.maeumgagym.core.auth.port.out.AppleJwtParsePort
 import com.info.maeumgagym.core.common.exception.AuthenticationException
 import org.springframework.stereotype.Component
 import org.springframework.util.Base64Utils

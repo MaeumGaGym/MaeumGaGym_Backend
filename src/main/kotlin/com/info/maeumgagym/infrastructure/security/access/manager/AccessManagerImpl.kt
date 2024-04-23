@@ -1,6 +1,6 @@
-package com.info.maeumgagym.security.access.manager
+package com.info.maeumgagym.infrastructure.security.access.manager
 
-import com.info.maeumgagym.security.access.checker.AnnotationBasedUserAuthenticationChecker
+import com.info.maeumgagym.infrastructure.security.access.checker.AnnotationBasedUserAuthenticationChecker
 import org.springframework.stereotype.Component
 import org.springframework.web.method.HandlerMethod
 

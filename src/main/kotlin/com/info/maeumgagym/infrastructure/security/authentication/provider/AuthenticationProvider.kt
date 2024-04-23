@@ -1,4 +1,4 @@
-package com.info.maeumgagym.infrastructure.security.authentication
+package com.info.maeumgagym.infrastructure.security.authentication.provider
 
 import org.springframework.security.core.Authentication
 

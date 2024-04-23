@@ -2,7 +2,7 @@ package com.info.maeumgagym.infrastructure.error.handler
 
 import com.info.maeumgagym.core.common.exception.AuthenticationException
 import com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository
-import com.info.maeumgagym.security.env.CSRFProperties
+import com.info.maeumgagym.infrastructure.security.env.CSRFProperties
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.web.access.AccessDeniedHandler
 import org.springframework.stereotype.Component
