@@ -1,4 +1,4 @@
-package com.info.maeumgagym.response.locationheader
+package com.info.maeumgagym.infrastructure.response.locationheader
 
 import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
 import org.springframework.stereotype.Component
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component
  */
 @Component
 class SimpleLocationHeaderManager :
-    com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager {
+    LocationHeaderManager {
 
     private val subject: ThreadLocal<String> = ThreadLocal()
 

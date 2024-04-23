@@ -1,7 +1,8 @@
-package com.info.maeumgagym.security.access.checker.impl
+package com.info.maeumgagym.infrastructure.security.access.checker.impl
 
 import com.info.maeumgagym.common.security.RequireAuthentication
-import com.info.maeumgagym.security.access.checker.AbstractAnnotationBasedUserAuthenticationChecker
+import com.info.maeumgagym.infrastructure.collection.annotation.AnnotationCollection
+import com.info.maeumgagym.infrastructure.security.access.checker.AbstractAnnotationBasedUserAuthenticationChecker
 import org.springframework.stereotype.Component
 
 /**
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component
  */
 @Component
 class RequireAuthenticationChecker(
-    private val annotationCollection: com.info.maeumgagym.infrastructure.collection.annotation.AnnotationCollection
+    private val annotationCollection: AnnotationCollection
 ) : AbstractAnnotationBasedUserAuthenticationChecker() {
 
     override fun check(`object`: Any) {

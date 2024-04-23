@@ -1,13 +1,13 @@
-package com.info.maeumgagym.auth.oauth
+package com.info.maeumgagym.infrastructure.auth.oauth
 
-import com.info.maeumgagym.auth.dto.response.GoogleInfoResponse
-import com.info.maeumgagym.auth.port.out.GetGoogleInfoPort
-import com.info.maeumgagym.auth.port.out.RevokeGoogleTokenPort
-import com.info.maeumgagym.common.exception.FeignException
-import com.info.maeumgagym.common.exception.MaeumGaGymException
-import com.info.maeumgagym.common.exception.SecurityException
-import com.info.maeumgagym.external.feign.oauth.google.GoogleAuthClient
-import com.info.maeumgagym.external.feign.oauth.google.GoogleInfoClient
+import com.info.maeumgagym.core.auth.dto.response.GoogleInfoResponse
+import com.info.maeumgagym.core.auth.port.out.GetGoogleInfoPort
+import com.info.maeumgagym.core.auth.port.out.RevokeGoogleTokenPort
+import com.info.maeumgagym.core.common.exception.FeignException
+import com.info.maeumgagym.core.common.exception.MaeumGaGymException
+import com.info.maeumgagym.core.common.exception.SecurityException
+import com.info.maeumgagym.infrastructure.external.feign.oauth.google.GoogleAuthClient
+import com.info.maeumgagym.infrastructure.external.feign.oauth.google.GoogleInfoClient
 import org.springframework.stereotype.Component
 
 @Component

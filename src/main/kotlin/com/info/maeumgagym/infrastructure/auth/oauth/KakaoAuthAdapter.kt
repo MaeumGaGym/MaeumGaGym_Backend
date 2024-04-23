@@ -1,15 +1,15 @@
-package com.info.maeumgagym.auth.oauth
+package com.info.maeumgagym.infrastructure.auth.oauth
 
-import com.info.maeumgagym.auth.dto.response.KakaoProfileResponse
-import com.info.maeumgagym.auth.port.out.GetKakaoProfilePort
-import com.info.maeumgagym.auth.port.out.GetKakaoTokenPort
-import com.info.maeumgagym.auth.port.out.RevokeKakaoTokenPort
-import com.info.maeumgagym.common.exception.FeignException
-import com.info.maeumgagym.common.exception.MaeumGaGymException
-import com.info.maeumgagym.common.exception.SecurityException
-import com.info.maeumgagym.env.feign.KakaoProperties
-import com.info.maeumgagym.external.feign.oauth.kakao.KakaoApiClient
-import com.info.maeumgagym.external.feign.oauth.kakao.KakaoAuthClient
+import com.info.maeumgagym.core.auth.dto.response.KakaoProfileResponse
+import com.info.maeumgagym.core.auth.port.out.GetKakaoProfilePort
+import com.info.maeumgagym.core.auth.port.out.GetKakaoTokenPort
+import com.info.maeumgagym.core.auth.port.out.RevokeKakaoTokenPort
+import com.info.maeumgagym.core.common.exception.FeignException
+import com.info.maeumgagym.core.common.exception.MaeumGaGymException
+import com.info.maeumgagym.core.common.exception.SecurityException
+import com.info.maeumgagym.infrastructure.env.feign.KakaoProperties
+import com.info.maeumgagym.infrastructure.external.feign.oauth.kakao.KakaoApiClient
+import com.info.maeumgagym.infrastructure.external.feign.oauth.kakao.KakaoAuthClient
 import org.springframework.stereotype.Component
 
 @Component

@@ -1,4 +1,4 @@
-package com.info.maeumgagym.config.argresolver
+package com.info.maeumgagym.infrastructure.config.argresolver
 
 import com.info.maeumgagym.security.authentication.resolver.AuthenticationHandlerMethodArgumentResolver
 import org.springframework.context.annotation.Configuration

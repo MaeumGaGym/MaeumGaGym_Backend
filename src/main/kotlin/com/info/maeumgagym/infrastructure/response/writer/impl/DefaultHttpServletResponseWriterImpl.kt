@@ -1,7 +1,7 @@
-package com.info.maeumgagym.response.writer.impl
+package com.info.maeumgagym.infrastructure.response.writer.impl
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
+import com.info.maeumgagym.infrastructure.response.writer.DefaultHttpServletResponseWriter
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
 import java.nio.charset.StandardCharsets

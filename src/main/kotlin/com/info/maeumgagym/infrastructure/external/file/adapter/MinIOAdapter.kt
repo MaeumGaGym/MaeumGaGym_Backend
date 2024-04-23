@@ -1,8 +1,8 @@
-package com.info.maeumgagym.external.file.adapter
+package com.info.maeumgagym.infrastructure.external.file.adapter
 
 import com.info.maeumgagym.core.daily.port.out.DeleteImageObjectPort
 import com.info.maeumgagym.core.daily.port.out.GetPreSignedImageUploadURL
-import com.info.maeumgagym.env.file.MinIOProperties
+import com.info.maeumgagym.infrastructure.env.file.MinIOProperties
 import io.minio.GetPresignedObjectUrlArgs
 import io.minio.MinioClient
 import io.minio.PutObjectArgs
@@ -16,8 +16,8 @@ import java.time.LocalDate
 internal class MinIOAdapter(
     private val property: MinIOProperties,
     private val minioClient: MinioClient
-) : com.info.maeumgagym.core.daily.port.out.GetPreSignedImageUploadURL,
-    com.info.maeumgagym.core.daily.port.out.DeleteImageObjectPort {
+) : GetPreSignedImageUploadURL,
+    DeleteImageObjectPort {
 
     private companion object {
         const val FILE_PATH_FORMAT = "daily_exercise_complete/%s/%s/%s"

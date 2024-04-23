@@ -1,11 +1,11 @@
-package com.info.maeumgagym.external.file.adapter
+package com.info.maeumgagym.infrastructure.external.file.adapter
 
-import com.info.maeumgagym.env.file.FileProperties
-import com.info.maeumgagym.external.file.VideoIdAndUploaderIdRepository
-import com.info.maeumgagym.external.file.entity.VideoIdAndUploaderIdRedisEntity
-import com.info.maeumgagym.pickle.model.VideoIdAndUploaderId
-import com.info.maeumgagym.pickle.port.out.ReadVideoIdAndUploaderIdPort
-import com.info.maeumgagym.pickle.port.out.SaveVideoIdAndUploaderIdPort
+import com.info.maeumgagym.core.pickle.model.VideoIdAndUploaderId
+import com.info.maeumgagym.core.pickle.port.out.ReadVideoIdAndUploaderIdPort
+import com.info.maeumgagym.core.pickle.port.out.SaveVideoIdAndUploaderIdPort
+import com.info.maeumgagym.infrastructure.env.file.FileProperties
+import com.info.maeumgagym.infrastructure.external.file.VideoIdAndUploaderIdRepository
+import com.info.maeumgagym.infrastructure.external.file.entity.VideoIdAndUploaderIdRedisEntity
 import org.springframework.stereotype.Component
 
 @Component

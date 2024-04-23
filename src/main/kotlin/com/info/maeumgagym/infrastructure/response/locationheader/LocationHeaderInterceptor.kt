@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse
  * @since 08-03-2024
  */
 class LocationHeaderInterceptor(
-    private val locationHeaderManager: com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
+    private val locationHeaderManager: LocationHeaderManager
 ) : HandlerInterceptor {
 
     private val checkedStatusCodes = listOf(HttpStatus.OK, HttpStatus.CREATED)

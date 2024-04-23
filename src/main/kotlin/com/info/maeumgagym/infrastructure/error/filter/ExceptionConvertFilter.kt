@@ -1,8 +1,7 @@
-package com.info.maeumgagym.error.filter
+package com.info.maeumgagym.infrastructure.error.filter
 
 import com.info.maeumgagym.core.common.exception.MaeumGaGymException
 import com.info.maeumgagym.core.common.exception.PresentationValidationException
-import com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.MissingServletRequestParameterException
 import org.springframework.web.filter.GenericFilterBean

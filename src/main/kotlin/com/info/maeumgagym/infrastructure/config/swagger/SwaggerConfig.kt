@@ -1,4 +1,4 @@
-package com.info.maeumgagym.config.swagger
+package com.info.maeumgagym.infrastructure.config.swagger
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition
 import io.swagger.v3.oas.annotations.info.Contact

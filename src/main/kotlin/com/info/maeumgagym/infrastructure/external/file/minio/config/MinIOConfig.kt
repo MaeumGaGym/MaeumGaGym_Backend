@@ -1,6 +1,6 @@
-package com.info.maeumgagym.external.file.minio.config
+package com.info.maeumgagym.infrastructure.external.file.minio.config
 
-import com.info.maeumgagym.env.file.MinIOProperties
+import com.info.maeumgagym.infrastructure.env.file.MinIOProperties
 import io.minio.MinioClient
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

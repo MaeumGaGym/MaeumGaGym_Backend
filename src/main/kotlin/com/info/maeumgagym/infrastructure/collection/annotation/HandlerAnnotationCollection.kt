@@ -1,4 +1,4 @@
-package com.info.maeumgagym.collection.annotation
+package com.info.maeumgagym.infrastructure.collection.annotation
 
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Component
@@ -16,7 +16,7 @@ import kotlin.reflect.full.findAnnotations
  * @since 22-04-2024
  */
 @Component
-class HandlerAnnotationCollection : com.info.maeumgagym.infrastructure.collection.annotation.AnnotationCollection {
+class HandlerAnnotationCollection : AnnotationCollection {
 
     override fun <A : Annotation> getAnnotationOrNull(`object`: Any, annotation: KClass<A>): A? {
         when (`object`) {

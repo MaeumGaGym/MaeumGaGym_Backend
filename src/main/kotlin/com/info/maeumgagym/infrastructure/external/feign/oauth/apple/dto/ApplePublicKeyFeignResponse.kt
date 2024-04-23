@@ -11,7 +11,7 @@ data class ApplePublicKeyFeignResponse(
     val e: String
 ) {
 
-    fun toResponse() = com.info.maeumgagym.core.auth.dto.response.ApplePublicKeyResponse(
+    fun toResponse() = ApplePublicKeyResponse(
         kty,
         kid,
         use,

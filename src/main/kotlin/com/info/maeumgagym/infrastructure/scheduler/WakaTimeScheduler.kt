@@ -1,11 +1,11 @@
-package com.info.maeumgagym.scheduler
+package com.info.maeumgagym.infrastructure.scheduler
 
 import com.info.maeumgagym.application.domain.user.mapper.UserMapper
 import com.info.maeumgagym.application.domain.user.repository.UserNativeRepository
 import com.info.maeumgagym.application.domain.user.repository.UserRepository
-import com.info.maeumgagym.wakatime.model.WakaTime
-import com.info.maeumgagym.wakatime.port.out.ReadWakaTimePort
-import com.info.maeumgagym.wakatime.port.out.SaveWakaTimePort
+import com.info.maeumgagym.core.wakatime.model.WakaTime
+import com.info.maeumgagym.core.wakatime.port.out.ReadWakaTimePort
+import com.info.maeumgagym.core.wakatime.port.out.SaveWakaTimePort
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Isolation

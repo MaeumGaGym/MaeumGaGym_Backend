@@ -1,4 +1,4 @@
-package com.info.maeumgagym.env.redis
+package com.info.maeumgagym.infrastructure.env.redis
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding

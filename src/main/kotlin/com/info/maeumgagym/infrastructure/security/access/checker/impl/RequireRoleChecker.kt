@@ -1,9 +1,10 @@
-package com.info.maeumgagym.security.access.checker.impl
+package com.info.maeumgagym.infrastructure.security.access.checker.impl
 
 import com.info.maeumgagym.common.security.RequireRole
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.common.exception.AuthenticationException
-import com.info.maeumgagym.security.access.checker.AbstractAnnotationBasedUserAuthenticationChecker
+import com.info.maeumgagym.infrastructure.collection.annotation.AnnotationCollection
+import com.info.maeumgagym.infrastructure.security.access.checker.AbstractAnnotationBasedUserAuthenticationChecker
 import org.springframework.stereotype.Component
 
 /**
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component
 @Component
 class RequireRoleChecker(
     private val readCurrentUserPort: ReadCurrentUserPort,
-    private val annotationCollection: com.info.maeumgagym.infrastructure.collection.annotation.AnnotationCollection
+    private val annotationCollection: AnnotationCollection
 ) : AbstractAnnotationBasedUserAuthenticationChecker() {
 
     override fun check(`object`: Any) {

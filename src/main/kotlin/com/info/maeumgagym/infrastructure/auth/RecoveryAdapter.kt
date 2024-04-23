@@ -1,10 +1,10 @@
-package com.info.maeumgagym.auth
+package com.info.maeumgagym.infrastructure.auth
 
-import com.info.maeumgagym.common.exception.BusinessLogicException
-import com.info.maeumgagym.user.model.User
-import com.info.maeumgagym.user.port.out.ReadUserPort
-import com.info.maeumgagym.user.port.out.RecoveryUserPort
-import com.info.maeumgagym.user.port.out.SaveUserPort
+import com.info.maeumgagym.core.common.exception.BusinessLogicException
+import com.info.maeumgagym.core.user.model.User
+import com.info.maeumgagym.core.user.port.out.ReadUserPort
+import com.info.maeumgagym.core.user.port.out.RecoveryUserPort
+import com.info.maeumgagym.core.user.port.out.SaveUserPort
 import org.springframework.stereotype.Component
 
 @Component

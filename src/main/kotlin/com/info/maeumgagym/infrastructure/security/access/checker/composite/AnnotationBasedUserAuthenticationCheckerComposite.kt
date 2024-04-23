@@ -1,6 +1,6 @@
-package com.info.maeumgagym.security.access.checker.composite
+package com.info.maeumgagym.infrastructure.security.access.checker.composite
 
-import com.info.maeumgagym.security.access.checker.AnnotationBasedUserAuthenticationChecker
+import com.info.maeumgagym.infrastructure.security.access.checker.AnnotationBasedUserAuthenticationChecker
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Component

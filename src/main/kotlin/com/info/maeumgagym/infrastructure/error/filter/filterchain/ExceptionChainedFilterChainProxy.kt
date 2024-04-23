@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.error.filter.filterchain
 
-import com.info.maeumgagym.filter.chained.ChainedFilterChainProxy
+import com.info.maeumgagym.infrastructure.filter.chained.ChainedFilterChainProxy
 
 /**
  * [ExceptionChainedFilterChain]을 다른 FilterChain에 삽입하기 위한 프록시
@@ -11,5 +11,5 @@ import com.info.maeumgagym.filter.chained.ChainedFilterChainProxy
  * @since 21-03-2024
  */
 class ExceptionChainedFilterChainProxy(
-    override val filterChain: com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChain
-) : ChainedFilterChainProxy<com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChain>()
+    override val filterChain: ExceptionChainedFilterChain
+) : ChainedFilterChainProxy<ExceptionChainedFilterChain>()

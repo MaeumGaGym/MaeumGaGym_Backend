@@ -1,10 +1,9 @@
-package com.info.maeumgagym.error.filter
+package com.info.maeumgagym.infrastructure.error.filter
 
-import com.info.maeumgagym.common.exception.*
 import com.info.maeumgagym.core.common.exception.*
 import com.info.maeumgagym.infrastructure.error.vo.ErrorLog
-import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
-import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
+import com.info.maeumgagym.infrastructure.response.writer.DefaultHttpServletResponseWriter
+import com.info.maeumgagym.infrastructure.response.writer.ErrorLogHttpServletResponseWriter
 import org.springframework.web.filter.OncePerRequestFilter
 import org.springframework.web.util.NestedServletException
 import javax.servlet.FilterChain
@@ -77,8 +76,8 @@ class ErrorLogResponseFilter(
             e !is FilterException && e !is InterceptorException &&
             e !is AuthenticationException && e !is PresentationValidationException
 
-    private fun printErrorLogAndReturn(e: Exception): com.info.maeumgagym.infrastructure.error.vo.ErrorLog {
-        com.info.maeumgagym.infrastructure.error.vo.ErrorLog.of(e).run {
+    private fun printErrorLogAndReturn(e: Exception): ErrorLog {
+        ErrorLog.of(e).run {
             logger.info(this.toString())
             return this
         }

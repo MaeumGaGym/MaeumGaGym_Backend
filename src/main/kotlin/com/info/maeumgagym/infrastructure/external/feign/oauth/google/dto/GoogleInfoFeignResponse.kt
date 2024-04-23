@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.external.feign.oauth.google.dto
 
-import com.info.maeumgagym.auth.dto.response.GoogleInfoResponse
+import com.info.maeumgagym.core.auth.dto.response.GoogleInfoResponse
 
 data class GoogleInfoFeignResponse(
     val sub: String,

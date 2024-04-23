@@ -18,9 +18,9 @@ data class ErrorLog(
         fun of(e: Exception) =
             when (e) {
                 is PresentationValidationException -> e.run {
-                    com.info.maeumgagym.infrastructure.error.vo.ErrorLog(
+                    ErrorLog(
                         exceptionClassName = javaClass.name,
-                        errorOccurredClassName = com.info.maeumgagym.infrastructure.error.vo.getErrorOccurredClassName(
+                        errorOccurredClassName = getErrorOccurredClassName(
                             stackTrace.toList()
                         ),
                         status = status,
@@ -30,9 +30,9 @@ data class ErrorLog(
                 }
 
                 is MaeumGaGymException -> e.run {
-                    com.info.maeumgagym.infrastructure.error.vo.ErrorLog(
+                    ErrorLog(
                         exceptionClassName = javaClass.name,
-                        errorOccurredClassName = com.info.maeumgagym.infrastructure.error.vo.getErrorOccurredClassName(
+                        errorOccurredClassName = getErrorOccurredClassName(
                             stackTrace.toList()
                         ),
                         status = status,
@@ -41,9 +41,9 @@ data class ErrorLog(
                 }
 
                 else -> e.run {
-                    com.info.maeumgagym.infrastructure.error.vo.ErrorLog(
+                    ErrorLog(
                         exceptionClassName = javaClass.name,
-                        errorOccurredClassName = com.info.maeumgagym.infrastructure.error.vo.getErrorOccurredClassName(
+                        errorOccurredClassName = getErrorOccurredClassName(
                             stackTrace.toList()
                         ),
                         message = message

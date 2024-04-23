@@ -1,9 +1,9 @@
-package com.info.maeumgagym.response.writer.impl
+package com.info.maeumgagym.infrastructure.response.writer.impl
 
 import com.info.maeumgagym.infrastructure.error.vo.ErrorLog
-import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
-import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
-import com.info.maeumgagym.response.writer.ErrorLogResponse
+import com.info.maeumgagym.infrastructure.response.writer.DefaultHttpServletResponseWriter
+import com.info.maeumgagym.infrastructure.response.writer.ErrorLogHttpServletResponseWriter
+import com.info.maeumgagym.infrastructure.response.writer.ErrorLogResponse
 import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletResponse
 
@@ -29,7 +29,7 @@ private class ErrorLogHttpServletResponseWriterImpl(
 
     override fun writeResponseWithErrorLog(
         response: HttpServletResponse,
-        errorLog: com.info.maeumgagym.infrastructure.error.vo.ErrorLog
+        errorLog: ErrorLog
     ): HttpServletResponse = response.apply {
         doDefaultSettingWithStatusCode(response, errorLog.status)
         setBody(

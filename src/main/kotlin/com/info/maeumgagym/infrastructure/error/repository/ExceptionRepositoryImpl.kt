@@ -1,4 +1,4 @@
-package com.info.maeumgagym.error.repository
+package com.info.maeumgagym.infrastructure.error.repository
 
 import org.springframework.stereotype.Component
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
  * @since 27-03-2024
  */
 @Component
-private class ExceptionRepositoryImpl : com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository {
+private class ExceptionRepositoryImpl : ExceptionRepository {
 
     private val throwable: ThreadLocal<Exception?> = ThreadLocal.withInitial { null }
 

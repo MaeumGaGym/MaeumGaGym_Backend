@@ -1,4 +1,4 @@
-package com.info.maeumgagym.env.feign
+package com.info.maeumgagym.infrastructure.env.feign
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding

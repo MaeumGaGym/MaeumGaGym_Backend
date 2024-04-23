@@ -48,7 +48,7 @@ abstract class ErrorLogHttpServletResponseWriter : HttpServletResponseWriter {
      */
     abstract fun writeResponseWithErrorLog(
         response: HttpServletResponse,
-        errorLog: com.info.maeumgagym.infrastructure.error.vo.ErrorLog
+        errorLog: ErrorLog
     ): HttpServletResponse
 }
 
@@ -73,7 +73,7 @@ data class ErrorLogResponse(
 ) {
 
     companion object {
-        fun of(errorLog: com.info.maeumgagym.infrastructure.error.vo.ErrorLog): ErrorLogResponse =
+        fun of(errorLog: ErrorLog): ErrorLogResponse =
             errorLog.run {
                 ErrorLogResponse(
                     status = status,
@@ -86,7 +86,7 @@ data class ErrorLogResponse(
     }
 }
 
-private fun com.info.maeumgagym.infrastructure.error.vo.ErrorLog.getErrorResponseMessage(): String =
+private fun ErrorLog.getErrorResponseMessage(): String =
     if (isServerErrorStatus(this.status)) {
         MaeumGaGymException.INTERNAL_SERVER_ERROR.message!!
     } else {

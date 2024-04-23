@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.filter.chained
 
-import com.info.maeumgagym.filter.global.GlobalFilterChainProxy
+import com.info.maeumgagym.infrastructure.filter.global.GlobalFilterChainProxy
 import javax.servlet.FilterChain
 import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse

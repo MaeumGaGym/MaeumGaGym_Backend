@@ -1,6 +1,6 @@
-package com.info.maeumgagym.external.file
+package com.info.maeumgagym.infrastructure.external.file
 
-import com.info.maeumgagym.external.file.entity.VideoIdAndUploaderIdRedisEntity
+import com.info.maeumgagym.infrastructure.external.file.entity.VideoIdAndUploaderIdRedisEntity
 import org.springframework.data.repository.Repository
 
 interface VideoIdAndUploaderIdRepository : Repository<VideoIdAndUploaderIdRedisEntity, String> {

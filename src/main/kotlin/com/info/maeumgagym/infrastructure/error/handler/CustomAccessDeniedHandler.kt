@@ -1,4 +1,4 @@
-package com.info.maeumgagym.error.handler
+package com.info.maeumgagym.infrastructure.error.handler
 
 import com.info.maeumgagym.core.common.exception.AuthenticationException
 import com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse
 
 @Component
 class CustomAccessDeniedHandler(
-    private val exceptionRepository: com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository,
+    private val exceptionRepository: ExceptionRepository,
     private val csrfProperties: CSRFProperties
 ) : AccessDeniedHandler {
 

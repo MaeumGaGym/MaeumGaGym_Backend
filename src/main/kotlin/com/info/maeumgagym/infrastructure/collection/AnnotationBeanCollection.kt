@@ -1,4 +1,4 @@
-package com.info.maeumgagym.collection
+package com.info.maeumgagym.infrastructure.collection
 
 import kotlin.reflect.KClass
 
@@ -8,7 +8,7 @@ import kotlin.reflect.KClass
  * @author Daybreak312
  * @since 09-04-2024
  */
-interface AnnotationBeanCollection : com.info.maeumgagym.infrastructure.collection.BeanCollection<KClass<Annotation>> {
+interface AnnotationBeanCollection : BeanCollection<KClass<Annotation>> {
 
     /**
      * @param subject 기준 삼을 어노테이션

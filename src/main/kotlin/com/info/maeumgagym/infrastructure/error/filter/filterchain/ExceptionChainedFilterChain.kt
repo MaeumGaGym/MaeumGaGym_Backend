@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.error.filter.filterchain
 
-import com.info.maeumgagym.filter.chained.ChainedFilterChain
+import com.info.maeumgagym.infrastructure.filter.chained.ChainedFilterChain
 import javax.servlet.Filter
 
 /**

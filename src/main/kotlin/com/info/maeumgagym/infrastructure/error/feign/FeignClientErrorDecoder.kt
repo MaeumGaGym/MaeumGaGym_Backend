@@ -1,4 +1,4 @@
-package com.info.maeumgagym.error.feign
+package com.info.maeumgagym.infrastructure.error.feign
 
 import com.info.maeumgagym.core.common.exception.FeignException
 import feign.Response

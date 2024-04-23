@@ -1,4 +1,4 @@
-package com.info.maeumgagym.config.scan
+package com.info.maeumgagym.infrastructure.config.scan
 
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.context.annotation.Configuration

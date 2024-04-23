@@ -6,7 +6,7 @@ data class ApplePublicKeysFeignResponse(
     val keys: MutableList<ApplePublicKeyFeignResponse>
 ) {
 
-    fun toResponse() = com.info.maeumgagym.core.auth.dto.response.ApplePublicKeysResponse(
+    fun toResponse() = ApplePublicKeysResponse(
         keys.map {
             it.toResponse()
         }.toMutableList()

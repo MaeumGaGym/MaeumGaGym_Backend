@@ -1,4 +1,4 @@
-package com.info.maeumgagym.collection.annotation
+package com.info.maeumgagym.infrastructure.collection.annotation
 
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Primary
@@ -15,16 +15,16 @@ import kotlin.reflect.KClass
 @Component
 class AnnotationCollectionComposite(
     private val applicationContext: ApplicationContext
-) : com.info.maeumgagym.infrastructure.collection.annotation.AnnotationCollection {
+) : AnnotationCollection {
 
-    private lateinit var collections: List<com.info.maeumgagym.infrastructure.collection.annotation.AnnotationCollection>
+    private lateinit var collections: List<AnnotationCollection>
 
     private var initialized: Boolean = false
 
     private fun init() {
         collections =
             applicationContext.getBeansOfType(
-                com.info.maeumgagym.infrastructure.collection.annotation.AnnotationCollection::class.java
+                AnnotationCollection::class.java
             ).values.apply {
                 remove(this@AnnotationCollectionComposite)
             }.toList()

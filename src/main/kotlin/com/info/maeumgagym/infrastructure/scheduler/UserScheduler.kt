@@ -1,4 +1,4 @@
-package com.info.maeumgagym.scheduler
+package com.info.maeumgagym.infrastructure.scheduler
 
 import com.info.maeumgagym.application.domain.user.repository.UserNativeRepository
 import org.springframework.scheduling.annotation.Scheduled

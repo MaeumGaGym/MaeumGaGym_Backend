@@ -1,15 +1,14 @@
-package com.info.maeumgagym.filter.config
+package com.info.maeumgagym.infrastructure.filter.config
 
-import com.info.maeumgagym.error.filter.ErrorLogResponseFilter
-import com.info.maeumgagym.error.filter.ExceptionConvertFilter
+import com.info.maeumgagym.infrastructure.error.filter.ErrorLogResponseFilter
+import com.info.maeumgagym.infrastructure.error.filter.ExceptionConvertFilter
 import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChain
 import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChainProxy
-import com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository
-import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
-import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
-import com.info.maeumgagym.security.authentication.UserModelAuthenticationProvider
-import com.info.maeumgagym.security.jwt.JwtFilter
-import com.info.maeumgagym.security.jwt.JwtResolver
+import com.info.maeumgagym.infrastructure.response.writer.DefaultHttpServletResponseWriter
+import com.info.maeumgagym.infrastructure.response.writer.ErrorLogHttpServletResponseWriter
+import com.info.maeumgagym.infrastructure.security.authentication.UserModelAuthenticationProvider
+import com.info.maeumgagym.infrastructure.security.jwt.JwtFilter
+import com.info.maeumgagym.infrastructure.security.jwt.JwtResolver
 import com.info.maeumgagym.security.jwt.env.JwtProperties
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -49,8 +48,8 @@ class SecurityFilterChainConfig(
                 LogoutFilter::class.java
             )
             addFilterBefore(
-                com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChainProxy(
-                    com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChain(
+                ExceptionChainedFilterChainProxy(
+                    ExceptionChainedFilterChain(
                         mapOf(
                             Pair(
                                 ErrorLogResponseFilter::class.simpleName!!,

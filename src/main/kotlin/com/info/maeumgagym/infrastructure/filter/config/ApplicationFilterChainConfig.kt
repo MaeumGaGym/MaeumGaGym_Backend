@@ -1,13 +1,13 @@
-package com.info.maeumgagym.filter.config
+package com.info.maeumgagym.infrastructure.filter.config
 
 import com.info.maeumgagym.core.common.exception.CriticalException
-import com.info.maeumgagym.error.filter.ErrorLogResponseFilter
-import com.info.maeumgagym.error.filter.ExceptionConvertFilter
+import com.info.maeumgagym.infrastructure.error.filter.ErrorLogResponseFilter
+import com.info.maeumgagym.infrastructure.error.filter.ExceptionConvertFilter
 import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChain
 import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChainProxy
 import com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository
-import com.info.maeumgagym.response.writer.DefaultHttpServletResponseWriter
-import com.info.maeumgagym.response.writer.ErrorLogHttpServletResponseWriter
+import com.info.maeumgagym.infrastructure.response.writer.DefaultHttpServletResponseWriter
+import com.info.maeumgagym.infrastructure.response.writer.ErrorLogHttpServletResponseWriter
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Configuration
 import javax.servlet.Filter
@@ -24,7 +24,7 @@ import javax.servlet.Filter
 class ApplicationFilterChainConfig(
     private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
     private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter,
-    private val exceptionRepository: com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository
+    private val exceptionRepository: ExceptionRepository
 ) {
 
     /**
@@ -35,12 +35,12 @@ class ApplicationFilterChainConfig(
      * [getFilterOrder] 메소드를 이용해 정수형 순서 정보를 얻을 수 있음
      */
     private val filtersOrderList = listOf<Class<out Filter>>(
-        com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChainProxy::class.java
+        ExceptionChainedFilterChainProxy::class.java
     )
 
     //@Bean
-    fun exceptionChainedFilterChainProxyConfig(): FilterRegistrationBean<com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChainProxy> {
-        val filterChain = com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChain(
+    fun exceptionChainedFilterChainProxyConfig(): FilterRegistrationBean<ExceptionChainedFilterChainProxy> {
+        val filterChain = ExceptionChainedFilterChain(
             mapOf(
                 Pair(
                     ErrorLogResponseFilter::class.simpleName!!,
@@ -59,11 +59,11 @@ class ApplicationFilterChainConfig(
         )
 
         val bean = FilterRegistrationBean(
-            com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChainProxy(filterChain)
+            ExceptionChainedFilterChainProxy(filterChain)
         )
 
         bean.addUrlPatterns("/*")
-        bean.order = getFilterOrder(com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChainProxy::class.java)
+        bean.order = getFilterOrder(ExceptionChainedFilterChainProxy::class.java)
 
         return bean
     }

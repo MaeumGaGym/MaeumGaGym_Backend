@@ -1,4 +1,4 @@
-package com.info.maeumgagym.collection.annotation
+package com.info.maeumgagym.infrastructure.collection.annotation
 
 import org.springframework.stereotype.Component
 import kotlin.reflect.KClass
@@ -13,7 +13,7 @@ import kotlin.reflect.full.findAnnotations
  * @since 22-04-2024
  */
 @Component
-class DefaultAnnotationCollection : com.info.maeumgagym.infrastructure.collection.annotation.AnnotationCollection {
+class DefaultAnnotationCollection : AnnotationCollection {
 
     override fun <A : Annotation> getAnnotationOrNull(`object`: Any, annotation: KClass<A>): A? =
         `object`::class.findAnnotations(annotation).firstOrNull()
