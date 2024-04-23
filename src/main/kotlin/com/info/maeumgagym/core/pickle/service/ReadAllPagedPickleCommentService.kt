@@ -1,6 +1,6 @@
 package com.info.maeumgagym.core.pickle.service
 
-import com.info.common.responsibility.ReadOnlyUseCase
+import com.info.maeumgagym.common.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.core.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.pickle.dto.response.PickleCommentListResponse
 import com.info.maeumgagym.core.pickle.port.`in`.ReadAllPagedPickleCommentUseCase

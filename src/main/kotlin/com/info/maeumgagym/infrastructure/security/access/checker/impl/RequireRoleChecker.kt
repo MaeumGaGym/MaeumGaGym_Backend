@@ -1,6 +1,6 @@
 package com.info.maeumgagym.security.access.checker.impl
 
-import com.info.common.security.RequireRole
+import com.info.maeumgagym.common.security.RequireRole
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.common.exception.AuthenticationException
 import com.info.maeumgagym.security.access.checker.AbstractAnnotationBasedUserAuthenticationChecker

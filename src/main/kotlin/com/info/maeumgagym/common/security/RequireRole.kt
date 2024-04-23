@@ -1,4 +1,4 @@
-package com.info.common.security
+package com.info.maeumgagym.common.security
 
 /**
  * [Role][com.info.maeumgagym.user.model.Role] 인증이 필요한 API임을 명시하기 위한 어노테이션

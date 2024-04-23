@@ -1,6 +1,6 @@
 package com.info.maeumgagym.core.routine.dto.response
 
-import com.info.maeumgagym.pose.dto.response.PoseInfoResponse
+import com.info.maeumgagym.core.pose.dto.response.PoseInfoResponse
 
 data class ExerciseInfoResponse(
     var pose: PoseInfoResponse,

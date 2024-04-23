@@ -4,5 +4,5 @@ import com.info.maeumgagym.core.user.model.User
 
 interface ReadUserByNicknamePort {
 
-    fun readUserByNickname(nickname: String): com.info.maeumgagym.core.user.model.User?
+    fun readUserByNickname(nickname: String): User?
 }

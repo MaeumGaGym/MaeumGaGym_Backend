@@ -1,14 +1,17 @@
 package com.info.maeumgagym.core.routine.service
 
-import com.info.common.responsibility.UseCase
+import com.info.maeumgagym.common.responsibility.UseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.common.exception.SecurityException
-import com.info.maeumgagym.pose.port.out.ReadPosePort
-import com.info.maeumgagym.routine.model.RoutineStatusModel
-import com.info.maeumgagym.routine.port.`in`.UpdateRoutineUseCase
-import com.info.maeumgagym.routine.port.out.ReadRoutinePort
-import com.info.maeumgagym.routine.port.out.SaveRoutinePort
+import com.info.maeumgagym.core.pose.port.out.ReadPosePort
+import com.info.maeumgagym.core.routine.dto.request.UpdateRoutineRequest
+import com.info.maeumgagym.core.routine.model.ExerciseInfoModel
+import com.info.maeumgagym.core.routine.model.Routine
+import com.info.maeumgagym.core.routine.model.RoutineStatusModel
+import com.info.maeumgagym.core.routine.port.`in`.UpdateRoutineUseCase
+import com.info.maeumgagym.core.routine.port.out.ReadRoutinePort
+import com.info.maeumgagym.core.routine.port.out.SaveRoutinePort
 
 @UseCase
 internal class UpdateRoutineService(
@@ -17,7 +20,7 @@ internal class UpdateRoutineService(
     private val saveRoutinePort: SaveRoutinePort,
     private val readPosePort: ReadPosePort
 ) : UpdateRoutineUseCase {
-    override fun updateRoutine(req: com.info.maeumgagym.core.routine.dto.request.UpdateRoutineRequest, routineId: Long) {
+    override fun updateRoutine(req: UpdateRoutineRequest, routineId: Long) {
         // 토큰으로 유저 찾기
         val user = readCurrentUserPort.readCurrentUser()
 
@@ -45,12 +48,12 @@ internal class UpdateRoutineService(
         routine.run {
             // 루틴 업데이트
             saveRoutinePort.save(
-                com.info.maeumgagym.core.routine.model.Routine(
+                Routine(
                     id = id,
                     dayOfWeeks = req.dayOfWeeks,
                     routineStatusModel = RoutineStatusModel(isArchived = req.isArchived, isShared = req.isShared),
                     exerciseInfoModelList = req.exerciseInfoResponseList.map {
-                        com.info.maeumgagym.core.routine.model.ExerciseInfoModel(
+                        ExerciseInfoModel(
                             routineId = routine.id,
                             pose = poses[it.id]!!,
                             repetitions = it.repetitions,

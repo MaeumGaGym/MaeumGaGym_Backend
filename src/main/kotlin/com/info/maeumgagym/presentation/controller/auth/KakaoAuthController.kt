@@ -1,12 +1,10 @@
 package com.info.maeumgagym.controller.auth
 
-import com.info.common.responsibility.WebAdapter
+import com.info.maeumgagym.common.responsibility.WebAdapter
 import com.info.maeumgagym.auth.port.`in`.KakaoLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.KakaoRecoveryUseCase
 import com.info.maeumgagym.auth.port.`in`.KakaoSignupUseCase
 import com.info.maeumgagym.auth.port.out.KakaoGenerateTokenUseCase
-import com.info.maeumgagym.presentation.controller.auth.dto.KakaoSignupWebRequest
-import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.headers.Header
 import io.swagger.v3.oas.annotations.media.Schema

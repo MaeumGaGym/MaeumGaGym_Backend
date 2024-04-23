@@ -1,20 +1,20 @@
 package com.info.maeumgagym.core.user.service
 
-import com.info.common.responsibility.ReadOnlyUseCase
+import com.info.maeumgagym.common.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.core.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.user.dto.response.UserProfileResponse
 import com.info.maeumgagym.core.user.port.`in`.ReadUserUseCase
 import com.info.maeumgagym.core.user.port.out.ReadUserPort
-import com.info.maeumgagym.wakatime.util.WakatimeUtils
+import com.info.maeumgagym.core.wakatime.util.WakatimeUtils
 
 @ReadOnlyUseCase
 internal class ReadUserService(
-    private val readUserPort: com.info.maeumgagym.core.user.port.out.ReadUserPort
-) : com.info.maeumgagym.core.user.port.`in`.ReadUserUseCase {
+    private val readUserPort: ReadUserPort
+) : ReadUserUseCase {
 
-    override fun profileFromNickname(nickname: String): com.info.maeumgagym.core.user.dto.response.UserProfileResponse =
+    override fun profileFromNickname(nickname: String): UserProfileResponse =
         readUserPort.readByNickname(nickname)?.run {
-            com.info.maeumgagym.core.user.dto.response.UserProfileResponse(
+            UserProfileResponse(
                 nickname,
                 profileImage,
                 WakatimeUtils.findLevel(totalWakaTime),

@@ -1,10 +1,7 @@
 package com.info.maeumgagym.controller.pose
 
-import com.info.common.responsibility.WebAdapter
-import com.info.common.security.RequireRole
-import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
-import com.info.maeumgagym.presentation.controller.pose.dto.request.CreatePoseWebRequest
-import com.info.maeumgagym.presentation.controller.pose.dto.request.ReadAllPoseWebRequest
+import com.info.maeumgagym.common.responsibility.WebAdapter
+import com.info.maeumgagym.common.security.RequireRole
 import com.info.maeumgagym.pose.dto.response.PoseDetailResponse
 import com.info.maeumgagym.pose.dto.response.PoseListResponse
 import com.info.maeumgagym.pose.dto.response.PoseRecommendationListResponse

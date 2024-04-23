@@ -1,14 +1,17 @@
 package com.info.maeumgagym.core.routine.service
 
-import com.info.common.responsibility.UseCase
+import com.info.maeumgagym.common.responsibility.UseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.common.dto.LocationSubjectDto
 import com.info.maeumgagym.core.common.exception.BusinessLogicException
-import com.info.maeumgagym.pose.port.out.ReadPosePort
-import com.info.maeumgagym.routine.model.RoutineStatusModel
-import com.info.maeumgagym.routine.port.`in`.CreateRoutineUseCase
-import com.info.maeumgagym.routine.port.out.ReadRoutinePort
-import com.info.maeumgagym.routine.port.out.SaveRoutinePort
+import com.info.maeumgagym.core.pose.port.out.ReadPosePort
+import com.info.maeumgagym.core.routine.dto.request.CreateRoutineRequest
+import com.info.maeumgagym.core.routine.model.ExerciseInfoModel
+import com.info.maeumgagym.core.routine.model.Routine
+import com.info.maeumgagym.core.routine.model.RoutineStatusModel
+import com.info.maeumgagym.core.routine.port.`in`.CreateRoutineUseCase
+import com.info.maeumgagym.core.routine.port.out.ReadRoutinePort
+import com.info.maeumgagym.core.routine.port.out.SaveRoutinePort
 
 @UseCase
 internal class CreateRoutineService(
@@ -18,7 +21,7 @@ internal class CreateRoutineService(
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : CreateRoutineUseCase {
 
-    override fun createRoutine(req: com.info.maeumgagym.core.routine.dto.request.CreateRoutineRequest): LocationSubjectDto {
+    override fun createRoutine(req: CreateRoutineRequest): LocationSubjectDto {
         val user = readCurrentUserPort.readCurrentUser()
 
         // 이미 사용 중인 루틴들과 겹치는 요일이 있는지 확인하는 과정
@@ -37,10 +40,10 @@ internal class CreateRoutineService(
         val routine = req.run {
             // 루틴 저장
             saveRoutinePort.save(
-                com.info.maeumgagym.core.routine.model.Routine(
+                Routine(
                     routineName = routineName,
                     exerciseInfoModelList = exerciseInfoRequestList.map {
-                        com.info.maeumgagym.core.routine.model.ExerciseInfoModel(
+                        ExerciseInfoModel(
                             pose = poses[it.id]!!,
                             repetitions = it.repetitions,
                             sets = it.sets

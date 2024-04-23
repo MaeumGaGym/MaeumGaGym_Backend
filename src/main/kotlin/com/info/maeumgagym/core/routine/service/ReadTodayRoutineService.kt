@@ -1,11 +1,12 @@
 package com.info.maeumgagym.core.routine.service
 
-import com.info.common.responsibility.ReadOnlyUseCase
+import com.info.maeumgagym.common.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.common.exception.BusinessLogicException
-import com.info.maeumgagym.routine.port.`in`.ReadTodayRoutineUseCase
-import com.info.maeumgagym.routine.port.out.ExistsRoutineHistoryPort
-import com.info.maeumgagym.routine.port.out.ReadRoutinePort
+import com.info.maeumgagym.core.routine.dto.response.RoutineResponse
+import com.info.maeumgagym.core.routine.port.`in`.ReadTodayRoutineUseCase
+import com.info.maeumgagym.core.routine.port.out.ExistsRoutineHistoryPort
+import com.info.maeumgagym.core.routine.port.out.ReadRoutinePort
 import java.time.LocalDate
 
 @ReadOnlyUseCase
@@ -15,7 +16,7 @@ class ReadTodayRoutineService(
     private val existsRoutineHistoryPort: ExistsRoutineHistoryPort
 ) : ReadTodayRoutineUseCase {
 
-    override fun readTodayRoutine(): com.info.maeumgagym.core.routine.dto.response.RoutineResponse? {
+    override fun readTodayRoutine(): RoutineResponse? {
         val userId = readCurrentUserPort.readCurrentUser().id!!
 
         val now = LocalDate.now()

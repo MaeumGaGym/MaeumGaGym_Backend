@@ -6,11 +6,11 @@ import java.util.*
 data class User(
     val id: UUID? = null,
     val nickname: String,
-    val roles: MutableList<com.info.maeumgagym.core.user.model.Role> = mutableListOf(),
+    val roles: MutableList<Role> = mutableListOf(),
     val oauthId: String,
     val profileImage: String? = null,
     val wakaStartedAt: LocalDateTime? = null,
     val isDeletedAt: LocalDateTime? = null,
     val totalWakaTime: Long = 0,
-    val physicalInfoModel: com.info.maeumgagym.core.user.model.PhysicalInfoModel?
+    val physicalInfoModel: PhysicalInfoModel?
 )

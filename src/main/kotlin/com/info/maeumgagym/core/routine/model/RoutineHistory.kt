@@ -10,14 +10,14 @@ data class RoutineHistory(
     val userId: UUID,
     val routineName: String,
     val date: LocalDate,
-    val exerciseInfoHistoryList: List<com.info.maeumgagym.core.routine.model.ExerciseInfoHistoryModel>
+    val exerciseInfoHistoryList: List<ExerciseInfoHistoryModel>
 ) {
-    fun toResponse(): com.info.maeumgagym.core.routine.dto.response.RoutineHistoryResponse =
-        com.info.maeumgagym.core.routine.dto.response.RoutineHistoryResponse(
+    fun toResponse(): RoutineHistoryResponse =
+        RoutineHistoryResponse(
             id = id!!,
             routineName = routineName,
             exerciseInfoResponseList = exerciseInfoHistoryList.map {
-                com.info.maeumgagym.core.routine.dto.response.ExerciseInfoResponse(
+                ExerciseInfoResponse(
                     pose = it.pose.toInfoResponse(),
                     repetitions = it.repetitions,
                     sets = it.sets

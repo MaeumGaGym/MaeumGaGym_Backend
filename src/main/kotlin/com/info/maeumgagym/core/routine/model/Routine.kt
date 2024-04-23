@@ -9,13 +9,13 @@ import java.util.*
 data class Routine(
     val id: Long? = null,
     val routineName: String,
-    val exerciseInfoModelList: MutableList<com.info.maeumgagym.core.routine.model.ExerciseInfoModel>,
+    val exerciseInfoModelList: MutableList<ExerciseInfoModel>,
     val dayOfWeeks: MutableSet<DayOfWeek>?,
-    val routineStatusModel: com.info.maeumgagym.core.routine.model.RoutineStatusModel,
+    val routineStatusModel: RoutineStatusModel,
     val userId: UUID
 ) {
-    fun toResponse(): com.info.maeumgagym.core.routine.dto.response.RoutineResponse =
-        com.info.maeumgagym.core.routine.dto.response.RoutineResponse(
+    fun toResponse(): RoutineResponse =
+        RoutineResponse(
             id = id!!,
             routineName = routineName,
             exerciseInfoResponseList = exerciseInfoModelList.map {
@@ -28,15 +28,15 @@ data class Routine(
                 )
             },
             routineStatus = routineStatusModel.run {
-                com.info.maeumgagym.core.routine.dto.RoutineStatusDto(
+                RoutineStatusDto(
                     isArchived = isArchived,
                     isShared = isShared
                 )
             }
         )
 
-    fun toResponse(isCompleted: Boolean): com.info.maeumgagym.core.routine.dto.response.RoutineResponse =
-        com.info.maeumgagym.core.routine.dto.response.RoutineResponse(
+    fun toResponse(isCompleted: Boolean): RoutineResponse =
+        RoutineResponse(
             id = id!!,
             routineName = routineName,
             exerciseInfoResponseList = exerciseInfoModelList.map {
@@ -49,7 +49,7 @@ data class Routine(
                 )
             },
             routineStatus = routineStatusModel.run {
-                com.info.maeumgagym.core.routine.dto.RoutineStatusDto(
+                RoutineStatusDto(
                     isArchived = isArchived,
                     isShared = isShared
                 )

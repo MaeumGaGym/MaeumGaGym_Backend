@@ -1,12 +1,7 @@
 package com.info.maeumgagym.controller.routine
 
-import com.info.common.responsibility.WebAdapter
-import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
-import com.info.maeumgagym.presentation.controller.routine.dto.CreateRoutineWebRequest
+import com.info.maeumgagym.common.responsibility.WebAdapter
 import com.info.maeumgagym.controller.routine.dto.UpdateRoutineWebRequest
-import com.info.maeumgagym.core.routine.dto.response.RoutineHistoryListResponse
-import com.info.maeumgagym.core.routine.dto.response.RoutineListResponse
-import com.info.maeumgagym.core.routine.dto.response.RoutineResponse
 import com.info.maeumgagym.routine.port.`in`.*
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag

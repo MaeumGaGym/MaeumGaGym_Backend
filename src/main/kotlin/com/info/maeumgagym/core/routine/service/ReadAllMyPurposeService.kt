@@ -1,16 +1,19 @@
 package com.info.maeumgagym.core.routine.service
 
-import com.info.common.responsibility.ReadOnlyUseCase
+import com.info.maeumgagym.common.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.common.exception.MaeumGaGymException
+import com.info.maeumgagym.core.purpose.dto.response.PurposeListResponse
+import com.info.maeumgagym.core.purpose.port.`in`.ReadAllMyPurposeUseCase
+import com.info.maeumgagym.core.purpose.port.out.ReadPurposePort
 
 @ReadOnlyUseCase
 class ReadAllMyPurposeService(
-    private val readPurposePort: com.info.maeumgagym.core.purpose.port.out.ReadPurposePort,
+    private val readPurposePort: ReadPurposePort,
     private val readCurrentUserPort: ReadCurrentUserPort
-) : com.info.maeumgagym.core.purpose.port.`in`.ReadAllMyPurposeUseCase {
+) : ReadAllMyPurposeUseCase {
 
-    override fun readAllMyPurpose(index: Int): com.info.maeumgagym.core.purpose.dto.response.PurposeListResponse {
+    override fun readAllMyPurpose(index: Int): PurposeListResponse {
         val user = readCurrentUserPort.readCurrentUser()
 
         val purposes = readPurposePort.readByUserIdPaged(user.id!!, index)
@@ -19,7 +22,7 @@ class ReadAllMyPurposeService(
             throw MaeumGaGymException.NO_CONTENT
         }
 
-        return com.info.maeumgagym.core.purpose.dto.response.PurposeListResponse(
+        return PurposeListResponse(
             purposes.map {
                 it.toResponse()
             }

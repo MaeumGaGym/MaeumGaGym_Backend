@@ -6,6 +6,6 @@ class UpdateRoutineRequest(
     val routineName: String,
     val isArchived: Boolean,
     val isShared: Boolean,
-    val exerciseInfoResponseList: MutableList<com.info.maeumgagym.core.routine.dto.request.ExerciseInfoRequest>,
+    val exerciseInfoResponseList: MutableList<ExerciseInfoRequest>,
     val dayOfWeeks: MutableSet<DayOfWeek>?
 )

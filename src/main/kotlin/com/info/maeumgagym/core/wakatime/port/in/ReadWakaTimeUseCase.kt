@@ -1,6 +1,7 @@
 package com.info.maeumgagym.core.wakatime.port.`in`
 
-import com.info.maeumgagym.wakatime.dto.response.WakatimeResponse
+import com.info.maeumgagym.core.wakatime.dto.response.WakatimeResponse
+
 
 interface ReadWakaTimeUseCase {
 

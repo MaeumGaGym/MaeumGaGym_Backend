@@ -1,11 +1,9 @@
 package com.info.maeumgagym.controller.auth
 
-import com.info.common.responsibility.WebAdapter
+import com.info.maeumgagym.common.responsibility.WebAdapter
 import com.info.maeumgagym.auth.port.`in`.AppleLoginUseCase
 import com.info.maeumgagym.auth.port.`in`.AppleRecoveryUseCase
 import com.info.maeumgagym.auth.port.`in`.AppleSignUpUseCase
-import com.info.maeumgagym.presentation.controller.auth.dto.SignupWebRequest
-import com.info.maeumgagym.presentation.controller.common.locationheader.LocationHeaderManager
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.headers.Header
 import io.swagger.v3.oas.annotations.media.Schema

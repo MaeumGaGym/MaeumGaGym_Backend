@@ -1,6 +1,6 @@
 package com.info.maeumgagym.core.auth.service
 
-import com.info.common.responsibility.UseCase
+import com.info.maeumgagym.common.responsibility.UseCase
 import com.info.maeumgagym.core.auth.port.`in`.KakaoLoginUseCase
 import com.info.maeumgagym.core.auth.port.`in`.KakaoRecoveryUseCase
 import com.info.maeumgagym.core.auth.port.`in`.KakaoSignupUseCase

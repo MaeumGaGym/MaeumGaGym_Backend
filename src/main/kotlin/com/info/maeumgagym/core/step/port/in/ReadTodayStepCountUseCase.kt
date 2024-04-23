@@ -19,5 +19,5 @@ import com.info.maeumgagym.core.step.model.Step
  */
 interface ReadTodayStepCountUseCase {
 
-    fun readTodayStepCount(): com.info.maeumgagym.core.step.dto.response.StepCountResponse
+    fun readTodayStepCount(): StepCountResponse
 }

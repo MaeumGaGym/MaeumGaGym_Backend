@@ -6,5 +6,5 @@ data class UpdateUserInfoRequest(
     val nickname: String,
     val weight: Double,
     val height: Double,
-    val genderModel: com.info.maeumgagym.core.user.model.GenderModel
+    val genderModel: GenderModel
 )

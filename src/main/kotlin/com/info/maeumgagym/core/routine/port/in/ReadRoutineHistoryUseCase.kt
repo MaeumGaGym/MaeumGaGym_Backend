@@ -5,5 +5,5 @@ import java.time.LocalDate
 
 interface ReadRoutineHistoryUseCase {
 
-    fun readFromDate(startDate: LocalDate): com.info.maeumgagym.core.routine.dto.response.RoutineHistoryListResponse
+    fun readFromDate(startDate: LocalDate): RoutineHistoryListResponse
 }

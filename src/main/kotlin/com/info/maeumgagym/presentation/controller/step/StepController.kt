@@ -1,8 +1,6 @@
 package com.info.maeumgagym.controller.step
 
-import com.info.common.responsibility.WebAdapter
-import com.info.maeumgagym.core.step.port.`in`.ReadTodayStepCountUseCase
-import com.info.maeumgagym.core.step.port.`in`.UpdateStepUseCase
+import com.info.maeumgagym.common.responsibility.WebAdapter
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus

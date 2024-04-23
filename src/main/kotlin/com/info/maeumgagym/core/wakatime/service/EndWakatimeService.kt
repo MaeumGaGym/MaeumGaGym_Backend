@@ -1,19 +1,20 @@
 package com.info.maeumgagym.core.wakatime.service
 
-import com.info.common.responsibility.UseCase
+import com.info.maeumgagym.common.responsibility.UseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.common.exception.BusinessLogicException
-import com.info.maeumgagym.wakatime.model.WakaTime
-import com.info.maeumgagym.wakatime.port.`in`.EndWakatimeUseCase
-import com.info.maeumgagym.wakatime.port.out.ReadWakaTimePort
-import com.info.maeumgagym.wakatime.port.out.SaveWakaTimePort
+import com.info.maeumgagym.core.user.port.out.SaveUserPort
+import com.info.maeumgagym.core.wakatime.model.WakaTime
+import com.info.maeumgagym.core.wakatime.port.`in`.EndWakatimeUseCase
+import com.info.maeumgagym.core.wakatime.port.out.ReadWakaTimePort
+import com.info.maeumgagym.core.wakatime.port.out.SaveWakaTimePort
 import java.time.Duration
 import java.time.LocalDateTime
 
 @UseCase
 internal class EndWakatimeService(
     private val readCurrentUserPort: ReadCurrentUserPort,
-    private val saveUserPort: com.info.maeumgagym.core.user.port.out.SaveUserPort,
+    private val saveUserPort: SaveUserPort,
     private val saveWakaTimePort: SaveWakaTimePort,
     private val readWakaTimePort: ReadWakaTimePort
 ) : EndWakatimeUseCase {

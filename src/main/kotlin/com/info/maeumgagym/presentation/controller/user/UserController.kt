@@ -1,10 +1,7 @@
 package com.info.maeumgagym.controller.user
 
-import com.info.common.responsibility.WebAdapter
+import com.info.maeumgagym.common.responsibility.WebAdapter
 import com.info.maeumgagym.controller.user.dto.UpdateUserInfoWebRequest
-import com.info.maeumgagym.core.user.dto.response.UserProfileResponse
-import com.info.maeumgagym.core.user.port.`in`.ReadUserUseCase
-import com.info.maeumgagym.core.user.port.`in`.UpdateUserInfoUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus

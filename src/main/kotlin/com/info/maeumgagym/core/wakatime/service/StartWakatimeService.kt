@@ -1,15 +1,16 @@
 package com.info.maeumgagym.core.wakatime.service
 
-import com.info.common.responsibility.UseCase
+import com.info.maeumgagym.common.responsibility.UseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.common.exception.BusinessLogicException
-import com.info.maeumgagym.wakatime.port.`in`.StartWakatimeUseCase
+import com.info.maeumgagym.core.user.port.out.SaveUserPort
+import com.info.maeumgagym.core.wakatime.port.`in`.StartWakatimeUseCase
 import java.time.LocalDateTime
 
 @UseCase
 internal class StartWakatimeService(
     private val readCurrentUserPort: ReadCurrentUserPort,
-    private val saveUserPort: com.info.maeumgagym.core.user.port.out.SaveUserPort
+    private val saveUserPort: SaveUserPort
 ) : StartWakatimeUseCase {
 
     override fun startWakatime() {

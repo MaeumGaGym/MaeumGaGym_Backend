@@ -1,7 +1,7 @@
 package com.info.maeumgagym.security.authentication.resolver
 
-import com.info.common.security.RequireAuthentication
-import com.info.common.security.RequireRole
+import com.info.maeumgagym.common.security.RequireAuthentication
+import com.info.maeumgagym.common.security.RequireRole
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.security.access.checker.AnnotationBasedUserAuthenticationChecker
 import org.springframework.core.MethodParameter

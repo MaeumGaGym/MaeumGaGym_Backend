@@ -1,6 +1,6 @@
 package com.info.maeumgagym.controller.statistics
 
-import com.info.common.responsibility.WebAdapter
+import com.info.maeumgagym.common.responsibility.WebAdapter
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.headers.Header
 import io.swagger.v3.oas.annotations.media.Schema

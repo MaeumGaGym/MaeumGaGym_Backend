@@ -1,18 +1,21 @@
 package com.info.maeumgagym.core.step.service
 
-import com.info.common.responsibility.ReadOnlyUseCase
+import com.info.maeumgagym.common.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
+import com.info.maeumgagym.core.step.dto.response.StepCountResponse
+import com.info.maeumgagym.core.step.port.`in`.ReadTodayStepCountUseCase
+import com.info.maeumgagym.core.step.port.out.ReadStepPort
 
 @ReadOnlyUseCase
 internal class ReadTodayStepCountService(
     private val readCurrentUserPort: ReadCurrentUserPort,
-    private val readStepPort: com.info.maeumgagym.core.step.port.out.ReadStepPort
-) : com.info.maeumgagym.core.step.port.`in`.ReadTodayStepCountUseCase {
+    private val readStepPort: ReadStepPort
+) : ReadTodayStepCountUseCase {
 
-    override fun readTodayStepCount(): com.info.maeumgagym.core.step.dto.response.StepCountResponse {
+    override fun readTodayStepCount(): StepCountResponse {
         val user = readCurrentUserPort.readCurrentUser()
 
-        return com.info.maeumgagym.core.step.dto.response.StepCountResponse(
+        return StepCountResponse(
             readStepPort.readByUserOauthId(user.oauthId)?.numberOfSteps
                 ?: 0
         )

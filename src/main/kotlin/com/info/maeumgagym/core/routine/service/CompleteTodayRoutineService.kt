@@ -1,14 +1,14 @@
 package com.info.maeumgagym.core.routine.service
 
-import com.info.common.responsibility.UseCase
+import com.info.maeumgagym.common.responsibility.UseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.routine.model.ExerciseInfoHistoryModel.Companion.toHistory
-import com.info.maeumgagym.routine.model.RoutineHistory
-import com.info.maeumgagym.routine.port.`in`.CompleteTodayRoutineUseCase
-import com.info.maeumgagym.routine.port.out.ExistsRoutineHistoryPort
-import com.info.maeumgagym.routine.port.out.ReadRoutinePort
-import com.info.maeumgagym.routine.port.out.SaveRoutineHistoryPort
+import com.info.maeumgagym.core.routine.model.RoutineHistory
+import com.info.maeumgagym.core.routine.port.`in`.CompleteTodayRoutineUseCase
+import com.info.maeumgagym.core.routine.port.out.ExistsRoutineHistoryPort
+import com.info.maeumgagym.core.routine.port.out.ReadRoutinePort
+import com.info.maeumgagym.core.routine.port.out.SaveRoutineHistoryPort
 import java.time.LocalDate
 
 @UseCase

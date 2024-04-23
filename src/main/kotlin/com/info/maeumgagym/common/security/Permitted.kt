@@ -1,4 +1,4 @@
-package com.info.common.security
+package com.info.maeumgagym.common.security
 
 /**
  * 인증이 필요하지 않은 API임을 명시하기 위한 어노테이션

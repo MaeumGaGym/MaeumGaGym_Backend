@@ -1,10 +1,10 @@
 package com.info.maeumgagym.core.wakatime.service
 
-import com.info.common.responsibility.ReadOnlyUseCase
+import com.info.maeumgagym.common.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.wakatime.dto.response.WakatimeResponse
-import com.info.maeumgagym.wakatime.port.`in`.ReadWakaTimeUseCase
-import com.info.maeumgagym.wakatime.port.out.ReadWakaTimePort
+import com.info.maeumgagym.core.wakatime.dto.response.WakatimeResponse
+import com.info.maeumgagym.core.wakatime.port.`in`.ReadWakaTimeUseCase
+import com.info.maeumgagym.core.wakatime.port.out.ReadWakaTimePort
 import java.time.LocalDate
 
 @ReadOnlyUseCase

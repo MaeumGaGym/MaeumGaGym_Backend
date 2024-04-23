@@ -6,11 +6,11 @@ import java.util.*
 
 interface ReadRoutinePort {
 
-    fun readById(routineId: Long): com.info.maeumgagym.core.routine.model.Routine?
+    fun readById(routineId: Long): Routine?
 
-    fun readAllByUserIdPaged(userId: UUID, index: Int): List<com.info.maeumgagym.core.routine.model.Routine>
+    fun readAllByUserIdPaged(userId: UUID, index: Int): List<Routine>
 
-    fun readByUserIdAndDayOfWeekAndIsArchivedFalse(userId: UUID, dayOfWeek: DayOfWeek): com.info.maeumgagym.core.routine.model.Routine?
+    fun readByUserIdAndDayOfWeekAndIsArchivedFalse(userId: UUID, dayOfWeek: DayOfWeek): Routine?
 
-    fun readByUserIdAndDayOfWeek(userId: UUID, dayOfWeek: DayOfWeek): com.info.maeumgagym.core.routine.model.Routine?
+    fun readByUserIdAndDayOfWeek(userId: UUID, dayOfWeek: DayOfWeek): Routine?
 }

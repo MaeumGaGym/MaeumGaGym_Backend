@@ -1,6 +1,6 @@
 package com.info.maeumgagym.core.routine.model
 
-import com.info.maeumgagym.pose.model.Pose
+import com.info.maeumgagym.core.pose.model.Pose
 import com.info.maeumgagym.core.routine.dto.response.ExerciseInfoResponse
 
 data class ExerciseInfoHistoryModel(
@@ -11,8 +11,8 @@ data class ExerciseInfoHistoryModel(
     var id: Long? = null
 ) {
     companion object {
-        fun com.info.maeumgagym.core.routine.model.ExerciseInfoModel.toHistory(): com.info.maeumgagym.core.routine.model.ExerciseInfoHistoryModel =
-            com.info.maeumgagym.core.routine.model.ExerciseInfoHistoryModel(
+        fun ExerciseInfoModel.toHistory(): ExerciseInfoHistoryModel =
+            ExerciseInfoHistoryModel(
                 pose = pose,
                 repetitions = repetitions,
                 sets = sets,
@@ -20,8 +20,8 @@ data class ExerciseInfoHistoryModel(
             )
     }
 
-    fun toResponse(): com.info.maeumgagym.core.routine.dto.response.ExerciseInfoResponse =
-        com.info.maeumgagym.core.routine.dto.response.ExerciseInfoResponse(
+    fun toResponse(): ExerciseInfoResponse =
+        ExerciseInfoResponse(
             pose = pose.toInfoResponse(),
             repetitions = repetitions,
             sets = sets
