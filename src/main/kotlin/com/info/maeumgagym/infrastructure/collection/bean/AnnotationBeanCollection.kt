@@ -1,4 +1,4 @@
-package com.info.maeumgagym.infrastructure.collection
+package com.info.maeumgagym.infrastructure.collection.bean
 
 import kotlin.reflect.KClass
 

@@ -1,4 +1,4 @@
-package com.info.maeumgagym.infrastructure.collection
+package com.info.maeumgagym.infrastructure.collection.bean
 
 /**
  * 임의의 기준으로 *Spring Bean*을 찾기 위한 인터페이스
