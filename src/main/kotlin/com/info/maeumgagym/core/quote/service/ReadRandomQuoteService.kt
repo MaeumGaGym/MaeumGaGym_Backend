@@ -1,9 +1,9 @@
 package com.info.maeumgagym.core.quote.service
 
 import com.info.maeumgagym.common.annotation.responsibility.ReadOnlyUseCase
-import com.info.maeumgagym.quote.dto.response.QuoteResponse
-import com.info.maeumgagym.quote.port.`in`.ReadRandomQuoteUseCase
-import com.info.maeumgagym.quote.vo.Quotes
+import com.info.maeumgagym.core.quote.dto.response.QuoteResponse
+import com.info.maeumgagym.core.quote.port.`in`.ReadRandomQuoteUseCase
+import com.info.maeumgagym.core.quote.vo.Quotes
 
 @ReadOnlyUseCase
 internal class ReadRandomQuoteService : ReadRandomQuoteUseCase {

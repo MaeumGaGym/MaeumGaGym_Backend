@@ -2,8 +2,8 @@ package com.info.maeumgagym.application.domain.report.entity
 
 import com.info.maeumgagym.application.TableNames
 import com.info.maeumgagym.application.domain.base.BaseLongIdTimeEntity
-import com.info.maeumgagym.report.model.ReportStatus
-import com.info.maeumgagym.report.model.ReportType
+import com.info.maeumgagym.core.report.model.ReportStatus
+import com.info.maeumgagym.core.report.model.ReportType
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
