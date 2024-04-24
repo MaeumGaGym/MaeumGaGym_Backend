@@ -1,6 +1,4 @@
-package com.info.maeumgagym.common.value.dependency
-
-object Dependencies {
+object DependencyNames {
 
     // kotlin
     const val KOTLIN_REFLECT = "org.jetbrains.kotlin:kotlin-reflect"

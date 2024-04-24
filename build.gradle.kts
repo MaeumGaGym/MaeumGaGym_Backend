@@ -44,53 +44,53 @@ tasks.bootJar {
 dependencies {
 
     // Kotlin
-    implementation(Dependencies.KOTLIN_REFLECT)
-    implementation(Dependencies.KOTLIN_JDK)
+    implementation(DependencyNames.KOTLIN_REFLECT)
+    implementation(DependencyNames.KOTLIN_JDK)
 
     // Cloud
-    implementation(Dependencies.HEALTH_CHECKER)
-    implementation(Dependencies.SPRING_CLOUD)
+    implementation(DependencyNames.HEALTH_CHECKER)
+    implementation(DependencyNames.SPRING_CLOUD)
 
     // Spring Web
-    implementation(Dependencies.SPRING_WEB)
-    implementation(Dependencies.JACKSON)
-    implementation(Dependencies.SPRING_VALIDATION)
+    implementation(DependencyNames.SPRING_WEB)
+    implementation(DependencyNames.JACKSON)
+    implementation(DependencyNames.SPRING_VALIDATION)
 
     // External
-    implementation(Dependencies.OPEN_FEIGN)
-    implementation(Dependencies.FEIGN_HTTP)
-    implementation(Dependencies.MINIO)
+    implementation(DependencyNames.OPEN_FEIGN)
+    implementation(DependencyNames.FEIGN_HTTP)
+    implementation(DependencyNames.MINIO)
 
     // Security
-    implementation(Dependencies.SPRING_SECURITY)
+    implementation(DependencyNames.SPRING_SECURITY)
 
     // logger
-    implementation(Dependencies.LOGGER)
+    implementation(DependencyNames.LOGGER)
 
     // Docs
-    implementation(Dependencies.SPRING_DOC)
-    implementation(Dependencies.SWAGGER)
+    implementation(DependencyNames.SPRING_DOC)
+    implementation(DependencyNames.SWAGGER)
 
     // jpa
-    implementation(Dependencies.SPRING_DATA_JPA)
-    implementation(Dependencies.SPRING_TRANSACTION)
-    kapt(Dependencies.ANNOTATION_PROCESSOR)
+    implementation(DependencyNames.SPRING_DATA_JPA)
+    implementation(DependencyNames.SPRING_TRANSACTION)
+    kapt(DependencyNames.ANNOTATION_PROCESSOR)
 
     // MySQL
-    implementation(Dependencies.MYSQL_CONNECTOR)
+    implementation(DependencyNames.MYSQL_CONNECTOR)
 
     // redis
-    implementation(Dependencies.REDIS)
+    implementation(DependencyNames.REDIS)
 
     // jwt
-    implementation(Dependencies.JWT)
+    implementation(DependencyNames.JWT)
 
     // test
-    testImplementation(Dependencies.SPRING_TEST)
-    testImplementation(Dependencies.MOCKK)
-    testImplementation(Dependencies.JUNIT_JUPITER)
-    testImplementation(Dependencies.JUNIT_JUPITER_API)
-    testRuntimeOnly(Dependencies.JUNIT_JUPITER_ENGINE)
+    testImplementation(DependencyNames.SPRING_TEST)
+    testImplementation(DependencyNames.MOCKK)
+    testImplementation(DependencyNames.JUNIT_JUPITER)
+    testImplementation(DependencyNames.JUNIT_JUPITER_API)
+    testRuntimeOnly(DependencyNames.JUNIT_JUPITER_ENGINE)
 }
 
 // Declaring a publicly-available repository
