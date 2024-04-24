@@ -2,7 +2,6 @@ package com.info.maeumgagym.infrastructure.error.filter
 
 import com.info.maeumgagym.common.*
 import com.info.maeumgagym.common.exception.*
-import com.info.maeumgagym.core.common.exception.*
 import com.info.maeumgagym.infrastructure.error.vo.ErrorLog
 import com.info.maeumgagym.infrastructure.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.infrastructure.response.writer.ErrorLogHttpServletResponseWriter
