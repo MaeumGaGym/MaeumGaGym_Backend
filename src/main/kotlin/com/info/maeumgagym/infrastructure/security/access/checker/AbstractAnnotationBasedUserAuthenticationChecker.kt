@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.security.access.checker
 
-import com.info.maeumgagym.core.common.exception.AuthenticationException
+import com.info.maeumgagym.common.exception.AuthenticationException
 import org.springframework.security.authentication.AnonymousAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import kotlin.reflect.KClass

@@ -1,6 +1,6 @@
 package com.info.maeumgagym.presentation.controller.purpose
 
-import com.info.maeumgagym.common.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
 import com.info.maeumgagym.core.purpose.dto.response.PurposeInfoResponse
 import com.info.maeumgagym.core.purpose.dto.response.PurposeListResponse
 import com.info.maeumgagym.core.purpose.port.`in`.*

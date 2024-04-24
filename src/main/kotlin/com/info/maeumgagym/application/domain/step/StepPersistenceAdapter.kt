@@ -1,6 +1,6 @@
 package com.info.maeumgagym.application.domain.step
 
-import com.info.maeumgagym.common.responsibility.PersistenceAdapter
+import com.info.maeumgagym.common.annotation.responsibility.PersistenceAdapter
 import com.info.maeumgagym.application.domain.step.mapper.StepMapper
 import com.info.maeumgagym.application.domain.step.repository.StepRepository
 import com.info.maeumgagym.core.step.model.Step

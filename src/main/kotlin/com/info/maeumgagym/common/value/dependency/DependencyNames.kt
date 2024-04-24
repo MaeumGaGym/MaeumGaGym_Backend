@@ -1,3 +1,5 @@
+package com.info.maeumgagym.common.value.dependency
+
 object Dependencies {
 
     // kotlin

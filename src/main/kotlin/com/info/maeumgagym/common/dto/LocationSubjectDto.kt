@@ -1,4 +1,4 @@
-package com.info.maeumgagym.core.common.dto
+package com.info.maeumgagym.common.dto
 
 data class LocationSubjectDto(
     val subject: Any

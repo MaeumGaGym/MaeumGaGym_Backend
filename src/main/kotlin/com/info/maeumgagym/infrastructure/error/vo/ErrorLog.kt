@@ -1,7 +1,7 @@
 package com.info.maeumgagym.infrastructure.error.vo
 
-import com.info.maeumgagym.core.common.exception.MaeumGaGymException
-import com.info.maeumgagym.core.common.exception.PresentationValidationException
+import com.info.maeumgagym.common.exception.MaeumGaGymException
+import com.info.maeumgagym.common.exception.PresentationValidationException
 import java.time.LocalDateTime
 import java.util.*
 

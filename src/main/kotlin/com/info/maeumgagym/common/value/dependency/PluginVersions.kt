@@ -1,3 +1,5 @@
+package com.info.maeumgagym.common.value.dependency
+
 object PluginVersions {
     const val QUERY_DSL = "5.0.0"
     const val SPRING_BOOT_VERSION = "2.7.5"

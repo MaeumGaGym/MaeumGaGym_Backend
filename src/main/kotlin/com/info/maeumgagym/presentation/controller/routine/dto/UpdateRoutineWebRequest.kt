@@ -1,6 +1,6 @@
 package com.info.maeumgagym.presentation.controller.routine.dto
 
-import com.info.maeumgagym.core.common.convertor.DayOfWeekConvertor
+import com.info.maeumgagym.common.convertor.DayOfWeekConvertor
 import com.info.maeumgagym.core.routine.dto.request.ExerciseInfoRequest
 import com.info.maeumgagym.core.routine.dto.request.UpdateRoutineRequest
 import javax.validation.constraints.NotBlank

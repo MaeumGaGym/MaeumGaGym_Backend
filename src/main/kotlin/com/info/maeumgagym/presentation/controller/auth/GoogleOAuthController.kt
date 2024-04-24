@@ -1,6 +1,6 @@
 package com.info.maeumgagym.presentation.controller.auth
 
-import com.info.maeumgagym.common.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
 import com.info.maeumgagym.core.auth.port.`in`.GoogleLoginUseCase
 import com.info.maeumgagym.core.auth.port.`in`.GoogleRecoveryUseCase
 import com.info.maeumgagym.core.auth.port.`in`.GoogleSignupUseCase

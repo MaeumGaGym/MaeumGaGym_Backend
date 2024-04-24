@@ -1,6 +1,6 @@
 package com.info.maeumgagym.application.domain.wakatime
 
-import com.info.maeumgagym.common.responsibility.PersistenceAdapter
+import com.info.maeumgagym.common.annotation.responsibility.PersistenceAdapter
 import com.info.maeumgagym.application.domain.wakatime.mapper.WakaTimeMapper
 import com.info.maeumgagym.application.domain.wakatime.repository.WakaTimeRepository
 import com.info.maeumgagym.core.wakatime.model.WakaTime

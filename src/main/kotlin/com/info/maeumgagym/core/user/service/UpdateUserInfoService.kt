@@ -1,9 +1,9 @@
 package com.info.maeumgagym.core.user.service
 
-import com.info.maeumgagym.common.responsibility.UseCase
+import com.info.maeumgagym.common.annotation.responsibility.UseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.auth.service.DuplicatedCheckService
-import com.info.maeumgagym.core.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.BusinessLogicException
 
 @UseCase
 internal class UpdateUserInfoService(

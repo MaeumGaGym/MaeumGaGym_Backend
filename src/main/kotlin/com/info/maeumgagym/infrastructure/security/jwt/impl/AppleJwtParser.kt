@@ -3,7 +3,7 @@ package com.info.maeumgagym.infrastructure.security.jwt.impl
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.core.auth.port.out.AppleJwtParsePort
-import com.info.maeumgagym.core.common.exception.AuthenticationException
+import com.info.maeumgagym.common.exception.AuthenticationException
 import org.springframework.stereotype.Component
 import org.springframework.util.Base64Utils
 

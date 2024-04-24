@@ -1,13 +1,13 @@
 package com.info.maeumgagym.core.auth.service
 
-import com.info.maeumgagym.common.responsibility.UseCase
+import com.info.maeumgagym.common.annotation.responsibility.UseCase
 import com.info.maeumgagym.core.auth.port.`in`.GoogleLoginUseCase
 import com.info.maeumgagym.core.auth.port.`in`.GoogleRecoveryUseCase
 import com.info.maeumgagym.core.auth.port.`in`.GoogleSignupUseCase
 import com.info.maeumgagym.core.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.core.auth.port.out.GetGoogleInfoPort
 import com.info.maeumgagym.core.auth.port.out.RevokeGoogleTokenPort
-import com.info.maeumgagym.core.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.user.model.Role
 import com.info.maeumgagym.core.user.model.User
 import com.info.maeumgagym.core.user.port.out.ExistUserPort

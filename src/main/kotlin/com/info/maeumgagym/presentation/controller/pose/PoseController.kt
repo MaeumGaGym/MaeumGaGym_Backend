@@ -1,7 +1,7 @@
 package com.info.maeumgagym.presentation.controller.pose
 
-import com.info.maeumgagym.common.responsibility.WebAdapter
-import com.info.maeumgagym.common.security.RequireRole
+import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.security.RequireRole
 import com.info.maeumgagym.core.pose.dto.response.PoseDetailResponse
 import com.info.maeumgagym.core.pose.dto.response.PoseListResponse
 import com.info.maeumgagym.core.pose.dto.response.PoseRecommendationListResponse

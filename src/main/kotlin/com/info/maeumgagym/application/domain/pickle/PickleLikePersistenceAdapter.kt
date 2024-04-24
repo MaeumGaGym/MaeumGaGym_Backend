@@ -1,6 +1,6 @@
 package com.info.maeumgagym.application.domain.pickle
 
-import com.info.maeumgagym.common.responsibility.PersistenceAdapter
+import com.info.maeumgagym.common.annotation.responsibility.PersistenceAdapter
 import com.info.maeumgagym.application.domain.pickle.mapper.PickleLikeMapper
 import com.info.maeumgagym.application.domain.pickle.repository.PickleLikeRepository
 import com.info.maeumgagym.application.domain.pickle.repository.PickleRepository

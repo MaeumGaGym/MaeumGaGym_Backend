@@ -1,6 +1,6 @@
 package com.info.maeumgagym.application.domain.user.converter
 
-import com.info.maeumgagym.core.common.exception.CriticalException
+import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.core.user.model.Role
 import javax.persistence.AttributeConverter
 import javax.persistence.Converter

@@ -1,6 +1,6 @@
 package com.info.maeumgagym.presentation.controller.pickle
 
-import com.info.maeumgagym.common.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
 import com.info.maeumgagym.core.pickle.dto.response.PickleReplyListResponse
 import com.info.maeumgagym.core.pickle.port.`in`.CreatePickleReplyCommentUseCase
 import com.info.maeumgagym.core.pickle.port.`in`.DeletePickleReplyUseCase

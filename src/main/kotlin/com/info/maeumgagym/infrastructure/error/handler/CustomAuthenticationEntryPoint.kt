@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.error.handler
 
-import com.info.maeumgagym.core.common.exception.AuthenticationException
+import com.info.maeumgagym.common.exception.AuthenticationException
 import com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository
 import org.springframework.http.HttpHeaders
 import org.springframework.security.web.AuthenticationEntryPoint

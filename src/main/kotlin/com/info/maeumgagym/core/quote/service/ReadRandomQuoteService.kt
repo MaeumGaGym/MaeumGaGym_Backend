@@ -1,6 +1,6 @@
 package com.info.maeumgagym.core.quote.service
 
-import com.info.maeumgagym.common.responsibility.ReadOnlyUseCase
+import com.info.maeumgagym.common.annotation.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.quote.dto.response.QuoteResponse
 import com.info.maeumgagym.quote.port.`in`.ReadRandomQuoteUseCase
 import com.info.maeumgagym.quote.vo.Quotes

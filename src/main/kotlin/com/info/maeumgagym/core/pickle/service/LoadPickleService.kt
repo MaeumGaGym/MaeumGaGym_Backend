@@ -1,7 +1,7 @@
 package com.info.maeumgagym.core.pickle.service
 
-import com.info.maeumgagym.common.responsibility.ReadOnlyUseCase
-import com.info.maeumgagym.core.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.annotation.responsibility.ReadOnlyUseCase
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.pickle.dto.response.PickleListResponse
 import com.info.maeumgagym.core.pickle.dto.response.PickleResponse
 import com.info.maeumgagym.core.pickle.model.Pickle.Companion.toResponse

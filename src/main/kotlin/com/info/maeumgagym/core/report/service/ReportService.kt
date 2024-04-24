@@ -1,8 +1,8 @@
 package com.info.maeumgagym.core.report.service
 
-import com.info.maeumgagym.common.responsibility.UseCase
+import com.info.maeumgagym.common.annotation.responsibility.UseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.core.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.pickle.port.out.ReadPickleCommentPort
 import com.info.maeumgagym.core.pickle.port.out.ReadPicklePort
 import com.info.maeumgagym.core.pickle.port.out.ReadPickleReplyPort

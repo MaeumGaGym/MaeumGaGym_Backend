@@ -1,6 +1,6 @@
-package com.info.maeumgagym.core.common.convertor
+package com.info.maeumgagym.common.convertor
 
-import com.info.maeumgagym.core.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import java.time.LocalDate
 
 /**

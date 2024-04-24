@@ -1,6 +1,6 @@
 package com.info.maeumgagym.application.domain.purpose
 
-import com.info.maeumgagym.common.responsibility.PersistenceAdapter
+import com.info.maeumgagym.common.annotation.responsibility.PersistenceAdapter
 import com.info.maeumgagym.application.domain.purpose.mapper.PurposeMapper
 import com.info.maeumgagym.application.domain.purpose.repository.PurposeNativeRepository
 import com.info.maeumgagym.application.domain.purpose.repository.PurposeRepository

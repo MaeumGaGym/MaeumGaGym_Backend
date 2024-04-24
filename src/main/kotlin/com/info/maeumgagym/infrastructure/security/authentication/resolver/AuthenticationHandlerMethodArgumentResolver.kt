@@ -1,7 +1,7 @@
 package com.info.maeumgagym.infrastructure.security.authentication.resolver
 
-import com.info.maeumgagym.common.security.RequireAuthentication
-import com.info.maeumgagym.common.security.RequireRole
+import com.info.maeumgagym.common.annotation.security.RequireAuthentication
+import com.info.maeumgagym.common.annotation.security.RequireRole
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.user.model.User
 import com.info.maeumgagym.infrastructure.security.access.checker.AnnotationBasedUserAuthenticationChecker

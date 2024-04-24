@@ -1,4 +1,4 @@
-package com.info.maeumgagym.common.responsibility
+package com.info.maeumgagym.common.annotation.responsibility
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

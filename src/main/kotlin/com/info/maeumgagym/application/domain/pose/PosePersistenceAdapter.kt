@@ -1,6 +1,6 @@
 package com.info.maeumgagym.application.domain.pose
 
-import com.info.maeumgagym.common.responsibility.PersistenceAdapter
+import com.info.maeumgagym.common.annotation.responsibility.PersistenceAdapter
 import com.info.maeumgagym.application.domain.pose.mapper.PoseMapper
 import com.info.maeumgagym.application.domain.pose.repository.PoseNativeRepository
 import com.info.maeumgagym.application.domain.pose.repository.PoseRepository

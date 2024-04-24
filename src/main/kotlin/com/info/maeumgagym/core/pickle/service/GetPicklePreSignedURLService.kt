@@ -1,8 +1,8 @@
 package com.info.maeumgagym.core.pickle.service
 
-import com.info.maeumgagym.common.responsibility.ReadOnlyUseCase
+import com.info.maeumgagym.common.annotation.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.core.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.pickle.dto.response.PreSignedUploadURLResponse
 import com.info.maeumgagym.core.pickle.model.VideoIdAndUploaderId
 import com.info.maeumgagym.core.pickle.port.`in`.GetPicklePreSignedURLUseCase

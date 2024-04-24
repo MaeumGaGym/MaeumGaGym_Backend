@@ -1,7 +1,7 @@
 package com.info.maeumgagym.infrastructure.external.file.adapter
 
-import com.info.maeumgagym.core.common.exception.FeignException
-import com.info.maeumgagym.core.common.exception.MaeumGaGymException
+import com.info.maeumgagym.common.exception.FeignException
+import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.core.pickle.dto.PreSignedUploadURLDto
 import com.info.maeumgagym.core.pickle.port.out.DeleteOriginalVideoPort
 import com.info.maeumgagym.core.pickle.port.out.GenerateM3u8URLPort

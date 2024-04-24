@@ -1,6 +1,6 @@
 package com.info.maeumgagym.presentation.controller.pickle
 
-import com.info.maeumgagym.common.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
 import com.info.maeumgagym.core.pickle.dto.response.PickleListResponse
 import com.info.maeumgagym.core.pickle.dto.response.PickleResponse
 import com.info.maeumgagym.core.pickle.dto.response.PreSignedUploadURLResponse

@@ -1,4 +1,4 @@
-package com.info.maeumgagym.core.common.enum
+package com.info.maeumgagym.common.value
 
 enum class DomainNames(
     val value: String,

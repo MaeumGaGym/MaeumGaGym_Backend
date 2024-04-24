@@ -1,6 +1,6 @@
 package com.info.maeumgagym.presentation.controller.purpose.dto
 
-import com.info.maeumgagym.core.common.convertor.LocalDateConvertor
+import com.info.maeumgagym.common.convertor.LocalDateConvertor
 import com.info.maeumgagym.core.purpose.dto.request.UpdatePurposeRequest
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern

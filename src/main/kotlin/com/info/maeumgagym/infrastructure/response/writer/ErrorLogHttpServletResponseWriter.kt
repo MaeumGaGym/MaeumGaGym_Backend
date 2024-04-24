@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.response.writer
 
-import com.info.maeumgagym.core.common.exception.MaeumGaGymException
+import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.infrastructure.error.vo.ErrorLog
 import java.time.LocalDateTime
 import javax.servlet.http.HttpServletResponse

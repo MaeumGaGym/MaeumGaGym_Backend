@@ -1,9 +1,9 @@
 package com.info.maeumgagym.core.purpose.service
 
-import com.info.maeumgagym.common.responsibility.ReadOnlyUseCase
+import com.info.maeumgagym.common.annotation.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.core.common.exception.BusinessLogicException
-import com.info.maeumgagym.core.common.exception.SecurityException
+import com.info.maeumgagym.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.core.purpose.dto.response.PurposeInfoResponse
 import com.info.maeumgagym.core.purpose.port.`in`.ReadPurposeFromIdUseCase
 import com.info.maeumgagym.core.purpose.port.out.ReadPurposePort

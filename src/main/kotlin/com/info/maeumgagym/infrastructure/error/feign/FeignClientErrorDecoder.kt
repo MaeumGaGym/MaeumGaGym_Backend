@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.error.feign
 
-import com.info.maeumgagym.core.common.exception.FeignException
+import com.info.maeumgagym.common.exception.FeignException
 import feign.Response
 import feign.codec.ErrorDecoder
 import mu.KotlinLogging

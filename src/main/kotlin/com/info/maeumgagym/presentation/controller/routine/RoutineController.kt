@@ -1,6 +1,6 @@
 package com.info.maeumgagym.presentation.controller.routine
 
-import com.info.maeumgagym.common.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
 import com.info.maeumgagym.core.routine.dto.response.RoutineHistoryListResponse
 import com.info.maeumgagym.core.routine.dto.response.RoutineListResponse
 import com.info.maeumgagym.core.routine.dto.response.RoutineResponse

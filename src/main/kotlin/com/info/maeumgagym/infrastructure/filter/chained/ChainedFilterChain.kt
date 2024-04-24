@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.filter.chained
 
-import com.info.maeumgagym.core.common.exception.CriticalException
+import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.infrastructure.filter.global.GlobalFilterChain
 import javax.servlet.Filter
 import javax.servlet.FilterChain

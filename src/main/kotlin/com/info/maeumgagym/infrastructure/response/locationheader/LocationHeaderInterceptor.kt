@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.response.locationheader
 
-import com.info.maeumgagym.core.common.dto.LocationSubjectDto
+import com.info.maeumgagym.common.dto.LocationSubjectDto
 import com.info.maeumgagym.presentation.common.locationheader.LocationHeaderManager
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod

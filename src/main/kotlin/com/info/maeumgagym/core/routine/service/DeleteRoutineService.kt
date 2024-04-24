@@ -1,9 +1,9 @@
 package com.info.maeumgagym.core.routine.service
 
-import com.info.maeumgagym.common.responsibility.UseCase
+import com.info.maeumgagym.common.annotation.responsibility.UseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.core.common.exception.BusinessLogicException
-import com.info.maeumgagym.core.common.exception.SecurityException
+import com.info.maeumgagym.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.core.routine.port.`in`.DeleteRoutineUseCase
 import com.info.maeumgagym.core.routine.port.out.DeleteRoutinePort
 import com.info.maeumgagym.core.routine.port.out.ReadRoutinePort

@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.security.jwt.impl
 
-import com.info.maeumgagym.core.common.exception.AuthenticationException
+import com.info.maeumgagym.common.exception.AuthenticationException
 import com.info.maeumgagym.infrastructure.security.jwt.JwtResolver
 import com.info.maeumgagym.infrastructure.security.jwt.repository.AccessTokenRepository
 import com.info.maeumgagym.infrastructure.security.jwt.env.JwtProperties

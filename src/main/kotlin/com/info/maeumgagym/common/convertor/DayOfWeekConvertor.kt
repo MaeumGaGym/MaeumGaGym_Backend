@@ -1,6 +1,6 @@
-package com.info.maeumgagym.core.common.convertor
+package com.info.maeumgagym.common.convertor
 
-import com.info.maeumgagym.core.common.exception.PresentationValidationException
+import com.info.maeumgagym.common.exception.PresentationValidationException
 import java.time.DayOfWeek
 import java.time.format.TextStyle
 import java.util.*

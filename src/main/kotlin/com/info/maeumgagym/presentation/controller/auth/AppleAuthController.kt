@@ -1,6 +1,6 @@
 package com.info.maeumgagym.presentation.controller.auth
 
-import com.info.maeumgagym.common.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
 import com.info.maeumgagym.core.auth.port.`in`.AppleLoginUseCase
 import com.info.maeumgagym.core.auth.port.`in`.AppleRecoveryUseCase
 import com.info.maeumgagym.core.auth.port.`in`.AppleSignUpUseCase

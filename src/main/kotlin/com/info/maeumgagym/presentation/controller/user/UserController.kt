@@ -1,6 +1,6 @@
 package com.info.maeumgagym.presentation.controller.user
 
-import com.info.maeumgagym.common.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
 import com.info.maeumgagym.core.user.dto.response.UserProfileResponse
 import com.info.maeumgagym.core.user.port.`in`.ReadUserUseCase
 import com.info.maeumgagym.core.user.port.`in`.UpdateUserInfoUseCase

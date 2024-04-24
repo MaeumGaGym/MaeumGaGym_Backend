@@ -1,10 +1,10 @@
 package com.info.maeumgagym.core.pickle.service
 
-import com.info.maeumgagym.common.responsibility.UseCase
+import com.info.maeumgagym.common.annotation.responsibility.UseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.core.common.dto.LocationSubjectDto
-import com.info.maeumgagym.core.common.exception.BusinessLogicException
-import com.info.maeumgagym.core.common.exception.SecurityException
+import com.info.maeumgagym.common.dto.LocationSubjectDto
+import com.info.maeumgagym.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.core.pickle.dto.request.CreatePickleRequest
 import com.info.maeumgagym.core.pickle.model.Pickle
 import com.info.maeumgagym.core.pickle.port.`in`.CreatePickleUseCase

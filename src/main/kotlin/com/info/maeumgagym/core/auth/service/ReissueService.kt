@@ -1,6 +1,6 @@
 package com.info.maeumgagym.core.auth.service
 
-import com.info.maeumgagym.common.responsibility.UseCase
+import com.info.maeumgagym.common.annotation.responsibility.UseCase
 import com.info.maeumgagym.core.auth.port.`in`.ReissueUseCase
 import com.info.maeumgagym.core.auth.port.out.ReissuePort
 

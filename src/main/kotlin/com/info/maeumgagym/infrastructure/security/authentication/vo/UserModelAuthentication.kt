@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.security.authentication.vo
 
-import com.info.maeumgagym.core.common.exception.CriticalException
+import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.core.user.model.User
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority

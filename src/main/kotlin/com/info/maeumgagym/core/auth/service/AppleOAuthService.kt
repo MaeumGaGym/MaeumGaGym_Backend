@@ -1,12 +1,12 @@
 package com.info.maeumgagym.core.auth.service
 
-import com.info.maeumgagym.common.responsibility.UseCase
+import com.info.maeumgagym.common.annotation.responsibility.UseCase
 import com.info.maeumgagym.core.auth.port.`in`.AppleLoginUseCase
 import com.info.maeumgagym.core.auth.port.`in`.AppleRecoveryUseCase
 import com.info.maeumgagym.core.auth.port.`in`.AppleSignUpUseCase
 import com.info.maeumgagym.core.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.core.auth.port.out.ParseAppleTokenPort
-import com.info.maeumgagym.core.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.user.model.Role
 import com.info.maeumgagym.core.user.model.User
 import com.info.maeumgagym.core.user.port.out.ExistUserPort

@@ -1,7 +1,7 @@
 package com.info.maeumgagym.core.routine.service
 
-import com.info.maeumgagym.common.responsibility.ReadOnlyUseCase
-import com.info.maeumgagym.core.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.annotation.responsibility.ReadOnlyUseCase
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.routine.dto.response.RoutineResponse
 import com.info.maeumgagym.core.routine.port.`in`.ReadRoutineUseCase
 import com.info.maeumgagym.core.routine.port.out.ReadRoutinePort

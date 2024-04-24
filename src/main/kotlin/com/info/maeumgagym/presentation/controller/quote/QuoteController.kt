@@ -1,6 +1,6 @@
 package com.info.maeumgagym.presentation.controller.quote
 
-import com.info.maeumgagym.common.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
 import com.info.maeumgagym.core.quote.dto.response.QuoteResponse
 import com.info.maeumgagym.core.quote.port.`in`.ReadRandomQuoteUseCase
 import io.swagger.v3.oas.annotations.Operation

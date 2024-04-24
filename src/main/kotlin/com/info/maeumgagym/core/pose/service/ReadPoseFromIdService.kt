@@ -1,7 +1,7 @@
 package com.info.maeumgagym.core.pose.service
 
-import com.info.maeumgagym.common.responsibility.ReadOnlyUseCase
-import com.info.maeumgagym.core.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.annotation.responsibility.ReadOnlyUseCase
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.pose.dto.response.PoseDetailResponse
 import com.info.maeumgagym.core.pose.port.`in`.ReadPoseFromIdUseCase
 import com.info.maeumgagym.core.pose.port.out.ReadPosePort

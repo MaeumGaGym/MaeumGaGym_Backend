@@ -1,3 +1,5 @@
+package com.info.maeumgagym.common.value.dependency
+
 object DependencyVersions {
     const val MINIO_VERSION = "8.3.2"
     const val JACKSON_VERSION = "2.10.3"

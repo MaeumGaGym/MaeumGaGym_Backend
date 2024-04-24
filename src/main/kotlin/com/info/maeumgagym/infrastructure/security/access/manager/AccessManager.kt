@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.security.access.manager
 
-import com.info.maeumgagym.core.common.exception.SecurityException
+import com.info.maeumgagym.common.exception.SecurityException
 
 /**
  * 매핑된 핸들러에 대하여 사용자가 접근이 허가 되었는지 확인하는 관리자

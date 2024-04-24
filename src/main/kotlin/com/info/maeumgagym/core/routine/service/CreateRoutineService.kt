@@ -1,9 +1,9 @@
 package com.info.maeumgagym.core.routine.service
 
-import com.info.maeumgagym.common.responsibility.UseCase
+import com.info.maeumgagym.common.annotation.responsibility.UseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.core.common.dto.LocationSubjectDto
-import com.info.maeumgagym.core.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.dto.LocationSubjectDto
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.pose.port.out.ReadPosePort
 import com.info.maeumgagym.core.routine.dto.request.CreateRoutineRequest
 import com.info.maeumgagym.core.routine.model.ExerciseInfoModel

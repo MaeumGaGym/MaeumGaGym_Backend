@@ -1,6 +1,6 @@
 package com.info.maeumgagym.presentation.controller.daily
 
-import com.info.maeumgagym.common.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
 import com.info.maeumgagym.core.daily.dto.response.DailyListResponse
 import com.info.maeumgagym.core.daily.dto.response.PreSignedURLResponse
 import com.info.maeumgagym.core.daily.port.`in`.*

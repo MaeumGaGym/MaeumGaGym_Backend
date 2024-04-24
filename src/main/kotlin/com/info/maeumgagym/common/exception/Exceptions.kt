@@ -1,7 +1,7 @@
-package com.info.maeumgagym.core.common.exception
+package com.info.maeumgagym.common.exception
 
-import com.info.maeumgagym.common.responsibility.UseCase
-import com.info.maeumgagym.core.common.enum.DomainNames
+import com.info.maeumgagym.common.annotation.responsibility.UseCase
+import com.info.maeumgagym.common.value.DomainNames
 
 /**
  * 마음가짐 내에서 전역적으로 쓰이는 예외 클래스의 최상위 타입

@@ -1,8 +1,8 @@
 package com.info.maeumgagym.core.daily.service
 
-import com.info.maeumgagym.common.responsibility.ReadOnlyUseCase
+import com.info.maeumgagym.common.annotation.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.core.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.daily.dto.response.DailyListResponse
 import com.info.maeumgagym.core.daily.dto.response.DailyResponse
 import com.info.maeumgagym.core.daily.port.`in`.ReadDailyUseCase

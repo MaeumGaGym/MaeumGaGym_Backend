@@ -1,6 +1,6 @@
-package com.info.maeumgagym.core.common.util
+package com.info.maeumgagym.common.util
 
-import com.info.maeumgagym.core.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import java.time.LocalDate
 
 object DateUtils {

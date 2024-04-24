@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.filter.config
 
-import com.info.maeumgagym.core.common.exception.CriticalException
+import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.infrastructure.error.filter.ErrorLogResponseFilter
 import com.info.maeumgagym.infrastructure.error.filter.ExceptionConvertFilter
 import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChain

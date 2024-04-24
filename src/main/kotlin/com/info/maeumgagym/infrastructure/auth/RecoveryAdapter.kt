@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.auth
 
-import com.info.maeumgagym.core.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.user.model.User
 import com.info.maeumgagym.core.user.port.out.ReadUserPort
 import com.info.maeumgagym.core.user.port.out.RecoveryUserPort

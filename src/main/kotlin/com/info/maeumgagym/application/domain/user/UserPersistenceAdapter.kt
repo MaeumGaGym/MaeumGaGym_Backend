@@ -1,6 +1,6 @@
 package com.info.maeumgagym.application.domain.user
 
-import com.info.maeumgagym.common.responsibility.PersistenceAdapter
+import com.info.maeumgagym.common.annotation.responsibility.PersistenceAdapter
 import com.info.maeumgagym.application.domain.user.mapper.UserMapper
 import com.info.maeumgagym.application.domain.user.repository.UserNativeRepository
 import com.info.maeumgagym.application.domain.user.repository.UserRepository

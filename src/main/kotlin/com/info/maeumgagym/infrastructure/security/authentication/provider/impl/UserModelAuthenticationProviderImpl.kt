@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.security.authentication.impl
 
-import com.info.maeumgagym.core.common.exception.CriticalException
+import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.core.user.port.out.ReadUserPort
 import com.info.maeumgagym.infrastructure.security.authentication.provider.UserModelAuthenticationProvider
 import com.info.maeumgagym.infrastructure.security.authentication.vo.UserModelAuthentication
