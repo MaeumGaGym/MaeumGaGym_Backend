@@ -1,4 +1,4 @@
-package com.info.maeumgagym.infrastructure.collection.annotation
+package com.info.maeumgagym.infrastructure.collector.annotation
 
 import kotlin.reflect.KClass
 
@@ -7,12 +7,16 @@ import kotlin.reflect.KClass
  *
  * 객체별로 어노테이션을 추출하는 방법이 상이하여 추가됨
  *
- * 기본 구현체는 [AnnotationCollectionComposite]로, 이를 통해 하위 구현체들을 모두 순회
+ * 기본 구현체는 [AnnotationCollectorComposite]로, 이를 통해 하위 구현체들을 모두 순회
+ *
+ * @sample [com.info.maeumgagym.security.access.checker.impl.RequireRoleChecker.check]
+ *
+ * @see AnnotationCollectorComposite
  *
  * @author Daybreak312
  * @since 22-04-2024
  */
-interface AnnotationCollection {
+interface AnnotationCollector {
 
     /**
      * @param `object` 임의의 객체
