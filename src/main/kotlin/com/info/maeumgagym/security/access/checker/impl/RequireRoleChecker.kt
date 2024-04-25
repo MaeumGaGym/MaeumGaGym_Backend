@@ -3,7 +3,7 @@ package com.info.maeumgagym.security.access.checker.impl
 import com.info.maeumgagym.common.annotation.security.RequireRole
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.common.exception.AuthenticationException
-import com.info.maeumgagym.infrastructure.collection.annotation.AnnotationCollector
+import com.info.maeumgagym.infrastructure.collector.annotation.AnnotationCollector
 import com.info.maeumgagym.security.access.checker.AbstractAnnotationBasedUserAuthenticationChecker
 import org.springframework.stereotype.Component
 

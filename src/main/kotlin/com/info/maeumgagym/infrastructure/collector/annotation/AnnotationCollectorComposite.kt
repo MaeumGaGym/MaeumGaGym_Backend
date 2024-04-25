@@ -1,4 +1,4 @@
-package com.info.maeumgagym.infrastructure.collection.annotation
+package com.info.maeumgagym.infrastructure.collector.annotation
 
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Primary

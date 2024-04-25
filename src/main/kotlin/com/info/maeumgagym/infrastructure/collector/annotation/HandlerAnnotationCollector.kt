@@ -1,4 +1,4 @@
-package com.info.maeumgagym.infrastructure.collection.annotation
+package com.info.maeumgagym.infrastructure.collector.annotation
 
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Component

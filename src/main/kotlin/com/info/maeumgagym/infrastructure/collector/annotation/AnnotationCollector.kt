@@ -1,4 +1,4 @@
-package com.info.maeumgagym.infrastructure.collection.annotation
+package com.info.maeumgagym.infrastructure.collector.annotation
 
 import kotlin.reflect.KClass
 
@@ -9,7 +9,7 @@ import kotlin.reflect.KClass
  *
  * 기본 구현체는 [AnnotationCollectorComposite]로, 이를 통해 하위 구현체들을 모두 순회
  *
- * @sample [com.info.maeumgagym.infrastructure.security.access.checker.impl.RequireRoleChecker.check]
+ * @sample [com.info.maeumgagym.security.access.checker.impl.RequireRoleChecker.check]
  *
  * @see AnnotationCollectorComposite
  *

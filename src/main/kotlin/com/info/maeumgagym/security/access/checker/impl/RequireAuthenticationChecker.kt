@@ -1,7 +1,7 @@
 package com.info.maeumgagym.security.access.checker.impl
 
 import com.info.maeumgagym.common.annotation.security.RequireAuthentication
-import com.info.maeumgagym.infrastructure.collection.annotation.AnnotationCollector
+import com.info.maeumgagym.infrastructure.collector.annotation.AnnotationCollector
 import com.info.maeumgagym.security.access.checker.AbstractAnnotationBasedUserAuthenticationChecker
 import org.springframework.stereotype.Component
 

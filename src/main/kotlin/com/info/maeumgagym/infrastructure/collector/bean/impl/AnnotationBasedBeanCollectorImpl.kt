@@ -1,6 +1,6 @@
-package com.info.maeumgagym.infrastructure.collection.bean.impl
+package com.info.maeumgagym.infrastructure.collector.bean.impl
 
-import com.info.maeumgagym.infrastructure.collection.bean.AnnotationBasedBeanCollector
+import com.info.maeumgagym.infrastructure.collector.bean.AnnotationBasedBeanCollector
 import org.springframework.context.ApplicationContext
 import org.springframework.stereotype.Component
 import kotlin.reflect.KClass
