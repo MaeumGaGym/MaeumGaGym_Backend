@@ -5,7 +5,7 @@ import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotations
 
 /**
- * 가장 기본적인 [AnnotationCollection]
+ * 가장 기본적인 [AnnotationCollector]
  *
  * 클래스의 리플렉션으로부터 어노테이션 추출
  *
@@ -13,7 +13,7 @@ import kotlin.reflect.full.findAnnotations
  * @since 22-04-2024
  */
 @Component
-class DefaultAnnotationCollection : AnnotationCollection {
+class DefaultAnnotationCollector : AnnotationCollector {
 
     override fun <A : Annotation> getAnnotationOrNull(`object`: Any, annotation: KClass<A>): A? =
         `object`::class.findAnnotations(annotation).firstOrNull()

@@ -8,7 +8,7 @@ import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotations
 
 /**
- * Handler(Controller)에 대한 [AnnotationCollection]
+ * Handler(Controller)에 대한 [AnnotationCollector]
  *
  * [HandlerMethod], [Method], [MethodParameter]에 대해 작동
  *
@@ -16,7 +16,7 @@ import kotlin.reflect.full.findAnnotations
  * @since 22-04-2024
  */
 @Component
-class HandlerAnnotationCollection : AnnotationCollection {
+class HandlerAnnotationCollector : AnnotationCollector {
 
     override fun <A : Annotation> getAnnotationOrNull(`object`: Any, annotation: KClass<A>): A? {
         when (`object`) {
