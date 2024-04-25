@@ -2,8 +2,8 @@ package com.info.maeumgagym.infrastructure.auth
 
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.user.model.User
-import com.info.maeumgagym.infrastructure.security.authentication.provider.AuthenticationProvider
-import com.info.maeumgagym.infrastructure.security.authentication.vo.UserModelAuthentication
+import com.info.maeumgagym.security.authentication.provider.AuthenticationProvider
+import com.info.maeumgagym.security.authentication.vo.UserModelAuthentication
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 

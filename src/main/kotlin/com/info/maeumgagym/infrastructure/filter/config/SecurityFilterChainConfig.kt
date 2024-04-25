@@ -6,10 +6,10 @@ import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChai
 import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChainProxy
 import com.info.maeumgagym.infrastructure.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.infrastructure.response.writer.ErrorLogHttpServletResponseWriter
-import com.info.maeumgagym.infrastructure.security.authentication.provider.UserModelAuthenticationProvider
-import com.info.maeumgagym.infrastructure.security.jwt.JwtFilter
-import com.info.maeumgagym.infrastructure.security.jwt.JwtResolver
-import com.info.maeumgagym.infrastructure.security.jwt.env.JwtProperties
+import com.info.maeumgagym.security.authentication.provider.UserModelAuthenticationProvider
+import com.info.maeumgagym.security.jwt.JwtFilter
+import com.info.maeumgagym.security.jwt.JwtResolver
+import com.info.maeumgagym.security.jwt.env.JwtProperties
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.DefaultSecurityFilterChain
