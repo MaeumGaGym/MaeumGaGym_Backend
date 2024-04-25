@@ -19,7 +19,9 @@ internal class ReadAllPickleReplyService(
             page,
             size
         )
-        return PickleReplyListResponse(replies.map { it.toResponse(it) }
-            .toList())
+        return PickleReplyListResponse(
+            replies.map { it.toResponse(it) }
+                .toList()
+        )
     }
 }

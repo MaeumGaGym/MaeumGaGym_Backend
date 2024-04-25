@@ -4,6 +4,7 @@ import com.info.maeumgagym.common.annotation.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.pickle.dto.response.PickleListResponse
 import com.info.maeumgagym.core.pickle.dto.response.PickleResponse
+import com.info.maeumgagym.core.pickle.model.Pickle
 import com.info.maeumgagym.core.pickle.model.Pickle.Companion.toResponse
 import com.info.maeumgagym.core.pickle.port.`in`.LoadPickleFromIdUseCase
 import com.info.maeumgagym.core.pickle.port.`in`.LoadPickleFromPoseUseCase
@@ -57,11 +58,11 @@ internal class LoadPickleService(
         )
     }
 
-    private fun getRandomPickles(pickles: List<com.info.maeumgagym.core.pickle.model.Pickle>): List<com.info.maeumgagym.core.pickle.model.Pickle> =
+    private fun getRandomPickles(pickles: List<Pickle>): List<Pickle> =
         // 만약 랜덤 피클을 추출할 베이스 리스트의 크기가 추출할 크기보다 작다면 -> 베이스 리스트 그대로 반환
         pickles.takeIf { pickles.toSet().size <= INDEX_SIZE }
         // 아니라면 빈 Set을 생성해서 (중복 제거)
-            ?: mutableSetOf<com.info.maeumgagym.core.pickle.model.Pickle>().apply {
+            ?: mutableSetOf<Pickle>().apply {
                 // 총 개수가 INDEX_SIZE와 같아질 때까지 랜덤 피클 추가
                 while (size < INDEX_SIZE) add(pickles.random())
             }.toList()
