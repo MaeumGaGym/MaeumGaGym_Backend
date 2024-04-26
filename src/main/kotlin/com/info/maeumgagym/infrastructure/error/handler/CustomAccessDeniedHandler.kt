@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+@Deprecated(message = "논리적으로 사용되지 않음")
 @Component
 class CustomAccessDeniedHandler(
     private val exceptionRepository: ExceptionRepository,
