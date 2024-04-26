@@ -1,4 +1,4 @@
-package com.info.maeumgagym.infrastructure.collection.annotation
+package com.info.maeumgagym.infrastructure.collector.annotation
 
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Primary
@@ -6,27 +6,27 @@ import org.springframework.stereotype.Component
 import kotlin.reflect.KClass
 
 /**
- * 모든 [AnnotationCollection]들을 순회하는 [AnnotationCollection]
+ * 모든 [AnnotationCollector]들을 순회하는 [AnnotationCollector]
  *
  * @author Daybreak312
  * @since 22-04-2024
  */
 @Primary
 @Component
-class AnnotationCollectionComposite(
+class AnnotationCollectorComposite(
     private val applicationContext: ApplicationContext
-) : AnnotationCollection {
+) : AnnotationCollector {
 
-    private lateinit var collections: List<AnnotationCollection>
+    private lateinit var collections: List<AnnotationCollector>
 
     private var initialized: Boolean = false
 
     private fun init() {
         collections =
             applicationContext.getBeansOfType(
-                AnnotationCollection::class.java
+                AnnotationCollector::class.java
             ).values.apply {
-                remove(this@AnnotationCollectionComposite)
+                remove(this@AnnotationCollectorComposite)
             }.toList()
         initialized = true
     }
