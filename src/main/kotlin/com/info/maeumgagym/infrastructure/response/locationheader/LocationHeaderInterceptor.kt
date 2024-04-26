@@ -26,6 +26,9 @@ class LocationHeaderInterceptor(
     private val locationHeaderManager: LocationHeaderManager
 ) : HandlerInterceptor {
 
+    /**
+     * Location Header를 작성하기로 예약된 [HttpStatus]들
+     */
     private val checkedStatusCodes = listOf(HttpStatus.OK, HttpStatus.CREATED)
 
     /**
@@ -33,6 +36,9 @@ class LocationHeaderInterceptor(
      */
     private val checkedMethods = listOf(HttpMethod.POST, HttpMethod.PUT)
 
+    /**
+     * Location Header를 작성하지 않기로 예약된 URI 패턴들
+     */
     private val uncheckedURIs = listOf(
         "/auth",
         "/report",
@@ -99,6 +105,13 @@ class LocationHeaderInterceptor(
     private fun isPutRequest(request: HttpServletRequest): Boolean =
         request.method.uppercase() == HttpMethod.PUT.name
 
+    /**
+     * Location Header에 삽입할 URL을 생성
+     *
+     * [LocationHeaderManager]에 subject가 채워졌을 경우(POST 요청일 경우) 현재 요청 URL 뒤에 PathVariable만 추가
+     *
+     * [LocationHeaderManager]에 subject 대신 URL이 채워져 있을 경우 서버의 BaseURL에 이어 작성
+     */
     private fun getLocationHeaderContent(request: HttpServletRequest): String =
         if (locationHeaderManager.getSubject() == null) {
             request.requestURL.substring(
