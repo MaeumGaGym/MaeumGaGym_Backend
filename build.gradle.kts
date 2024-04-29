@@ -10,8 +10,8 @@ plugins {
     id("io.spring.dependency-management") version PluginVersions.DEPENDENCY_MANAGER_VERSION
     kotlin("plugin.jpa") version PluginVersions.JPA_PLUGIN_VERSION
 
-    // Kotlint
-    id("org.jetbrains.kotlin.kapt") version PluginVersions.KAPT_VERSION
+    // Kotlin
+    kotlin("kapt") version PluginVersions.KAPT_VERSION
 
     // Java
     kotlin("jvm") version PluginVersions.JVM_VERSION
@@ -20,21 +20,20 @@ plugins {
     id("org.jetbrains.dokka") version "1.9.20"
 
     // Lint
-    id("org.jlleitschuh.gradle.ktlint") version PluginVersions.KLINT_VERSION
-//    application
+    id("org.jlleitschuh.gradle.ktlint") version PluginVersions.KTLINT_VERSION
+
+    // AOP
+    //id("io.freefair.aspectj.post-compile-weaving") version "8.6"
 }
 
 group = "com.info.maeumgagym"
 version = "0.0.1-SNAPSHOT"
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-}
-
 repositories {
     mavenCentral()
     maven { url = uri("https://repo.spring.io/milestone") }
     maven { url = uri("https://repo.spring.io/snapshot") }
+    maven { url = uri("https://plugins.gradle.org/m2/") }
 }
 
 tasks.bootJar {
@@ -85,12 +84,22 @@ dependencies {
     // jwt
     implementation(DependencyNames.JWT)
 
+    // AOP
+    //implementation("org.aspectj:aspectjrt:1.9.6")
+
+    kapt("com.info.maeumgagym::0.0.1-SNAPSHOT")
+
     // test
     testImplementation(DependencyNames.SPRING_TEST)
     testImplementation(DependencyNames.MOCKK)
     testImplementation(DependencyNames.JUNIT_JUPITER)
     testImplementation(DependencyNames.JUNIT_JUPITER_API)
     testRuntimeOnly(DependencyNames.JUNIT_JUPITER_ENGINE)
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 // Declaring a publicly-available repository
@@ -112,12 +121,16 @@ tasks.withType<KotlinCompile> {
     }
 }
 
+tasks.withType<JavaCompile> {
+    options.annotationProcessorPath = files(configurations.compileOnly)
+    options.compilerArgs.add("-proc:only")
+}
+
 allOpen {
     annotation("javax.persistence.Entity")
     annotation("javax.persistence.MappedSuperclass")
     annotation("javax.persistence.Embeddable")
     annotations("org.springframework.data.redis.core.RedisHash")
-
     annotation("com.info.common.UseCase")
     annotation("org.springframework.stereotype.Service")
     annotation("com.info.common.PersistenceAdapter")
@@ -129,4 +142,8 @@ noArg {
     annotation("javax.persistence.MappedSuperclass")
     annotation("javax.persistence.Embeddable")
     annotations("org.springframework.data.redis.core.RedisHash")
+    annotation("com.info.common.UseCase")
+    annotation("org.springframework.stereotype.Service")
+    annotation("com.info.common.PersistenceAdapter")
+    annotation("com.info.common.WebAdapter")
 }

@@ -15,6 +15,7 @@ import kotlin.reflect.KClass
  */
 abstract class AbstractAnnotationBasedUserAuthenticationChecker : AnnotationBasedUserAuthenticationChecker {
 
+    @Suppress("UNCHECKED_CAST")
     protected fun <A : Annotation> Any.getAnnotationOrNull(annotation: KClass<A>): A? {
         this::class.annotations.forEach {
             if (it.annotationClass == annotation) return it as A

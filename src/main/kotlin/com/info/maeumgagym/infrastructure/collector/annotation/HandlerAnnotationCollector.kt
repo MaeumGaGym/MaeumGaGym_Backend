@@ -18,6 +18,7 @@ import kotlin.reflect.full.findAnnotations
 @Component
 class HandlerAnnotationCollector : AnnotationCollector {
 
+    @Suppress("UNCHECKED_CAST")
     override fun <A : Annotation> getAnnotationOrNull(`object`: Any, annotation: KClass<A>): A? {
         when (`object`) {
             is HandlerMethod -> {

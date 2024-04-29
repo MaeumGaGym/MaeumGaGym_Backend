@@ -94,7 +94,7 @@ internal class RoutinePersistenceAdapter(
         val needSaveOrDeleteExerciseEntities =
             ExerciseInfoUtils.getEntitiesNeedSaveOrDelete(
                 exerciseInfoRepository.findAllByRoutineId(routine.id!!),
-                exerciseInfoListMapper.toEntityList(routine.exerciseInfoModelList, routine.id!!)
+                exerciseInfoListMapper.toEntityList(routine.exerciseInfoModelList, routine.id)
             )
 
         needSaveOrDeleteExerciseEntities.first.map {

@@ -1,10 +1,13 @@
 package com.info.maeumgagym.presentation.controller.routine
 
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.security.Permitted
+import com.info.maeumgagym.common.annotation.security.RequireAuthentication
 import com.info.maeumgagym.core.routine.dto.response.RoutineHistoryListResponse
 import com.info.maeumgagym.core.routine.dto.response.RoutineListResponse
 import com.info.maeumgagym.core.routine.dto.response.RoutineResponse
 import com.info.maeumgagym.core.routine.port.`in`.*
+import com.info.maeumgagym.core.user.model.User
 import com.info.maeumgagym.presentation.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.presentation.controller.routine.dto.CreateRoutineWebRequest
 import com.info.maeumgagym.presentation.controller.routine.dto.UpdateRoutineWebRequest
@@ -54,12 +57,16 @@ private class RoutineController(
         readTodayRoutineUseCase.readTodayRoutine()
 
     @Operation(summary = "내 루틴 전체 조회 API")
+    @Permitted
+    @RequireAuthentication
     @GetMapping("/my")
     fun readAllMyRoutine(
-        @RequestParam
+        @RequestParam(required = false)
+        @Valid
+        @NotNull(message = "null일 수 없습니다.")
         @PositiveOrZero(message = "0 이상이어야 합니다.")
-        index: Int
-    ): RoutineListResponse = readAllMyRoutineUseCase.readAllMyRoutine(index)
+        index: Int?
+    ): RoutineListResponse = readAllMyRoutineUseCase.readAllMyRoutine(index!!)
 
     @Operation(summary = "루틴 삭제 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
