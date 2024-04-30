@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse
  *
  * @author Daybreak312, kanghyuk
  */
-class JwtFilter(
+class JwtAuthenticateFilter(
     private val jwtResolver: JwtResolver,
     private val authenticationProvider: UserModelAuthenticationProvider,
     private val jwtProperties: JwtProperties

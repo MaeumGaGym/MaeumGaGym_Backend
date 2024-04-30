@@ -7,7 +7,7 @@ import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChai
 import com.info.maeumgagym.infrastructure.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.infrastructure.response.writer.ErrorLogHttpServletResponseWriter
 import com.info.maeumgagym.security.authentication.provider.UserModelAuthenticationProvider
-import com.info.maeumgagym.security.jwt.JwtFilter
+import com.info.maeumgagym.security.jwt.JwtAuthenticateFilter
 import com.info.maeumgagym.security.jwt.JwtResolver
 import com.info.maeumgagym.security.jwt.env.JwtProperties
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
@@ -36,7 +36,7 @@ class SecurityFilterChainConfig(
 ) : SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
 
     /**
-     * [ErrorLogResponseFilter] -> [ExceptionConvertFilter] -> [SecurityContextHolderFilter] -> [JwtFilter] -> [LogoutFilter] -> ...
+     * [ErrorLogResponseFilter] -> [ExceptionConvertFilter] -> [SecurityContextHolderFilter] -> [JwtAuthenticateFilter] -> [LogoutFilter] -> ...
      *
      * @author Daybreak312
      * @since 12-03-2024
@@ -44,7 +44,7 @@ class SecurityFilterChainConfig(
     override fun configure(builder: HttpSecurity) {
         builder.run {
             addFilterBefore(
-                JwtFilter(jwtResolver, authenticationProvider, jwtProperties),
+                JwtAuthenticateFilter(jwtResolver, authenticationProvider, jwtProperties),
                 LogoutFilter::class.java
             )
             addFilterBefore(
