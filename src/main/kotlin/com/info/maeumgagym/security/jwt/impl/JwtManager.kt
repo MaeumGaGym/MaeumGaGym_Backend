@@ -8,6 +8,7 @@ import com.info.maeumgagym.security.jwt.env.JwtProperties
 import com.info.maeumgagym.security.jwt.vo.Jwt
 import com.info.maeumgagym.security.jwt.vo.JwtType
 import io.jsonwebtoken.Claims
+import io.jsonwebtoken.Header
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.stereotype.Component
@@ -47,19 +48,19 @@ class JwtManager(
             .compact()
 
     override fun decode(jwt: String): Jwt {
-        if (!jwt.startsWith(jwtProperties.prefix)) {
-            throw SecurityException.NOT_JWT_TOKEN
-        }
-
         val parsedJwt = Jwts.parser()
             .setSigningKey(jwtProperties.secretKey)
-            .parse(removeJwtPrefix(jwt))
+            .parse(resolveJwtPrefix(jwt))
 
-        return Jwt(
-            parsedJwt.header,
-            parsedJwt.body as Claims,
-            JwtType.of(parsedJwt.header[HEADER_TOKEN_TYPE_NAME] as String)
-        )
+        return parsedJwt.toJwtValue()
+    }
+
+    override fun decode(jwt: String, key: String): Jwt {
+        val parsedJwt = Jwts.parser()
+            .setSigningKey(key)
+            .parse(resolveJwtPrefix(jwt))
+
+        return parsedJwt.toJwtValue()
     }
 
     override fun validate(jwt: Jwt) {
@@ -78,6 +79,17 @@ class JwtManager(
     private fun refreshTokenExpiration(): Date =
         Date(Date().time + jwtProperties.refreshExpiredExp)
 
-    private fun removeJwtPrefix(jwt: String): String =
-        jwt.substring(jwtProperties.prefix.length).trimStart()
+    private fun resolveJwtPrefix(jwt: String): String {
+        if (!jwt.startsWith(jwtProperties.prefix)) {
+            throw SecurityException.NOT_JWT_TOKEN
+        }
+
+        return jwt.substring(jwtProperties.prefix.length).trimStart()
+    }
+
+    private fun io.jsonwebtoken.Jwt<Header<*>, Any>.toJwtValue() = Jwt(
+        this.header,
+        this.body as Claims,
+        JwtType.of(this.header[HEADER_TOKEN_TYPE_NAME] as String)
+    )
 }
