@@ -26,5 +26,4 @@ enum class JwtType(
                 else -> throw CriticalException(500, "Wrong Jwt Type")
             }
     }
-
 }

@@ -20,7 +20,7 @@ class JwtManager(
     JwtDecoder,
     JwtValidator {
 
-     private companion object {
+    private companion object {
         const val HEADER_TOKEN_TYPE_NAME = "type"
 
         const val ISSUER_MAEUMGAGYM = "maeumgagym"
