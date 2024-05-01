@@ -164,6 +164,10 @@ class SecurityException(
 
         val INVALID_TOKEN get() = SecurityException(401, "Invalid Token")
 
+        val INVALID_ISSUER_TOKEN get() = SecurityException(401, "Invalid Token, Issuer Wrong")
+
+        val EXPIRED_TOKEN get() = SecurityException(401, "Expired Token")
+
         val PERMISSION_DENIED get() = SecurityException(403, "Permission Denied")
     }
 }
