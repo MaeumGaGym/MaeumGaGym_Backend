@@ -11,7 +11,17 @@ package com.info.maeumgagym.security.jwt
  */
 interface JwtEncoder {
 
+    /**
+     * AccessToken으로 암호화.
+     *
+     * AccessToken으로 각인되며, 토큰의 유효 시간이 미리 설정된 AccessToken의 유효 시간으로 설정됨.
+     */
     fun encodeAccessToken(subject: String): String
 
+    /**
+     * RefreshToken으로 암호화.
+     *
+     * RefreshToken으로 각인되며, 토큰의 유효 시간이 미리 설정된 RefreshToken의 유효 시간으로 설정됨.
+     */
     fun encodeRefreshToken(subject: String): String
 }

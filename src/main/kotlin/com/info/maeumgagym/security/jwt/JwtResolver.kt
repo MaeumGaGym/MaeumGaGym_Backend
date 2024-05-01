@@ -1,9 +1,10 @@
 package com.info.maeumgagym.security.jwt
 
 /**
- * 주어진 토큰의 유효성을 확인하고, 그 여부에 따라 토큰과 연결된 OAuthId를 반환
+ * 주어진 Jwt 토큰을 검증하고 subject를 추출
  *
- * 유효성 : AccessToken인지, JWT 토큰인지, 해당 서버에서 발급했으며 저장이 되어 있는지(유효 기간이 지나지 않았는지)
+ * @see JwtDecoder Jwt 토큰에서 subject 추출
+ * @see JwtValidator Jwt 토큰 검증 모듈
  *
  * @author Daybreak312
  * @since 20-03-2024
