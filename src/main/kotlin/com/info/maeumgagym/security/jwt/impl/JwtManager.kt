@@ -47,9 +47,13 @@ class JwtManager(
             .compact()
 
     override fun decode(jwt: String): Jwt {
+        if (!jwt.startsWith(jwtProperties.prefix)) {
+            throw SecurityException.NOT_JWT_TOKEN
+        }
+
         val parsedJwt = Jwts.parser()
             .setSigningKey(jwtProperties.secretKey)
-            .parse(jwt)
+            .parse(removeJwtPrefix(jwt))
 
         return Jwt(
             parsedJwt.header,
@@ -73,4 +77,7 @@ class JwtManager(
 
     private fun refreshTokenExpiration(): Date =
         Date(Date().time + jwtProperties.refreshExpiredExp)
+
+    private fun removeJwtPrefix(jwt: String): String =
+        jwt.substring(jwtProperties.prefix.length).trimStart()
 }

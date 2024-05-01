@@ -163,10 +163,9 @@ class SecurityException(
     companion object {
 
         val INVALID_TOKEN get() = SecurityException(401, "Invalid Token")
-
         val INVALID_ISSUER_TOKEN get() = SecurityException(401, "Invalid Token, Issuer Wrong")
-
         val EXPIRED_TOKEN get() = SecurityException(401, "Expired Token")
+        val NOT_JWT_TOKEN get() = SecurityException(401, "It's Not a Jwt Token")
 
         val PERMISSION_DENIED get() = SecurityException(403, "Permission Denied")
     }
