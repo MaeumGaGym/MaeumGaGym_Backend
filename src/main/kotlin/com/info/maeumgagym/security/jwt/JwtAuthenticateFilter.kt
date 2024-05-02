@@ -2,7 +2,7 @@ package com.info.maeumgagym.security.jwt
 
 import com.info.maeumgagym.security.authentication.provider.UserModelAuthenticationProvider
 import com.info.maeumgagym.security.config.RequestPermitConfig
-import com.info.maeumgagym.security.jwt.env.JwtProperties
+import org.springframework.http.HttpHeaders
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
@@ -20,8 +20,7 @@ import javax.servlet.http.HttpServletResponse
  */
 class JwtAuthenticateFilter(
     private val jwtResolver: JwtResolver,
-    private val authenticationProvider: UserModelAuthenticationProvider,
-    private val jwtProperties: JwtProperties
+    private val authenticationProvider: UserModelAuthenticationProvider
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
@@ -30,7 +29,7 @@ class JwtAuthenticateFilter(
         filterChain: FilterChain
     ) {
         // 헤더에 토큰이 존재하는지 확인
-        val header = request.getHeader(jwtProperties.header)
+        val header = request.getHeader(HttpHeaders.AUTHORIZATION)
 
         if (header != null) {
             // 토큰이 유효한지 확인, 유효하다면 ->
