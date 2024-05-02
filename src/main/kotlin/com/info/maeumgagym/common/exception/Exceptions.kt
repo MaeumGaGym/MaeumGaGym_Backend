@@ -135,8 +135,6 @@ class BusinessLogicException(
             get() = BusinessLogicException(ErrorCodePrefixSuffix.ALREADY_EXISTS_XXX, DomainNames.USER)
         val ALREADY_EXIST_PICKLE
             get() = BusinessLogicException(ErrorCodePrefixSuffix.ALREADY_EXISTS_XXX, DomainNames.PICKLE)
-        val OTHER_ROUTINE_ALREADY_USING_AT_DAY_OF_WEEK
-            get() = BusinessLogicException(409, "Other Routine Already Using At Day of week")
     }
 }
 
