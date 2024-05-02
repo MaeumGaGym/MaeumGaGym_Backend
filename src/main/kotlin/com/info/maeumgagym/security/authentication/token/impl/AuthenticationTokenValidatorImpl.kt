@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest
  * @since 01-05-2024
  */
 @Component
-class AuthenticationTokenValidatorImpl(
+internal class AuthenticationTokenValidatorImpl(
     private val jwtProperties: JwtProperties
 ) : AuthenticationTokenValidator {
 

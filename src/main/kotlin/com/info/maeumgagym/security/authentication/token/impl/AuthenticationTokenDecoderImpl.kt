@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component
  * @since 01-05-2024
  */
 @Component
-class AuthenticationTokenDecoderImpl(
+internal class AuthenticationTokenDecoderImpl(
     private val decrypt: Decrypt,
     private val jwtProperties: JwtProperties,
     private val objectMapper: ObjectMapper

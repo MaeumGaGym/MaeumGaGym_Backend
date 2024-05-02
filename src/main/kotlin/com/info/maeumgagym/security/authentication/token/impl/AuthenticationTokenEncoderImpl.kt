@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest
  * @since 01-05-2024
  */
 @Component
-class AuthenticationTokenEncoderImpl(
+internal class AuthenticationTokenEncoderImpl(
     private val jwtProperties: JwtProperties,
     private val encrypt: Encrypt,
     private val objectMapper: ObjectMapper
