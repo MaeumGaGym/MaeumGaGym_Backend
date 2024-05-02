@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest
 /**
  * 복호화되어 [AuthenticationToken]으로 변환된 인증용 토큰을 검증하는 클래스
  *
- * 암호화된 인증용 토큰을 [AuthenticationTokenDecoder]가 [AuthenticationToken]으로 변환하면, 이 클래스를 통해 검증한 후 VO의 정보를 사용할 것
+ * 암호화된 인증용 토큰을 [AuthenticationTokenDecoder]가 [AuthenticationToken]으로 변환하면, 이 클래스를 통해 검증한 후 객체를 사용할 것
  *
  * @see AuthenticationTokenEncoder
  * @see AuthenticationTokenDecoder
