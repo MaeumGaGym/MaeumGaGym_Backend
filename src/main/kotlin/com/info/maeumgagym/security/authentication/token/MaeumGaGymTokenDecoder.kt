@@ -1,17 +1,17 @@
 package com.info.maeumgagym.security.authentication.token
 
-import com.info.maeumgagym.security.authentication.token.vo.AuthenticationToken
+import com.info.maeumgagym.security.authentication.token.vo.MaeumGaGymToken
 
 /**
- * 문자열 형태의 암호화된 토큰을 복호화해 [AuthenticationToken] 객체로 변환
+ * 문자열 형태의 암호화된 토큰을 복호화해 [MaeumGaGymToken] 객체로 변환
  *
- * @see AuthenticationTokenEncoder
- * @see AuthenticationTokenValidator
+ * @see MaeumGaGymTokenEncoder
+ * @see MaeumGaGymTokenValidator
  *
  * @author Daybreak312
  * @since 01-05-2024
  */
-interface AuthenticationTokenDecoder {
+interface MaeumGaGymTokenDecoder {
 
     /**
      * 미리 설정된 암호화 키를 이용해 토큰 복호화
@@ -19,7 +19,7 @@ interface AuthenticationTokenDecoder {
      * @param token 암호화된 상태의 인증용 토큰. 토큰 형태에 따라 그에 해당하는 접두사 필요.
      * @return 토큰의 정보를 담은 VO
      */
-    fun decode(token: String): AuthenticationToken
+    fun decode(token: String): MaeumGaGymToken
 
     /**
      * 입력된 임의의 암호화 키를 이용해 복호화
@@ -29,5 +29,5 @@ interface AuthenticationTokenDecoder {
      *
      * @return 토큰의 정보를 담은 VO
      */
-    fun decode(token: String, key: String): AuthenticationToken
+    fun decode(token: String, key: String): MaeumGaGymToken
 }

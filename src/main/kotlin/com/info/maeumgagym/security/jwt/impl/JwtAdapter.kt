@@ -5,9 +5,9 @@ import com.info.maeumgagym.core.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.core.auth.port.out.GetJwtBodyPort
 import com.info.maeumgagym.core.auth.port.out.ReissuePort
 import com.info.maeumgagym.core.auth.port.out.RevokeTokensPort
-import com.info.maeumgagym.security.authentication.token.AuthenticationTokenDecoder
-import com.info.maeumgagym.security.authentication.token.AuthenticationTokenEncoder
-import com.info.maeumgagym.security.authentication.token.AuthenticationTokenValidator
+import com.info.maeumgagym.security.authentication.token.MaeumGaGymTokenDecoder
+import com.info.maeumgagym.security.authentication.token.MaeumGaGymTokenEncoder
+import com.info.maeumgagym.security.authentication.token.MaeumGaGymTokenValidator
 import com.info.maeumgagym.security.jwt.entity.AccessTokenRedisEntity
 import com.info.maeumgagym.security.jwt.entity.RefreshTokenRedisEntity
 import com.info.maeumgagym.security.jwt.env.JwtProperties
@@ -33,9 +33,9 @@ import java.security.PublicKey
 @Component
 class JwtAdapter(
     private val jwtProperties: JwtProperties,
-    private val authenticationTokenEncoder: AuthenticationTokenEncoder,
-    private val authenticationTokenDecoder: AuthenticationTokenDecoder,
-    private val authenticationTokenValidator: AuthenticationTokenValidator,
+    private val maeumGaGymTokenEncoder: MaeumGaGymTokenEncoder,
+    private val maeumGaGymTokenDecoder: MaeumGaGymTokenDecoder,
+    private val maeumGaGymTokenValidator: MaeumGaGymTokenValidator,
     private val refreshTokenRepository: RefreshTokenRepository,
     private val accessTokenRepository: AccessTokenRepository
 ) : GenerateJwtPort, ReissuePort, GetJwtBodyPort, RevokeTokensPort {
@@ -43,10 +43,10 @@ class JwtAdapter(
     // 모든 토큰 발급
     override fun generateTokens(subject: String): Pair<String, String> {
         // access_token 발급
-        val access = authenticationTokenEncoder.encodeAccessToken(subject,)
+        val access = maeumGaGymTokenEncoder.encodeAccessToken(subject,)
 
         // refresh_token 발급
-        val refresh = authenticationTokenEncoder.encodeRefreshToken(subject,)
+        val refresh = maeumGaGymTokenEncoder.encodeRefreshToken(subject,)
 
         // access_token cache에 저장
         // 만약 이전에 cache에 저장된 토큰이 있다 해도 id(subject)가 같으므로 update 쿼리가 나감

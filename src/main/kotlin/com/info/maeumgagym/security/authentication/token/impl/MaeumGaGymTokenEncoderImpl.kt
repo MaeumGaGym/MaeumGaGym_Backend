@@ -1,9 +1,9 @@
 package com.info.maeumgagym.security.authentication.token.impl
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.info.maeumgagym.security.authentication.token.AuthenticationTokenEncoder
-import com.info.maeumgagym.security.authentication.token.vo.AuthenticationToken
-import com.info.maeumgagym.security.authentication.token.vo.AuthenticationTokenType
+import com.info.maeumgagym.security.authentication.token.MaeumGaGymTokenEncoder
+import com.info.maeumgagym.security.authentication.token.vo.MaeumGaGymToken
+import com.info.maeumgagym.security.authentication.token.vo.MaeumGaGymTokenType
 import com.info.maeumgagym.security.cryption.Encrypt
 import com.info.maeumgagym.security.cryption.type.Cryptography
 import com.info.maeumgagym.security.jwt.env.JwtProperties
@@ -18,11 +18,11 @@ import javax.servlet.http.HttpServletRequest
  * @since 01-05-2024
  */
 @Component
-internal class AuthenticationTokenEncoderImpl(
+internal class MaeumGaGymTokenEncoderImpl(
     private val jwtProperties: JwtProperties,
     private val encrypt: Encrypt,
     private val objectMapper: ObjectMapper
-) : AuthenticationTokenEncoder {
+) : MaeumGaGymTokenEncoder {
 
     private companion object {
         const val MAEUMGAGYM_TOKEN_PREFIX = "maeumgagym"
@@ -31,12 +31,12 @@ internal class AuthenticationTokenEncoderImpl(
     override fun encodeAccessToken(subject: String, request: HttpServletRequest): String {
         val now = LocalDateTime.now()
 
-        val token = AuthenticationToken(
+        val token = MaeumGaGymToken(
             username = subject,
             ip = request.remoteAddr,
             issuedAt = now,
             expireAt = getAccessTokenExpireAt(now),
-            type = AuthenticationTokenType.ACCESS_TOKEN
+            type = MaeumGaGymTokenType.ACCESS_TOKEN
         )
 
         return appendTokenPrefix(
@@ -47,12 +47,12 @@ internal class AuthenticationTokenEncoderImpl(
     override fun encodeRefreshToken(subject: String, request: HttpServletRequest): String {
         val now = LocalDateTime.now()
 
-        val token = AuthenticationToken(
+        val token = MaeumGaGymToken(
             username = subject,
             ip = request.remoteAddr,
             issuedAt = now,
             expireAt = getRefreshTokenExpireAt(now),
-            type = AuthenticationTokenType.REFRESH_TOKEN
+            type = MaeumGaGymTokenType.REFRESH_TOKEN
         )
 
         return appendTokenPrefix(
@@ -66,7 +66,7 @@ internal class AuthenticationTokenEncoderImpl(
     private fun getRefreshTokenExpireAt(baseTime: LocalDateTime): LocalDateTime =
         baseTime.plusSeconds(jwtProperties.refreshExpiredExp)
 
-    private fun encryptToken(token: AuthenticationToken): String {
+    private fun encryptToken(token: MaeumGaGymToken): String {
         val tokenString = objectMapper.writeValueAsString(token)
 
         return encrypt.encrypt(tokenString, jwtProperties.secretKey, Cryptography.HS256)

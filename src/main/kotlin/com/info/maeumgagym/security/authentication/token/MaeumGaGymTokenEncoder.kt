@@ -5,13 +5,13 @@ import javax.servlet.http.HttpServletRequest
 /**
  * 주어진 User subject를 토큰으로 암호화
  *
- * @see AuthenticationTokenDecoder
- * @see AuthenticationTokenValidator
+ * @see MaeumGaGymTokenDecoder
+ * @see MaeumGaGymTokenValidator
  *
  * @author Daybreak312
  * @since 01-05-2024
  */
-interface AuthenticationTokenEncoder {
+interface MaeumGaGymTokenEncoder {
 
     /**
      * AccessToken으로 암호화.

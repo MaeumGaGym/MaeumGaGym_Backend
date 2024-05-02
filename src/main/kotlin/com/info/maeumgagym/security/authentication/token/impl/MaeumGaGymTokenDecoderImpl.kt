@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.common.exception.SecurityException
-import com.info.maeumgagym.security.authentication.token.AuthenticationTokenDecoder
-import com.info.maeumgagym.security.authentication.token.vo.AuthenticationToken
+import com.info.maeumgagym.security.authentication.token.MaeumGaGymTokenDecoder
+import com.info.maeumgagym.security.authentication.token.vo.MaeumGaGymToken
 import com.info.maeumgagym.security.cryption.Decrypt
 import com.info.maeumgagym.security.cryption.type.Cryptography
 import com.info.maeumgagym.security.jwt.env.JwtProperties
@@ -18,35 +18,35 @@ import org.springframework.stereotype.Component
  * @since 01-05-2024
  */
 @Component
-internal class AuthenticationTokenDecoderImpl(
+internal class MaeumGaGymTokenDecoderImpl(
     private val decrypt: Decrypt,
     private val jwtProperties: JwtProperties,
     private val objectMapper: ObjectMapper
-) : AuthenticationTokenDecoder {
+) : MaeumGaGymTokenDecoder {
 
-    override fun decode(token: String): AuthenticationToken {
+    override fun decode(token: String): MaeumGaGymToken {
         val decrypted = decrypt.decrypt(resolveTokenPrefix(token), jwtProperties.secretKey, Cryptography.HS256)
 
         return stringTokenToVO(decrypted)
     }
 
-    override fun decode(token: String, key: String): AuthenticationToken {
+    override fun decode(token: String, key: String): MaeumGaGymToken {
         val decrypted = decrypt.decrypt(resolveTokenPrefix(token), key, Cryptography.HS256)
 
         return stringTokenToVO(decrypted)
     }
 
     private fun resolveTokenPrefix(token: String): String {
-        if (!token.startsWith("${AuthenticationToken.PREFIX} ")) {
+        if (!token.startsWith("${MaeumGaGymToken.PREFIX} ")) {
             throw SecurityException.NOT_A_MAEUMGAGYM_TOKEN
         }
 
-        return token.removePrefix(AuthenticationToken.PREFIX).trim()
+        return token.removePrefix(MaeumGaGymToken.PREFIX).trim()
     }
 
-    private fun stringTokenToVO(token: String): AuthenticationToken {
+    private fun stringTokenToVO(token: String): MaeumGaGymToken {
         try {
-            return objectMapper.readValue(token, AuthenticationToken::class.java)
+            return objectMapper.readValue(token, MaeumGaGymToken::class.java)
         } catch (e: JsonProcessingException) {
             throw SecurityException.INVALID_TOKEN
         } catch (e: JsonMappingException) {
