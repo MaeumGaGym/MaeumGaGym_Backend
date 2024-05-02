@@ -19,4 +19,8 @@ data class AuthenticationToken(
     val expireAt: LocalDateTime,
     val type: AuthenticationTokenType,
     val isValid: Boolean = true
-)
+) {
+    companion object {
+        const val PREFIX: String = "maeumgagym"
+    }
+}
