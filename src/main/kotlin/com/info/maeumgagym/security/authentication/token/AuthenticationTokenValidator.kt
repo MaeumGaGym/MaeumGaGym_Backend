@@ -1,6 +1,6 @@
-package com.info.maeumgagym.security.jwt
+package com.info.maeumgagym.security.authentication.token
 
-import com.info.maeumgagym.security.jwt.vo.AuthenticationToken
+import com.info.maeumgagym.security.authentication.token.vo.AuthenticationToken
 import javax.servlet.http.HttpServletRequest
 
 /**

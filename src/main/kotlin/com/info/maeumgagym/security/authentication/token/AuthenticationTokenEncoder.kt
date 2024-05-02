@@ -1,4 +1,4 @@
-package com.info.maeumgagym.security.jwt
+package com.info.maeumgagym.security.authentication.token
 
 import javax.servlet.http.HttpServletRequest
 

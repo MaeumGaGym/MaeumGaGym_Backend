@@ -5,9 +5,9 @@ import com.info.maeumgagym.core.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.core.auth.port.out.GetJwtBodyPort
 import com.info.maeumgagym.core.auth.port.out.ReissuePort
 import com.info.maeumgagym.core.auth.port.out.RevokeTokensPort
-import com.info.maeumgagym.security.jwt.AuthenticationTokenDecoder
-import com.info.maeumgagym.security.jwt.AuthenticationTokenEncoder
-import com.info.maeumgagym.security.jwt.AuthenticationTokenValidator
+import com.info.maeumgagym.security.authentication.token.AuthenticationTokenDecoder
+import com.info.maeumgagym.security.authentication.token.AuthenticationTokenEncoder
+import com.info.maeumgagym.security.authentication.token.AuthenticationTokenValidator
 import com.info.maeumgagym.security.jwt.entity.AccessTokenRedisEntity
 import com.info.maeumgagym.security.jwt.entity.RefreshTokenRedisEntity
 import com.info.maeumgagym.security.jwt.env.JwtProperties
@@ -43,10 +43,10 @@ class JwtAdapter(
     // 모든 토큰 발급
     override fun generateTokens(subject: String): Pair<String, String> {
         // access_token 발급
-        val access = authenticationTokenEncoder.encodeAccessToken(subject)
+        val access = authenticationTokenEncoder.encodeAccessToken(subject,)
 
         // refresh_token 발급
-        val refresh = authenticationTokenEncoder.encodeRefreshToken(subject)
+        val refresh = authenticationTokenEncoder.encodeRefreshToken(subject,)
 
         // access_token cache에 저장
         // 만약 이전에 cache에 저장된 토큰이 있다 해도 id(subject)가 같으므로 update 쿼리가 나감

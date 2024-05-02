@@ -1,6 +1,6 @@
-package com.info.maeumgagym.security.jwt
+package com.info.maeumgagym.security.authentication.token
 
-import com.info.maeumgagym.security.jwt.vo.AuthenticationToken
+import com.info.maeumgagym.security.authentication.token.vo.AuthenticationToken
 
 /**
  * 문자열 형태의 암호화된 토큰을 복호화해 [AuthenticationToken] 객체로 변환

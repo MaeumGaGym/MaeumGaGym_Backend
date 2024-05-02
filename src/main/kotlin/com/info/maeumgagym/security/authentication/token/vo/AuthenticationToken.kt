@@ -1,4 +1,4 @@
-package com.info.maeumgagym.security.jwt.vo
+package com.info.maeumgagym.security.authentication.token.vo
 
 import java.time.LocalDateTime
 

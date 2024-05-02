@@ -1,18 +1,18 @@
-package com.info.maeumgagym.security.jwt.impl
+package com.info.maeumgagym.security.authentication.token.impl
 
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.common.exception.SecurityException
+import com.info.maeumgagym.security.authentication.token.AuthenticationTokenDecoder
+import com.info.maeumgagym.security.authentication.token.AuthenticationTokenEncoder
+import com.info.maeumgagym.security.authentication.token.AuthenticationTokenValidator
+import com.info.maeumgagym.security.authentication.token.vo.AuthenticationToken
+import com.info.maeumgagym.security.authentication.token.vo.AuthenticationTokenType
 import com.info.maeumgagym.security.cryption.Decrypt
 import com.info.maeumgagym.security.cryption.Encrypt
 import com.info.maeumgagym.security.cryption.type.Cryptography
-import com.info.maeumgagym.security.jwt.AuthenticationTokenDecoder
-import com.info.maeumgagym.security.jwt.AuthenticationTokenEncoder
-import com.info.maeumgagym.security.jwt.AuthenticationTokenValidator
 import com.info.maeumgagym.security.jwt.env.JwtProperties
-import com.info.maeumgagym.security.jwt.vo.AuthenticationToken
-import com.info.maeumgagym.security.jwt.vo.AuthenticationTokenType
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import javax.servlet.http.HttpServletRequest
@@ -40,10 +40,6 @@ class AuthenticationTokenManager(
     AuthenticationTokenValidator {
 
     private companion object {
-        const val HEADER_TOKEN_TYPE_NAME = "type"
-
-        const val ISSUER_MAEUMGAGYM = "maeumgagym"
-
         const val MAEUMGAGYM_TOKEN_PREFIX = "maeumgagym"
     }
 
