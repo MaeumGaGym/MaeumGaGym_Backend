@@ -1,7 +1,5 @@
 package com.info.maeumgagym.security.authentication.token
 
-import javax.servlet.http.HttpServletRequest
-
 /**
  * 주어진 User subject를 토큰으로 암호화
  *
@@ -20,7 +18,7 @@ interface MaeumGaGymTokenEncoder {
      *
      * @return 암호화된 문자열 형태의 토큰
      */
-    fun encodeAccessToken(subject: String, request: HttpServletRequest): String
+    fun encodeAccessToken(subject: String): String
 
     /**
      * RefreshToken으로 암호화.
@@ -29,5 +27,5 @@ interface MaeumGaGymTokenEncoder {
      *
      * @return 암호화된 문자열 형태의 토큰
      */
-    fun encodeRefreshToken(subject: String, request: HttpServletRequest): String
+    fun encodeRefreshToken(subject: String): String
 }

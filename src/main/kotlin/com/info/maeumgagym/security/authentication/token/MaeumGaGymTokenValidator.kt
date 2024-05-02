@@ -1,7 +1,6 @@
 package com.info.maeumgagym.security.authentication.token
 
 import com.info.maeumgagym.security.authentication.token.vo.MaeumGaGymToken
-import javax.servlet.http.HttpServletRequest
 
 /**
  * 복호화되어 [MaeumGaGymToken]으로 변환된 인증용 토큰을 검증하는 클래스
@@ -27,5 +26,5 @@ interface MaeumGaGymTokenValidator {
      *
      * @throws com.info.maeumgagym.common.exception.SecurityException 무효한 토큰일 경우
      */
-    fun validate(maeumGaGymToken: MaeumGaGymToken, request: HttpServletRequest)
+    fun validate(maeumGaGymToken: MaeumGaGymToken)
 }

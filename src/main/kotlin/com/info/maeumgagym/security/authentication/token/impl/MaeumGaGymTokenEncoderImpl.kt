@@ -1,6 +1,7 @@
 package com.info.maeumgagym.security.authentication.token.impl
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.info.maeumgagym.infrastructure.request.context.RequestContext
 import com.info.maeumgagym.security.authentication.token.MaeumGaGymTokenEncoder
 import com.info.maeumgagym.security.authentication.token.vo.MaeumGaGymToken
 import com.info.maeumgagym.security.authentication.token.vo.MaeumGaGymTokenType
@@ -9,7 +10,6 @@ import com.info.maeumgagym.security.cryption.type.Cryptography
 import com.info.maeumgagym.security.jwt.env.JwtProperties
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
-import javax.servlet.http.HttpServletRequest
 
 /**
  * Docs는 상위 타입에 존재.
@@ -19,8 +19,9 @@ import javax.servlet.http.HttpServletRequest
  */
 @Component
 internal class MaeumGaGymTokenEncoderImpl(
-    private val jwtProperties: JwtProperties,
     private val encrypt: Encrypt,
+    private val requestContext: RequestContext,
+    private val jwtProperties: JwtProperties,
     private val objectMapper: ObjectMapper
 ) : MaeumGaGymTokenEncoder {
 
@@ -28,12 +29,12 @@ internal class MaeumGaGymTokenEncoderImpl(
         const val MAEUMGAGYM_TOKEN_PREFIX = "maeumgagym"
     }
 
-    override fun encodeAccessToken(subject: String, request: HttpServletRequest): String {
+    override fun encodeAccessToken(subject: String): String {
         val now = LocalDateTime.now()
 
         val token = MaeumGaGymToken(
             username = subject,
-            ip = request.remoteAddr,
+            ip = requestContext.getCurrentRequest().remoteAddr,
             issuedAt = now,
             expireAt = getAccessTokenExpireAt(now),
             type = MaeumGaGymTokenType.ACCESS_TOKEN
@@ -44,12 +45,12 @@ internal class MaeumGaGymTokenEncoderImpl(
         )
     }
 
-    override fun encodeRefreshToken(subject: String, request: HttpServletRequest): String {
+    override fun encodeRefreshToken(subject: String): String {
         val now = LocalDateTime.now()
 
         val token = MaeumGaGymToken(
             username = subject,
-            ip = request.remoteAddr,
+            ip = requestContext.getCurrentRequest().remoteAddr,
             issuedAt = now,
             expireAt = getRefreshTokenExpireAt(now),
             type = MaeumGaGymTokenType.REFRESH_TOKEN

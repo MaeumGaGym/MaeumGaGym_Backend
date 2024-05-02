@@ -1,13 +1,13 @@
 package com.info.maeumgagym.security.authentication.token.impl
 
 import com.info.maeumgagym.common.exception.SecurityException
+import com.info.maeumgagym.infrastructure.request.context.RequestContext
 import com.info.maeumgagym.security.authentication.token.MaeumGaGymTokenValidator
 import com.info.maeumgagym.security.authentication.token.vo.MaeumGaGymToken
 import com.info.maeumgagym.security.authentication.token.vo.MaeumGaGymTokenType
 import com.info.maeumgagym.security.jwt.env.JwtProperties
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
-import javax.servlet.http.HttpServletRequest
 
 /**
  * Docs는 상위 타입에 존재.
@@ -17,10 +17,11 @@ import javax.servlet.http.HttpServletRequest
  */
 @Component
 internal class MaeumGaGymTokenValidatorImpl(
+    private val requestContext: RequestContext,
     private val jwtProperties: JwtProperties
 ) : MaeumGaGymTokenValidator {
 
-    override fun validate(maeumGaGymToken: MaeumGaGymToken, request: HttpServletRequest) {
+    override fun validate(maeumGaGymToken: MaeumGaGymToken) {
         if (!maeumGaGymToken.isValid) {
             throw SecurityException.INVALID_TOKEN
         }
@@ -43,7 +44,7 @@ internal class MaeumGaGymTokenValidatorImpl(
             throw SecurityException.EXPIRED_TOKEN
         }
 
-        if (request.remoteAddr != maeumGaGymToken.ip) {
+        if (requestContext.getCurrentRequest().remoteAddr != maeumGaGymToken.ip) {
             throw SecurityException.WRONG_USER_TOKEN
         }
     }
