@@ -27,7 +27,7 @@ import javax.validation.ConstraintViolationException
  * - Presentation 계층에서 Validation이 실패했을 경우 발생하는 예외 중 하나일 경우 [PresentationValidationException]으로 변환; 변환되는 타입 : [MethodArgumentNotValidException], [ConstraintViolationException], [MissingServletRequestParameterException]
  * - 그 외에는 그대로 변환
  *
- * 해당 *Filter*의 순서 설정 정보는 [ApplicationFilterChainConfig][com.info.maeumgagym.filter.config.ApplicationFilterChainConfig]에 존재
+ * 해당 *Filter*의 순서 설정 정보는 [ApplicationFilterChainConfig][com.info.maeumgagym.infrastructure.filter.config.ApplicationFilterChainConfig]에 존재
  *
  * @see ErrorLogResponseFilter
  *

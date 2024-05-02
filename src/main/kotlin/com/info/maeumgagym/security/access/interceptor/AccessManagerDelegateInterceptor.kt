@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 /**
- * [JwtFilter][com.info.maeumgagym.infrastructure.security.jwt.JwtFilter]에서 인가되어 온 [Authentication][com.info.maeumgagym.infrastructure.security.authentication.vo.UserModelAuthentication.user]에 존재하는 [User][com.info.maeumgagym.user.model.User]가 접근하려는 리소스에 대해 허가되어있는지 확인하기 위한 Interceptor
+ * [JwtFilter][com.info.maeumgagym.security.jwt.JwtFilter]에서 인가되어 온 [Authentication][com.info.maeumgagym.security.authentication.vo.UserModelAuthentication.user]에 존재하는 [User][com.info.maeumgagym.core.user.model.User]가 접근하려는 리소스에 대해 허가되어있는지 확인하기 위한 Interceptor
  *
  * [AccessManager]를 InterceptorChain에 삽입하기 위한 대리자 Interceptor
  *
