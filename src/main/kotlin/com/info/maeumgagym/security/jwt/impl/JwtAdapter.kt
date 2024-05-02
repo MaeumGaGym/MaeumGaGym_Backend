@@ -1,22 +1,23 @@
 package com.info.maeumgagym.security.jwt.impl
 
+import com.info.maeumgagym.common.exception.AuthenticationException
 import com.info.maeumgagym.core.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.core.auth.port.out.GetJwtBodyPort
 import com.info.maeumgagym.core.auth.port.out.ReissuePort
 import com.info.maeumgagym.core.auth.port.out.RevokeTokensPort
-import com.info.maeumgagym.common.exception.AuthenticationException
+import com.info.maeumgagym.security.jwt.AuthenticationTokenDecoder
+import com.info.maeumgagym.security.jwt.AuthenticationTokenEncoder
+import com.info.maeumgagym.security.jwt.AuthenticationTokenValidator
 import com.info.maeumgagym.security.jwt.entity.AccessTokenRedisEntity
 import com.info.maeumgagym.security.jwt.entity.RefreshTokenRedisEntity
+import com.info.maeumgagym.security.jwt.env.JwtProperties
 import com.info.maeumgagym.security.jwt.repository.AccessTokenRepository
 import com.info.maeumgagym.security.jwt.repository.RefreshTokenRepository
-import com.info.maeumgagym.security.jwt.env.JwtProperties
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.stereotype.Component
 import java.security.PublicKey
-import java.util.*
 
 /**
  * Jwt Token에 관련된 Port들의 통합 구현체.
@@ -32,6 +33,9 @@ import java.util.*
 @Component
 class JwtAdapter(
     private val jwtProperties: JwtProperties,
+    private val authenticationTokenEncoder: AuthenticationTokenEncoder,
+    private val authenticationTokenDecoder: AuthenticationTokenDecoder,
+    private val authenticationTokenValidator: AuthenticationTokenValidator,
     private val refreshTokenRepository: RefreshTokenRepository,
     private val accessTokenRepository: AccessTokenRepository
 ) : GenerateJwtPort, ReissuePort, GetJwtBodyPort, RevokeTokensPort {
@@ -39,10 +43,10 @@ class JwtAdapter(
     // 모든 토큰 발급
     override fun generateTokens(subject: String): Pair<String, String> {
         // access_token 발급
-        val access = generateAccessToken()
+        val access = authenticationTokenEncoder.encodeAccessToken(subject)
 
         // refresh_token 발급
-        val refresh = generateRefreshToken()
+        val refresh = authenticationTokenEncoder.encodeRefreshToken(subject)
 
         // access_token cache에 저장
         // 만약 이전에 cache에 저장된 토큰이 있다 해도 id(subject)가 같으므로 update 쿼리가 나감
@@ -66,34 +70,6 @@ class JwtAdapter(
 
         // tokens dto에 담아 반환
         return Pair(access, refresh)
-    }
-
-    // access_token 발급
-    private fun generateAccessToken(): String {
-        // 현재 시각
-        val now = Date()
-
-        // 토큰 발급 및 반환
-        return Jwts.builder()
-            .setHeaderParam("role", "access")
-            .setIssuedAt(now)
-            .setExpiration(Date(now.time.plus(jwtProperties.accessExpiredExp))) // exp 설정
-            .signWith(SignatureAlgorithm.HS256, jwtProperties.secretKey)
-            .compact()
-    }
-
-    // refresh_token 발급
-    private fun generateRefreshToken(): String {
-        // 현재 시각
-        val now = Date()
-
-        // 토큰 발급 및 반환
-        return Jwts.builder()
-            .setHeaderParam("role", "refresh")
-            .setIssuedAt(now)
-            .setExpiration(Date(now.time.plus(jwtProperties.refreshExpiredExp))) // exp 설정
-            .signWith(SignatureAlgorithm.HS256, jwtProperties.secretKey)
-            .compact()
     }
 
     override fun revoke(subject: String) {

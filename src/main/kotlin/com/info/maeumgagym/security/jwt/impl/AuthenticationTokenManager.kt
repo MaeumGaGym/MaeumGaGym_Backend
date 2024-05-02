@@ -1,12 +1,12 @@
 package com.info.maeumgagym.security.jwt.impl
 
 import com.info.maeumgagym.common.exception.SecurityException
-import com.info.maeumgagym.security.jwt.JwtDecoder
-import com.info.maeumgagym.security.jwt.JwtEncoder
-import com.info.maeumgagym.security.jwt.JwtValidator
+import com.info.maeumgagym.security.jwt.AuthenticationTokenDecoder
+import com.info.maeumgagym.security.jwt.AuthenticationTokenEncoder
+import com.info.maeumgagym.security.jwt.AuthenticationTokenValidator
 import com.info.maeumgagym.security.jwt.env.JwtProperties
-import com.info.maeumgagym.security.jwt.vo.Jwt
-import com.info.maeumgagym.security.jwt.vo.JwtType
+import com.info.maeumgagym.security.jwt.vo.AuthenticationToken
+import com.info.maeumgagym.security.jwt.vo.AuthenticationTokenType
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Header
 import io.jsonwebtoken.Jwts
@@ -14,12 +14,24 @@ import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.stereotype.Component
 import java.util.*
 
+/**
+ * AuthenticationToken 관련 모듈의 구현체.
+ *
+ * 각 함수는 상위 인터페이스의 Docs를 참고.
+ *
+ * @see AuthenticationTokenEncoder
+ * @see AuthenticationTokenDecoder
+ * @see AuthenticationTokenValidator
+ *
+ * @author Daybreak312
+ * @since 01-05-2024
+ */
 @Component
-class JwtManager(
+class AuthenticationTokenManager(
     private val jwtProperties: JwtProperties
-) : JwtEncoder,
-    JwtDecoder,
-    JwtValidator {
+) : AuthenticationTokenEncoder,
+    AuthenticationTokenDecoder,
+    AuthenticationTokenValidator {
 
     private companion object {
         const val HEADER_TOKEN_TYPE_NAME = "type"
@@ -31,7 +43,7 @@ class JwtManager(
 
     override fun encodeAccessToken(subject: String): String =
         Jwts.builder()
-            .setHeaderParam(HEADER_TOKEN_TYPE_NAME, JwtType.ACCESS_TOKEN.value)
+            .setHeaderParam(HEADER_TOKEN_TYPE_NAME, AuthenticationTokenType.ACCESS_TOKEN.value)
             .setIssuedAt(Date())
             .setExpiration(accessTokenExpiration())
             .setIssuer(ISSUER_MAEUMGAGYM)
@@ -40,35 +52,35 @@ class JwtManager(
 
     override fun encodeRefreshToken(subject: String): String =
         Jwts.builder()
-            .setHeaderParam(HEADER_TOKEN_TYPE_NAME, JwtType.REFRESH_TOKEN.value)
+            .setHeaderParam(HEADER_TOKEN_TYPE_NAME, AuthenticationTokenType.REFRESH_TOKEN.value)
             .setIssuedAt(Date())
             .setExpiration(refreshTokenExpiration())
             .setIssuer(ISSUER_MAEUMGAGYM)
             .signWith(ENCODE_TYPE, jwtProperties.secretKey)
             .compact()
 
-    override fun decode(jwt: String): Jwt {
+    override fun decode(token: String): AuthenticationToken {
         val parsedJwt = Jwts.parser()
             .setSigningKey(jwtProperties.secretKey)
-            .parse(resolveJwtPrefix(jwt))
+            .parse(resolveJwtPrefix(token))
 
         return parsedJwt.toJwtValue()
     }
 
-    override fun decode(jwt: String, key: String): Jwt {
+    override fun decode(token: String, key: String): AuthenticationToken {
         val parsedJwt = Jwts.parser()
             .setSigningKey(key)
-            .parse(resolveJwtPrefix(jwt))
+            .parse(resolveJwtPrefix(token))
 
         return parsedJwt.toJwtValue()
     }
 
-    override fun validate(jwt: Jwt) {
-        if (jwt.body.issuer != ISSUER_MAEUMGAGYM) {
+    override fun validate(authenticationToken: AuthenticationToken) {
+        if (authenticationToken.body.issuer != ISSUER_MAEUMGAGYM) {
             throw SecurityException.INVALID_ISSUER_TOKEN
         }
 
-        if (jwt.body.expiration.before(Date())) {
+        if (authenticationToken.body.expiration.before(Date())) {
             throw SecurityException.EXPIRED_TOKEN
         }
     }
@@ -87,9 +99,9 @@ class JwtManager(
         return jwt.substring(jwtProperties.prefix.length).trimStart()
     }
 
-    private fun io.jsonwebtoken.Jwt<Header<*>, Any>.toJwtValue() = Jwt(
+    private fun io.jsonwebtoken.Jwt<Header<*>, Any>.toJwtValue() = AuthenticationToken(
         this.header,
         this.body as Claims,
-        JwtType.of(this.header[HEADER_TOKEN_TYPE_NAME] as String)
+        AuthenticationTokenType.of(this.header[HEADER_TOKEN_TYPE_NAME] as String)
     )
 }

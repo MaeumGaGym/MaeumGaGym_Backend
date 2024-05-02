@@ -3,8 +3,8 @@ package com.info.maeumgagym.security.jwt
 /**
  * 주어진 Jwt 토큰을 검증하고 subject를 추출
  *
- * @see JwtDecoder Jwt 토큰에서 subject 추출
- * @see JwtValidator Jwt 토큰 검증 모듈
+ * @see AuthenticationTokenDecoder Jwt 토큰에서 subject 추출
+ * @see AuthenticationTokenValidator Jwt 토큰 검증 모듈
  *
  * @author Daybreak312
  * @since 20-03-2024

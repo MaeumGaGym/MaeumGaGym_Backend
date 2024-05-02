@@ -3,14 +3,14 @@ package com.info.maeumgagym.security.jwt.vo
 import com.info.maeumgagym.common.exception.CriticalException
 
 /**
- * [Jwt] 및 그 외 임의의 Jwt 토큰의 타입을 표기하기 위한 enum
+ * [AuthenticationToken] 및 그 외 임의의 토큰에서 타입을 표기하기 위한 enum
  *
- * @param value Jwt 토큰 암호화 시에 헤더에서 사용
+ * @param value 토큰 암호화 시에 토큰의 용도를 명시하기 위해 사용
  *
  * @author Daybreak312
  * @since 01-05-2024
  */
-enum class JwtType(
+enum class AuthenticationTokenType(
     val value: String
 ) {
     ACCESS_TOKEN("access"),
@@ -23,7 +23,7 @@ enum class JwtType(
 
                 REFRESH_TOKEN.value -> REFRESH_TOKEN
 
-                else -> throw CriticalException(500, "Wrong Jwt Type")
+                else -> throw CriticalException(500, "Wrong Token Type")
             }
     }
 }
