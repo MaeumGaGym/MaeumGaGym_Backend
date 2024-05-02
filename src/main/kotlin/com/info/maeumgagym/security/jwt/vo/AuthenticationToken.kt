@@ -1,7 +1,6 @@
 package com.info.maeumgagym.security.jwt.vo
 
-import io.jsonwebtoken.Claims
-import io.jsonwebtoken.Header
+import java.time.LocalDateTime
 
 /**
  * 복호화된 상태의 인증용 토큰 정보를 관리하기 위한 VO
@@ -14,7 +13,10 @@ import io.jsonwebtoken.Header
  * @since 01-05-2024
  */
 data class AuthenticationToken(
-    val header: Header<*>,
-    val body: Claims,
-    val type: AuthenticationTokenType
+    val username: String,
+    val ip: String,
+    val issuedAt: LocalDateTime,
+    val expireAt: LocalDateTime,
+    val type: AuthenticationTokenType,
+    val isValid: Boolean = true
 )

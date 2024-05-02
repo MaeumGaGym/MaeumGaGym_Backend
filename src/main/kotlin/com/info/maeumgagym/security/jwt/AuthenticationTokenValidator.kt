@@ -1,6 +1,7 @@
 package com.info.maeumgagym.security.jwt
 
 import com.info.maeumgagym.security.jwt.vo.AuthenticationToken
+import javax.servlet.http.HttpServletRequest
 
 /**
  * 복호화되어 [AuthenticationToken]으로 변환된 인증용 토큰을 검증하는 클래스
@@ -26,5 +27,5 @@ interface AuthenticationTokenValidator {
      *
      * @throws com.info.maeumgagym.common.exception.SecurityException 무효한 토큰일 경우
      */
-    fun validate(authenticationToken: AuthenticationToken)
+    fun validate(authenticationToken: AuthenticationToken, request: HttpServletRequest)
 }

@@ -1,18 +1,21 @@
 package com.info.maeumgagym.security.jwt.impl
 
+import com.fasterxml.jackson.core.JsonProcessingException
+import com.fasterxml.jackson.databind.JsonMappingException
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.common.exception.SecurityException
+import com.info.maeumgagym.security.cryption.Decrypt
+import com.info.maeumgagym.security.cryption.Encrypt
+import com.info.maeumgagym.security.cryption.type.Cryptography
 import com.info.maeumgagym.security.jwt.AuthenticationTokenDecoder
 import com.info.maeumgagym.security.jwt.AuthenticationTokenEncoder
 import com.info.maeumgagym.security.jwt.AuthenticationTokenValidator
 import com.info.maeumgagym.security.jwt.env.JwtProperties
 import com.info.maeumgagym.security.jwt.vo.AuthenticationToken
 import com.info.maeumgagym.security.jwt.vo.AuthenticationTokenType
-import io.jsonwebtoken.Claims
-import io.jsonwebtoken.Header
-import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.stereotype.Component
-import java.util.*
+import java.time.LocalDateTime
+import javax.servlet.http.HttpServletRequest
 
 /**
  * AuthenticationToken 관련 모듈의 구현체.
@@ -28,7 +31,10 @@ import java.util.*
  */
 @Component
 class AuthenticationTokenManager(
-    private val jwtProperties: JwtProperties
+    private val jwtProperties: JwtProperties,
+    private val encrypt: Encrypt,
+    private val decrypt: Decrypt,
+    private val objectMapper: ObjectMapper
 ) : AuthenticationTokenEncoder,
     AuthenticationTokenDecoder,
     AuthenticationTokenValidator {
@@ -38,70 +44,111 @@ class AuthenticationTokenManager(
 
         const val ISSUER_MAEUMGAGYM = "maeumgagym"
 
-        val ENCODE_TYPE = SignatureAlgorithm.HS256
+        const val MAEUMGAGYM_TOKEN_PREFIX = "maeumgagym"
     }
 
-    override fun encodeAccessToken(subject: String): String =
-        Jwts.builder()
-            .setHeaderParam(HEADER_TOKEN_TYPE_NAME, AuthenticationTokenType.ACCESS_TOKEN.value)
-            .setIssuedAt(Date())
-            .setExpiration(accessTokenExpiration())
-            .setIssuer(ISSUER_MAEUMGAGYM)
-            .signWith(ENCODE_TYPE, jwtProperties.secretKey)
-            .compact()
+    override fun encodeAccessToken(subject: String, request: HttpServletRequest): String {
+        val now = LocalDateTime.now()
 
-    override fun encodeRefreshToken(subject: String): String =
-        Jwts.builder()
-            .setHeaderParam(HEADER_TOKEN_TYPE_NAME, AuthenticationTokenType.REFRESH_TOKEN.value)
-            .setIssuedAt(Date())
-            .setExpiration(refreshTokenExpiration())
-            .setIssuer(ISSUER_MAEUMGAGYM)
-            .signWith(ENCODE_TYPE, jwtProperties.secretKey)
-            .compact()
+        val token = AuthenticationToken(
+            username = subject,
+            ip = request.remoteAddr,
+            issuedAt = now,
+            expireAt = getAccessTokenExpireAt(now),
+            type = AuthenticationTokenType.ACCESS_TOKEN
+        )
+
+        return appendTokenPrefix(
+            encryptToken(token)
+        )
+    }
+
+    override fun encodeRefreshToken(subject: String, request: HttpServletRequest): String {
+        val now = LocalDateTime.now()
+
+        val token = AuthenticationToken(
+            username = subject,
+            ip = request.remoteAddr,
+            issuedAt = now,
+            expireAt = getRefreshTokenExpireAt(now),
+            type = AuthenticationTokenType.REFRESH_TOKEN
+        )
+
+        return appendTokenPrefix(
+            encryptToken(token)
+        )
+    }
+
+    private fun getAccessTokenExpireAt(baseTime: LocalDateTime): LocalDateTime =
+        baseTime.plusSeconds(jwtProperties.accessExpiredExp)
+
+    private fun getRefreshTokenExpireAt(baseTime: LocalDateTime): LocalDateTime =
+        baseTime.plusSeconds(jwtProperties.refreshExpiredExp)
+
+    private fun encryptToken(token: AuthenticationToken): String {
+        val tokenString = objectMapper.writeValueAsString(token)
+
+        return encrypt.encrypt(tokenString, jwtProperties.secretKey, Cryptography.HS256)
+    }
+
+    private fun appendTokenPrefix(token: String) =
+        "$MAEUMGAGYM_TOKEN_PREFIX $token"
 
     override fun decode(token: String): AuthenticationToken {
-        val parsedJwt = Jwts.parser()
-            .setSigningKey(jwtProperties.secretKey)
-            .parse(resolveJwtPrefix(token))
+        val decrypted = decrypt.decrypt(resolveTokenPrefix(token), jwtProperties.secretKey, Cryptography.HS256)
 
-        return parsedJwt.toJwtValue()
+        return stringTokenToVO(decrypted)
     }
 
     override fun decode(token: String, key: String): AuthenticationToken {
-        val parsedJwt = Jwts.parser()
-            .setSigningKey(key)
-            .parse(resolveJwtPrefix(token))
+        val decrypted = decrypt.decrypt(resolveTokenPrefix(token), key, Cryptography.HS256)
 
-        return parsedJwt.toJwtValue()
+        return stringTokenToVO(decrypted)
     }
 
-    override fun validate(authenticationToken: AuthenticationToken) {
-        if (authenticationToken.body.issuer != ISSUER_MAEUMGAGYM) {
-            throw SecurityException.INVALID_ISSUER_TOKEN
+    private fun resolveTokenPrefix(token: String): String {
+        if (!token.startsWith("$MAEUMGAGYM_TOKEN_PREFIX ")) {
+            throw SecurityException.NOT_A_MAEUMGAGYM_TOKEN
         }
 
-        if (authenticationToken.body.expiration.before(Date())) {
+        return token.removePrefix(MAEUMGAGYM_TOKEN_PREFIX).trim()
+    }
+
+    private fun stringTokenToVO(token: String): AuthenticationToken {
+        try {
+            return objectMapper.readValue(token, AuthenticationToken::class.java)
+        } catch (e: JsonProcessingException) {
+            throw SecurityException.INVALID_TOKEN
+        } catch (e: JsonMappingException) {
+            throw SecurityException.INVALID_TOKEN
+        }
+    }
+
+    override fun validate(authenticationToken: AuthenticationToken, request: HttpServletRequest) {
+        if (!authenticationToken.isValid) {
+            throw SecurityException.INVALID_TOKEN
+        }
+
+        when (authenticationToken.type) {
+            AuthenticationTokenType.ACCESS_TOKEN -> {
+                if (authenticationToken.expireAt != getAccessTokenExpireAt(authenticationToken.issuedAt)) {
+                    throw SecurityException.INVALID_TOKEN
+                }
+            }
+
+            AuthenticationTokenType.REFRESH_TOKEN -> {
+                if (authenticationToken.expireAt != getRefreshTokenExpireAt(authenticationToken.issuedAt)) {
+                    throw SecurityException.INVALID_TOKEN
+                }
+            }
+        }
+
+        if (authenticationToken.expireAt.isBefore(LocalDateTime.now())) {
             throw SecurityException.EXPIRED_TOKEN
         }
-    }
 
-    private fun accessTokenExpiration(): Date =
-        Date(Date().time + jwtProperties.accessExpiredExp)
-
-    private fun refreshTokenExpiration(): Date =
-        Date(Date().time + jwtProperties.refreshExpiredExp)
-
-    private fun resolveJwtPrefix(jwt: String): String {
-        if (!jwt.startsWith(jwtProperties.prefix)) {
-            throw SecurityException.NOT_JWT_TOKEN
+        if (request.remoteAddr != authenticationToken.ip) {
+            throw SecurityException.WRONG_USER_TOKEN
         }
-
-        return jwt.substring(jwtProperties.prefix.length).trimStart()
     }
-
-    private fun io.jsonwebtoken.Jwt<Header<*>, Any>.toJwtValue() = AuthenticationToken(
-        this.header,
-        this.body as Claims,
-        AuthenticationTokenType.of(this.header[HEADER_TOKEN_TYPE_NAME] as String)
-    )
 }

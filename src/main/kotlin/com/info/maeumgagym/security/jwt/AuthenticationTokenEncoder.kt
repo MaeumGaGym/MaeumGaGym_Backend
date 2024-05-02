@@ -1,5 +1,7 @@
 package com.info.maeumgagym.security.jwt
 
+import javax.servlet.http.HttpServletRequest
+
 /**
  * 주어진 User subject를 토큰으로 암호화
  *
@@ -18,7 +20,7 @@ interface AuthenticationTokenEncoder {
      *
      * @return 암호화된 문자열 형태의 토큰
      */
-    fun encodeAccessToken(subject: String): String
+    fun encodeAccessToken(subject: String, request: HttpServletRequest): String
 
     /**
      * RefreshToken으로 암호화.
@@ -27,5 +29,5 @@ interface AuthenticationTokenEncoder {
      *
      * @return 암호화된 문자열 형태의 토큰
      */
-    fun encodeRefreshToken(subject: String): String
+    fun encodeRefreshToken(subject: String, request: HttpServletRequest): String
 }
