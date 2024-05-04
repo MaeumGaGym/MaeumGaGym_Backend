@@ -21,7 +21,7 @@ import java.time.LocalDateTime
 internal class MaeumgagymTokenEncoderImpl(
     private val encrypt: Encrypt,
     private val requestContext: RequestContext,
-    private val MaeumgagymTokenProperties: MaeumgagymTokenProperties,
+    private val maeumgagymTokenProperties: MaeumgagymTokenProperties,
     private val objectMapper: ObjectMapper
 ) : MaeumgagymTokenEncoder {
 
@@ -62,15 +62,15 @@ internal class MaeumgagymTokenEncoderImpl(
     }
 
     private fun getAccessTokenExpireAt(baseTime: LocalDateTime): LocalDateTime =
-        baseTime.plusSeconds(MaeumgagymTokenProperties.accessExpiredExp)
+        baseTime.plusSeconds(maeumgagymTokenProperties.accessExpiredExp)
 
     private fun getRefreshTokenExpireAt(baseTime: LocalDateTime): LocalDateTime =
-        baseTime.plusSeconds(MaeumgagymTokenProperties.refreshExpiredExp)
+        baseTime.plusSeconds(maeumgagymTokenProperties.refreshExpiredExp)
 
     private fun encryptToken(token: MaeumgagymToken): String {
         val tokenString = objectMapper.writeValueAsString(token)
 
-        return encrypt.encrypt(tokenString, MaeumgagymTokenProperties.secretKey, Cryptography.HS256)
+        return encrypt.encrypt(tokenString, maeumgagymTokenProperties.secretKey, Cryptography.HS256)
     }
 
     private fun appendTokenPrefix(token: String) =

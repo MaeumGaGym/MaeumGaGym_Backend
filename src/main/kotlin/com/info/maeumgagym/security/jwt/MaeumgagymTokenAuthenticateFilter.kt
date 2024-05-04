@@ -12,14 +12,12 @@ import javax.servlet.http.HttpServletResponse
 /**
  * 서버의 커스텀 인증 Filter.
  *
- * 헤더를 통해 전해진 AccessToken의 유효성을 검증하고, 이에 따른 인가 작업을 진행
+ * 헤더를 통해 전해진 AccessToken의 유효성을 검증
  *
- * Request의 [Role][com.info.maeumgagym.core.user.model.Role] 인증 필요 여부에 따라 [User][com.info.maeumgagym.core.user.model.User]를 이 곳에서 미리 불러오거나, 이후 비즈니스 로직 실행 도중 [User][com.info.maeumgagym.core.user.model.User] 정보가 필요하다면 [ReadCurrentUserPort][com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort]에서 Lazy Loading
- *
- * @author Daybreak312, kanghyuk
+ * @author Daybreak312
  */
-class JwtAuthenticateFilter(
-    private val jwtResolver: JwtResolver,
+class MaeumgagymTokenAuthenticateFilter(
+    private val maeumgagymTokenResolver: MaeumgagymTokenResolver,
     private val authenticationProvider: UserModelAuthenticationProvider
 ) : OncePerRequestFilter() {
 
@@ -33,7 +31,7 @@ class JwtAuthenticateFilter(
 
         if (header != null) {
             // 토큰이 유효한지 확인, 유효하다면 ->
-            jwtResolver(header)?.let {
+            maeumgagymTokenResolver(header)?.let {
                 // security context holder에 Authentication 저장
                 SecurityContextHolder.getContext().authentication =
                     if (needRole(request)) { // Role 인증이 필요하다면 User Loading

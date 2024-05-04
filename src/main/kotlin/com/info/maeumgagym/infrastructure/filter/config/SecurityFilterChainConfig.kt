@@ -4,12 +4,13 @@ import com.info.maeumgagym.infrastructure.error.filter.ErrorLogResponseFilter
 import com.info.maeumgagym.infrastructure.error.filter.ExceptionConvertFilter
 import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChain
 import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChainProxy
+import com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository
 import com.info.maeumgagym.infrastructure.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.infrastructure.response.writer.ErrorLogHttpServletResponseWriter
 import com.info.maeumgagym.security.authentication.provider.UserModelAuthenticationProvider
-import com.info.maeumgagym.security.jwt.JwtAuthenticateFilter
-import com.info.maeumgagym.security.jwt.JwtResolver
-import com.info.maeumgagym.security.jwt.env.JwtProperties
+import com.info.maeumgagym.security.jwt.MaeumgagymTokenAuthenticateFilter
+import com.info.maeumgagym.security.jwt.MaeumgagymTokenResolver
+import com.info.maeumgagym.security.jwt.env.MaeumgagymTokenProperties
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.DefaultSecurityFilterChain
@@ -27,16 +28,16 @@ import org.springframework.stereotype.Component
  */
 @Component
 class SecurityFilterChainConfig(
-    private val jwtResolver: JwtResolver,
-    private val jwtProperties: JwtProperties,
+    private val maeumgagymTokenResolver: MaeumgagymTokenResolver,
+    private val maeumgagymTokenProperties: MaeumgagymTokenProperties,
     private val authenticationProvider: UserModelAuthenticationProvider,
     private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
     private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter,
-    private val exceptionRepository: com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository
+    private val exceptionRepository: ExceptionRepository
 ) : SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
 
     /**
-     * [ErrorLogResponseFilter] -> [ExceptionConvertFilter] -> [SecurityContextHolderFilter] -> [JwtAuthenticateFilter] -> [LogoutFilter] -> ...
+     * [ErrorLogResponseFilter] -> [ExceptionConvertFilter] -> [SecurityContextHolderFilter] -> [MaeumgagymTokenAuthenticateFilter] -> [LogoutFilter] -> ...
      *
      * @author Daybreak312
      * @since 12-03-2024
@@ -44,7 +45,10 @@ class SecurityFilterChainConfig(
     override fun configure(builder: HttpSecurity) {
         builder.run {
             addFilterBefore(
-                JwtAuthenticateFilter(jwtResolver, authenticationProvider, jwtProperties),
+                MaeumgagymTokenAuthenticateFilter(
+                    maeumgagymTokenResolver,
+                    authenticationProvider
+                ),
                 LogoutFilter::class.java
             )
             addFilterBefore(

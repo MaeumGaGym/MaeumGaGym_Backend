@@ -3,7 +3,7 @@ spring:
         activate:
             on-profile: jwt
 
-jwt:
+mg-token:
     secret-key: ${JWT_SECRET_KEY:maeumgaGym$ecret|<ey#%!&}
     access-expired-exp: ${JWT_ACCESS_EXP:7200000}
     refresh-expired-exp: ${JWT_REFRESH_EXP:604800000}

@@ -20,12 +20,12 @@ import org.springframework.stereotype.Component
 @Component
 internal class MaeumgagymTokenDecoderImpl(
     private val decrypt: Decrypt,
-    private val MaeumgagymTokenProperties: MaeumgagymTokenProperties,
+    private val maeumgagymTokenProperties: MaeumgagymTokenProperties,
     private val objectMapper: ObjectMapper
 ) : MaeumgagymTokenDecoder {
 
     override fun decode(token: String): MaeumgagymToken {
-        val decrypted = decrypt.decrypt(resolveTokenPrefix(token), MaeumgagymTokenProperties.secretKey, Cryptography.HS256)
+        val decrypted = decrypt.decrypt(resolveTokenPrefix(token), maeumgagymTokenProperties.secretKey, Cryptography.HS256)
 
         return stringTokenToVO(decrypted)
     }

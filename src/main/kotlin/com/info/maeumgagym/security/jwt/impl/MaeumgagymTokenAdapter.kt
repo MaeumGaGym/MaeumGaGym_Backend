@@ -2,23 +2,18 @@ package com.info.maeumgagym.security.jwt.impl
 
 import com.info.maeumgagym.common.exception.AuthenticationException
 import com.info.maeumgagym.core.auth.port.out.GenerateJwtPort
-import com.info.maeumgagym.core.auth.port.out.GetJwtBodyPort
 import com.info.maeumgagym.core.auth.port.out.ReissuePort
 import com.info.maeumgagym.core.auth.port.out.RevokeTokensPort
-import com.info.maeumgagym.security.authentication.token.MaeumGaGymTokenEncoder
+import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenEncoder
 import com.info.maeumgagym.security.jwt.entity.AccessTokenRedisEntity
 import com.info.maeumgagym.security.jwt.entity.RefreshTokenRedisEntity
-import com.info.maeumgagym.security.jwt.env.JwtProperties
+import com.info.maeumgagym.security.jwt.env.MaeumgagymTokenProperties
 import com.info.maeumgagym.security.jwt.repository.AccessTokenRepository
 import com.info.maeumgagym.security.jwt.repository.RefreshTokenRepository
-import io.jsonwebtoken.Claims
-import io.jsonwebtoken.ExpiredJwtException
-import io.jsonwebtoken.Jwts
 import org.springframework.stereotype.Component
-import java.security.PublicKey
 
 /**
- * Jwt Token에 관련된 Port들의 통합 구현체.
+ * Maeumgagym Token에 관련된 Port들의 구현체.
  *
  * @see GenerateJwtPort
  * @see ReissuePort
@@ -29,20 +24,20 @@ import java.security.PublicKey
  * @since 추상화 : 28-12-2023
  */
 @Component
-class JwtAdapter(
-    private val jwtProperties: JwtProperties,
-    private val maeumGaGymTokenEncoder: MaeumGaGymTokenEncoder,
+class MaeumgagymTokenAdapter(
+    private val maeumgagymTokenProperties: MaeumgagymTokenProperties,
+    private val maeumgagymTokenEncoder: MaeumgagymTokenEncoder,
     private val refreshTokenRepository: RefreshTokenRepository,
     private val accessTokenRepository: AccessTokenRepository
-) : GenerateJwtPort, ReissuePort, GetJwtBodyPort, RevokeTokensPort {
+) : GenerateJwtPort, ReissuePort, RevokeTokensPort {
 
     // 모든 토큰 발급
     override fun generateTokens(subject: String): Pair<String, String> {
         // access_token 발급
-        val access = maeumGaGymTokenEncoder.encodeAccessToken(subject)
+        val access = maeumgagymTokenEncoder.encodeAccessToken(subject)
 
         // refresh_token 발급
-        val refresh = maeumGaGymTokenEncoder.encodeRefreshToken(subject)
+        val refresh = maeumgagymTokenEncoder.encodeRefreshToken(subject)
 
         // access_token cache에 저장
         // 만약 이전에 cache에 저장된 토큰이 있다 해도 id(subject)가 같으므로 update 쿼리가 나감
@@ -50,7 +45,7 @@ class JwtAdapter(
             AccessTokenRedisEntity(
                 subject = subject,
                 accessToken = access,
-                ttl = jwtProperties.accessExpiredExp
+                ttl = maeumgagymTokenProperties.accessExpiredExp
             )
         )
 
@@ -60,7 +55,7 @@ class JwtAdapter(
             RefreshTokenRedisEntity(
                 subject = subject,
                 rfToken = refresh,
-                ttl = jwtProperties.refreshExpiredExp
+                ttl = maeumgagymTokenProperties.refreshExpiredExp
             )
         )
 
@@ -82,16 +77,4 @@ class JwtAdapter(
         // 토큰 재발급 및 반환
         return generateTokens(rfToken.subject)
     }
-
-    // Apple id_token parsing 함수
-    override fun getJwtBody(token: String, publicKey: PublicKey): Claims =
-        try {
-            // body 불러오기
-            Jwts.parser().setSigningKey(publicKey).parseClaimsJws(token).body
-        } catch (e: Exception) {
-            when (e) {
-                is ExpiredJwtException -> throw AuthenticationException.EXPIRED_TOKEN
-                else -> throw AuthenticationException.INVALID_TOKEN
-            }
-        }
 }

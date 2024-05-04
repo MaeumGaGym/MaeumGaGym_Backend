@@ -4,8 +4,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
 
 @ConstructorBinding
-@ConfigurationProperties("jwt")
-data class JwtProperties(
+@ConfigurationProperties("mg-token")
+data class MaeumgagymTokenProperties(
     val secretKey: String,
     val accessExpiredExp: Long,
     val refreshExpiredExp: Long,

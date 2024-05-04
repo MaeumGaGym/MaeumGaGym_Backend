@@ -18,7 +18,7 @@ import java.time.LocalDateTime
 @Component
 internal class MaeumgagymTokenValidatorImpl(
     private val requestContext: RequestContext,
-    private val MaeumgagymTokenProperties: MaeumgagymTokenProperties
+    private val maeumgagymTokenProperties: MaeumgagymTokenProperties
 ) : MaeumgagymTokenValidator {
 
     override fun validate(maeumGaGymToken: MaeumgagymToken) {
@@ -50,8 +50,8 @@ internal class MaeumgagymTokenValidatorImpl(
     }
 
     private fun getAccessTokenExpireAt(baseTime: LocalDateTime): LocalDateTime =
-        baseTime.plusSeconds(MaeumgagymTokenProperties.accessExpiredExp)
+        baseTime.plusSeconds(maeumgagymTokenProperties.accessExpiredExp)
 
     private fun getRefreshTokenExpireAt(baseTime: LocalDateTime): LocalDateTime =
-        baseTime.plusSeconds(MaeumgagymTokenProperties.refreshExpiredExp)
+        baseTime.plusSeconds(maeumgagymTokenProperties.refreshExpiredExp)
 }
