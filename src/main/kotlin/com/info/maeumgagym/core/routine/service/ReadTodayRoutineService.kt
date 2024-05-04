@@ -19,7 +19,8 @@ class ReadTodayRoutineService(
         val user = readCurrentUserPort.readCurrentUser()
 
         val routines = readRoutinePort.readByUserIdAndDayOfWeekAndIsArchivedFalse(
-            user.id!!, LocalDate.now().dayOfWeek
+            user.id!!,
+            LocalDate.now().dayOfWeek
         )
 
         if (routines.isEmpty()) {
