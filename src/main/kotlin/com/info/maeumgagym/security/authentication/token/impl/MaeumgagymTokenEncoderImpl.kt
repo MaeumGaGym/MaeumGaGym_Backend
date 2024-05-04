@@ -10,6 +10,7 @@ import com.info.maeumgagym.security.cryption.type.Cryptography
 import com.info.maeumgagym.security.jwt.env.MaeumgagymTokenProperties
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
+import java.util.*
 
 /**
  * Docs는 상위 타입에 존재.
@@ -37,7 +38,8 @@ internal class MaeumgagymTokenEncoderImpl(
             ip = requestContext.getCurrentRequest().remoteAddr,
             issuedAt = now,
             expireAt = getAccessTokenExpireAt(now),
-            type = MaeumgagymTokenType.ACCESS_TOKEN
+            type = MaeumgagymTokenType.ACCESS_TOKEN,
+            tokenId = UUID.randomUUID().toString()
         )
 
         return appendTokenPrefix(
@@ -53,7 +55,8 @@ internal class MaeumgagymTokenEncoderImpl(
             ip = requestContext.getCurrentRequest().remoteAddr,
             issuedAt = now,
             expireAt = getRefreshTokenExpireAt(now),
-            type = MaeumgagymTokenType.REFRESH_TOKEN
+            type = MaeumgagymTokenType.REFRESH_TOKEN,
+            tokenId = UUID.randomUUID().toString()
         )
 
         return appendTokenPrefix(
