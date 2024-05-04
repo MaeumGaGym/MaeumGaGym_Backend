@@ -1,15 +1,14 @@
 package com.info.maeumgagym.security.jwt.impl
 
-import com.info.maeumgagym.common.exception.AuthenticationException
+import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.core.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.core.auth.port.out.ReissuePort
 import com.info.maeumgagym.core.auth.port.out.RevokeTokensPort
+import com.info.maeumgagym.infrastructure.request.context.RequestContext
+import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenDecoder
 import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenEncoder
-import com.info.maeumgagym.security.jwt.entity.AccessTokenRedisEntity
-import com.info.maeumgagym.security.jwt.entity.RefreshTokenRedisEntity
-import com.info.maeumgagym.security.jwt.env.MaeumgagymTokenProperties
-import com.info.maeumgagym.security.jwt.repository.AccessTokenRepository
-import com.info.maeumgagym.security.jwt.repository.RefreshTokenRepository
+import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenRevoker
+import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenValidator
 import org.springframework.stereotype.Component
 
 /**
@@ -25,10 +24,11 @@ import org.springframework.stereotype.Component
  */
 @Component
 class MaeumgagymTokenAdapter(
-    private val maeumgagymTokenProperties: MaeumgagymTokenProperties,
     private val maeumgagymTokenEncoder: MaeumgagymTokenEncoder,
-    private val refreshTokenRepository: RefreshTokenRepository,
-    private val accessTokenRepository: AccessTokenRepository
+    private val maeumgagymTokenDecoder: MaeumgagymTokenDecoder,
+    private val maeumgagymTokenValidator: MaeumgagymTokenValidator,
+    private val maeumgagymTokenRevoker: MaeumgagymTokenRevoker,
+    private val requestContext: RequestContext
 ) : GenerateJwtPort, ReissuePort, RevokeTokensPort {
 
     // 모든 토큰 발급
@@ -39,42 +39,27 @@ class MaeumgagymTokenAdapter(
         // refresh_token 발급
         val refresh = maeumgagymTokenEncoder.encodeRefreshToken(subject)
 
-        // access_token cache에 저장
-        // 만약 이전에 cache에 저장된 토큰이 있다 해도 id(subject)가 같으므로 update 쿼리가 나감
-        accessTokenRepository.save(
-            AccessTokenRedisEntity(
-                subject = subject,
-                accessToken = access,
-                ttl = maeumgagymTokenProperties.accessExpiredExp
-            )
-        )
-
-        // refresh_token cache에 저장
-        // 만약 이전에 cache에 저장된 토큰이 있다 해도 id(subject)가 같으므로 update 쿼리가 나감
-        refreshTokenRepository.save(
-            RefreshTokenRedisEntity(
-                subject = subject,
-                rfToken = refresh,
-                ttl = maeumgagymTokenProperties.refreshExpiredExp
-            )
-        )
-
         // tokens dto에 담아 반환
         return Pair(access, refresh)
     }
 
-    override fun revoke(subject: String) {
-        accessTokenRepository.deleteById(subject)
-        refreshTokenRepository.deleteById(subject)
+    override fun revoke() {
+        val token = requestContext.getCurrentToken()
+            ?: throw CriticalException(500, "Token is NULL In Revoke(Only Authenticated Can Access)")
+
+        maeumgagymTokenRevoker.revoke(token)
     }
 
     // 토큰 재발급
     override fun reissue(refreshToken: String): Pair<String, String> {
         // refresh_token을 redis에서 불러오기
-        val rfToken = refreshTokenRepository.findByRfToken(refreshToken)
-            ?: throw AuthenticationException.INVALID_TOKEN
+        val decodedToken = maeumgagymTokenDecoder.decode(refreshToken)
+
+        maeumgagymTokenValidator.validate(decodedToken)
+
+        revoke()
 
         // 토큰 재발급 및 반환
-        return generateTokens(rfToken.subject)
+        return generateTokens(decodedToken.username)
     }
 }

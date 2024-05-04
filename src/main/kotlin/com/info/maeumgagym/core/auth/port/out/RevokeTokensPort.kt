@@ -1,19 +1,16 @@
 package com.info.maeumgagym.core.auth.port.out
 
 /**
- * 유저의 특정 식별 값을 바탕으로 발급된 Access Token과 Refresh Token을 무효화
+ * 현재 요청의 토큰을 무효화
  *
  * @see GenerateJwtPort
  * @see ReissuePort
  *
- * @author gurdl0525
+ * @author Daybreak312
  * @since 20-11-2023
  * @since 추상화 : 04-12-2023
  */
 interface RevokeTokensPort {
 
-    /**
-     * @param subject 유저의 식별 값, 기본적으로 [User.oauthId][com.info.maeumgagym.core.user.model.User.oauthId]를 사용
-     */
-    fun revoke(subject: String)
+    fun revoke()
 }

@@ -28,6 +28,6 @@ class CustomLogoutHandler(
         authentication: Authentication
     ) {
         val user = readCurrentUserPort.readCurrentUser()
-        revokeTokensPort.revoke(user.oauthId)
+        revokeTokensPort.revoke()
     }
 }

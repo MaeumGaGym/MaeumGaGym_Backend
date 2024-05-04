@@ -3,6 +3,7 @@ package com.info.maeumgagym.security.authentication.token.impl
 import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.infrastructure.request.context.RequestContext
 import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenValidator
+import com.info.maeumgagym.security.authentication.token.revoked.RevokedMGTokenContext
 import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymToken
 import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymTokenType
 import com.info.maeumgagym.security.jwt.env.MaeumgagymTokenProperties
@@ -17,12 +18,13 @@ import java.time.LocalDateTime
  */
 @Component
 internal class MaeumgagymTokenValidatorImpl(
+    private val revokedMGTokenContext: RevokedMGTokenContext,
     private val requestContext: RequestContext,
     private val maeumgagymTokenProperties: MaeumgagymTokenProperties
 ) : MaeumgagymTokenValidator {
 
     override fun validate(maeumGaGymToken: MaeumgagymToken) {
-        if (!maeumGaGymToken.isValid) {
+        if (revokedMGTokenContext.checkRevoked(maeumGaGymToken.tokenId)) {
             throw SecurityException.INVALID_TOKEN
         }
 
