@@ -1,7 +1,5 @@
 package com.info.maeumgagym.infrastructure.config.interceptor
 
-import com.info.maeumgagym.infrastructure.request.context.RequestContext
-import com.info.maeumgagym.infrastructure.request.interceptor.RequestContextInterceptor
 import com.info.maeumgagym.infrastructure.response.locationheader.LocationHeaderInterceptor
 import com.info.maeumgagym.presentation.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.security.access.interceptor.AccessManagerDelegateInterceptor
@@ -13,8 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 @Configuration
 class InterceptorChainConfig(
     private val locationHeaderManager: LocationHeaderManager,
-    private val accessManager: AccessManager,
-    private val requestContext: RequestContext
+    private val accessManager: AccessManager
 ) : WebMvcConfigurer {
 
     override fun addInterceptors(registry: InterceptorRegistry) {
@@ -27,12 +24,6 @@ class InterceptorChainConfig(
         registry.addInterceptor(
             AccessManagerDelegateInterceptor(
                 accessManager
-            )
-        ).addPathPatterns("/**")
-
-        registry.addInterceptor(
-            RequestContextInterceptor(
-                requestContext
             )
         ).addPathPatterns("/**")
     }

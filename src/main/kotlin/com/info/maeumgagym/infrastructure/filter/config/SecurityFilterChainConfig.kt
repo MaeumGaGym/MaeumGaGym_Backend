@@ -2,15 +2,9 @@ package com.info.maeumgagym.infrastructure.filter.config
 
 import com.info.maeumgagym.infrastructure.error.filter.ErrorLogResponseFilter
 import com.info.maeumgagym.infrastructure.error.filter.ExceptionConvertFilter
-import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChain
-import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChainProxy
-import com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository
-import com.info.maeumgagym.infrastructure.response.writer.DefaultHttpServletResponseWriter
-import com.info.maeumgagym.infrastructure.response.writer.ErrorLogHttpServletResponseWriter
 import com.info.maeumgagym.security.authentication.provider.UserModelAuthenticationProvider
 import com.info.maeumgagym.security.jwt.MaeumgagymTokenAuthenticateFilter
 import com.info.maeumgagym.security.jwt.MaeumgagymTokenResolver
-import com.info.maeumgagym.security.jwt.env.MaeumgagymTokenProperties
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.DefaultSecurityFilterChain
@@ -29,11 +23,7 @@ import org.springframework.stereotype.Component
 @Component
 class SecurityFilterChainConfig(
     private val maeumgagymTokenResolver: MaeumgagymTokenResolver,
-    private val maeumgagymTokenProperties: MaeumgagymTokenProperties,
-    private val authenticationProvider: UserModelAuthenticationProvider,
-    private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
-    private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter,
-    private val exceptionRepository: ExceptionRepository
+    private val authenticationProvider: UserModelAuthenticationProvider
 ) : SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
 
     /**
@@ -50,28 +40,6 @@ class SecurityFilterChainConfig(
                     authenticationProvider
                 ),
                 LogoutFilter::class.java
-            )
-            addFilterBefore(
-                ExceptionChainedFilterChainProxy(
-                    ExceptionChainedFilterChain(
-                        mapOf(
-                            Pair(
-                                ErrorLogResponseFilter::class.simpleName!!,
-                                ErrorLogResponseFilter(
-                                    defaultHttpServletResponseWriter,
-                                    errorLogHttpServletResponseWriter
-                                )
-                            ),
-                            Pair(
-                                ExceptionConvertFilter::class.simpleName!!,
-                                ExceptionConvertFilter(
-                                    exceptionRepository
-                                )
-                            )
-                        )
-                    )
-                ),
-                SecurityContextHolderFilter::class.java
             )
         }
     }
