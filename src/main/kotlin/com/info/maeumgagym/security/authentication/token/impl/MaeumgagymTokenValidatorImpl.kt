@@ -2,10 +2,10 @@ package com.info.maeumgagym.security.authentication.token.impl
 
 import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.infrastructure.request.context.RequestContext
-import com.info.maeumgagym.security.authentication.token.MaeumGaGymTokenValidator
-import com.info.maeumgagym.security.authentication.token.vo.MaeumGaGymToken
-import com.info.maeumgagym.security.authentication.token.vo.MaeumGaGymTokenType
-import com.info.maeumgagym.security.jwt.env.JwtProperties
+import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenValidator
+import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymToken
+import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymTokenType
+import com.info.maeumgagym.security.jwt.env.MaeumgagymTokenProperties
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 
@@ -16,24 +16,24 @@ import java.time.LocalDateTime
  * @since 01-05-2024
  */
 @Component
-internal class MaeumGaGymTokenValidatorImpl(
+internal class MaeumgagymTokenValidatorImpl(
     private val requestContext: RequestContext,
-    private val jwtProperties: JwtProperties
-) : MaeumGaGymTokenValidator {
+    private val MaeumgagymTokenProperties: MaeumgagymTokenProperties
+) : MaeumgagymTokenValidator {
 
-    override fun validate(maeumGaGymToken: MaeumGaGymToken) {
+    override fun validate(maeumGaGymToken: MaeumgagymToken) {
         if (!maeumGaGymToken.isValid) {
             throw SecurityException.INVALID_TOKEN
         }
 
         when (maeumGaGymToken.type) {
-            MaeumGaGymTokenType.ACCESS_TOKEN -> {
+            MaeumgagymTokenType.ACCESS_TOKEN -> {
                 if (maeumGaGymToken.expireAt != getAccessTokenExpireAt(maeumGaGymToken.issuedAt)) {
                     throw SecurityException.INVALID_TOKEN
                 }
             }
 
-            MaeumGaGymTokenType.REFRESH_TOKEN -> {
+            MaeumgagymTokenType.REFRESH_TOKEN -> {
                 if (maeumGaGymToken.expireAt != getRefreshTokenExpireAt(maeumGaGymToken.issuedAt)) {
                     throw SecurityException.INVALID_TOKEN
                 }
@@ -50,8 +50,8 @@ internal class MaeumGaGymTokenValidatorImpl(
     }
 
     private fun getAccessTokenExpireAt(baseTime: LocalDateTime): LocalDateTime =
-        baseTime.plusSeconds(jwtProperties.accessExpiredExp)
+        baseTime.plusSeconds(MaeumgagymTokenProperties.accessExpiredExp)
 
     private fun getRefreshTokenExpireAt(baseTime: LocalDateTime): LocalDateTime =
-        baseTime.plusSeconds(jwtProperties.refreshExpiredExp)
+        baseTime.plusSeconds(MaeumgagymTokenProperties.refreshExpiredExp)
 }

@@ -3,13 +3,13 @@ package com.info.maeumgagym.security.authentication.token
 /**
  * 주어진 User subject를 토큰으로 암호화
  *
- * @see MaeumGaGymTokenDecoder
- * @see MaeumGaGymTokenValidator
+ * @see MaeumgagymTokenDecoder
+ * @see MaeumgagymTokenValidator
  *
  * @author Daybreak312
  * @since 01-05-2024
  */
-interface MaeumGaGymTokenEncoder {
+interface MaeumgagymTokenEncoder {
 
     /**
      * AccessToken으로 암호화.
