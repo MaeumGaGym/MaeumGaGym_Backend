@@ -1,7 +1,7 @@
 package com.info.maeumgagym.security.authentication.token.impl
 
 import com.info.maeumgagym.common.exception.SecurityException
-import com.info.maeumgagym.infrastructure.request.context.RequestContext
+import com.info.maeumgagym.infrastructure.request.context.CurrentRequestContext
 import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenValidator
 import com.info.maeumgagym.security.authentication.token.revoked.RevokedMGTokenContext
 import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymToken
@@ -19,7 +19,7 @@ import java.time.LocalDateTime
 @Component
 internal class MaeumgagymTokenValidatorImpl(
     private val revokedMGTokenContext: RevokedMGTokenContext,
-    private val requestContext: RequestContext,
+    private val currentRequestContext: CurrentRequestContext,
     private val maeumgagymTokenProperties: MaeumgagymTokenProperties
 ) : MaeumgagymTokenValidator {
 
@@ -46,7 +46,7 @@ internal class MaeumgagymTokenValidatorImpl(
             throw SecurityException.EXPIRED_TOKEN
         }
 
-        if (requestContext.getCurrentRequest().remoteAddr != maeumGaGymToken.ip) {
+        if (currentRequestContext.getCurrentRequest().remoteAddr != maeumGaGymToken.ip) {
             throw SecurityException.WRONG_USER_TOKEN
         }
     }

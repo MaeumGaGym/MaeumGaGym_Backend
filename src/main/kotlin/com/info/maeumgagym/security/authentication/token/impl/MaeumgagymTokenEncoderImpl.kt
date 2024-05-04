@@ -1,7 +1,7 @@
 package com.info.maeumgagym.security.authentication.token.impl
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.info.maeumgagym.infrastructure.request.context.RequestContext
+import com.info.maeumgagym.infrastructure.request.context.CurrentRequestContext
 import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenEncoder
 import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymToken
 import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymTokenType
@@ -20,7 +20,7 @@ import java.util.*
 @Component
 internal class MaeumgagymTokenEncoderImpl(
     private val encrypt: Encrypt,
-    private val requestContext: RequestContext,
+    private val currentRequestContext: CurrentRequestContext,
     private val maeumgagymTokenProperties: MaeumgagymTokenProperties,
     private val objectMapper: ObjectMapper
 ) : MaeumgagymTokenEncoder {
@@ -34,7 +34,7 @@ internal class MaeumgagymTokenEncoderImpl(
 
         val token = MaeumgagymToken(
             username = subject,
-            ip = requestContext.getCurrentRequest().remoteAddr,
+            ip = currentRequestContext.getCurrentRequest().remoteAddr,
             issuedAt = now,
             expireAt = getAccessTokenExpireAt(now),
             type = MaeumgagymTokenType.ACCESS_TOKEN,
@@ -51,7 +51,7 @@ internal class MaeumgagymTokenEncoderImpl(
 
         val token = MaeumgagymToken(
             username = subject,
-            ip = requestContext.getCurrentRequest().remoteAddr,
+            ip = currentRequestContext.getCurrentRequest().remoteAddr,
             issuedAt = now,
             expireAt = getRefreshTokenExpireAt(now),
             type = MaeumgagymTokenType.REFRESH_TOKEN,
