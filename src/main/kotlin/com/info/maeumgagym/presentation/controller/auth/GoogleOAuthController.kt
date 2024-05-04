@@ -4,8 +4,8 @@ import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
 import com.info.maeumgagym.core.auth.port.`in`.GoogleLoginUseCase
 import com.info.maeumgagym.core.auth.port.`in`.GoogleRecoveryUseCase
 import com.info.maeumgagym.core.auth.port.`in`.GoogleSignupUseCase
-import com.info.maeumgagym.presentation.controller.auth.dto.SignupWebRequest
 import com.info.maeumgagym.presentation.common.locationheader.LocationHeaderManager
+import com.info.maeumgagym.presentation.controller.auth.dto.SignupWebRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.headers.Header
 import io.swagger.v3.oas.annotations.media.Schema
@@ -66,7 +66,7 @@ private class GoogleOAuthController(
         googleLoginUseCase.login(token!!).run {
             val responseHeaders = HttpHeaders().apply {
                 add(HttpHeaders.SET_COOKIE, "RF-TOKEN=$second; Secure; HttpOnly; SameSite=strict")
-                setBearerAuth(first)
+                set(HttpHeaders.AUTHORIZATION, first)
             }
 
             ResponseEntity.ok().headers(responseHeaders).build()
