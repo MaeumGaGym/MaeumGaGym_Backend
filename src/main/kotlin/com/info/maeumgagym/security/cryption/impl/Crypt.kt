@@ -2,7 +2,6 @@ package com.info.maeumgagym.security.cryption.impl
 
 import com.info.maeumgagym.security.cryption.Decrypt
 import com.info.maeumgagym.security.cryption.Encrypt
-import com.info.maeumgagym.security.cryption.type.Cryptography
 import org.springframework.stereotype.Component
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
@@ -10,28 +9,26 @@ import javax.crypto.spec.SecretKeySpec
 @Component
 class Crypt : Encrypt, Decrypt {
 
-    override fun encrypt(unencrypted: String, key: String, algorithm: Cryptography): String =
-        encrypt(unencrypted, key, algorithm.toString())
-
-    override fun encrypt(unencrypted: String, key: String, algorithm: String): String {
-        val cipher = getCipher(Cipher.ENCRYPT_MODE, key, algorithm)
-
-        return cipher.doFinal(unencrypted.encodeToByteArray()).toString()
+    private companion object {
+        const val DEFAULT_CRYPTO_ALGORITHM = "AES"
     }
 
-    override fun decrypt(encrypted: String, key: String, algorithm: Cryptography): String =
-        decrypt(encrypted, key, algorithm.toString())
+    override fun encrypt(unencrypted: ByteArray, key: String): ByteArray {
+        val cipher = getCipher(Cipher.ENCRYPT_MODE, key)
 
-    override fun decrypt(encrypted: String, key: String, algorithm: String): String {
-        val cipher = getCipher(Cipher.DECRYPT_MODE, key, algorithm)
-
-        return cipher.doFinal(encrypted.encodeToByteArray()).toString()
+        return cipher.doFinal(unencrypted)
     }
 
-    private fun getCipher(mode: Int, key: String, algorithm: String): Cipher {
-        val cipher = Cipher.getInstance(algorithm)
+    override fun decrypt(encrypted: ByteArray, key: String): ByteArray {
+        val cipher = getCipher(Cipher.DECRYPT_MODE, key)
 
-        val spec = SecretKeySpec(key.encodeToByteArray(), algorithm)
+        return cipher.doFinal(encrypted)
+    }
+
+    private fun getCipher(mode: Int, key: String): Cipher {
+        val cipher = Cipher.getInstance(DEFAULT_CRYPTO_ALGORITHM)
+
+        val spec = SecretKeySpec(key.encodeToByteArray(), DEFAULT_CRYPTO_ALGORITHM)
 
         cipher.init(mode, spec)
 

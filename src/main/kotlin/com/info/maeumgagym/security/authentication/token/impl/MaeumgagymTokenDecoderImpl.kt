@@ -7,9 +7,9 @@ import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenDecoder
 import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymToken
 import com.info.maeumgagym.security.cryption.Decrypt
-import com.info.maeumgagym.security.cryption.type.Cryptography
 import com.info.maeumgagym.security.jwt.env.MaeumgagymTokenProperties
 import org.springframework.stereotype.Component
+import java.util.*
 
 /**
  * Docs는 상위 타입에 존재.
@@ -25,15 +25,20 @@ internal class MaeumgagymTokenDecoderImpl(
 ) : MaeumgagymTokenDecoder {
 
     override fun decode(token: String): MaeumgagymToken {
-        val decrypted = decrypt.decrypt(resolveTokenPrefix(token), maeumgagymTokenProperties.secretKey, Cryptography.HS256)
-
-        return stringTokenToVO(decrypted)
+        return decode(token, maeumgagymTokenProperties.secretKey)
     }
 
     override fun decode(token: String, key: String): MaeumgagymToken {
-        val decrypted = decrypt.decrypt(resolveTokenPrefix(token), key, Cryptography.HS256)
 
-        return stringTokenToVO(decrypted)
+        val tokenByteArray = Base64.getDecoder().decode(
+            resolveTokenPrefix(token)
+        )
+
+        val decrypted = decrypt.decrypt(tokenByteArray, key)
+
+        return stringTokenToVO(
+            decrypted.decodeToString()
+        )
     }
 
     private fun resolveTokenPrefix(token: String): String {

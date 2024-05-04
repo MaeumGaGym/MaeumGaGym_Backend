@@ -6,7 +6,6 @@ import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenEncoder
 import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymToken
 import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymTokenType
 import com.info.maeumgagym.security.cryption.Encrypt
-import com.info.maeumgagym.security.cryption.type.Cryptography
 import com.info.maeumgagym.security.jwt.env.MaeumgagymTokenProperties
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
@@ -73,7 +72,9 @@ internal class MaeumgagymTokenEncoderImpl(
     private fun encryptToken(token: MaeumgagymToken): String {
         val tokenString = objectMapper.writeValueAsString(token)
 
-        return encrypt.encrypt(tokenString, maeumgagymTokenProperties.secretKey, Cryptography.HS256)
+        return Base64.getEncoder().encodeToString(
+            encrypt.encrypt(tokenString.encodeToByteArray(), maeumgagymTokenProperties.secretKey)
+        )
     }
 
     private fun appendTokenPrefix(token: String) =
