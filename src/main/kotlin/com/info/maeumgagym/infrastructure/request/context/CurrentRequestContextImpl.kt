@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletRequest
 
 @Component
-class RequestContextImpl : RequestContext {
+class CurrentRequestContextImpl : CurrentRequestContext {
 
     private val request: ThreadLocal<HttpServletRequest> = ThreadLocal()
 
