@@ -1,6 +1,5 @@
 package com.info.maeumgagym.infrastructure.request.context
 
-import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymToken
 import javax.servlet.http.HttpServletRequest
 
 /**
@@ -18,6 +17,4 @@ interface RequestContext {
     fun setCurrentRequest(request: HttpServletRequest)
 
     fun getCurrentRequest(): HttpServletRequest
-
-    fun getCurrentToken(): MaeumgagymToken?
 }

@@ -4,11 +4,11 @@ import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.core.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.core.auth.port.out.ReissuePort
 import com.info.maeumgagym.core.auth.port.out.RevokeTokensPort
-import com.info.maeumgagym.infrastructure.request.context.RequestContext
 import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenDecoder
 import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenEncoder
 import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenRevoker
 import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenValidator
+import com.info.maeumgagym.security.authentication.token.context.MaeumgagymTokenContext
 import org.springframework.stereotype.Component
 
 /**
@@ -28,7 +28,7 @@ class MaeumgagymTokenAdapter(
     private val maeumgagymTokenDecoder: MaeumgagymTokenDecoder,
     private val maeumgagymTokenValidator: MaeumgagymTokenValidator,
     private val maeumgagymTokenRevoker: MaeumgagymTokenRevoker,
-    private val requestContext: RequestContext
+    private val maeumgagymTokenContext: MaeumgagymTokenContext
 ) : GenerateJwtPort, ReissuePort, RevokeTokensPort {
 
     // 모든 토큰 발급
@@ -44,7 +44,7 @@ class MaeumgagymTokenAdapter(
     }
 
     override fun revoke() {
-        val token = requestContext.getCurrentToken()
+        val token = maeumgagymTokenContext.getCurrentToken()
             ?: throw CriticalException(500, "Token is NULL In Revoke(Only Authenticated Can Access)")
 
         maeumgagymTokenRevoker.revoke(token)
