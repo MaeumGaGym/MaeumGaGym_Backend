@@ -1,14 +1,14 @@
-package com.info.maeumgagym.security.jwt.impl
+package com.info.maeumgagym.security.mgtoken.impl
 
 import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.core.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.core.auth.port.out.ReissuePort
 import com.info.maeumgagym.core.auth.port.out.RevokeTokensPort
-import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenDecoder
-import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenEncoder
-import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenRevoker
-import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenValidator
-import com.info.maeumgagym.security.authentication.token.context.MaeumgagymTokenContext
+import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenDecoder
+import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenEncoder
+import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenRevoker
+import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenValidator
+import com.info.maeumgagym.security.mgtoken.context.MaeumgagymTokenContext
 import org.springframework.stereotype.Component
 
 /**

@@ -1,4 +1,4 @@
-package com.info.maeumgagym.security.jwt.impl
+package com.info.maeumgagym.security.jwt
 
 import com.info.maeumgagym.common.exception.AuthenticationException
 import com.info.maeumgagym.core.auth.port.out.GetJwtBodyPort

@@ -1,7 +1,7 @@
-package com.info.maeumgagym.security.authentication.token.vo
+package com.info.maeumgagym.security.mgtoken.vo
 
 /**
- * [MaeumgagymToken] 및 그 외 임의의 토큰에서 타입을 표기하기 위한 enum
+ * [MaeumgagymToken]의 타입을 표기하기 위한 enum
  *
  * @see MaeumgagymToken
  *

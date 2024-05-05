@@ -1,12 +1,12 @@
-package com.info.maeumgagym.security.authentication.token.impl
+package com.info.maeumgagym.security.mgtoken.impl
 
 import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.infrastructure.request.context.CurrentRequestContext
-import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenValidator
-import com.info.maeumgagym.security.authentication.token.revoked.RevokedMGTokenContext
-import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymToken
-import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymTokenType
-import com.info.maeumgagym.security.jwt.env.MaeumgagymTokenProperties
+import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenValidator
+import com.info.maeumgagym.security.mgtoken.revoked.RevokedMGTokenContext
+import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken
+import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymTokenType
+import com.info.maeumgagym.security.mgtoken.env.MaeumgagymTokenProperties
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 

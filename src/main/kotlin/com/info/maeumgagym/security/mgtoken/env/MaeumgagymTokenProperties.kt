@@ -1,4 +1,4 @@
-package com.info.maeumgagym.security.jwt.env
+package com.info.maeumgagym.security.mgtoken.env
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding

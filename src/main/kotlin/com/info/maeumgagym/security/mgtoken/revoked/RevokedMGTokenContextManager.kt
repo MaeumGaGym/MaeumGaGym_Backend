@@ -1,6 +1,6 @@
-package com.info.maeumgagym.security.authentication.token.revoked
+package com.info.maeumgagym.security.mgtoken.revoked
 
-import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymToken
+import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken
 import org.springframework.stereotype.Component
 import java.time.Duration
 import java.time.LocalDateTime

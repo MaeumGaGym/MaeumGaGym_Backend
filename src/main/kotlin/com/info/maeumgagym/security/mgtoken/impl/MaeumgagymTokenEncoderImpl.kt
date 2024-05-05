@@ -1,12 +1,12 @@
-package com.info.maeumgagym.security.authentication.token.impl
+package com.info.maeumgagym.security.mgtoken.impl
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.infrastructure.request.context.CurrentRequestContext
-import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenEncoder
-import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymToken
-import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymTokenType
+import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenEncoder
+import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken
+import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymTokenType
 import com.info.maeumgagym.security.cryption.Encrypt
-import com.info.maeumgagym.security.jwt.env.MaeumgagymTokenProperties
+import com.info.maeumgagym.security.mgtoken.env.MaeumgagymTokenProperties
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.util.*

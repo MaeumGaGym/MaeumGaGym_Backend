@@ -1,4 +1,4 @@
-package com.info.maeumgagym.security.authentication.token.revoked
+package com.info.maeumgagym.security.mgtoken.revoked
 
 import com.info.maeumgagym.application.TableNames
 import org.springframework.data.annotation.Id

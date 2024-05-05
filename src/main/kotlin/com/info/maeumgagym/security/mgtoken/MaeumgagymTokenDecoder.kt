@@ -1,6 +1,6 @@
-package com.info.maeumgagym.security.authentication.token
+package com.info.maeumgagym.security.mgtoken
 
-import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymToken
+import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken
 
 /**
  * 문자열 형태의 암호화된 토큰을 복호화해 [MaeumgagymToken] 객체로 변환

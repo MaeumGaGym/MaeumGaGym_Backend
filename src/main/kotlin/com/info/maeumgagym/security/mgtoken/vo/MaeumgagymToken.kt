@@ -1,4 +1,4 @@
-package com.info.maeumgagym.security.authentication.token.vo
+package com.info.maeumgagym.security.mgtoken.vo
 
 import java.time.LocalDateTime
 
@@ -12,9 +12,9 @@ import java.time.LocalDateTime
  * @param type 토큰의 [타입][MaeumgagymTokenType]
  * @param tokenId 토큰을 무효화 처리할 때 사용되는 id. [UUID][java.util.UUID]의 문자열
  *
- * @see com.info.maeumgagym.security.authentication.token.MaeumgagymTokenEncoder
- * @see com.info.maeumgagym.security.authentication.token.MaeumgagymTokenDecoder
- * @see com.info.maeumgagym.security.authentication.token.MaeumgagymTokenValidator
+ * @see com.info.maeumgagym.security.authentication.mgtoken.MaeumgagymTokenEncoder
+ * @see com.info.maeumgagym.security.authentication.mgtoken.MaeumgagymTokenDecoder
+ * @see com.info.maeumgagym.security.authentication.mgtoken.MaeumgagymTokenValidator
  *
  * @author Daybreak312
  * @since 01-05-2024

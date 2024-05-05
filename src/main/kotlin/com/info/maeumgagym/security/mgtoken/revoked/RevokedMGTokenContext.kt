@@ -1,11 +1,11 @@
-package com.info.maeumgagym.security.authentication.token.revoked
+package com.info.maeumgagym.security.mgtoken.revoked
 
-import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymToken
+import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken
 
 /**
  * 무효화된 토큰을 모아둔 컨텍스트
  *
- * [Redis][com.info.maeumgagym.security.authentication.token.revoked.RevokedMGTokenRepository]를 통해 관리
+ * [Redis][com.info.maeumgagym.security.mgtoken.revoked.RevokedMGTokenRepository]를 통해 관리
  *
  * @author Daybreak312
  * @since 04-05-2024

@@ -1,7 +1,8 @@
-package com.info.maeumgagym.security.jwt
+package com.info.maeumgagym.security.mgtoken.filter
 
 import com.info.maeumgagym.security.authentication.provider.UserModelAuthenticationProvider
 import com.info.maeumgagym.security.config.RequestPermitConfig
+import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenResolver
 import org.springframework.http.HttpHeaders
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletResponse
  * 서버의 커스텀 인증 Filter.
  *
  * 헤더를 통해 전해진 AccessToken의 유효성을 검증
+ *
+ * [MaeumgagymTokenResolver]를 통해 [MaeumgagymTokenDecoder][com.info.maeumgagym.security.mgtoken.MaeumgagymTokenDecoder], [MaeumgagymTokenValidator][com.info.maeumgagym.security.mgtoken.MaeumgagymTokenValidator]를 사용
  *
  * @author Daybreak312
  */

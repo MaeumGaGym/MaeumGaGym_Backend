@@ -1,8 +1,8 @@
-package com.info.maeumgagym.security.jwt.impl
+package com.info.maeumgagym.security.mgtoken.impl
 
-import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenDecoder
-import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenValidator
-import com.info.maeumgagym.security.jwt.MaeumgagymTokenResolver
+import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenDecoder
+import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenResolver
+import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenValidator
 import org.springframework.stereotype.Component
 
 /**

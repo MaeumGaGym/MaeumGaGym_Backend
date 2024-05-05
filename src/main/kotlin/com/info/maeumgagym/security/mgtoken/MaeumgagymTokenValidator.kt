@@ -1,6 +1,6 @@
-package com.info.maeumgagym.security.authentication.token
+package com.info.maeumgagym.security.mgtoken
 
-import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymToken
+import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken
 
 /**
  * 복호화되어 [MaeumgagymToken]으로 변환된 인증용 토큰을 검증하는 클래스

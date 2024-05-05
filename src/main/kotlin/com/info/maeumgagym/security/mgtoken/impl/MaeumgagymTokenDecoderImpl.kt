@@ -1,13 +1,13 @@
-package com.info.maeumgagym.security.authentication.token.impl
+package com.info.maeumgagym.security.mgtoken.impl
 
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.common.exception.SecurityException
-import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenDecoder
-import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymToken
+import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenDecoder
+import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken
 import com.info.maeumgagym.security.cryption.Decrypt
-import com.info.maeumgagym.security.jwt.env.MaeumgagymTokenProperties
+import com.info.maeumgagym.security.mgtoken.env.MaeumgagymTokenProperties
 import org.springframework.stereotype.Component
 import java.util.*
 

@@ -1,4 +1,4 @@
-package com.info.maeumgagym.security.authentication.token.revoked
+package com.info.maeumgagym.security.mgtoken.revoked
 
 import org.springframework.data.repository.Repository
 

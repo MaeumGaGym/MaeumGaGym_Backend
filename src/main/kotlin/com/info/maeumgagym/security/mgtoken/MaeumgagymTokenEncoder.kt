@@ -1,4 +1,4 @@
-package com.info.maeumgagym.security.authentication.token
+package com.info.maeumgagym.security.mgtoken
 
 /**
  * 주어진 User subject를 토큰으로 암호화

@@ -1,8 +1,8 @@
-package com.info.maeumgagym.security.authentication.token.context
+package com.info.maeumgagym.security.mgtoken.context
 
 import com.info.maeumgagym.infrastructure.request.context.CurrentRequestContext
-import com.info.maeumgagym.security.authentication.token.MaeumgagymTokenDecoder
-import com.info.maeumgagym.security.authentication.token.vo.MaeumgagymToken
+import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenDecoder
+import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 
