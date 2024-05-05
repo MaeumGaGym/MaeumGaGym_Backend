@@ -3,6 +3,8 @@ package com.info.maeumgagym.security.jwt
 /**
  * 주어진 마음가짐 토큰을 검증하고 subject를 추출
  *
+ * Security 계층 내에서 인증 로직을 위해 사용
+ *
  * @see com.info.maeumgagym.security.authentication.token.MaeumgagymTokenDecoder Jwt 토큰에서 subject 추출
  * @see com.info.maeumgagym.security.authentication.token.MaeumgagymTokenValidator Jwt 토큰 검증 모듈
  *

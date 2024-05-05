@@ -12,7 +12,7 @@ import com.info.maeumgagym.security.authentication.token.context.MaeumgagymToken
 import org.springframework.stereotype.Component
 
 /**
- * Maeumgagym Token에 관련된 Port들의 구현체.
+ * Core 계층으로부터 접근하는, Maeumgagym Token에 관련된 Port들의 구현체.
  *
  * @see GenerateJwtPort
  * @see ReissuePort
