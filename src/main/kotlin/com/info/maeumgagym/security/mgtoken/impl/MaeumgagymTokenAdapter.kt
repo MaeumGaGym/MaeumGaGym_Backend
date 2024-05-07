@@ -34,13 +34,10 @@ class MaeumgagymTokenAdapter(
     // 모든 토큰 발급
     override fun generateTokens(subject: String): Pair<String, String> {
         // access_token 발급
-        val access = maeumgagymTokenEncoder.encodeAccessToken(subject)
-
-        // refresh_token 발급
-        val refresh = maeumgagymTokenEncoder.encodeRefreshToken(subject)
+        val token = maeumgagymTokenEncoder.encode(subject)
 
         // tokens dto에 담아 반환
-        return Pair(access, refresh)
+        return Pair(token.accessToken, token.refreshToken)
     }
 
     override fun revoke() {

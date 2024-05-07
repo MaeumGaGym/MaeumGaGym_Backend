@@ -2,11 +2,12 @@ package com.info.maeumgagym.security.mgtoken.impl
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.infrastructure.request.context.CurrentRequestContext
-import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenEncoder
-import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken
-import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymTokenType
 import com.info.maeumgagym.security.cryption.Encrypt
+import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenEncoder
 import com.info.maeumgagym.security.mgtoken.env.MaeumgagymTokenProperties
+import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken
+import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymTokenPair
+import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymTokenType
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.util.*
@@ -29,33 +30,25 @@ internal class MaeumgagymTokenEncoderImpl(
         const val MAEUMGAGYM_TOKEN_PREFIX = "maeumgagym"
     }
 
-    override fun encodeAccessToken(subject: String): String {
+    override fun encode(username: String): MaeumgagymTokenPair {
+        val tokenId = UUID.randomUUID().toString()
+
         val now = LocalDateTime.now()
 
+        return MaeumgagymTokenPair(
+            encodeToAccessToken(username, tokenId, now),
+            encodeToRefreshToken(username, tokenId, now)
+        )
+    }
+
+    private fun encodeToAccessToken(subject: String, tokenId: String, now: LocalDateTime): String {
         val token = MaeumgagymToken(
             username = subject,
             ip = currentRequestContext.getCurrentRequest().remoteAddr,
             issuedAt = now,
             expireAt = getAccessTokenExpireAt(now),
             type = MaeumgagymTokenType.ACCESS_TOKEN,
-            tokenId = UUID.randomUUID().toString()
-        )
-
-        return appendTokenPrefix(
-            encryptToken(token)
-        )
-    }
-
-    override fun encodeRefreshToken(subject: String): String {
-        val now = LocalDateTime.now()
-
-        val token = MaeumgagymToken(
-            username = subject,
-            ip = currentRequestContext.getCurrentRequest().remoteAddr,
-            issuedAt = now,
-            expireAt = getRefreshTokenExpireAt(now),
-            type = MaeumgagymTokenType.REFRESH_TOKEN,
-            tokenId = UUID.randomUUID().toString()
+            tokenId = tokenId
         )
 
         return appendTokenPrefix(
@@ -65,6 +58,21 @@ internal class MaeumgagymTokenEncoderImpl(
 
     private fun getAccessTokenExpireAt(baseTime: LocalDateTime): LocalDateTime =
         baseTime.plusSeconds(maeumgagymTokenProperties.accessExpiredExp)
+
+    private fun encodeToRefreshToken(subject: String, tokenId: String, now: LocalDateTime): String {
+        val token = MaeumgagymToken(
+            username = subject,
+            ip = currentRequestContext.getCurrentRequest().remoteAddr,
+            issuedAt = now,
+            expireAt = getRefreshTokenExpireAt(now),
+            type = MaeumgagymTokenType.REFRESH_TOKEN,
+            tokenId = tokenId
+        )
+
+        return appendTokenPrefix(
+            encryptToken(token)
+        )
+    }
 
     private fun getRefreshTokenExpireAt(baseTime: LocalDateTime): LocalDateTime =
         baseTime.plusSeconds(maeumgagymTokenProperties.refreshExpiredExp)
