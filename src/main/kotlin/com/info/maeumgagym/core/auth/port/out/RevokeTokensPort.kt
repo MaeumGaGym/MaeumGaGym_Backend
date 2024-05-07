@@ -3,6 +3,8 @@ package com.info.maeumgagym.core.auth.port.out
 /**
  * 현재 요청의 토큰을 무효화
  *
+ * 토큰의 유효성을 검증하지 않으며, 단순히
+ *
  * @see GenerateJwtPort
  * @see ReissuePort
  *
@@ -12,5 +14,5 @@ package com.info.maeumgagym.core.auth.port.out
  */
 interface RevokeTokensPort {
 
-    fun revoke()
+    fun revoke(token: String? = null)
 }

@@ -40,11 +40,16 @@ class MaeumgagymTokenAdapter(
         return Pair(token.accessToken, token.refreshToken)
     }
 
-    override fun revoke() {
-        val token = maeumgagymTokenContext.getCurrentToken()
-            ?: throw CriticalException(500, "Token is NULL In Revoke(Only Authenticated Can Access)")
+    override fun revoke(token: String?) {
 
-        maeumgagymTokenRevoker.revoke(token)
+        val decoded = if (token == null) {
+            maeumgagymTokenContext.getCurrentToken()
+                ?: throw CriticalException(500, "Token is NULL In Revoke(Only Authenticated Can Access)")
+        } else {
+            maeumgagymTokenDecoder.decode(token)
+        }
+
+        maeumgagymTokenRevoker.revoke(decoded)
     }
 
     // 토큰 재발급
@@ -54,7 +59,7 @@ class MaeumgagymTokenAdapter(
 
         maeumgagymTokenValidator.validate(decodedToken)
 
-        revoke()
+        this.revoke()
 
         // 토큰 재발급 및 반환
         return generateTokens(decodedToken.username)
