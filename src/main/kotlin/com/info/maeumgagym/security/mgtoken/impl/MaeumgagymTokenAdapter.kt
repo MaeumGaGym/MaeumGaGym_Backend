@@ -59,7 +59,7 @@ class MaeumgagymTokenAdapter(
 
         maeumgagymTokenValidator.validate(decodedToken)
 
-        this.revoke()
+        this.revoke(refreshToken)
 
         // 토큰 재발급 및 반환
         return generateTokens(decodedToken.username)
