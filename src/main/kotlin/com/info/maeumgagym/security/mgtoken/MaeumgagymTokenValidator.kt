@@ -22,9 +22,9 @@ interface MaeumgagymTokenValidator {
      * - 토큰 발급 대상과 현재 사용자의 일치 여부
      * - 토큰 유효 기간 만료 여부
      *
-     * @param maeumGaGymToken 복호화된 인증용 토큰의 VO
+     * @param maeumgagymToken 복호화된 인증용 토큰의 VO
      *
      * @throws com.info.maeumgagym.common.exception.SecurityException 무효한 토큰일 경우
      */
-    fun validate(maeumGaGymToken: MaeumgagymToken)
+    fun validate(maeumgagymToken: MaeumgagymToken)
 }

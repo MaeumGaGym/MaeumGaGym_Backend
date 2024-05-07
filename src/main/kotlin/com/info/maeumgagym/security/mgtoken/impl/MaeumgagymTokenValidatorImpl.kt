@@ -3,10 +3,10 @@ package com.info.maeumgagym.security.mgtoken.impl
 import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.infrastructure.request.context.CurrentRequestContext
 import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenValidator
+import com.info.maeumgagym.security.mgtoken.env.MaeumgagymTokenProperties
 import com.info.maeumgagym.security.mgtoken.revoked.RevokedMGTokenContext
 import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken
 import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymTokenType
-import com.info.maeumgagym.security.mgtoken.env.MaeumgagymTokenProperties
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 
@@ -23,30 +23,30 @@ internal class MaeumgagymTokenValidatorImpl(
     private val maeumgagymTokenProperties: MaeumgagymTokenProperties
 ) : MaeumgagymTokenValidator {
 
-    override fun validate(maeumGaGymToken: MaeumgagymToken) {
-        if (revokedMGTokenContext.checkRevoked(maeumGaGymToken.tokenId)) {
+    override fun validate(maeumgagymToken: MaeumgagymToken) {
+        if (revokedMGTokenContext.checkRevoked(maeumgagymToken.tokenId)) {
             throw SecurityException.INVALID_TOKEN
         }
 
-        when (maeumGaGymToken.type) {
+        when (maeumgagymToken.type) {
             MaeumgagymTokenType.ACCESS_TOKEN -> {
-                if (maeumGaGymToken.expireAt != getAccessTokenExpireAt(maeumGaGymToken.issuedAt)) {
+                if (maeumgagymToken.expireAt != getAccessTokenExpireAt(maeumgagymToken.issuedAt)) {
                     throw SecurityException.INVALID_TOKEN
                 }
             }
 
             MaeumgagymTokenType.REFRESH_TOKEN -> {
-                if (maeumGaGymToken.expireAt != getRefreshTokenExpireAt(maeumGaGymToken.issuedAt)) {
+                if (maeumgagymToken.expireAt != getRefreshTokenExpireAt(maeumgagymToken.issuedAt)) {
                     throw SecurityException.INVALID_TOKEN
                 }
             }
         }
 
-        if (maeumGaGymToken.expireAt.isBefore(LocalDateTime.now())) {
+        if (maeumgagymToken.expireAt.isBefore(LocalDateTime.now())) {
             throw SecurityException.EXPIRED_TOKEN
         }
 
-        if (currentRequestContext.getCurrentRequest().remoteAddr != maeumGaGymToken.ip) {
+        if (currentRequestContext.getCurrentRequest().remoteAddr != maeumgagymToken.ip) {
             throw SecurityException.WRONG_USER_TOKEN
         }
     }
