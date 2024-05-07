@@ -1,0 +1,10 @@
+spring:
+    config:
+        activate:
+            on-profile: jwt
+
+mg-token:
+    secret-key: ${MGT_SECRET_KEY:}
+    access-expired-exp: ${MGT_ACCESS_EXP:7200000}
+    refresh-expired-exp: ${MGT_REFRESH_EXP:604800000}
+    prefix: ${MGT_PREFIX:monster}
