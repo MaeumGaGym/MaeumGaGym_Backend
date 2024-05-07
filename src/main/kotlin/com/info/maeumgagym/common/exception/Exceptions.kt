@@ -166,6 +166,7 @@ class SecurityException(
         val WRONG_USER_TOKEN get() = SecurityException(401, "Issued And User Mismatch, Cannot Use It")
         val EXPIRED_TOKEN get() = SecurityException(401, "Expired Token")
         val NOT_A_MAEUMGAGYM_TOKEN get() = SecurityException(401, "It's Not a MaeumGaGym Authentication Token")
+        val WRONG_TYPE_TOKEN get() = SecurityException(401, "Token Type Wrong, Not Supported")
 
         val PERMISSION_DENIED get() = SecurityException(403, "Permission Denied")
     }

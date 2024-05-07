@@ -14,8 +14,20 @@ package com.info.maeumgagym.security.mgtoken
 interface MaeumgagymTokenResolver {
 
     /**
+     * Access Token 처리
+     *
      * @param token 유효성을 확인할 토큰
-     * @return OAuthId, 토큰이 유효하지 않을 경우 null
+     * @return OAuthId
+     * @throws com.info.maeumgagym.common.exception.SecurityException 토큰이 유효하지 않을 경우
      */
-    operator fun invoke(token: String): String?
+    fun resolveAccessToken(token: String): String
+
+    /**
+     * Refresh Token 처리
+     *
+     * @param token 유효성을 확인할 토큰
+     * @return OAuthId
+     * @throws com.info.maeumgagym.common.exception.SecurityException 토큰이 유효하지 않을 경우
+     */
+    fun resolveRefreshToken(token: String): String
 }
