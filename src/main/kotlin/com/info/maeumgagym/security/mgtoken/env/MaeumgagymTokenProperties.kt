@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
 
 @ConstructorBinding
-@ConfigurationProperties("mg-token")
+@ConfigurationProperties("mgtoken")
 data class MaeumgagymTokenProperties(
     val secretKey: String,
     val accessExpiredExp: Long,
