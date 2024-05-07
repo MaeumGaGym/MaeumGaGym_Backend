@@ -1,7 +1,7 @@
 package com.info.maeumgagym.security.mgtoken
 
 /**
- * 암호화된 상태의 문자열 마음가짐 토큰을 검증하고 subject를 추출
+ * 암호화된 상태의 문자열 토큰을 검증하고 username를 추출
  *
  * 저수준 모듈 집합을 추상화해낸 모듈로, Security 계층 내에서 인증 로직을 위해 사용
  *

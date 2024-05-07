@@ -5,6 +5,8 @@ import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken
 /**
  * 문자열 형태의 암호화된 토큰을 복호화해 [MaeumgagymToken] 객체로 변환
  *
+ * 검증 과정은 거치지 않으며, 단순히 토큰을 복호화에 VO로 변환하는 과정만 진행
+ *
  * @see MaeumgagymTokenEncoder
  * @see MaeumgagymTokenValidator
  *
