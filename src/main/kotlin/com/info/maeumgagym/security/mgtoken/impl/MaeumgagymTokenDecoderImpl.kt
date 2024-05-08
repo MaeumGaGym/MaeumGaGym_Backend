@@ -4,10 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.info.maeumgagym.common.exception.SecurityException
-import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenDecoder
-import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken
 import com.info.maeumgagym.security.cryption.Decrypt
+import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenDecoder
 import com.info.maeumgagym.security.mgtoken.env.MaeumgagymTokenProperties
+import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -29,7 +29,6 @@ internal class MaeumgagymTokenDecoderImpl(
     }
 
     override fun decode(token: String, key: String): MaeumgagymToken {
-
         val tokenByteArray = Base64.getDecoder().decode(
             resolveTokenPrefix(token)
         )
