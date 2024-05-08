@@ -14,7 +14,7 @@ object TableNames {
     const val ROUTINE_EXERCISE_TABLE = "${TABLE_PREFIX}routine_exercise"
 
     const val ROUTINE_HISTORY_TABLE = "${TABLE_PREFIX}routine_history"
-    const val ROUTINE_HISTORY_DATE_USER_UNIQUE = UNIQUE_PREFIX + "date_user"
+    const val ROUTINE_HISTORY_DATE_USER = INDEX_PREFIX + "date_user"
     const val ROUTINE_EXERCISE_HISTORY_TABLE = "${TABLE_PREFIX}routine_exercise_history"
 
     const val PICKLE_TABLE = "${TABLE_PREFIX}pickle"

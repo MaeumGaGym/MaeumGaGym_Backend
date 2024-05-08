@@ -6,15 +6,15 @@ import java.time.LocalDate
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.Index
 import javax.persistence.Table
-import javax.persistence.UniqueConstraint
 
 @Entity(name = TableNames.ROUTINE_HISTORY_TABLE)
 @Table(
-    uniqueConstraints = [
-        UniqueConstraint(
-            name = TableNames.ROUTINE_HISTORY_DATE_USER_UNIQUE,
-            columnNames = ["user_id", "date"]
+    indexes = [
+        Index(
+            name = TableNames.ROUTINE_HISTORY_DATE_USER,
+            columnList = "user_id, date"
         )
     ]
 )

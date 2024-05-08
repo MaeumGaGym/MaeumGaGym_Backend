@@ -15,7 +15,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
-import javax.servlet.http.HttpServletResponse
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Positive
@@ -33,7 +32,7 @@ private class RoutineController(
     private val updateRoutineUseCase: UpdateRoutineUseCase,
     private val readRoutineUseCase: ReadRoutineUseCase,
     private val locationHeaderManager: LocationHeaderManager,
-    private val completeTodayRoutineUseCase: CompleteTodayRoutineUseCase,
+    private val completeRoutineUseCase: CompleteRoutineUseCase,
     private val readRoutineHistoryUseCase: ReadRoutineHistoryUseCase
 ) {
     @Operation(summary = "루틴 생성 API")
@@ -50,7 +49,7 @@ private class RoutineController(
 
     @Operation(summary = "오늘의 루틴 조회 API")
     @GetMapping("/today")
-    fun readTodayRoutine(httpServletResponse: HttpServletResponse): RoutineResponse? =
+    fun readTodayRoutine(): RoutineListResponse =
         readTodayRoutineUseCase.readTodayRoutine()
 
     @Operation(summary = "내 루틴 전체 조회 API")
@@ -95,11 +94,16 @@ private class RoutineController(
         id: Long
     ): RoutineResponse = readRoutineUseCase.readFromId(id)
 
-    @Operation(summary = "오늘의 루틴 완료 API")
+    @Operation(summary = "루틴 완료 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PutMapping("/today/complete")
-    fun completeTodayRoutine() {
-        completeTodayRoutineUseCase.complete()
+    @PutMapping("/today/complete/{id}")
+    fun completeTodayRoutine(
+        @PathVariable
+        @Valid
+        @Positive(message = "0보다 커야 합니다.")
+        id: Long
+    ) {
+        completeRoutineUseCase.completeFromId(id)
     }
 
     @Operation(summary = "루틴 기록 조회 API")

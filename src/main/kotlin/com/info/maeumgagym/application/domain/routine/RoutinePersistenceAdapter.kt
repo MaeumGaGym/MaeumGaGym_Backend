@@ -1,11 +1,11 @@
 package com.info.maeumgagym.application.domain.routine
 
-import com.info.maeumgagym.common.annotation.responsibility.PersistenceAdapter
 import com.info.maeumgagym.application.domain.routine.mapper.ExerciseInfoListMapper
 import com.info.maeumgagym.application.domain.routine.mapper.RoutineMapper
 import com.info.maeumgagym.application.domain.routine.repository.current.ExerciseInfoRepository
 import com.info.maeumgagym.application.domain.routine.repository.current.RoutineNativeRepository
 import com.info.maeumgagym.application.domain.routine.repository.current.RoutineRepository
+import com.info.maeumgagym.common.annotation.responsibility.PersistenceAdapter
 import com.info.maeumgagym.core.routine.model.Routine
 import com.info.maeumgagym.core.routine.port.out.DeleteRoutinePort
 import com.info.maeumgagym.core.routine.port.out.ReadRoutinePort
@@ -68,19 +68,11 @@ internal class RoutinePersistenceAdapter(
         }
     }
 
-    override fun readByUserIdAndDayOfWeekAndIsArchivedFalse(userId: UUID, dayOfWeek: DayOfWeek): Routine? =
-        routineNativeRepository.findByUserIdAndDayOfWeekAndIsArchivedFalse(userId, dayOfWeek.name)?.run {
+    override fun readByUserIdAndDayOfWeekAndIsArchivedFalse(userId: UUID, dayOfWeek: DayOfWeek): List<Routine> =
+        routineNativeRepository.findByUserIdAndDayOfWeekAndIsArchivedFalse(userId, dayOfWeek.name).map {
             routineMapper.toDomain(
-                this,
-                exerciseInfoRepository.findAllByRoutineId(this.id!!)
-            )
-        }
-
-    override fun readByUserIdAndDayOfWeek(userId: UUID, dayOfWeek: DayOfWeek): Routine? =
-        routineNativeRepository.findByUserIdAndDayOfWeek(userId, dayOfWeek.name)?.run {
-            routineMapper.toDomain(
-                this,
-                exerciseInfoRepository.findAllByRoutineId(this.id!!)
+                it,
+                exerciseInfoRepository.findAllByRoutineId(it.id!!)
             )
         }
 

@@ -6,8 +6,6 @@ import java.util.*
 
 interface ReadRoutineHistoryPort {
 
-    fun readByUserIdAndDate(userId: UUID, date: LocalDate): RoutineHistory?
-
     fun readByUserIdAndDateBetweenOrderByDate(
         userId: UUID,
         startDate: LocalDate,

@@ -1,11 +1,11 @@
 package com.info.maeumgagym.application.domain.routine
 
-import com.info.maeumgagym.common.annotation.responsibility.PersistenceAdapter
 import com.info.maeumgagym.application.domain.routine.mapper.ExerciseInfoHistoryListMapper
 import com.info.maeumgagym.application.domain.routine.mapper.RoutineHistoryMapper
 import com.info.maeumgagym.application.domain.routine.repository.history.ExerciseInfoHistoryRepository
 import com.info.maeumgagym.application.domain.routine.repository.history.RoutineHistoryNativeRepository
 import com.info.maeumgagym.application.domain.routine.repository.history.RoutineHistoryRepository
+import com.info.maeumgagym.common.annotation.responsibility.PersistenceAdapter
 import com.info.maeumgagym.core.routine.model.RoutineHistory
 import com.info.maeumgagym.core.routine.port.out.ExistsRoutineHistoryPort
 import com.info.maeumgagym.core.routine.port.out.ReadRoutineHistoryPort
@@ -38,14 +38,6 @@ internal class RoutineHistoryPersistenceAdapter(
 
         return mapper.toDomain(saved, savedExerciseInfoHistories)
     }
-
-    override fun readByUserIdAndDate(userId: UUID, date: LocalDate): RoutineHistory? =
-        routineHistoryRepository.findByUserIdAndDate(userId, date)?.run {
-            mapper.toDomain(
-                this,
-                exerciseInfoHistoryRepository.findAllByRoutineHistoryId(this.id!!)
-            )
-        }
 
     override fun readByUserIdAndDateBetweenOrderByDate(
         userId: UUID,

@@ -34,26 +34,4 @@ data class Routine(
                 )
             }
         )
-
-    fun toResponse(isCompleted: Boolean): RoutineResponse =
-        RoutineResponse(
-            id = id!!,
-            routineName = routineName,
-            exerciseInfoResponseList = exerciseInfoModelList.map {
-                it.toResponse()
-            },
-            dayOfWeeks = dayOfWeeks?.sorted()?.map {
-                it.getDisplayName(
-                    TextStyle.SHORT,
-                    Locale.KOREA
-                )
-            },
-            routineStatus = routineStatusModel.run {
-                RoutineStatusDto(
-                    isArchived = isArchived,
-                    isShared = isShared
-                )
-            },
-            isCompleted = isCompleted
-        )
 }
