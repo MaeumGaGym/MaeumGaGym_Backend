@@ -7,9 +7,14 @@ import org.springframework.data.redis.core.TimeToLive
 
 @RedisHash(TableNames.REVOKED_MAEUMGAGYM_TOKEN_TABLE)
 class RevokedMGTokenRedisEntity(
+    id: String,
+    ttl: Long
+) {
     @Id
-    val id: String,
+    var id: String = id
+        protected set
 
     @TimeToLive
-    val ttl: Long
-)
+    var ttl: Long = ttl
+        protected set
+}
