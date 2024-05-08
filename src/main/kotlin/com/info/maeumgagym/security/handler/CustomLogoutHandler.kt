@@ -1,6 +1,5 @@
 package com.info.maeumgagym.security.handler
 
-import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.auth.port.out.RevokeTokensPort
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.logout.LogoutHandler
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletResponse
  */
 @Component
 class CustomLogoutHandler(
-    private val readCurrentUserPort: ReadCurrentUserPort,
     private val revokeTokensPort: RevokeTokensPort
 ) : LogoutHandler {
 
@@ -27,7 +25,6 @@ class CustomLogoutHandler(
         response: HttpServletResponse,
         authentication: Authentication
     ) {
-        val user = readCurrentUserPort.readCurrentUser()
         revokeTokensPort.revoke()
     }
 }
