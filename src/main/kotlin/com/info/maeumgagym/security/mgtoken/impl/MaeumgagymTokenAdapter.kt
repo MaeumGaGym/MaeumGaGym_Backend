@@ -1,7 +1,7 @@
 package com.info.maeumgagym.security.mgtoken.impl
 
+import com.info.maeumgagym.common.exception.AuthenticationException
 import com.info.maeumgagym.common.exception.CriticalException
-import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.core.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.core.auth.port.out.ReissuePort
 import com.info.maeumgagym.core.auth.port.out.RevokeTokensPort
@@ -58,7 +58,7 @@ class MaeumgagymTokenAdapter(
         val decodedToken = maeumgagymTokenDecoder.decode(refreshToken)
 
         if (decodedToken.type != MaeumgagymTokenType.REFRESH_TOKEN) {
-            throw SecurityException.WRONG_TYPE_TOKEN
+            throw AuthenticationException.WRONG_TYPE_TOKEN
         }
 
         maeumgagymTokenValidator.validate(decodedToken)

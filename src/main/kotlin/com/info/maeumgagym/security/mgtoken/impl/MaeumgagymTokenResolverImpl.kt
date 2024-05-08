@@ -1,6 +1,6 @@
 package com.info.maeumgagym.security.mgtoken.impl
 
-import com.info.maeumgagym.common.exception.SecurityException
+import com.info.maeumgagym.common.exception.AuthenticationException
 import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenDecoder
 import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenResolver
 import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenValidator
@@ -33,7 +33,7 @@ class MaeumgagymTokenResolverImpl(
         val decoded = maeumgagymTokenDecoder.decode(token)
 
         if (decoded.type != requiredType) {
-            throw SecurityException.WRONG_TYPE_TOKEN
+            throw AuthenticationException.WRONG_TYPE_TOKEN
         }
 
         maeumgagymTokenValidator.validate(decoded)

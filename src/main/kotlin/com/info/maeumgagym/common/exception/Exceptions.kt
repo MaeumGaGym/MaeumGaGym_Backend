@@ -163,10 +163,6 @@ class SecurityException(
     companion object {
 
         val INVALID_TOKEN get() = SecurityException(401, "Invalid Token")
-        val WRONG_USER_TOKEN get() = SecurityException(401, "Issued And User Mismatch, Cannot Use It")
-        val EXPIRED_TOKEN get() = SecurityException(401, "Expired Token")
-        val NOT_A_MAEUMGAGYM_TOKEN get() = SecurityException(401, "It's Not a MaeumGaGym Authentication Token")
-        val WRONG_TYPE_TOKEN get() = SecurityException(401, "Token Type Wrong, Not Supported")
 
         val PERMISSION_DENIED get() = SecurityException(403, "Permission Denied")
     }
@@ -240,8 +236,13 @@ class AuthenticationException(
 
         // UnAuthorized
         val INVALID_TOKEN get() = AuthenticationException(401, "Invalid Token")
-        val EXPIRED_TOKEN get() = AuthenticationException(401, "Expired Token")
         val UNAUTHORIZED get() = AuthenticationException(401, "Unauthorized")
+        val EXPIRED_TOKEN get() = AuthenticationException(401, "Expired Token")
+        val WRONG_USER_TOKEN get() = SecurityException(401, "Issued And User Mismatch, Cannot Use It")
+        val NOT_A_MAEUMGAGYM_TOKEN get() = SecurityException(401, "It's Not a MaeumGaGym Authentication Token")
+        val WRONG_TYPE_TOKEN get() = SecurityException(401, "Token Type Wrong, Not Supported")
+
+        // Forbidden
         val ROLE_REQUIRED get() = AuthenticationException(403, "Role Required")
     }
 }

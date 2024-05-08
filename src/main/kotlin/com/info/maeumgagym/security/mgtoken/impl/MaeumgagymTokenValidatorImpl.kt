@@ -1,6 +1,6 @@
 package com.info.maeumgagym.security.mgtoken.impl
 
-import com.info.maeumgagym.common.exception.SecurityException
+import com.info.maeumgagym.common.exception.AuthenticationException
 import com.info.maeumgagym.infrastructure.request.context.CurrentRequestContext
 import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenValidator
 import com.info.maeumgagym.security.mgtoken.env.MaeumgagymTokenProperties
@@ -25,29 +25,29 @@ internal class MaeumgagymTokenValidatorImpl(
 
     override fun validate(maeumgagymToken: MaeumgagymToken) {
         if (revokedMGTokenContext.checkRevoked(maeumgagymToken.tokenId)) {
-            throw SecurityException.INVALID_TOKEN
+            throw AuthenticationException.INVALID_TOKEN
         }
 
         when (maeumgagymToken.type) {
             MaeumgagymTokenType.ACCESS_TOKEN -> {
                 if (maeumgagymToken.expireAt != getAccessTokenExpireAt(maeumgagymToken.issuedAt)) {
-                    throw SecurityException.INVALID_TOKEN
+                    throw AuthenticationException.INVALID_TOKEN
                 }
             }
 
             MaeumgagymTokenType.REFRESH_TOKEN -> {
                 if (maeumgagymToken.expireAt != getRefreshTokenExpireAt(maeumgagymToken.issuedAt)) {
-                    throw SecurityException.INVALID_TOKEN
+                    throw AuthenticationException.INVALID_TOKEN
                 }
             }
         }
 
         if (maeumgagymToken.expireAt.isBefore(LocalDateTime.now())) {
-            throw SecurityException.EXPIRED_TOKEN
+            throw AuthenticationException.EXPIRED_TOKEN
         }
 
         if (currentRequestContext.getCurrentRequest().remoteAddr != maeumgagymToken.ip) {
-            throw SecurityException.WRONG_USER_TOKEN
+            throw AuthenticationException.WRONG_USER_TOKEN
         }
     }
 

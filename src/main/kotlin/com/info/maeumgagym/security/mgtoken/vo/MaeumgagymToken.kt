@@ -26,8 +26,4 @@ data class MaeumgagymToken(
     val expireAt: LocalDateTime,
     val type: MaeumgagymTokenType,
     val tokenId: String
-) {
-    companion object {
-        const val PREFIX: String = "maeumgagym"
-    }
-}
+)

@@ -3,7 +3,7 @@ package com.info.maeumgagym.security.mgtoken.impl
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.info.maeumgagym.common.exception.SecurityException
+import com.info.maeumgagym.common.exception.AuthenticationException
 import com.info.maeumgagym.security.cryption.Decrypt
 import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenDecoder
 import com.info.maeumgagym.security.mgtoken.env.MaeumgagymTokenProperties
@@ -34,20 +34,20 @@ internal class MaeumgagymTokenDecoderImpl(
     }
 
     private fun resolveTokenPrefix(token: String): String {
-        if (!token.startsWith("${MaeumgagymToken.PREFIX} ")) {
-            throw SecurityException.NOT_A_MAEUMGAGYM_TOKEN
+        if (!token.startsWith("${maeumgagymTokenProperties.prefix} ")) {
+            throw AuthenticationException.NOT_A_MAEUMGAGYM_TOKEN
         }
 
-        return token.removePrefix(MaeumgagymToken.PREFIX).trim()
+        return token.removePrefix(maeumgagymTokenProperties.prefix).trim()
     }
 
     private fun stringTokenToVO(token: String): MaeumgagymToken {
         try {
             return objectMapper.readValue(token, MaeumgagymToken::class.java)
         } catch (e: JsonProcessingException) {
-            throw SecurityException.INVALID_TOKEN
+            throw AuthenticationException.INVALID_TOKEN
         } catch (e: JsonMappingException) {
-            throw SecurityException.INVALID_TOKEN
+            throw AuthenticationException.INVALID_TOKEN
         }
     }
 }
