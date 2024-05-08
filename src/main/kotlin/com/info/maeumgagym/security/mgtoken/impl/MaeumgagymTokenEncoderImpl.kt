@@ -26,10 +26,6 @@ internal class MaeumgagymTokenEncoderImpl(
     private val objectMapper: ObjectMapper
 ) : MaeumgagymTokenEncoder {
 
-    private companion object {
-        const val MAEUMGAGYM_TOKEN_PREFIX = "maeumgagym"
-    }
-
     override fun encode(username: String): MaeumgagymTokenPair {
         val tokenId = UUID.randomUUID().toString()
 
@@ -86,5 +82,5 @@ internal class MaeumgagymTokenEncoderImpl(
     }
 
     private fun appendTokenPrefix(token: String) =
-        "$MAEUMGAGYM_TOKEN_PREFIX $token"
+        "${maeumgagymTokenProperties.prefix} $token"
 }
