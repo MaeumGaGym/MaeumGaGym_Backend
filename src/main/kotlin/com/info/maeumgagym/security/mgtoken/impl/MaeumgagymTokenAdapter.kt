@@ -56,18 +56,17 @@ class MaeumgagymTokenAdapter(
 
     // 토큰 재발급
     override fun reissue(refreshToken: String): Pair<String, String> {
-        // refresh_token을 redis에서 불러오기
-        val decodedToken = maeumgagymTokenDecoder.decode(refreshToken)
 
-        maeumgagymTokenValidator.validate(decodedToken)
+        val decodedToken = maeumgagymTokenDecoder.decode(refreshToken)
 
         if (decodedToken.type != MaeumgagymTokenType.REFRESH_TOKEN) {
             throw SecurityException.WRONG_TYPE_TOKEN
         }
 
+        maeumgagymTokenValidator.validate(decodedToken)
+
         this.revoke(refreshToken)
 
-        // 토큰 재발급 및 반환
         return generateTokens(decodedToken.username)
     }
 }
