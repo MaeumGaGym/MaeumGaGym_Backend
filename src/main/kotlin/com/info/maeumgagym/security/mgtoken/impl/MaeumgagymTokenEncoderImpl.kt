@@ -76,9 +76,7 @@ internal class MaeumgagymTokenEncoderImpl(
     private fun encryptToken(token: MaeumgagymToken): String {
         val tokenString = objectMapper.writeValueAsString(token)
 
-        return Base64.getEncoder().encodeToString(
-            encrypt.encrypt(tokenString.encodeToByteArray(), maeumgagymTokenProperties.secretKey)
-        )
+        return encrypt.encrypt(tokenString, maeumgagymTokenProperties.secretKey)
     }
 
     private fun appendTokenPrefix(token: String) =
