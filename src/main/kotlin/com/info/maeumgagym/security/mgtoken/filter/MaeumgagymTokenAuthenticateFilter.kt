@@ -1,7 +1,6 @@
 package com.info.maeumgagym.security.mgtoken.filter
 
 import com.info.maeumgagym.security.authentication.provider.UserModelAuthenticationProvider
-import com.info.maeumgagym.security.config.RequestPermitConfig
 import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenResolver
 import org.springframework.http.HttpHeaders
 import org.springframework.security.core.context.SecurityContextHolder
@@ -11,9 +10,11 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 /**
- * 서버의 커스텀 인증 Filter.
+ * 클라이언트가 토큰을 제공했을 경우, 이를 해석한 인증 정보를 등록하는 필터
  *
- * 헤더를 통해 전해진 AccessToken의 유효성을 검증
+ * 인증 정보를 주입하는 책임만 가진 필터이며, 인증 정보를 보고 접근을 허용하는 인가 작업의 책임은 다른 클래스에게 있음.
+ * 따라서, 이 필터에서는 토큰이 없을 경우에 대한 예외 처리를 진행하지 않음
+ * 토큰이 존재하지 않을 경우 [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]에서 익명 인증 정보를 주입
  *
  * [MaeumgagymTokenResolver]를 통해 [MaeumgagymTokenDecoder][com.info.maeumgagym.security.mgtoken.MaeumgagymTokenDecoder], [MaeumgagymTokenValidator][com.info.maeumgagym.security.mgtoken.MaeumgagymTokenValidator]를 사용
  *
@@ -32,31 +33,17 @@ class MaeumgagymTokenAuthenticateFilter(
         // 헤더에 토큰이 존재하는지 확인
         val header = request.getHeader(HttpHeaders.AUTHORIZATION)
 
+        // 토큰이 존재하는 경우 => 인증 정보를 등록해야하는 경우
         if (header != null) {
-            // 토큰이 유효한지 확인, 유효하다면 ->
-            maeumgagymTokenResolver.resolveAccessToken(header)?.let {
-                // security context holder에 Authentication 저장
-                SecurityContextHolder.getContext().authentication =
-                    if (needRole(request)) { // Role 인증이 필요하다면 User Loading
-                        authenticationProvider.getAuthentication(it)
-                    } else { // 필요하지 않다면 User Lazy Loading 사용
-                        authenticationProvider.getEmptyAuthentication(it)
-                    }
-            }
+            // 토큰으로부터 username 추출
+            val username = maeumgagymTokenResolver.resolveAccessToken(header)
+
+            // 인증 정보 객체를 생성해 SecurityContext에 등록
+            SecurityContextHolder.getContext().authentication =
+                authenticationProvider.getEmptyAuthentication(username)
         }
 
         // 다음 필터로 넘기기
         filterChain.doFilter(request, response)
-    }
-
-    private fun needRole(request: HttpServletRequest): Boolean {
-        RequestPermitConfig.needAdminRoleURIs.forEach {
-            if (request.requestURI == it.key &&
-                request.method == it.value.name
-            ) {
-                return true
-            }
-        }
-        return false
     }
 }
