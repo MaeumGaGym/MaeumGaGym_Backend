@@ -4,8 +4,8 @@ import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
 import com.info.maeumgagym.core.auth.port.`in`.AppleLoginUseCase
 import com.info.maeumgagym.core.auth.port.`in`.AppleRecoveryUseCase
 import com.info.maeumgagym.core.auth.port.`in`.AppleSignUpUseCase
-import com.info.maeumgagym.presentation.controller.auth.dto.SignupWebRequest
 import com.info.maeumgagym.presentation.common.locationheader.LocationHeaderManager
+import com.info.maeumgagym.presentation.controller.auth.dto.SignupWebRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.headers.Header
 import io.swagger.v3.oas.annotations.media.Schema
@@ -34,7 +34,7 @@ private class AppleAuthController(
         headers = [
             Header(
                 name = "Authorization",
-                schema = Schema(type = "string", example = "Bearer ...")
+                schema = Schema(type = "string", example = "(Prefix) ...")
             ),
             Header(
                 name = "Set-Cookie",
@@ -52,7 +52,7 @@ private class AppleAuthController(
         appleLoginUseCase.login(token!!).run {
             val responseHeaders = HttpHeaders().apply {
                 add(HttpHeaders.SET_COOKIE, "RF-TOKEN=$second; Secure; HttpOnly; SameSite=strict")
-                setBearerAuth(first)
+                set(HttpHeaders.AUTHORIZATION, first)
             }
 
             ResponseEntity.ok().headers(responseHeaders).build()

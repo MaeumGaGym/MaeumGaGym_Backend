@@ -6,11 +6,22 @@ import com.info.maeumgagym.infrastructure.error.filter.ExceptionConvertFilter
 import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChain
 import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChainProxy
 import com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository
+import com.info.maeumgagym.infrastructure.request.context.CurrentRequestContext
+import com.info.maeumgagym.infrastructure.request.filter.CurrentRequestContextFilter
 import com.info.maeumgagym.infrastructure.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.infrastructure.response.writer.ErrorLogHttpServletResponseWriter
+import org.apache.tomcat.websocket.server.WsFilter
+import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter
 import org.springframework.boot.web.servlet.FilterRegistrationBean
+import org.springframework.boot.web.servlet.filter.OrderedFormContentFilter
+import org.springframework.boot.web.servlet.filter.OrderedRequestContextFilter
+import org.springframework.context.ApplicationContext
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.web.filter.CharacterEncodingFilter
+import org.springframework.web.filter.DelegatingFilterProxy
 import javax.servlet.Filter
+import javax.servlet.ServletContext
 
 /**
  * [ApplicationFilterChain][org.apache.catalina.core.ApplicationFilterChain] 속 Filter들의 삽입과 순서 설정
@@ -24,7 +35,10 @@ import javax.servlet.Filter
 class ApplicationFilterChainConfig(
     private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
     private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter,
-    private val exceptionRepository: ExceptionRepository
+    private val exceptionRepository: ExceptionRepository,
+    private val currentRequestContext: CurrentRequestContext,
+    private val applicationContext: ApplicationContext,
+    private val servletContext: ServletContext
 ) {
 
     /**
@@ -35,10 +49,49 @@ class ApplicationFilterChainConfig(
      * [getFilterOrder] 메소드를 이용해 정수형 순서 정보를 얻을 수 있음
      */
     private val filtersOrderList = listOf<Class<out Filter>>(
-        ExceptionChainedFilterChainProxy::class.java
+        CharacterEncodingFilter::class.java,
+        WebMvcMetricsFilter::class.java,
+        OrderedFormContentFilter::class.java,
+        OrderedRequestContextFilter::class.java,
+        ExceptionChainedFilterChainProxy::class.java,
+        CurrentRequestContextFilter::class.java,
+        DelegatingFilterProxy::class.java,
+        WsFilter::class.java
     )
 
     //@Bean
+    fun characterEncodingFilterConfig(): FilterRegistrationBean<CharacterEncodingFilter> {
+        return defaultFilterSetting(CharacterEncodingFilter::class.java)
+    }
+
+    //@Bean
+    fun webMvcMetricsFilterConfig(): FilterRegistrationBean<WebMvcMetricsFilter> {
+        return defaultFilterSetting(WebMvcMetricsFilter::class.java)
+    }
+
+    //@Bean
+    fun orderedFormContentFilterConfig(): FilterRegistrationBean<OrderedFormContentFilter> {
+        return defaultFilterSetting(OrderedFormContentFilter::class.java)
+    }
+
+    //@Bean
+    fun orderedRequestContextFilterConfig(): FilterRegistrationBean<OrderedRequestContextFilter> {
+        return defaultFilterSetting(OrderedRequestContextFilter::class.java)
+    }
+
+    @Bean
+    fun currentRequestContextFilterConfig(): FilterRegistrationBean<CurrentRequestContextFilter> {
+        val bean = FilterRegistrationBean(
+            CurrentRequestContextFilter(currentRequestContext)
+        )
+
+        bean.addUrlPatterns("/*")
+        bean.order = getFilterOrder(CurrentRequestContextFilter::class.java)
+
+        return bean
+    }
+
+    @Bean
     fun exceptionChainedFilterChainProxyConfig(): FilterRegistrationBean<ExceptionChainedFilterChainProxy> {
         val filterChain = ExceptionChainedFilterChain(
             mapOf(
@@ -68,6 +121,28 @@ class ApplicationFilterChainConfig(
         return bean
     }
 
+    // SecurityFilterChain
+    //@Bean
+    fun delegatingFilterProxyConfig(): FilterRegistrationBean<DelegatingFilterProxy> {
+        return defaultFilterSetting(DelegatingFilterProxy::class.java)
+    }
+
+    //@Bean
+    fun wsFilterConfig(): FilterRegistrationBean<WsFilter> {
+        return defaultFilterSetting(WsFilter::class.java)
+    }
+
+    private fun <T : Filter> defaultFilterSetting(`class`: Class<out T>): FilterRegistrationBean<T> {
+        val filter = applicationContext.getBean(`class`)
+
+        val bean = FilterRegistrationBean(filter)
+
+        bean.order = getFilterOrder(`class`)
+        bean.addUrlPatterns("/*")
+
+        return bean
+    }
+
     /**
      * [filtersOrderList]에 등록된 [Filter] 순서의 정수형 정보 반환.
      *
@@ -80,6 +155,6 @@ class ApplicationFilterChainConfig(
             throw CriticalException(500, "Attempted registration of Unknown filter")
         }
 
-        return index
+        return index + Int.MIN_VALUE
     }
 }

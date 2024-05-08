@@ -1,4 +1,4 @@
-package com.info.maeumgagym.security.jwt.impl
+package com.info.maeumgagym.security.jwt
 
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper

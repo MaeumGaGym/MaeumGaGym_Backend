@@ -1,7 +1,8 @@
 package com.info.maeumgagym.security.handler
 
-import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
+import com.info.maeumgagym.common.exception.AuthenticationException
 import com.info.maeumgagym.core.auth.port.out.RevokeTokensPort
+import com.info.maeumgagym.security.authentication.vo.UserModelAuthentication
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.logout.LogoutHandler
 import org.springframework.stereotype.Component
@@ -18,16 +19,20 @@ import javax.servlet.http.HttpServletResponse
  */
 @Component
 class CustomLogoutHandler(
-    private val readCurrentUserPort: ReadCurrentUserPort,
     private val revokeTokensPort: RevokeTokensPort
 ) : LogoutHandler {
 
     override fun logout(
         request: HttpServletRequest,
         response: HttpServletResponse,
-        authentication: Authentication
+        authentication: Authentication?
     ) {
-        val user = readCurrentUserPort.readCurrentUser()
-        revokeTokensPort.revoke(user.oauthId)
+        authentication ?: throw AuthenticationException.UNAUTHORIZED
+
+        if (authentication !is UserModelAuthentication) {
+            throw AuthenticationException.UNAUTHORIZED
+        }
+
+        revokeTokensPort.revoke()
     }
 }
