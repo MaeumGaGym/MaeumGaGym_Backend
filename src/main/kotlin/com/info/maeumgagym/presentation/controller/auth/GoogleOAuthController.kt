@@ -48,7 +48,7 @@ private class GoogleOAuthController(
         headers = [
             Header(
                 name = "Authorization",
-                schema = Schema(type = "string", example = "Bearer ...")
+                schema = Schema(type = "string", example = "(Prefix) ...")
             ),
             Header(
                 name = "Set-Cookie",
