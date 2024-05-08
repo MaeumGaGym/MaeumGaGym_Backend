@@ -1,6 +1,7 @@
 package com.info.maeumgagym.security.mgtoken.impl
 
 import com.info.maeumgagym.common.exception.CriticalException
+import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.core.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.core.auth.port.out.ReissuePort
 import com.info.maeumgagym.core.auth.port.out.RevokeTokensPort
@@ -9,6 +10,7 @@ import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenEncoder
 import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenRevoker
 import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenValidator
 import com.info.maeumgagym.security.mgtoken.context.MaeumgagymTokenContext
+import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymTokenType
 import org.springframework.stereotype.Component
 
 /**
@@ -58,6 +60,10 @@ class MaeumgagymTokenAdapter(
         val decodedToken = maeumgagymTokenDecoder.decode(refreshToken)
 
         maeumgagymTokenValidator.validate(decodedToken)
+
+        if (decodedToken.type != MaeumgagymTokenType.REFRESH_TOKEN) {
+            throw SecurityException.WRONG_TYPE_TOKEN
+        }
 
         this.revoke(refreshToken)
 
