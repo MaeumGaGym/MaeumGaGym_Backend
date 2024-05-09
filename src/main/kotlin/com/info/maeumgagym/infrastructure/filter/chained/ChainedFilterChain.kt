@@ -99,7 +99,7 @@ abstract class ChainedFilterChain : GlobalFilterChain {
     }
 
     /**
-     * @return [getCurrentFilterIndex]를 기반으로 현재 실행한 Filter를 반환
+     * @return [currentFilterIndex]를 기반으로 현재 실행한 Filter를 반환
      */
     private fun getCurrentFilter(): Filter =
         filters[filters.keys.toList()[currentFilterIndex.get()]]!!
