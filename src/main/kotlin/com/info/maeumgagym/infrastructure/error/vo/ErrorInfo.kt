@@ -21,9 +21,7 @@ data class ErrorInfo(
                 is PresentationValidationException -> e.run {
                     ErrorInfo(
                         exceptionClassName = javaClass.name,
-                        errorOccurredClassName = getErrorOccurredClassName(
-                            stackTrace.toList()
-                        ),
+                        errorOccurredClassName = getErrorOccurredClassName(stackTrace.toList()),
                         status = status,
                         message = message,
                         responseMessage = responseMessage,
@@ -34,12 +32,10 @@ data class ErrorInfo(
                 else -> e.run {
                     ErrorInfo(
                         exceptionClassName = javaClass.name,
-                        errorOccurredClassName = getErrorOccurredClassName(
-                            stackTrace.toList()
-                        ),
+                        errorOccurredClassName = getErrorOccurredClassName(stackTrace.toList()),
                         status = status,
                         message = message,
-                        responseMessage = responseMessage,
+                        responseMessage = responseMessage
                     )
                 }
             }
