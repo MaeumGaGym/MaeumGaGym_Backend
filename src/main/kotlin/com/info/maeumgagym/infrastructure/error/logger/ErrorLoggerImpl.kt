@@ -12,15 +12,15 @@ class ErrorLoggerImpl : ErrorLogger {
     override fun printLog(errorInfo: ErrorInfo) {
         errorInfo.run {
             logger.warn(
-                "[$id] $status : \"$message\" with exception : \"$exceptionClassName\""
+                "[$id] $status : \"$message\" with exception \"$exceptionClassName\""
             )
 
             logger.warn(
-                "\tin ${errorOccurredClassName.first()}"
+                "\tat ${errorOccurredClassName.first()}"
             )
 
             errorOccurredClassName.subList(1, errorOccurredClassName.size).forEach {
-                logger.warn("\tor $it")
+                logger.warn("\t or $it")
             }
         }
     }

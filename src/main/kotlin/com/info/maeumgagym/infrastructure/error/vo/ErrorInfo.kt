@@ -46,9 +46,14 @@ data class ErrorInfo(
     }
 }
 
-private fun getErrorOccurredClassName(stackTrace: List<StackTraceElement>): List<String> =
-    listOf(
-        "\"${stackTrace[3].className}\"",
-        "\"${stackTrace[2].className}\"",
-        "\"${stackTrace[1].className}\""
-    )
+private fun getErrorOccurredClassName(stackTrace: List<StackTraceElement>): List<String> {
+    val classes = mutableSetOf<String>()
+
+    var i = 0
+    while (classes.size != 5) {
+        classes.add(stackTrace[i].className)
+        i++
+    }
+
+    return classes.toList()
+}
