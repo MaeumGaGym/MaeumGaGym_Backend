@@ -6,6 +6,7 @@ import com.info.maeumgagym.core.pose.dto.response.PoseDetailResponse
 import com.info.maeumgagym.core.pose.dto.response.PoseListResponse
 import com.info.maeumgagym.core.pose.dto.response.PoseRecommendationListResponse
 import com.info.maeumgagym.core.pose.port.`in`.*
+import com.info.maeumgagym.core.user.model.Role
 import com.info.maeumgagym.presentation.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.presentation.controller.pose.dto.request.CreatePoseWebRequest
 import com.info.maeumgagym.presentation.controller.pose.dto.request.ReadAllPoseWebRequest
@@ -34,7 +35,7 @@ private class PoseController(
 
     @Operation(summary = "자세 추가 API")
     @ResponseStatus(HttpStatus.CREATED)
-    @RequireRole(role = "ADMIN")
+    @RequireRole(Role.ADMIN)
     @PostMapping
     fun create(
         @Valid
