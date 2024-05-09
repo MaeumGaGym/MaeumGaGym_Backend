@@ -1,12 +1,11 @@
 package com.info.maeumgagym.infrastructure.response.writer
 
-import com.info.maeumgagym.common.exception.MaeumGaGymException
-import com.info.maeumgagym.infrastructure.error.vo.ErrorLog
+import com.info.maeumgagym.infrastructure.error.vo.ErrorInfo
 import java.time.LocalDateTime
 import javax.servlet.http.HttpServletResponse
 
 /**
- * [ErrorLog]의 정보로 [HttpServletResponse]를 작성하기 위한 [HttpServletResponseWriter]
+ * [ErrorInfo]의 정보로 [HttpServletResponse]를 작성하기 위한 [HttpServletResponseWriter]
  *
  * [DefaultHttpServletResponseWriter]를 내부 변수로 갖고 있어, [setBody]와 [doDefaultSettingWithStatusCode]는 [DefaultHttpServletResponseWriter]를 통해 Proxy 형태로 구현됨.
  *
@@ -37,7 +36,7 @@ abstract class ErrorLogHttpServletResponseWriter : HttpServletResponseWriter {
     ): HttpServletResponse
 
     /**
-     * 인자로 받은 [ErrorLog]의 정보를 기반으로 [HttpServletResponse]를 작성.
+     * 인자로 받은 [ErrorInfo]의 정보를 기반으로 [HttpServletResponse]를 작성.
      *
      * 사용되는 정보는 [ErrorLogResponse]의 Docs 참고.
      *
@@ -46,9 +45,9 @@ abstract class ErrorLogHttpServletResponseWriter : HttpServletResponseWriter {
      * @author Daybreak312
      * @since 12-03-2024
      */
-    abstract fun writeResponseWithErrorLog(
+    abstract fun writeErrorResponse(
         response: HttpServletResponse,
-        errorLog: ErrorLog
+        errorInfo: ErrorInfo
     ): HttpServletResponse
 }
 
@@ -70,27 +69,4 @@ data class ErrorLogResponse(
     val errorLogId: String,
     val timestamp: LocalDateTime = LocalDateTime.now(),
     val map: Map<String, String> = mapOf()
-) {
-
-    companion object {
-        fun of(errorLog: ErrorLog): ErrorLogResponse =
-            errorLog.run {
-                ErrorLogResponse(
-                    status = status,
-                    message = errorLog.getErrorResponseMessage(),
-                    errorLogId = id,
-                    timestamp = timestamp,
-                    map = map
-                )
-            }
-    }
-}
-
-private fun ErrorLog.getErrorResponseMessage(): String =
-    if (isServerErrorStatus(this.status)) {
-        MaeumGaGymException.INTERNAL_SERVER_ERROR.message!!
-    } else {
-        this.message ?: ""
-    }
-
-private fun isServerErrorStatus(status: Int): Boolean = status in 500..599
+)

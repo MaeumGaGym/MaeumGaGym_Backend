@@ -45,7 +45,7 @@ class MaeumgagymTokenAdapter(
     override fun revoke(token: String?) {
         val decoded = if (token == null) {
             maeumgagymTokenContext.getCurrentToken()
-                ?: throw CriticalException(500, "Token is NULL In Revoke(Only Authenticated Can Access)")
+                ?: throw CriticalException("Token is NULL In Revoke(Only Authenticated Can Access)")
         } else {
             maeumgagymTokenDecoder.decode(token)
         }

@@ -19,7 +19,6 @@ class UserModelAuthenticationProviderImpl(
             userSubject = subject,
             user = readUserPort.readByOAuthId(subject)
                 ?: throw CriticalException(
-                    500,
                     "User Not Found with Subject in AccessToken at ${this::class.simpleName}"
                 )
         )
