@@ -51,7 +51,7 @@ class ErrorLogResponseFilter(
             return
         }
 
-        val errorLog = printErrorLogAndReturn(e)
+        val errorInfo = ErrorInfo.of(e)
 
         if (isUnknownMaeumGaGymException(e)) {
             e.printStackTrace()
@@ -61,7 +61,7 @@ class ErrorLogResponseFilter(
     }
 
     private fun resolveUnknownException(e: Exception, response: HttpServletResponse) {
-        val errorLog = printErrorLogAndReturn(e)
+        val errorInfo = ErrorInfo.of(e)
 
         e.printStackTrace()
 

@@ -5,7 +5,7 @@ import com.info.maeumgagym.common.exception.PresentationValidationException
 import java.time.LocalDateTime
 import java.util.*
 
-data class ErrorLog(
+data class ErrorInfo(
     val id: String = UUID.randomUUID().toString().substring(0 until 7),
     val exceptionClassName: String,
     val errorOccurredClassName: String,
@@ -18,7 +18,7 @@ data class ErrorLog(
         fun of(e: Exception) =
             when (e) {
                 is PresentationValidationException -> e.run {
-                    ErrorLog(
+                    ErrorInfo(
                         exceptionClassName = javaClass.name,
                         errorOccurredClassName = getErrorOccurredClassName(
                             stackTrace.toList()
@@ -30,7 +30,7 @@ data class ErrorLog(
                 }
 
                 is MaeumGaGymException -> e.run {
-                    ErrorLog(
+                    ErrorInfo(
                         exceptionClassName = javaClass.name,
                         errorOccurredClassName = getErrorOccurredClassName(
                             stackTrace.toList()
@@ -41,7 +41,7 @@ data class ErrorLog(
                 }
 
                 else -> e.run {
-                    ErrorLog(
+                    ErrorInfo(
                         exceptionClassName = javaClass.name,
                         errorOccurredClassName = getErrorOccurredClassName(
                             stackTrace.toList()

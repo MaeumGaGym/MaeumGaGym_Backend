@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.response.writer.impl
 
-import com.info.maeumgagym.infrastructure.error.vo.ErrorLog
+import com.info.maeumgagym.infrastructure.error.vo.ErrorInfo
 import com.info.maeumgagym.infrastructure.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.infrastructure.response.writer.ErrorLogHttpServletResponseWriter
 import com.info.maeumgagym.infrastructure.response.writer.ErrorLogResponse
@@ -27,14 +27,14 @@ private class ErrorLogHttpServletResponseWriterImpl(
     ): HttpServletResponse =
         defaultHttpServletResponseWriter.doDefaultSettingWithStatusCode(response, status)
 
-    override fun writeResponseWithErrorLog(
+    override fun writeErrorResponse(
         response: HttpServletResponse,
-        errorLog: ErrorLog
+        errorInfo: ErrorInfo
     ): HttpServletResponse = response.apply {
-        doDefaultSettingWithStatusCode(response, errorLog.status)
+        doDefaultSettingWithStatusCode(response, errorInfo.status)
         setBody(
             response = response,
-            `object` = ErrorLogResponse.of(errorLog)
+            `object` = ErrorLogResponse.of(errorInfo)
         )
     }
 }
