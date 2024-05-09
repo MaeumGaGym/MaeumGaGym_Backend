@@ -8,14 +8,15 @@ import java.util.*
 data class ErrorInfo(
     val id: String = UUID.randomUUID().toString().substring(0 until 7),
     val exceptionClassName: String,
-    val errorOccurredClassName: String,
+    val errorOccurredClassName: List<String>,
     val status: Int = 500,
-    val message: String? = null,
+    val message: String,
+    val responseMessage: String,
     val map: Map<String, String> = mapOf(),
     val timestamp: LocalDateTime = LocalDateTime.now()
 ) {
     companion object {
-        fun of(e: Exception) =
+        fun of(e: MaeumGaGymException) =
             when (e) {
                 is PresentationValidationException -> e.run {
                     ErrorInfo(
@@ -25,18 +26,8 @@ data class ErrorInfo(
                         ),
                         status = status,
                         message = message,
+                        responseMessage = responseMessage,
                         map = fields
-                    )
-                }
-
-                is MaeumGaGymException -> e.run {
-                    ErrorInfo(
-                        exceptionClassName = javaClass.name,
-                        errorOccurredClassName = getErrorOccurredClassName(
-                            stackTrace.toList()
-                        ),
-                        status = status,
-                        message = message
                     )
                 }
 
@@ -46,15 +37,18 @@ data class ErrorInfo(
                         errorOccurredClassName = getErrorOccurredClassName(
                             stackTrace.toList()
                         ),
-                        message = message
+                        status = status,
+                        message = message,
+                        responseMessage = responseMessage,
                     )
                 }
             }
     }
-
-    override fun toString() =
-        "[$id] $status : \"$message\" in > $errorOccurredClassName < cause \"$exceptionClassName\""
 }
 
-private fun getErrorOccurredClassName(stackTrace: List<StackTraceElement>): String =
-    "\"${stackTrace[3].className}\" or \"${stackTrace[2].className}\" or \"${stackTrace[1].className}\""
+private fun getErrorOccurredClassName(stackTrace: List<StackTraceElement>): List<String> =
+    listOf(
+        "\"${stackTrace[3].className}\"",
+        "\"${stackTrace[2].className}\"",
+        "\"${stackTrace[1].className}\""
+    )

@@ -1,6 +1,5 @@
 package com.info.maeumgagym.infrastructure.response.writer
 
-import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.infrastructure.error.vo.ErrorInfo
 import java.time.LocalDateTime
 import javax.servlet.http.HttpServletResponse
@@ -70,27 +69,4 @@ data class ErrorLogResponse(
     val errorLogId: String,
     val timestamp: LocalDateTime = LocalDateTime.now(),
     val map: Map<String, String> = mapOf()
-) {
-
-    companion object {
-        fun of(errorInfo: ErrorInfo): ErrorLogResponse =
-            errorInfo.run {
-                ErrorLogResponse(
-                    status = status,
-                    message = errorInfo.getErrorResponseMessage(),
-                    errorLogId = id,
-                    timestamp = timestamp,
-                    map = map
-                )
-            }
-    }
-}
-
-private fun ErrorLog.getErrorResponseMessage(): String =
-    if (isServerErrorStatus(this.status)) {
-        MaeumGaGymException.INTERNAL_SERVER_ERROR.message!!
-    } else {
-        this.message ?: ""
-    }
-
-private fun isServerErrorStatus(status: Int): Boolean = status in 500..599
+)

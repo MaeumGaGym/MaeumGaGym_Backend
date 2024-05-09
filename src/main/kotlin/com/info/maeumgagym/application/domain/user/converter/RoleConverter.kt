@@ -22,7 +22,7 @@ internal class RoleConverter : AttributeConverter<MutableList<Role>, String> {
                 Role.USER.name -> Role.USER
                 Role.ADMIN.name -> Role.ADMIN
                 Role.SELLER.name -> Role.SELLER
-                else -> throw CriticalException(500, "Role Convert Error")
+                else -> throw CriticalException("Role Convert Error")
             }
         }.toMutableList()
 }

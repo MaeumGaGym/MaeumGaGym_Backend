@@ -1,7 +1,8 @@
 package com.info.maeumgagym.infrastructure.error.filter
 
 import com.info.maeumgagym.common.exception.*
-import com.info.maeumgagym.infrastructure.error.vo.ErrorLog
+import com.info.maeumgagym.infrastructure.error.logger.ErrorLogger
+import com.info.maeumgagym.infrastructure.error.vo.ErrorInfo
 import com.info.maeumgagym.infrastructure.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.infrastructure.response.writer.ErrorLogHttpServletResponseWriter
 import org.springframework.web.filter.OncePerRequestFilter
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletResponse
  * [Exception]이 발생했을 때, 응답 및 로그를 작성
  *
  * [doFilter], 정확히는 [doFilterInternal]를 *try*문으로 감싸 실행.
- * 이후 발생한 모든 예외를 *catch*해 각 예외에 따라 [ErrorLog]및 그에 대한 Response를 작성.
+ * 이후 발생한 모든 예외를 *catch*해 각 예외에 따라 [ErrorInfo]및 그에 대한 Response를 작성.
  *
  * 원래 [DispatcherServlet][org.springframework.web.servlet.DispatcherServlet] 통과 이후 발생한 예외는 [NestedServletException.cause]로 감싸져 *throw*되지만, [ExceptionConvertFilter]에서 이를 [MaeumGaGymException]의 하위 타입으로 변환함. 자세한 것은 [ExceptionConvertFilter] 참조.
  *
@@ -28,7 +29,8 @@ import javax.servlet.http.HttpServletResponse
  */
 class ErrorLogResponseFilter(
     private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
-    private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter
+    private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter,
+    private val errorLogger: ErrorLogger
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
@@ -39,14 +41,17 @@ class ErrorLogResponseFilter(
         try {
             filterChain.doFilter(request, response)
         } catch (e: MaeumGaGymException) {
-            resolveMaeumGaGymException(e, response)
+            resolveException(e, response)
         } catch (e: Exception) {
-            resolveUnknownException(e, response)
+            resolveException(
+                CriticalException("Unknown Type Exception Came to ${javaClass.name}").apply { initCause(e) },
+                response
+            )
         }
     }
 
-    private fun resolveMaeumGaGymException(e: MaeumGaGymException, response: HttpServletResponse) {
-        if (isOkStatus(e.status)) {
+    private fun resolveException(e: MaeumGaGymException, response: HttpServletResponse) {
+        if (isSuccessStatusCode(e.status)) {
             defaultHttpServletResponseWriter.doDefaultSettingWithStatusCode(response, e.status)
             return
         }
@@ -57,29 +62,16 @@ class ErrorLogResponseFilter(
             e.printStackTrace()
         }
 
-        errorLogHttpServletResponseWriter.writeResponseWithErrorLog(response, errorLog)
+        errorLogHttpServletResponseWriter.writeErrorResponse(response, errorInfo)
+
+        errorLogger.printLog(errorInfo)
     }
 
-    private fun resolveUnknownException(e: Exception, response: HttpServletResponse) {
-        val errorInfo = ErrorInfo.of(e)
-
-        e.printStackTrace()
-
-        errorLogHttpServletResponseWriter.writeResponseWithErrorLog(response, errorLog)
-    }
-
-    private fun isOkStatus(status: Int): Boolean =
+    private fun isSuccessStatusCode(status: Int): Boolean =
         status in 200..299
 
     private fun isUnknownMaeumGaGymException(e: MaeumGaGymException): Boolean =
         e !is BusinessLogicException && e !is SecurityException &&
             e !is FilterException && e !is InterceptorException &&
             e !is AuthenticationException && e !is PresentationValidationException
-
-    private fun printErrorLogAndReturn(e: Exception): ErrorLog {
-        ErrorLog.of(e).run {
-            logger.info(this.toString())
-            return this
-        }
-    }
 }

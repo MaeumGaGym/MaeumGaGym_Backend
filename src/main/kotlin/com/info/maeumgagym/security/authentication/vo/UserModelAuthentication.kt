@@ -21,7 +21,7 @@ class UserModelAuthentication(
      */
     init {
         if (user != null && user.oauthId != userSubject) {
-            throw CriticalException(500, "user's subject and userSubject are different")
+            throw CriticalException("user's subject and userSubject are different")
         }
     }
 
@@ -63,7 +63,7 @@ class UserModelAuthentication(
      */
     override fun setAuthenticated(isAuthenticated: Boolean) {
         if (!isAuthenticated) {
-            throw CriticalException(500, "UserModelAuthentication MUSE BE Authenticated.")
+            throw CriticalException("UserModelAuthentication MUSE BE Authenticated.")
         }
     }
 }

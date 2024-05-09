@@ -25,7 +25,7 @@ internal class MaeumgagymTokenValidatorImpl(
 
     override fun validate(maeumgagymToken: MaeumgagymToken) {
         if (revokedMGTokenContext.checkRevoked(maeumgagymToken.tokenId)) {
-            throw AuthenticationException.INVALID_TOKEN
+            throw AuthenticationException.REVOKED_TOKEN
         }
 
         when (maeumgagymToken.type) {

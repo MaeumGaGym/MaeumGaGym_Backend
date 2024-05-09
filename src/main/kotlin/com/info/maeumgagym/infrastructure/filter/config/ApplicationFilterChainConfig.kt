@@ -5,6 +5,7 @@ import com.info.maeumgagym.infrastructure.error.filter.ErrorLogResponseFilter
 import com.info.maeumgagym.infrastructure.error.filter.ExceptionConvertFilter
 import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChain
 import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChainProxy
+import com.info.maeumgagym.infrastructure.error.logger.ErrorLogger
 import com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository
 import com.info.maeumgagym.infrastructure.request.context.CurrentRequestContext
 import com.info.maeumgagym.infrastructure.request.filter.CurrentRequestContextFilter
@@ -21,7 +22,6 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.web.filter.CharacterEncodingFilter
 import org.springframework.web.filter.DelegatingFilterProxy
 import javax.servlet.Filter
-import javax.servlet.ServletContext
 
 /**
  * [ApplicationFilterChain][org.apache.catalina.core.ApplicationFilterChain] 속 Filter들의 삽입과 순서 설정
@@ -35,10 +35,10 @@ import javax.servlet.ServletContext
 class ApplicationFilterChainConfig(
     private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
     private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter,
+    private val errorLogger: ErrorLogger,
     private val exceptionRepository: ExceptionRepository,
     private val currentRequestContext: CurrentRequestContext,
-    private val applicationContext: ApplicationContext,
-    private val servletContext: ServletContext
+    private val applicationContext: ApplicationContext
 ) {
 
     /**
@@ -99,7 +99,8 @@ class ApplicationFilterChainConfig(
                     ErrorLogResponseFilter::class.simpleName!!,
                     ErrorLogResponseFilter(
                         defaultHttpServletResponseWriter,
-                        errorLogHttpServletResponseWriter
+                        errorLogHttpServletResponseWriter,
+                        errorLogger
                     )
                 ),
                 Pair(
@@ -152,7 +153,7 @@ class ApplicationFilterChainConfig(
         val index = this.filtersOrderList.indexOf(`class`)
 
         if (index == -1) {
-            throw CriticalException(500, "Attempted registration of Unknown filter")
+            throw CriticalException("Attempted registration of Unknown filter")
         }
 
         return index + Int.MIN_VALUE

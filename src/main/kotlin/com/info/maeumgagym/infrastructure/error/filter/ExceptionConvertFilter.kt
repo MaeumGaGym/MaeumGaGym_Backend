@@ -2,6 +2,7 @@ package com.info.maeumgagym.infrastructure.error.filter
 
 import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.common.exception.PresentationValidationException
+import com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.MissingServletRequestParameterException
 import org.springframework.web.filter.GenericFilterBean
@@ -35,13 +36,15 @@ import javax.validation.ConstraintViolationException
  * @since 22.02.2024
  */
 class ExceptionConvertFilter(
-    private val exceptionRepository: com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository
+    private val exceptionRepository: ExceptionRepository
 ) : GenericFilterBean() {
 
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
         try {
             chain.doFilter(request, response)
             exceptionRepository.throwIt()
+        } catch (e: MaeumGaGymException) {
+            throw e
         } catch (e: NestedServletException) {
             throw when (e.cause) {
                 is MaeumGaGymException -> e.cause as MaeumGaGymException
@@ -52,7 +55,7 @@ class ExceptionConvertFilter(
                             400,
                             "field : ${fieldError?.field}\nparameter : $parameter",
                             mapOf()
-                        )
+                        ).apply { initCause(e) }
                     }
 
                 is ConstraintViolationException ->
@@ -63,7 +66,7 @@ class ExceptionConvertFilter(
                             fields = constraintViolations.associate {
                                 Pair<String, String>(it.propertyPath.toString(), it.message)
                             }
-                        )
+                        ).apply { initCause(e) }
                     }
 
                 is MissingServletRequestParameterException ->
@@ -72,7 +75,7 @@ class ExceptionConvertFilter(
                             status = 400,
                             message = message,
                             fields = mapOf(Pair(parameterName, localizedMessage))
-                        )
+                        ).apply { initCause(e) }
                     }
 
                 else -> e.cause ?: e
@@ -82,7 +85,13 @@ class ExceptionConvertFilter(
                 status = 400,
                 message = "DateTime Format Wrong",
                 fields = mapOf()
-            )
+            ).apply { initCause(e) }
+        } catch (e: Exception) {
+            throw MaeumGaGymException(
+                500,
+                e.message ?: e.localizedMessage ?: ("Cause Exception Class : " + e.javaClass.name),
+                MaeumGaGymException.INTERNAL_SERVER_ERROR.responseMessage
+            ).apply { initCause(e) }
         }
     }
 }

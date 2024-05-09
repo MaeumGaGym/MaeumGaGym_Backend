@@ -34,7 +34,13 @@ private class ErrorLogHttpServletResponseWriterImpl(
         doDefaultSettingWithStatusCode(response, errorInfo.status)
         setBody(
             response = response,
-            `object` = ErrorLogResponse.of(errorInfo)
+            `object` = ErrorLogResponse(
+                status = status,
+                message = errorInfo.responseMessage,
+                errorLogId = errorInfo.id,
+                timestamp = errorInfo.timestamp,
+                map = errorInfo.map
+            )
         )
     }
 }

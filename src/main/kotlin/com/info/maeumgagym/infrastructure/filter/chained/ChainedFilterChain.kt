@@ -70,7 +70,7 @@ abstract class ChainedFilterChain : GlobalFilterChain {
      */
     final override fun doFilter(request: ServletRequest, response: ServletResponse) {
         if (calledFilterChain.get() == null) {
-            throw CriticalException(500, "ChainedFilterChain called with doesn't init CalledFilterChain")
+            throw CriticalException("ChainedFilterChain called with doesn't init CalledFilterChain")
         }
 
         plusCurrentFilterIndex()

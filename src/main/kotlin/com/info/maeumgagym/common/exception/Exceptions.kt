@@ -2,6 +2,7 @@ package com.info.maeumgagym.common.exception
 
 import com.info.maeumgagym.common.annotation.responsibility.UseCase
 import com.info.maeumgagym.common.value.DomainNames
+import org.springframework.http.HttpStatus
 
 /**
  * 마음가짐 내에서 전역적으로 쓰이는 예외 클래스의 최상위 타입
@@ -52,7 +53,8 @@ import com.info.maeumgagym.common.value.DomainNames
  */
 open class MaeumGaGymException(
     val status: Int,
-    message: String
+    final override val message: String,
+    val responseMessage: String = message
 ) : RuntimeException(message) {
 
     companion object {
@@ -77,8 +79,9 @@ open class MaeumGaGymException(
  */
 class BusinessLogicException(
     status: Int,
-    message: String
-) : MaeumGaGymException(status, message) {
+    message: String,
+    responseMessage: String = message
+) : MaeumGaGymException(status, message, responseMessage) {
 
     /**
      * [message] 표준화를 위해 도메인 이름과 Http 상태 코드 메세지를 이용해 [message]를 작성하는 생성자
@@ -145,8 +148,9 @@ class BusinessLogicException(
  */
 class SecurityException(
     status: Int,
-    message: String
-) : MaeumGaGymException(status, message) {
+    message: String,
+    responseMessage: String = message
+) : MaeumGaGymException(status, message, responseMessage) {
 
     constructor(errorCodePrefixSuffix: ErrorCodePrefixSuffix, domainName: DomainNames) :
         this(
@@ -194,8 +198,9 @@ enum class ErrorCodePrefixSuffix(
  */
 class FilterException(
     status: Int,
-    message: String
-) : MaeumGaGymException(status, message)
+    message: String,
+    responseMessage: String = message
+) : MaeumGaGymException(status, message, responseMessage)
 
 /**
  * 인터셉터, 정확히는 커스텀 인터셉터 실행 중에 발생한 예외
@@ -204,21 +209,23 @@ class FilterException(
  */
 class InterceptorException(
     status: Int,
-    message: String
-) : MaeumGaGymException(status, message)
+    message: String,
+    responseMessage: String = message
+) : MaeumGaGymException(status, message, responseMessage)
 
 /**
  * 컨트롤러에서의 유효성 검증 과정 중 발생한 예외
  *
- * [ErrorLogResponseFilter]에서 Validation 실패시 발생하는 예외들을 이 예외로 변환 후 처리
+ * [com.info.maeumgagym.infrastructure.error.filter.ErrorLogResponseFilter]에서 Validation 실패시 발생하는 예외들을 이 예외로 변환 후 처리
  *
  * @see MaeumGaGymException
  */
 class PresentationValidationException(
     status: Int,
     message: String,
-    val fields: Map<String, String>
-) : MaeumGaGymException(status, message)
+    val fields: Map<String, String>,
+    responseMessage: String = message
+) : MaeumGaGymException(status, message, responseMessage)
 
 /**
  * SecurityFilterChain 실행 중에 발생한 예외
@@ -227,8 +234,9 @@ class PresentationValidationException(
  */
 class AuthenticationException(
     status: Int,
-    message: String
-) : MaeumGaGymException(status, message) {
+    message: String,
+    responseMessage: String = message
+) : MaeumGaGymException(status, message, responseMessage) {
 
     companion object {
 
@@ -236,26 +244,36 @@ class AuthenticationException(
         val INVALID_TOKEN get() = AuthenticationException(401, "Invalid Token")
         val UNAUTHORIZED get() = AuthenticationException(401, "Unauthorized")
         val EXPIRED_TOKEN get() = AuthenticationException(401, "Expired Token")
-        val WRONG_USER_TOKEN get() = SecurityException(401, "Issued And User Mismatch, Cannot Use It")
-        val NOT_A_MAEUMGAGYM_TOKEN get() = SecurityException(401, "It's Not a MaeumGaGym Authentication Token")
-        val WRONG_TYPE_TOKEN get() = SecurityException(401, "Token Type Wrong, Not Supported")
+        val REVOKED_TOKEN
+            get() = AuthenticationException(401, "Revoked Token.", INVALID_TOKEN.responseMessage)
+        val WRONG_USER_TOKEN
+            get() = AuthenticationException(
+                401,
+                "Issued And User Mismatch, Cannot Use It",
+                INVALID_TOKEN.responseMessage
+            )
+        val NOT_A_MAEUMGAGYM_TOKEN
+            get() = AuthenticationException(401, "It's Not a MaeumGaGym Authentication Token. Invalid Prefix")
+        val WRONG_TYPE_TOKEN
+            get() = AuthenticationException(401, "Token Type Wrong, Not Supported", INVALID_TOKEN.responseMessage)
 
         // Forbidden
-        val ROLE_REQUIRED get() = AuthenticationException(403, "Role Required")
+        val ROLE_REQUIRED get() = AuthenticationException(403, "Role Required", FORBIDDEN.responseMessage)
     }
 }
 
 class FeignException(
     status: Int,
-    message: String
-) : MaeumGaGymException(status, message) {
+    message: String,
+    responseMessage: String = message
+) : MaeumGaGymException(status, message, responseMessage) {
 
     companion object {
 
         val FEIGN_BAD_REQUEST get() = FeignException(400, "Feign Bad Request")
         val FEIGN_UNAUTHORIZED get() = FeignException(401, "Feign UnAuthorized")
         val FEIGN_FORBIDDEN get() = FeignException(403, "Feign Forbidden")
-        val FEIGN_SERVER_ERROR get() = FeignException(500, "Feign Server Error")
+        val FEIGN_SERVER_ERROR get() = FeignException(500, "Feign Server Error", INTERNAL_SERVER_ERROR.responseMessage)
         val FEIGN_UNKNOWN_CLIENT_ERROR get() = FeignException(500, "Feign Unknown Error")
     }
 }
@@ -266,6 +284,5 @@ class FeignException(
  * @see MaeumGaGymException
  */
 class CriticalException(
-    status: Int,
     message: String
-) : MaeumGaGymException(status, message)
+) : MaeumGaGymException(HttpStatus.INTERNAL_SERVER_ERROR.value(), message, INTERNAL_SERVER_ERROR.responseMessage)
