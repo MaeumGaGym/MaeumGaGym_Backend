@@ -1,6 +1,8 @@
 package com.info.maeumgagym.presentation.controller.auth
 
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.security.Permitted
+import com.info.maeumgagym.common.annotation.security.RequireAuthentication
 import com.info.maeumgagym.core.auth.port.`in`.DuplicatedNicknameCheckUseCase
 import com.info.maeumgagym.core.auth.port.`in`.ReissueUseCase
 import com.info.maeumgagym.core.auth.port.`in`.WithdrawalUserUseCase
@@ -23,12 +25,14 @@ private class AuthController(
     private val reissueUseCase: ReissueUseCase
 ) {
     @Operation(summary = "회원탈퇴 API")
+    @RequireAuthentication
     @DeleteMapping
     fun userWithdrawal() {
         withdrawalUserUseCase.withdrawal()
     }
 
     @Operation(summary = "nickname 중복체크 API")
+    @Permitted
     @GetMapping("/nickname/{nickname}")
     fun duplicatedNicknameCheck(
         @PathVariable("nickname", required = false)
@@ -38,6 +42,7 @@ private class AuthController(
     ): Boolean = duplicatedNicknameCheckUseCase.existByNickname(nickname!!)
 
     @Operation(summary = "JWT 재발급 API")
+    @Permitted
     @GetMapping("/re-issue")
     fun reissue(
         @Valid

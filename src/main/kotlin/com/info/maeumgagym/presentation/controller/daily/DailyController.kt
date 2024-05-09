@@ -1,6 +1,7 @@
 package com.info.maeumgagym.presentation.controller.daily
 
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.security.RequireAuthentication
 import com.info.maeumgagym.core.daily.dto.response.DailyListResponse
 import com.info.maeumgagym.core.daily.dto.response.PreSignedURLResponse
 import com.info.maeumgagym.core.daily.port.`in`.*
@@ -29,6 +30,7 @@ private class DailyController(
     private val locationHeaderManager: LocationHeaderManager
 ) {
     @Operation(description = "오운완 업로드 URL 얻기 API")
+    @RequireAuthentication
     @GetMapping("/daily/pre-signed")
     fun preSignedUrl(
         @Valid
@@ -38,6 +40,7 @@ private class DailyController(
 
     @Operation(description = "오운완 생성 API")
     @ResponseStatus(HttpStatus.CREATED)
+    @RequireAuthentication
     @PostMapping("/daily")
     fun dailyUpload(
         @Valid
@@ -51,6 +54,7 @@ private class DailyController(
 
     @Operation(description = "오운완 제목 수정 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequireAuthentication
     @PatchMapping("/daily/{date}")
     fun dailyUpdate(
         @Valid
@@ -66,6 +70,7 @@ private class DailyController(
     }
 
     @Operation(description = "오운완 리스트 보기 API")
+    @RequireAuthentication
     @GetMapping("/dailies")
     fun dailiesRead(
         @Valid
@@ -80,6 +85,7 @@ private class DailyController(
 
     @Operation(description = "오운완 삭제 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequireAuthentication
     @DeleteMapping("/daily/{date}")
     fun dailyDelete(
         @Valid

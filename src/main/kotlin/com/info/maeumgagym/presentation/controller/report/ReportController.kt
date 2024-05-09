@@ -1,6 +1,7 @@
 package com.info.maeumgagym.presentation.controller.report
 
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.security.RequireAuthentication
 import com.info.maeumgagym.core.report.port.`in`.ReportPickleCommentUseCase
 import com.info.maeumgagym.core.report.port.`in`.ReportPickleReplyUseCase
 import com.info.maeumgagym.core.report.port.`in`.ReportPickleUseCase
@@ -31,6 +32,7 @@ private class ReportController(
 
     @Operation(summary = "유저 신고 API")
     @ResponseStatus(HttpStatus.CREATED)
+    @RequireAuthentication
     @PostMapping("/user/{nickname}")
     fun userReport(
         @Valid
@@ -44,6 +46,7 @@ private class ReportController(
 
     @Operation(summary = "피클 신고 API")
     @ResponseStatus(HttpStatus.CREATED)
+    @RequireAuthentication
     @PostMapping("/pickle/{videoId}")
     fun pickleReport(
         @Valid
@@ -58,6 +61,7 @@ private class ReportController(
 
     @Operation(summary = "피클 댓글 신고 API")
     @ResponseStatus(HttpStatus.CREATED)
+    @RequireAuthentication
     @PostMapping("/pickle-comment/{id}")
     fun pickleCommentReport(
         @Valid
@@ -71,6 +75,7 @@ private class ReportController(
 
     @Operation(summary = "피클 대댓글 신고 API")
     @ResponseStatus(HttpStatus.CREATED)
+    @RequireAuthentication
     @PostMapping("/pickle-reply/{id}")
     fun pickleReplyReport(
         @Valid

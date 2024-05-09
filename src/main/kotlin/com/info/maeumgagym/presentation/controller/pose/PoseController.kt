@@ -1,6 +1,7 @@
 package com.info.maeumgagym.presentation.controller.pose
 
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.security.RequireAuthentication
 import com.info.maeumgagym.common.annotation.security.RequireRole
 import com.info.maeumgagym.core.pose.dto.response.PoseDetailResponse
 import com.info.maeumgagym.core.pose.dto.response.PoseListResponse
@@ -48,6 +49,7 @@ private class PoseController(
     }
 
     @Operation(summary = "모든 자세 목록 조회 API")
+    @RequireAuthentication
     @GetMapping("/all")
     fun readAll(
         @RequestBody
@@ -56,6 +58,7 @@ private class PoseController(
     ): PoseListResponse = readAllPoseUseCase.readAll(readAllPoseWebRequest.toRequest())
 
     @Operation(summary = "자세 id 조회 API")
+    @RequireAuthentication
     @GetMapping("/{id}")
     fun readFromId(
         @PathVariable("id")
@@ -65,6 +68,7 @@ private class PoseController(
     ): PoseDetailResponse = readPoseFromIdUseCase.detailResponseById(id)
 
     @Operation(summary = "자세 태그 조회 API")
+    @RequireAuthentication
     @GetMapping("/tag")
     fun readFromTag(
         @RequestParam
@@ -76,6 +80,7 @@ private class PoseController(
         readPoseFromTagUseCase.readFromTag(tag)
 
     @Operation(summary = "자세 추천 조회 API")
+    @RequireAuthentication
     @GetMapping
     fun readRecommendation(): PoseRecommendationListResponse =
         readPosesRecommendationUseCase.readRecommendation()

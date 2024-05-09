@@ -1,6 +1,7 @@
 package com.info.maeumgagym.presentation.controller.wakatime
 
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.security.RequireAuthentication
 import com.info.maeumgagym.core.wakatime.dto.response.WakatimeResponse
 import com.info.maeumgagym.core.wakatime.port.`in`.EndWakatimeUseCase
 import com.info.maeumgagym.core.wakatime.port.`in`.ReadWakaTimeUseCase
@@ -26,6 +27,7 @@ private class WakatimeController(
 
     @Operation(summary = "와카타임 시작 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequireAuthentication
     @PostMapping("/start")
     fun startWakatime() {
         startWakatimeUseCase.startWakatime()
@@ -33,16 +35,19 @@ private class WakatimeController(
 
     @Operation(summary = "와카타임 종료 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequireAuthentication
     @PostMapping("/end")
     fun endWakatime() {
         endWakatimeUseCase.endWakatime()
     }
 
     @Operation(summary = "와카타임 총시간 보기 API")
+    @RequireAuthentication
     @GetMapping("/total")
     fun readTotalWakatime(): WakatimeResponse = readWakatimeUseCase.readTotalSeconds()
 
     @Operation(summary = "와카타임 오늘 운동시간 보기 API")
+    @RequireAuthentication
     @GetMapping("/daily")
     fun readDailyWakatime(): WakatimeResponse = readWakatimeUseCase.readDailySeconds()
 }
