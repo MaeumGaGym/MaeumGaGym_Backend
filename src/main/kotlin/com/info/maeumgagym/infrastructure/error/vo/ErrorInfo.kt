@@ -43,6 +43,10 @@ data class ErrorInfo(
 }
 
 private fun getErrorOccurredClassName(stackTrace: List<StackTraceElement>): List<String> {
+    if (stackTrace.size < 5) {
+        return stackTrace.map { it.className }
+    }
+
     val classes = mutableSetOf<String>()
 
     var i = 0
