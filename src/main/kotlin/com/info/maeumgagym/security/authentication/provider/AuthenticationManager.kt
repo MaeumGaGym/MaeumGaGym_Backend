@@ -1,5 +1,6 @@
 package com.info.maeumgagym.security.authentication.provider
 
+import com.info.maeumgagym.common.exception.CriticalException
 import org.springframework.security.core.Authentication
 
 /**
@@ -21,8 +22,16 @@ interface AuthenticationManager {
      * [SecurityContext][org.springframework.security.core.context.SecurityContext]가 비어있을 경우 새로 생성
      *
      * @return 현재 등록되어있거나 새로 생성한 [Authentication]
+     * @throws CriticalException username으로 유저를 찾을 수 없을 경우
      */
-    fun getAuthentication(username: String): Authentication?
+    fun getAuthentication(username: String): Authentication
+
+    /**
+     * 현재 등록된 [Authentication]을 반환
+     *
+     * @return 현재 등록된 [Authentication], 없을 경우 null
+     */
+    fun getAuthenticationOrNull(): Authentication?
 
     /**
      * 현재 등록된 [Authentication]을 반환
