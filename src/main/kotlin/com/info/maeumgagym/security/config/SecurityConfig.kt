@@ -53,8 +53,8 @@ class SecurityConfig(
             .cors().and() // CORS 활성화
             //.requiresChannel().anyRequest().requiresSecure().and() // XSS Attack (HTTPS 요청 요구) local test시 주석 처리할 것
 //
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+            .sessionManagement() // 세션 관련 설정
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() // 세션을 사용하지 않음.
 //
             .authorizeRequests().anyRequest().permitAll().and() // 어노테이션으로의 책임 인가
 //
