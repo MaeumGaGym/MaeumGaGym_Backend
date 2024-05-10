@@ -1,6 +1,6 @@
 package com.info.maeumgagym.security.mgtoken.filter
 
-import com.info.maeumgagym.security.authentication.provider.UserModelAuthenticationProvider
+import com.info.maeumgagym.security.authentication.provider.UserModelAuthenticationManager
 import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenResolver
 import org.springframework.http.HttpHeaders
 import org.springframework.security.core.context.SecurityContextHolder
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse
  */
 class MaeumgagymTokenAuthenticateFilter(
     private val maeumgagymTokenResolver: MaeumgagymTokenResolver,
-    private val authenticationProvider: UserModelAuthenticationProvider
+    private val authenticationProvider: UserModelAuthenticationManager
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(

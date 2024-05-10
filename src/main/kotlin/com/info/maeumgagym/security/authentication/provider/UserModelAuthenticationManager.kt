@@ -8,7 +8,7 @@ import com.info.maeumgagym.security.authentication.vo.UserModelAuthentication
  * @author Daybreak312
  * @since 02-04-2024
  */
-interface UserModelAuthenticationProvider : AuthenticationProvider {
+interface UserModelAuthenticationManager : AuthenticationManager {
 
     /**
      * 생성한 [UserModelAuthentication]의 [user][UserModelAuthentication.user]를 [subject]를 기반으로 유저를 탐색해 삽입 후 반환

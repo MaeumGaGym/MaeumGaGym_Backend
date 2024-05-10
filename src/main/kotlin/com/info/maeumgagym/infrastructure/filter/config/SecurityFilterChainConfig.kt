@@ -2,7 +2,7 @@ package com.info.maeumgagym.infrastructure.filter.config
 
 import com.info.maeumgagym.infrastructure.error.filter.ErrorLogResponseFilter
 import com.info.maeumgagym.infrastructure.error.filter.ExceptionConvertFilter
-import com.info.maeumgagym.security.authentication.provider.UserModelAuthenticationProvider
+import com.info.maeumgagym.security.authentication.provider.UserModelAuthenticationManager
 import com.info.maeumgagym.security.mgtoken.filter.MaeumgagymTokenAuthenticateFilter
 import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenResolver
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component
 @Component
 class SecurityFilterChainConfig(
     private val maeumgagymTokenResolver: MaeumgagymTokenResolver,
-    private val authenticationProvider: UserModelAuthenticationProvider
+    private val authenticationProvider: UserModelAuthenticationManager
 ) : SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
 
     /**

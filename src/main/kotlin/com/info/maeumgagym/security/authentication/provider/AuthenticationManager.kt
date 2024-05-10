@@ -10,7 +10,7 @@ import org.springframework.security.core.Authentication
  * @author Daybreak312
  * @since 20-03-2024
  */
-interface AuthenticationProvider {
+interface AuthenticationManager {
 
     /**
      * 기본 구현체로부터 [Authentication]을 반환

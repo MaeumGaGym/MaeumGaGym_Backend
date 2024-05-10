@@ -2,14 +2,14 @@ package com.info.maeumgagym.infrastructure.auth
 
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.user.model.User
-import com.info.maeumgagym.security.authentication.provider.AuthenticationProvider
+import com.info.maeumgagym.security.authentication.provider.AuthenticationManager
 import com.info.maeumgagym.security.authentication.vo.UserModelAuthentication
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 
 @Component
 internal class ReadCurrentUserAdapter(
-    private val authenticationProvider: AuthenticationProvider
+    private val authenticationManager: AuthenticationManager
 ) : ReadCurrentUserPort {
 
     override fun readCurrentUser(): User {
@@ -21,7 +21,7 @@ internal class ReadCurrentUserAdapter(
             authentication.user!!.oauthId != authentication.principal
         ) {
             // User를 Load 및 SecurityContext에 삽입
-            authentication = authenticationProvider.getAuthentication(
+            authentication = authenticationManager.getAuthentication(
                 authentication.principal as String
             ) as UserModelAuthentication
         }
