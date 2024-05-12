@@ -83,3 +83,5 @@ ENV CSRF_PARAMETER ${CSRF_PARAMETER}
 EXPOSE 8080
 
 ENTRYPOINT ["java", "-jar", "application.jar"]
+
+
