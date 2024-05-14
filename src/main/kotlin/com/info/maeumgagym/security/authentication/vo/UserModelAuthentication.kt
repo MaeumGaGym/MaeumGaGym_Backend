@@ -8,17 +8,20 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 /**
  * [User]를 가지고 있는 [Authentication]
  *
+ * [User]는 생성 당시에는 null일 수 있지만, 접근하는 시점에서는 무조건 값이 존재해야함
+ *
+ * @constructor [userSubject]와 [user]의 subject가 일치하는지 확인
+ *
  * @author Daybreak312
  * @since 02-04-2024
  */
 class UserModelAuthentication(
     private val userSubject: String,
-    val user: User? = null
+    private val user: User? = null
 ) : Authentication {
 
-    /**
-     * 기본 생성자의 몸체, [userSubject]와 [user]의 subject가 일치하는지 확인
-     */
+    fun getUser(): User = this.user!!
+
     init {
         if (user != null && user.oauthId != userSubject) {
             throw CriticalException("user's subject and userSubject are different")
@@ -26,19 +29,19 @@ class UserModelAuthentication(
     }
 
     /**
-     * [getPrincipal]과 같은 기능을 함
+     * [getPrincipal]과 같은 기능을 하며, [userSubject]와 같음.
      */
     override fun getName(): String {
         return userSubject
     }
 
     /**
-     * [user]가 내장되어 있다면 [User.roles]를, 아니라면 빈 Collection 반환
+     * [User.roles]를 [SimpleGrantedAuthority]로 변환해 반환
      */
     override fun getAuthorities(): List<SimpleGrantedAuthority> {
-        return user?.roles?.map {
+        return getUser().roles.map {
             SimpleGrantedAuthority(it.name)
-        } ?: listOf()
+        }
     }
 
     /**
@@ -66,4 +69,9 @@ class UserModelAuthentication(
             throw CriticalException("UserModelAuthentication MUSE BE Authenticated.")
         }
     }
+
+    /**
+     * [user]가 로드되었는지의 여부 반환
+     */
+    fun isUserLoaded(): Boolean = user == null
 }
