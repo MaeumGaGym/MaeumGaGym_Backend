@@ -1,9 +1,8 @@
 package com.info.maeumgagym.security.mgtoken.filter
 
-import com.info.maeumgagym.security.authentication.provider.UserModelAuthenticationManager
+import com.info.maeumgagym.security.authentication.provider.AuthenticationManager
 import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenResolver
 import org.springframework.http.HttpHeaders
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
@@ -22,7 +21,7 @@ import javax.servlet.http.HttpServletResponse
  */
 class MaeumgagymTokenAuthenticateFilter(
     private val maeumgagymTokenResolver: MaeumgagymTokenResolver,
-    private val authenticationProvider: UserModelAuthenticationManager
+    private val authenticationManager: AuthenticationManager
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
@@ -39,8 +38,7 @@ class MaeumgagymTokenAuthenticateFilter(
             val username = maeumgagymTokenResolver.resolveAccessToken(header)
 
             // 인증 정보 객체를 생성해 SecurityContext에 등록
-            SecurityContextHolder.getContext().authentication =
-                authenticationProvider.getEmptyAuthentication(username)
+            authenticationManager.setLazyLoadingAuthentication(username)
         }
 
         // 다음 필터로 넘기기

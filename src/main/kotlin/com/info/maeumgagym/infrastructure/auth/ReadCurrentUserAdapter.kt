@@ -17,9 +17,7 @@ internal class ReadCurrentUserAdapter(
         var authentication = SecurityContextHolder.getContext().authentication as UserModelAuthentication
 
         // Lazy Loading이 가능하여 Nullable인 User가 null이거나, 유효하지 경우 => 유저가 이미 로딩되어 있지 않은 경우
-        if (authentication.user == null ||
-            authentication.user!!.oauthId != authentication.principal
-        ) {
+        if (!authentication.isUserLoaded()) {
             // User를 Load 및 SecurityContext에 삽입
             authentication = authenticationManager.getAuthentication(
                 authentication.principal as String
@@ -27,6 +25,6 @@ internal class ReadCurrentUserAdapter(
         }
 
         // User 반환
-        return authentication.user!!
+        return authentication.getUser()
     }
 }

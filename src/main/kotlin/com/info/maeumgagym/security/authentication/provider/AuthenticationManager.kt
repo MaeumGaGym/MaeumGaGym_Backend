@@ -1,14 +1,10 @@
 package com.info.maeumgagym.security.authentication.provider
 
 import com.info.maeumgagym.common.exception.CriticalException
-import org.springframework.security.core.Authentication
+import com.info.maeumgagym.security.authentication.vo.UserModelAuthentication
 
 /**
- * [SecurityContext][org.springframework.security.core.context.SecurityContext] 내부의 [Authentication]를 관리하는 클래스
- *
- * 외부로부터 username만 받고, 내부에서 [Authentication] 객체를 생성해 관리
- *
- * 기본 구현체 : [UserModelAuthenticationManager]
+ * [SecurityContext][org.springframework.security.core.context.SecurityContext]와 [UserModelAuthentication]에 대한 접근을 추상화한 클래스
  *
  * @author Daybreak312
  * @since 10-05-2024 AuthenticationManager - Now.
@@ -17,43 +13,40 @@ import org.springframework.security.core.Authentication
 interface AuthenticationManager {
 
     /**
-     * 현재 등록된 [Authentication] 혹은 새로 생성한 객체을 반환
+     * 현재 등록된 [UserModelAuthentication] 혹은 새로 생성한 객체을 반환
      *
      * [SecurityContext][org.springframework.security.core.context.SecurityContext]가 비어있을 경우 새로 생성
      *
-     * @return 현재 등록되어있거나 새로 생성한 [Authentication]
+     * @return 현재 등록되어있거나 새로 생성한 [UserModelAuthentication]
      * @throws CriticalException username으로 유저를 찾을 수 없을 경우
      */
-    fun getAuthentication(username: String): Authentication
+    fun getAuthentication(username: String): UserModelAuthentication
 
     /**
-     * 현재 등록된 [Authentication]을 반환
+     * 현재 등록된 [UserModelAuthentication]을 반환
      *
-     * @return 현재 등록된 [Authentication], 없을 경우 null
+     * @return 현재 등록된 [UserModelAuthentication], 없을 경우 null
      */
-    fun getAuthenticationOrNull(): Authentication?
+    fun getAuthenticationOrNull(): UserModelAuthentication?
 
     /**
-     * 현재 등록된 [Authentication]을 반환
+     * 새로운 [UserModelAuthentication]을 등록
      *
-     * 만약 [SecurityContext][org.springframework.security.core.context.SecurityContext]가 비어있을 경우 예외 발생
-     *
-     * @return 현재 등록된 [Authentication]
-     * @throws com.info.maeumgagym.common.exception.AuthenticationException 객체가 없는 경우
-     */
-    fun getAuthenticationNotNull(username: String): Authentication
-
-    /**
-     * 새로운 [Authentication]을 등록
-     *
-     * username으로 검색한 유저의 정보로 [Authentication] 생성
+     * username으로 검색한 유저의 정보로 [UserModelAuthentication] 생성
      */
     fun setAuthentication(username: String)
 
     /**
-     * 새로운 [Authentication]을 등록
+     * [UserModelAuthentication.user]가 null인 [UserModelAuthentication]을 등록
      *
-     * [Authentication] 구현체에 직접 의존하기 때문에, username을 기반으로 등록하는 [setAuthentication]을 사용할 것을 권고
+     * 이후에 [getAuthentication]을 실행할 때 [UserModelAuthentication.user]가 채워짐
      */
-    fun setAuthentication(authentication: Authentication)
+    fun setLazyLoadingAuthentication(username: String)
+
+    /**
+     * 새로운 [UserModelAuthentication]을 등록
+     *
+     * [UserModelAuthentication] 구현체에 직접 의존하기 때문에, username을 기반으로 등록하는 [setAuthentication]을 사용할 것을 권고
+     */
+    fun setAuthentication(authentication: UserModelAuthentication)
 }
