@@ -4,7 +4,6 @@ import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.security.authentication.provider.AuthenticationManager
 import com.info.maeumgagym.security.authentication.provider.UserModelAuthenticationFactory
 import com.info.maeumgagym.security.authentication.vo.UserModelAuthentication
-import org.springframework.security.authentication.AnonymousAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
@@ -14,16 +13,16 @@ class AuthenticationManagerImpl(
     private val userModelAuthenticationFactory: UserModelAuthenticationFactory
 ) : AuthenticationManager {
 
-    override fun getAuthentication(username: String): UserModelAuthentication {
+    override fun getAuthentication(): UserModelAuthentication? {
         val context = SecurityContextHolder.getContext()
 
         if (isInvalidAuthentication(context.authentication)) {
-            setAuthentication(username)
+            return null
         }
 
         try {
             if (!(context.authentication as UserModelAuthentication).isUserLoaded()) {
-                setAuthentication(username)
+                setAuthentication((context.authentication as UserModelAuthentication).name)
             }
 
             return context.authentication as UserModelAuthentication
@@ -43,5 +42,5 @@ class AuthenticationManagerImpl(
     }
 
     private fun isInvalidAuthentication(authentication: Authentication?): Boolean =
-        authentication == null || authentication is AnonymousAuthenticationToken
+        authentication == null || authentication !is UserModelAuthentication
 }

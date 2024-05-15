@@ -14,17 +14,15 @@ internal class ReadCurrentUserAdapter(
 
     override fun readCurrentUser(): User {
         // User를 찾기 위한 정보가 담겨 있는 Authentication 로드
-        var authentication = SecurityContextHolder.getContext().authentication as UserModelAuthentication
+        val context = SecurityContextHolder.getContext()
 
         // Lazy Loading이 가능하여 Nullable인 User가 null이거나, 유효하지 경우 => 유저가 이미 로딩되어 있지 않은 경우
-        if (!authentication.isUserLoaded()) {
+        if (!(context.authentication as UserModelAuthentication).isUserLoaded()) {
             // User를 Load 및 SecurityContext에 삽입
-            authentication = authenticationManager.getAuthentication(
-                authentication.principal as String
-            ) as UserModelAuthentication
+            authenticationManager.setAuthentication(context.authentication.name)
         }
 
         // User 반환
-        return authentication.getUser()
+        return (context.authentication as UserModelAuthentication).getUser()
     }
 }

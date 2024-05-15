@@ -1,6 +1,5 @@
 package com.info.maeumgagym.security.authentication.provider
 
-import com.info.maeumgagym.common.exception.CriticalException
 import com.info.maeumgagym.security.authentication.vo.UserModelAuthentication
 
 /**
@@ -13,14 +12,13 @@ import com.info.maeumgagym.security.authentication.vo.UserModelAuthentication
 interface AuthenticationManager {
 
     /**
-     * 현재 등록된 [UserModelAuthentication] 혹은 새로 생성한 객체을 반환
+     * 현재 등록된 [UserModelAuthentication] 반환
      *
-     * [SecurityContext][org.springframework.security.core.context.SecurityContext]가 비어있을 경우 새로 생성
+     * 만약 등록된 [UserModelAuthentication]의 [user][UserModelAuthentication.user]가 null인 경우 로드된 [UserModelAuthentication]로 대체하여 반환
      *
-     * @return 현재 등록되어있거나 새로 생성한 [UserModelAuthentication]
-     * @throws CriticalException username으로 유저를 찾을 수 없을 경우
+     * @return 현재 등록된 [UserModelAuthentication]에서 [user][UserModelAuthentication.user]가 로드된 것 혹은 null
      */
-    fun getAuthentication(username: String): UserModelAuthentication?
+    fun getAuthentication(): UserModelAuthentication?
 
     /**
      * 새로운 [UserModelAuthentication]을 등록
