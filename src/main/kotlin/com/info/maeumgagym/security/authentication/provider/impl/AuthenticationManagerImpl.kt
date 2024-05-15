@@ -32,24 +32,6 @@ class AuthenticationManagerImpl(
         }
     }
 
-    override fun getAuthenticationOrNull(): UserModelAuthentication? {
-        val context = SecurityContextHolder.getContext()
-
-        if (isInvalidAuthentication(context.authentication)) {
-            return null
-        }
-
-        try {
-            if (!(context.authentication as UserModelAuthentication).isUserLoaded()) {
-                setAuthentication((context.authentication as UserModelAuthentication).name)
-            }
-
-            return createUserLoadedAuthentication(context.authentication as UserModelAuthentication)
-        } catch (e: TypeCastException) {
-            throw CriticalException("Got Unknown Authentication")
-        }
-    }
-
     private fun createUserLoadedAuthentication(authentication: UserModelAuthentication) = UserModelAuthentication(
         userSubject = authentication.name,
         user = readUserPort.readByOAuthId(authentication.name)
@@ -63,15 +45,11 @@ class AuthenticationManagerImpl(
         )
     }
 
-    override fun setLazyLoadingAuthentication(username: String) {
+    override fun setUserNotLoadedAuthentication(username: String) {
         SecurityContextHolder.getContext().authentication = UserModelAuthentication(
             userSubject = username,
             user = null
         )
-    }
-
-    override fun setAuthentication(authentication: UserModelAuthentication) {
-        SecurityContextHolder.getContext().authentication = authentication
     }
 
     private fun isInvalidAuthentication(authentication: Authentication?): Boolean =

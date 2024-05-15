@@ -38,7 +38,7 @@ class MaeumgagymTokenAuthenticateFilter(
             val username = maeumgagymTokenResolver.resolveAccessToken(header)
 
             // 인증 정보 객체를 생성해 SecurityContext에 등록
-            authenticationManager.setLazyLoadingAuthentication(username)
+            authenticationManager.setUserNotLoadedAuthentication(username)
         }
 
         // 다음 필터로 넘기기
