@@ -23,6 +23,7 @@ class CorsConfig(private val securityProperty: SecurityProperties) {
                 securityProperty.frontDomain,
                 securityProperty.backDomain,
                 "https://maeumgagym.xqaure.app",
+                "https://maeumgagym-webview.xqaure.app",
                 "http://localhost:3000"
             )
             allowedMethods = listOf("*")
