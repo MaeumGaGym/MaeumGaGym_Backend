@@ -2,6 +2,7 @@ package com.info.maeumgagym.presentation.controller.user
 
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
 import com.info.maeumgagym.core.user.dto.response.UserProfileResponse
+import com.info.maeumgagym.core.user.port.`in`.ReadProfileUseCase
 import com.info.maeumgagym.core.user.port.`in`.ReadUserUseCase
 import com.info.maeumgagym.core.user.port.`in`.UpdateUserInfoUseCase
 import com.info.maeumgagym.presentation.controller.user.dto.UpdateUserInfoWebRequest
@@ -19,6 +20,7 @@ import javax.validation.constraints.NotBlank
 @RequestMapping("/user")
 private class UserController(
     private val readUserUseCase: ReadUserUseCase,
+    private val readProfileUseCase: ReadProfileUseCase,
     private val updateUserInfoUseCase: UpdateUserInfoUseCase
 ) {
 
@@ -31,12 +33,8 @@ private class UserController(
     ): UserProfileResponse = readUserUseCase.profileFromNickname(nickname!!)
 
     @Operation(summary = "프로필 보기 API")
-    @GetMapping("/{nickname}")
-    fun getProfile(
-        @PathVariable(name = "nickname")
-        @NotBlank(message = "null일 수 없습니다.")
-        nickname: String?
-    ): UserProfileResponse = readUserUseCase.profileFromNickname(nickname!!)
+    @GetMapping
+    fun getProfile(): UserProfileResponse = readProfileUseCase.readProfile()
 
     @Operation(summary = "유저 정보 수정 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
