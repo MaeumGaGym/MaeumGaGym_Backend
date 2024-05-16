@@ -3,8 +3,9 @@ package com.info.maeumgagym.infrastructure.filter.config
 import com.info.maeumgagym.infrastructure.error.filter.ErrorLogResponseFilter
 import com.info.maeumgagym.infrastructure.error.filter.ExceptionConvertFilter
 import com.info.maeumgagym.security.authentication.provider.UserModelAuthenticationProvider
-import com.info.maeumgagym.security.mgtoken.filter.MaeumgagymTokenAuthenticateFilter
+import com.info.maeumgagym.security.cors.filter.CorsHeaderGenerateFilter
 import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenResolver
+import com.info.maeumgagym.security.mgtoken.filter.MaeumgagymTokenAuthenticateFilter
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.DefaultSecurityFilterChain
@@ -34,6 +35,10 @@ class SecurityFilterChainConfig(
      */
     override fun configure(builder: HttpSecurity) {
         builder.run {
+            addFilterBefore(
+                CorsHeaderGenerateFilter(),
+                MaeumgagymTokenAuthenticateFilter::class.java
+            )
             addFilterBefore(
                 MaeumgagymTokenAuthenticateFilter(
                     maeumgagymTokenResolver,
