@@ -2,8 +2,8 @@ package com.info.maeumgagym.presentation.controller.user
 
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
 import com.info.maeumgagym.core.user.dto.response.UserProfileResponse
-import com.info.maeumgagym.core.user.port.`in`.ReadProfileUseCase
-import com.info.maeumgagym.core.user.port.`in`.ReadUserUseCase
+import com.info.maeumgagym.core.user.port.`in`.ReadCurrentUserProfileUseCase
+import com.info.maeumgagym.core.user.port.`in`.ReadUserProfileFromNicknameUseCase
 import com.info.maeumgagym.core.user.port.`in`.UpdateUserInfoUseCase
 import com.info.maeumgagym.presentation.controller.user.dto.UpdateUserInfoWebRequest
 import io.swagger.v3.oas.annotations.Operation
@@ -19,22 +19,22 @@ import javax.validation.constraints.NotBlank
 @WebAdapter
 @RequestMapping("/user")
 private class UserController(
-    private val readUserUseCase: ReadUserUseCase,
-    private val readProfileUseCase: ReadProfileUseCase,
+    private val readUserProfileFromNicknameUseCase: ReadUserProfileFromNicknameUseCase,
+    private val readCurrentUserProfileUseCase: ReadCurrentUserProfileUseCase,
     private val updateUserInfoUseCase: UpdateUserInfoUseCase
 ) {
 
-    @Operation(summary = "다른 유저 프로필 보기 API")
+    @Operation(summary = "닉네임으로 프로필 보기 API")
     @GetMapping("/{nickname}")
-    fun getOtherProfile(
+    fun readUserProfileFromNickname(
         @PathVariable(name = "nickname")
         @NotBlank(message = "null일 수 없습니다.")
         nickname: String?
-    ): UserProfileResponse = readUserUseCase.profileFromNickname(nickname!!)
+    ): UserProfileResponse = readUserProfileFromNicknameUseCase.profileFromNickname(nickname!!)
 
-    @Operation(summary = "프로필 보기 API")
+    @Operation(summary = "현재 로그인한 유저 프로필 보기 API")
     @GetMapping
-    fun getProfile(): UserProfileResponse = readProfileUseCase.readProfile()
+    fun getCurrentUserProfile(): UserProfileResponse = readCurrentUserProfileUseCase.readCurrentUserProfile()
 
     @Operation(summary = "유저 정보 수정 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)

@@ -22,9 +22,7 @@ class CorsConfig(private val securityProperty: SecurityProperties) {
             allowedOrigins = listOf(
                 securityProperty.frontDomain,
                 securityProperty.backDomain,
-                "https://maeumgagym-main-stag.xquare.app",
-                "https://maeumgagym-user-stag.xquare.app",
-                "https://maeumgagym-admin-stag.xquare.app",
+                
                 "http://localhost:3000"
             )
             allowedMethods = listOf("*")
