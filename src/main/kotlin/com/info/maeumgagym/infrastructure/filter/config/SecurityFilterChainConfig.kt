@@ -36,15 +36,15 @@ class SecurityFilterChainConfig(
     override fun configure(builder: HttpSecurity) {
         builder.run {
             addFilterBefore(
-                CorsHeaderGenerateFilter(),
-                MaeumgagymTokenAuthenticateFilter::class.java
-            )
-            addFilterBefore(
                 MaeumgagymTokenAuthenticateFilter(
                     maeumgagymTokenResolver,
                     authenticationProvider
                 ),
                 LogoutFilter::class.java
+            )
+            addFilterBefore(
+                CorsHeaderGenerateFilter(),
+                MaeumgagymTokenAuthenticateFilter::class.java
             )
         }
     }
