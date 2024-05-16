@@ -29,7 +29,7 @@ class CorsConfig(private val securityProperty: SecurityProperties) {
             allowedMethods = listOf("*")
             allowCredentials = true
             addAllowedHeader("*")
-            exposedHeaders = mutableListOf("Authorization", "authorization", "OAUTH-TOKEN")
+            exposedHeaders = mutableListOf("Authorization", "authorization", "OAUTH-TOKEN", "Oauth-Token")
             maxAge = 1800L
         }
 
