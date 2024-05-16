@@ -78,7 +78,7 @@ class ExceptionConvertFilter(
                         ).apply { initCause(e) }
                     }
 
-                else -> e.cause ?: e
+                else -> convertThrowableToMaeumgagymException((e.cause ?: e))
             }
         } catch (e: DateTimeException) {
             throw PresentationValidationException(
@@ -86,12 +86,15 @@ class ExceptionConvertFilter(
                 message = "DateTime Format Wrong",
                 fields = mapOf()
             ).apply { initCause(e) }
-        } catch (e: Exception) {
-            throw MaeumGaGymException(
-                500,
-                e.message ?: e.localizedMessage ?: ("Cause Exception Class : " + e.javaClass.name),
-                MaeumGaGymException.INTERNAL_SERVER_ERROR.responseMessage
-            ).apply { initCause(e) }
+        } catch (e: Throwable) {
+            throw convertThrowableToMaeumgagymException(e)
         }
     }
+
+    private fun convertThrowableToMaeumgagymException(e: Throwable): MaeumGaGymException =
+        MaeumGaGymException(
+            500,
+            e.message ?: e.localizedMessage ?: ("Cause Exception Class : " + e.javaClass.name),
+            MaeumGaGymException.INTERNAL_SERVER_ERROR.responseMessage
+        ).apply { initCause(e) }
 }

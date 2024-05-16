@@ -14,8 +14,14 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 /**
  * SpringSecurity와 관련된 설정들의 최상위 설정
  *
+ * API 별 인증 권한에 대한 설정은 Controller에서 아래 어노테이션에 의해 정의됨
+ * - [RequireRole][com.info.maeumgagym.common.annotation.security.RequireRole]
+ * - [RequireAuthentication][com.info.maeumgagym.common.annotation.security.RequireAuthentication]
+ * - [Permitted][com.info.maeumgagym.common.annotation.security.Permitted]
+ *
+ * 각 설정은 [AccessManagerDelegateInterceptor][com.info.maeumgagym.security.access.interceptor.AccessManagerDelegateInterceptor], [AuthenticationHandlerMethodArgumentResolver][com.info.maeumgagym.security.authentication.resolver.AuthenticationHandlerMethodArgumentResolver]에 의해 구현
+ *
  * @see LogoutHandlerConfig
- * @see RequestPermitConfig
  * @see SecurityFilterChainConfig
  * @see SecurityLogConfig
  * @see com.info.maeumgagym.security.config.cors.CorsConfig
@@ -26,7 +32,6 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 @Configuration
 class SecurityConfig(
     private val csrfProperties: CSRFProperties,
-    private val requestPermitConfig: RequestPermitConfig,
     private val securityFilterChainConfig: SecurityFilterChainConfig,
     private val accessDeniedHandler: CustomAccessDeniedHandler,
     private val authenticationEntryPoint: CustomAuthenticationEntryPoint,
@@ -48,15 +53,15 @@ class SecurityConfig(
             .cors().and() // CORS 활성화
             //.requiresChannel().anyRequest().requiresSecure().and() // XSS Attack (HTTPS 요청 요구) local test시 주석 처리할 것
 //
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+            .sessionManagement() // 세션 관련 설정
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() // 세션을 사용하지 않음.
+//
+            .authorizeRequests().anyRequest().permitAll().and() // 어노테이션으로의 책임 인가
 //
             .exceptionHandling() // 인증 관련 예외에 관한 설정들
             .accessDeniedHandler(accessDeniedHandler) // 인증 실패시 발생하는 예외에 대한 커스텀 예외로의 핸들링
             .authenticationEntryPoint(authenticationEntryPoint)
             .and()
-//
-            .apply(requestPermitConfig::configure) // 매핑에 따른 인증이 필요한지에 대한 설정
 //
             .headers().frameOptions().sameOrigin()
             .and()

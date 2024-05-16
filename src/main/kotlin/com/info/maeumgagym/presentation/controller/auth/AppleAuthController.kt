@@ -1,6 +1,7 @@
 package com.info.maeumgagym.presentation.controller.auth
 
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.security.Permitted
 import com.info.maeumgagym.core.auth.port.`in`.AppleLoginUseCase
 import com.info.maeumgagym.core.auth.port.`in`.AppleRecoveryUseCase
 import com.info.maeumgagym.core.auth.port.`in`.AppleSignUpUseCase
@@ -42,6 +43,7 @@ private class AppleAuthController(
             )
         ]
     )
+    @Permitted
     @GetMapping("/login")
     fun login(
         @Valid
@@ -60,6 +62,7 @@ private class AppleAuthController(
 
     @Operation(summary = "애플 OAuth 회원가입 API")
     @ResponseStatus(HttpStatus.CREATED)
+    @Permitted
     @PostMapping("/signup")
     fun signup(
         @Valid
@@ -77,6 +80,7 @@ private class AppleAuthController(
 
     @Operation(summary = "애플 OAuth 회원복구 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Permitted
     @PutMapping("/recovery")
     fun recovery(
         @Valid

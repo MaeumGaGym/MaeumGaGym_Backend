@@ -1,6 +1,7 @@
 package com.info.maeumgagym.presentation.controller.routine
 
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.security.RequireAuthentication
 import com.info.maeumgagym.core.routine.dto.response.RoutineHistoryListResponse
 import com.info.maeumgagym.core.routine.dto.response.RoutineListResponse
 import com.info.maeumgagym.core.routine.dto.response.RoutineResponse
@@ -37,6 +38,7 @@ private class RoutineController(
 ) {
     @Operation(summary = "루틴 생성 API")
     @ResponseStatus(HttpStatus.CREATED)
+    @RequireAuthentication
     @PostMapping
     fun createRoutine(
         @RequestBody @Valid
@@ -48,11 +50,13 @@ private class RoutineController(
     }
 
     @Operation(summary = "오늘의 루틴 조회 API")
+    @RequireAuthentication
     @GetMapping("/today")
     fun readTodayRoutine(): RoutineListResponse =
         readTodayRoutineUseCase.readTodayRoutine()
 
     @Operation(summary = "내 루틴 전체 조회 API")
+    @RequireAuthentication
     @GetMapping("/my")
     fun readAllMyRoutine(
         @RequestParam
@@ -62,6 +66,7 @@ private class RoutineController(
 
     @Operation(summary = "루틴 삭제 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequireAuthentication
     @DeleteMapping("/{id}")
     fun deleteRoutine(
         @PathVariable("id")
@@ -73,6 +78,7 @@ private class RoutineController(
     }
 
     @Operation(summary = "루틴 수정 API")
+    @RequireAuthentication
     @PutMapping("/{id}")
     fun updateRoutine(
         @PathVariable("id")
@@ -86,6 +92,7 @@ private class RoutineController(
     }
 
     @Operation(summary = "단일 루틴 조회 API")
+    @RequireAuthentication
     @GetMapping("/{id}")
     fun readDetailRoutine(
         @PathVariable("id")
@@ -96,6 +103,7 @@ private class RoutineController(
 
     @Operation(summary = "루틴 완료 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequireAuthentication
     @PutMapping("/today/complete/{id}")
     fun completeTodayRoutine(
         @PathVariable
@@ -107,6 +115,7 @@ private class RoutineController(
     }
 
     @Operation(summary = "루틴 기록 조회 API")
+    @RequireAuthentication
     @GetMapping("/histories/{date}")
     fun readHistories(
         @Valid
