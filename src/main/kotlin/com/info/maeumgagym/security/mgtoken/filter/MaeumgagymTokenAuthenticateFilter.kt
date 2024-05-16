@@ -15,9 +15,10 @@ import javax.servlet.http.HttpServletResponse
  * 따라서, 이 필터에서는 토큰이 없을 경우에 대한 예외 처리를 진행하지 않음
  * 토큰이 존재하지 않을 경우 [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]에서 익명 인증 정보를 주입
  *
- * [MaeumgagymTokenResolver]를 통해 [MaeumgagymTokenDecoder][com.info.maeumgagym.security.mgtoken.MaeumgagymTokenDecoder], [MaeumgagymTokenValidator][com.info.maeumgagym.security.mgtoken.MaeumgagymTokenValidator]를 사용
+ * 인증이 성공했을 경우, 그 정보를 담은 [UserModelAuthentication][com.info.maeumgagym.security.authentication.vo.UserModelAuthentication] 객체를 [AuthenticationManager]를 통해 [SecurityContext][org.springframework.security.core.context.SecurityContext]에 삽입
  *
  * @author Daybreak312
+ * @since 20-11-2023
  */
 class MaeumgagymTokenAuthenticateFilter(
     private val maeumgagymTokenResolver: MaeumgagymTokenResolver,
