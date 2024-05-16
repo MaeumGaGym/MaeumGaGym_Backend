@@ -22,6 +22,14 @@ private class UserController(
     private val updateUserInfoUseCase: UpdateUserInfoUseCase
 ) {
 
+    @Operation(summary = "다른 유저 프로필 보기 API")
+    @GetMapping("/{nickname}")
+    fun getOtherProfile(
+        @PathVariable(name = "nickname")
+        @NotBlank(message = "null일 수 없습니다.")
+        nickname: String?
+    ): UserProfileResponse = readUserUseCase.profileFromNickname(nickname!!)
+
     @Operation(summary = "프로필 보기 API")
     @GetMapping("/{nickname}")
     fun getProfile(
