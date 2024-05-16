@@ -20,7 +20,7 @@ class CorsHeaderGenerateFilter : GenericFilterBean() {
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
         chain.doFilter(request, response)
 
-        doFilterInternal(request as HttpServletRequest, response as HttpServletResponse, chain)
+        // doFilterInternal(request as HttpServletRequest, response as HttpServletResponse, chain)
     }
 
     private fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
