@@ -14,13 +14,14 @@ class CorsHeaderGenerateFilter : GenericFilterBean() {
         "Authorization",
         "authorization",
         "OAUTH-TOKEN",
-        "Oauth-Token"
+        "Oauth-Token",
+        "oauth-token",
     )
 
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
         chain.doFilter(request, response)
 
-        // doFilterInternal(request as HttpServletRequest, response as HttpServletResponse, chain)
+        doFilterInternal(request as HttpServletRequest, response as HttpServletResponse, chain)
     }
 
     private fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {

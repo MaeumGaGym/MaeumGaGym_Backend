@@ -1,6 +1,7 @@
 package com.info.maeumgagym.security.cors.config
 
 import com.info.maeumgagym.security.env.SecurityProperties
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
@@ -15,7 +16,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @Configuration
 class CorsConfig(private val securityProperty: SecurityProperties) {
 
-    //@Bean
+    @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration().apply {
             allowedOrigins = listOf(
@@ -28,7 +29,8 @@ class CorsConfig(private val securityProperty: SecurityProperties) {
             allowedMethods = listOf("*")
             allowCredentials = true
             addAllowedHeader("*")
-            exposedHeaders = listOf("*") //mutableListOf("Authorization", "authorization", "OAUTH-TOKEN", "Oauth-Token")
+            exposedHeaders =
+                mutableListOf("Authorization", "authorization", "OAUTH-TOKEN", "Oauth-Token", "oauth-token")
             maxAge = 1800L
         }
 
