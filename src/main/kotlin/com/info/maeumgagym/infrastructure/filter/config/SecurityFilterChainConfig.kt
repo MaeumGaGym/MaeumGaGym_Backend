@@ -28,7 +28,7 @@ class SecurityFilterChainConfig(
 ) : SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
 
     /**
-     * [CorsHeaderGenerateFilter] -> [ErrorLogResponseFilter] -> [ExceptionConvertFilter] -> [SecurityContextHolderFilter] -> [MaeumgagymTokenAuthenticateFilter] -> [LogoutFilter] -> ...
+     * [ErrorLogResponseFilter] -> [ExceptionConvertFilter] [CorsHeaderGenerateFilter] -> [SecurityContextHolderFilter] -> [MaeumgagymTokenAuthenticateFilter] -> [LogoutFilter] -> ...
      *
      * @author Daybreak312
      * @since 12-03-2024
@@ -41,10 +41,6 @@ class SecurityFilterChainConfig(
                     authenticationProvider
                 ),
                 LogoutFilter::class.java
-            )
-            addFilterBefore(
-                CorsHeaderGenerateFilter(),
-                MaeumgagymTokenAuthenticateFilter::class.java
             )
         }
     }
