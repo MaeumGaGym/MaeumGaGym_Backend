@@ -25,10 +25,23 @@ class CorsHeaderGenerateFilter : GenericFilterBean() {
     }
 
     private fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
+        val newHeader = generateCorsHeader(response)
+
+        logger.info(newHeader)
+
         response.addHeader(
             HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS,
-            response.getHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS) +
-                accessControlAllowHeaders.joinToString(",", ",")
+            newHeader
         )
+    }
+
+    private fun generateCorsHeader(response: HttpServletResponse): String {
+        val originallyCorsHeader = response.getHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS)
+
+        logger.info(originallyCorsHeader)
+
+        return originallyCorsHeader?.plus(
+            accessControlAllowHeaders.joinToString(",", ",")
+        ) ?: accessControlAllowHeaders.joinToString(",")
     }
 }
