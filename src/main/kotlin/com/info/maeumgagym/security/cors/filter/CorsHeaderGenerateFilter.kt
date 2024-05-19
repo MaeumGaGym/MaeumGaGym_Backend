@@ -36,11 +36,11 @@ class CorsHeaderGenerateFilter : GenericFilterBean() {
     }
 
     private fun generateCorsHeader(response: HttpServletResponse): String {
-        val originallyCorsHeader = response.getHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS)
+        val originalCorsHeader = response.getHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS)
 
-        logger.info(originallyCorsHeader)
+        logger.info(originalCorsHeader)
 
-        return originallyCorsHeader?.plus(
+        return originalCorsHeader?.plus(
             accessControlAllowHeaders.joinToString(",", ",")
         ) ?: accessControlAllowHeaders.joinToString(",")
     }
