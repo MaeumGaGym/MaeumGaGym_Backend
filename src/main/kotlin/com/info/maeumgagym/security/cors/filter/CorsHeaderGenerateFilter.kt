@@ -25,8 +25,10 @@ class CorsHeaderGenerateFilter : GenericFilterBean() {
     }
 
     private fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
-        accessControlAllowHeaders.forEach {
-            response.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, it)
-        }
+        response.addHeader(
+            HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS,
+            response.getHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS) +
+                accessControlAllowHeaders.joinToString(",", ",")
+        )
     }
 }
