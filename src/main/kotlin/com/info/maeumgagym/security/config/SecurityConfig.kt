@@ -3,6 +3,7 @@ package com.info.maeumgagym.security.config
 import com.info.maeumgagym.infrastructure.error.handler.CustomAccessDeniedHandler
 import com.info.maeumgagym.infrastructure.error.handler.CustomAuthenticationEntryPoint
 import com.info.maeumgagym.infrastructure.filter.config.SecurityFilterChainConfig
+import com.info.maeumgagym.security.cors.config.CorsConfig
 import com.info.maeumgagym.security.env.CSRFProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -32,6 +33,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 @Configuration
 class SecurityConfig(
     private val csrfProperties: CSRFProperties,
+    private val corsConfig: CorsConfig,
     private val securityFilterChainConfig: SecurityFilterChainConfig,
     private val accessDeniedHandler: CustomAccessDeniedHandler,
     private val authenticationEntryPoint: CustomAuthenticationEntryPoint,
@@ -50,7 +52,7 @@ class SecurityConfig(
             .formLogin().disable() // Html Form 로그인 비활성화
 //            .csrf().csrfTokenRepository(getCsrfTokenRepository()).and() // CSRF 설정 (temporary disuse)
             .csrf().disable()
-            .cors().and() // CORS 활성화
+            .cors().configurationSource(corsConfig.corsConfigurationSource()).and() // CORS 활성화
             //.requiresChannel().anyRequest().requiresSecure().and() // XSS Attack (HTTPS 요청 요구) local test시 주석 처리할 것
 //
             .sessionManagement() // 세션 관련 설정

@@ -1,7 +1,6 @@
 package com.info.maeumgagym.security.cors.config
 
 import com.info.maeumgagym.security.env.SecurityProperties
-import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
@@ -14,9 +13,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
  * @since 16-02-2024
  */
 @Configuration
-class CorsConfig(private val securityProperty: SecurityProperties) {
+class CorsConfig(
+    private val securityProperty: SecurityProperties
+) {
 
-    @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration().apply {
             allowedOrigins = listOf(
