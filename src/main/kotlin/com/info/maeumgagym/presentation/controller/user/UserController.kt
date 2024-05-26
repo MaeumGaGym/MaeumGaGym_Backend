@@ -1,6 +1,7 @@
 package com.info.maeumgagym.presentation.controller.user
 
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.security.RequireAuthentication
 import com.info.maeumgagym.core.user.dto.response.UserProfileResponse
 import com.info.maeumgagym.core.user.port.`in`.ReadCurrentUserProfileUseCase
 import com.info.maeumgagym.core.user.port.`in`.ReadUserProfileFromNicknameUseCase
@@ -25,6 +26,7 @@ private class UserController(
 ) {
 
     @Operation(summary = "닉네임으로 프로필 보기 API")
+    @RequireAuthentication
     @GetMapping("/{nickname}")
     fun readUserProfileFromNickname(
         @PathVariable(name = "nickname")
@@ -38,6 +40,7 @@ private class UserController(
 
     @Operation(summary = "유저 정보 수정 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequireAuthentication
     @PutMapping
     fun updateUserInfo(
         @RequestBody @Valid

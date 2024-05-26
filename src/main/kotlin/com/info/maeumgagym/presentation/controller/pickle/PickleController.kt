@@ -1,6 +1,7 @@
 package com.info.maeumgagym.presentation.controller.pickle
 
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.security.RequireAuthentication
 import com.info.maeumgagym.core.pickle.dto.response.PickleListResponse
 import com.info.maeumgagym.core.pickle.dto.response.PickleResponse
 import com.info.maeumgagym.core.pickle.dto.response.PreSignedUploadURLResponse
@@ -34,6 +35,7 @@ private class PickleController(
 ) {
 
     @Operation(summary = "추천 피클 전체 조회 API")
+    @RequireAuthentication
     @GetMapping
     fun recommendationPicklesLoad(
         @RequestParam("idx", required = false)

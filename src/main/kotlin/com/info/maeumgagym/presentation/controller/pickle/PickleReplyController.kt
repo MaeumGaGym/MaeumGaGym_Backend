@@ -1,6 +1,7 @@
 package com.info.maeumgagym.presentation.controller.pickle
 
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.security.RequireAuthentication
 import com.info.maeumgagym.core.pickle.dto.response.PickleReplyListResponse
 import com.info.maeumgagym.core.pickle.port.`in`.CreatePickleReplyCommentUseCase
 import com.info.maeumgagym.core.pickle.port.`in`.DeletePickleReplyUseCase
@@ -27,6 +28,7 @@ private class PickleReplyController(
 ) {
     @Operation(summary = "피클 대댓글 추가 API")
     @ResponseStatus(HttpStatus.CREATED)
+    @RequireAuthentication
     @PostMapping("/{videoId}/{parentId}")
     fun createPickleReplyComment(
         @RequestBody @Valid
@@ -48,6 +50,7 @@ private class PickleReplyController(
     }
 
     @Operation(summary = "피클 대댓글 전체조회 API")
+    @RequireAuthentication
     @GetMapping("/{parentId}")
     fun readAllPickleReply(
         @PathVariable(value = "parentId", required = false)
@@ -68,6 +71,7 @@ private class PickleReplyController(
 
     @Operation(summary = "피클 대댓글 삭제 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequireAuthentication
     @DeleteMapping("/{replyId}")
     fun deletePickleComment(
         @PathVariable(value = "replyId", required = false)

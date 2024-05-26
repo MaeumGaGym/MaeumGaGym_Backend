@@ -1,6 +1,7 @@
 package com.info.maeumgagym.presentation.controller.auth
 
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.security.Permitted
 import com.info.maeumgagym.core.auth.port.`in`.KakaoLoginUseCase
 import com.info.maeumgagym.core.auth.port.`in`.KakaoRecoveryUseCase
 import com.info.maeumgagym.core.auth.port.`in`.KakaoSignupUseCase
@@ -45,6 +46,7 @@ private class KakaoAuthController(
             )
         ]
     )
+    @Permitted
     @GetMapping("/login")
     fun login(
         @Valid
@@ -63,6 +65,7 @@ private class KakaoAuthController(
 
     @Operation(summary = "카카오 OAuth 회원가입 API")
     @ResponseStatus(HttpStatus.CREATED)
+    @Permitted
     @PostMapping("/signup")
     fun signup(
         @Valid
@@ -79,6 +82,7 @@ private class KakaoAuthController(
     }
 
     @Operation(summary = "카카오 OAuth 회원복구 API")
+    @Permitted
     @PutMapping("/recovery")
     fun recovery(
         @Valid
@@ -99,6 +103,7 @@ private class KakaoAuthController(
             )
         ]
     )
+    @Permitted
     @GetMapping("/token/{code}")
     fun generateToken(
         @Valid

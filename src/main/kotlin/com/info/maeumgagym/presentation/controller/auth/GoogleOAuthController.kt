@@ -1,6 +1,7 @@
 package com.info.maeumgagym.presentation.controller.auth
 
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.security.Permitted
 import com.info.maeumgagym.core.auth.port.`in`.GoogleLoginUseCase
 import com.info.maeumgagym.core.auth.port.`in`.GoogleRecoveryUseCase
 import com.info.maeumgagym.core.auth.port.`in`.GoogleSignupUseCase
@@ -32,6 +33,7 @@ private class GoogleOAuthController(
 ) {
     @Operation(summary = "구글 OAuth 회원복구 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Permitted
     @PutMapping("/recovery")
     fun recovery(
         @Valid
@@ -56,6 +58,7 @@ private class GoogleOAuthController(
             )
         ]
     )
+    @Permitted
     @GetMapping("/login")
     fun login(
         @Valid
@@ -73,8 +76,9 @@ private class GoogleOAuthController(
         }
 
     @Operation(summary = "구글 OAuth 회원가입 API")
-    @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
+    @Permitted
+    @PostMapping("/signup")
     fun signup(
         @Valid
         @NotBlank(message = "null일 수 없습니다.")

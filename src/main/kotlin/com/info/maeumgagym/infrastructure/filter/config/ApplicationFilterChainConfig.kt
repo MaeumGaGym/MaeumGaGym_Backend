@@ -11,6 +11,7 @@ import com.info.maeumgagym.infrastructure.request.context.CurrentRequestContext
 import com.info.maeumgagym.infrastructure.request.filter.CurrentRequestContextFilter
 import com.info.maeumgagym.infrastructure.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.infrastructure.response.writer.ErrorLogHttpServletResponseWriter
+import com.info.maeumgagym.security.cors.filter.CorsHeaderGenerateFilter
 import org.apache.tomcat.websocket.server.WsFilter
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter
 import org.springframework.boot.web.servlet.FilterRegistrationBean
@@ -55,6 +56,7 @@ class ApplicationFilterChainConfig(
         OrderedRequestContextFilter::class.java,
         ExceptionChainedFilterChainProxy::class.java,
         CurrentRequestContextFilter::class.java,
+        CorsHeaderGenerateFilter::class.java,
         DelegatingFilterProxy::class.java,
         WsFilter::class.java
     )
@@ -77,18 +79,6 @@ class ApplicationFilterChainConfig(
     //@Bean
     fun orderedRequestContextFilterConfig(): FilterRegistrationBean<OrderedRequestContextFilter> {
         return defaultFilterSetting(OrderedRequestContextFilter::class.java)
-    }
-
-    @Bean
-    fun currentRequestContextFilterConfig(): FilterRegistrationBean<CurrentRequestContextFilter> {
-        val bean = FilterRegistrationBean(
-            CurrentRequestContextFilter(currentRequestContext)
-        )
-
-        bean.addUrlPatterns("/*")
-        bean.order = getFilterOrder(CurrentRequestContextFilter::class.java)
-
-        return bean
     }
 
     @Bean
@@ -118,6 +108,30 @@ class ApplicationFilterChainConfig(
 
         bean.addUrlPatterns("/*")
         bean.order = getFilterOrder(ExceptionChainedFilterChainProxy::class.java)
+
+        return bean
+    }
+
+    @Bean
+    fun currentRequestContextFilterConfig(): FilterRegistrationBean<CurrentRequestContextFilter> {
+        val bean = FilterRegistrationBean(
+            CurrentRequestContextFilter(currentRequestContext)
+        )
+
+        bean.addUrlPatterns("/*")
+        bean.order = getFilterOrder(CurrentRequestContextFilter::class.java)
+
+        return bean
+    }
+
+    @Bean
+    fun corsHeaderGenerateFilter(): FilterRegistrationBean<CorsHeaderGenerateFilter> {
+        val bean = FilterRegistrationBean(
+            CorsHeaderGenerateFilter()
+        )
+
+        bean.addUrlPatterns("/*")
+        bean.order = getFilterOrder(CorsHeaderGenerateFilter::class.java)
 
         return bean
     }
