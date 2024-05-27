@@ -73,5 +73,5 @@ class UserModelAuthentication(
     /**
      * [user]가 로드되었는지의 여부 반환
      */
-    fun isUserLoaded(): Boolean = user == null
+    fun isUserLoaded(): Boolean = user != null
 }
