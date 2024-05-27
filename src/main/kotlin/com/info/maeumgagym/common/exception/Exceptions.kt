@@ -257,6 +257,13 @@ class AuthenticationException(
         val WRONG_TYPE_TOKEN
             get() = AuthenticationException(401, "Token Type Wrong, Not Supported", INVALID_TOKEN.responseMessage)
 
+        val SECURITY_CONTEXT_NOT_INITILIZED
+            get() = AuthenticationException(
+                401,
+                "Security Context MUST NOT BE EMPTY but not. Didn't Initialized.",
+                UNAUTHORIZED.responseMessage
+            )
+
         // Forbidden
         val ROLE_REQUIRED get() = AuthenticationException(403, "Role Required", FORBIDDEN.responseMessage)
     }
