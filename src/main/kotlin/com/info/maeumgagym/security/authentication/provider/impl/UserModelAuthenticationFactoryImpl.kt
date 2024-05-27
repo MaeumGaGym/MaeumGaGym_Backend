@@ -18,7 +18,6 @@ class UserModelAuthenticationFactoryImpl(
                 ?: throw CriticalException("Cannot Find User By username : $username")
         )
 
-
     override fun createEmptyAuthentication(username: String): UserModelAuthentication =
         UserModelAuthentication(
             userSubject = username,
