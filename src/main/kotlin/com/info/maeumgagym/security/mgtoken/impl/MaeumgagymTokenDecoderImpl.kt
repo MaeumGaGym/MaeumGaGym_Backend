@@ -28,13 +28,16 @@ internal class MaeumgagymTokenDecoderImpl(
     }
 
     override fun decode(token: String, key: String): MaeumgagymToken {
-        try {
-            val decrypted = decrypt.decrypt(resolveTokenPrefix(token), key)
+        val prefixResolved = resolveTokenPrefix(token)
 
-            return stringTokenToVO(decrypted)
-        } catch (e: Exception) {
-            throw AuthenticationException.INVALID_TOKEN
-        }
+        val decrypted =
+            try {
+                decrypt.decrypt(prefixResolved, key)
+            } catch (e: Exception) {
+                throw AuthenticationException.INVALID_TOKEN
+            }
+
+        return stringTokenToVO(decrypted)
     }
 
     private fun resolveTokenPrefix(token: String): String {

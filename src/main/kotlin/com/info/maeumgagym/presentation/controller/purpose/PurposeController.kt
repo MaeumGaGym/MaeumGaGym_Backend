@@ -1,6 +1,7 @@
 package com.info.maeumgagym.presentation.controller.purpose
 
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.security.RequireAuthentication
 import com.info.maeumgagym.core.purpose.dto.response.PurposeInfoResponse
 import com.info.maeumgagym.core.purpose.dto.response.PurposeListResponse
 import com.info.maeumgagym.core.purpose.port.`in`.*
@@ -35,6 +36,7 @@ private class PurposeController(
 
     @Operation(summary = "목표 생성 API")
     @ResponseStatus(HttpStatus.CREATED)
+    @RequireAuthentication
     @PostMapping
     fun purposeCreate(
         @Valid
@@ -47,6 +49,7 @@ private class PurposeController(
     }
 
     @Operation(summary = "월별 목표 조회 API")
+    @RequireAuthentication
     @GetMapping("/month/{date}")
     fun purposeReadFromYearAndMonth(
         @Valid
@@ -58,6 +61,7 @@ private class PurposeController(
         readPurposesFromDateForRangeUseCase.readPurposesFromDateForRange(date!!)
 
     @Operation(summary = "목표 id 기반 조회 API")
+    @RequireAuthentication
     @GetMapping("/{id}")
     fun purposeReadFromId(
         @Valid
@@ -67,6 +71,7 @@ private class PurposeController(
     ): PurposeInfoResponse = readPurposeFromIdUseCase.readPurposeFromId(id)
 
     @Operation(summary = "내 목표 전체 조회")
+    @RequireAuthentication
     @GetMapping("/my")
     fun purposeReadAllMine(
         @RequestParam
@@ -75,6 +80,7 @@ private class PurposeController(
     ): PurposeListResponse = readAllMyPurposeUseCase.readAllMyPurpose(index)
 
     @Operation(summary = "목표 수정 API")
+    @RequireAuthentication
     @PutMapping("/{id}")
     fun purposeUpdate(
         @Valid
@@ -90,6 +96,7 @@ private class PurposeController(
 
     @Operation(summary = "목표 삭제 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequireAuthentication
     @DeleteMapping("/{id}")
     fun purposeDelete(
         @Valid

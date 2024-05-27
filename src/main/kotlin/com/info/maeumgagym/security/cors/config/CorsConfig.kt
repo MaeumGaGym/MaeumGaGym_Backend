@@ -1,7 +1,6 @@
-package com.info.maeumgagym.security.config.cors
+package com.info.maeumgagym.security.cors.config
 
 import com.info.maeumgagym.security.env.SecurityProperties
-import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
@@ -14,23 +13,26 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
  * @since 16-02-2024
  */
 @Configuration
-class CorsConfig(private val securityProperty: SecurityProperties) {
+class CorsConfig(
+    private val securityProperty: SecurityProperties
+) {
 
-    @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration().apply {
             allowedOrigins = listOf(
                 securityProperty.frontDomain,
                 securityProperty.backDomain,
-                "https://maeumgagym-main-stag.xquare.app",
-                "https://maeumgagym-user-stag.xquare.app",
-                "https://maeumgagym-admin-stag.xquare.app",
+                "https://maeumgagym.xqaure.app",
+                "https://maeumgagym-webview.xqaure.app",
                 "http://localhost:3000"
             )
             allowedMethods = listOf("*")
             allowCredentials = true
             addAllowedHeader("*")
-            exposedHeaders = mutableListOf("Authorization", "authorization")
+            allowedHeaders =
+                mutableListOf("*", "Authorization", "authorization", "OAUTH-TOKEN", "Oauth-Token", "oauth-token")
+            exposedHeaders =
+                mutableListOf("Authorization", "authorization", "OAUTH-TOKEN", "Oauth-Token", "oauth-token")
             maxAge = 1800L
         }
 

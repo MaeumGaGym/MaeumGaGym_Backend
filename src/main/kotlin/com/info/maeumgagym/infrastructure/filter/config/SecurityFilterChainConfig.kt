@@ -3,6 +3,7 @@ package com.info.maeumgagym.infrastructure.filter.config
 import com.info.maeumgagym.infrastructure.error.filter.ErrorLogResponseFilter
 import com.info.maeumgagym.infrastructure.error.filter.ExceptionConvertFilter
 import com.info.maeumgagym.security.authentication.provider.AuthenticationManager
+import com.info.maeumgagym.security.cors.filter.CorsHeaderGenerateFilter
 import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenResolver
 import com.info.maeumgagym.security.mgtoken.filter.MaeumgagymTokenAuthenticateFilter
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
@@ -27,7 +28,7 @@ class SecurityFilterChainConfig(
 ) : SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
 
     /**
-     * [ErrorLogResponseFilter] -> [ExceptionConvertFilter] -> [SecurityContextHolderFilter] -> [MaeumgagymTokenAuthenticateFilter] -> [LogoutFilter] -> ...
+     * [ErrorLogResponseFilter] -> [ExceptionConvertFilter] [CorsHeaderGenerateFilter] -> [SecurityContextHolderFilter] -> [MaeumgagymTokenAuthenticateFilter] -> [LogoutFilter] -> ...
      *
      * @author Daybreak312
      * @since 12-03-2024

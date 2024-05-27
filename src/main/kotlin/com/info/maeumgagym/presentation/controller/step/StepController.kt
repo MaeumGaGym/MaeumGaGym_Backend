@@ -1,6 +1,7 @@
 package com.info.maeumgagym.presentation.controller.step
 
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
+import com.info.maeumgagym.common.annotation.security.RequireAuthentication
 import com.info.maeumgagym.core.step.port.`in`.ReadTodayStepCountUseCase
 import com.info.maeumgagym.core.step.port.`in`.UpdateStepUseCase
 import io.swagger.v3.oas.annotations.Operation
@@ -19,6 +20,7 @@ private class StepController(
 ) {
     @Operation(summary = "걸음 수 카운트 업데이트 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequireAuthentication
     @PutMapping
     fun updateStep(
         @RequestParam(name = "number_of_steps")
@@ -26,6 +28,7 @@ private class StepController(
     ) = updateStepUseCase.updateStep(numberOfSteps)
 
     @Operation(summary = "오늘 걸음 수 조회 API")
+    @RequireAuthentication
     @GetMapping
     fun readTodayStepCount() = readTodayStepCountUseCase.readTodayStepCount()
 }

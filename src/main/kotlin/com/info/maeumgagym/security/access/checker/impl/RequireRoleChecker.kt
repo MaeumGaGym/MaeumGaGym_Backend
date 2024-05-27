@@ -1,8 +1,8 @@
 package com.info.maeumgagym.security.access.checker.impl
 
 import com.info.maeumgagym.common.annotation.security.RequireRole
-import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.common.exception.AuthenticationException
+import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.infrastructure.collector.annotation.AnnotationCollector
 import com.info.maeumgagym.security.access.checker.AbstractAnnotationBasedUserAuthenticationChecker
 import org.springframework.stereotype.Component
@@ -25,7 +25,7 @@ class RequireRoleChecker(
         checkInvalidAuthentication()
 
         readCurrentUserPort.readCurrentUser().roles.forEach {
-            if (it.name == annotation.role) return
+            if (it == annotation.role) return
         }
 
         throw AuthenticationException.ROLE_REQUIRED
