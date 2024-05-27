@@ -63,22 +63,22 @@ class ApplicationFilterChainConfig(
 
     //@Bean
     fun characterEncodingFilterConfig(): FilterRegistrationBean<CharacterEncodingFilter> {
-        return defaultFilterSetting(CharacterEncodingFilter::class.java)
+        return commonFilterDefaultSetting(CharacterEncodingFilter::class.java)
     }
 
     //@Bean
     fun webMvcMetricsFilterConfig(): FilterRegistrationBean<WebMvcMetricsFilter> {
-        return defaultFilterSetting(WebMvcMetricsFilter::class.java)
+        return commonFilterDefaultSetting(WebMvcMetricsFilter::class.java)
     }
 
     //@Bean
     fun orderedFormContentFilterConfig(): FilterRegistrationBean<OrderedFormContentFilter> {
-        return defaultFilterSetting(OrderedFormContentFilter::class.java)
+        return commonFilterDefaultSetting(OrderedFormContentFilter::class.java)
     }
 
     //@Bean
     fun orderedRequestContextFilterConfig(): FilterRegistrationBean<OrderedRequestContextFilter> {
-        return defaultFilterSetting(OrderedRequestContextFilter::class.java)
+        return commonFilterDefaultSetting(OrderedRequestContextFilter::class.java)
     }
 
     @Bean
@@ -106,10 +106,7 @@ class ApplicationFilterChainConfig(
             ExceptionChainedFilterChainProxy(filterChain)
         )
 
-        bean.addUrlPatterns("/*")
-        bean.order = getFilterOrder(ExceptionChainedFilterChainProxy::class.java)
-
-        return bean
+        return filterBeanInfoDefaultSetting(bean)
     }
 
     @Bean
@@ -118,10 +115,7 @@ class ApplicationFilterChainConfig(
             CurrentRequestContextFilter(currentRequestContext)
         )
 
-        bean.addUrlPatterns("/*")
-        bean.order = getFilterOrder(CurrentRequestContextFilter::class.java)
-
-        return bean
+        return filterBeanInfoDefaultSetting(bean)
     }
 
     @Bean
@@ -130,29 +124,31 @@ class ApplicationFilterChainConfig(
             CorsHeaderGenerateFilter()
         )
 
-        bean.addUrlPatterns("/*")
-        bean.order = getFilterOrder(CorsHeaderGenerateFilter::class.java)
-
-        return bean
+        return filterBeanInfoDefaultSetting(bean)
     }
 
     // SecurityFilterChain
     //@Bean
     fun delegatingFilterProxyConfig(): FilterRegistrationBean<DelegatingFilterProxy> {
-        return defaultFilterSetting(DelegatingFilterProxy::class.java)
+        return commonFilterDefaultSetting(DelegatingFilterProxy::class.java)
     }
 
     //@Bean
     fun wsFilterConfig(): FilterRegistrationBean<WsFilter> {
-        return defaultFilterSetting(WsFilter::class.java)
+        return commonFilterDefaultSetting(WsFilter::class.java)
     }
 
-    private fun <T : Filter> defaultFilterSetting(`class`: Class<out T>): FilterRegistrationBean<T> {
+    private fun <T : Filter> commonFilterDefaultSetting(`class`: Class<out T>): FilterRegistrationBean<T> {
         val filter = applicationContext.getBean(`class`)
 
         val bean = FilterRegistrationBean(filter)
 
-        bean.order = getFilterOrder(`class`)
+        return filterBeanInfoDefaultSetting(bean)
+    }
+
+    private fun <T : Filter> filterBeanInfoDefaultSetting(bean: FilterRegistrationBean<T>)
+        : FilterRegistrationBean<T> {
+        bean.order = getFilterOrder(bean.filter::class.java)
         bean.addUrlPatterns("/*")
 
         return bean
