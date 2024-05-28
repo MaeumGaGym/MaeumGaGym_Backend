@@ -7,6 +7,8 @@ import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChai
 import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChainProxy
 import com.info.maeumgagym.infrastructure.error.logger.ErrorLogger
 import com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository
+import com.info.maeumgagym.infrastructure.filter.initial.InitialFilterChain
+import com.info.maeumgagym.infrastructure.filter.initial.InitialFilterChainProxy
 import com.info.maeumgagym.infrastructure.request.context.CurrentRequestContext
 import com.info.maeumgagym.infrastructure.request.filter.CurrentRequestContextFilter
 import com.info.maeumgagym.infrastructure.response.writer.DefaultHttpServletResponseWriter
@@ -55,7 +57,7 @@ class ApplicationFilterChainConfig(
         OrderedFormContentFilter::class.java,
         OrderedRequestContextFilter::class.java,
         ExceptionChainedFilterChainProxy::class.java,
-        CurrentRequestContextFilter::class.java,
+        InitialFilterChainProxy::class.java,
         CorsHeaderGenerateFilter::class.java,
         DelegatingFilterProxy::class.java,
         WsFilter::class.java
@@ -110,9 +112,16 @@ class ApplicationFilterChainConfig(
     }
 
     @Bean
-    fun currentRequestContextFilterConfig(): FilterRegistrationBean<CurrentRequestContextFilter> {
+    fun initialFilterChainProxyConfig(): FilterRegistrationBean<InitialFilterChainProxy> {
         val bean = FilterRegistrationBean(
-            CurrentRequestContextFilter(currentRequestContext)
+            InitialFilterChainProxy(
+                InitialFilterChain(
+                    mapOf(
+                        CurrentRequestContextFilter::class.simpleName!! to
+                            CurrentRequestContextFilter(currentRequestContext)
+                    )
+                )
+            )
         )
 
         return filterBeanInfoDefaultSetting(bean)
