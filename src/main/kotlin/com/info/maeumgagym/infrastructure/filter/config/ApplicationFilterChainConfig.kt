@@ -57,7 +57,8 @@ class ApplicationFilterChainConfig(
         OrderedFormContentFilter::class.java,
         OrderedRequestContextFilter::class.java,
         ExceptionChainedFilterChainProxy::class.java,
-        InitialFilterChainProxy::class.java,
+        //InitialFilterChainProxy::class.java,
+        CurrentRequestContextFilter::class.java,
         CorsHeaderGenerateFilter::class.java,
         DelegatingFilterProxy::class.java,
         WsFilter::class.java
@@ -111,7 +112,7 @@ class ApplicationFilterChainConfig(
         return filterBeanInfoDefaultSetting(bean)
     }
 
-    @Bean
+    //@Bean
     fun initialFilterChainProxyConfig(): FilterRegistrationBean<InitialFilterChainProxy> {
         val bean = FilterRegistrationBean(
             InitialFilterChainProxy(
@@ -122,6 +123,15 @@ class ApplicationFilterChainConfig(
                     )
                 )
             )
+        )
+
+        return filterBeanInfoDefaultSetting(bean)
+    }
+
+    @Bean
+    fun currentRequestContextFilterConfig(): FilterRegistrationBean<CurrentRequestContextFilter> {
+        val bean = FilterRegistrationBean(
+            CurrentRequestContextFilter(currentRequestContext)
         )
 
         return filterBeanInfoDefaultSetting(bean)
