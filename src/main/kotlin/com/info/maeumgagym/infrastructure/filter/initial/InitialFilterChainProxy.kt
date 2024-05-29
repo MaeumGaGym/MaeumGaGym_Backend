@@ -9,7 +9,6 @@ class InitialFilterChainProxy(
     override val filterChain: InitialFilterChain
 ) : GlobalFilterChainProxy<InitialFilterChain>() {
 
-
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
         filterChain.doFilter(request, response)
     }

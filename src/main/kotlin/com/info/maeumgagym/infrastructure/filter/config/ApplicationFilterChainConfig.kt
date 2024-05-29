@@ -155,8 +155,7 @@ class ApplicationFilterChainConfig(
         return filterBeanInfoDefaultSetting(bean)
     }
 
-    private fun <T : Filter> filterBeanInfoDefaultSetting(bean: FilterRegistrationBean<T>)
-        : FilterRegistrationBean<T> {
+    private fun <T : Filter> filterBeanInfoDefaultSetting(bean: FilterRegistrationBean<T>): FilterRegistrationBean<T> {
         bean.order = getFilterOrder(bean.filter::class.java)
         bean.addUrlPatterns("/*")
 
