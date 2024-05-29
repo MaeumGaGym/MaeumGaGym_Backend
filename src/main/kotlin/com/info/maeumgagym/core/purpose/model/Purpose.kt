@@ -14,6 +14,7 @@ data class Purpose(
 ) {
     fun toResponse(): PurposeInfoResponse =
         PurposeInfoResponse(
+            id = id!!,
             title = title,
             content = content,
             startDate = startDate,
