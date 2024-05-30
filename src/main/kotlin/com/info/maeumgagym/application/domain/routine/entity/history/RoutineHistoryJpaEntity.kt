@@ -20,10 +20,16 @@ import javax.persistence.Table
 )
 class RoutineHistoryJpaEntity(
     id: Long?,
+    originId: Long,
     userId: UUID,
     routineName: String,
     date: LocalDate
 ) : BaseLongIdEntity(id) {
+
+    @Column(name = "origin_id", updatable = false, nullable = false)
+    var originId: Long = originId
+        protected set
+
 
     @Column(name = "routine_name", nullable = false)
     var routineName: String = routineName

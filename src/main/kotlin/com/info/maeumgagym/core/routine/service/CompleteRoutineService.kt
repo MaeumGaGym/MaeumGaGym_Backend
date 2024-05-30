@@ -32,6 +32,7 @@ class CompleteRoutineService(
         saveRoutineHistoryPort.save(
             RoutineHistory(
                 id = null,
+                originId = routine.id!!,
                 date = now,
                 exerciseInfoHistoryList = routine.exerciseInfoModelList.map { it.toHistory() },
                 userId = user.id!!,

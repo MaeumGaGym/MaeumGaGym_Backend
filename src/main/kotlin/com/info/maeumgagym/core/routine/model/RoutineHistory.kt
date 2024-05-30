@@ -7,6 +7,7 @@ import java.util.*
 
 data class RoutineHistory(
     val id: Long?,
+    val originId: Long,
     val userId: UUID,
     val routineName: String,
     val date: LocalDate,

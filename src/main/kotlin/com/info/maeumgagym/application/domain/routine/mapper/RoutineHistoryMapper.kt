@@ -12,6 +12,7 @@ class RoutineHistoryMapper(
     fun toEntity(model: RoutineHistory): RoutineHistoryJpaEntity = model.run {
         RoutineHistoryJpaEntity(
             id = id,
+            originId = originId,
             userId = userId,
             routineName = routineName,
             date = date
@@ -24,6 +25,7 @@ class RoutineHistoryMapper(
     ): RoutineHistory = entity.run {
         RoutineHistory(
             id = id,
+            originId = originId,
             exerciseInfoHistoryList =
             exerciseInfoHistoryListMapper.toModelList(exerciseInfoHistoryJpaEntityList).toMutableList(),
             userId = userId,
