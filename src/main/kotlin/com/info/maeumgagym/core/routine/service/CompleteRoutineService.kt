@@ -6,6 +6,7 @@ import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.routine.model.ExerciseInfoHistoryModel.Companion.toHistory
 import com.info.maeumgagym.core.routine.model.RoutineHistory
 import com.info.maeumgagym.core.routine.port.`in`.CompleteRoutineUseCase
+import com.info.maeumgagym.core.routine.port.out.ReadRoutineHistoryPort
 import com.info.maeumgagym.core.routine.port.out.ReadRoutinePort
 import com.info.maeumgagym.core.routine.port.out.SaveRoutineHistoryPort
 import java.time.LocalDate
@@ -14,6 +15,7 @@ import java.time.LocalDate
 class CompleteRoutineService(
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val readRoutinePort: ReadRoutinePort,
+    private val readRoutineHistoryPort: ReadRoutineHistoryPort,
     private val saveRoutineHistoryPort: SaveRoutineHistoryPort
 ) : CompleteRoutineUseCase {
 
@@ -29,13 +31,20 @@ class CompleteRoutineService(
             throw BusinessLogicException(400, "It's Not Today's Routine")
         }
 
+        val completeRoutinesAtToday =
+            readRoutineHistoryPort.readByUserIdAndDateBetweenOrderByDate(user.id!!, now, now)
+
+        if (completeRoutinesAtToday.map { it.originId }.contains(routine.id!!)) {
+            throw BusinessLogicException(400, "Already Completed Routine")
+        }
+
         saveRoutineHistoryPort.save(
             RoutineHistory(
                 id = null,
-                originId = routine.id!!,
+                originId = routine.id,
                 date = now,
                 exerciseInfoHistoryList = routine.exerciseInfoModelList.map { it.toHistory() },
-                userId = user.id!!,
+                userId = user.id,
                 routineName = routine.routineName
             )
         )
