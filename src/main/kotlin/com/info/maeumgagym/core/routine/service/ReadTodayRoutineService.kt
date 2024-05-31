@@ -30,11 +30,7 @@ class ReadTodayRoutineService(
 
         return CompletableRoutineListResponse(
             routines.map {
-                it.toResponse(
-                    readRoutineHistoryPort.existByOriginIdDateBetween(
-                        it.id!!, LocalDate.now(), LocalDate.now()
-                    )
-                )
+                it.toResponse(readRoutineHistoryPort.existByOriginIdToday(it.id!!))
             }
         )
     }
