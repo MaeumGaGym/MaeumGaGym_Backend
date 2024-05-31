@@ -5,6 +5,7 @@ import com.info.maeumgagym.application.domain.routine.entity.history.RoutineHist
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.Repository
 import org.springframework.data.repository.query.Param
+import java.math.BigInteger
 import java.time.LocalDate
 import java.util.*
 
@@ -26,13 +27,14 @@ interface RoutineHistoryNativeRepository : Repository<RoutineHistoryJpaEntity, L
     ): List<RoutineHistoryJpaEntity>
 
     @Query(
-        value = "(SELECT COUNT(1) " +
+        value = "SELECT COUNT(1) " +
             "FROM ${TableNames.ROUTINE_HISTORY_TABLE} r " +
             "WHERE r.origin_id = :originId AND " +
-            "r.date = NOW()) > 0",
+            "r.date = CURDATE() " +
+            "LIMIT 1",
         nativeQuery = true
     )
     fun existsByOriginIdAndToday(
         @Param("originId") originId: Long
-    ): Boolean
+    ): BigInteger
 }

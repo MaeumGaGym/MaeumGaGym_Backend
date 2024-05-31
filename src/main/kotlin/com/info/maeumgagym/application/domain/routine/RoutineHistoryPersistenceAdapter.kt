@@ -12,6 +12,7 @@ import com.info.maeumgagym.core.routine.port.out.ReadRoutineHistoryPort
 import com.info.maeumgagym.core.routine.port.out.SaveRoutineHistoryPort
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
+import java.math.BigInteger
 import java.time.LocalDate
 import java.util.*
 
@@ -57,5 +58,9 @@ internal class RoutineHistoryPersistenceAdapter(
 
     override fun existByOriginIdToday(
         originId: Long
-    ): Boolean = routineHistoryNativeRepository.existsByOriginIdAndToday(originId)
+    ): Boolean {
+        val result = routineHistoryNativeRepository.existsByOriginIdAndToday(originId)
+
+        return result >= BigInteger.ONE
+    }
 }
