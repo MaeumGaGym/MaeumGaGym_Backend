@@ -14,6 +14,7 @@ object RoutineHistoryConverter {
     ): RoutineHistoryJpaEntity = routineJpaEntity.run {
         RoutineHistoryJpaEntity(
             id = id,
+            originId = routineJpaEntity.id!!,
             userId = userId,
             routineName = routineName,
             date = historyDate

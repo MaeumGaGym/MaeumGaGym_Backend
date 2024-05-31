@@ -34,7 +34,7 @@ internal class RoutineHistoryPersistenceAdapter(
             exerciseInfoHistoryRepository.save(it)
         }
 
-        val savedExerciseInfoHistories = exerciseInfoHistoryRepository.findAllByRoutineHistoryId(saved.id)
+        val savedExerciseInfoHistories = exerciseInfoHistoryRepository.findAllByRoutineHistoryId(saved.id!!)
 
         return mapper.toDomain(saved, savedExerciseInfoHistories)
     }
