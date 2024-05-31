@@ -2,6 +2,7 @@ package com.info.maeumgagym.presentation.controller.routine
 
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
 import com.info.maeumgagym.common.annotation.security.RequireAuthentication
+import com.info.maeumgagym.core.routine.dto.response.CompletableRoutineListResponse
 import com.info.maeumgagym.core.routine.dto.response.RoutineHistoryListResponse
 import com.info.maeumgagym.core.routine.dto.response.RoutineListResponse
 import com.info.maeumgagym.core.routine.dto.response.RoutineResponse
@@ -52,7 +53,7 @@ private class RoutineController(
     @Operation(summary = "오늘의 루틴 조회 API")
     @RequireAuthentication
     @GetMapping("/today")
-    fun readTodayRoutine(): RoutineListResponse =
+    fun readTodayRoutine(): CompletableRoutineListResponse =
         readTodayRoutineUseCase.readTodayRoutine()
 
     @Operation(summary = "내 루틴 전체 조회 API")
