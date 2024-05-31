@@ -24,4 +24,15 @@ interface RoutineHistoryNativeRepository : Repository<RoutineHistoryJpaEntity, L
         @Param("startDate") startDate: LocalDate,
         @Param("endDate") endDate: LocalDate
     ): List<RoutineHistoryJpaEntity>
+
+    @Query(
+        value = "(SELECT COUNT(1) " +
+            "FROM ${TableNames.ROUTINE_HISTORY_TABLE} r " +
+            "WHERE r.origin_id = :originId AND " +
+            "r.date = NOW()) > 0",
+        nativeQuery = true
+    )
+    fun existsByOriginIdAndToday(
+        @Param("originId") originId: Long
+    ): Boolean
 }

@@ -34,7 +34,7 @@ internal class RoutineHistoryPersistenceAdapter(
             exerciseInfoHistoryRepository.save(it)
         }
 
-        val savedExerciseInfoHistories = exerciseInfoHistoryRepository.findAllByRoutineHistoryId(saved.id!!)
+        val savedExerciseInfoHistories = exerciseInfoHistoryRepository.findAllByRoutineHistoryId(saved.id)
 
         return mapper.toDomain(saved, savedExerciseInfoHistories)
     }
@@ -54,4 +54,8 @@ internal class RoutineHistoryPersistenceAdapter(
 
     override fun exsitsByUserIdAndDate(userId: UUID, date: LocalDate): Boolean =
         routineHistoryRepository.findByUserIdAndDate(userId, date) != null
+
+    override fun existByOriginIdToday(
+        originId: Long
+    ): Boolean = routineHistoryNativeRepository.existsByOriginIdAndToday(originId)
 }

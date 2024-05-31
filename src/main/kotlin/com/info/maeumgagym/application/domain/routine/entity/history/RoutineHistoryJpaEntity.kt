@@ -30,7 +30,6 @@ class RoutineHistoryJpaEntity(
     var originId: Long = originId
         protected set
 
-
     @Column(name = "routine_name", nullable = false)
     var routineName: String = routineName
         protected set
