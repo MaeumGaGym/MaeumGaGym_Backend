@@ -3,19 +3,20 @@ package com.info.maeumgagym.core.routine.service
 import com.info.maeumgagym.common.annotation.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
-import com.info.maeumgagym.core.routine.dto.response.RoutineListResponse
+import com.info.maeumgagym.core.routine.dto.response.CompletableRoutineListResponse
 import com.info.maeumgagym.core.routine.port.`in`.ReadTodayRoutineUseCase
+import com.info.maeumgagym.core.routine.port.out.ReadRoutineHistoryPort
 import com.info.maeumgagym.core.routine.port.out.ReadRoutinePort
-import com.info.maeumgagym.core.user.dto.response.UserResponse
 import java.time.LocalDate
 
 @ReadOnlyUseCase
 class ReadTodayRoutineService(
     private val readRoutinePort: ReadRoutinePort,
+    private val readRoutineHistoryPort: ReadRoutineHistoryPort,
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : ReadTodayRoutineUseCase {
 
-    override fun readTodayRoutine(): RoutineListResponse {
+    override fun readTodayRoutine(): CompletableRoutineListResponse {
         val user = readCurrentUserPort.readCurrentUser()
 
         val routines = readRoutinePort.readByUserIdAndDayOfWeekAndIsArchivedFalse(
@@ -27,12 +28,14 @@ class ReadTodayRoutineService(
             throw MaeumGaGymException.NO_CONTENT
         }
 
-        return RoutineListResponse(
-            UserResponse(
-                nickname = user.nickname,
-                profileImage = user.profileImage
-            ),
-            routines.map { it.toResponse() }
+        return CompletableRoutineListResponse(
+            routines.map {
+                it.toResponse(
+                    readRoutineHistoryPort.existByOriginIdDateBetween(
+                        it.id!!, LocalDate.now(), LocalDate.now()
+                    )
+                )
+            }
         )
     }
 }

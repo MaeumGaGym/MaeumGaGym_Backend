@@ -1,6 +1,7 @@
 package com.info.maeumgagym.core.routine.model
 
 import com.info.maeumgagym.core.routine.dto.RoutineStatusDto
+import com.info.maeumgagym.core.routine.dto.response.CompletableRoutineResponse
 import com.info.maeumgagym.core.routine.dto.response.RoutineResponse
 import java.time.DayOfWeek
 import java.time.format.TextStyle
@@ -33,5 +34,27 @@ data class Routine(
                     isShared = isShared
                 )
             }
+        )
+
+    fun toResponse(isCompleted: Boolean): CompletableRoutineResponse =
+        CompletableRoutineResponse(
+            id = id!!,
+            routineName = routineName,
+            exerciseInfoResponseList = exerciseInfoModelList.map {
+                it.toResponse()
+            },
+            dayOfWeeks = dayOfWeeks?.sorted()?.map {
+                it.getDisplayName(
+                    TextStyle.SHORT,
+                    Locale.KOREA
+                )
+            },
+            routineStatus = routineStatusModel.run {
+                RoutineStatusDto(
+                    isArchived = isArchived,
+                    isShared = isShared
+                )
+            },
+            isCompleted = isCompleted
         )
 }
