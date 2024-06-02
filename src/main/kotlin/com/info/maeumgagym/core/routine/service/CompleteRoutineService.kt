@@ -4,6 +4,7 @@ import com.info.maeumgagym.common.annotation.responsibility.UseCase
 import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.routine.model.ExerciseInfoHistoryModel.Companion.toHistory
+import com.info.maeumgagym.core.routine.model.Routine
 import com.info.maeumgagym.core.routine.model.RoutineHistory
 import com.info.maeumgagym.core.routine.port.`in`.CompleteRoutineUseCase
 import com.info.maeumgagym.core.routine.port.out.ReadRoutineHistoryPort
@@ -22,31 +23,34 @@ class CompleteRoutineService(
     override fun completeFromId(id: Long) {
         val user = readCurrentUserPort.readCurrentUser()
 
-        val routine = readRoutinePort.readById(id)
-            ?: throw BusinessLogicException.ROUTINE_NOT_FOUND
+        val routine = readRoutinePort.readById(id) ?: throw BusinessLogicException.ROUTINE_NOT_FOUND
 
-        val now = LocalDate.now()
+        checkIsRoutineOfToday(routine)
 
-        if (!routine.dayOfWeeks!!.contains(now.dayOfWeek)) {
-            throw BusinessLogicException(400, "It's Not Today's Routine")
-        }
-
-        val completeRoutinesAtToday =
-            readRoutineHistoryPort.readByUserIdAndDateBetweenOrderByDate(user.id!!, now, now)
-
-        if (completeRoutinesAtToday.map { it.originId }.contains(routine.id!!)) {
-            throw BusinessLogicException(400, "Already Completed Routine")
-        }
+        routine.checkNotCompletedAtToday()
 
         saveRoutineHistoryPort.save(
             RoutineHistory(
                 id = null,
-                originId = routine.id,
-                date = now,
+                originId = routine.id!!,
+                date = LocalDate.now(),
                 exerciseInfoHistoryList = routine.exerciseInfoModelList.map { it.toHistory() },
-                userId = user.id,
+                userId = user.id!!,
                 routineName = routine.routineName
             )
         )
     }
+
+    private fun checkIsRoutineOfToday(routine: Routine) {
+        if (!routine.dayOfWeeks!!.contains(LocalDate.now().dayOfWeek)) {
+            throw BusinessLogicException(400, "It's Not Today's Routine")
+        }
+    }
+
+    private fun Routine.checkNotCompletedAtToday() {
+        if (readRoutineHistoryPort.existByOriginIdToday(id!!)) {
+            throw BusinessLogicException(400, "Already Completed Routine")
+        }
+    }
+
 }
