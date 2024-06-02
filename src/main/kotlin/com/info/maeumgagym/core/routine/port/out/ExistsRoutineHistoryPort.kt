@@ -5,5 +5,7 @@ import java.util.*
 
 interface ExistsRoutineHistoryPort {
 
-    fun exsitsByUserIdAndDate(userId: UUID, date: LocalDate): Boolean
+    fun existsByUserIdAndDate(userId: UUID, date: LocalDate): Boolean
+
+    fun existByOriginIdToday(originId: Long): Boolean
 }

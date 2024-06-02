@@ -63,7 +63,7 @@ internal class RoutineHistoryPersistenceAdapter(
             )
         }
 
-    override fun exsitsByUserIdAndDate(userId: UUID, date: LocalDate): Boolean =
+    override fun existsByUserIdAndDate(userId: UUID, date: LocalDate): Boolean =
         routineHistoryRepository.findByUserIdAndDate(userId, date) != null
 
     override fun existByOriginIdToday(

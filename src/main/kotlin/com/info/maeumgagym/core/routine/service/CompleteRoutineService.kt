@@ -8,7 +8,7 @@ import com.info.maeumgagym.core.routine.model.ExerciseInfoHistoryModel.Companion
 import com.info.maeumgagym.core.routine.model.Routine
 import com.info.maeumgagym.core.routine.model.RoutineHistory
 import com.info.maeumgagym.core.routine.port.`in`.CompleteRoutineUseCase
-import com.info.maeumgagym.core.routine.port.out.ReadRoutineHistoryPort
+import com.info.maeumgagym.core.routine.port.out.ExistsRoutineHistoryPort
 import com.info.maeumgagym.core.routine.port.out.ReadRoutinePort
 import com.info.maeumgagym.core.routine.port.out.SaveRoutineHistoryPort
 import com.info.maeumgagym.core.user.model.User
@@ -18,7 +18,7 @@ import java.time.LocalDate
 class CompleteRoutineService(
     private val readCurrentUserPort: ReadCurrentUserPort,
     private val readRoutinePort: ReadRoutinePort,
-    private val readRoutineHistoryPort: ReadRoutineHistoryPort,
+    private val existsRoutineHistoryPort: ExistsRoutineHistoryPort,
     private val saveRoutineHistoryPort: SaveRoutineHistoryPort
 ) : CompleteRoutineUseCase {
 
@@ -58,7 +58,7 @@ class CompleteRoutineService(
     }
 
     private fun Routine.checkNotCompletedAtToday() {
-        if (readRoutineHistoryPort.existByOriginIdToday(id!!)) {
+        if (existsRoutineHistoryPort.existByOriginIdToday(id!!)) {
             throw BusinessLogicException(400, "Already Completed Routine")
         }
     }
