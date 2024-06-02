@@ -123,6 +123,8 @@ class BusinessLogicException(
         val USER_NOT_FOUND get() = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.USER)
         val POSE_NOT_FOUND get() = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.POSE)
         val ROUTINE_NOT_FOUND get() = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.ROUTINE)
+        val ROUTINE_HISTORY_NOT_FOUND
+            get() = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.ROUTINE_HISTORY)
         val PICKLE_NOT_FOUND get() = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PICKLE)
         val PICKLE_COMMENT_NOT_FOUND
             get() = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.PICKLE_COMMENT)

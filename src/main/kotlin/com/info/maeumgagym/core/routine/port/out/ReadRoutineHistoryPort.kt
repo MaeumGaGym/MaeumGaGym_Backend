@@ -12,7 +12,8 @@ interface ReadRoutineHistoryPort {
         endDate: LocalDate
     ): List<RoutineHistory>
 
-    fun existByOriginIdToday(
-        originId: Long
-    ): Boolean
+    fun readByOriginIdAndDate(
+        originId: Long,
+        date: LocalDate
+    ): RoutineHistory?
 }

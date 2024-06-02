@@ -12,6 +12,7 @@ enum class DomainNames(
     PICKLE_REPLY("Pickle Reply", "pickle reply"),
     POSE("Pose", "pose"),
     ROUTINE("Routine", "routine"),
+    ROUTINE_HISTORY("Routine History", "routine history"),
     WAKA_TIME("Waka Time", "waka time"),
     REPORT("Report", "report"),
     PURPOSE("Purpose", "purpose"),

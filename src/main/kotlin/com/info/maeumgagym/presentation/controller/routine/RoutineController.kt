@@ -35,6 +35,7 @@ private class RoutineController(
     private val readRoutineUseCase: ReadRoutineUseCase,
     private val locationHeaderManager: LocationHeaderManager,
     private val completeRoutineUseCase: CompleteRoutineUseCase,
+    private val incompleteRoutineUseCase: IncompleteRoutineUseCase,
     private val readRoutineHistoryUseCase: ReadRoutineHistoryUseCase
 ) {
     @Operation(summary = "루틴 생성 API")
@@ -113,6 +114,24 @@ private class RoutineController(
         id: Long
     ) {
         completeRoutineUseCase.completeFromId(id)
+    }
+
+    @Operation(summary = "루틴 미완료 처리 API")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequireAuthentication
+    @PutMapping("/incomplete/{date}/{id}")
+    fun incompleteTodayRoutine(
+        @PathVariable
+        @Valid
+        @Positive(message = "0보다 커야 합니다.")
+        id: Long,
+        @Valid
+        @NotNull(message = "null일 수 없습니다.")
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        @PathVariable("date", required = false)
+        date: LocalDate?
+    ) {
+        incompleteRoutineUseCase.incompleteRoutineFromOriginRoutineIdAndDate(id, date!!)
     }
 
     @Operation(summary = "루틴 기록 조회 API")

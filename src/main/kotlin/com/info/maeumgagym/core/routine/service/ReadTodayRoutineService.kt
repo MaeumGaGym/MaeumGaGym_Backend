@@ -5,14 +5,14 @@ import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.routine.dto.response.CompletableRoutineListResponse
 import com.info.maeumgagym.core.routine.port.`in`.ReadTodayRoutineUseCase
-import com.info.maeumgagym.core.routine.port.out.ReadRoutineHistoryPort
+import com.info.maeumgagym.core.routine.port.out.ExistsRoutineHistoryPort
 import com.info.maeumgagym.core.routine.port.out.ReadRoutinePort
 import java.time.LocalDate
 
 @ReadOnlyUseCase
 class ReadTodayRoutineService(
     private val readRoutinePort: ReadRoutinePort,
-    private val readRoutineHistoryPort: ReadRoutineHistoryPort,
+    private val existsRoutineHistoryPort: ExistsRoutineHistoryPort,
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : ReadTodayRoutineUseCase {
 
@@ -30,7 +30,7 @@ class ReadTodayRoutineService(
 
         return CompletableRoutineListResponse(
             routines.map {
-                it.toResponse(readRoutineHistoryPort.existByOriginIdToday(it.id!!))
+                it.toResponse(existsRoutineHistoryPort.existByOriginIdToday(it.id!!))
             }
         )
     }

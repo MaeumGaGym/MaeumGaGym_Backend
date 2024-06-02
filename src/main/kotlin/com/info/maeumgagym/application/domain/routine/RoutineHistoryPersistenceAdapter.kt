@@ -7,6 +7,7 @@ import com.info.maeumgagym.application.domain.routine.repository.history.Routine
 import com.info.maeumgagym.application.domain.routine.repository.history.RoutineHistoryRepository
 import com.info.maeumgagym.common.annotation.responsibility.PersistenceAdapter
 import com.info.maeumgagym.core.routine.model.RoutineHistory
+import com.info.maeumgagym.core.routine.port.out.DeleteRoutineHistoryPort
 import com.info.maeumgagym.core.routine.port.out.ExistsRoutineHistoryPort
 import com.info.maeumgagym.core.routine.port.out.ReadRoutineHistoryPort
 import com.info.maeumgagym.core.routine.port.out.SaveRoutineHistoryPort
@@ -25,7 +26,8 @@ internal class RoutineHistoryPersistenceAdapter(
     private val exerciseInfoHistoryRepository: ExerciseInfoHistoryRepository
 ) : SaveRoutineHistoryPort,
     ReadRoutineHistoryPort,
-    ExistsRoutineHistoryPort {
+    ExistsRoutineHistoryPort,
+    DeleteRoutineHistoryPort {
 
     @Transactional(propagation = Propagation.MANDATORY)
     override fun save(routineHistory: RoutineHistory): RoutineHistory {
@@ -53,7 +55,15 @@ internal class RoutineHistoryPersistenceAdapter(
                 )
             }
 
-    override fun exsitsByUserIdAndDate(userId: UUID, date: LocalDate): Boolean =
+    override fun readByOriginIdAndDate(originId: Long, date: LocalDate): RoutineHistory? =
+        routineHistoryRepository.findByOriginIdAndDate(originId, date)?.let {
+            mapper.toDomain(
+                it,
+                exerciseInfoHistoryRepository.findAllByRoutineHistoryId(it.id!!)
+            )
+        }
+
+    override fun existsByUserIdAndDate(userId: UUID, date: LocalDate): Boolean =
         routineHistoryRepository.findByUserIdAndDate(userId, date) != null
 
     override fun existByOriginIdToday(
@@ -62,5 +72,11 @@ internal class RoutineHistoryPersistenceAdapter(
         val result = routineHistoryNativeRepository.existsByOriginIdAndToday(originId)
 
         return result >= BigInteger.ONE
+    }
+
+    override fun delete(routineHistory: RoutineHistory) {
+        routineHistoryRepository.delete(
+            mapper.toEntity(routineHistory)
+        )
     }
 }
