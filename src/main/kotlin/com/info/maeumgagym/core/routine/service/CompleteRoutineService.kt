@@ -52,5 +52,4 @@ class CompleteRoutineService(
             throw BusinessLogicException(400, "Already Completed Routine")
         }
     }
-
 }
