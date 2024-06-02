@@ -7,7 +7,6 @@ import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.routine.port.`in`.IncompleteRoutineUseCase
 import com.info.maeumgagym.core.routine.port.out.DeleteRoutineHistoryPort
 import com.info.maeumgagym.core.routine.port.out.ReadRoutineHistoryPort
-import com.info.maeumgagym.core.routine.port.out.ReadRoutinePort
 import java.time.LocalDate
 
 @UseCase
@@ -17,7 +16,7 @@ class IncompleteRoutineService(
     private val readCurrentUserPort: ReadCurrentUserPort
 ) : IncompleteRoutineUseCase {
 
-    override fun incompleteRoutine(originRoutineId: Long, date: LocalDate) {
+    override fun incompleteRoutineFromOriginRoutineIdAndDate(originRoutineId: Long, date: LocalDate) {
         val user = readCurrentUserPort.readCurrentUser()
 
         val history = readRoutineHistoryPort.readByOriginIdAndDate(originRoutineId, LocalDate.now())
