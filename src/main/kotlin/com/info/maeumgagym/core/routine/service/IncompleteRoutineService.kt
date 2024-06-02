@@ -12,7 +12,6 @@ import java.time.LocalDate
 
 @UseCase
 class IncompleteRoutineService(
-    private val readRoutinePort: ReadRoutinePort,
     private val readRoutineHistoryPort: ReadRoutineHistoryPort,
     private val deleteRoutineHistoryPort: DeleteRoutineHistoryPort,
     private val readCurrentUserPort: ReadCurrentUserPort
