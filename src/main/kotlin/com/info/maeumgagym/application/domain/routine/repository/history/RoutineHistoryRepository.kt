@@ -11,4 +11,8 @@ interface RoutineHistoryRepository : Repository<RoutineHistoryJpaEntity, Long?> 
     fun save(entity: RoutineHistoryJpaEntity): RoutineHistoryJpaEntity
 
     fun findByUserIdAndDate(userId: UUID, date: LocalDate): RoutineHistoryJpaEntity?
+
+    fun findByOriginIdAndDate(originId: Long, date: LocalDate): RoutineHistoryJpaEntity?
+
+    fun delete(entity: RoutineHistoryJpaEntity)
 }
