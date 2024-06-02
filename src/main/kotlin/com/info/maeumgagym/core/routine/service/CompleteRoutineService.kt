@@ -2,6 +2,7 @@ package com.info.maeumgagym.core.routine.service
 
 import com.info.maeumgagym.common.annotation.responsibility.UseCase
 import com.info.maeumgagym.common.exception.BusinessLogicException
+import com.info.maeumgagym.common.exception.SecurityException
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
 import com.info.maeumgagym.core.routine.model.ExerciseInfoHistoryModel.Companion.toHistory
 import com.info.maeumgagym.core.routine.model.Routine
@@ -10,6 +11,7 @@ import com.info.maeumgagym.core.routine.port.`in`.CompleteRoutineUseCase
 import com.info.maeumgagym.core.routine.port.out.ReadRoutineHistoryPort
 import com.info.maeumgagym.core.routine.port.out.ReadRoutinePort
 import com.info.maeumgagym.core.routine.port.out.SaveRoutineHistoryPort
+import com.info.maeumgagym.core.user.model.User
 import java.time.LocalDate
 
 @UseCase
@@ -25,6 +27,8 @@ class CompleteRoutineService(
 
         val routine = readRoutinePort.readById(id) ?: throw BusinessLogicException.ROUTINE_NOT_FOUND
 
+        routine.checkAccessibleToRoutine(user)
+
         checkIsRoutineOfToday(routine)
 
         routine.checkNotCompletedAtToday()
@@ -39,6 +43,12 @@ class CompleteRoutineService(
                 routineName = routine.routineName
             )
         )
+    }
+
+    private fun Routine.checkAccessibleToRoutine(user: User) {
+        if (userId != user.id /* && !isShared */) { // 아직 기능의 구체적인 다른 구현이 없어 isShared 확인은 보류
+            throw SecurityException.PERMISSION_DENIED
+        }
     }
 
     private fun checkIsRoutineOfToday(routine: Routine) {
