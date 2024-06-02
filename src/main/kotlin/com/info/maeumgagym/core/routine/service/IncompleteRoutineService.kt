@@ -20,7 +20,7 @@ class IncompleteRoutineService(
         val user = readCurrentUserPort.readCurrentUser()
 
         val history = readRoutineHistoryPort.readByOriginIdAndDate(originRoutineId, LocalDate.now())
-            ?: throw BusinessLogicException.ROUTINE_HISTORY_NOT_FOUND
+            ?: throw BusinessLogicException(400, "Did Not Complete Routine")
 
         if (history.userId != user.id) {
             throw SecurityException.PERMISSION_DENIED
