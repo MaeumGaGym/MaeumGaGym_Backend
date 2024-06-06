@@ -1,0 +1,27 @@
+spring:
+    profiles:
+        group:
+            local: "local, mgtoken, file, swagger, minio, kakao"
+            prod: "prod, prod-datasource, mgtoken, log, redis, file, swagger, minio, kakao"
+            stag: "stag, stag-datasource, mgtoken, log, redis, file, swagger, minio, kakao"
+
+    # format
+    jackson:
+        property-naming-strategy: SNAKE_CASE
+# server
+server:
+    tomcat:
+        threads:
+            max: 200
+            min-spare: 10
+        max-connections: 8192
+        accept-count: 100
+        connection-timeout: 20000
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "health, heapdump, threaddump"
+            cors:
+                exposed-headers: "Authorization"

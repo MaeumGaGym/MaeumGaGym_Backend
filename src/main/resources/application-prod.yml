@@ -1,0 +1,26 @@
+spring:
+    config:
+        activate:
+            on-profile: prod
+
+management:
+    endpoint:
+        health:
+            show-details: when_authorized
+            enabled: true
+        heapdump:
+            enabled: false
+        shutdown:
+            enabled: false
+
+server:
+    domain:
+        front-domain: ${FRONT_DOMAIN}
+        back-domain: ${BACK_DOMAIN}
+    servlet:
+        context-path: /maeumgagym
+
+csrf:
+    header: ${CSRF_HEADER:X-XSRF-TOKEN}
+    cookie: ${CSRF_COOKIE:XSRF-TOKEN}
+    parameter: ${CSRF_PARAMETER:_csrf}

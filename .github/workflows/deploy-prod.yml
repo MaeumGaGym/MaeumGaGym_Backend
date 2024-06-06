@@ -52,11 +52,10 @@ jobs:
           DB_URL: ${{ secrets.TEST_DB_URL }}
           DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
-          JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
-          JWT_ACCESS_EXP: ${{ secrets.JWT_ACCESS_EXP }}
-          JWT_REFRESH_EXP: ${{ secrets.JWT_REFRESH_EXP }}
-          JWT_HEADER: ${{ secrets.JWT_HEADER }}
-          JWT_PREFIX: ${{ secrets.JWT_PREFIX }}
+          MGT_SECRET_KEY: ${{ secrets.MGT_SECRET_KEY }}
+          MGT_ACCESS_EXP: ${{ secrets.MGT_ACCESS_EXP }}
+          MGT_REFRESH_EXP: ${{ secrets.MGT_REFRESH_EXP }}
+          MGT_PREFIX: ${{ secrets.MGT_PREFIX }}
           GRANT_TYPE: ${{ secrets.GRANT_TYPE }}
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           REDIS_HOST: ${{ secrets.TEST_REDIS_HOST }}
@@ -67,6 +66,10 @@ jobs:
           SUFFIX_PATH: ${{ secrets.SUFFIX_PATH }}
           SWAGGER_PATH: ${{ secrets.SWAGGER_PATH }}
           SWAGGER_UI_PATH: ${{ secrets.SWAGGER_UI_PATH }}
+          MINIO_ACCESS: ${{ secrets.MINIO_ACCESS }}
+          MINIO_BUCKET_NAME: ${{ secrets.MINIO_BUCKET_NAME }}
+          MINIO_END_POINT: ${{ secrets.MINIO_END_POINT }}
+          MINIO_SECRET: ${{ secrets.MINIO_SECRET }}
 
       - name: Deploy to xquare
         uses: team-xquare/xquare-deployment-action@master
@@ -79,11 +82,10 @@ jobs:
             DB_URL=${{ secrets.DB_URL }}
             DB_PASSWORD=${{ secrets.DB_PASSWORD }}
             DB_USERNAME=${{ secrets.DB_USERNAME }}
-            JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
-            JWT_ACCESS_EXP=${{ secrets.JWT_ACCESS_EXP }}
-            JWT_REFRESH_EXP=${{ secrets.JWT_REFRESH_EXP }}
-            JWT_HEADER=${{ secrets.JWT_HEADER }}
-            JWT_PREFIX=${{ secrets.JWT_PREFIX }}
+            MGT_SECRET_KEY=${{ secrets.MGT_SECRET_KEY }}
+            MGT_ACCESS_EXP=${{ secrets.MGT_ACCESS_EXP }}
+            MGT_REFRESH_EXP=${{ secrets.MGT_REFRESH_EXP }}
+            MGT_PREFIX=${{ secrets.MGT_PREFIX }}
             GRANT_TYPE=${{ secrets.GRANT_TYPE }}
             CLIENT_ID=${{ secrets.CLIENT_ID }}
             REDIRECT_URI=${{ secrets.REDIRECT_URI }}
@@ -100,3 +102,7 @@ jobs:
             CSRF_HEADER=${{ secrets.CSRF_HEADER }}
             CSRF_COOKIE=${{ secrets.CSRF_COOKIE }}
             CSRF_PARAMETER=${{ secrets.CSRF_PARAMETER }}
+            MINIO_ACCESS=${{ secrets.MINIO_ACCESS }}
+            MINIO_BUCKET_NAME=${{ secrets.MINIO_BUCKET_NAME }}
+            MINIO_END_POINT=${{ secrets.MINIO_END_POINT }}
+            MINIO_SECRET=${{ secrets.MINIO_SECRET }}

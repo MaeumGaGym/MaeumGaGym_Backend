@@ -1,0 +1,9 @@
+spring:
+    config:
+        activate:
+            on-profile: kakao
+
+kakao:
+    client-id: ${KAKAO_CLIENT_ID}
+    secret-key: ${KAKAO_SECRET_KEY}
+    redirection-uri: ${KAKAO_REDIRECTION_URI}

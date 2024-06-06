@@ -1,0 +1,10 @@
+spring:
+    config:
+        activate:
+            on-profile: log
+
+logging:
+    level:
+        sql: info
+        root: info
+        web: info
