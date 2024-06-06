@@ -9,6 +9,7 @@ import com.info.maeumgagym.core.routine.port.out.DeleteRoutineHistoryPort
 import com.info.maeumgagym.core.routine.port.out.ReadRoutineHistoryPort
 import java.time.LocalDate
 
+// TODO("오늘의 루틴 완료 취소(원본 루틴 id 기반)과 과거의 루틴 완료 취소(루틴 히스토리 id 및 날짜 기반) API로 분리")
 @UseCase
 class IncompleteRoutineService(
     private val readRoutineHistoryPort: ReadRoutineHistoryPort,
