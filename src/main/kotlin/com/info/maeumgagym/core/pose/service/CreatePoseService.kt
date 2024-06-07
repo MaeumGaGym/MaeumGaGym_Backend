@@ -17,6 +17,7 @@ internal class CreatePoseService(
             savePosePort.save(
                 Pose(
                     needMachine = needMachine,
+                    category = category.toMutableSet(),
                     simpleName = simpleName,
                     exactName = exactName,
                     thumbnail = thumbnail,

@@ -9,6 +9,7 @@ class PoseMapper {
     fun toEntity(pose: Pose): PoseJpaEntity = pose.run {
         PoseJpaEntity(
             needMachine,
+            category,
             simpleName,
             exactName,
             thumbnail,
@@ -26,6 +27,7 @@ class PoseMapper {
     fun toDomain(poseJpaEntity: PoseJpaEntity): Pose = poseJpaEntity.run {
         Pose(
             needMachine,
+            category,
             simpleName,
             exactName,
             thumbnail,
