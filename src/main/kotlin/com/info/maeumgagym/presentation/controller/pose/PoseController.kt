@@ -10,12 +10,13 @@ import com.info.maeumgagym.core.pose.port.`in`.*
 import com.info.maeumgagym.core.user.model.Role
 import com.info.maeumgagym.presentation.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.presentation.controller.pose.dto.request.CreatePoseWebRequest
-import com.info.maeumgagym.presentation.controller.pose.dto.request.ReadAllPoseWebRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import java.time.LocalDateTime
 import javax.validation.Valid
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Positive
@@ -52,10 +53,11 @@ private class PoseController(
     @RequireAuthentication
     @GetMapping("/all")
     fun readAll(
-        @RequestBody
         @Valid
-        readAllPoseWebRequest: ReadAllPoseWebRequest
-    ): PoseListResponse = readAllPoseUseCase.readAll(readAllPoseWebRequest.toRequest())
+        @RequestParam(value = "last_updated")
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+        lastUpdated: LocalDateTime?
+    ): PoseListResponse = readAllPoseUseCase.readAll(lastUpdated)
 
     @Operation(summary = "자세 id 조회 API")
     @RequireAuthentication
