@@ -46,9 +46,9 @@ internal class MaeumgagymTokenValidatorImpl(
             throw AuthenticationException.EXPIRED_TOKEN
         }
 
-        if (currentRequestContext.getCurrentRequest().remoteAddr != maeumgagymToken.ip) {
-            throw AuthenticationException.WRONG_USER_TOKEN
-        }
+//        if (currentRequestContext.getCurrentRequest().remoteAddr != maeumgagymToken.ip) {
+//            throw AuthenticationException.WRONG_USER_TOKEN
+//        }
     }
 
     private fun getAccessTokenExpireAt(baseTime: LocalDateTime): LocalDateTime =
