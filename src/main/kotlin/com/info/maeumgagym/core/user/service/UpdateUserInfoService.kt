@@ -29,7 +29,7 @@ internal class UpdateUserInfoService(
                     physicalInfoModel = PhysicalInfoModel(
                         weight = weight,
                         height = height,
-                        genderModel = genderModel
+                        genderModel = gender
                     )
                 )
             }

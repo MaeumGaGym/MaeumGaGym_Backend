@@ -19,13 +19,13 @@ data class UpdateUserInfoWebRequest(
     @field:DecimalMax(value = "300.0", message = "신장은 300.0 이하여야 합니다.")
     val height: Double,
 
-    val genderModel: GenderModel
+    val gender: GenderModel
 ) {
     fun toRequest(): UpdateUserInfoRequest =
         UpdateUserInfoRequest(
             nickname = nickname,
             height = height,
             weight = weight,
-            genderModel = genderModel
+            gender = gender
         )
 }
