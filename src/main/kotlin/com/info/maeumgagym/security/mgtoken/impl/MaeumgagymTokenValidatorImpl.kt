@@ -46,9 +46,11 @@ internal class MaeumgagymTokenValidatorImpl(
             throw AuthenticationException.EXPIRED_TOKEN
         }
 
-        if (currentRequestContext.getCurrentRequest().remoteAddr != maeumgagymToken.ip) {
-            throw AuthenticationException.WRONG_USER_TOKEN
-        }
+        // 발급 대상과 사용자의 IP 주소를 확인하는 로직
+        // 사용자의 네트워크 환경에 따라 변동될 수 있으므로, 해당 인증은 제거됨
+//        if (currentRequestContext.getCurrentRequest().remoteAddr != maeumgagymToken.ip) {
+//            throw AuthenticationException.WRONG_USER_TOKEN
+//        }
     }
 
     private fun getAccessTokenExpireAt(baseTime: LocalDateTime): LocalDateTime =

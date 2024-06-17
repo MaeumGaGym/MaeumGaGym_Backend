@@ -4,6 +4,8 @@ data class CreatePoseRequest(
 
     val needMachine: Boolean,
 
+    val category: List<String>,
+
     val simpleName: String,
 
     val exactName: String,
