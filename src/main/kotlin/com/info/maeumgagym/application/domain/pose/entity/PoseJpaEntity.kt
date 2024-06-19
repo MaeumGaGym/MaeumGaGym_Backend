@@ -41,11 +41,11 @@ class PoseJpaEntity(
     var exactName: String = exactName // 정확한 이름
         protected set
 
-    @Column(name = "thumbnail", updatable = true, nullable = false)
+    @Column(name = "thumbnail", length = 1000, updatable = true, nullable = false)
     var thumbnail: String = thumbnail // 썸네일
         protected set
 
-    @Column(name = "video_url", updatable = true, nullable = true)
+    @Column(name = "video_url", length = 1000, updatable = true, nullable = true)
     var video: String = video // 자세 영상
         protected set
 
