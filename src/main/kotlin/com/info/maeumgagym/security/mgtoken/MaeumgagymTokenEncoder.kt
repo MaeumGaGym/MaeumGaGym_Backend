@@ -7,6 +7,8 @@ import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymTokenPair
  *
  * 반환되는 [MaeumgagymTokenPair]의 각 토큰은 동일한 [tokenId][com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken.tokenId]를 가지며, 미리 설정된 [prefix][com.info.maeumgagym.security.mgtoken.env.MaeumgagymTokenProperties.prefix]가 부착됨
  *
+ * [MaeumgagymTokenProperties][com.info.maeumgagym.security.mgtoken.env.MaeumgagymTokenProperties]의 만료 기간 관련 설정들은 초 단위로 반영됨
+ *
  * @see MaeumgagymTokenDecoder
  * @see MaeumgagymTokenValidator
  *
