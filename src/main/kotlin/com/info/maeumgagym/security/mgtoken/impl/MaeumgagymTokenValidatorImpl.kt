@@ -1,7 +1,6 @@
 package com.info.maeumgagym.security.mgtoken.impl
 
 import com.info.maeumgagym.common.exception.AuthenticationException
-import com.info.maeumgagym.infrastructure.request.context.CurrentRequestContext
 import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenValidator
 import com.info.maeumgagym.security.mgtoken.env.MaeumgagymTokenProperties
 import com.info.maeumgagym.security.mgtoken.revoked.RevokedMGTokenContext
