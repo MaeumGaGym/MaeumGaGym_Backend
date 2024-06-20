@@ -24,10 +24,8 @@ class RequireRoleChecker(
 
         checkInvalidAuthentication()
 
-        readCurrentUserPort.readCurrentUser().roles.forEach {
-            if (it == annotation.role) return
+        if (!readCurrentUserPort.readCurrentUser().roles.contains(annotation.role)) {
+            throw AuthenticationException.ROLE_REQUIRED
         }
-
-        throw AuthenticationException.ROLE_REQUIRED
     }
 }
