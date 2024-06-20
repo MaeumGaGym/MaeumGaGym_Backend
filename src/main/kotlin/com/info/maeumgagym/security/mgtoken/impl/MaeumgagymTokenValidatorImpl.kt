@@ -46,7 +46,7 @@ internal class MaeumgagymTokenValidatorImpl(
             throw AuthenticationException.EXPIRED_TOKEN
         }
 
-        if (usernameValidator(maeumgagymToken.tokenId)) {
+        if (!usernameValidator(maeumgagymToken.username)) {
             throw AuthenticationException.INVALID_TOKEN
         }
 
