@@ -34,7 +34,7 @@ private class UserController(
         nickname: String?
     ): UserProfileResponse = readUserProfileFromNicknameUseCase.profileFromNickname(nickname!!)
 
-    @Operation(summary = "현재 로그인한 유저 프로필 보기 API")
+    @Operation(summary = "현재 로그인한 유저 프로필 조회 API")
     @RequireAuthentication
     @GetMapping
     fun getCurrentUserProfile(): UserProfileResponse = readCurrentUserProfileUseCase.readCurrentUserProfile()
