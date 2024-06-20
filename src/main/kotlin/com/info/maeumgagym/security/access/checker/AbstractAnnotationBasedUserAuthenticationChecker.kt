@@ -12,8 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder
  * @author Daybreak312
  * @since 20-04-2024
  */
-abstract class AbstractAnnotationBasedUserAuthenticationChecker
-    : AnnotationBasedUserAuthenticationChecker {
+abstract class AbstractAnnotationBasedUserAuthenticationChecker :
+    AnnotationBasedUserAuthenticationChecker {
 
     protected fun checkInvalidAuthentication() {
         if (SecurityContextHolder.getContext().authentication == null ||
