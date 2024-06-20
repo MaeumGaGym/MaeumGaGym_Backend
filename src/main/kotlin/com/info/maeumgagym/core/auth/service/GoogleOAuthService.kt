@@ -1,13 +1,12 @@
 package com.info.maeumgagym.core.auth.service
 
 import com.info.maeumgagym.common.annotation.responsibility.UseCase
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.auth.port.`in`.GoogleLoginUseCase
 import com.info.maeumgagym.core.auth.port.`in`.GoogleRecoveryUseCase
 import com.info.maeumgagym.core.auth.port.`in`.GoogleSignupUseCase
 import com.info.maeumgagym.core.auth.port.out.GenerateJwtPort
 import com.info.maeumgagym.core.auth.port.out.GetGoogleInfoPort
-import com.info.maeumgagym.core.auth.port.out.RevokeGoogleTokenPort
-import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.user.model.Role
 import com.info.maeumgagym.core.user.model.User
 import com.info.maeumgagym.core.user.port.out.ExistUserPort
@@ -20,7 +19,6 @@ internal class GoogleOAuthService(
     private val saveUserPort: SaveUserPort,
     private val existUserPort: ExistUserPort,
     private val generateJwtPort: GenerateJwtPort,
-    private val revokeGoogleTokenPort: RevokeGoogleTokenPort,
     private val recoveryUserPort: RecoveryUserPort
 ) : GoogleLoginUseCase, GoogleSignupUseCase, GoogleRecoveryUseCase {
 
@@ -30,9 +28,6 @@ internal class GoogleOAuthService(
 
         // 존재하지 않는 유저라면 NotFound 예외처리
         if (!existUserPort.existsByOAuthId(profile.sub)) throw BusinessLogicException.USER_NOT_FOUND
-
-        // google access_token 만료 시키기
-        revokeGoogleTokenPort.revoke(accessToken)
 
         // subject로 토큰 발급 및 반환
         return generateJwtPort.generateTokens(profile.sub)
