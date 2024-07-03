@@ -6,7 +6,6 @@ import com.info.maeumgagym.security.mgtoken.env.MaeumgagymTokenProperties
 import com.info.maeumgagym.security.mgtoken.revoked.RevokedMGTokenContext
 import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken
 import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymTokenType
-import com.info.maeumgagym.security.username.validator.UsernameValidator
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 
@@ -19,8 +18,7 @@ import java.time.LocalDateTime
 @Component
 internal class MaeumgagymTokenValidatorImpl(
     private val revokedMGTokenContext: RevokedMGTokenContext,
-    private val maeumgagymTokenProperties: MaeumgagymTokenProperties,
-    private val usernameValidator: UsernameValidator
+    private val maeumgagymTokenProperties: MaeumgagymTokenProperties
 ) : MaeumgagymTokenValidator {
 
     override fun validate(maeumgagymToken: MaeumgagymToken) {
@@ -44,10 +42,6 @@ internal class MaeumgagymTokenValidatorImpl(
 
         if (maeumgagymToken.expireAt.isBefore(LocalDateTime.now())) {
             throw AuthenticationException.EXPIRED_TOKEN
-        }
-
-        if (!usernameValidator(maeumgagymToken.username)) {
-            throw AuthenticationException.INVALID_TOKEN
         }
 
         // 발급 대상과 사용자의 IP 주소를 확인하는 로직
