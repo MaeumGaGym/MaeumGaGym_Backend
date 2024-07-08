@@ -33,7 +33,7 @@ object TableNames {
 
     const val ACCESS_TOKEN_TABLE = "${TABLE_PREFIX}access"
     const val REFRESH_TOKEN_TABLE = "${TABLE_PREFIX}refresh"
-    const val REVOKED_MAEUMGAGYM_TOKEN_TABLE = "${TABLE_PREFIX}revoked_mgt"
+    const val USABLE_MAEUMGAGYM_TOKEN_TABLE = "${TABLE_PREFIX}usable_mgt"
 
     const val REDIS_STEP_TABLE = "${TABLE_PREFIX}step"
 

@@ -3,7 +3,7 @@ package com.info.maeumgagym.security.mgtoken.impl
 import com.info.maeumgagym.common.exception.AuthenticationException
 import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenValidator
 import com.info.maeumgagym.security.mgtoken.env.MaeumgagymTokenProperties
-import com.info.maeumgagym.security.mgtoken.revoked.RevokedMGTokenContext
+import com.info.maeumgagym.security.mgtoken.revoked.UsableMGTokenContext
 import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken
 import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymTokenType
 import org.springframework.stereotype.Component
@@ -17,12 +17,12 @@ import java.time.LocalDateTime
  */
 @Component
 internal class MaeumgagymTokenValidatorImpl(
-    private val revokedMGTokenContext: RevokedMGTokenContext,
+    private val usableMGTokenContext: UsableMGTokenContext,
     private val maeumgagymTokenProperties: MaeumgagymTokenProperties
 ) : MaeumgagymTokenValidator {
 
     override fun validate(maeumgagymToken: MaeumgagymToken) {
-        if (revokedMGTokenContext.checkRevoked(maeumgagymToken.tokenId)) {
+        if (usableMGTokenContext.isNotUsable(maeumgagymToken.tokenId)) {
             throw AuthenticationException.REVOKED_TOKEN
         }
 
