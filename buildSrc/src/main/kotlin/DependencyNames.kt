@@ -18,7 +18,7 @@ object DependencyNames {
     const val REDIS = "$STARTER-data-redis"
 
     // test
-    const val SPRING_TEST = "$STARTER-test:${PluginVersions.SPRING_BOOT_VERSION}"
+    const val SPRING_TEST = "$STARTER-test"
     const val JUNIT_JUPITER = "org.junit.jupiter:junit-jupiter"
     const val JUNIT_JUPITER_API = "org.junit.jupiter:junit-jupiter-api"
     const val JUNIT_JUPITER_ENGINE = "org.junit.jupiter:junit-jupiter-engine"
