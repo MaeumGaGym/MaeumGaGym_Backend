@@ -16,7 +16,7 @@ import java.util.*
 
 @Transactional
 @SpringBootTest
-class MaeumGaGymTokenValidatorTest @Autowired constructor(
+class MaeumGaGymTokenValidatorTests @Autowired constructor(
     private val validator: MaeumgagymTokenValidator,
 
     private val reissuePort: ReissuePort,
