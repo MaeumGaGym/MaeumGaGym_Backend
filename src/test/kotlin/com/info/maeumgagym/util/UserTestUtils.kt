@@ -18,4 +18,16 @@ object UserTestUtils {
                 genderModel = GenderModel.MAN
             )
         )
+
+    val ADMIN_USER
+        get() = User(
+            nickname = "testuser",
+            roles = mutableListOf(Role.USER, Role.ADMIN),
+            oauthId = "123456790",
+            physicalInfoModel = PhysicalInfoModel(
+                weight = 60.0,
+                height = 180.0,
+                genderModel = GenderModel.MAN
+            )
+        )
 }

@@ -33,4 +33,9 @@ interface AuthenticationManager {
      * 이후에 [getAuthentication]을 실행할 때 [UserModelAuthentication.user]가 채워짐
      */
     fun setUserNotLoadedAuthentication(username: String)
+
+    /**
+     * 등록된 [UserModelAuthentication] 제거
+     */
+    fun clear()
 }

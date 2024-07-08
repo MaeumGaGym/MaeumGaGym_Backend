@@ -41,6 +41,10 @@ class AuthenticationManagerImpl(
             userModelAuthenticationFactory.createEmptyAuthentication(username)
     }
 
+    override fun clear() {
+        SecurityContextHolder.clearContext()
+    }
+
     private fun isInvalidAuthentication(authentication: Authentication?): Boolean =
         authentication == null || authentication !is UserModelAuthentication
 }
