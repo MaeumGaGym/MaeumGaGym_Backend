@@ -5,6 +5,7 @@ import com.info.maeumgagym.infrastructure.request.context.CurrentRequestContext
 import com.info.maeumgagym.security.cryption.Encrypt
 import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenEncoder
 import com.info.maeumgagym.security.mgtoken.env.MaeumgagymTokenProperties
+import com.info.maeumgagym.security.mgtoken.revoked.UsableMGTokenContext
 import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken
 import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymTokenPair
 import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymTokenType
@@ -21,6 +22,7 @@ import java.util.*
 @Component
 internal class MaeumgagymTokenEncoderImpl(
     private val encrypt: Encrypt,
+    private val usableMGTokenContext: UsableMGTokenContext,
     private val currentRequestContext: CurrentRequestContext,
     private val maeumgagymTokenProperties: MaeumgagymTokenProperties,
     private val objectMapper: ObjectMapper
@@ -47,6 +49,8 @@ internal class MaeumgagymTokenEncoderImpl(
             tokenId = tokenId
         )
 
+        usableMGTokenContext.saveToken(token)
+
         return appendTokenPrefix(
             encryptToken(token)
         )
@@ -64,6 +68,8 @@ internal class MaeumgagymTokenEncoderImpl(
             type = MaeumgagymTokenType.REFRESH_TOKEN,
             tokenId = tokenId
         )
+
+        usableMGTokenContext.saveToken(token)
 
         return appendTokenPrefix(
             encryptToken(token)

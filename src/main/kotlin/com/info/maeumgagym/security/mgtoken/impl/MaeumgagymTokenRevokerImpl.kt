@@ -1,16 +1,16 @@
 package com.info.maeumgagym.security.mgtoken.impl
 
 import com.info.maeumgagym.security.mgtoken.MaeumgagymTokenRevoker
-import com.info.maeumgagym.security.mgtoken.revoked.RevokedMGTokenContext
+import com.info.maeumgagym.security.mgtoken.revoked.UsableMGTokenContext
 import com.info.maeumgagym.security.mgtoken.vo.MaeumgagymToken
 import org.springframework.stereotype.Component
 
 @Component
 class MaeumgagymTokenRevokerImpl(
-    private val revokedMGTokenContext: RevokedMGTokenContext
+    private val usableMGTokenContext: UsableMGTokenContext
 ) : MaeumgagymTokenRevoker {
 
     override fun revoke(token: MaeumgagymToken) {
-        revokedMGTokenContext.revoke(token)
+        usableMGTokenContext.revoke(token)
     }
 }
