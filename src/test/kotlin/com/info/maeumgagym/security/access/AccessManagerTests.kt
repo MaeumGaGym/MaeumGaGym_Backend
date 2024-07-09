@@ -48,7 +48,6 @@ class AccessManagerTests @Autowired constructor(
         authenticationManager.clear()
     }
 
-
     @Test
     fun 인증이_불필요한_API에_인증하지_않은_상태로_접근() {
         init(null, null)
