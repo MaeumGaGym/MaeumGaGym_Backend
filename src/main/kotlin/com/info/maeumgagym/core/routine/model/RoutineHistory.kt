@@ -21,7 +21,8 @@ data class RoutineHistory(
                 ExerciseInfoResponse(
                     pose = it.pose.toInfoResponse(),
                     repetitions = it.repetitions,
-                    sets = it.sets
+                    sets = it.sets,
+                    weightKilogram = it.weightKilogram
                 )
             },
             date = date

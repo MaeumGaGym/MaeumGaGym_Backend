@@ -8,6 +8,7 @@ data class ExerciseInfoHistoryModel(
     var pose: Pose,
     var repetitions: Int,
     var sets: Int,
+    var weightKilogram: Int? = null,
     var id: Long? = null
 ) {
     companion object {
@@ -16,6 +17,7 @@ data class ExerciseInfoHistoryModel(
                 pose = pose,
                 repetitions = repetitions,
                 sets = sets,
+                weightKilogram = weightKilogram,
                 id = id
             )
     }
@@ -24,6 +26,7 @@ data class ExerciseInfoHistoryModel(
         ExerciseInfoResponse(
             pose = pose.toInfoResponse(),
             repetitions = repetitions,
-            sets = sets
+            sets = sets,
+            weightKilogram = weightKilogram
         )
 }

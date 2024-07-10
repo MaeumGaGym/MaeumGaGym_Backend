@@ -8,12 +8,14 @@ data class ExerciseInfoModel(
     var pose: Pose,
     var repetitions: Int,
     var sets: Int,
+    var weightKilogram: Int? = null,
     var id: Long? = null
 ) {
     fun toResponse(): ExerciseInfoResponse =
         ExerciseInfoResponse(
             pose = pose.toInfoResponse(),
             repetitions = repetitions,
-            sets = sets
+            sets = sets,
+            weightKilogram = weightKilogram
         )
 }

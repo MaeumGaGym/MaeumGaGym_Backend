@@ -30,7 +30,7 @@ internal class UpdateRoutineService(
         // 루틴을 만든 이가 토큰의 유저가 맞는지 검증, 아닐시 -> 예외처리
         if (user.id != routine.userId) throw SecurityException.PERMISSION_DENIED
 
-        val poses = req.exerciseInfoResponseList.associate {
+        val poses = req.exerciseInfoRequestList.associate {
             Pair(it.id, readPosePort.readById(it.id) ?: throw BusinessLogicException.POSE_NOT_FOUND)
         }
 
@@ -41,12 +41,13 @@ internal class UpdateRoutineService(
                     id = id,
                     dayOfWeeks = req.dayOfWeeks,
                     routineStatusModel = RoutineStatusModel(isArchived = req.isArchived, isShared = req.isShared),
-                    exerciseInfoModelList = req.exerciseInfoResponseList.map {
+                    exerciseInfoModelList = req.exerciseInfoRequestList.map {
                         ExerciseInfoModel(
                             routineId = routine.id,
                             pose = poses[it.id]!!,
                             repetitions = it.repetitions,
-                            sets = it.sets
+                            sets = it.sets,
+                            weightKilogram = it.weightKilogram
                         )
                     }.toMutableList(),
                     routineName = req.routineName,

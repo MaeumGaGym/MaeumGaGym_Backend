@@ -11,6 +11,7 @@ class ExerciseInfoJpaEntity(
     poseId: Long,
     repetitions: Int,
     sets: Int,
+    weightKilogram: Int? = null,
     id: Long? = null
 ) : BaseLongIdEntity(id) {
 
@@ -25,4 +26,7 @@ class ExerciseInfoJpaEntity(
 
     @Column(name = "sets", updatable = false, nullable = false)
     val sets: Int = sets
+
+    @Column(name = "weight_kilogram", updatable = false, nullable = true)
+    val weightKilogram: Int? = weightKilogram
 }

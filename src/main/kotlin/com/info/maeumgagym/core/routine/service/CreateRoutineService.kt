@@ -35,7 +35,8 @@ internal class CreateRoutineService(
                         ExerciseInfoModel(
                             pose = poses[it.id]!!,
                             repetitions = it.repetitions,
-                            sets = it.sets
+                            sets = it.sets,
+                            weightKilogram = it.weightKilogram
                         )
                     }.toMutableList(),
                     dayOfWeeks = dayOfWeeks,

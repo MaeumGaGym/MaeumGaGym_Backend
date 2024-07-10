@@ -17,6 +17,7 @@ class ExerciseInfoListMapper(
                 poseId = it.pose.id!!,
                 repetitions = it.repetitions,
                 sets = it.sets,
+                weightKilogram = it.weightKilogram,
                 id = it.id
             )
         }.toMutableList()
@@ -28,6 +29,7 @@ class ExerciseInfoListMapper(
                 pose = readPosePort.readById(it.poseId)!!,
                 repetitions = it.repetitions,
                 sets = it.sets,
+                weightKilogram = it.weightKilogram,
                 id = it.id
             )
         }.toMutableList()
