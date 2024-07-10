@@ -10,6 +10,9 @@ data class CreatePoseWebRequest(
     val needMachine: Boolean?,
 
     @field:NotNull(message = "null일 수 없습니다")
+    val isWeightExercise: Boolean?,
+
+    @field:NotNull(message = "null일 수 없습니다")
     val category: List<String>?,
 
     @field:NotBlank(message = "null일 수 없습니다")
@@ -44,6 +47,7 @@ data class CreatePoseWebRequest(
 ) {
     fun toRequest(): CreatePoseRequest = CreatePoseRequest(
         needMachine = needMachine!!,
+        isWeightExercise = isWeightExercise!!,
         category = category!!,
         simpleName = simpleName!!,
         exactName = exactName!!,

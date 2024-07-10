@@ -4,6 +4,8 @@ data class PoseDetailResponse(
 
     val needMachine: Boolean,
 
+    val isWeightExercise: Boolean,
+
     val category: MutableSet<String>,
 
     val simpleName: String,

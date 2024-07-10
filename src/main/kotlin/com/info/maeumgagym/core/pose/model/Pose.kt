@@ -7,6 +7,8 @@ data class Pose(
 
     val needMachine: Boolean,
 
+    val isWeightExercise: Boolean,
+
     val category: MutableSet<String>,
 
     val simpleName: String,
@@ -33,6 +35,7 @@ data class Pose(
 ) {
     fun toDetailResponse() = PoseDetailResponse(
         needMachine = needMachine,
+        isWeightExercise = isWeightExercise,
         category = category,
         simpleName = simpleName,
         exactName = exactName,

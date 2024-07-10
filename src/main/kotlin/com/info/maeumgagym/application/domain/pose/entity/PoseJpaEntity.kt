@@ -10,6 +10,7 @@ import javax.persistence.Entity
 @Entity(name = TableNames.POSE_TABLE)
 class PoseJpaEntity(
     needMachine: Boolean,
+    isWeightExercise: Boolean,
     category: MutableSet<String>,
     simpleName: String,
     exactName: String,
@@ -26,6 +27,10 @@ class PoseJpaEntity(
 
     @Column(name = "need_machine", updatable = true, nullable = false)
     var needMachine: Boolean = needMachine // 기구 운동인지 여부
+        protected set
+
+    @Column(name = "is_weight_exercise", updatable = true, nullable = false)
+    var isWeightExercise: Boolean = isWeightExercise
         protected set
 
     @Convert(converter = StringAttributeConverter::class)
