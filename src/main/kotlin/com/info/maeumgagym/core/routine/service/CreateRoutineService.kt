@@ -26,6 +26,12 @@ internal class CreateRoutineService(
             Pair(it.id, readPosePort.readById(it.id) ?: throw BusinessLogicException.POSE_NOT_FOUND)
         }
 
+        req.exerciseInfoRequestList.forEach {
+            if (it.weightKilogram != null && poses[it.id]!!.isWeightExercise) {
+                throw BusinessLogicException.ONLY_WEIGHT_EXERCISE_CAN_HAVE_WEIGHT_FIELD
+            }
+        }
+
         val routine = req.run {
             // 루틴 저장
             saveRoutinePort.save(

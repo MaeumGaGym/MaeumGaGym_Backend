@@ -118,6 +118,8 @@ class BusinessLogicException(
         val TAG_TOO_LONG get() = BusinessLogicException(400, "Tag Too Long, Tag Cannot Longer than 10")
         val START_DATE_MUST_BE_BEFORE_THAN_END_DATE
             get() = BusinessLogicException(400, "Start date Must Be Before Than End Date")
+        val ONLY_WEIGHT_EXERCISE_CAN_HAVE_WEIGHT_FIELD
+            get() = BusinessLogicException(400, "Only Weight Exercise Can Have Weight Field.")
 
         // Not Found
         val USER_NOT_FOUND get() = BusinessLogicException(ErrorCodePrefixSuffix.XXX_NOT_FOUND, DomainNames.USER)

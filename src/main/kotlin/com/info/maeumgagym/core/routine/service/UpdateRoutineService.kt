@@ -34,6 +34,12 @@ internal class UpdateRoutineService(
             Pair(it.id, readPosePort.readById(it.id) ?: throw BusinessLogicException.POSE_NOT_FOUND)
         }
 
+        req.exerciseInfoRequestList.forEach {
+            if (it.weightKilogram != null && poses[it.id]!!.isWeightExercise) {
+                throw BusinessLogicException.ONLY_WEIGHT_EXERCISE_CAN_HAVE_WEIGHT_FIELD
+            }
+        }
+
         routine.run {
             // 루틴 업데이트
             saveRoutinePort.save(
