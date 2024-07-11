@@ -5,6 +5,8 @@ import com.info.maeumgagym.infrastructure.error.resolver.ErrorResolver
 import com.info.maeumgagym.infrastructure.error.vo.ErrorInfo
 import org.apache.commons.logging.LogFactory
 import org.springframework.stereotype.Component
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 /**
  * [ErrorInfo]를 로그로 출력
@@ -17,7 +19,11 @@ class ErrorLogger : ErrorResolver {
 
     private val logger = LogFactory.getLog(javaClass)
 
-    override fun resolve(errorInfo: ErrorInfo) {
+    override fun resolve(
+        errorInfo: ErrorInfo,
+        request: HttpServletRequest,
+        response: HttpServletResponse
+    ) {
 
         if (isUnknownMaeumGaGymException(errorInfo.exception)) {
             errorInfo.exception.printStackTrace()

@@ -4,6 +4,8 @@ import com.info.maeumgagym.infrastructure.collector.bean.ClassBasedBeanCollector
 import com.info.maeumgagym.infrastructure.error.resolver.ErrorResolver
 import com.info.maeumgagym.infrastructure.error.vo.ErrorInfo
 import org.springframework.stereotype.Component
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 @Component
 class ErrorResolverRunner(
@@ -24,9 +26,13 @@ class ErrorResolverRunner(
         }
     }
 
-    override fun resolve(errorInfo: ErrorInfo) {
+    override fun resolve(
+        errorInfo: ErrorInfo,
+        request: HttpServletRequest,
+        response: HttpServletResponse
+    ) {
         init()
 
-        errorResolvers.forEach { it.resolve(errorInfo) }
+        errorResolvers.forEach { it.resolve(errorInfo, request, response) }
     }
 }
