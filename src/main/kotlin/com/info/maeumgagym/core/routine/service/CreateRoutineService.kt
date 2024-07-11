@@ -27,7 +27,7 @@ internal class CreateRoutineService(
         }
 
         req.exerciseInfoRequestList.forEach {
-            if (it.weightKilogram != null && poses[it.id]!!.isWeightExercise) {
+            if (it.weightKilogram != null && !poses[it.id]!!.isWeightExercise) {
                 throw BusinessLogicException.ONLY_WEIGHT_EXERCISE_CAN_HAVE_WEIGHT_FIELD
             }
         }
