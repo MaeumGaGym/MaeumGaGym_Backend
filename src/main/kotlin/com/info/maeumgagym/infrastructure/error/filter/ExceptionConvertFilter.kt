@@ -19,7 +19,7 @@ import javax.validation.ConstraintViolationException
  * [DispatcherServlet][org.springframework.web.servlet.DispatcherServlet] 이후에 발생한 예외는 [NestedServletException.cause]로 감싸져 전달됨.
  * 이 예외의 타입을 확인하고 해당 타입에 맞는 다른 예외로 변환해 *throw*
  *
- * 이것에 대한 응답 및 로그 작성의 책임은 [ErrorLogResponseFilter]에서 담당
+ * 이것에 대한 응답 및 로그 작성의 책임은 [ErrorResolveFilter]에서 담당
  *
  * ```
  * catch (e: [NestedServletException]) { ... }
@@ -30,7 +30,7 @@ import javax.validation.ConstraintViolationException
  *
  * 해당 *Filter*의 순서 설정 정보는 [ApplicationFilterChainConfig][com.info.maeumgagym.infrastructure.filter.config.ApplicationFilterChainConfig]에 존재
  *
- * @see ErrorLogResponseFilter
+ * @see ErrorResolveFilter
  *
  * @author Daybreak312
  * @since 22.02.2024

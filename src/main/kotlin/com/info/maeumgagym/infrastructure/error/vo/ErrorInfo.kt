@@ -7,7 +7,7 @@ import java.util.*
 
 data class ErrorInfo(
     val id: String = UUID.randomUUID().toString().substring(0 until 7),
-    val exceptionClassName: String,
+    val exception: MaeumGaGymException,
     val errorOccurredClassName: List<String>,
     val status: Int = 500,
     val message: String,
@@ -20,7 +20,7 @@ data class ErrorInfo(
             when (e) {
                 is PresentationValidationException -> e.run {
                     ErrorInfo(
-                        exceptionClassName = javaClass.name,
+                        exception = this,
                         errorOccurredClassName = getErrorOccurredClassName(stackTrace.toList()),
                         status = status,
                         message = message,
@@ -31,7 +31,7 @@ data class ErrorInfo(
 
                 else -> e.run {
                     ErrorInfo(
-                        exceptionClassName = javaClass.name,
+                        exception = this,
                         errorOccurredClassName = getErrorOccurredClassName(stackTrace.toList()),
                         status = status,
                         message = message,

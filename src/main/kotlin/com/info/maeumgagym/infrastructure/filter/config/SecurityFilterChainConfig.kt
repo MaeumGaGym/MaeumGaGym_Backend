@@ -1,6 +1,6 @@
 package com.info.maeumgagym.infrastructure.filter.config
 
-import com.info.maeumgagym.infrastructure.error.filter.ErrorLogResponseFilter
+import com.info.maeumgagym.infrastructure.error.filter.ErrorResolveFilter
 import com.info.maeumgagym.infrastructure.error.filter.ExceptionConvertFilter
 import com.info.maeumgagym.security.authentication.provider.AuthenticationManager
 import com.info.maeumgagym.security.cors.filter.CorsHeaderGenerateFilter
@@ -28,7 +28,7 @@ class SecurityFilterChainConfig(
 ) : SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
 
     /**
-     * [ErrorLogResponseFilter] -> [ExceptionConvertFilter] [CorsHeaderGenerateFilter] -> [SecurityContextHolderFilter] -> [MaeumgagymTokenAuthenticateFilter] -> [LogoutFilter] -> ...
+     * [ErrorResolveFilter] -> [ExceptionConvertFilter] [CorsHeaderGenerateFilter] -> [SecurityContextHolderFilter] -> [MaeumgagymTokenAuthenticateFilter] -> [LogoutFilter] -> ...
      *
      * @author Daybreak312
      * @since 12-03-2024

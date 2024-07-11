@@ -218,7 +218,7 @@ class InterceptorException(
 /**
  * 컨트롤러에서의 유효성 검증 과정 중 발생한 예외
  *
- * [com.info.maeumgagym.infrastructure.error.filter.ErrorLogResponseFilter]에서 Validation 실패시 발생하는 예외들을 이 예외로 변환 후 처리
+ * [com.info.maeumgagym.infrastructure.error.filter.ErrorResolveFilter]에서 Validation 실패시 발생하는 예외들을 이 예외로 변환 후 처리
  *
  * @see MaeumGaGymException
  */

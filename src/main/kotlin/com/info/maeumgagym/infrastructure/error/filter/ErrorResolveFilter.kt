@@ -1,7 +1,8 @@
 package com.info.maeumgagym.infrastructure.error.filter
 
 import com.info.maeumgagym.common.exception.*
-import com.info.maeumgagym.infrastructure.error.logger.ErrorLogger
+import com.info.maeumgagym.infrastructure.error.resolver.impl.ErrorLogger
+import com.info.maeumgagym.infrastructure.error.resolver.ErrorResolver
 import com.info.maeumgagym.infrastructure.error.vo.ErrorInfo
 import com.info.maeumgagym.infrastructure.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.infrastructure.response.writer.ErrorLogHttpServletResponseWriter
@@ -29,10 +30,10 @@ import javax.servlet.http.HttpServletResponse
  * @author Daybreak312
  * @since 22.02.2024
  */
-class ErrorLogResponseFilter(
+class ErrorResolveFilter(
     private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
     private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter,
-    private val errorLogger: ErrorLogger
+    private val errorResolver: ErrorResolver
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
@@ -60,20 +61,11 @@ class ErrorLogResponseFilter(
 
         val errorInfo = ErrorInfo.of(e)
 
-        if (isUnknownMaeumGaGymException(e)) {
-            e.printStackTrace()
-        }
+        errorResolver.resolve(errorInfo)
 
         errorLogHttpServletResponseWriter.writeErrorResponse(response, errorInfo)
-
-        errorLogger.printLog(errorInfo)
     }
 
     private fun isSuccessStatusCode(status: Int): Boolean =
         status in 200..299
-
-    private fun isUnknownMaeumGaGymException(e: MaeumGaGymException): Boolean =
-        e !is BusinessLogicException && e !is SecurityException &&
-            e !is FilterException && e !is InterceptorException &&
-            e !is AuthenticationException && e !is PresentationValidationException
 }

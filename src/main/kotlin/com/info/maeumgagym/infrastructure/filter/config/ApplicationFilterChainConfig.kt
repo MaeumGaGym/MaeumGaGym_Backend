@@ -1,11 +1,11 @@
 package com.info.maeumgagym.infrastructure.filter.config
 
 import com.info.maeumgagym.common.exception.CriticalException
-import com.info.maeumgagym.infrastructure.error.filter.ErrorLogResponseFilter
+import com.info.maeumgagym.infrastructure.error.filter.ErrorResolveFilter
 import com.info.maeumgagym.infrastructure.error.filter.ExceptionConvertFilter
 import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChain
 import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChainProxy
-import com.info.maeumgagym.infrastructure.error.logger.ErrorLogger
+import com.info.maeumgagym.infrastructure.error.resolver.impl.ErrorLogger
 import com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository
 import com.info.maeumgagym.infrastructure.filter.initial.InitialFilterChain
 import com.info.maeumgagym.infrastructure.filter.initial.InitialFilterChainProxy
@@ -89,8 +89,8 @@ class ApplicationFilterChainConfig(
         val filterChain = ExceptionChainedFilterChain(
             mapOf(
                 Pair(
-                    ErrorLogResponseFilter::class.simpleName!!,
-                    ErrorLogResponseFilter(
+                    ErrorResolveFilter::class.simpleName!!,
+                    ErrorResolveFilter(
                         defaultHttpServletResponseWriter,
                         errorLogHttpServletResponseWriter,
                         errorLogger
