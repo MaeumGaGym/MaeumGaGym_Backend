@@ -1,8 +1,9 @@
 package com.info.maeumgagym.infrastructure.error.filter
 
-import com.info.maeumgagym.common.exception.*
-import com.info.maeumgagym.infrastructure.error.resolver.impl.ErrorLogger
+import com.info.maeumgagym.common.exception.CriticalException
+import com.info.maeumgagym.common.exception.MaeumGaGymException
 import com.info.maeumgagym.infrastructure.error.resolver.ErrorResolver
+import com.info.maeumgagym.infrastructure.error.resolver.impl.ErrorLogger
 import com.info.maeumgagym.infrastructure.error.vo.ErrorInfo
 import com.info.maeumgagym.infrastructure.response.writer.DefaultHttpServletResponseWriter
 import com.info.maeumgagym.infrastructure.response.writer.ErrorLogHttpServletResponseWriter
@@ -13,11 +14,10 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 /**
- * [Exception]이 발생했을 때, 응답 및 로그를 작성
+ * [Exception]이 발생했을 때, 이를 처리하는 [ErrorResolver]를 호출
  *
  * [doFilter], 정확히는 [doFilterInternal]를 *try*문으로 감싸 실행.
- * 이후 발생한 모든 예외를 *catch*해 예외를 [ErrorInfo]로 가공하고, 로그 및 응답을 작성.
- * [ErrorLogger]에서 로그를 작성하고, [ErrorLogHttpServletResponseWriter]에서 응답을 작성함.
+ * 이후 발생한 모든 예외를 *catch*해 예외를 [ErrorInfo]로 가공하고, [ErrorResolver]에게 전달.
  *
  * 원래 [DispatcherServlet][org.springframework.web.servlet.DispatcherServlet] 통과 이후 발생한 예외는 [NestedServletException.cause]로 감싸져 *throw*되지만, [ExceptionConvertFilter]에서 이를 [MaeumGaGymException]의 하위 타입으로 변환함. 자세한 것은 [ExceptionConvertFilter] 참조.
  *
@@ -44,16 +44,21 @@ class ErrorResolveFilter(
         try {
             filterChain.doFilter(request, response)
         } catch (e: MaeumGaGymException) {
-            resolveException(e, response)
+            resolveException(e, request, response)
         } catch (e: Exception) {
             resolveException(
                 CriticalException("Unknown Type Exception Came to ${javaClass.name}").apply { initCause(e) },
+                request,
                 response
             )
         }
     }
 
-    private fun resolveException(e: MaeumGaGymException, response: HttpServletResponse) {
+    private fun resolveException(
+        e: MaeumGaGymException,
+        request: HttpServletRequest,
+        response: HttpServletResponse
+    ) {
         if (isSuccessStatusCode(e.status)) {
             defaultHttpServletResponseWriter.doDefaultSettingWithStatusCode(response, e.status)
             return
@@ -61,7 +66,7 @@ class ErrorResolveFilter(
 
         val errorInfo = ErrorInfo.of(e)
 
-        errorResolver.resolve(errorInfo)
+        errorResolver.resolve(errorInfo, request, response)
 
         errorLogHttpServletResponseWriter.writeErrorResponse(response, errorInfo)
     }
