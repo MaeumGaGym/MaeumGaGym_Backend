@@ -5,8 +5,8 @@ import com.info.maeumgagym.infrastructure.error.filter.ErrorResolveFilter
 import com.info.maeumgagym.infrastructure.error.filter.ExceptionConvertFilter
 import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChain
 import com.info.maeumgagym.infrastructure.error.filter.filterchain.ExceptionChainedFilterChainProxy
-import com.info.maeumgagym.infrastructure.error.resolver.impl.ErrorLogger
 import com.info.maeumgagym.infrastructure.error.repository.ExceptionRepository
+import com.info.maeumgagym.infrastructure.error.resolver.ErrorResolver
 import com.info.maeumgagym.infrastructure.filter.initial.InitialFilterChain
 import com.info.maeumgagym.infrastructure.filter.initial.InitialFilterChainProxy
 import com.info.maeumgagym.infrastructure.request.context.CurrentRequestContext
@@ -38,7 +38,7 @@ import javax.servlet.Filter
 class ApplicationFilterChainConfig(
     private val defaultHttpServletResponseWriter: DefaultHttpServletResponseWriter,
     private val errorLogHttpServletResponseWriter: ErrorLogHttpServletResponseWriter,
-    private val errorLogger: ErrorLogger,
+    private val errorResolver: ErrorResolver,
     private val exceptionRepository: ExceptionRepository,
     private val currentRequestContext: CurrentRequestContext,
     private val applicationContext: ApplicationContext
@@ -93,7 +93,7 @@ class ApplicationFilterChainConfig(
                     ErrorResolveFilter(
                         defaultHttpServletResponseWriter,
                         errorLogHttpServletResponseWriter,
-                        errorLogger
+                        errorResolver
                     )
                 ),
                 Pair(

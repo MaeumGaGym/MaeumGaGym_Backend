@@ -1,0 +1,8 @@
+spring:
+    config:
+        activate:
+            on-profile: slack
+
+slack:
+    token: ${SLACK_TOKEN}
+    channel: ${SLACK_CHANNEL}

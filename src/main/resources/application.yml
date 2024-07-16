@@ -1,9 +1,9 @@
 spring:
     profiles:
         group:
-            local: "local, mgtoken, file, swagger, minio, kakao"
-            prod: "prod, prod-datasource, mgtoken, log, redis, file, swagger, minio, kakao"
-            stag: "stag, stag-datasource, mgtoken, log, redis, file, swagger, minio, kakao"
+            local: "local, mgtoken, file, swagger, minio, kakao, slack"
+            prod: "prod, prod-datasource, mgtoken, log, redis, file, swagger, minio, kakao, slack"
+            stag: "stag, stag-datasource, mgtoken, log, redis, file, swagger, minio, kakao, slack"
 
     # format
     jackson:

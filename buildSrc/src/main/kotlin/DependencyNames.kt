@@ -4,7 +4,8 @@ object DependencyNames {
     const val KOTLIN_REFLECT = "org.jetbrains.kotlin:kotlin-reflect"
     const val KOTLIN_JDK = "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     const val JACKSON = "com.fasterxml.jackson.module:jackson-module-kotlin:${DependencyVersions.JACKSON_VERSION}"
-    const val JACKSON_TYPE = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${DependencyVersions.JACKSON_VERSION}"
+    const val JACKSON_TYPE =
+        "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${DependencyVersions.JACKSON_VERSION}"
 
     // starter
     private const val STARTER = "org.springframework.boot:spring-boot-starter"
@@ -44,7 +45,8 @@ object DependencyNames {
     const val FEIGN_HTTP = "io.github.openfeign:feign-httpclient"
 
     // cloud
-    const val SPRING_CLOUD = "org.springframework.cloud:spring-cloud-dependencies:${DependencyVersions.SPRING_CLOUD_VERSION}"
+    const val SPRING_CLOUD =
+        "org.springframework.cloud:spring-cloud-dependencies:${DependencyVersions.SPRING_CLOUD_VERSION}"
 
     // logger
     const val LOGGER = "io.github.microutils:kotlin-logging-jvm:${DependencyVersions.LOGGER_VERSION}"
@@ -59,6 +61,9 @@ object DependencyNames {
 
     // minIO
     const val MINIO = "io.minio:minio:${DependencyVersions.MINIO_VERSION}"
+
+    // Slack
+    const val SLACK = "com.slack.api:bolt-jetty:1.40.2"
 
     const val ANNOTATION_PROCESSOR = "org.springframework.boot:spring-boot-configuration-processor"
 

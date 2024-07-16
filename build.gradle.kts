@@ -61,6 +61,8 @@ dependencies {
     implementation(DependencyNames.FEIGN_HTTP)
     implementation(DependencyNames.MINIO)
 
+    implementation(DependencyNames.SLACK)
+
     // Security
     implementation(DependencyNames.SPRING_SECURITY)
 
