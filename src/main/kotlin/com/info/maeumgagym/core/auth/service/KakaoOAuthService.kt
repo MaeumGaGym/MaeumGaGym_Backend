@@ -1,11 +1,14 @@
 package com.info.maeumgagym.core.auth.service
 
 import com.info.maeumgagym.common.annotation.responsibility.UseCase
+import com.info.maeumgagym.common.exception.BusinessLogicException
 import com.info.maeumgagym.core.auth.port.`in`.KakaoLoginUseCase
 import com.info.maeumgagym.core.auth.port.`in`.KakaoRecoveryUseCase
 import com.info.maeumgagym.core.auth.port.`in`.KakaoSignupUseCase
-import com.info.maeumgagym.core.auth.port.out.*
-import com.info.maeumgagym.common.exception.BusinessLogicException
+import com.info.maeumgagym.core.auth.port.out.GenerateJwtPort
+import com.info.maeumgagym.core.auth.port.out.GetKakaoProfilePort
+import com.info.maeumgagym.core.auth.port.out.GetKakaoTokenPort
+import com.info.maeumgagym.core.auth.port.out.KakaoGenerateTokenUseCase
 import com.info.maeumgagym.core.user.model.Role
 import com.info.maeumgagym.core.user.model.User
 import com.info.maeumgagym.core.user.port.out.ExistUserPort
@@ -19,8 +22,7 @@ internal class KakaoOAuthService(
     private val existUserPort: ExistUserPort,
     private val saveUserPort: SaveUserPort,
     private val recoveryUserPort: RecoveryUserPort,
-    private val getKakaoTokenPort: GetKakaoTokenPort,
-    private val revokeKakaoTokenPort: RevokeKakaoTokenPort
+    private val getKakaoTokenPort: GetKakaoTokenPort
 ) : KakaoLoginUseCase, KakaoSignupUseCase, KakaoRecoveryUseCase, KakaoGenerateTokenUseCase {
 
     override fun login(accessToken: String): Pair<String, String> {
@@ -29,8 +31,6 @@ internal class KakaoOAuthService(
 
         // 존재하지 않는 유저라면 NotFound 예외처리
         if (!existUserPort.existsByOAuthId(userInfo.id)) throw BusinessLogicException.USER_NOT_FOUND
-
-        revokeKakaoTokenPort.revoke(accessToken)
 
         // subject로 토큰 발급 및 반환
         return generateJwtPort.generateTokens(userInfo.id)

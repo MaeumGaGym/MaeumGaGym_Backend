@@ -15,7 +15,9 @@ class UserModelAuthenticationFactoryImpl(
         UserModelAuthentication(
             userSubject = username,
             user = readUserPort.readByOAuthId(username)
-                ?: throw CriticalException("Cannot Find User By username : $username")
+                ?: throw CriticalException(
+                    "Cannot Find User By username : $username, user was deleted but token did not revoked."
+                )
         )
 
     override fun createEmptyAuthentication(username: String): UserModelAuthentication =

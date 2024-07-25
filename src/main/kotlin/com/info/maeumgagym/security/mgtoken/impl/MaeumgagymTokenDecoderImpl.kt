@@ -24,15 +24,11 @@ internal class MaeumgagymTokenDecoderImpl(
 ) : MaeumgagymTokenDecoder {
 
     override fun decode(token: String): MaeumgagymToken {
-        return decode(token, maeumgagymTokenProperties.secretKey)
-    }
-
-    override fun decode(token: String, key: String): MaeumgagymToken {
         val prefixResolved = resolveTokenPrefix(token)
 
         val decrypted =
             try {
-                decrypt.decrypt(prefixResolved, key)
+                decrypt.decrypt(prefixResolved, maeumgagymTokenProperties.secretKey)
             } catch (e: Exception) {
                 throw AuthenticationException.INVALID_TOKEN
             }

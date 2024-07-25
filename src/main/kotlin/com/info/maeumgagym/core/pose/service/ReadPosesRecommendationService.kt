@@ -1,6 +1,7 @@
 package com.info.maeumgagym.core.pose.service
 
 import com.info.maeumgagym.common.annotation.responsibility.ReadOnlyUseCase
+import com.info.maeumgagym.core.pose.dto.response.CategoryMarkedPoseListResponse
 import com.info.maeumgagym.core.pose.dto.response.PoseListResponse
 import com.info.maeumgagym.core.pose.dto.response.PoseRecommendationListResponse
 import com.info.maeumgagym.core.pose.model.Pose
@@ -37,8 +38,15 @@ class ReadPosesRecommendationService(
 
         return PoseRecommendationListResponse(
             recommendationPoses.map {
-                Pair(it.key, PoseListResponse(it.value.map { pose -> pose.toInfoResponse() }))
-            }.toMap()
+                CategoryMarkedPoseListResponse(
+                    it.key,
+                    PoseListResponse(
+                        it.value.map {
+                            it.toInfoResponse()
+                        }
+                    )
+                )
+            }
         )
     }
 }

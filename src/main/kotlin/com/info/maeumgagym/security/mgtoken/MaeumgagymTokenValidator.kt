@@ -22,7 +22,8 @@ interface MaeumgagymTokenValidator {
      * - [tokenId][MaeumgagymToken.tokenId]의 무효화되지 않았는가
      * - 토큰의 [유효 시간 길이][MaeumgagymToken.expireAt]가 [의도한 바][MaeumgagymTokenEncoder.encode]와 같은가
      * - [토큰 유효 기간][MaeumgagymToken.expireAt]을 지나지 않았는가
-     * - 토큰 발급 대상과 현재 사용자가 일차하는가: [IP 주소][MaeumgagymToken.ip] 비교
+     * - [username][MaeumgagymToken.username]이 존재하는가
+     * - 토큰 발급 대상과 현재 사용자가 일차하는가: [IP 주소][MaeumgagymToken.ip] 비교 (사용자 네트워크 환경에 따라 잦은 주소 변화가 발생할 수 있어 해당 과정은 제거됨.)
      *
      * @param maeumgagymToken 복호화된 인증용 토큰의 VO
      *
