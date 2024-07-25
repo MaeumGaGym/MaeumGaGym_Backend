@@ -40,11 +40,9 @@ class ReadPosesRecommendationService(
             recommendationPoses.map {
                 CategoryMarkedPoseListResponse(
                     it.key,
-                    PoseListResponse(
-                        it.value.map {
-                            it.toInfoResponse()
-                        }
-                    )
+                    it.value.map {
+                        it.toInfoResponse()
+                    }
                 )
             }
         )
