@@ -27,5 +27,7 @@ class CurrentRequestContextFilter(
         )
 
         chain.doFilter(request, response)
+
+        currentRequestContext.clear()
     }
 }

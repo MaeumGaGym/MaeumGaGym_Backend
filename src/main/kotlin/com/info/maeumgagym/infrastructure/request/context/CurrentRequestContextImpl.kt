@@ -14,4 +14,8 @@ class CurrentRequestContextImpl : CurrentRequestContext {
 
     override fun getCurrentRequest(): HttpServletRequest =
         this.request.get()
+
+    override fun clear() {
+        this.request.remove()
+    }
 }

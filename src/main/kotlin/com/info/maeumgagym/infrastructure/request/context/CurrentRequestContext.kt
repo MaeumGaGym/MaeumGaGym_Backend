@@ -17,4 +17,6 @@ interface CurrentRequestContext {
     fun setCurrentRequest(request: HttpServletRequest)
 
     fun getCurrentRequest(): HttpServletRequest
+
+    fun clear()
 }
