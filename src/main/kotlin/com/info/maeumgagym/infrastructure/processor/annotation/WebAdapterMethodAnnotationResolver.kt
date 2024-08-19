@@ -38,9 +38,7 @@ class WebAdapterMethodAnnotationResolver(
         val annotations = annotationCollector.getAnnotations(handler)
 
         this.processors.forEach {
-            if (it.supports(annotations)) {
-                it.preProcessing(annotations)
-            }
+            it.preProcessing(annotations)
         }
 
         return true
@@ -59,9 +57,7 @@ class WebAdapterMethodAnnotationResolver(
         val annotations = annotationCollector.getAnnotations(handler)
 
         this.processors.forEach {
-            if (it.supports(annotations)) {
-                it.postProcessing(annotations)
-            }
+            it.postProcessing(annotations)
         }
     }
 }
