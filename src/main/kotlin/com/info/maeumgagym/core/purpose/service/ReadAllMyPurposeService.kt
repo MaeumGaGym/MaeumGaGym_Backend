@@ -1,4 +1,4 @@
-package com.info.maeumgagym.core.routine.service
+package com.info.maeumgagym.core.purpose.service
 
 import com.info.maeumgagym.common.annotation.responsibility.ReadOnlyUseCase
 import com.info.maeumgagym.core.auth.port.out.ReadCurrentUserPort
