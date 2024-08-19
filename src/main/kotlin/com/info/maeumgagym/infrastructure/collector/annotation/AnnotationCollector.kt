@@ -1,5 +1,6 @@
 package com.info.maeumgagym.infrastructure.collector.annotation
 
+import org.checkerframework.checker.units.qual.A
 import kotlin.reflect.KClass
 
 /**
@@ -25,4 +26,6 @@ interface AnnotationCollector {
      * @return 찾은 Annotation, 없을 경우 null 반환
      */
     fun <A : Annotation> getAnnotationOrNull(`object`: Any, annotation: KClass<A>): A?
+
+    fun getAnnotations(`object`: Any): List<Annotation>
 }

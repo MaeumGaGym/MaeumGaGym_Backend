@@ -3,6 +3,7 @@ package com.info.maeumgagym.infrastructure.collector.annotation
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Component
+import java.util.*
 import kotlin.reflect.KClass
 
 /**
@@ -45,5 +46,21 @@ class AnnotationCollectorComposite(
         }
 
         return null
+    }
+
+    override fun getAnnotations(`object`: Any): List<Annotation> {
+        if (!initialized) {
+            init()
+        }
+
+        collections.forEach {
+            val found = it.getAnnotations(`object`)
+
+            if (found.isNotEmpty()) {
+                return found
+            }
+        }
+
+        return Collections.emptyList()
     }
 }

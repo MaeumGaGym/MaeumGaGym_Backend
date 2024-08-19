@@ -40,4 +40,26 @@ class HandlerAnnotationCollector : AnnotationCollector {
 
         return null
     }
+
+    override fun getAnnotations(`object`: Any): List<Annotation> {
+        when (`object`) {
+            is HandlerMethod -> {
+                return if (`object`.method.annotations.isNotEmpty()) {
+                    `object`.method.annotations.toList()
+                } else {
+                    `object`.bean::class.annotations
+                }
+            }
+
+            is Method -> {
+                return `object`.annotations.toList()
+            }
+
+            is MethodParameter -> {
+                `object`.parameterAnnotations.toList()
+            }
+        }
+
+        return emptyList()
+    }
 }
