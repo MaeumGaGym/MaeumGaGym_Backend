@@ -1,7 +1,7 @@
 package com.info.maeumgagym.core.routine.port.`in`
 
-import com.info.maeumgagym.core.routine.dto.response.RoutineListResponse
+import com.info.maeumgagym.core.routine.dto.response.CompletableRoutineListResponse
 
 interface ReadAllMyRoutineUseCase {
-    fun readAllMyRoutine(index: Int): RoutineListResponse
+    fun readAllMyRoutine(index: Int): CompletableRoutineListResponse
 }
