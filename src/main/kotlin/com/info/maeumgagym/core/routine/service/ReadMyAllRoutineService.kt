@@ -26,7 +26,7 @@ internal class ReadMyAllRoutineService(
             // 루틴 리스트 돌면서 List<RoutineResponse>로 매핑
             routineList = routineList.map {
                 it.toResponse(
-                    existsRoutineHistoryPort.existByOriginIdToday(it.id!!)
+                    isCompleted = existsRoutineHistoryPort.existByOriginIdToday(it.id!!)
                 )
             }
         )
