@@ -2,7 +2,7 @@ package com.info.maeumgagym.infrastructure.processor.annotation
 
 interface AnnotationProcessor {
 
-    fun supports(annotations: List<Annotation>)
+    fun supports(annotations: List<Annotation>): Boolean
 
     fun postProcessing(annotations: List<Annotation>)
 
