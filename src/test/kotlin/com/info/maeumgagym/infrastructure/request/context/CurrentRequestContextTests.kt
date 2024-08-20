@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
+import java.util.concurrent.Executors
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -56,15 +57,23 @@ class CurrentRequestContextTests @Autowired constructor(
 
         every { mockkFilterChain.doFilter(mockkRequest, mockkResponse) } just runs
 
-        filter.doFilter(
-            mockkRequest,
-            mockkResponse,
-            mockkFilterChain
-        )
+        val thread: Thread = Executors.defaultThreadFactory().newThread {
+            filter.doFilter(
+                mockkRequest,
+                mockkResponse,
+                mockkFilterChain
+            )
 
-        Assertions.assertEquals(
-            mockkRequest,
-            currentRequestContext.getCurrentRequest()
-        )
+            Assertions.assertEquals(
+                mockkRequest,
+                currentRequestContext.getCurrentRequest()
+            )
+        }
+
+        try {
+            thread.start()
+        } finally {
+            thread.join()
+        }
     }
 }

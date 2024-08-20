@@ -4,7 +4,6 @@ import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
 import com.info.maeumgagym.common.annotation.security.RequireAuthentication
 import com.info.maeumgagym.core.routine.dto.response.CompletableRoutineListResponse
 import com.info.maeumgagym.core.routine.dto.response.RoutineHistoryListResponse
-import com.info.maeumgagym.core.routine.dto.response.RoutineListResponse
 import com.info.maeumgagym.core.routine.dto.response.RoutineResponse
 import com.info.maeumgagym.core.routine.port.`in`.*
 import com.info.maeumgagym.presentation.common.locationheader.LocationHeaderManager
@@ -64,7 +63,7 @@ private class RoutineController(
         @RequestParam
         @PositiveOrZero(message = "0 이상이어야 합니다.")
         index: Int
-    ): RoutineListResponse = readAllMyRoutineUseCase.readAllMyRoutine(index)
+    ): CompletableRoutineListResponse = readAllMyRoutineUseCase.readAllMyRoutine(index)
 
     @Operation(summary = "루틴 삭제 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
