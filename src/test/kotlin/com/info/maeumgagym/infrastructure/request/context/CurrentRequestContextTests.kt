@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
+import java.util.concurrent.Executors
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -47,8 +48,7 @@ class CurrentRequestContextTests @Autowired constructor(
         }
     }
 
-    // 오류 발생. 일시적으로 비활성화
-    // @Test
+    @Test
     fun 필터를_통해_초기화하고_사용() {
         init()
         val mockkRequest = mockk<HttpServletRequest>()
@@ -57,15 +57,23 @@ class CurrentRequestContextTests @Autowired constructor(
 
         every { mockkFilterChain.doFilter(mockkRequest, mockkResponse) } just runs
 
-        filter.doFilter(
-            mockkRequest,
-            mockkResponse,
-            mockkFilterChain
-        )
+        val thread: Thread = Executors.defaultThreadFactory().newThread {
+            filter.doFilter(
+                mockkRequest,
+                mockkResponse,
+                mockkFilterChain
+            )
 
-        Assertions.assertEquals(
-            mockkRequest,
-            currentRequestContext.getCurrentRequest()
-        )
+            Assertions.assertEquals(
+                mockkRequest,
+                currentRequestContext.getCurrentRequest()
+            )
+        }
+
+        try {
+            thread.start()
+        } finally {
+            thread.join()
+        }
     }
 }
