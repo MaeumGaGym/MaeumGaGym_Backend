@@ -2,6 +2,8 @@ package com.info.maeumgagym.core.pose.dto.response
 
 data class PoseDetailResponse(
 
+    val id: Long,
+
     val needMachine: Boolean,
 
     val category: MutableSet<String>,

@@ -32,6 +32,7 @@ data class Pose(
     val id: Long? = null
 ) {
     fun toDetailResponse() = PoseDetailResponse(
+        id = id!!,
         needMachine = needMachine,
         category = category,
         simpleName = simpleName,
