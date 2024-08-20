@@ -3,8 +3,8 @@ package com.info.maeumgagym.presentation.controller.routine
 import com.info.maeumgagym.common.annotation.responsibility.WebAdapter
 import com.info.maeumgagym.common.annotation.security.RequireAuthentication
 import com.info.maeumgagym.core.routine.dto.response.CompletableRoutineListResponse
+import com.info.maeumgagym.core.routine.dto.response.CompletableRoutineResponse
 import com.info.maeumgagym.core.routine.dto.response.RoutineHistoryListResponse
-import com.info.maeumgagym.core.routine.dto.response.RoutineResponse
 import com.info.maeumgagym.core.routine.port.`in`.*
 import com.info.maeumgagym.presentation.common.locationheader.LocationHeaderManager
 import com.info.maeumgagym.presentation.controller.routine.dto.CreateRoutineWebRequest
@@ -100,7 +100,7 @@ private class RoutineController(
         @Valid
         @Positive(message = "0보다 커야 합니다.")
         id: Long
-    ): RoutineResponse = readRoutineUseCase.readFromId(id)
+    ): CompletableRoutineResponse = readRoutineUseCase.readFromId(id)
 
     @Operation(summary = "루틴 완료 API")
     @ResponseStatus(HttpStatus.NO_CONTENT)
