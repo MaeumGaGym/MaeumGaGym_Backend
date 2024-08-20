@@ -39,8 +39,7 @@ class CurrentRequestContextTests @Autowired constructor(
         )
     }
 
-    // 오류 발생. 일시적으로 비활성화
-    // @Test
+    @Test
     fun 초기화되지_않은_상태에서_사용() {
         init()
         Assertions.assertThrows(NullPointerException::class.java) {
@@ -48,7 +47,8 @@ class CurrentRequestContextTests @Autowired constructor(
         }
     }
 
-    @Test
+    // 오류 발생. 일시적으로 비활성화
+    // @Test
     fun 필터를_통해_초기화하고_사용() {
         init()
         val mockkRequest = mockk<HttpServletRequest>()
