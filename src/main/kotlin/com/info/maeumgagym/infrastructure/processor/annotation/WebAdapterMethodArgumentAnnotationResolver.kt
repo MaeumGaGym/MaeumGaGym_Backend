@@ -32,6 +32,7 @@ class WebAdapterMethodArgumentAnnotationResolver(
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?
     ): Any? {
+        initialize()
 
         val annotations = annotationCollector.getAnnotations(parameter)
 
