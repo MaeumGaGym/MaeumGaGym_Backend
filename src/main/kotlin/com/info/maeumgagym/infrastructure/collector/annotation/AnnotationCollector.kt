@@ -9,8 +9,6 @@ import kotlin.reflect.KClass
  *
  * 기본 구현체는 [AnnotationCollectorComposite]로, 이를 통해 하위 구현체들을 모두 순회
  *
- * @sample [com.info.maeumgagym.security.authentication.checker.RequireRoleChecker.preProcessing]
- *
  * @see AnnotationCollectorComposite
  *
  * @author Daybreak312
