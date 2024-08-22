@@ -17,4 +17,7 @@ class DefaultAnnotationCollector : AnnotationCollector {
 
     override fun <A : Annotation> getAnnotationOrNull(`object`: Any, annotation: KClass<A>): A? =
         `object`::class.findAnnotations(annotation).firstOrNull()
+
+    override fun getAnnotations(`object`: Any): List<Annotation> =
+        `object`::class.annotations
 }
