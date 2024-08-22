@@ -56,7 +56,7 @@ class HandlerAnnotationCollector : AnnotationCollector {
             }
 
             is MethodParameter -> {
-                `object`.parameterAnnotations.toList()
+                return `object`.parameterAnnotations.toList()
             }
         }
 
