@@ -16,7 +16,6 @@ class UserArgumentResolver(
         type == User::class.java
 
     override fun <T> processing(type: Class<T>, annotations: List<Annotation>): T {
-
         if (type != User::class.java) {
             throw RuntimeException()
         }
