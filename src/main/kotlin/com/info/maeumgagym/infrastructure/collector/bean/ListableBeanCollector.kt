@@ -12,5 +12,5 @@ interface ListableBeanCollector {
 
     fun <T : Any> getBeansOfType(type: KClass<T>): List<T>
 
-    fun <T: Any> getBeansMapOfType(type: KClass<T>): Map<String, T>
+    fun <T : Any> getBeansMapOfType(type: KClass<T>): Map<String, T>
 }
