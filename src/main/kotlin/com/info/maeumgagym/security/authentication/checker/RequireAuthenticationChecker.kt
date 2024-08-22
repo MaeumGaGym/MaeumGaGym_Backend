@@ -18,7 +18,6 @@ class RequireAuthenticationChecker(
 ) : WebAdapterMethodAnnotationProcessor {
 
     override fun preProcessing(annotations: List<Annotation>) {
-
         annotations.forEach { annotation ->
             if (annotation !is RequireAuthentication) {
                 return@forEach

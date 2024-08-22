@@ -20,7 +20,6 @@ class RequireRoleChecker(
 ) : WebAdapterMethodAnnotationProcessor {
 
     override fun preProcessing(annotations: List<Annotation>) {
-
         annotations.forEach { annotation ->
             if (annotation !is RequireRole) {
                 return@forEach
